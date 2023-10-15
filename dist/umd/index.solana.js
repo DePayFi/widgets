@@ -28519,12 +28519,6 @@
             setRelease(true);
             setClosable(true);
             setForwardTo(item.message.forward_to);
-
-            if (!!item.message.forward_to) {
-              setTimeout(function () {
-                props.document.location.href = item.message.forward_to;
-              }, 200);
-            }
           } else if (success == false) {
             setClosable(true);
             set(['PaymentFailed']);
@@ -28702,9 +28696,6 @@
                     if (data && data.forward_to) {
                       setClosable(true);
                       setForwardTo(data.forward_to);
-                      setTimeout(function () {
-                        props.document.location.href = data.forward_to;
-                      }, 200);
                     } else {
                       setClosable(true);
                     }
@@ -28767,6 +28758,11 @@
       };
     }();
 
+    React.useEffect(function () {
+      if (forwardTo) {
+        props.document.location.href = forwardTo;
+      }
+    }, [forwardTo]);
     React.useEffect(function () {
       if (!polling) {
         return;

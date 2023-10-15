@@ -83,9 +83,6 @@ export default (props)=>{
           setRelease(true)
           setClosable(true)
           setForwardTo(item.message.forward_to)
-          if(!!item.message.forward_to) {
-            setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
-          }
         } else if(success == false) {
           setClosable(true)
           set(['PaymentFailed'])
@@ -195,7 +192,6 @@ export default (props)=>{
         if(data && data.forward_to) {
           setClosable(true)
           setForwardTo(data.forward_to)
-          setTimeout(()=>{ props.document.location.href = data.forward_to }, 200)
         } else {
           setClosable(true)
         }
@@ -236,6 +232,12 @@ export default (props)=>{
       track.poll.method(payment).then(handlePollingResponse)
     }
   }
+
+  useEffect(()=>{
+    if(forwardTo){ 
+      props.document.location.href = forwardTo
+    }
+  }, [forwardTo])
 
   useEffect(()=>{
     if(!polling) { return }

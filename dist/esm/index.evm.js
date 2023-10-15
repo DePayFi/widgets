@@ -28470,12 +28470,6 @@ var PaymentTrackingProvider = (function (props) {
           setRelease(true);
           setClosable(true);
           setForwardTo(item.message.forward_to);
-
-          if (!!item.message.forward_to) {
-            setTimeout(function () {
-              props.document.location.href = item.message.forward_to;
-            }, 200);
-          }
         } else if (success == false) {
           setClosable(true);
           set(['PaymentFailed']);
@@ -28653,9 +28647,6 @@ var PaymentTrackingProvider = (function (props) {
                   if (data && data.forward_to) {
                     setClosable(true);
                     setForwardTo(data.forward_to);
-                    setTimeout(function () {
-                      props.document.location.href = data.forward_to;
-                    }, 200);
                   } else {
                     setClosable(true);
                   }
@@ -28718,6 +28709,11 @@ var PaymentTrackingProvider = (function (props) {
     };
   }();
 
+  useEffect(function () {
+    if (forwardTo) {
+      props.document.location.href = forwardTo;
+    }
+  }, [forwardTo]);
   useEffect(function () {
     if (!polling) {
       return;
