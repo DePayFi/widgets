@@ -58,6 +58,7 @@ supported$4.evm = [];
 supported$4.svm = ['solana'];
 supported$4.solana = ['solana'];
 
+var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$Brave, _wallets$Brave$info, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
 var allWallets = [{
   "name": "Coinbase",
   "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
@@ -80,7 +81,7 @@ var allWallets = [{
       }
     }
   },
-  "logo": wallets.CoinbaseEVM.info.logo,
+  "logo": (_wallets$CoinbaseEVM = wallets.CoinbaseEVM) === null || _wallets$CoinbaseEVM === void 0 ? void 0 : (_wallets$CoinbaseEVM$ = _wallets$CoinbaseEVM.info) === null || _wallets$CoinbaseEVM$ === void 0 ? void 0 : _wallets$CoinbaseEVM$.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "MetaMask",
@@ -102,7 +103,7 @@ var allWallets = [{
       "connect": "WalletConnectV2"
     }
   },
-  "logo": wallets.MetaMask.info.logo,
+  "logo": (_wallets$MetaMask = wallets.MetaMask) === null || _wallets$MetaMask === void 0 ? void 0 : (_wallets$MetaMask$inf = _wallets$MetaMask.info) === null || _wallets$MetaMask$inf === void 0 ? void 0 : _wallets$MetaMask$inf.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Phantom",
@@ -135,7 +136,7 @@ var allWallets = [{
       "solanaPay": true
     }
   },
-  "logo": wallets.PhantomSVM.info.logo,
+  "logo": (_wallets$PhantomSVM = wallets.PhantomSVM) === null || _wallets$PhantomSVM === void 0 ? void 0 : (_wallets$PhantomSVM$i = _wallets$PhantomSVM.info) === null || _wallets$PhantomSVM$i === void 0 ? void 0 : _wallets$PhantomSVM$i.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Trust Wallet",
@@ -157,7 +158,7 @@ var allWallets = [{
       "qr": "WalletConnectV1"
     }
   },
-  "logo": wallets.TrustEVM.info.logo,
+  "logo": (_wallets$TrustEVM = wallets.TrustEVM) === null || _wallets$TrustEVM === void 0 ? void 0 : (_wallets$TrustEVM$inf = _wallets$TrustEVM.info) === null || _wallets$TrustEVM$inf === void 0 ? void 0 : _wallets$TrustEVM$inf.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Binance Wallet",
@@ -179,7 +180,7 @@ var allWallets = [{
       "qr": "WalletConnectV1"
     }
   },
-  "logo": wallets.Binance.info.logo,
+  "logo": (_wallets$Binance = wallets.Binance) === null || _wallets$Binance === void 0 ? void 0 : (_wallets$Binance$info = _wallets$Binance.info) === null || _wallets$Binance$info === void 0 ? void 0 : _wallets$Binance$info.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Crypto.com | DeFi Wallet",
@@ -201,7 +202,7 @@ var allWallets = [{
       "qr": "WalletConnectV1"
     }
   },
-  "logo": wallets.CryptoCom.info.logo,
+  "logo": (_wallets$CryptoCom = wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Coin98",
@@ -223,12 +224,12 @@ var allWallets = [{
       "qr": "WalletConnectV1"
     }
   },
-  "logo": wallets.Coin98EVM.info.logo,
+  "logo": (_wallets$Coin98EVM = wallets.Coin98EVM) === null || _wallets$Coin98EVM === void 0 ? void 0 : (_wallets$Coin98EVM$in = _wallets$Coin98EVM.info) === null || _wallets$Coin98EVM$in === void 0 ? void 0 : _wallets$Coin98EVM$in.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Brave",
   "extension": "Brave",
-  "logo": wallets.Brave.info.logo,
+  "logo": (_wallets$Brave = wallets.Brave) === null || _wallets$Brave === void 0 ? void 0 : (_wallets$Brave$info = _wallets$Brave.info) === null || _wallets$Brave$info === void 0 ? void 0 : _wallets$Brave$info.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Rainbow",
@@ -315,7 +316,7 @@ var allWallets = [{
   "desktop": {
     "qr": "WalletConnectV1"
   },
-  "logo": wallets.Rabby.info.logo,
+  "logo": (_wallets$Rabby = wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Backpack",
@@ -331,7 +332,7 @@ var allWallets = [{
       "qr": "SolanaPay"
     }
   },
-  "logo": wallets.Backpack.info.logo,
+  "logo": (_wallets$Backpack = wallets.Backpack) === null || _wallets$Backpack === void 0 ? void 0 : (_wallets$Backpack$inf = _wallets$Backpack.info) === null || _wallets$Backpack$inf === void 0 ? void 0 : _wallets$Backpack$inf.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Glow",
@@ -357,7 +358,7 @@ var allWallets = [{
       "solanaPay": "true"
     }
   },
-  "logo": wallets.Glow.info.logo,
+  "logo": (_wallets$Glow = wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Solflare",
@@ -381,7 +382,7 @@ var allWallets = [{
       "solanaPay": true
     }
   },
-  "logo": wallets.Solflare.info.logo,
+  "logo": (_wallets$Solflare = wallets.Solflare) === null || _wallets$Solflare === void 0 ? void 0 : (_wallets$Solflare$inf = _wallets$Solflare.info) === null || _wallets$Solflare$inf === void 0 ? void 0 : _wallets$Solflare$inf.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "imToken",
@@ -2404,7 +2405,7 @@ var allWallets = [{
   "desktop": {
     "qr": "WalletConnectV1"
   },
-  "logo": wallets.HyperPay.info.logo,
+  "logo": (_wallets$HyperPay = wallets.HyperPay) === null || _wallets$HyperPay === void 0 ? void 0 : (_wallets$HyperPay$inf = _wallets$HyperPay.info) === null || _wallets$HyperPay$inf === void 0 ? void 0 : _wallets$HyperPay$inf.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "ATON",
@@ -3832,7 +3833,7 @@ var allWallets = [{
 }, {
   "name": "Ethereum Wallet",
   "extension": "WindowEthereum",
-  "logo": wallets.WindowEthereum.info.logo,
+  "logo": (_wallets$WindowEthere = wallets.WindowEthereum) === null || _wallets$WindowEthere === void 0 ? void 0 : (_wallets$WindowEthere2 = _wallets$WindowEthere.info) === null || _wallets$WindowEthere2 === void 0 ? void 0 : _wallets$WindowEthere2.logo,
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
   "name": "Solana Pay",
@@ -3847,7 +3848,7 @@ var allWallets = [{
       "solanaPay": true
     }
   },
-  "logo": Blockchains.solana.logo,
+  "logo": (_Blockchains$solana = Blockchains.solana) === null || _Blockchains$solana === void 0 ? void 0 : _Blockchains$solana.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "Solana Wallet",
@@ -3863,7 +3864,7 @@ var allWallets = [{
       "solanaPay": true
     }
   },
-  "logo": wallets.WindowSolana.info.logo,
+  "logo": (_wallets$WindowSolana = wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
   "blockchains": _toConsumableArray(supported$4.solana)
 }, {
   "name": "WalletConnect V2",

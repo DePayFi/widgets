@@ -24,7 +24,7 @@ export default [
       "ios": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`cbwallet://dapp?url=${encodeURIComponent(window.location.toString())}` },
       "android": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}` },
     },
-    "logo": wallets.CoinbaseEVM.info.logo,
+    "logo": wallets.CoinbaseEVM?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -35,7 +35,7 @@ export default [
       "ios": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect":"WalletConnectV2" },
       "android": { "native": "metamask:", "universal": "https://metamask.app.link", "qr": "WalletConnectV1", "connect":"WalletConnectV2" },
     },
-    "logo": wallets.MetaMask.info.logo,
+    "logo": wallets.MetaMask?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -61,7 +61,7 @@ export default [
         "solanaPay": true,
       },
     },
-    "logo": wallets.PhantomSVM.info.logo,
+    "logo": wallets.PhantomSVM?.info?.logo,
     "blockchains": [...supported.solana]
   },
   {
@@ -72,7 +72,7 @@ export default [
       "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.TrustEVM.info.logo,
+    "logo": wallets.TrustEVM?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -83,7 +83,7 @@ export default [
       "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
       "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.Binance.info.logo,
+    "logo": wallets.Binance?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -94,7 +94,7 @@ export default [
       "ios": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "dfw://", "universal": "https://wallet.crypto.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.CryptoCom.info.logo,
+    "logo": wallets.CryptoCom?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -105,13 +105,13 @@ export default [
       "ios": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
       "android": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
-    "logo": wallets.Coin98EVM.info.logo,
+    "logo": wallets.Coin98EVM?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
     "name": "Brave",
     "extension": "Brave",
-    "logo": wallets.Brave.info.logo,
+    "logo": wallets.Brave?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -157,7 +157,7 @@ export default [
     "name": "Rabby",
     "extension": "Rabby",
     "desktop": { "qr": "WalletConnectV1" },
-    "logo": wallets.Rabby.info.logo,
+    "logo": wallets.Rabby?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -174,7 +174,7 @@ export default [
         "qr": "SolanaPay",
       },
     },
-    "logo": wallets.Backpack.info.logo,
+    "logo": wallets.Backpack?.info?.logo,
     "blockchains": [...supported.solana]
   },
   {
@@ -195,7 +195,7 @@ export default [
         "solanaPay": "true",
       },
     },
-    "logo": wallets.Glow.info.logo,
+    "logo": wallets.Glow?.info?.logo,
     "blockchains": [...supported.solana]
   },
   {
@@ -218,7 +218,7 @@ export default [
         "solanaPay": true,
       },
     },
-    "logo": wallets.Solflare.info.logo,
+    "logo": wallets.Solflare?.info?.logo,
     "blockchains": [...supported.solana]
   },
   {
@@ -1258,7 +1258,7 @@ export default [
     "name": "HyperPay",
     "extension": "HyperPay",
     "desktop": { "qr": "WalletConnectV1" },
-    "logo": wallets.HyperPay.info.logo,
+    "logo": wallets.HyperPay?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -2031,7 +2031,7 @@ export default [
   {
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
-    "logo": wallets.WindowEthereum.info.logo,
+    "logo": wallets.WindowEthereum?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {
@@ -2047,7 +2047,7 @@ export default [
         "solanaPay": true
       }
     },
-    "logo": Blockchains.solana.logo,
+    "logo": Blockchains.solana?.logo,
     "blockchains": [...supported.solana]
   },
   {
@@ -2064,7 +2064,7 @@ export default [
         "solanaPay": true
       }
     },
-    "logo": wallets.WindowSolana.info.logo,
+    "logo": wallets.WindowSolana?.info?.logo,
     "blockchains": [...supported.solana]
   },
   {
