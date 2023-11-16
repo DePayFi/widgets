@@ -69,8 +69,8 @@ export default [
     "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 
-      "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
-      "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
+      "ios": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": wallets.TrustEVM?.info?.logo,
     "blockchains": [...supported.evm]

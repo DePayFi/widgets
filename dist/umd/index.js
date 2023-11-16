@@ -145,13 +145,13 @@
       "ios": {
         "native": "trust:",
         "universal": "https://link.trustwallet.com",
-        "connect": "WalletConnectV2",
+        "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       },
       "android": {
         "native": "trust:",
         "universal": "https://link.trustwallet.com",
-        "connect": "WalletConnectV2",
+        "connect": "WalletConnectV1",
         "qr": "WalletConnectV1"
       }
     },
