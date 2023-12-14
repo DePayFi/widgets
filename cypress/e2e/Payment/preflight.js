@@ -15,7 +15,7 @@ describe('Payment Widget: preflight', () => {
         })
       })
       cy.wait(200).then(()=>{
-        expect(criticalError.toString()).to.eq('You need to set the blockchain your want to receive the payment on!')
+        expect(criticalError.toString()).to.eq('You need to set the blockchain you want to receive the payment on!')
       })
     })
   })

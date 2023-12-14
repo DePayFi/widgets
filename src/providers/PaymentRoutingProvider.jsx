@@ -54,10 +54,10 @@ export default (props)=>{
         route.fromToken.address !== route.toToken.address &&
         !Blockchains[route.blockchain].tokens.find((token)=>token.address.toLowerCase() === route.fromToken.address.toLowerCase())
       ) { return }
-      if(firstRouteDisplayed) { return }
-      firstRouteDisplayed = true
       if(allRoutesLoaded) { return }
       if(route.approvalRequired) { return }
+      if(firstRouteDisplayed) { return }
+      firstRouteDisplayed = true
       clearInterval(slowRoutingTimeout)
       selectedRouteFromDrip  = route
       setUpdatedRoutes([route])

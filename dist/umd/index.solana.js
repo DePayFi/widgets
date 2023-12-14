@@ -25582,12 +25582,6 @@
                       return;
                     }
 
-                    if (firstRouteDisplayed) {
-                      return;
-                    }
-
-                    firstRouteDisplayed = true;
-
                     if (allRoutesLoaded) {
                       return;
                     }
@@ -25596,6 +25590,11 @@
                       return;
                     }
 
+                    if (firstRouteDisplayed) {
+                      return;
+                    }
+
+                    firstRouteDisplayed = true;
                     clearInterval(slowRoutingTimeout);
                     setUpdatedRoutes([route]);
                   }
@@ -38413,7 +38412,7 @@
             case 3:
               accept.forEach(function (configuration) {
                 if (typeof configuration.blockchain === 'undefined') {
-                  throw 'You need to set the blockchain your want to receive the payment on!';
+                  throw 'You need to set the blockchain you want to receive the payment on!';
                 }
 
                 if (!supported$4.includes(configuration.blockchain)) {

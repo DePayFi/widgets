@@ -25583,12 +25583,6 @@ var PaymentRoutingProvider = (function (props) {
                     return;
                   }
 
-                  if (firstRouteDisplayed) {
-                    return;
-                  }
-
-                  firstRouteDisplayed = true;
-
                   if (allRoutesLoaded) {
                     return;
                   }
@@ -25597,6 +25591,11 @@ var PaymentRoutingProvider = (function (props) {
                     return;
                   }
 
+                  if (firstRouteDisplayed) {
+                    return;
+                  }
+
+                  firstRouteDisplayed = true;
                   clearInterval(slowRoutingTimeout);
                   setUpdatedRoutes([route]);
                 }
@@ -29454,7 +29453,7 @@ var preflight$1 = /*#__PURE__*/function () {
           case 3:
             accept.forEach(function (configuration) {
               if (typeof configuration.blockchain === 'undefined') {
-                throw 'You need to set the blockchain your want to receive the payment on!';
+                throw 'You need to set the blockchain you want to receive the payment on!';
               }
 
               if (!supported.includes(configuration.blockchain)) {
