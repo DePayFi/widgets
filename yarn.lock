@@ -1330,10 +1330,10 @@
     "@depay/web3-blockchains" "^9.1.4"
     ethers "^5.7.1"
 
-"@depay/web3-payments@^13.6.5":
-  version "13.6.5"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-13.6.5.tgz#4b3f11ddfa9197c7483f76c8fffeca50310f54de"
-  integrity sha512-BedPpNw1mDnkSosMZjdt2rzjmGxp83mUNMQFRGVbMuBCu3tEW7iBtv0n5pJmiKvvJ7TCrSPKt8KUSiLiWWOjBg==
+"@depay/web3-payments@^13.6.7":
+  version "13.6.7"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-13.6.7.tgz#63aaa6e6e197fe756ceb1afadc39e61299a7e6b5"
+  integrity sha512-dZCzCpyXOXzCmkS4g73uau/WDE/Z1Q5A/XfaRD7MeIWSOfutMxyvTDuP4rRyDkPgPPv4H/KKO5l2FlhTKc146w==
 
 "@depay/web3-tokens@^10.3.0":
   version "10.3.0"

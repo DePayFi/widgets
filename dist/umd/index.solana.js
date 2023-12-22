@@ -36539,6 +36539,37 @@
   /** Built-in value references. */
   _Symbol ? _Symbol.toStringTag : undefined;
 
+  ({
+    'arbitrum': {
+      [Blockchains__default['default'].arbitrum.wrapped.address]: '0x7E655088214d0657251A51aDccE9109CFd23B5B5'
+    },
+    'avalanche': {
+      [Blockchains__default['default'].avalanche.wrapped.address]: '0x2d0a6275eaDa0d03226919ce6D93661E589B2d59'
+    },
+    'base': {
+      [Blockchains__default['default'].base.wrapped.address]: '0xD1711710843B125a6a01FfDF9b95fDc3064BeF7A'
+    },
+    'bsc': {
+      [Blockchains__default['default'].bsc.wrapped.address]: '0xeEb80d14abfB058AA78DE38813fe705c3e3b243E'
+    },
+    'ethereum': {
+      [Blockchains__default['default'].ethereum.wrapped.address]: '0x298f4980525594b3b982779cf74ba76819708D43'
+    },
+    'fantom': {
+      [Blockchains__default['default'].fantom.wrapped.address]: '0x2d0a6275eaDa0d03226919ce6D93661E589B2d59'
+    },
+    'gnosis': {
+      [Blockchains__default['default'].gnosis.wrapped.address]: '0x2d0a6275eaDa0d03226919ce6D93661E589B2d59'
+    },
+    'optimism': {
+      [Blockchains__default['default'].optimism.wrapped.address]: '0x69594057e2C0224deb1180c7a5Df9ec9d5B611B5'
+    },
+    'polygon': {
+      [Blockchains__default['default'].polygon.wrapped.address]: '0xaE59C9d3E055BdFAa583E169aA5Ebe395689476a'
+    },
+    'solana': {}
+  });
+
   var getPaymentRouterInstruction = (function (confirmedTransaction) {
     var _confirmedTransaction, _confirmedTransaction2, _confirmedTransaction3;
 
