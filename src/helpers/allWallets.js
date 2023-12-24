@@ -292,6 +292,26 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
+    "name": "ShapeShift",
+    "desktop": { "qr": "WalletConnectV2" },
+    "mobile": { 
+      "ios": { "native": "shapeshift:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "shapeshift:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+    },
+    "logo": "https://img1.depay.com/wallets/shapeshift.jpg",
+    "blockchains": [...supported.evm]
+  },
+  {
+    "name": "GroveKeeper",
+    "desktop": { "qr": "WalletConnectV1" },
+    "mobile": { 
+      "ios": { "native": "grovekeeper:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "grovekeeper:", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+    },
+    "logo": "https://img1.depay.com/wallets/grovekeeper.jpg",
+    "blockchains": [...supported.evm]
+  },
+  {
     "name": "Omni",
     "desktop": { "qr": "WalletConnectV1" },
     "mobile": { 

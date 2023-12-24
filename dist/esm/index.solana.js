@@ -528,6 +528,44 @@ var allWallets = [{
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
   "blockchains": _toConsumableArray(supported$4.evm)
 }, {
+  "name": "ShapeShift",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
+  "mobile": {
+    "ios": {
+      "native": "shapeshift:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    },
+    "android": {
+      "native": "shapeshift:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/shapeshift.jpg",
+  "blockchains": _toConsumableArray(supported$4.evm)
+}, {
+  "name": "GroveKeeper",
+  "desktop": {
+    "qr": "WalletConnectV1"
+  },
+  "mobile": {
+    "ios": {
+      "native": "grovekeeper:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    },
+    "android": {
+      "native": "grovekeeper:",
+      "connect": "WalletConnectV1",
+      "qr": "WalletConnectV1"
+    }
+  },
+  "logo": "https://img1.depay.com/wallets/grovekeeper.jpg",
+  "blockchains": _toConsumableArray(supported$4.evm)
+}, {
   "name": "Omni",
   "desktop": {
     "qr": "WalletConnectV1"
