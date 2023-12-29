@@ -23188,7 +23188,7 @@
         }, {
           label: "Wallet missing?",
           action: function action() {
-            window.open('mailto:support@depay.com?subject=Add wallet&body=Can you please add the following wallet: [ENTER YOUR WALLET HERE]?', '_blank');
+            window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank');
           }
         }]
       })),
@@ -26658,6 +26658,8 @@
 
     var pay = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        var _transaction$params, _transaction$params$p;
+
         var transaction, stop, currentBlock;
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
@@ -26708,7 +26710,7 @@
               case 18:
                 currentBlock = _context2.sent;
                 _context2.next = 21;
-                return trace(currentBlock, payment.route, transaction).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+                return trace(currentBlock, payment.route, transaction, transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                   return regenerator.wrap(function _callee$(_context) {
                     while (1) {
                       switch (_context.prev = _context.next) {
@@ -26716,18 +26718,22 @@
                           setClosable(false);
                           _context.next = 3;
                           return wallet.sendTransaction(Object.assign({}, transaction, {
-                            sent: function sent(transaction) {
-                              initializeTransactionTracking(transaction, currentBlock);
+                            sent: function sent(sentTransaction) {
+                              var _transaction$params2, _transaction$params2$;
+
+                              initializeTransactionTracking(sentTransaction, currentBlock, transaction === null || transaction === void 0 ? void 0 : (_transaction$params2 = transaction.params) === null || _transaction$params2 === void 0 ? void 0 : (_transaction$params2$ = _transaction$params2.payment) === null || _transaction$params2$ === void 0 ? void 0 : _transaction$params2$.deadline);
 
                               if (_sent) {
-                                _sent(transaction);
+                                _sent(sentTransaction);
                               }
                             },
                             succeeded: paymentSucceeded,
                             failed: paymentFailed
                           })).then(function (sentTransaction) {
+                            var _transaction$params3, _transaction$params3$;
+
                             setTransaction(sentTransaction);
-                            initializePaymentTracking(sentTransaction, currentBlock, payment.route);
+                            initializePaymentTracking(sentTransaction, currentBlock, payment.route, transaction === null || transaction === void 0 ? void 0 : (_transaction$params3 = transaction.params) === null || _transaction$params3 === void 0 ? void 0 : (_transaction$params3$ = _transaction$params3.payment) === null || _transaction$params3$ === void 0 ? void 0 : _transaction$params3$.deadline);
                           })["catch"](function (error) {
                             console.log('error', error);
                             setPaymentState('initialized');
@@ -27619,7 +27625,7 @@
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "Card transparent small",
           title: "DePay has validated the payment",
-          href: "https://depay.com/docs/payments/validation",
+          href: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27638,8 +27644,8 @@
       } else {
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "Card transparent small",
-          title: "DePay is validating payment",
-          href: "https://depay.com/docs/payments/validation",
+          title: "DePay is validating the payment",
+          href: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -28323,65 +28329,73 @@
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        transaction = _useState2[0],
-        setTransaction = _useState2[1];
+        deadline = _useState2[0],
+        setDeadline = _useState2[1];
 
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        confirmationsRequired = _useState4[0],
-        setConfirmationsRequired = _useState4[1];
+        transaction = _useState4[0],
+        setTransaction = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        confirmationsPassed = _useState6[0],
-        setConfirmationsPassed = _useState6[1];
+        confirmationsRequired = _useState6[0],
+        setConfirmationsRequired = _useState6[1];
 
     var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        afterBlock = _useState8[0],
-        setAfterBlock = _useState8[1];
+        confirmationsPassed = _useState8[0],
+        setConfirmationsPassed = _useState8[1];
 
     var _useState9 = React.useState(),
-        _useState10 = _slicedToArray(_useState9, 2);
-        _useState10[0];
-        _useState10[1];
+        _useState10 = _slicedToArray(_useState9, 2),
+        afterBlock = _useState10[0],
+        setAfterBlock = _useState10[1];
 
     var _useState11 = React.useState(),
-        _useState12 = _slicedToArray(_useState11, 2),
-        paymentRoute = _useState12[0],
-        setPaymentRoute = _useState12[1];
+        _useState12 = _slicedToArray(_useState11, 2);
+        _useState12[0];
+        _useState12[1];
 
     var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
-        attemptId = _useState14[0],
-        setAttemptId = _useState14[1];
+        paymentRoute = _useState14[0],
+        setPaymentRoute = _useState14[1];
 
-    var _useState15 = React.useState(false),
+    var _useState15 = React.useState(),
         _useState16 = _slicedToArray(_useState15, 2),
-        trackingInitialized = _useState16[0],
-        setTrackingInitialized = _useState16[1];
+        attemptId = _useState16[0],
+        setAttemptId = _useState16[1];
 
-    var _useState17 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState18 = _slicedToArray(_useState17, 1),
-        synchronousTracking = _useState18[0];
+    var attemptIdRef = React.useRef(attemptId);
+    attemptIdRef.current = attemptId;
 
-    var _useState19 = React.useState(!configurationId && !!(track && track.async == true)),
+    var _useState17 = React.useState(false),
+        _useState18 = _slicedToArray(_useState17, 2),
+        trackingInitialized = _useState18[0],
+        setTrackingInitialized = _useState18[1];
+
+    var _useState19 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
         _useState20 = _slicedToArray(_useState19, 1),
-        asynchronousTracking = _useState20[0];
+        synchronousTracking = _useState20[0];
 
-    var _useState21 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+    var _useState21 = React.useState(!configurationId && !!(track && track.async == true)),
         _useState22 = _slicedToArray(_useState21, 1),
-        polling = _useState22[0];
+        asynchronousTracking = _useState22[0];
 
-    var _useState23 = React.useState(false),
-        _useState24 = _slicedToArray(_useState23, 2),
-        release = _useState24[0],
-        setRelease = _useState24[1];
+    var _useState23 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+        _useState24 = _slicedToArray(_useState23, 1),
+        polling = _useState24[0];
 
-    var _useState25 = React.useState(),
+    var _useState25 = React.useState(false),
         _useState26 = _slicedToArray(_useState25, 2),
-        forwardTo = _useState26[0],
-        setForwardTo = _useState26[1];
+        release = _useState26[0],
+        setRelease = _useState26[1];
+
+    var _useState27 = React.useState(),
+        _useState28 = _slicedToArray(_useState27, 2),
+        forwardTo = _useState28[0],
+        setForwardTo = _useState28[1];
 
     var _useContext4 = React.useContext(ClosableContext),
         setClosable = _useContext4.setClosable;
@@ -28483,12 +28497,12 @@
       };
     };
 
-    var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, attempt) {
+    var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt) {
       attempt = parseInt(attempt || 1, 10);
 
       if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
         setTimeout(function () {
-          startTracking(transaction, afterBlock, paymentRoute, attempt + 1);
+          startTracking(transaction, afterBlock, paymentRoute, deadline, attempt + 1);
         }, 3000);
       } else {
         navigate('TrackingFailed');
@@ -28496,7 +28510,7 @@
     };
 
     var continueTryTracking = function continueTryTracking() {
-      retryStartTracking(transaction, afterBlock, paymentRoute, 1);
+      retryStartTracking(transaction, afterBlock, paymentRoute, deadline, 1);
     };
 
     var callTracking = function callTracking(payment) {
@@ -28539,7 +28553,7 @@
     };
 
     var startTracking = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(transaction, afterBlock, paymentRoute, attempt) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(transaction, afterBlock, paymentRoute, deadline, attempt) {
         var _paymentRoute$feeAmou;
 
         return regenerator.wrap(function _callee2$(_context2) {
@@ -28567,8 +28581,9 @@
                 _context2.t10 = paymentRoute.toAmount.toString();
                 _context2.t11 = paymentRoute.toDecimals;
                 _context2.t12 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString();
-                _context2.t13 = transaction.deadline;
-                _context2.t14 = {
+                _context2.t13 = attemptIdRef.current;
+                _context2.t14 = deadline;
+                _context2.t15 = {
                   blockchain: _context2.t1,
                   transaction: _context2.t2,
                   sender: _context2.t3,
@@ -28581,15 +28596,16 @@
                   to_amount: _context2.t10,
                   to_decimals: _context2.t11,
                   fee_amount: _context2.t12,
-                  deadline: _context2.t13
+                  trace_attempt_id: _context2.t13,
+                  deadline: _context2.t14
                 };
-                (0, _context2.t0)(_context2.t14).then(function (response) {
+                (0, _context2.t0)(_context2.t15).then(function (response) {
                   setTrackingInitialized(true);
                 })["catch"](function (error) {
-                  retryStartTracking(transaction, afterBlock, paymentRoute, attempt);
+                  retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt);
                 });
 
-              case 18:
+              case 19:
               case "end":
                 return _context2.stop();
             }
@@ -28597,13 +28613,13 @@
         }, _callee2);
       }));
 
-      return function startTracking(_x2, _x3, _x4, _x5) {
+      return function startTracking(_x2, _x3, _x4, _x5, _x6) {
         return _ref2.apply(this, arguments);
       };
     }();
 
     var pollStatus = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(polling, transaction, afterBlock, paymentRoute, pollingInterval) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId) {
         var payment, handlePollingResponse;
         return regenerator.wrap(function _callee3$(_context3) {
           while (1) {
@@ -28702,7 +28718,7 @@
         }, _callee3);
       }));
 
-      return function pollStatus(_x6, _x7, _x8, _x9, _x10) {
+      return function pollStatus(_x7, _x8, _x9, _x10, _x11, _x12) {
         return _ref3.apply(this, arguments);
       };
     }();
@@ -28722,15 +28738,15 @@
       }
 
       var pollingInterval = setInterval(function () {
-        return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval);
+        return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId);
       }, 5000);
       return function () {
         clearInterval(pollingInterval);
       };
-    }, [polling, transaction, afterBlock, paymentRoute]);
+    }, [polling, transaction, afterBlock, attemptId, paymentRoute]);
 
     var storePayment = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction, afterBlock, paymentRoute) {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction, afterBlock, paymentRoute, deadline) {
         return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -28767,7 +28783,7 @@
                 };
                 _context4.t13 = paymentRoute.fee ? ethers.ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null;
                 _context4.t14 = paymentRoute.fee ? paymentRoute.fee.receiver : null;
-                _context4.t15 = transaction.deadline;
+                _context4.t15 = deadline;
                 _context4.t16 = {
                   blockchain: _context4.t3,
                   transaction: _context4.t4,
@@ -28793,12 +28809,12 @@
                 (0, _context4.t0)('https://public.depay.com/payments', _context4.t18).then(function (response) {
                   if (response.status == 200 || response.status == 201) ; else {
                     setTimeout(function () {
-                      storePayment(transaction, afterBlock, paymentRoute);
+                      storePayment(transaction, afterBlock, paymentRoute, deadline);
                     }, 3000);
                   }
                 })["catch"](function (error) {
                   setTimeout(function () {
-                    storePayment(transaction, afterBlock, paymentRoute);
+                    storePayment(transaction, afterBlock, paymentRoute, deadline);
                   }, 3000);
                 });
 
@@ -28810,29 +28826,32 @@
         }, _callee4);
       }));
 
-      return function storePayment(_x11, _x12, _x13) {
+      return function storePayment(_x13, _x14, _x15, _x16) {
         return _ref4.apply(this, arguments);
       };
     }();
 
-    var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute) {
-      storePayment(transaction, afterBlock, paymentRoute);
+    var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute, deadline) {
+      storePayment(transaction, afterBlock, paymentRoute, deadline);
 
       if (synchronousTracking || track && track.async == true) {
-        startTracking(transaction, afterBlock, paymentRoute);
+        startTracking(transaction, afterBlock, paymentRoute, deadline);
       }
 
       if (synchronousTracking == false) {
         return;
       }
 
+      setDeadline(deadline);
       setTransaction(transaction);
       setAfterBlock(afterBlock);
       setPaymentRoute(paymentRoute);
       openSocket(transaction);
     };
 
-    var trace = function trace(afterBlock, paymentRoute, transaction) {
+    var trace = function trace(afterBlock, paymentRoute, transaction, deadline) {
+      setAttemptId(); // reset attemptId in case payment is retried
+
       if (!synchronousTracking && !asynchronousTracking) {
         return Promise.resolve();
       }
@@ -28865,7 +28884,7 @@
                   _context5.t8 = paymentRoute.toAmount.toString();
                   _context5.t9 = paymentRoute.toDecimals;
                   _context5.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
-                  _context5.t11 = transaction.deadline;
+                  _context5.t11 = deadline;
                   payment = {
                     blockchain: _context5.t0,
                     sender: _context5.t1,
@@ -28938,7 +28957,7 @@
           }, _callee5);
         }));
 
-        return function (_x14, _x15) {
+        return function (_x17, _x18) {
           return _ref5.apply(this, arguments);
         };
       }());
@@ -29251,20 +29270,19 @@
     }, [polling]);
 
     var createTracking = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(transaction, afterBlock, attempt) {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(transaction, afterBlock, deadline, attempt) {
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(attempt > 3)) {
-                  _context.next = 3;
+                  _context.next = 2;
                   break;
                 }
 
-                console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!');
                 return _context.abrupt("return");
 
-              case 3:
+              case 2:
                 _context.t0 = fetch;
                 _context.t1 = {
                   'Content-Type': 'application/json'
@@ -29274,41 +29292,39 @@
                 _context.t4 = afterBlock.toString();
                 _context.t5 = transaction.blockchain;
                 _context.t6 = transaction.from;
-                _context.next = 12;
+                _context.next = 11;
                 return getNonce({
                   transaction: transaction,
                   wallet: wallet,
                   account: account
                 });
 
-              case 12:
+              case 11:
                 _context.t7 = _context.sent;
-                _context.t8 = {
+                _context.t8 = deadline;
+                _context.t9 = {
                   id: _context.t3,
                   after_block: _context.t4,
                   blockchain: _context.t5,
                   sender: _context.t6,
-                  nonce: _context.t7
+                  nonce: _context.t7,
+                  deadline: _context.t8
                 };
-                _context.t9 = _context.t2.stringify.call(_context.t2, _context.t8);
-                _context.t10 = {
+                _context.t10 = _context.t2.stringify.call(_context.t2, _context.t9);
+                _context.t11 = {
                   method: 'POST',
                   headers: _context.t1,
-                  body: _context.t9
+                  body: _context.t10
                 };
-                (0, _context.t0)('https://public.depay.com/transactions', _context.t10).then(function (response) {
-                  if (response.status == 200 || response.status == 201) {
-                    console.log('TRANSACTION TRACKING INITIALIZED');
-                  } else {
-                    console.log('TRANSACTION TRACKING FAILED', response);
+                (0, _context.t0)('https://public.depay.com/transactions', _context.t11).then(function (response) {
+                  if (response.status == 200 || response.status == 201) ; else {
                     setTimeout(function () {
-                      createTracking(transaction, afterBlock, attempt + 1);
+                      createTracking(transaction, afterBlock, deadline, attempt + 1);
                     }, 3000);
                   }
                 })["catch"](function (error) {
-                  console.log('TRANSACTION TRACKING FAILED', error);
                   setTimeout(function () {
-                    createTracking(transaction, afterBlock, attempt + 1);
+                    createTracking(transaction, afterBlock, deadline, attempt + 1);
                   }, 3000);
                 });
 
@@ -29320,7 +29336,7 @@
         }, _callee);
       }));
 
-      return function createTracking(_x, _x2, _x3) {
+      return function createTracking(_x, _x2, _x3, _x4) {
         return _ref.apply(this, arguments);
       };
     }();
@@ -29368,7 +29384,7 @@
           }, _callee2);
         }));
 
-        return function (_x4) {
+        return function (_x5) {
           return _ref2.apply(this, arguments);
         };
       }();
@@ -29399,7 +29415,7 @@
       };
     };
 
-    var initializeTracking = function initializeTracking(transaction, afterBlock) {
+    var initializeTracking = function initializeTracking(transaction, afterBlock, deadline) {
       if (!supported.evm.includes(transaction.blockchain)) {
         return;
       }
@@ -29407,7 +29423,7 @@
       setGivenTransaction(transaction);
 
       if (recover == undefined) {
-        createTracking(transaction, afterBlock, 1);
+        createTracking(transaction, afterBlock, deadline, 1);
       }
 
       openSocket(transaction);

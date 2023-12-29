@@ -181,7 +181,7 @@ export default (props)=>{
           { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
             items={[
               { label: "What is a wallet?", action: ()=>{ navigate('WhatIsAWallet') } },
-              { label: "Wallet missing?", action: ()=>{ window.open('mailto:support@depay.com?subject=Add wallet&body=Can you please add the following wallet: [ENTER YOUR WALLET HERE]?', '_blank') } },
+              { label: "Wallet missing?", action: ()=>{ window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank') } },
             ]}
           /> }
         </span>

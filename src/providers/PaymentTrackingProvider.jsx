@@ -18,7 +18,7 @@ import ErrorContext from '../contexts/ErrorContext'
 import getNonce from '../helpers/getNonce'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState, useRef } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
 
@@ -26,6 +26,7 @@ export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
   const { id: configurationId, track, validated, failed, integration, link, type } = useContext(ConfigurationContext)
   const { account, wallet } = useContext(WalletContext)
+  const [ deadline, setDeadline ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ confirmationsRequired, setConfirmationsRequired ] = useState()
   const [ confirmationsPassed, setConfirmationsPassed ] = useState()
@@ -33,6 +34,8 @@ export default (props)=>{
   const [ socket, setSocket ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
   const [ attemptId, setAttemptId ] = useState()
+  const attemptIdRef = useRef(attemptId)
+  attemptIdRef.current = attemptId
   const [ trackingInitialized, setTrackingInitialized ] = useState(false)
   const [ synchronousTracking ] = useState(
     !!configurationId ||
@@ -98,11 +101,11 @@ export default (props)=>{
     }
   }
 
-  const retryStartTracking = (transaction, afterBlock, paymentRoute, attempt)=> {
+  const retryStartTracking = (transaction, afterBlock, paymentRoute, deadline, attempt)=> {
     attempt = parseInt(attempt || 1, 10)
     if(attempt < (track?.attempts || 40)) {
       setTimeout(()=>{
-        startTracking(transaction, afterBlock, paymentRoute, attempt+1)
+        startTracking(transaction, afterBlock, paymentRoute, deadline, attempt+1)
       }, 3000)
     } else {
       navigate('TrackingFailed')
@@ -110,7 +113,7 @@ export default (props)=>{
   }
 
   const continueTryTracking = ()=>{
-    retryStartTracking(transaction, afterBlock, paymentRoute, 1)
+    retryStartTracking(transaction, afterBlock, paymentRoute, deadline, 1)
   }
 
   const callTracking = (payment)=>{
@@ -146,7 +149,7 @@ export default (props)=>{
     }
   }
 
-  const startTracking = async(transaction, afterBlock, paymentRoute, attempt)=> {
+  const startTracking = async(transaction, afterBlock, paymentRoute, deadline, attempt)=> {
     callTracking({
       blockchain: transaction.blockchain,
       transaction: transaction.id,
@@ -160,17 +163,18 @@ export default (props)=>{
       to_amount: paymentRoute.toAmount.toString(),
       to_decimals: paymentRoute.toDecimals,
       fee_amount: paymentRoute?.feeAmount?.toString(),
-      deadline: transaction.deadline
+      trace_attempt_id: attemptIdRef.current,
+      deadline
     })
       .then((response)=>{
         setTrackingInitialized(true)
       })
       .catch((error)=>{
-        retryStartTracking(transaction, afterBlock, paymentRoute, attempt)
+        retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt)
       })
   }
 
-  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval)=>{
+  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId)=>{
     if(
       !polling ||
       transaction == undefined ||
@@ -242,11 +246,11 @@ export default (props)=>{
   useEffect(()=>{
     if(!polling) { return }
     if(!synchronousTracking){ return }
-    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval), 5000)
+    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId), 5000)
     return ()=>{ clearInterval(pollingInterval) }
-  }, [polling, transaction, afterBlock, paymentRoute])
+  }, [polling, transaction, afterBlock, attemptId, paymentRoute])
 
-  const storePayment = async(transaction, afterBlock, paymentRoute)=>{
+  const storePayment = async(transaction, afterBlock, paymentRoute, deadline)=>{
     fetch('https://public.depay.com/payments', {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
@@ -271,33 +275,35 @@ export default (props)=>{
         },
         fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
         fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null,
-        deadline: transaction.deadline
+        deadline
       })
     })
     .then((response)=>{
       if(response.status == 200 || response.status == 201) {
       } else {
-        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute) }, 3000)
+        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, deadline) }, 3000)
       }
     })
     .catch((error)=>{
-      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute) }, 3000)
+      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, deadline) }, 3000)
     })
   }
 
-  const initializeTracking = (transaction, afterBlock, paymentRoute)=>{
-    storePayment(transaction, afterBlock, paymentRoute)
+  const initializeTracking = (transaction, afterBlock, paymentRoute, deadline)=>{
+    storePayment(transaction, afterBlock, paymentRoute, deadline)
     if(synchronousTracking || (track && track.async == true)) {
-      startTracking(transaction, afterBlock, paymentRoute)
+      startTracking(transaction, afterBlock, paymentRoute, deadline)
     }
     if(synchronousTracking == false) { return }
+    setDeadline(deadline)
     setTransaction(transaction)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
     openSocket(transaction)
   }
 
-  const trace = (afterBlock, paymentRoute, transaction)=>{
+  const trace = (afterBlock, paymentRoute, transaction, deadline)=>{
+    setAttemptId() // reset attemptId in case payment is retried
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
     return new Promise(async(resolve, reject)=>{
       let payment = {
@@ -312,7 +318,7 @@ export default (props)=>{
         to_amount: paymentRoute.toAmount.toString(),
         to_decimals: paymentRoute.toDecimals,
         fee_amount: paymentRoute?.feeAmount?.toString(),
-        deadline: transaction.deadline
+        deadline
       }
       if(configurationId){
         return fetch(`https://public.depay.com/configurations/${configurationId}/attempts`, {

@@ -75,19 +75,19 @@ export default (props)=>{
     setPaymentState('paying')
     setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
-    await trace(currentBlock, payment.route, transaction).then(async()=>{
+    await trace(currentBlock, payment.route, transaction, transaction?.params?.payment?.deadline).then(async()=>{
       setClosable(false)
       await wallet.sendTransaction(Object.assign({}, transaction, {
-        sent: (transaction)=>{
-          initializeTransactionTracking(transaction, currentBlock)
-          if(sent) { sent(transaction) }
+        sent: (sentTransaction)=>{
+          initializeTransactionTracking(sentTransaction, currentBlock, transaction?.params?.payment?.deadline)
+          if(sent) { sent(sentTransaction) }
         },
         succeeded: paymentSucceeded,
         failed: paymentFailed
       }))
         .then((sentTransaction)=>{
           setTransaction(sentTransaction)
-          initializePaymentTracking(sentTransaction, currentBlock, payment.route)
+          initializePaymentTracking(sentTransaction, currentBlock, payment.route, transaction?.params?.payment?.deadline)
         })
         .catch((error)=>{
           console.log('error', error)
