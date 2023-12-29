@@ -26621,7 +26621,7 @@
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
         var _transaction$params, _transaction$params$p;
 
-        var transaction, stop, currentBlock;
+        var transaction, stop, currentBlock, deadline;
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -26670,8 +26670,9 @@
 
               case 18:
                 currentBlock = _context2.sent;
-                _context2.next = 21;
-                return trace(currentBlock, payment.route, transaction, transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+                deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
+                _context2.next = 22;
+                return trace(currentBlock, payment.route, transaction, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                   return regenerator.wrap(function _callee$(_context) {
                     while (1) {
                       switch (_context.prev = _context.next) {
@@ -26680,9 +26681,7 @@
                           _context.next = 3;
                           return wallet.sendTransaction(Object.assign({}, transaction, {
                             sent: function sent(sentTransaction) {
-                              var _transaction$params2, _transaction$params2$;
-
-                              initializeTransactionTracking(sentTransaction, currentBlock, transaction === null || transaction === void 0 ? void 0 : (_transaction$params2 = transaction.params) === null || _transaction$params2 === void 0 ? void 0 : (_transaction$params2$ = _transaction$params2.payment) === null || _transaction$params2$ === void 0 ? void 0 : _transaction$params2$.deadline);
+                              initializeTransactionTracking(sentTransaction, currentBlock, deadline);
 
                               if (_sent) {
                                 _sent(sentTransaction);
@@ -26691,10 +26690,8 @@
                             succeeded: paymentSucceeded,
                             failed: paymentFailed
                           })).then(function (sentTransaction) {
-                            var _transaction$params3, _transaction$params3$;
-
                             setTransaction(sentTransaction);
-                            initializePaymentTracking(sentTransaction, currentBlock, payment.route, transaction === null || transaction === void 0 ? void 0 : (_transaction$params3 = transaction.params) === null || _transaction$params3 === void 0 ? void 0 : (_transaction$params3$ = _transaction$params3.payment) === null || _transaction$params3$ === void 0 ? void 0 : _transaction$params3$.deadline);
+                            initializePaymentTracking(sentTransaction, currentBlock, payment.route, deadline);
                           })["catch"](function (error) {
                             console.log('error', error);
                             setPaymentState('initialized');
@@ -26720,7 +26717,7 @@
                   navigate('TracingFailed');
                 });
 
-              case 21:
+              case 22:
               case "end":
                 return _context2.stop();
             }
