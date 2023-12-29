@@ -39,9 +39,8 @@ export default (props)=>{
     }
   }, [polling])
 
-  const createTracking = async (transaction, afterBlock, attempt)=> {
+  const createTracking = async (transaction, afterBlock, deadline, attempt)=> {
     if(attempt > 3) {
-      console.log('TRANSACTION TRACKING FAILED AFTER 3 ATTEMPTS!')
       return
     }
     fetch('https://public.depay.com/transactions', {
@@ -52,20 +51,18 @@ export default (props)=>{
         after_block: afterBlock.toString(),
         blockchain: transaction.blockchain,
         sender: transaction.from,
-        nonce: await getNonce({ transaction, wallet, account })
+        nonce: await getNonce({ transaction, wallet, account }),
+        deadline
       })
     })
     .then((response)=>{
       if(response.status == 200 || response.status == 201) {
-        console.log('TRANSACTION TRACKING INITIALIZED')
       } else {
-        console.log('TRANSACTION TRACKING FAILED', response)
-        setTimeout(()=>{ createTracking(transaction, afterBlock, attempt+1) }, 3000)
+        setTimeout(()=>{ createTracking(transaction, afterBlock, deadline, attempt+1) }, 3000)
       }
     })
     .catch((error)=>{
-      console.log('TRANSACTION TRACKING FAILED', error)
-      setTimeout(()=>{ createTracking(transaction, afterBlock, attempt+1) }, 3000)
+      setTimeout(()=>{ createTracking(transaction, afterBlock, deadline, attempt+1) }, 3000)
     })
   }
 
@@ -104,10 +101,10 @@ export default (props)=>{
     }
   }
 
-  const initializeTracking = (transaction, afterBlock)=>{
+  const initializeTracking = (transaction, afterBlock, deadline)=>{
     if(!supported.evm.includes(transaction.blockchain)){ return }
     setGivenTransaction(transaction)
-    if(recover == undefined) { createTracking(transaction, afterBlock, 1) }
+    if(recover == undefined) { createTracking(transaction, afterBlock, deadline, 1) }
     openSocket(transaction)
     setPolling(true)
   }

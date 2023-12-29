@@ -74,7 +74,7 @@ export default ()=>{
     } else if(release) {
       return(
         <div>
-          <a className="Card transparent small" title="DePay has validated the payment" href={ "https://depay.com/docs/payments/validation" } target="_blank" rel="noopener noreferrer">
+          <a className="Card transparent small" title="DePay has validated the payment" href={ `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}` } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter Opacity05">
                 <Checkmark className="small"/>
@@ -93,7 +93,7 @@ export default ()=>{
     } else {
       return(
         <div>
-          <a className="Card transparent small" title="DePay is validating payment" href={ "https://depay.com/docs/payments/validation" } target="_blank" rel="noopener noreferrer">
+          <a className="Card transparent small" title="DePay is validating the payment" href={ `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}` } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter">
                 <div className="Loading Icon"></div>
@@ -128,8 +128,7 @@ export default ()=>{
             <div className="CardBody">
               <div className="CardBodyWrapper">
                 <div className="Opacity05">
-                  Confirm in your wallet
-                  (<a href="https://depay.com/docs/payments/verify" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>verify</a>)
+                  Confirm in your wallet (<a href="https://depay.com/docs/payments/verify" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>verify</a>)
                 </div>
               </div>
             </div>
