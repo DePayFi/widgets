@@ -46,6 +46,8 @@ export default (props)=> {
     } else {
       messageToSign = message
     }
+    console.log('messageToSign', messageToSign)
+    console.log('account', account)
     wallet.sign(messageToSign).then((signature)=>{
       console.log('wallet sign messageToSign', messageToSign)
       console.log('wallet sign signature', signature)
