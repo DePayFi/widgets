@@ -28242,7 +28242,7 @@ var getPaymentsAccountData = /*#__PURE__*/function () {
 
 var getNonce = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref5) {
-    var blockchain, transaction, account, wallet, _transaction$nonce, paymentsAccountData;
+    var blockchain, transaction, account, wallet, _transaction$nonce, _transaction$nonce2, paymentsAccountData;
 
     return regenerator.wrap(function _callee3$(_context3) {
       while (1) {
@@ -28282,34 +28282,42 @@ var getNonce = /*#__PURE__*/function () {
             return _context3.abrupt("return", _context3.sent.toString());
 
           case 11:
-            _context3.next = 22;
+            _context3.next = 24;
             break;
 
           case 13:
             if (!supported.solana.includes(blockchain)) {
-              _context3.next = 22;
+              _context3.next = 24;
               break;
             }
 
-            _context3.next = 16;
+            if (!(transaction && transaction !== null && transaction !== void 0 && transaction.nonce)) {
+              _context3.next = 16;
+              break;
+            }
+
+            return _context3.abrupt("return", transaction === null || transaction === void 0 ? void 0 : (_transaction$nonce2 = transaction.nonce) === null || _transaction$nonce2 === void 0 ? void 0 : _transaction$nonce2.toString());
+
+          case 16:
+            _context3.next = 18;
             return getPaymentsAccountData({
               account: account
             });
 
-          case 16:
+          case 18:
             paymentsAccountData = _context3.sent;
 
             if (!paymentsAccountData) {
-              _context3.next = 21;
+              _context3.next = 23;
               break;
             }
 
             return _context3.abrupt("return", paymentsAccountData.nonce.toString());
 
-          case 21:
+          case 23:
             return _context3.abrupt("return", '0');
 
-          case 22:
+          case 24:
           case "end":
             return _context3.stop();
         }
