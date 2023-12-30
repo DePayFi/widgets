@@ -24598,11 +24598,15 @@ var SignLoginDialog = (function (props) {
     }
 
     wallet.sign(messageToSign).then(function (signature) {
+      console.log('wallet sign messageToSign', messageToSign);
+      console.log('wallet sign signature', signature);
+      console.log('wallet sign wallet', wallet);
       recoverSignature({
         message: messageToSign,
         signature: signature,
         wallet: wallet
       }).then(function (account) {
+        console.log('account', account);
         props.resolve({
           account: account,
           wallet: wallet
