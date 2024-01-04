@@ -46,14 +46,8 @@ export default (props)=> {
     } else {
       messageToSign = message
     }
-    console.log('messageToSign', messageToSign)
-    console.log('account', account)
     wallet.sign(messageToSign).then((signature)=>{
-      console.log('wallet sign messageToSign', messageToSign)
-      console.log('wallet sign signature', signature)
-      console.log('wallet sign wallet', wallet)
       recoverSignature({ message: messageToSign, signature, wallet }).then((account)=>{
-        console.log('account', account)
         props.resolve({ account, wallet })
         setLoggingIn(false)
       }).catch((error)=>{

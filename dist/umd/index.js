@@ -24561,18 +24561,12 @@
         messageToSign = message;
       }
 
-      console.log('messageToSign', messageToSign);
-      console.log('account', account);
       wallet.sign(messageToSign).then(function (signature) {
-        console.log('wallet sign messageToSign', messageToSign);
-        console.log('wallet sign signature', signature);
-        console.log('wallet sign wallet', wallet);
         recoverSignature({
           message: messageToSign,
           signature: signature,
           wallet: wallet
         }).then(function (account) {
-          console.log('account', account);
           props.resolve({
             account: account,
             wallet: wallet
@@ -27258,9 +27252,9 @@
       }, "Payment options"), displayedPaymentValue != undefined && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeL TextCenter FontWeightBold"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, displayedPaymentValue.toString())), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS"
+        className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingBottomXS TextLeft",
+        className: "TextLeft",
         style: {
           height: "32px"
         }
@@ -27351,12 +27345,11 @@
           return onChangeSearch(event, fuse, allPaymentOptions);
         }
       }))))),
-      bodyClassName: "ScrollHeight",
       bodyRef: listElement,
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingBottomS"
+        className: "ScrollHeight PaddingTopXS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
+        className: "PaddingLeftM PaddingRightM PaddingBottomM"
       }, displayedPaymentOptions, displayedPaymentOptions.length === 0 && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Nothing found for the given search term."), /*#__PURE__*/React__default['default'].createElement("br", null), /*#__PURE__*/React__default['default'].createElement("strong", null, "Please search for something else.")))),
