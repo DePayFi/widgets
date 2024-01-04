@@ -1168,6 +1168,15 @@
     tunnel-agent "^0.6.0"
     uuid "^8.3.2"
 
+"@cypress/webpack-preprocessor@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@cypress/webpack-preprocessor/-/webpack-preprocessor-6.0.1.tgz#5369527c063b2f4718a125ddbd163c5775086e06"
+  integrity sha512-WVNeFVSnFKxE3WZNRIriduTgqJRpevaiJIPlfqYTTzfXRD7X1Pv4woDE+G4caPV9bJqVKmVFiwzrXMRNeJxpxA==
+  dependencies:
+    bluebird "3.7.1"
+    debug "^4.3.4"
+    lodash "^4.17.20"
+
 "@cypress/xvfb@^1.2.4":
   version "1.2.4"
   resolved "https://registry.npmjs.org/@cypress/xvfb/-/xvfb-1.2.4.tgz"
@@ -1279,10 +1288,10 @@
     "@depay/web3-blockchains" "^9.1.4"
     ethers "^5.7.1"
 
-"@depay/web3-payments@^13.6.9":
-  version "13.6.9"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-13.6.9.tgz#8ee0782c08f13b7dedce531067aec4397eb12592"
-  integrity sha512-+jkDuesxW2TQ2KpfKUsjAF9HTgGro3O3hkf48AU+is5ryfdkVhEp3EdeR+2VTpxNCk+QGI5zN23NvcDqF4AiVA==
+"@depay/web3-payments@^13.6.10":
+  version "13.6.10"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-13.6.10.tgz#8b8474495162651980072886023b1821ff45a938"
+  integrity sha512-fXqpxUb3Jxf/yjIqXkxxHSwBF2+sm/g8FNgbdxdDG3KMSaF4wtJXn88fHtkjnYmA1u9UfuLXlPgo/7DkvZwStQ==
 
 "@depay/web3-tokens@^10.3.0":
   version "10.3.0"
@@ -3672,6 +3681,11 @@ blob-util@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/blob-util/-/blob-util-2.0.2.tgz"
   integrity sha512-T7JQa+zsXXEa6/8ZhHcQEW1UFfVM49Ts65uBkFL6fz2QmrElqmbajIDJvuA0tEhRe5eIjpV9ZF+0RfZR9voJFQ==
+
+bluebird@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.1.tgz#df70e302b471d7473489acf26a93d63b53f874de"
+  integrity sha512-DdmyoGCleJnkbp3nkbxTLJ18rjDsE4yCggEwKNXkeV123sPNfOCYeDoeuOY+F2FrSjO1YXcTU+dsy96KMy+gcg==
 
 bluebird@^3.7.2:
   version "3.7.2"
