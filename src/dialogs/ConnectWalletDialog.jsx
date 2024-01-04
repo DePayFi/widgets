@@ -277,7 +277,9 @@ export default (props)=> {
                   { props.connectingExtension &&
                     <div className="Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                       <div className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                        <div className="Loading Icon medium" style={{ position: 'relative', top: '4px', left: '1px' }}></div>
+                        <div className="PaddingTopXS">
+                          <div className="Loading Icon medium" style={{ position: 'relative' }}></div>
+                        </div>
                       </div>
                       <div className="PaddingLeftS LineHeightXS">
                         <div className="CardText FontWeightMedium">
@@ -305,7 +307,9 @@ export default (props)=> {
                   { props.connectingApp &&
                     <div className="Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                       <div className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                        <div className="Loading Icon medium" style={{ position: 'relative', top: '2px', left: '0px' }}></div>
+                        <div className="PaddingTopXS">
+                          <div className="Loading Icon medium" style={{ position: 'relative' }}></div>
+                        </div>
                       </div>
                       <div className="PaddingLeftS LineHeightXS">
                         <div className="CardText FontWeightMedium">

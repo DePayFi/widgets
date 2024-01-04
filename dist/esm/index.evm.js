@@ -22512,13 +22512,13 @@ var ConnectWalletDialog = (function (props) {
         width: "50px"
       }
     }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "Loading Icon medium",
       style: {
-        position: 'relative',
-        top: '4px',
-        left: '1px'
+        position: 'relative'
       }
-    })), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
@@ -22559,13 +22559,13 @@ var ConnectWalletDialog = (function (props) {
         width: "50px"
       }
     }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "Loading Icon medium",
       style: {
-        position: 'relative',
-        top: '2px',
-        left: '0px'
+        position: 'relative'
       }
-    })), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
