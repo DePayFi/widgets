@@ -105,7 +105,7 @@ export default (props)=>{
             <div className="PaddingBottomXS PaddingLeftS PaddingRightS">
               {
                 detectedWallets.filter((wallet, index, array)=>{
-                  return array.findIndex(target => (target.info.name === wallet.info.name)) === index
+                  return array.findIndex(target => (target?.info?.name === wallet?.info?.name)) === index
                 }).map((wallet, index)=>{
                   const walletMetaData = allWallets.find((walletFromList)=>walletFromList.name === (wallet.info ? wallet.info.name : wallet.name))
                   if(!walletMetaData){ return null }

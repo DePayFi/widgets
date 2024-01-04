@@ -115,7 +115,6 @@
     "mobile": {
       "ios": {
         "native": "phantom:",
-        "universal": "https://phantom.app/ul",
         "open": function open() {
           return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
         },
@@ -126,7 +125,6 @@
       },
       "android": {
         "native": "phantom:",
-        "universal": "https://phantom.app/ul",
         "connect": "SolanaMobileWalletAdapter",
         "qr": function qr() {
           return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
@@ -278,6 +276,12 @@
     },
     "mobile": {
       "ios": {
+        "native": "uniswap:",
+        "universal": "https://uniswap.org/app",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
+      },
+      "android": {
         "native": "uniswap:",
         "universal": "https://uniswap.org/app",
         "connect": "WalletConnectV2",
@@ -23071,7 +23075,9 @@
         className: "PaddingBottomXS PaddingLeftS PaddingRightS"
       }, detectedWallets.filter(function (wallet, index, array) {
         return array.findIndex(function (target) {
-          return target.info.name === wallet.info.name;
+          var _target$info, _wallet$info;
+
+          return (target === null || target === void 0 ? void 0 : (_target$info = target.info) === null || _target$info === void 0 ? void 0 : _target$info.name) === (wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name);
         }) === index;
       }).map(function (wallet, index) {
         var walletMetaData = allWallets.find(function (walletFromList) {
