@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -18,7 +19,18 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+    }),
+  ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    fallback: {
+      "crypto": require.resolve("crypto-browserify"),
+      "process": require.resolve("process/browser"),
+      "stream": require.resolve("stream-browserify"),
+      "buffer": require.resolve("buffer/")
+    }
   },
 };
