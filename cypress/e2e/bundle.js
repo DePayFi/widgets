@@ -1,5 +1,5 @@
 import Blockchains from '@depay/web3-blockchains'
-import DePayWidgets from '../../dist/umd/index.bundle'
+import DePayWidgets from '../../dist/esm/index.bundle'
 import fetch from 'cross-fetch'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../tests/mocks/evm/basics'

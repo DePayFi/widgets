@@ -48,14 +48,12 @@ export default [
     "mobile": {
       "ios": {
         "native": "phantom:",
-        "universal": "https://phantom.app/ul",
         "open": ()=>`https://phantom.app/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "solanaPay": true,
       },
       "android": {
         "native": "phantom:",
-        "universal": "https://phantom.app/ul",
         "connect": "SolanaMobileWalletAdapter",
         "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "solanaPay": true,
@@ -139,6 +137,7 @@ export default [
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
       "ios": { "native": "uniswap:", "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "uniswap:", "universal": "https://uniswap.org/app", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
     "blockchains": [...supported.evm]

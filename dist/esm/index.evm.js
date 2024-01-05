@@ -116,7 +116,6 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "phantom:",
-      "universal": "https://phantom.app/ul",
       "open": function open() {
         return "https://phantom.app/ul/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
       },
@@ -127,7 +126,6 @@ var allWallets = [{
     },
     "android": {
       "native": "phantom:",
-      "universal": "https://phantom.app/ul",
       "connect": "SolanaMobileWalletAdapter",
       "qr": function qr() {
         return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
@@ -279,6 +277,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
+      "native": "uniswap:",
+      "universal": "https://uniswap.org/app",
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
+    },
+    "android": {
       "native": "uniswap:",
       "universal": "https://uniswap.org/app",
       "connect": "WalletConnectV2",
@@ -22508,13 +22512,13 @@ var ConnectWalletDialog = (function (props) {
         width: "50px"
       }
     }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "Loading Icon medium",
       style: {
-        position: 'relative',
-        top: '4px',
-        left: '1px'
+        position: 'relative'
       }
-    })), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
@@ -22555,13 +22559,13 @@ var ConnectWalletDialog = (function (props) {
         width: "50px"
       }
     }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
       className: "Loading Icon medium",
       style: {
-        position: 'relative',
-        top: '2px',
-        left: '0px'
+        position: 'relative'
       }
-    })), /*#__PURE__*/React.createElement("div", {
+    }))), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
@@ -23072,7 +23076,9 @@ var SelectWalletDialog = (function (props) {
       className: "PaddingBottomXS PaddingLeftS PaddingRightS"
     }, detectedWallets.filter(function (wallet, index, array) {
       return array.findIndex(function (target) {
-        return target.info.name === wallet.info.name;
+        var _target$info, _wallet$info;
+
+        return (target === null || target === void 0 ? void 0 : (_target$info = target.info) === null || _target$info === void 0 ? void 0 : _target$info.name) === (wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name);
       }) === index;
     }).map(function (wallet, index) {
       var walletMetaData = allWallets.find(function (walletFromList) {
@@ -27287,9 +27293,9 @@ var ChangePaymentDialog = (function (props) {
     }, "Payment options"), displayedPaymentValue != undefined && /*#__PURE__*/React.createElement("div", {
       className: "FontSizeL TextCenter FontWeightBold"
     }, /*#__PURE__*/React.createElement("strong", null, displayedPaymentValue.toString())), /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS"
+      className: "PaddingTopS"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingBottomXS TextLeft",
+      className: "TextLeft",
       style: {
         height: "32px"
       }
@@ -27380,12 +27386,11 @@ var ChangePaymentDialog = (function (props) {
         return onChangeSearch(event, fuse, allPaymentOptions);
       }
     }))))),
-    bodyClassName: "ScrollHeight",
     bodyRef: listElement,
     body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS PaddingBottomS"
+      className: "ScrollHeight PaddingTopXS PaddingBottomS"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingLeftM PaddingRightM"
+      className: "PaddingLeftM PaddingRightM PaddingBottomM"
     }, displayedPaymentOptions, displayedPaymentOptions.length === 0 && /*#__PURE__*/React.createElement("div", {
       className: "TextCenter Opacity05 PaddingTopS PaddingBottomS"
     }, /*#__PURE__*/React.createElement("strong", null, "Nothing found for the given search term."), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", null, "Please search for something else.")))),
