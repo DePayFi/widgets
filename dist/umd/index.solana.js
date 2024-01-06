@@ -39024,6 +39024,14 @@
                   token: sell[key]
                 };
               });
+              blacklist = Object.assign(blacklist || {});
+              Object.keys(sell).forEach(function (key) {
+                if (!blacklist[key]) {
+                  blacklist[key] = [];
+                }
+
+                blacklist[key].push(sell[key]);
+              });
               unmount = mount({
                 style: style,
                 document: ensureDocument(document),
@@ -39072,8 +39080,8 @@
                 unmount: unmount
               });
 
-            case 10:
-              _context2.prev = 10;
+            case 12:
+              _context2.prev = 12;
               _context2.t0 = _context2["catch"](2);
               console.log('critical error', _context2.t0);
 
@@ -39081,12 +39089,12 @@
                 critical(_context2.t0);
               }
 
-            case 14:
+            case 16:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 10]]);
+      }, _callee2, null, [[2, 12]]);
     }));
 
     return function Sale(_x2) {
