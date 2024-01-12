@@ -67,9 +67,10 @@ export default (props)=>{
   }
 
   const pay = async ()=> {
-    const transaction = await payment.route.getTransaction({ from: await wallet.account() })
+    const account = await wallet.account()
+    const transaction = await payment.route.getTransaction({ from: account })
     if(before) {
-      let stop = await before(transaction)
+      let stop = await before(transaction, account)
       if(stop === false){ return }
     }
     setPaymentState('paying')

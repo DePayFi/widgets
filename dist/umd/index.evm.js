@@ -26666,57 +26666,55 @@
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
         var _transaction$params, _transaction$params$p;
 
-        var transaction, stop, currentBlock, deadline;
+        var account, transaction, stop, currentBlock, deadline;
         return regenerator.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.t0 = payment.route;
-                _context2.next = 3;
+                _context2.next = 2;
                 return wallet.account();
 
-              case 3:
-                _context2.t1 = _context2.sent;
-                _context2.t2 = {
-                  from: _context2.t1
-                };
-                _context2.next = 7;
-                return _context2.t0.getTransaction.call(_context2.t0, _context2.t2);
+              case 2:
+                account = _context2.sent;
+                _context2.next = 5;
+                return payment.route.getTransaction({
+                  from: account
+                });
 
-              case 7:
+              case 5:
                 transaction = _context2.sent;
 
                 if (!before) {
-                  _context2.next = 14;
+                  _context2.next = 12;
                   break;
                 }
 
-                _context2.next = 11;
-                return before(transaction);
+                _context2.next = 9;
+                return before(transaction, account);
 
-              case 11:
+              case 9:
                 stop = _context2.sent;
 
                 if (!(stop === false)) {
-                  _context2.next = 14;
+                  _context2.next = 12;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 14:
+              case 12:
                 setPaymentState('paying');
                 setUpdatable(false);
-                _context2.next = 18;
+                _context2.next = 16;
                 return web3ClientEvm.request({
                   blockchain: transaction.blockchain,
                   method: 'latestBlockNumber'
                 });
 
-              case 18:
+              case 16:
                 currentBlock = _context2.sent;
                 deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
-                _context2.next = 22;
+                _context2.next = 20;
                 return trace(currentBlock, payment.route, transaction, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                   return regenerator.wrap(function _callee$(_context) {
                     while (1) {
@@ -26762,7 +26760,7 @@
                   navigate('TracingFailed');
                 });
 
-              case 22:
+              case 20:
               case "end":
                 return _context2.stop();
             }
@@ -30012,12 +30010,12 @@
 
   var Sale = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
+      var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, before, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
+              amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, before = _ref3.before, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -30054,6 +30052,7 @@
                     configuration: {
                       type: 'sale',
                       accept: accept,
+                      before: before,
                       tokenImage: tokenImage,
                       amount: amount,
                       sell: sell,

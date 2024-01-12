@@ -539,7 +539,7 @@ Allows you to stop the payment if this method returns false.
 ```javascript
 DePayWidgets.Payment({
 
-  before: async (payment)=> {
+  before: async (payment, from)=> {
     alert('Something went wrong')
     return false // stops payment
   }

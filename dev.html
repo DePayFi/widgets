@@ -1072,6 +1072,10 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
                       amount: { fix: 990, token: true, currency: true },
+                      before: async (payment, from)=> {
+                        console.log(payment, from)
+                        return false // stops payment
+                      },
                       sell: {
                         'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
                         'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
