@@ -403,10 +403,10 @@ export default [
   },
   {
     "name": "Unstoppable Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "universal": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "universal": "unstoppable.money://", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "universal": "unstoppable.money://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "universal": "unstoppable.money://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
     "blockchains": [...supported.evm]
