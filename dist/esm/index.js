@@ -29268,7 +29268,16 @@ var SolanaPayDialog = (function (props) {
       validated = _useContext.validated,
       integration = _useContext.integration,
       link = _useContext.link,
-      type = _useContext.type;
+      type = _useContext.type,
+      configurationId = _useContext.id;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      attemptId = _useState2[0],
+      setAttemptId = _useState2[1];
+
+  var attemptIdRef = useRef(attemptId);
+  attemptIdRef.current = attemptId;
 
   var _useContext2 = useContext(NavigateStackContext);
       _useContext2.set;
@@ -29278,92 +29287,92 @@ var SolanaPayDialog = (function (props) {
       close = _useContext3.close,
       setClosable = _useContext3.setClosable;
 
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      paymentOptions = _useState2[0],
-      setPaymentOptions = _useState2[1];
-
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      forwardTo = _useState4[0],
-      setForwardTo = _useState4[1];
+      paymentOptions = _useState4[0],
+      setPaymentOptions = _useState4[1];
 
   var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      pollingPaymentStatusInterval = _useState6[0],
-      setPollingPaymentStatusInterval = _useState6[1];
+      forwardTo = _useState6[0],
+      setForwardTo = _useState6[1];
 
   var _useState7 = useState(),
       _useState8 = _slicedToArray(_useState7, 2),
-      transactionTrackingInterval = _useState8[0],
-      setTransactionTrackingInterval = _useState8[1];
+      pollingPaymentStatusInterval = _useState8[0],
+      setPollingPaymentStatusInterval = _useState8[1];
 
   var _useState9 = useState(),
       _useState10 = _slicedToArray(_useState9, 2),
-      selectedPaymentOption = _useState10[0],
-      setSelectedPaymantOption = _useState10[1];
+      transactionTrackingInterval = _useState10[0],
+      setTransactionTrackingInterval = _useState10[1];
 
   var _useState11 = useState(),
       _useState12 = _slicedToArray(_useState11, 2),
-      transaction = _useState12[0],
-      setTransaction = _useState12[1];
+      selectedPaymentOption = _useState12[0],
+      setSelectedPaymantOption = _useState12[1];
 
   var _useState13 = useState(),
       _useState14 = _slicedToArray(_useState13, 2),
-      secretId = _useState14[0],
-      setSecretId = _useState14[1];
+      transaction = _useState14[0],
+      setTransaction = _useState14[1];
 
   var _useState15 = useState(),
       _useState16 = _slicedToArray(_useState15, 2),
-      solanaPayTransactionSocket = _useState16[0],
-      setSolanaPayTransactionSocket = _useState16[1];
+      secretId = _useState16[0],
+      setSecretId = _useState16[1];
 
   var _useState17 = useState(),
       _useState18 = _slicedToArray(_useState17, 2),
-      transactionTrackingSocket = _useState18[0],
-      setTransactionTrackingSocket = _useState18[1];
+      solanaPayTransactionSocket = _useState18[0],
+      setSolanaPayTransactionSocket = _useState18[1];
 
   var _useState19 = useState(),
       _useState20 = _slicedToArray(_useState19, 2),
-      paymentValidationSocket = _useState20[0],
-      setPaymentValidationSocket = _useState20[1];
+      transactionTrackingSocket = _useState20[0],
+      setTransactionTrackingSocket = _useState20[1];
 
   var _useState21 = useState(),
       _useState22 = _slicedToArray(_useState21, 2),
-      QRCodeURI = _useState22[0],
-      setQRCodeURI = _useState22[1];
+      paymentValidationSocket = _useState22[0],
+      setPaymentValidationSocket = _useState22[1];
 
   var _useState23 = useState(),
       _useState24 = _slicedToArray(_useState23, 2),
-      release = _useState24[0],
-      setRelease = _useState24[1];
+      QRCodeURI = _useState24[0],
+      setQRCodeURI = _useState24[1];
 
   var _useState25 = useState(),
       _useState26 = _slicedToArray(_useState25, 2),
-      afterBlock = _useState26[0],
-      setAfterBlock = _useState26[1];
+      release = _useState26[0],
+      setRelease = _useState26[1];
 
   var _useState27 = useState(),
       _useState28 = _slicedToArray(_useState27, 2),
-      QRCode = _useState28[0],
-      setQRCode = _useState28[1];
+      afterBlock = _useState28[0],
+      setAfterBlock = _useState28[1];
 
-  var _useState29 = useState('select'),
+  var _useState29 = useState(),
       _useState30 = _slicedToArray(_useState29, 2),
-      state = _useState30[0],
-      setState = _useState30[1];
+      QRCode = _useState30[0],
+      setQRCode = _useState30[1];
 
-  var _useState31 = useState(!!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-      _useState32 = _slicedToArray(_useState31, 1),
-      polling = _useState32[0];
+  var _useState31 = useState('select'),
+      _useState32 = _slicedToArray(_useState31, 2),
+      state = _useState32[0],
+      setState = _useState32[1];
 
-  var _useState33 = useState(!!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+  var _useState33 = useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
       _useState34 = _slicedToArray(_useState33, 1),
       synchronousTracking = _useState34[0];
 
-  var _useState35 = useState(!!(track && track.async == true)),
+  var _useState35 = useState(!configurationId && !!(track && track.async == true)),
       _useState36 = _slicedToArray(_useState35, 1),
       asynchronousTracking = _useState36[0];
+
+  var _useState37 = useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+      _useState38 = _slicedToArray(_useState37, 1),
+      polling = _useState38[0];
 
   var isTracking = synchronousTracking || asynchronousTracking;
   var QRCodeElement = React.useRef();
@@ -29388,7 +29397,7 @@ var SolanaPayDialog = (function (props) {
               selectedPaymentOption.fromAmountBN = _context.sent;
 
               if (!selectedPaymentOption.fee) {
-                _context.next = 21;
+                _context.next = 17;
                 break;
               }
 
@@ -29397,8 +29406,8 @@ var SolanaPayDialog = (function (props) {
                 break;
               }
 
-              _context.t1 = selectedPaymentOption.fromAmountBN.div(1000).mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10);
-              _context.next = 18;
+              selectedPaymentOption.feeAmountBN = selectedPaymentOption.fromAmountBN.mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10).div(1000);
+              _context.next = 17;
               break;
 
             case 10:
@@ -29407,7 +29416,7 @@ var SolanaPayDialog = (function (props) {
                 break;
               }
 
-              _context.t2 = selectedPaymentOption.fee.amount;
+              selectedPaymentOption.feeAmountBN = selectedPaymentOption.fee.amount;
               _context.next = 17;
               break;
 
@@ -29420,35 +29429,20 @@ var SolanaPayDialog = (function (props) {
               });
 
             case 16:
-              _context.t2 = _context.sent;
+              selectedPaymentOption.feeAmountBN = _context.sent;
 
             case 17:
-              _context.t1 = _context.t2;
+              if (selectedPaymentOption.fee) {
+                selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN);
+              } else {
+                selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN;
+              }
 
-            case 18:
-              _context.t0 = _context.t1;
-              _context.next = 24;
-              break;
-
-            case 21:
-              _context.next = 23;
-              return Token.BigNumber({
-                amount: 0,
-                blockchain: 'solana',
-                address: selectedPaymentOption.token
-              });
-
-            case 23:
-              _context.t0 = _context.sent;
-
-            case 24:
-              selectedPaymentOption.feeAmountBN = _context.t0;
-              selectedPaymentOption.toAmountBN = selectedPaymentOption.fee ? selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN) : selectedPaymentOption.fromAmountBN;
               setSelectedPaymantOption(selectedPaymentOption);
               setState('wait');
               openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
 
-            case 29:
+            case 21:
             case "end":
               return _context.stop();
           }
@@ -29483,7 +29477,24 @@ var SolanaPayDialog = (function (props) {
         resolve = _ref2.resolve,
         reject = _ref2.reject;
 
-    if (track.endpoint) {
+    if (configurationId) {
+      return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payment)
+      }).then(function (response) {
+        if (response.status == 200 || response.status == 201) {
+          response.json().then(function (attempt) {
+            return setAttemptId(attempt.id);
+          });
+          return resolve();
+        } else {
+          return reject('TRACING REQUEST FAILED');
+        }
+      });
+    } else if (track.endpoint) {
       return fetch(track.endpoint, {
         method: 'POST',
         headers: {
@@ -29872,6 +29883,8 @@ var SolanaPayDialog = (function (props) {
   };
 
   var pollStatus = function pollStatus(transaction) {
+    var _track$poll, _track$poll2;
+
     var payment = {
       blockchain: 'solana',
       transaction: transaction.id,
@@ -29903,7 +29916,22 @@ var SolanaPayDialog = (function (props) {
       }
     };
 
-    if (track.poll.endpoint) {
+    if (configurationId) {
+      if (attemptId) {
+        fetch("https://public.depay.com/attempts/".concat(attemptId), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(function (response) {
+          if (response.status == 200 || response.status == 201) {
+            return response.json();
+          } else {
+            return undefined;
+          }
+        }).then(handlePollingResponse);
+      }
+    } else if (track !== null && track !== void 0 && (_track$poll = track.poll) !== null && _track$poll !== void 0 && _track$poll.endpoint) {
       fetch(track.poll.endpoint, {
         method: 'POST',
         headers: {
@@ -29919,7 +29947,7 @@ var SolanaPayDialog = (function (props) {
           return undefined;
         }
       }).then(handlePollingResponse);
-    } else if (track.poll.method) {
+    } else if (track !== null && track !== void 0 && (_track$poll2 = track.poll) !== null && _track$poll2 !== void 0 && _track$poll2.method) {
       track.poll.method(payment).then(handlePollingResponse);
     }
   };

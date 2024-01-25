@@ -10,7 +10,7 @@ import getFavicon from '../helpers/getFavicon'
 import getPaymentRouterInstruction from '../helpers/getPaymentRouterInstruction.solana'
 import LoadingText from '../components/LoadingText'
 import QRCodeStyling from "qr-code-styling"
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import UUIDv4 from '../helpers/UUIDv4'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -23,7 +23,10 @@ const LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODYiIGhlaWdodD0iMzIiIHZp
 
 export default (props)=> {
 
-  const { accept, track, validated, integration, link, type } = useContext(ConfigurationContext)
+  const { accept, track, validated, integration, link, type, id: configurationId } = useContext(ConfigurationContext)
+  const [ attemptId, setAttemptId ] = useState()
+  const attemptIdRef = useRef(attemptId)
+  attemptIdRef.current = attemptId
   const { set, navigate } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
   const [ paymentOptions, setPaymentOptions ] = useState()
@@ -41,9 +44,18 @@ export default (props)=> {
   const [ afterBlock, setAfterBlock ] = useState()
   const [ QRCode, setQRCode ] = useState()
   const [ state, setState ] = useState('select')
-  const [ polling ] = useState( !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true) )
-  const [ synchronousTracking ] = useState( !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true) )
-  const [ asynchronousTracking ] = useState( !!(track && track.async == true) )
+  const [ synchronousTracking ] = useState(
+    !!configurationId ||
+    !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)
+  )
+  const [ asynchronousTracking ] = useState(
+    !configurationId &&
+    !!(track && track.async == true)
+  )
+  const [ polling ] = useState(
+    !!configurationId ||
+    !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)
+  )
   const isTracking = synchronousTracking || asynchronousTracking
   const QRCodeElement = React.useRef()
 
@@ -51,8 +63,20 @@ export default (props)=> {
     const secretId = UUIDv4()
     setSecretId(secretId)
     selectedPaymentOption.fromAmountBN = (await Token.BigNumber({ amount: selectedPaymentOption.amount, blockchain: 'solana', address: selectedPaymentOption.token }))
-    selectedPaymentOption.feeAmountBN = selectedPaymentOption.fee ? (selectedPaymentOption.fee.amount.match("%") ? selectedPaymentOption.fromAmountBN.div(1000).mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", ''))*10) : (typeof selectedPaymentOption.fee.amount === 'string') ? selectedPaymentOption.fee.amount : (await Token.BigNumber({ amount: selectedPaymentOption.fee.amount, blockchain: 'solana', address: selectedPaymentOption.token }))) : (await Token.BigNumber({ amount: 0, blockchain: 'solana', address: selectedPaymentOption.token }))
-    selectedPaymentOption.toAmountBN = selectedPaymentOption.fee ? selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN) : selectedPaymentOption.fromAmountBN
+    if(selectedPaymentOption.fee) {
+      if(selectedPaymentOption.fee.amount.match("%")) {
+        selectedPaymentOption.feeAmountBN = selectedPaymentOption.fromAmountBN.mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", ''))*10).div(1000)
+      } else if (typeof selectedPaymentOption.fee.amount === 'string') {
+        selectedPaymentOption.feeAmountBN = selectedPaymentOption.fee.amount
+      } else {
+        selectedPaymentOption.feeAmountBN = await Token.BigNumber({ amount: selectedPaymentOption.fee.amount, blockchain: 'solana', address: selectedPaymentOption.token })
+      }
+    }
+    if(selectedPaymentOption.fee) {
+      selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN)
+    } else {
+      selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN
+    }
     setSelectedPaymantOption(selectedPaymentOption)
     setState('wait')
     openSolanaPayTransactionSocket(secretId, selectedPaymentOption)
@@ -72,7 +96,20 @@ export default (props)=> {
   }
 
   const sendTrackingAsConfigured = ({ payment, resolve, reject })=>{
-    if(track.endpoint){
+    if(configurationId){
+        return fetch(`https://public.depay.com/configurations/${configurationId}/attempts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payment)
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            response.json().then((attempt)=>setAttemptId(attempt.id))
+            return resolve()
+          } else {
+            return reject('TRACING REQUEST FAILED')
+          }
+        })
+    } else if(track.endpoint){
       return fetch(track.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -335,7 +372,20 @@ export default (props)=> {
       }
     }
 
-    if(track.poll.endpoint) {
+    if(configurationId) {
+      if(attemptId) {
+        fetch(`https://public.depay.com/attempts/${attemptId}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        }).then((response)=>{
+          if(response.status == 200 || response.status == 201) {
+            return response.json()
+          } else {
+            return undefined
+          }
+        }).then(handlePollingResponse)
+      }
+    } else if(track?.poll?.endpoint) {
       fetch(track.poll.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -347,7 +397,7 @@ export default (props)=> {
           return undefined
         }
       }).then(handlePollingResponse)
-    } else if(track.poll.method) {
+    } else if(track?.poll?.method) {
       track.poll.method(payment).then(handlePollingResponse)
     }
   }
