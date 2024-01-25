@@ -333,7 +333,7 @@ export default (props)=> {
           setClosable(true)
           setForwardTo(item.message.forward_to)
           if(!!item.message.forward_to) {
-            setTimeout(()=>{ props.document.location.href = item.message.forward_to }, 200)
+            setTimeout(()=>{ (props.document || window.document).location.href = item.message.forward_to }, 200)
           }
         } else if(success == false) {
           setClosable(true)
@@ -362,7 +362,7 @@ export default (props)=> {
         if(data && data.forward_to) {
           setClosable(true)
           setForwardTo(data.forward_to)
-          setTimeout(()=>{ props.document.location.href = data.forward_to }, 200)
+          setTimeout(()=>{ (props.document || window.document).location.href = data.forward_to }, 200)
         } else {
           setClosable(true)
         }

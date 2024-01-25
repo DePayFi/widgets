@@ -29865,7 +29865,7 @@
 
             if (!!item.message.forward_to) {
               setTimeout(function () {
-                props.document.location.href = item.message.forward_to;
+                (props.document || window.document).location.href = item.message.forward_to;
               }, 200);
             }
           } else if (success == false) {
@@ -29898,7 +29898,7 @@
             setClosable(true);
             setForwardTo(data.forward_to);
             setTimeout(function () {
-              props.document.location.href = data.forward_to;
+              (props.document || window.document).location.href = data.forward_to;
             }, 200);
           } else {
             setClosable(true);
