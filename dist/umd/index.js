@@ -29742,14 +29742,16 @@
 
       socket.onmessage = function (event) {
         if (event && event.data) {
-          var _data$params, _data$params$result;
+          var _data$params, _data$params$result, _data$params$result$v, _ref9, _data$params2, _data$params2$result, _data$params2$result$;
 
           var data = JSON.parse(event.data);
 
-          if (data && data !== null && data !== void 0 && (_data$params = data.params) !== null && _data$params !== void 0 && (_data$params$result = _data$params.result) !== null && _data$params$result !== void 0 && _data$params$result.value) {
-            var _data$params2, _data$params2$result;
+          if (data && data !== null && data !== void 0 && (_data$params = data.params) !== null && _data$params !== void 0 && (_data$params$result = _data$params.result) !== null && _data$params$result !== void 0 && (_data$params$result$v = _data$params$result.value) !== null && _data$params$result$v !== void 0 && _data$params$result$v.logs && (_ref9 = (data === null || data === void 0 ? void 0 : (_data$params2 = data.params) === null || _data$params2 === void 0 ? void 0 : (_data$params2$result = _data$params2.result) === null || _data$params2$result === void 0 ? void 0 : (_data$params2$result$ = _data$params2$result.value) === null || _data$params2$result$ === void 0 ? void 0 : _data$params2$result$.logs) || []) !== null && _ref9 !== void 0 && _ref9.find(function (log) {
+            return log.match('Program DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7');
+          })) {
+            var _data$params3, _data$params3$result;
 
-            var result = data === null || data === void 0 ? void 0 : (_data$params2 = data.params) === null || _data$params2 === void 0 ? void 0 : (_data$params2$result = _data$params2.result) === null || _data$params2$result === void 0 ? void 0 : _data$params2$result.value;
+            var result = data === null || data === void 0 ? void 0 : (_data$params3 = data.params) === null || _data$params3 === void 0 ? void 0 : (_data$params3$result = _data$params3.result) === null || _data$params3$result === void 0 ? void 0 : _data$params3$result.value;
 
             if (result && result.err === null) {
               setState('succeeded');
@@ -29800,7 +29802,7 @@
       setPaymentValidationSocket(socket);
 
       socket.onopen = /*#__PURE__*/function () {
-        var _ref9 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
+        var _ref10 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
           var msg;
           return regenerator.wrap(function _callee5$(_context5) {
             while (1) {
@@ -29826,7 +29828,7 @@
         }));
 
         return function (_x6) {
-          return _ref9.apply(this, arguments);
+          return _ref10.apply(this, arguments);
         };
       }();
 
@@ -29956,9 +29958,9 @@
       }
     };
 
-    var trackTransaction = function trackTransaction(_ref10) {
-      var account = _ref10.account,
-          nonce = _ref10.nonce;
+    var trackTransaction = function trackTransaction(_ref11) {
+      var account = _ref11.account,
+          nonce = _ref11.nonce;
       openTransactionTrackingSocket({
         account: account,
         nonce: nonce
@@ -29990,7 +29992,7 @@
                 });
                 _context7.next = 10;
                 return Promise.all(relevantTransactions.map( /*#__PURE__*/function () {
-                  var _ref12 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(relevantTransaction) {
+                  var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(relevantTransaction) {
                     var fullTransactionData, foundRouterInstruction;
                     return regenerator.wrap(function _callee6$(_context6) {
                       while (1) {
@@ -30049,7 +30051,7 @@
                   }));
 
                   return function (_x7) {
-                    return _ref12.apply(this, arguments);
+                    return _ref13.apply(this, arguments);
                   };
                 }()));
 
@@ -30065,7 +30067,7 @@
     };
 
     var traceAndContinue = /*#__PURE__*/function () {
-      var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, selectedPaymentOption, QRCodeURI) {
+      var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, selectedPaymentOption, QRCodeURI) {
         return regenerator.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
@@ -30109,12 +30111,12 @@
       }));
 
       return function traceAndContinue(_x8, _x9, _x10) {
-        return _ref13.apply(this, arguments);
+        return _ref14.apply(this, arguments);
       };
     }();
 
     var storePayment = /*#__PURE__*/function () {
-      var _ref15 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee10(transaction) {
+      var _ref16 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee10(transaction) {
         return regenerator.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
@@ -30168,7 +30170,7 @@
       }));
 
       return function storePayment(_x11) {
-        return _ref15.apply(this, arguments);
+        return _ref16.apply(this, arguments);
       };
     }();
 

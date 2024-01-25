@@ -265,7 +265,7 @@ export default (props)=> {
     socket.onmessage = function(event) {
       if(event && event.data) {
         const data = JSON.parse(event.data)
-        if(data && data?.params?.result?.value) {
+        if(data && data?.params?.result?.value?.logs && (data?.params?.result?.value?.logs || [])?.find((log)=>{return log.match('Program DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7')})) {
           const result = data?.params?.result?.value
           if(result && result.err === null) {
             setState('succeeded')
