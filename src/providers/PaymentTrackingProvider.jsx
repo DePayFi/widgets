@@ -164,7 +164,8 @@ export default (props)=>{
       to_decimals: paymentRoute.toDecimals,
       fee_amount: paymentRoute?.feeAmount?.toString(),
       trace_attempt_id: attemptIdRef.current,
-      deadline
+      deadline,
+      selected_wallet: wallet?.name
     })
       .then((response)=>{
         setTrackingInitialized(true)
@@ -275,7 +276,8 @@ export default (props)=>{
         },
         fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
         fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null,
-        deadline
+        deadline,
+        selected_wallet: wallet?.name
       })
     })
     .then((response)=>{
@@ -318,7 +320,8 @@ export default (props)=>{
         to_amount: paymentRoute.toAmount.toString(),
         to_decimals: paymentRoute.toDecimals,
         fee_amount: paymentRoute?.feeAmount?.toString(),
-        deadline
+        deadline,
+        selected_wallet: wallet?.name
       }
       if(configurationId){
         return fetch(`https://public.depay.com/configurations/${configurationId}/attempts`, {

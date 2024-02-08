@@ -493,7 +493,8 @@ export default (props)=> {
         },
         fee_amount: selectedPaymentOption.fee ? ethers.utils.formatUnits(selectedPaymentOption.feeAmountBN, selectedPaymentOption.decimals) : null,
         fee_receiver: selectedPaymentOption.fee ? selectedPaymentOption.fee.receiver : null,
-        deadline: transaction.deadline
+        deadline: transaction.deadline,
+        selected_wallet: 'Solana Pay'
       })
     })
     .then((response)=>{
