@@ -29268,7 +29268,7 @@ const getConfiguration$1 = () =>{
   return getWindow$1()._Web3ClientConfiguration
 };
 
-function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$3$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1$1 = 10;
 const CHUNK_SIZE$1$1 = 99;
 
@@ -29298,12 +29298,12 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
           // on whether it was a success or error
           chunk.forEach((inflightRequest, index) => {
             const payload = result[index];
-            if (_optionalChain$3$2([payload, 'optionalAccess', _ => _.error])) {
+            if (_optionalChain$3$3([payload, 'optionalAccess', _ => _.error])) {
               const error = new Error(payload.error.message);
               error.code = payload.error.code;
               error.data = payload.error.data;
               inflightRequest.reject(error);
-            } else if(_optionalChain$3$2([payload, 'optionalAccess', _2 => _2.result])) {
+            } else if(_optionalChain$3$3([payload, 'optionalAccess', _2 => _2.result])) {
               inflightRequest.resolve(payload.result);
             } else {
               inflightRequest.reject();
@@ -31091,7 +31091,7 @@ var findAccount = async ({ token, owner })=>{
   return existingAccount
 };
 
-function _optionalChain$3$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const METADATA_ACCOUNT = 'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s';
 
 const METADATA_REPLACE = new RegExp('\u0000', 'g');
@@ -31120,8 +31120,8 @@ const getMetaData = async ({ blockchain, address })=> {
   });
 
   return {
-    name: _optionalChain$3$1([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.name, 'optionalAccess', _3 => _3.replace, 'call', _4 => _4(METADATA_REPLACE, '')]),
-    symbol: _optionalChain$3$1([metaData, 'optionalAccess', _5 => _5.data, 'optionalAccess', _6 => _6.symbol, 'optionalAccess', _7 => _7.replace, 'call', _8 => _8(METADATA_REPLACE, '')])
+    name: _optionalChain$3$2([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.name, 'optionalAccess', _3 => _3.replace, 'call', _4 => _4(METADATA_REPLACE, '')]),
+    symbol: _optionalChain$3$2([metaData, 'optionalAccess', _5 => _5.data, 'optionalAccess', _6 => _6.symbol, 'optionalAccess', _7 => _7.replace, 'call', _8 => _8(METADATA_REPLACE, '')])
   }
 };
 
@@ -33324,7 +33324,7 @@ let getBestPair = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, a
   return bestPair
 };
 
-function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$3$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const blockchain$1 = Blockchains.solana;
 
 // Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
@@ -33399,9 +33399,9 @@ let findPath$4 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, a
 
   // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
   // because that actually reflects how things are routed in reality:
-  if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
+  if(_optionalChain$3$1([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
     path.splice(1, 0, blockchain$1.wrapped.address);
-  } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
+  } else if(_optionalChain$3$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
     path.splice(path.length-1, 0, blockchain$1.wrapped.address);
   }
   return { path, exchangePath: getExchangePath$3({ path }) }
@@ -36394,6 +36394,7 @@ const getConfiguration = () =>{
   return getWindow()._Web3ClientConfiguration
 };
 
+function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1 = 10;
 const CHUNK_SIZE$1 = 99;
 
@@ -36413,37 +36414,46 @@ class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
   }
 
   requestChunk(chunk, endpoint) {
-    
-    const request = chunk.map((inflight) => inflight.request);
 
-    return ethers.utils.fetchJson(endpoint, JSON.stringify(request))
-      .then((result) => {
-        // For each result, feed it to the correct Promise, depending
-        // on whether it was a success or error
-        chunk.forEach((inflightRequest, index) => {
-          const payload = result[index];
-          if (payload.error) {
-            const error = new Error(payload.error.message);
-            error.code = payload.error.code;
-            error.data = payload.error.data;
-            inflightRequest.reject(error);
-          }
-          else {
-            inflightRequest.resolve(payload.result);
-          }
-        });
-      }).catch((error) => {
-        if(error && error.code == 'SERVER_ERROR') {
-          const index = this._endpoints.indexOf(this._endpoint)+1;
-          this._failover();
-          this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-          this.requestChunk(chunk, this._endpoint);
-        } else {
-          chunk.forEach((inflightRequest) => {
-            inflightRequest.reject(error);
+    try {
+
+      const request = chunk.map((inflight) => inflight.request);
+      return ethers.utils.fetchJson(endpoint, JSON.stringify(request))
+        .then((result) => {
+          // For each result, feed it to the correct Promise, depending
+          // on whether it was a success or error
+          chunk.forEach((inflightRequest, index) => {
+            const payload = result[index];
+            if (_optionalChain$3([payload, 'optionalAccess', _ => _.error])) {
+              const error = new Error(payload.error.message);
+              error.code = payload.error.code;
+              error.data = payload.error.data;
+              inflightRequest.reject(error);
+            } else if(_optionalChain$3([payload, 'optionalAccess', _2 => _2.result])) {
+              inflightRequest.resolve(payload.result);
+            } else {
+              inflightRequest.reject();
+            }
           });
-        }
-      })
+        }).catch((error) => {
+          if(error && error.code == 'SERVER_ERROR') {
+            const index = this._endpoints.indexOf(this._endpoint)+1;
+            this._failover();
+            this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+            this.requestChunk(chunk, this._endpoint);
+          } else {
+            chunk.forEach((inflightRequest) => {
+              inflightRequest.reject(error);
+            });
+          }
+        })
+
+    } catch (e) {
+
+      chunk.forEach((inflightRequest) => {
+        inflightRequest.reject();
+      });
+    }
   }
     
   send(method, params) {
