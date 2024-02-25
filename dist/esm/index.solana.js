@@ -58,7 +58,7 @@ supported$4.evm = [];
 supported$4.svm = ['solana'];
 supported$4.solana = ['solana'];
 
-var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$Brave, _wallets$Brave$info, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
+var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
 var allWallets = [{
   "name": "Coinbase",
   "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
@@ -82,7 +82,7 @@ var allWallets = [{
     }
   },
   "logo": (_wallets$CoinbaseEVM = wallets.CoinbaseEVM) === null || _wallets$CoinbaseEVM === void 0 ? void 0 : (_wallets$CoinbaseEVM$ = _wallets$CoinbaseEVM.info) === null || _wallets$CoinbaseEVM$ === void 0 ? void 0 : _wallets$CoinbaseEVM$.logo,
-  "blockchains": _toConsumableArray(supported$4.evm)
+  "blockchains": _toConsumableArray(supported$4)
 }, {
   "name": "MetaMask",
   "extension": "MetaMask",
@@ -135,7 +135,7 @@ var allWallets = [{
     }
   },
   "logo": (_wallets$PhantomSVM = wallets.PhantomSVM) === null || _wallets$PhantomSVM === void 0 ? void 0 : (_wallets$PhantomSVM$i = _wallets$PhantomSVM.info) === null || _wallets$PhantomSVM$i === void 0 ? void 0 : _wallets$PhantomSVM$i.logo,
-  "blockchains": _toConsumableArray(supported$4.solana)
+  "blockchains": _toConsumableArray(supported$4)
 }, {
   "name": "Trust Wallet",
   "extensions": ["TrustEVM", "TrustSVM"],
@@ -157,7 +157,7 @@ var allWallets = [{
     }
   },
   "logo": (_wallets$TrustEVM = wallets.TrustEVM) === null || _wallets$TrustEVM === void 0 ? void 0 : (_wallets$TrustEVM$inf = _wallets$TrustEVM.info) === null || _wallets$TrustEVM$inf === void 0 ? void 0 : _wallets$TrustEVM$inf.logo,
-  "blockchains": _toConsumableArray(supported$4.evm)
+  "blockchains": _toConsumableArray(supported$4)
 }, {
   "name": "Binance Wallet",
   "extension": "Binance",
@@ -223,12 +223,17 @@ var allWallets = [{
     }
   },
   "logo": (_wallets$Coin98EVM = wallets.Coin98EVM) === null || _wallets$Coin98EVM === void 0 ? void 0 : (_wallets$Coin98EVM$in = _wallets$Coin98EVM.info) === null || _wallets$Coin98EVM$in === void 0 ? void 0 : _wallets$Coin98EVM$in.logo,
-  "blockchains": _toConsumableArray(supported$4.evm)
+  "blockchains": _toConsumableArray(supported$4)
 }, {
   "name": "Brave",
-  "extension": "Brave",
-  "logo": (_wallets$Brave = wallets.Brave) === null || _wallets$Brave === void 0 ? void 0 : (_wallets$Brave$info = _wallets$Brave.info) === null || _wallets$Brave$info === void 0 ? void 0 : _wallets$Brave$info.logo,
-  "blockchains": _toConsumableArray(supported$4.evm)
+  "extensions": ["BraveEVM", "BraveSVM"],
+  "logo": (_wallets$BraveEVM = wallets.BraveEVM) === null || _wallets$BraveEVM === void 0 ? void 0 : (_wallets$BraveEVM$inf = _wallets$BraveEVM.info) === null || _wallets$BraveEVM$inf === void 0 ? void 0 : _wallets$BraveEVM$inf.logo,
+  "blockchains": _toConsumableArray(supported$4)
+}, {
+  "name": "Magic Eden",
+  "extensions": ["MagicEdenEVM", "MagicEdenSVM"],
+  "logo": (_wallets$MagicEdenEVM = wallets.MagicEdenEVM) === null || _wallets$MagicEdenEVM === void 0 ? void 0 : (_wallets$MagicEdenEVM2 = _wallets$MagicEdenEVM.info) === null || _wallets$MagicEdenEVM2 === void 0 ? void 0 : _wallets$MagicEdenEVM2.logo,
+  "blockchains": _toConsumableArray(supported$4)
 }, {
   "name": "Rainbow",
   "desktop": {
@@ -325,15 +330,17 @@ var allWallets = [{
 }, {
   "name": "Backpack",
   "extension": "Backpack",
-  "desktop": {
-    "qr": "SolanaPay"
-  },
+  "desktop": {},
   "mobile": {
     "ios": {
-      "qr": "SolanaPay"
+      "open": function open() {
+        return "backpack://ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+      }
     },
     "android": {
-      "qr": "SolanaPay"
+      "open": function open() {
+        return "backpack://ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+      }
     }
   },
   "logo": (_wallets$Backpack = wallets.Backpack) === null || _wallets$Backpack === void 0 ? void 0 : (_wallets$Backpack$inf = _wallets$Backpack.info) === null || _wallets$Backpack$inf === void 0 ? void 0 : _wallets$Backpack$inf.logo,
@@ -345,21 +352,21 @@ var allWallets = [{
     "qr": function qr() {
       return window.location.toString();
     },
-    "solanaPay": "true"
+    "solanaPay": true
   },
   "mobile": {
     "ios": {
       "qr": function qr() {
         return window.location.toString();
       },
-      "solanaPay": "true"
+      "solanaPay": true
     },
     "android": {
       "connect": "SolanaMobileWalletAdapter",
       "qr": function qr() {
         return window.location.toString();
       },
-      "solanaPay": "true"
+      "solanaPay": true
     }
   },
   "logo": (_wallets$Glow = wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
@@ -4807,7 +4814,9 @@ var ClosableProvider = (function (props) {
     }, 800); // timeout to prevent beforeunload error in case browser redirects to wallet (e.g. Solana Mobile Wallet Adapter)
 
     return function () {
-      window.removeEventListener('beforeunload', preventReload);
+      setTimeout(function () {
+        window.removeEventListener('beforeunload', preventReload);
+      }, 800);
     };
   }, [closable, props.closable]);
   return /*#__PURE__*/React.createElement(ClosableContext.Provider, {

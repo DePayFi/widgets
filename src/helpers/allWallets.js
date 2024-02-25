@@ -25,7 +25,7 @@ export default [
       "android": { "native": "cbwallet://dapp", "universal": "https://go.cb-w.com/dapp", "open": ()=>`https://go.cb-w.com/dapp?cb_url=${encodeURIComponent(window.location.toString())}` },
     },
     "logo": wallets.CoinbaseEVM?.info?.logo,
-    "blockchains": [...supported.evm]
+    "blockchains": [...supported]
   },
   {
     "name": "MetaMask",
@@ -60,7 +60,7 @@ export default [
       },
     },
     "logo": wallets.PhantomSVM?.info?.logo,
-    "blockchains": [...supported.solana]
+    "blockchains": [...supported]
   },
   {
     "name": "Trust Wallet",
@@ -71,7 +71,7 @@ export default [
       "android": { "native": "trust:", "universal": "https://link.trustwallet.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": wallets.TrustEVM?.info?.logo,
-    "blockchains": [...supported.evm]
+    "blockchains": [...supported]
   },
   {
     "name": "Binance Wallet",
@@ -104,13 +104,19 @@ export default [
       "android": { "native": "coin98:", "universal": "https://coin98.services", "connect": "WalletConnectV2", "qr": "WalletConnectV1" },
     },
     "logo": wallets.Coin98EVM?.info?.logo,
-    "blockchains": [...supported.evm]
+    "blockchains": [...supported]
   },
   {
     "name": "Brave",
-    "extension": "Brave",
-    "logo": wallets.Brave?.info?.logo,
-    "blockchains": [...supported.evm]
+    "extensions": ["BraveEVM", "BraveSVM"],
+    "logo": wallets.BraveEVM?.info?.logo,
+    "blockchains": [...supported]
+  },
+  {
+    "name": "Magic Eden",
+    "extensions": ["MagicEdenEVM", "MagicEdenSVM"],
+    "logo": wallets.MagicEdenEVM?.info?.logo,
+    "blockchains": [...supported]
   },
   {
     "name": "Rainbow",
@@ -162,15 +168,13 @@ export default [
   {
     "name": "Backpack",
     "extension": "Backpack",
-    "desktop": {
-      "qr": "SolanaPay",
-    },
+    "desktop": {},
     "mobile": {
       "ios": {
-        "qr": "SolanaPay",
+        "open": ()=>`backpack://ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
       },
       "android": {
-        "qr": "SolanaPay",
+        "open": ()=>`backpack://ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
       },
     },
     "logo": wallets.Backpack?.info?.logo,
@@ -181,17 +185,17 @@ export default [
     "extension": "Glow",
     "desktop": {
       "qr": ()=>window.location.toString(),
-      "solanaPay": "true",
+      "solanaPay": true,
     },
     "mobile": {
       "ios": {
         "qr": ()=>window.location.toString(),
-        "solanaPay": "true",
+        "solanaPay": true,
       },
       "android": {
         "connect": "SolanaMobileWalletAdapter",
         "qr": ()=>window.location.toString(),
-        "solanaPay": "true",
+        "solanaPay": true,
       },
     },
     "logo": wallets.Glow?.info?.logo,
