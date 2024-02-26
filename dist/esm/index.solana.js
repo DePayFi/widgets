@@ -4759,7 +4759,7 @@ var ClosableContext = /*#__PURE__*/React.createContext();
 var UpdatableContext = /*#__PURE__*/React.createContext();
 
 var ClosableProvider = (function (props) {
-  var _useState = useState(true),
+  var _useState = useState(props.closable || true),
       _useState2 = _slicedToArray(_useState, 2),
       closable = _useState2[0],
       setClosable = _useState2[1];
@@ -4809,14 +4809,9 @@ var ClosableProvider = (function (props) {
       }
     };
 
-    setTimeout(function () {
-      window.addEventListener('beforeunload', preventReload);
-    }, 800); // timeout to prevent beforeunload error in case browser redirects to wallet (e.g. Solana Mobile Wallet Adapter)
-
+    window.addEventListener('beforeunload', preventReload);
     return function () {
-      setTimeout(function () {
-        window.removeEventListener('beforeunload', preventReload);
-      }, 800);
+      window.removeEventListener('beforeunload', preventReload);
     };
   }, [closable, props.closable]);
   return /*#__PURE__*/React.createElement(ClosableContext.Provider, {

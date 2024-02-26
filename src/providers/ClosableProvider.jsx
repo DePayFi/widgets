@@ -4,7 +4,7 @@ import UpdatableContext from '../contexts/UpdatableContext'
 
 export default (props)=>{
   
-  const [closable, setClosable] = useState(true)
+  const [closable, setClosable] = useState(props.closable || true)
   const [open, setOpen] = useState(true)
   const { setUpdatable } = useContext(UpdatableContext)
 
@@ -36,13 +36,9 @@ export default (props)=>{
         return msg
       }
     }
-    setTimeout(()=>{
-      window.addEventListener('beforeunload', preventReload);
-    }, 800) // timeout to prevent beforeunload error in case browser redirects to wallet (e.g. Solana Mobile Wallet Adapter)
+    window.addEventListener('beforeunload', preventReload);
     return ()=>{
-      setTimeout(()=>{
-        window.removeEventListener('beforeunload', preventReload);
-      }, 800)
+      window.removeEventListener('beforeunload', preventReload);
     }
   }, [closable, props.closable])
 
