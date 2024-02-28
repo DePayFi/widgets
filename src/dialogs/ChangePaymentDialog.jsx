@@ -161,8 +161,8 @@ export default (props)=>{
           { displayedPaymentValue != undefined &&
             <div className="FontSizeL TextCenter FontWeightBold"><strong>{ displayedPaymentValue.toString() }</strong></div>
           }
-          <div className="PaddingTopXS">
-            <div className="PaddingTopXS PaddingBottomXS TextLeft" style={{ height: "32px" }}>
+          <div className="PaddingTopS">
+            <div className="TextLeft" style={{ height: "32px" }}>
               { !searching &&
                 <div>
                   { allBestPaymentOptions.length > 0 &&
@@ -264,11 +264,10 @@ export default (props)=>{
           </div>
         </div>
       }
-      bodyClassName="ScrollHeight"
       bodyRef={ listElement }
       body={
-        <div className="PaddingTopXS PaddingBottomS">
-          <div className="PaddingLeftM PaddingRightM">
+        <div className="ScrollHeight PaddingTopXS PaddingBottomS">
+          <div className="PaddingLeftM PaddingRightM PaddingBottomM">
             { displayedPaymentOptions }
             { displayedPaymentOptions.length === 0 &&
               <div className="TextCenter Opacity05 PaddingTopS PaddingBottomS">

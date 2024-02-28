@@ -61,6 +61,10 @@ const getNonce = async({ blockchain, transaction, account, wallet }) => {
 
   } else if (supported.solana.includes(blockchain)) {
 
+    if(transaction && transaction?.nonce) {
+      return transaction?.nonce?.toString()
+    }
+    
     const paymentsAccountData = await getPaymentsAccountData({ account })
 
     if(paymentsAccountData) {

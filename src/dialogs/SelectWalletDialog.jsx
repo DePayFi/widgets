@@ -105,7 +105,7 @@ export default (props)=>{
             <div className="PaddingBottomXS PaddingLeftS PaddingRightS">
               {
                 detectedWallets.filter((wallet, index, array)=>{
-                  return array.findIndex(target => (target.info.name === wallet.info.name)) === index
+                  return array.findIndex(target => (target?.info?.name === wallet?.info?.name)) === index
                 }).map((wallet, index)=>{
                   const walletMetaData = allWallets.find((walletFromList)=>walletFromList.name === (wallet.info ? wallet.info.name : wallet.name))
                   if(!walletMetaData){ return null }
@@ -181,7 +181,7 @@ export default (props)=>{
           { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
             items={[
               { label: "What is a wallet?", action: ()=>{ navigate('WhatIsAWallet') } },
-              { label: "Wallet missing?", action: ()=>{ window.open('mailto:support@depay.com?subject=Add wallet&body=Can you please add the following wallet: [ENTER YOUR WALLET HERE]?', '_blank') } },
+              { label: "Wallet missing?", action: ()=>{ window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank') } },
             ]}
           /> }
         </span>

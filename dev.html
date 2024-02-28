@@ -16,16 +16,16 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature-web@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.2.8"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10.18.4"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@10"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v1@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16.3.5"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7.2.0"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13.7.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@16"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
@@ -244,6 +244,41 @@
                     DePayWidgets.Payment({
                       accept: [
                         {
+                          blockchain: 'ethereum',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'bsc',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'fantom',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'avalanche',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'arbitrum',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'optimism',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
+                          blockchain: 'base',
+                          amount: 0.0001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },{
                           blockchain: 'polygon',
                           amount: 0.0001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
@@ -252,7 +287,7 @@
                           blockchain: 'solana',
                           amount: 0.0001,
                           token: '11111111111111111111111111111111',
-                          receiver: '2UgCJaHU5y8NC4uWQcZYeV9a5RyYLF7iKYCybCsdFFD1'
+                          receiver: '5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa'
                         },
                       ]
                     });
@@ -999,7 +1034,7 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Sale: Buy LimeWire Token</h5>
+                <h5 class="px-4">Sale: Buy DePay on Solana</h5>
                 <div class="px-4">
                   <div class="text-secondary "></div>
                 </div>
@@ -1011,7 +1046,7 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
                       sell: {
-                        'ethereum': '0x628A3b2E302C7e896AcC432D2d0dD22B6cb9bc88'
+                        'solana': 'DePay1miDBPWXs6PVQrdC5Vch2jemgEPaiyXLNLLa2NF'
                       },
                     });
                   });
@@ -1037,6 +1072,10 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
                       amount: { fix: 990, token: true, currency: true },
+                      before: async (payment, from)=> {
+                        console.log(payment, from)
+                        return false // stops payment
+                      },
                       sell: {
                         'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
                         'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
