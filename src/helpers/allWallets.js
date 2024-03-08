@@ -862,13 +862,14 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
-    "name": "OKX Wallet",
+    "name": "OKX",
+    "extensions": ["OKXEVM", "OKXSVM"],
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "open": ()=>`okx://wallet/dapp/url?dappUrl==${encodeURIComponent(window.location.toString())}` },
+      "android": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "open": ()=>`okx://wallet/dapp/url?dappUrl==${encodeURIComponent(window.location.toString())}` },
     },
-    "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
+    "logo": wallets.OKXEVM?.info?.logo,
     "blockchains": [...supported.evm]
   },
   {

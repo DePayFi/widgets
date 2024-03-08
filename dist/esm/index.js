@@ -59,7 +59,7 @@ supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', '
 supported.svm = ['solana'];
 supported.solana = ['solana'];
 
-var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
+var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
 var allWallets = [{
   "name": "Coinbase",
   "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
@@ -1666,7 +1666,8 @@ var allWallets = [{
   "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
-  "name": "OKX Wallet",
+  "name": "OKX",
+  "extensions": ["OKXEVM", "OKXSVM"],
   "desktop": {
     "qr": "WalletConnectV2"
   },
@@ -1674,15 +1675,21 @@ var allWallets = [{
     "ios": {
       "native": "okex://main",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "qr": "WalletConnectV2",
+      "open": function open() {
+        return "okx://wallet/dapp/url?dappUrl==".concat(encodeURIComponent(window.location.toString()));
+      }
     },
     "android": {
       "native": "okex://main",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV2"
+      "qr": "WalletConnectV2",
+      "open": function open() {
+        return "okx://wallet/dapp/url?dappUrl==".concat(encodeURIComponent(window.location.toString()));
+      }
     }
   },
-  "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
+  "logo": (_wallets$OKXEVM = wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Mask Network",
