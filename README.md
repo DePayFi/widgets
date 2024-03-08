@@ -574,8 +574,11 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Payment({
 
-  succeeded: (transaction)=> {
+  succeeded: (transaction, payment)=> {
     // called when payment transaction has been confirmed once by the network
+    // might be called multiple times
+
+    // "payment" contains information about what the user selected as payment
   }
 })
 ```
@@ -589,8 +592,10 @@ A function that will be called once the payment has been validated by DePay.
 ```javascript
 DePayWidgets.Payment({
 
-  validated: (successful, transaction)=> {
+  validated: (successful, transaction, payment)=> {
     // successful (true or false)
+
+    // "payment" contains information about what the user selected as payment
   }
 })
 ```
@@ -606,9 +611,12 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Payment({
 
-  failed: (transaction)=> {
+  failed: (transaction, error, payment)=> {
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
+    // might be called multiple times
+
+    // "payment" contains information about what the user selected as payment
   }
 })
 ```

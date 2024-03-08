@@ -26567,6 +26567,7 @@
         account = _useContext7.account;
 
     var _useContext8 = React.useContext(PaymentTrackingContext),
+        setTrackingPayment = _useContext8.setPayment,
         release = _useContext8.release,
         synchronousTracking = _useContext8.synchronousTracking,
         asynchronousTracking = _useContext8.asynchronousTracking,
@@ -26598,7 +26599,7 @@
         paymentState = _useState8[0],
         setPaymentState = _useState8[1];
 
-    var paymentSucceeded = function paymentSucceeded(transaction) {
+    var paymentSucceeded = function paymentSucceeded(transaction, payment) {
       if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
         setClosable(true);
       }
@@ -26607,12 +26608,12 @@
 
       if (succeeded) {
         setTimeout(function () {
-          return succeeded(transaction);
+          return succeeded(transaction, payment);
         }, 200);
       }
     };
 
-    var paymentFailed = function paymentFailed(transaction, error) {
+    var paymentFailed = function paymentFailed(transaction, error, payment) {
       console.log('error', error === null || error === void 0 ? void 0 : error.toString());
 
       if (asynchronousTracking == false || trackingInitialized == true) {
@@ -26623,7 +26624,7 @@
       setPaymentState('failed');
 
       if (failed) {
-        failed(transaction, error);
+        failed(transaction, error, payment);
       }
     };
 
@@ -26695,8 +26696,12 @@
                                 _sent(sentTransaction);
                               }
                             },
-                            succeeded: paymentSucceeded,
-                            failed: paymentFailed
+                            succeeded: function succeeded(transaction) {
+                              return paymentSucceeded(transaction, payment);
+                            },
+                            failed: function failed(transaction, error) {
+                              return paymentFailed(transaction, error, payment);
+                            }
                           })).then(function (sentTransaction) {
                             setTransaction(sentTransaction);
                             initializePaymentTracking(sentTransaction, currentBlock, payment.route, deadline);
@@ -26765,6 +26770,9 @@
     };
 
     React.useEffect(function () {
+      setTrackingPayment(payment);
+    }, [payment]);
+    React.useEffect(function () {
       if (release) {
         setPaymentState('success');
       }
@@ -26822,12 +26830,12 @@
         }
 
         if (foundTransaction.status == 'success') {
-          paymentSucceeded(newTransaction || transaction);
+          paymentSucceeded(newTransaction || transaction, payment);
         } else if (foundTransaction.status == 'failed') {
-          paymentFailed(newTransaction || transaction);
+          paymentFailed(newTransaction || transaction, payment);
         }
       }
-    }, [foundTransaction, transaction]);
+    }, [foundTransaction, transaction, payment]);
     var debouncedSetPayment = React.useCallback(lodash.debounce(function (selectedRoute) {
       if (selectedRoute) {
         var fromToken = selectedRoute.fromToken;
@@ -28382,43 +28390,48 @@
 
     var _useState13 = React.useState(),
         _useState14 = _slicedToArray(_useState13, 2),
-        paymentRoute = _useState14[0],
-        setPaymentRoute = _useState14[1];
+        payment = _useState14[0],
+        setPayment = _useState14[1];
 
     var _useState15 = React.useState(),
         _useState16 = _slicedToArray(_useState15, 2),
-        attemptId = _useState16[0],
-        setAttemptId = _useState16[1];
+        paymentRoute = _useState16[0],
+        setPaymentRoute = _useState16[1];
+
+    var _useState17 = React.useState(),
+        _useState18 = _slicedToArray(_useState17, 2),
+        attemptId = _useState18[0],
+        setAttemptId = _useState18[1];
 
     var attemptIdRef = React.useRef(attemptId);
     attemptIdRef.current = attemptId;
 
-    var _useState17 = React.useState(false),
-        _useState18 = _slicedToArray(_useState17, 2),
-        trackingInitialized = _useState18[0],
-        setTrackingInitialized = _useState18[1];
+    var _useState19 = React.useState(false),
+        _useState20 = _slicedToArray(_useState19, 2),
+        trackingInitialized = _useState20[0],
+        setTrackingInitialized = _useState20[1];
 
-    var _useState19 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState20 = _slicedToArray(_useState19, 1),
-        synchronousTracking = _useState20[0];
-
-    var _useState21 = React.useState(!configurationId && !!(track && track.async == true)),
+    var _useState21 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
         _useState22 = _slicedToArray(_useState21, 1),
-        asynchronousTracking = _useState22[0];
+        synchronousTracking = _useState22[0];
 
-    var _useState23 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+    var _useState23 = React.useState(!configurationId && !!(track && track.async == true)),
         _useState24 = _slicedToArray(_useState23, 1),
-        polling = _useState24[0];
+        asynchronousTracking = _useState24[0];
 
-    var _useState25 = React.useState(false),
-        _useState26 = _slicedToArray(_useState25, 2),
-        release = _useState26[0],
-        setRelease = _useState26[1];
+    var _useState25 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
+        _useState26 = _slicedToArray(_useState25, 1),
+        polling = _useState26[0];
 
-    var _useState27 = React.useState(),
+    var _useState27 = React.useState(false),
         _useState28 = _slicedToArray(_useState27, 2),
-        forwardTo = _useState28[0],
-        setForwardTo = _useState28[1];
+        release = _useState28[0],
+        setRelease = _useState28[1];
+
+    var _useState29 = React.useState(),
+        _useState30 = _slicedToArray(_useState29, 2),
+        forwardTo = _useState30[0],
+        setForwardTo = _useState30[1];
 
     var _useContext4 = React.useContext(ClosableContext),
         setClosable = _useContext4.setClosable;
@@ -28494,7 +28507,7 @@
 
         if (validated) {
           setTimeout(function () {
-            return validated(success, transaction);
+            return validated(success, transaction, payment);
           }, 200);
         }
 
@@ -28645,7 +28658,7 @@
 
     var pollStatus = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId) {
-        var payment, handlePollingResponse;
+        var handlePollingResponse, performedPayment;
         return regenerator.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -28658,29 +28671,6 @@
                 return _context3.abrupt("return");
 
               case 2:
-                _context3.t0 = transaction.blockchain;
-                _context3.t1 = transaction.id;
-                _context3.t2 = transaction.from;
-                _context3.next = 7;
-                return getNonce({
-                  transaction: transaction,
-                  account: account,
-                  wallet: wallet
-                });
-
-              case 7:
-                _context3.t3 = _context3.sent;
-                _context3.t4 = afterBlock.toString();
-                _context3.t5 = paymentRoute.toToken.address;
-                payment = {
-                  blockchain: _context3.t0,
-                  transaction: _context3.t1,
-                  sender: _context3.t2,
-                  nonce: _context3.t3,
-                  after_block: _context3.t4,
-                  to_token: _context3.t5
-                };
-
                 handlePollingResponse = function handlePollingResponse(data) {
                   if (data) {
                     if (data && data.forward_to) {
@@ -28693,11 +28683,34 @@
                     clearInterval(pollingInterval);
 
                     if (validated) {
-                      validated(data.status ? data.status == 'success' : true, transaction);
+                      validated(data.status ? data.status == 'success' : true, transaction, payment);
                     }
 
                     setRelease(true);
                   }
+                };
+
+                _context3.t0 = transaction.blockchain;
+                _context3.t1 = transaction.id;
+                _context3.t2 = transaction.from;
+                _context3.next = 8;
+                return getNonce({
+                  transaction: transaction,
+                  account: account,
+                  wallet: wallet
+                });
+
+              case 8:
+                _context3.t3 = _context3.sent;
+                _context3.t4 = afterBlock.toString();
+                _context3.t5 = paymentRoute.toToken.address;
+                performedPayment = {
+                  blockchain: _context3.t0,
+                  transaction: _context3.t1,
+                  sender: _context3.t2,
+                  nonce: _context3.t3,
+                  after_block: _context3.t4,
+                  to_token: _context3.t5
                 };
 
                 if (configurationId) {
@@ -28721,7 +28734,7 @@
                     headers: {
                       'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(payment)
+                    body: JSON.stringify(performedPayment)
                   }).then(function (response) {
                     if (response.status == 200 || response.status == 201) {
                       return response.json()["catch"](function () {
@@ -28732,7 +28745,7 @@
                     }
                   }).then(handlePollingResponse);
                 } else if (track.poll.method) {
-                  track.poll.method(payment).then(handlePollingResponse);
+                  track.poll.method(performedPayment).then(handlePollingResponse);
                 }
 
               case 13:
@@ -28887,7 +28900,7 @@
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(resolve, reject) {
           var _paymentRoute$feeAmou2;
 
-          var payment;
+          var performedPayment;
           return regenerator.wrap(function _callee5$(_context5) {
             while (1) {
               switch (_context5.prev = _context5.next) {
@@ -28913,7 +28926,7 @@
                   _context5.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
                   _context5.t11 = deadline;
                   _context5.t12 = wallet === null || wallet === void 0 ? void 0 : wallet.name;
-                  payment = {
+                  performedPayment = {
                     blockchain: _context5.t0,
                     sender: _context5.t1,
                     nonce: _context5.t2,
@@ -28939,7 +28952,7 @@
                     headers: {
                       'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(payment)
+                    body: JSON.stringify(performedPayment)
                   }).then(function (response) {
                     if (response.status == 200 || response.status == 201) {
                       response.json().then(function (attempt) {
@@ -28962,7 +28975,7 @@
                     headers: {
                       'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(payment)
+                    body: JSON.stringify(performedPayment)
                   }).then(function (response) {
                     if (response.status == 200 || response.status == 201) {
                       return resolve();
@@ -28973,7 +28986,7 @@
 
                 case 24:
                   if (track.method) {
-                    track.method(payment).then(resolve)["catch"](reject);
+                    track.method(performedPayment).then(resolve)["catch"](reject);
                   } else {
                     reject('No tracking defined!');
                   }
@@ -29003,7 +29016,8 @@
         release: release,
         forwardTo: forwardTo,
         confirmationsRequired: confirmationsRequired,
-        confirmationsPassed: confirmationsPassed
+        confirmationsPassed: confirmationsPassed,
+        setPayment: setPayment
       }
     }, props.children);
   });

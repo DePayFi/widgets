@@ -41,29 +41,29 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet, account } = useContext(WalletContext)
-  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
+  const { setPayment: setTrackingPayment, release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
   const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
 
-  const paymentSucceeded = (transaction)=>{
+  const paymentSucceeded = (transaction, payment)=>{
     if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
       setClosable(true)
     }
     setPaymentState('success')
-    if(succeeded) { setTimeout(()=>succeeded(transaction), 200) }
+    if(succeeded) { setTimeout(()=>succeeded(transaction, payment), 200) }
   }
 
-  const paymentFailed = (transaction, error)=> {
+  const paymentFailed = (transaction, error, payment)=> {
     console.log('error', error?.toString())
     if(asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true)
     }
     set(['PaymentFailed'])
     setPaymentState('failed')
-    if(failed) { failed(transaction, error) }
+    if(failed) { failed(transaction, error, payment) }
   }
 
   const pay = async ()=> {
@@ -84,8 +84,8 @@ export default (props)=>{
           initializeTransactionTracking(sentTransaction, currentBlock, deadline)
           if(sent) { sent(sentTransaction) }
         },
-        succeeded: paymentSucceeded,
-        failed: paymentFailed
+        succeeded: (transaction)=>paymentSucceeded(transaction, payment),
+        failed: (transaction, error)=>paymentFailed(transaction, error, payment)
       }))
         .then((sentTransaction)=>{
           setTransaction(sentTransaction)
@@ -136,6 +136,10 @@ export default (props)=>{
   }
 
   useEffect(()=>{
+    setTrackingPayment(payment)
+  }, [payment])
+
+  useEffect(()=>{
     if(release){
       setPaymentState('success')
     }
@@ -184,12 +188,12 @@ export default (props)=>{
         setTransaction(newTransaction)
       }
       if(foundTransaction.status == 'success') {
-        paymentSucceeded(newTransaction || transaction)
+        paymentSucceeded(newTransaction || transaction, payment)
       } else if(foundTransaction.status == 'failed'){
-        paymentFailed(newTransaction || transaction)
+        paymentFailed(newTransaction || transaction, payment)
       }
     }
-  }, [foundTransaction, transaction])
+  }, [foundTransaction, transaction, payment])
 
   const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {

@@ -32,6 +32,7 @@ export default (props)=>{
   const [ confirmationsPassed, setConfirmationsPassed ] = useState()
   const [ afterBlock, setAfterBlock ] = useState()
   const [ socket, setSocket ] = useState()
+  const [ payment, setPayment ] = useState()
   const [ paymentRoute, setPaymentRoute ] = useState()
   const [ attemptId, setAttemptId ] = useState()
   const attemptIdRef = useRef(attemptId)
@@ -79,7 +80,7 @@ export default (props)=>{
       const item = JSON.parse(event.data)
       if(item.type === "ping" || !item.message) { return }
       const success = (item.message.status == 'success')
-      if(validated) { setTimeout(()=>validated(success, transaction), 200) }
+      if(validated) { setTimeout(()=>validated(success, transaction, payment), 200) }
       if(item.message.release) {
         socket.close()
         if(success) {
@@ -183,15 +184,6 @@ export default (props)=>{
       paymentRoute == undefined
     ) { return }
 
-    const payment = {
-      blockchain: transaction.blockchain,
-      transaction: transaction.id,
-      sender: transaction.from,
-      nonce: await getNonce({ transaction, account, wallet }),
-      after_block: afterBlock.toString(),
-      to_token: paymentRoute.toToken.address
-    }
-
     const handlePollingResponse = (data)=>{
       if(data) {
         if(data && data.forward_to) {
@@ -202,10 +194,19 @@ export default (props)=>{
         }
         clearInterval(pollingInterval)
         if(validated) {
-          validated(data.status ? data.status == 'success' : true, transaction)
+          validated(data.status ? data.status == 'success' : true, transaction, payment)
         }
         setRelease(true)
       }
+    }
+
+    const performedPayment = {
+      blockchain: transaction.blockchain,
+      transaction: transaction.id,
+      sender: transaction.from,
+      nonce: await getNonce({ transaction, account, wallet }),
+      after_block: afterBlock.toString(),
+      to_token: paymentRoute.toToken.address
     }
 
     if(configurationId) {
@@ -225,7 +226,7 @@ export default (props)=>{
       fetch(track.poll.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payment)
+        body: JSON.stringify(performedPayment)
       }).then((response)=>{
         if(response.status == 200 || response.status == 201) {
           return response.json().catch(()=>{ setClosable(true) })
@@ -234,7 +235,7 @@ export default (props)=>{
         }
       }).then(handlePollingResponse)
     } else if(track.poll.method) {
-      track.poll.method(payment).then(handlePollingResponse)
+      track.poll.method(performedPayment).then(handlePollingResponse)
     }
   }
 
@@ -308,7 +309,7 @@ export default (props)=>{
     setAttemptId() // reset attemptId in case payment is retried
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
     return new Promise(async(resolve, reject)=>{
-      let payment = {
+      let performedPayment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
         nonce: await getNonce({ blockchain: paymentRoute.blockchain, account, wallet }),
@@ -327,7 +328,7 @@ export default (props)=>{
         return fetch(`https://public.depay.com/configurations/${configurationId}/attempts`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payment)
+          body: JSON.stringify(performedPayment)
         }).then((response)=>{
           if(response.status == 200 || response.status == 201) {
             response.json().then((attempt)=>setAttemptId(attempt.id))
@@ -340,7 +341,7 @@ export default (props)=>{
         return fetch(track.endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payment)
+          body: JSON.stringify(performedPayment)
         }).then((response)=>{
           if(response.status == 200 || response.status == 201) {
             return resolve()
@@ -349,7 +350,7 @@ export default (props)=>{
           }
         })
       } else if (track.method) {
-        track.method(payment).then(resolve).catch(reject)
+        track.method(performedPayment).then(resolve).catch(reject)
       } else {
         reject('No tracking defined!')
       }
@@ -368,6 +369,7 @@ export default (props)=>{
       forwardTo,
       confirmationsRequired,
       confirmationsPassed,
+      setPayment,
     }}>
       { props.children }
     </PaymentTrackingContext.Provider>

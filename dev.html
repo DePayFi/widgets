@@ -140,6 +140,22 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       integration: '461cb57d-6063-40b8-8326-a124c4a40e6f',
+                      succeeded: (transaction, payment)=>{
+                        console.log('Success')
+                        console.log('transaction', transaction)
+                        console.log('payment', payment)
+                      },
+                      failed: (transaction, error, payment)=>{
+                        console.log('Failed')
+                        console.log('transaction', transaction)
+                        console.log('error', error)
+                        console.log('payment', payment)
+                      },
+                      validated: (success, transaction, payment)=>{
+                        console.log('Validated', success)
+                        console.log('transaction', transaction)
+                        console.log('payment', payment)
+                      },
                     })
                   })
                 </script>
