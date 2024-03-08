@@ -1673,7 +1673,7 @@
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2",
         "open": function open() {
-          return "okx://wallet/dapp/url?dappUrl==".concat(encodeURIComponent(window.location.toString()));
+          return "okx://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
         }
       },
       "android": {
@@ -1681,7 +1681,7 @@
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2",
         "open": function open() {
-          return "okx://wallet/dapp/url?dappUrl==".concat(encodeURIComponent(window.location.toString()));
+          return "okx://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
         }
       }
     },
