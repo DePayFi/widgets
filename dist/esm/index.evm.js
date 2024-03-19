@@ -29526,6 +29526,10 @@ var preflight$1 = /*#__PURE__*/function () {
               if (typeof configuration.receiver === 'undefined') {
                 throw 'You need to set the receiver address that you want to receive the payment!';
               }
+
+              if (typeof configuration.integration !== 'undefined' && typeof configuration.accept !== 'undefined') {
+                throw 'You can either use `integration` or `accept`, but not both!';
+              }
             });
 
           case 4:

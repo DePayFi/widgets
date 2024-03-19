@@ -141,6 +141,9 @@ This will forward:
 
 to your backend in order to receive a payment configuration for the widget.
 
+> [!CAUTION]
+> You have the option to utilize managed integrations along with the `integration` attribute for payment validations (refer to the previous section). Alternatively, if payment validations are not necessary, you may opt for basic configurations using `accept` (see next section). However, it's important to note that `integration` and `accept` cannot be used simultaneously.
+
 ### Configuration
 
 ```javascript
