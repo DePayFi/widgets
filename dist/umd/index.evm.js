@@ -29496,14 +29496,22 @@
             case 0:
               accept = _ref.accept, recover = _ref.recover, integration = _ref.integration;
 
-              if (!(integration || recover)) {
+              if (!(typeof integration !== 'undefined' && typeof accept !== 'undefined')) {
                 _context.next = 3;
+                break;
+              }
+
+              throw 'You can either use `integration` or `accept`, but not both!';
+
+            case 3:
+              if (!(integration || recover)) {
+                _context.next = 5;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 3:
+            case 5:
               accept.forEach(function (configuration) {
                 if (typeof configuration.blockchain === 'undefined') {
                   throw 'You need to set the blockchain you want to receive the payment on!';
@@ -29524,13 +29532,9 @@
                 if (typeof configuration.receiver === 'undefined') {
                   throw 'You need to set the receiver address that you want to receive the payment!';
                 }
-
-                if (typeof configuration.integration !== 'undefined' && typeof configuration.accept !== 'undefined') {
-                  throw 'You can either use `integration` or `accept`, but not both!';
-                }
               });
 
-            case 4:
+            case 6:
             case "end":
               return _context.stop();
           }

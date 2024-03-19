@@ -23,6 +23,7 @@ import WalletProvider from './providers/WalletProvider'
 import { supported } from './blockchains'
 
 let preflight = async({ accept, recover, integration }) => {
+  if(typeof integration !== 'undefined' && typeof accept !== 'undefined') { throw('You can either use `integration` or `accept`, but not both!') }
   if(integration || recover){ return }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain you want to receive the payment on!') }
@@ -30,7 +31,6 @@ let preflight = async({ accept, recover, integration }) => {
     if(typeof configuration.token === 'undefined' && typeof configuration.fromToken === 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') { throw('You need to set the token you want to receive as payment!') }
     if(typeof configuration.token === 'undefined' && typeof configuration.fromToken !== 'undefined' && typeof configuration.fromAmount === 'undefined' && typeof configuration.toToken === 'undefined') { throw('You need to set the fromToken, fromAmount and toToken!') }
     if(typeof configuration.receiver === 'undefined') { throw('You need to set the receiver address that you want to receive the payment!') }
-    if(typeof configuration.integration !== 'undefined' && typeof configuration.accept !== 'undefined') { throw('You can either use `integration` or `accept`, but not both!') }
   })
 }
 
