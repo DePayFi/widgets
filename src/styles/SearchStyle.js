@@ -10,6 +10,7 @@ export default (style)=>{
       font-size: 19px;
       padding: 13px;
       width: 100%;
+      position: relative !important; // fixes LastPass extension problem
     }
 
     .Search.small {
