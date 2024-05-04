@@ -137,7 +137,7 @@
     "name": "Trust Wallet",
     "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
@@ -304,6 +304,25 @@
     "logo": (_wallets$Rabby = web3WalletsEvm.wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
     "blockchains": _toConsumableArray(supported.evm)
   }, {
+    "name": "Kraken",
+    "desktop": {
+      "qr": "WalletConnectV2"
+    },
+    "mobile": {
+      "ios": {
+        "native": "krakenwallet:",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
+      },
+      "android": {
+        "native": "krakenwallet:",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
+      }
+    },
+    "logo": "https://img1.depay.com/wallets/kraken.jpg",
+    "blockchains": _toConsumableArray(supported.evm)
+  }, {
     "name": "Backpack",
     "extension": "Backpack",
     "desktop": {},
@@ -357,9 +376,6 @@
       "ios": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
-        "open": function open() {
-          return "solflare://ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
-        },
         "solanaPay": true
       },
       "android": {
