@@ -76,10 +76,10 @@ export default [
   {
     "name": "Binance Wallet",
     "extension": "Binance",
-    "desktop": { "qr": "WalletConnectV1" },
+    "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
-      "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "ios": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "bnc://app.binance.com/cedefi/", "universal": "https://app.binance.com/cedefi", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
     },
     "logo": wallets.Binance?.info?.logo,
     "blockchains": [...supported.evm]
@@ -126,16 +126,6 @@ export default [
       "android": { "native": "rainbow:", "universal": "https://rnbwapp.com", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/rainbow.jpg",
-    "blockchains": [...supported.evm]
-  },
-  {
-    "name": "Timeless Wallet",
-    "desktop": { "qr": "WalletConnectV1" },
-    "mobile": { 
-      "ios": { "native": "timeless-wallet:", "universal": "https://timelesswallet.xyz", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-      "android": { "native": "timeless-wallet:", "universal": "https://timelesswallet.xyz", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
-    },
-    "logo": "https://img1.depay.com/wallets/timeless.jpg",
     "blockchains": [...supported.evm]
   },
   {
@@ -211,7 +201,7 @@ export default [
       "ios": {
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
-        "open": ()=>`https://solflare.com/ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${window.location.origin.toString()}`,
+        "open": ()=>`solflare://ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${window.location.origin.toString()}`,
         "solanaPay": true,
       },
       "android": {
@@ -223,6 +213,16 @@ export default [
     },
     "logo": wallets.Solflare?.info?.logo,
     "blockchains": [...supported.solana]
+  },
+  {
+    "name": "Family",
+    "desktop": { "qr": "WalletConnectV2" },
+    "mobile": { 
+      "ios": { "native": "familywallet:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "familywallet:", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+    },
+    "logo": "https://img1.depay.com/wallets/family.jpg",
+    "blockchains": [...supported.evm]
   },
   {
     "name": "imToken",
@@ -393,6 +393,16 @@ export default [
       "android": { "native": "eidoo:", "universal": "https://eidoo.io/crypto-wallet", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
     },
     "logo": "https://img1.depay.com/wallets/eidoo.jpg",
+    "blockchains": [...supported.evm]
+  },
+  {
+    "name": "Timeless Wallet",
+    "desktop": { "qr": "WalletConnectV1" },
+    "mobile": { 
+      "ios": { "native": "timeless-wallet:", "universal": "https://timelesswallet.xyz", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+      "android": { "native": "timeless-wallet:", "universal": "https://timelesswallet.xyz", "connect": "WalletConnectV1", "qr": "WalletConnectV1" },
+    },
+    "logo": "https://img1.depay.com/wallets/timeless.jpg",
     "blockchains": [...supported.evm]
   },
   {

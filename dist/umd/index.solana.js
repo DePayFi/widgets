@@ -160,20 +160,20 @@
     "name": "Binance Wallet",
     "extension": "Binance",
     "desktop": {
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
         "native": "bnc://app.binance.com/cedefi/",
         "universal": "https://app.binance.com/cedefi",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       },
       "android": {
         "native": "bnc://app.binance.com/cedefi/",
         "universal": "https://app.binance.com/cedefi",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
       }
     },
     "logo": (_wallets$Binance = web3WalletsSolana.wallets.Binance) === null || _wallets$Binance === void 0 ? void 0 : (_wallets$Binance$info = _wallets$Binance.info) === null || _wallets$Binance$info === void 0 ? void 0 : _wallets$Binance$info.logo,
@@ -252,27 +252,6 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/rainbow.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
-  }, {
-    "name": "Timeless Wallet",
-    "desktop": {
-      "qr": "WalletConnectV1"
-    },
-    "mobile": {
-      "ios": {
-        "native": "timeless-wallet:",
-        "universal": "https://timelesswallet.xyz",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
-      },
-      "android": {
-        "native": "timeless-wallet:",
-        "universal": "https://timelesswallet.xyz",
-        "connect": "WalletConnectV1",
-        "qr": "WalletConnectV1"
-      }
-    },
-    "logo": "https://img1.depay.com/wallets/timeless.jpg",
     "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Uniswap Wallet",
@@ -380,7 +359,7 @@
         "native": "solflare:",
         "universal": "https://solflare.com/ul",
         "open": function open() {
-          return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
+          return "solflare://ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(window.location.origin.toString());
         },
         "solanaPay": true
       },
@@ -393,6 +372,25 @@
     },
     "logo": (_wallets$Solflare = web3WalletsSolana.wallets.Solflare) === null || _wallets$Solflare === void 0 ? void 0 : (_wallets$Solflare$inf = _wallets$Solflare.info) === null || _wallets$Solflare$inf === void 0 ? void 0 : _wallets$Solflare$inf.logo,
     "blockchains": _toConsumableArray(supported$4.solana)
+  }, {
+    "name": "Family",
+    "desktop": {
+      "qr": "WalletConnectV2"
+    },
+    "mobile": {
+      "ios": {
+        "native": "familywallet:",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
+      },
+      "android": {
+        "native": "familywallet:",
+        "connect": "WalletConnectV2",
+        "qr": "WalletConnectV2"
+      }
+    },
+    "logo": "https://img1.depay.com/wallets/family.jpg",
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "imToken",
     "desktop": {
@@ -741,6 +739,27 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/eidoo.jpg",
+    "blockchains": _toConsumableArray(supported$4.evm)
+  }, {
+    "name": "Timeless Wallet",
+    "desktop": {
+      "qr": "WalletConnectV1"
+    },
+    "mobile": {
+      "ios": {
+        "native": "timeless-wallet:",
+        "universal": "https://timelesswallet.xyz",
+        "connect": "WalletConnectV1",
+        "qr": "WalletConnectV1"
+      },
+      "android": {
+        "native": "timeless-wallet:",
+        "universal": "https://timelesswallet.xyz",
+        "connect": "WalletConnectV1",
+        "qr": "WalletConnectV1"
+      }
+    },
+    "logo": "https://img1.depay.com/wallets/timeless.jpg",
     "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "CoolWallet",
