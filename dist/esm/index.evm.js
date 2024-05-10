@@ -145,14 +145,14 @@ var allWallets = [{
     "ios": {
       "native": "trust:",
       "universal": "https://link.trustwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "trust:",
       "universal": "https://link.trustwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": (_wallets$TrustEVM = wallets.TrustEVM) === null || _wallets$TrustEVM === void 0 ? void 0 : (_wallets$TrustEVM$inf = _wallets$TrustEVM.info) === null || _wallets$TrustEVM$inf === void 0 ? void 0 : _wallets$TrustEVM$inf.logo,
@@ -183,20 +183,20 @@ var allWallets = [{
   "name": "Crypto.com | DeFi Wallet",
   "extension": "CryptoCom",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "dfw://",
       "universal": "https://wallet.crypto.com",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "dfw://",
       "universal": "https://wallet.crypto.com",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     }
   },
   "logo": (_wallets$CryptoCom = wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
@@ -205,20 +205,20 @@ var allWallets = [{
   "name": "Coin98",
   "extensions": ["Coin98EVM", "Coin98SVM"],
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "coin98:",
       "universal": "https://coin98.services",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "coin98:",
       "universal": "https://coin98.services",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     }
   },
   "logo": (_wallets$Coin98EVM = wallets.Coin98EVM) === null || _wallets$Coin98EVM === void 0 ? void 0 : (_wallets$Coin98EVM$in = _wallets$Coin98EVM.info) === null || _wallets$Coin98EVM$in === void 0 ? void 0 : _wallets$Coin98EVM$in.logo,
@@ -236,26 +236,27 @@ var allWallets = [{
 }, {
   "name": "Rainbow",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "rainbow:",
       "universal": "https://rnbwapp.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "rainbow:",
       "universal": "https://rnbwapp.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/rainbow.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
-  "name": "Uniswap Wallet",
+  "name": "Uniswap",
+  "extension": "Uniswap",
   "desktop": {
     "qr": "WalletConnectV2"
   },
@@ -278,21 +279,21 @@ var allWallets = [{
 }, {
   "name": "Safe",
   "desktop": {
-    "qr": "WalletConnectV1",
-    "copyLink": "WalletConnectV1"
+    "qr": "WalletConnectV2",
+    "copyLink": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "safe",
       "universal": "https://app.safe.global",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "safe",
       "universal": "https://app.safe.global",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/safe.jpg",
@@ -301,7 +302,7 @@ var allWallets = [{
   "name": "Rabby",
   "extension": "Rabby",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": (_wallets$Rabby = wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
   "blockchains": _toConsumableArray(supported.evm)
@@ -411,18 +412,18 @@ var allWallets = [{
 }, {
   "name": "imToken",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "imtokenv2:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "imtokenv2:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/imtoken.jpg",
@@ -430,20 +431,20 @@ var allWallets = [{
 }, {
   "name": "MEW wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "mewwallet:",
       "universal": "https://mewwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "mewwallet:",
       "universal": "https://mewwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
@@ -451,18 +452,18 @@ var allWallets = [{
 }, {
   "name": "ONTO",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ontoprovider:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ontoprovider:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/onto.jpg",
@@ -471,21 +472,21 @@ var allWallets = [{
   "name": "Zerion",
   "desktop": {
     "native": "zerion://",
-    "qr": "WalletConnectV1",
-    "connect": "WalletConnectV1"
+    "qr": "WalletConnectV2",
+    "connect": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "zerion://",
       "universal": "https://wallet.zerion.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "zerion://",
       "universal": "https://wallet.zerion.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/zerion.jpg",
@@ -493,20 +494,20 @@ var allWallets = [{
 }, {
   "name": "Spot",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "spot://",
       "universal": "https://spot.so",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "spot://",
       "universal": "https://spot.so",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/spot.jpg",
@@ -535,18 +536,18 @@ var allWallets = [{
 }, {
   "name": "Unstoppable Domains",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://unstoppabledomains.com/mobile",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://unstoppabledomains.com/mobile",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
@@ -554,20 +555,20 @@ var allWallets = [{
 }, {
   "name": "Omni",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "omni:",
       "universal": "https://links.omni.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "omni:",
       "universal": "https://links.omni.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/omni.jpg",
@@ -575,20 +576,20 @@ var allWallets = [{
 }, {
   "name": "KEYRING PRO",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "keyring:",
       "universal": "https://keyring.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "keyring:",
       "universal": "https://keyring.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
@@ -616,20 +617,20 @@ var allWallets = [{
 }, {
   "name": "BitPay",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bitpay:",
       "universal": "https://link.bitpay.com/wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bitpay:",
       "universal": "https://link.bitpay.com/wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpay.jpg",
@@ -637,20 +638,20 @@ var allWallets = [{
 }, {
   "name": "MathWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "mathwallet:",
       "universal": "https://www.mathwallet.org",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "mathwallet:",
       "universal": "https://www.mathwallet.org",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
@@ -680,20 +681,20 @@ var allWallets = [{
 }, {
   "name": "1inch Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "oneinch://",
       "universal": "https://wallet.1inch.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "oneinch://",
       "universal": "https://wallet.1inch.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
@@ -701,18 +702,18 @@ var allWallets = [{
 }, {
   "name": "iToken Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "huobiwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "huobiwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
@@ -720,18 +721,18 @@ var allWallets = [{
 }, {
   "name": "Huddln",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "huddln:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "huddln:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/huddln.jpg",
@@ -739,20 +740,20 @@ var allWallets = [{
 }, {
   "name": "Eidoo",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "eidoo:",
       "universal": "https://eidoo.io/crypto-wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "eidoo:",
       "universal": "https://eidoo.io/crypto-wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/eidoo.jpg",
@@ -760,20 +761,20 @@ var allWallets = [{
 }, {
   "name": "Timeless Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "timeless-wallet:",
       "universal": "https://timelesswallet.xyz",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "timeless-wallet:",
       "universal": "https://timelesswallet.xyz",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/timeless.jpg",
@@ -781,18 +782,18 @@ var allWallets = [{
 }, {
   "name": "CoolWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "coolwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "coolwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
@@ -819,20 +820,20 @@ var allWallets = [{
 }, {
   "name": "AlphaWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "awallet:",
       "universal": "https://aw.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "awallet:",
       "universal": "https://aw.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
@@ -840,18 +841,18 @@ var allWallets = [{
 }, {
   "name": "Pillar",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "pillarwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "pillarwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/pillar.jpg",
@@ -859,20 +860,20 @@ var allWallets = [{
 }, {
   "name": "D'CENT Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "dcent:",
       "universal": "https://link.dcentwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "dcent:",
       "universal": "https://link.dcentwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/dcent.jpg",
@@ -880,20 +881,20 @@ var allWallets = [{
 }, {
   "name": "ZelCore",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "zel:",
       "universal": "https://link.zel.network",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "zel:",
       "universal": "https://link.zel.network",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/zel_core.jpg",
@@ -901,20 +902,20 @@ var allWallets = [{
 }, {
   "name": "Nash",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "nash:",
       "universal": "https://nash.io/walletconnect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "nash:",
       "universal": "https://nash.io/walletconnect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/nash.jpg",
@@ -922,18 +923,18 @@ var allWallets = [{
 }, {
   "name": "Coinomi",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://coinomi.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://coinomi.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/coinomi.jpg",
@@ -941,20 +942,20 @@ var allWallets = [{
 }, {
   "name": "CYBAVO Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "cybavowallet:",
       "universal": "https://cdn.cybavo.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "cybavowallet:",
       "universal": "https://cdn.cybavo.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/cybavo.jpg",
@@ -964,34 +965,34 @@ var allWallets = [{
   "desktop": {
     "native": "tokenary:",
     "universal": "https://tokenary.io",
-    "connect": "WalletConnectV1"
+    "connect": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/tokenary.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Torus",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/torus.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafePal",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "safepalwallet",
       "universal": "https://link.safepal.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "safepalwallet",
       "universal": "https://link.safepal.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/safepal.jpg",
@@ -1001,27 +1002,27 @@ var allWallets = [{
   "desktop": {
     "native": "infinity:",
     "universal": "https://infinitywallet.io/",
-    "connect": "WalletConnectV1"
+    "connect": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bridge Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bridgewallet:",
       "universal": "https://bridge.mtpelerin.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bridgewallet:",
       "universal": "https://bridge.mtpelerin.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
@@ -1029,20 +1030,20 @@ var allWallets = [{
 }, {
   "name": "SparkPoint",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "sparkpoint:",
       "universal": "https://sparkpoint.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "sparkpoint:",
       "universal": "https://sparkpoint.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
@@ -1050,20 +1051,20 @@ var allWallets = [{
 }, {
   "name": "PEAKDEFI Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "peakdefiwallet:",
       "universal": "https://peakdefi.com/download",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "peakdefiwallet:",
       "universal": "https://peakdefi.com/download",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
@@ -1072,19 +1073,19 @@ var allWallets = [{
   "name": "AT.Wallet",
   "desktop": {
     "native": "atwallet:",
-    "qr": "WalletConnectV1",
-    "connect": "WalletConnectV1"
+    "qr": "WalletConnectV2",
+    "connect": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "atwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "atwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/atwallet.jpg",
@@ -1092,20 +1093,20 @@ var allWallets = [{
 }, {
   "name": "Ellipal",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ellipal:",
       "universal": "https://www.ellipal.com/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ellipal:",
       "universal": "https://www.ellipal.com/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/ellipal.jpg",
@@ -1113,20 +1114,20 @@ var allWallets = [{
 }, {
   "name": "Aktionariat",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "aktionariat:",
       "universal": "https://app.aktionariat.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "aktionariat:",
       "universal": "https://app.aktionariat.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
@@ -1134,20 +1135,20 @@ var allWallets = [{
 }, {
   "name": "Talken Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "talken-wallet:",
       "universal": "https://talken.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "talken-wallet:",
       "universal": "https://talken.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/talken.jpg",
@@ -1155,20 +1156,20 @@ var allWallets = [{
 }, {
   "name": "KyberSwap",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "kyberswap:",
       "universal": "https://kyberswapnew.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "kyberswap:",
       "universal": "https://kyberswapnew.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
@@ -1176,20 +1177,20 @@ var allWallets = [{
 }, {
   "name": "Tongue Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "tongue:",
       "universal": "https://www.tongue.fi",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "tongue:",
       "universal": "https://www.tongue.fi",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/tongue.jpg",
@@ -1197,20 +1198,20 @@ var allWallets = [{
 }, {
   "name": "RWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "rwallet:",
       "universal": "https://www.rwallet.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "rwallet:",
       "universal": "https://www.rwallet.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/rwallet.jpg",
@@ -1218,20 +1219,20 @@ var allWallets = [{
 }, {
   "name": "O3Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "o3wallet:",
       "universal": "https://o3.network",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "o3wallet:",
       "universal": "https://o3.network",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
@@ -1239,20 +1240,20 @@ var allWallets = [{
 }, {
   "name": "HashKey Me",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "hashme:",
       "universal": "https://me.hashkey.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "hashme:",
       "universal": "https://me.hashkey.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
@@ -1260,27 +1261,27 @@ var allWallets = [{
 }, {
   "name": "Guarda Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/guarda.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "defiantapp:",
       "universal": "https://defiantapp.tech",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "defiantapp:",
       "universal": "https://defiantapp.tech",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
@@ -1288,20 +1289,20 @@ var allWallets = [{
 }, {
   "name": "Valora",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "celo://wallet",
       "universal": "https://valoraapp.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "celo://wallet",
       "universal": "https://valoraapp.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/valora.jpg",
@@ -1309,18 +1310,18 @@ var allWallets = [{
 }, {
   "name": "Celo Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "celowallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "celowallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/celo.jpg",
@@ -1328,20 +1329,20 @@ var allWallets = [{
 }, {
   "name": "Elastos Essentials",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "essentials:",
       "universal": "https://essentials.elastos.net",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "essentials:",
       "universal": "https://essentials.elastos.net",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
@@ -1349,20 +1350,20 @@ var allWallets = [{
 }, {
   "name": "Stasis",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "stasis:",
       "universal": "https://app.stasis.net",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "stasis:",
       "universal": "https://app.stasis.net",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/stasis.jpg",
@@ -1370,20 +1371,20 @@ var allWallets = [{
 }, {
   "name": "JulWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "julwallet:",
       "universal": "https://justliquidity.org",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "julwallet:",
       "universal": "https://justliquidity.org",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/julwallet.jpg",
@@ -1391,18 +1392,18 @@ var allWallets = [{
 }, {
   "name": "Bitpie",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bitpie:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bitpie:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpie.jpg",
@@ -1410,20 +1411,20 @@ var allWallets = [{
 }, {
   "name": "Minerva Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "minerva:",
       "universal": "https://minerva.digital",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "minerva:",
       "universal": "https://minerva.digital",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/minerva.jpg",
@@ -1431,20 +1432,20 @@ var allWallets = [{
 }, {
   "name": "Tangem",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "tangem:",
       "universal": "https://app.tangem.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "tangem:",
       "universal": "https://app.tangem.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/tangem.jpg",
@@ -1452,18 +1453,18 @@ var allWallets = [{
 }, {
   "name": "ioPay",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "iopay:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "iopay:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/io_pay.jpg",
@@ -1471,14 +1472,14 @@ var allWallets = [{
 }, {
   "name": "Coinhub",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/coinhub.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Go Pocket",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/gopocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
@@ -1486,18 +1487,18 @@ var allWallets = [{
   "name": "Wallet 3",
   "desktop": {
     "native": "wallet3:",
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "wallet3:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "wallet3:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/wallet3.jpg",
@@ -1505,18 +1506,18 @@ var allWallets = [{
 }, {
   "name": "yiToken",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "yitoken:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "yitoken:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/yitoken.jpg",
@@ -1524,18 +1525,18 @@ var allWallets = [{
 }, {
   "name": "DID Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "abt:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "abt:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/didwallet.jpg",
@@ -1543,18 +1544,18 @@ var allWallets = [{
 }, {
   "name": "Shinobi Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "shinobi-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "shinobi-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
@@ -1562,18 +1563,18 @@ var allWallets = [{
 }, {
   "name": "AirGap Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "airgap-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "airgap-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
@@ -1581,20 +1582,20 @@ var allWallets = [{
 }, {
   "name": "SecuX",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "secux://",
       "universal": "https://wsweb.secuxtech.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "secux://",
       "universal": "https://wsweb.secuxtech.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/secux.jpg",
@@ -1602,20 +1603,20 @@ var allWallets = [{
 }, {
   "name": "Orange",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "orangewallet:",
       "universal": "https://link.orangewallet.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "orangewallet:",
       "universal": "https://link.orangewallet.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/orange.jpg",
@@ -1623,18 +1624,18 @@ var allWallets = [{
 }, {
   "name": "Krystal",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "krystalWallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "krystalWallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/krystal.jpg",
@@ -1642,18 +1643,18 @@ var allWallets = [{
 }, {
   "name": "Kriptomat",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "kriptomatapp://wallet-connect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "kriptomatapp://wallet-connect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
@@ -1661,20 +1662,20 @@ var allWallets = [{
 }, {
   "name": "Ambire Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ambire:",
       "universal": "https://mobile.ambire.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ambire:",
       "universal": "https://mobile.ambire.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
@@ -1682,18 +1683,18 @@ var allWallets = [{
 }, {
   "name": "PayBolt",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "paybolt://Wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "paybolt://Wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
@@ -1727,34 +1728,34 @@ var allWallets = [{
 }, {
   "name": "Mask Network",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/mask_network.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uniblow",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/uniblow.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Autonomy: Digital Art Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "autonomy-wc",
       "universal": "https://autonomy.io/apps/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "autonomy-wc",
       "universal": "https://autonomy.io/apps/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/autonomy.jpg",
@@ -1762,20 +1763,20 @@ var allWallets = [{
 }, {
   "name": "Lilico",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "lilico://",
       "universal": "https://link.lilico.app/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "lilico://",
       "universal": "https://link.lilico.app/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/lilico.jpg",
@@ -1784,19 +1785,19 @@ var allWallets = [{
   "name": "Fireblocks",
   "desktop": {
     "universal": "https://console.fireblocks.io/v2",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "fireblocks-wc://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "fireblocks-wc://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
@@ -1804,18 +1805,18 @@ var allWallets = [{
 }, {
   "name": "WATT ME",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "wattwallet://wallet-connect/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "wattwallet://wallet-connect/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/wattme.jpg",
@@ -1823,20 +1824,20 @@ var allWallets = [{
 }, {
   "name": "Coingrig",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "coingrig://",
       "universal": "https://link.coingrig.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "coingrig://",
       "universal": "https://link.coingrig.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/coingrig.jpg",
@@ -1844,7 +1845,7 @@ var allWallets = [{
 }, {
   "name": "Cryptnox Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
@@ -1852,21 +1853,21 @@ var allWallets = [{
   "name": "bobablocks",
   "desktop": {
     "native": "bobablocks://",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bobablocks://",
       "universal": "https://app.bobablocks.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bobablocks://",
       "universal": "https://app.bobablocks.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
@@ -1874,20 +1875,20 @@ var allWallets = [{
 }, {
   "name": "Plasma Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "plasmawallet:",
       "universal": "https://plasma-wallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "plasmawallet:",
       "universal": "https://plasma-wallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
@@ -1895,20 +1896,20 @@ var allWallets = [{
 }, {
   "name": "HUMBL WALLET",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "humblwallet:",
       "universal": "https://wallet.search3.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "humblwallet:",
       "universal": "https://wallet.search3.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
@@ -1916,18 +1917,18 @@ var allWallets = [{
 }, {
   "name": "Zelus",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "zeluswallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "zeluswallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/zelus.jpg",
@@ -1935,18 +1936,18 @@ var allWallets = [{
 }, {
   "name": "Earth Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "earthwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "earthwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
@@ -1954,27 +1955,27 @@ var allWallets = [{
 }, {
   "name": "Boba Multisig",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "EASY",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "co.theeasy.app://",
       "universal": "https://link.easy.me",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "co.theeasy.app://",
       "universal": "https://link.easy.me",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/easy.jpg",
@@ -1982,20 +1983,20 @@ var allWallets = [{
 }, {
   "name": "ISLAMIwallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "islamiwallet://islami.com/path/",
       "universal": "https://islamiwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "islamiwallet://islami.com/path/",
       "universal": "https://islamiwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
@@ -2003,20 +2004,20 @@ var allWallets = [{
 }, {
   "name": "Card Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "cardwallet://",
       "universal": "https://wallet.cardstack.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "cardwallet://",
       "universal": "https://wallet.cardstack.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
@@ -2024,34 +2025,34 @@ var allWallets = [{
 }, {
   "name": "GameStop Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RealT Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PLTwallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "pltwallet:",
       "universal": "https://pltwallet.io/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "pltwallet:",
       "universal": "https://pltwallet.io/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
@@ -2059,20 +2060,20 @@ var allWallets = [{
 }, {
   "name": "Avacus",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "avacus://",
       "universal": "https://avacus.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "avacus://",
       "universal": "https://avacus.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/avacus.jpg",
@@ -2080,18 +2081,18 @@ var allWallets = [{
 }, {
   "name": "StrikeX Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "strikex://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "strikex://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
@@ -2099,7 +2100,7 @@ var allWallets = [{
 }, {
   "name": "BCERTin wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
@@ -2127,18 +2128,18 @@ var allWallets = [{
 }, {
   "name": "Freedom Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "freedom-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "freedom-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
@@ -2146,20 +2147,20 @@ var allWallets = [{
 }, {
   "name": "Assure",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "assure://",
       "universal": "https://www.assure.pro/Official",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "assure://",
       "universal": "https://www.assure.pro/Official",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/assure.jpg",
@@ -2167,18 +2168,18 @@ var allWallets = [{
 }, {
   "name": "Cosmostation",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "cosmostation://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "cosmostation://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
@@ -2186,18 +2187,18 @@ var allWallets = [{
 }, {
   "name": "THORWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "thorwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "thorwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
@@ -2205,27 +2206,27 @@ var allWallets = [{
 }, {
   "name": "Gryfyn",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinStats",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "coinstats:",
       "universal": "https://coinstats.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "coinstats:",
       "universal": "https://coinstats.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
@@ -2233,18 +2234,18 @@ var allWallets = [{
 }, {
   "name": "Abra Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "abra:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "abra:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
@@ -2252,18 +2253,18 @@ var allWallets = [{
 }, {
   "name": "Opera Crypto Browser",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "cryptobrowser://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "cryptobrowser://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
@@ -2271,18 +2272,18 @@ var allWallets = [{
 }, {
   "name": "Keywallet Touch",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "keywalletTouch://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "keywalletTouch://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
@@ -2290,18 +2291,18 @@ var allWallets = [{
 }, {
   "name": "Enno Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ennowallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ennowallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
@@ -2309,27 +2310,27 @@ var allWallets = [{
 }, {
   "name": "A4 Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitcoin.com Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bitcoincom://",
       "universal": "https://wallet.bitcoin.com/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bitcoincom://",
       "universal": "https://wallet.bitcoin.com/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
@@ -2337,20 +2338,20 @@ var allWallets = [{
 }, {
   "name": "Defiant",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "defiantapp://",
       "universal": "https://defiantapp.tech/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "defiantapp://",
       "universal": "https://defiantapp.tech/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
@@ -2358,7 +2359,7 @@ var allWallets = [{
 }, {
   "name": "Chain",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/chain.jpg",
   "blockchains": _toConsumableArray(supported.evm)
@@ -2366,19 +2367,19 @@ var allWallets = [{
   "name": "Verso",
   "desktop": {
     "native": "verso",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "verso",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "verso",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/verso.jpg",
@@ -2386,20 +2387,20 @@ var allWallets = [{
 }, {
   "name": "LOBSTR Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "lobstr://",
       "universal": "https://lobstr.co/uni/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "lobstr://",
       "universal": "https://lobstr.co/uni/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
@@ -2407,20 +2408,20 @@ var allWallets = [{
 }, {
   "name": "Bifrost Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bifrostwallet:",
       "universal": "https://app.bifrostwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bifrostwallet:",
       "universal": "https://app.bifrostwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
@@ -2428,18 +2429,18 @@ var allWallets = [{
 }, {
   "name": "Okse Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "oksewallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "oksewallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
@@ -2447,7 +2448,7 @@ var allWallets = [{
 }, {
   "name": "BRISE Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
@@ -2455,32 +2456,32 @@ var allWallets = [{
   "name": "HyperPay",
   "extension": "HyperPay",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": (_wallets$HyperPay = wallets.HyperPay) === null || _wallets$HyperPay === void 0 ? void 0 : (_wallets$HyperPay$inf = _wallets$HyperPay.info) === null || _wallets$HyperPay$inf === void 0 ? void 0 : _wallets$HyperPay$inf.logo,
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ATON",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/aton.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Frontier",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "frontier://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "frontier://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/frontier.jpg",
@@ -2488,18 +2489,18 @@ var allWallets = [{
 }, {
   "name": "MDAO Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ttmwalletapp://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ttmwalletapp://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
@@ -2507,18 +2508,18 @@ var allWallets = [{
 }, {
   "name": "TTM Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ttmwalletapp:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ttmwalletapp:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
@@ -2526,18 +2527,18 @@ var allWallets = [{
 }, {
   "name": "Opto Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "opto://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "opto://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
@@ -2545,20 +2546,20 @@ var allWallets = [{
 }, {
   "name": "XFUN Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "xfunwallet://",
       "universal": "https://xfun.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "xfunwallet://",
       "universal": "https://xfun.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
@@ -2587,18 +2588,18 @@ var allWallets = [{
 }, {
   "name": "Uvtoken",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "UvToken://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "UvToken://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/uv_token.jpg",
@@ -2607,21 +2608,21 @@ var allWallets = [{
   "name": "PREMA Wallet",
   "desktop": {
     "native": "premawallet:",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "premawallet:",
       "universal": "https://premanft.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "premawallet:",
       "universal": "https://premanft.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
@@ -2629,18 +2630,18 @@ var allWallets = [{
 }, {
   "name": "Shinobi-Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "shinobi-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "shinobi-wallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi.jpg",
@@ -2648,18 +2649,18 @@ var allWallets = [{
 }, {
   "name": "ByteBank",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "hideoutWallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "hideoutWallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
@@ -2667,18 +2668,18 @@ var allWallets = [{
 }, {
   "name": "Ancrypto Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ancrypto://app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ancrypto://app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
@@ -2686,20 +2687,20 @@ var allWallets = [{
 }, {
   "name": "Bee Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "beewallet.app://",
       "universal": "https://beewallet.app/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "beewallet.app://",
       "universal": "https://beewallet.app/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
@@ -2707,18 +2708,18 @@ var allWallets = [{
 }, {
   "name": "LATOKEN Multichain DeFi Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "dfwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "dfwallet:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
@@ -2726,20 +2727,20 @@ var allWallets = [{
 }, {
   "name": "TK Finance",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "tk://",
       "universal": "https://trustkeys.network",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "tk://",
       "universal": "https://trustkeys.network",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
@@ -2747,20 +2748,20 @@ var allWallets = [{
 }, {
   "name": "Oxalus Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "oxalus://",
       "universal": "https://deeplink.oxalus.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "oxalus://",
       "universal": "https://deeplink.oxalus.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
@@ -2768,18 +2769,18 @@ var allWallets = [{
 }, {
   "name": "3S Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bhcwallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bhcwallet://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
@@ -2787,20 +2788,20 @@ var allWallets = [{
 }, {
   "name": "Klever Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "kleverwallet:",
       "universal": "https://klever.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "kleverwallet:",
       "universal": "https://klever.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
@@ -2809,21 +2810,21 @@ var allWallets = [{
   "name": "OneKey",
   "desktop": {
     "native": "onekey-wallet://",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "onekey-wallet://",
       "universal": "https://app.onekey.so/wc/connect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "onekey-wallet://",
       "universal": "https://app.onekey.so/wc/connect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/one_key.jpg",
@@ -2831,18 +2832,18 @@ var allWallets = [{
 }, {
   "name": "helix id",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "helix-id://helix-id.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "helix-id://helix-id.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/helix_id.jpg",
@@ -2850,20 +2851,20 @@ var allWallets = [{
 }, {
   "name": "ABC Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "abc-wallet://abcwc",
       "universal": "https://abcwalletconnect.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "abc-wallet://abcwc",
       "universal": "https://abcwalletconnect.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
@@ -2871,20 +2872,20 @@ var allWallets = [{
 }, {
   "name": "HaHa",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "haha://",
       "universal": "https://haha.me",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "haha://",
       "universal": "https://haha.me",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/haha.jpg",
@@ -2892,20 +2893,20 @@ var allWallets = [{
 }, {
   "name": "Volt: DeFi",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "volt:",
       "universal": "https://get.voltage.finance",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "volt:",
       "universal": "https://get.voltage.finance",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/volt.jpg",
@@ -2913,20 +2914,20 @@ var allWallets = [{
 }, {
   "name": "Wirex Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "wirexwallet://",
       "universal": "https://wwallet.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "wirexwallet://",
       "universal": "https://wwallet.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/wirex_wallet.jpg",
@@ -2953,20 +2954,20 @@ var allWallets = [{
 }, {
   "name": "RiceWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "ricewallet",
       "universal": "https://ricewallet.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "ricewallet",
       "universal": "https://ricewallet.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
@@ -2974,20 +2975,20 @@ var allWallets = [{
 }, {
   "name": "SafeMoon",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "safemoon:",
       "universal": "https://safemoon.net/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "safemoon:",
       "universal": "https://safemoon.net/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/safemoon.jpg",
@@ -2995,20 +2996,20 @@ var allWallets = [{
 }, {
   "name": "SimpleHold",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "simplehold://",
       "universal": "https://simplehold.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "simplehold://",
       "universal": "https://simplehold.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
@@ -3016,18 +3017,18 @@ var allWallets = [{
 }, {
   "name": "GoldBit",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "goldbit://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "goldbit://",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
@@ -3035,18 +3036,18 @@ var allWallets = [{
 }, {
   "name": "ioPay",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "iopay:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "iopay:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/iopay.jpg",
@@ -3054,20 +3055,20 @@ var allWallets = [{
 }, {
   "name": "Bitizen",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bitizen://wallet",
       "universal": "https://bitizen.org/wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bitizen://wallet",
       "universal": "https://bitizen.org/wallet",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitizen.jpg",
@@ -3075,20 +3076,20 @@ var allWallets = [{
 }, {
   "name": "Slavi Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "slaviwallet:",
       "universal": "https://www.slaviwallet.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "slaviwallet:",
       "universal": "https://www.slaviwallet.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
@@ -3097,21 +3098,21 @@ var allWallets = [{
   "name": "Nufinetes",
   "desktop": {
     "native": "vimwallet:/",
-    "connect": "WalletConnectV1",
-    "qr": "WalletConnectV1"
+    "connect": "WalletConnectV2",
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "vimwallet:/",
       "universal": "https://apple.vimworld.org",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "vimwallet:/",
       "universal": "https://apple.vimworld.org",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
@@ -3119,20 +3120,20 @@ var allWallets = [{
 }, {
   "name": "Arianee Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "com.arianee.wallet",
       "universal": "https://arianee.net",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "com.arianee.wallet",
       "universal": "https://arianee.net",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
@@ -3140,20 +3141,20 @@ var allWallets = [{
 }, {
   "name": "NOW Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "walletnow://",
       "universal": "https://walletnow.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "walletnow://",
       "universal": "https://walletnow.app.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
@@ -3161,20 +3162,20 @@ var allWallets = [{
 }, {
   "name": "Arculus Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "arculuswc:",
       "universal": "https://gw.arculus.co/app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "arculuswc:",
       "universal": "https://gw.arculus.co/app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
@@ -3182,20 +3183,20 @@ var allWallets = [{
 }, {
   "name": "Linen",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "linen:",
       "universal": "https://linen.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "linen:",
       "universal": "https://linen.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/linen.jpg",
@@ -3203,18 +3204,18 @@ var allWallets = [{
 }, {
   "name": "Nitrogen Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://nitrogen.org/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://nitrogen.org/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
@@ -3222,18 +3223,18 @@ var allWallets = [{
 }, {
   "name": "ApolloX",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://app.apollox.finance",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://app.apollox.finance",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
@@ -3241,25 +3242,25 @@ var allWallets = [{
 }, {
   "name": "ID Pocket",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinCircle",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://coincircle.com/app/walletconnect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://coincircle.com/app/walletconnect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
@@ -3267,32 +3268,32 @@ var allWallets = [{
 }, {
   "name": "SahalWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UPBOND Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Sequence Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://sequence.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://sequence.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
@@ -3300,18 +3301,18 @@ var allWallets = [{
 }, {
   "name": "LocalTrade Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://ws.lab.localtrade.cc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://ws.lab.localtrade.cc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
@@ -3319,25 +3320,25 @@ var allWallets = [{
 }, {
   "name": "Loopring Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Vision: Crypto Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://app.vision-crypto.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://app.vision-crypto.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/vision.jpg",
@@ -3345,27 +3346,27 @@ var allWallets = [{
 }, {
   "name": "Ballet Crypto",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pitaka",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "pitaka://",
       "universal": "https://app.pitaka.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "pitaka://",
       "universal": "https://app.pitaka.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/pitaka.jpg",
@@ -3373,60 +3374,60 @@ var allWallets = [{
 }, {
   "name": "AbsoluteWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "The Parallel",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CypherD Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keplr",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/keplr.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MyWalliD",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Status",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/status.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Monarch Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://monarchwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://monarchwallet.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
@@ -3434,18 +3435,18 @@ var allWallets = [{
 }, {
   "name": "Marble",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://app.marblewallet.com/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://app.marblewallet.com/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/marble.jpg",
@@ -3453,18 +3454,18 @@ var allWallets = [{
 }, {
   "name": "Flooz",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://wallet.flooz.trade/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://wallet.flooz.trade/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/flooz.jpg",
@@ -3472,18 +3473,18 @@ var allWallets = [{
 }, {
   "name": "Blockchain.com",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
@@ -3491,25 +3492,25 @@ var allWallets = [{
 }, {
   "name": "Dohrnii Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UniPass",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://wallet.unipass.id",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://wallet.unipass.id",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
@@ -3517,20 +3518,20 @@ var allWallets = [{
 }, {
   "name": "ZenGo",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "zengo://get.zengo.com/",
       "universal": "https://get.zengo.com",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "zengo://get.zengo.com/",
       "universal": "https://get.zengo.com",
       "connect": "WalletConnectV2",
-      "qr": "WalletConnectV1"
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/zengo2.png",
@@ -3538,25 +3539,25 @@ var allWallets = [{
 }, {
   "name": "Locker Token",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/locker_token.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keeper",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://link.keeper-wallet.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://link.keeper-wallet.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/keeper.jpg",
@@ -3564,39 +3565,39 @@ var allWallets = [{
 }, {
   "name": "XDEFI Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Numio",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/numio.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Neon Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nabox",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://nabox.io/app/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://nabox.io/app/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/nabox.jpg",
@@ -3604,18 +3605,18 @@ var allWallets = [{
 }, {
   "name": "Snowball",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://app.snowball.exchange/app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://app.snowball.exchange/app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/snowball.jpg",
@@ -3623,18 +3624,18 @@ var allWallets = [{
 }, {
   "name": "KryptoGO Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://kryptogo.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://kryptogo.page.link",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
@@ -3642,39 +3643,39 @@ var allWallets = [{
 }, {
   "name": "Payperless",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/payperless.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Brave Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Crossmint",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/crossmint.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Safematrix",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://safematrix.io/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://safematrix.io/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/safematrix.jpg",
@@ -3682,18 +3683,18 @@ var allWallets = [{
 }, {
   "name": "pier",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://pierwallet.com/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://pierwallet.com/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/pier.jpg",
@@ -3701,18 +3702,18 @@ var allWallets = [{
 }, {
   "name": "FILWallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://h5.filwallet.co",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://h5.filwallet.co",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
@@ -3720,18 +3721,18 @@ var allWallets = [{
 }, {
   "name": "ParaSwap Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://wallet.paraswap.io/#/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://wallet.paraswap.io/#/",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
@@ -3739,20 +3740,20 @@ var allWallets = [{
 }, {
   "name": "Bitski",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "bitski:",
       "universal": "https://wallet.bitski.com/walletconnect/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "bitski:",
       "universal": "https://wallet.bitski.com/walletconnect/wc",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/bitski.jpg",
@@ -3760,20 +3761,20 @@ var allWallets = [{
 }, {
   "name": "Hippo Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "hippowallet://",
       "universal": "https://hippowallet.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "hippowallet://",
       "universal": "https://hippowallet.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
@@ -3781,18 +3782,18 @@ var allWallets = [{
 }, {
   "name": "Core",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://core.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://core.app",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/core.jpg",
@@ -3800,18 +3801,18 @@ var allWallets = [{
 }, {
   "name": "Xcapit",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://app.xcapit.com/links",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://app.xcapit.com/links",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/xcapit.jpg",
@@ -3819,18 +3820,18 @@ var allWallets = [{
 }, {
   "name": "Paper",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "universal": "https://withpaper.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "universal": "https://withpaper.com",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
@@ -3838,18 +3839,18 @@ var allWallets = [{
 }, {
   "name": "MetaOne",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "metaone:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "metaone:",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/metaone.jpg",
@@ -3857,20 +3858,20 @@ var allWallets = [{
 }, {
   "name": "Enjin Wallet",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "mobile": {
     "ios": {
       "native": "enjinwallet:",
       "universal": "https://deeplink.wallet.enjin.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     },
     "android": {
       "native": "enjinwallet:",
       "universal": "https://deeplink.wallet.enjin.io",
-      "connect": "WalletConnectV1",
-      "qr": "WalletConnectV1"
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2"
     }
   },
   "logo": "https://img1.depay.com/wallets/enjin.jpg",
@@ -3878,7 +3879,7 @@ var allWallets = [{
 }, {
   "name": "BC Vault",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
   "blockchains": _toConsumableArray(supported.evm)
@@ -3919,16 +3920,9 @@ var allWallets = [{
   "logo": (_wallets$WindowSolana = wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
   "blockchains": _toConsumableArray(supported.solana)
 }, {
-  "name": "WalletConnect V2",
-  "desktop": {
-    "qr": "WalletConnectV2"
-  },
-  "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-  "blockchains": _toConsumableArray(supported.evm)
-}, {
   "name": "WalletConnect",
   "desktop": {
-    "qr": "WalletConnectV1"
+    "qr": "WalletConnectV2"
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
   "blockchains": _toConsumableArray(supported.evm)
@@ -23244,6 +23238,11 @@ var SelectWalletDialog = (function (props) {
         action: function action() {
           window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank');
         }
+      }, {
+        label: "Problems connecting?",
+        action: function action() {
+          window.open('mailto:support@depay.com?subject=Problem connecting wallet&body=Please enter the name of the wallet you have problems with connecting:', '_blank');
+        }
       }]
     })),
     bodyClassName: "PaddingBottomXS",
@@ -23989,7 +23988,7 @@ var DialogStyle = (function (style) {
 });
 
 var DropDownStyle = (function (style) {
-  return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
+  return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: rgb(240,240,240);\n      border-radius: 8px;\n      border: 1px solid rgb(230,230,230);\n      box-shadow: 0 0 12px rgba(0,0,0,0.1);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      font-weight: 500;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n      width: 100%;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background: rgba(0,0,0,0.1);\n    }\n    \n    .DropDownItem:active {\n      background: rgba(0,0,0,0.15);\n    }\n    \n  ");
 });
 
 var FontStyle = (function (style) {

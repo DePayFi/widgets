@@ -8,7 +8,6 @@ export default {
   '@depay/react-token-image': 'ReactTokenImage',
   '@depay/react-token-image-evm': 'ReactTokenImage',
   '@depay/react-token-image-solana': 'ReactTokenImage',
-  '@depay/walletconnect-v1': 'WalletConnect',
   '@depay/walletconnect-v2': 'WalletConnectV2',
   '@depay/web3-assets': 'Web3Assets',
   '@depay/web3-assets-evm': 'Web3Assets',

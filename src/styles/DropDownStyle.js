@@ -27,6 +27,7 @@ export default (style)=>{
       padding: 6px 10px;
       text-align: left;
       white-space: nowrap;
+      width: 100%;
     }
 
     .DropDownItem:focus {
