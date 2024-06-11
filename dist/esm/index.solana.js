@@ -24412,14 +24412,14 @@ var ConfigurationProvider = (function (props) {
       }) : undefined
     })["catch"](retry).then( /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
-        var _JSON$parse, configurationId, _configuration, verified, localConfigurationWithValues;
+        var _JSON$parse, configurationId, _configuration, verified, _configuration$accept, localConfigurationWithValues;
 
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(response.status == 200)) {
-                  _context.next = 19;
+                  _context.next = 21;
                   break;
                 }
 
@@ -24443,7 +24443,7 @@ var ConfigurationProvider = (function (props) {
                 verified = _context.sent;
 
                 if (!verified) {
-                  _context.next = 16;
+                  _context.next = 18;
                   break;
                 }
 
@@ -24458,24 +24458,33 @@ var ConfigurationProvider = (function (props) {
 
                   return acc;
                 }, {});
+
+                if (!(!(_configuration !== null && _configuration !== void 0 && _configuration.accept) || !(_configuration !== null && _configuration !== void 0 && (_configuration$accept = _configuration.accept) !== null && _configuration$accept !== void 0 && _configuration$accept.length) > 0)) {
+                  _context.next = 15;
+                  break;
+                }
+
+                throw 'Configuration is missing token acceptance!';
+
+              case 15:
                 setConfiguration(_objectSpread$7(_objectSpread$7(_objectSpread$7({}, _configuration), localConfigurationWithValues), {}, {
                   id: configurationId,
                   currencyCode: currencyCode
                 }));
-                _context.next = 17;
+                _context.next = 19;
                 break;
 
-              case 16:
+              case 18:
                 throw 'Configuration response not verified!';
 
-              case 17:
-                _context.next = 20;
+              case 19:
+                _context.next = 22;
                 break;
 
-              case 19:
+              case 21:
                 retry();
 
-              case 20:
+              case 22:
               case "end":
                 return _context.stop();
             }
@@ -28954,23 +28963,60 @@ var PaymentTrackingProvider = (function (props) {
     };
   }();
 
-  var initializeTracking = function initializeTracking(transaction, afterBlock, paymentRoute, deadline) {
-    storePayment(transaction, afterBlock, paymentRoute, deadline);
+  var initializeTracking = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(transaction, afterBlock, paymentRoute, deadline) {
+      return regenerator.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!(transaction.blockchain === 'solana')) {
+                _context5.next = 4;
+                break;
+              }
 
-    if (synchronousTracking || track && track.async == true) {
-      startTracking(transaction, afterBlock, paymentRoute, deadline);
-    }
+              _context5.next = 3;
+              return getNonce({
+                transaction: transaction,
+                account: account,
+                wallet: wallet
+              });
 
-    if (synchronousTracking == false) {
-      return;
-    }
+            case 3:
+              transaction.nonce = _context5.sent;
 
-    setDeadline(deadline);
-    setTransaction(transaction);
-    setAfterBlock(afterBlock);
-    setPaymentRoute(paymentRoute);
-    openSocket(transaction);
-  };
+            case 4:
+              storePayment(transaction, afterBlock, paymentRoute, deadline);
+
+              if (synchronousTracking || track && track.async == true) {
+                startTracking(transaction, afterBlock, paymentRoute, deadline);
+              }
+
+              if (!(synchronousTracking == false)) {
+                _context5.next = 8;
+                break;
+              }
+
+              return _context5.abrupt("return");
+
+            case 8:
+              setDeadline(deadline);
+              setTransaction(transaction);
+              setAfterBlock(afterBlock);
+              setPaymentRoute(paymentRoute);
+              openSocket(transaction);
+
+            case 13:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function initializeTracking(_x17, _x18, _x19, _x20) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
 
   var trace = function trace(afterBlock, paymentRoute, transaction, deadline) {
     setAttemptId(); // reset attemptId in case payment is retried
@@ -28980,57 +29026,58 @@ var PaymentTrackingProvider = (function (props) {
     }
 
     return new Promise( /*#__PURE__*/function () {
-      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(resolve, reject) {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(resolve, reject) {
         var _paymentRoute$feeAmou2;
 
         var performedPayment;
-        return regenerator.wrap(function _callee5$(_context5) {
+        return regenerator.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                _context5.t0 = paymentRoute.blockchain;
-                _context5.t1 = account;
-                _context5.next = 4;
+                _context6.t0 = paymentRoute.blockchain;
+                _context6.t1 = account;
+                _context6.next = 4;
                 return getNonce({
                   blockchain: paymentRoute.blockchain,
+                  transaction: transaction,
                   account: account,
                   wallet: wallet
                 });
 
               case 4:
-                _context5.t2 = _context5.sent;
-                _context5.t3 = afterBlock.toString();
-                _context5.t4 = paymentRoute.fromToken.address;
-                _context5.t5 = paymentRoute.fromAmount.toString();
-                _context5.t6 = paymentRoute.fromDecimals;
-                _context5.t7 = paymentRoute.toToken.address;
-                _context5.t8 = paymentRoute.toAmount.toString();
-                _context5.t9 = paymentRoute.toDecimals;
-                _context5.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
-                _context5.t11 = deadline;
-                _context5.t12 = wallet === null || wallet === void 0 ? void 0 : wallet.name;
+                _context6.t2 = _context6.sent;
+                _context6.t3 = afterBlock.toString();
+                _context6.t4 = paymentRoute.fromToken.address;
+                _context6.t5 = paymentRoute.fromAmount.toString();
+                _context6.t6 = paymentRoute.fromDecimals;
+                _context6.t7 = paymentRoute.toToken.address;
+                _context6.t8 = paymentRoute.toAmount.toString();
+                _context6.t9 = paymentRoute.toDecimals;
+                _context6.t10 = paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString();
+                _context6.t11 = deadline;
+                _context6.t12 = wallet === null || wallet === void 0 ? void 0 : wallet.name;
                 performedPayment = {
-                  blockchain: _context5.t0,
-                  sender: _context5.t1,
-                  nonce: _context5.t2,
-                  after_block: _context5.t3,
-                  from_token: _context5.t4,
-                  from_amount: _context5.t5,
-                  from_decimals: _context5.t6,
-                  to_token: _context5.t7,
-                  to_amount: _context5.t8,
-                  to_decimals: _context5.t9,
-                  fee_amount: _context5.t10,
-                  deadline: _context5.t11,
-                  selected_wallet: _context5.t12
+                  blockchain: _context6.t0,
+                  sender: _context6.t1,
+                  nonce: _context6.t2,
+                  after_block: _context6.t3,
+                  from_token: _context6.t4,
+                  from_amount: _context6.t5,
+                  from_decimals: _context6.t6,
+                  to_token: _context6.t7,
+                  to_amount: _context6.t8,
+                  to_decimals: _context6.t9,
+                  fee_amount: _context6.t10,
+                  deadline: _context6.t11,
+                  selected_wallet: _context6.t12
                 };
 
                 if (!configurationId) {
-                  _context5.next = 20;
+                  _context6.next = 20;
                   break;
                 }
 
-                return _context5.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+                return _context6.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -29049,11 +29096,11 @@ var PaymentTrackingProvider = (function (props) {
 
               case 20:
                 if (!track.endpoint) {
-                  _context5.next = 24;
+                  _context6.next = 24;
                   break;
                 }
 
-                return _context5.abrupt("return", fetch(track.endpoint, {
+                return _context6.abrupt("return", fetch(track.endpoint, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -29076,14 +29123,14 @@ var PaymentTrackingProvider = (function (props) {
 
               case 25:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5);
+        }, _callee6);
       }));
 
-      return function (_x17, _x18) {
-        return _ref5.apply(this, arguments);
+      return function (_x21, _x22) {
+        return _ref6.apply(this, arguments);
       };
     }());
   };

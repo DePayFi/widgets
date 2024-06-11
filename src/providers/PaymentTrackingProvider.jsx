@@ -292,7 +292,10 @@ export default (props)=>{
     })
   }
 
-  const initializeTracking = (transaction, afterBlock, paymentRoute, deadline)=>{
+  const initializeTracking = async(transaction, afterBlock, paymentRoute, deadline)=>{
+    if(transaction.blockchain === 'solana') { // ensure solana transaction tracking uses only a single nonce for further processing
+      transaction.nonce = await getNonce({ transaction, account, wallet })
+    }
     storePayment(transaction, afterBlock, paymentRoute, deadline)
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute, deadline)
@@ -312,7 +315,7 @@ export default (props)=>{
       let performedPayment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: await getNonce({ blockchain: paymentRoute.blockchain, account, wallet }),
+        nonce: await getNonce({ blockchain: paymentRoute.blockchain, transaction, account, wallet }),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),

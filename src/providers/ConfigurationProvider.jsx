@@ -53,6 +53,9 @@ export default (props)=>{
             if (value !== undefined) { acc[key] = value }
             return acc
           }, {})
+          if(!configuration?.accept || !configuration?.accept?.length > 0) {
+            throw('Configuration is missing token acceptance!')
+          }
           setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId, currencyCode })
         } else {
           throw('Configuration response not verified!')
