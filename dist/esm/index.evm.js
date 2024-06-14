@@ -28493,7 +28493,7 @@ var PaymentTrackingProvider = (function (props) {
               case 0:
                 _context.t0 = JSON;
                 _context.t1 = transaction.blockchain;
-                _context.t2 = transaction.from;
+                _context.t2 = transaction.from || account;
                 _context.next = 5;
                 return getNonce({
                   transaction: transaction,
@@ -28974,6 +28974,7 @@ var PaymentTrackingProvider = (function (props) {
       return Promise.resolve();
     }
 
+    openSocket(transaction);
     return new Promise( /*#__PURE__*/function () {
       var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(resolve, reject) {
         var _paymentRoute$feeAmou2;

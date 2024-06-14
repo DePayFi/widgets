@@ -62,7 +62,7 @@ export default (props)=>{
         command: 'subscribe',
         identifier: JSON.stringify({
           blockchain: transaction.blockchain,
-          sender: transaction.from,
+          sender: transaction.from || account,
           nonce: await getNonce({ transaction, account, wallet }),
           channel: 'PaymentChannel'
         }),
@@ -311,6 +311,7 @@ export default (props)=>{
   const trace = (afterBlock, paymentRoute, transaction, deadline)=>{
     setAttemptId() // reset attemptId in case payment is retried
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
+    openSocket(transaction)
     return new Promise(async(resolve, reject)=>{
       let performedPayment = {
         blockchain: paymentRoute.blockchain,
