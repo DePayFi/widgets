@@ -28976,6 +28976,9 @@ var PaymentTrackingProvider = (function (props) {
       return Promise.resolve();
     }
 
+    setDeadline(deadline);
+    setAfterBlock(afterBlock);
+    setPaymentRoute(paymentRoute);
     openSocket(transaction);
     return new Promise( /*#__PURE__*/function () {
       var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(resolve, reject) {

@@ -311,6 +311,9 @@ export default (props)=>{
   const trace = (afterBlock, paymentRoute, transaction, deadline)=>{
     setAttemptId() // reset attemptId in case payment is retried
     if(!synchronousTracking && !asynchronousTracking) { return Promise.resolve() }
+    setDeadline(deadline)
+    setAfterBlock(afterBlock)
+    setPaymentRoute(paymentRoute)
     openSocket(transaction)
     return new Promise(async(resolve, reject)=>{
       let performedPayment = {
