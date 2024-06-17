@@ -49,8 +49,10 @@ export default ()=>{
     }
   }, [confirmationsPassed])
 
-  const trackingInfo = ()=> {
-    if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
+  const trackingInfo = (transaction)=> {
+    if (!transaction) {
+      return null
+    } else if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
       return null
     } else if (asynchronousTracking && trackingInitialized == false) {
       return(
@@ -154,7 +156,7 @@ export default ()=>{
               </div>
             </a>
           </div>
-          { trackingInfo() }
+          { trackingInfo(transaction) }
         </div>
       )
     }

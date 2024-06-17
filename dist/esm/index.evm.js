@@ -27666,8 +27666,10 @@ var Footer = (function () {
     }
   }, [confirmationsPassed]);
 
-  var trackingInfo = function trackingInfo() {
-    if (synchronousTracking == false && asynchronousTracking == false || asynchronousTracking && trackingInitialized) {
+  var trackingInfo = function trackingInfo(transaction) {
+    if (!transaction) {
+      return null;
+    } else if (synchronousTracking == false && asynchronousTracking == false || asynchronousTracking && trackingInitialized) {
       return null;
     } else if (asynchronousTracking && trackingInitialized == false) {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
@@ -27777,7 +27779,7 @@ var Footer = (function () {
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
-      }, "Transaction confirmed"))))), trackingInfo());
+      }, "Transaction confirmed"))))), trackingInfo(transaction));
     }
   };
 
