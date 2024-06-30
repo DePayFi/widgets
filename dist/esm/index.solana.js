@@ -29383,6 +29383,7 @@ const getConfiguration$1 = () =>{
 function _optionalChain$3$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1$1 = 10;
 const CHUNK_SIZE$1$1 = 99;
+const MAX_RETRY$1 = 3;
 
 class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
 
@@ -29399,7 +29400,7 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
     return Promise.resolve(Blockchains.findByName(this._network).id)
   }
 
-  requestChunk(chunk, endpoint) {
+  requestChunk(chunk, endpoint, attempt) {
 
     try {
 
@@ -29422,11 +29423,11 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
             }
           });
         }).catch((error) => {
-          if(error && error.code == 'SERVER_ERROR') {
+          if(attempt < MAX_RETRY$1 && error && error.code == 'SERVER_ERROR') {
             const index = this._endpoints.indexOf(this._endpoint)+1;
             this._failover();
             this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-            this.requestChunk(chunk, this._endpoint);
+            this.requestChunk(chunk, this._endpoint, attempt+1);
           } else {
             chunk.forEach((inflightRequest) => {
               inflightRequest.reject(error);
@@ -29480,7 +29481,7 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
         chunks.forEach((chunk)=>{
           // Get the request as an array of requests
           chunk.map((inflight) => inflight.request);
-          return this.requestChunk(chunk, this._endpoint)
+          return this.requestChunk(chunk, this._endpoint, 1)
         });
       }, getConfiguration$1().batchInterval || BATCH_INTERVAL$1$1);
     }
@@ -29603,6 +29604,7 @@ var EVM = {
 function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL = 10;
 const CHUNK_SIZE = 99;
+const MAX_RETRY = 3;
 
 class StaticJsonRpcSequentialProvider extends Connection {
 
@@ -29617,30 +29619,55 @@ class StaticJsonRpcSequentialProvider extends Connection {
     this._rpcRequest = this._rpcRequestReplacement.bind(this);
   }
 
-  requestChunk(chunk) {
+  handleError(error, attempt, chunk) {
+    if(attempt < MAX_RETRY && error && [
+      'Failed to fetch', 'limit reached', '504', '503', '502', '500', '429', '426', '422', '413', '409', '408', '406', '405', '404', '403', '402', '401', '400'
+    ].some((errorType)=>error.toString().match(errorType))) {
+      const index = this._endpoints.indexOf(this._endpoint)+1;
+      this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+      this._provider = new Connection(this._endpoint);
+      this.requestChunk(chunk, attempt+1);
+    } else {
+      chunk.forEach((inflightRequest) => {
+        inflightRequest.reject(error);
+      });
+    }
+  }
+
+  batchRequest(requests, attempt) {
+    return new Promise((resolve, reject) => {
+      if (requests.length === 0) resolve([]); // Do nothing if requests is empty
+
+      const batch = requests.map(params => {
+        return this._rpcClient.request(params.methodName, params.args)
+      });
+
+      fetch(
+        this._endpoint,
+        {
+          method: 'POST',
+          body: JSON.stringify(batch),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      ).then((response)=>{
+        if(response.ok) {
+          response.json().then((parsedJson)=>{
+            resolve(parsedJson);
+          }).catch(reject);
+        } else {
+          reject(`${response.status} ${response.text}`);
+        }
+      }).catch(reject);
+    })
+  }
+
+  requestChunk(chunk, attempt) {
 
     const batch = chunk.map((inflight) => inflight.request);
 
-    const handleError = (error)=>{
-      if(error && [
-        'Failed to fetch', 'limit reached', '504', '503', '502', '500', '429', '426', '422', '413', '409', '408', '406', '405', '404', '403', '402', '401', '400'
-      ].some((errorType)=>error.toString().match(errorType))) {
-        const index = this._endpoints.indexOf(this._endpoint)+1;
-        this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-        this._provider = new Connection(this._endpoint);
-        this.requestChunk(chunk);
-      } else {
-        chunk.forEach((inflightRequest) => {
-          inflightRequest.reject(error);
-        });
-      }
-    };
-
     try {
-      return this._provider._rpcBatchRequest(batch)
+      return this.batchRequest(batch, attempt)
         .then((result) => {
-          // For each result, feed it to the correct Promise, depending
-          // on whether it was a success or error
           chunk.forEach((inflightRequest, index) => {
             const payload = result[index];
             if (_optionalChain$2$2([payload, 'optionalAccess', _ => _.error])) {
@@ -29654,8 +29681,8 @@ class StaticJsonRpcSequentialProvider extends Connection {
               inflightRequest.reject();
             }
           });
-        }).catch(handleError)
-    } catch (error){ return handleError(error) }
+        }).catch((error)=>this.handleError(error, attempt, chunk))
+    } catch (error){ return this.handleError(error, attempt, chunk) }
   }
     
   _rpcRequestReplacement(methodName, args) {
@@ -29691,7 +29718,7 @@ class StaticJsonRpcSequentialProvider extends Connection {
         chunks.forEach((chunk)=>{
           // Get the request as an array of requests
           chunk.map((inflight) => inflight.request);
-          return this.requestChunk(chunk)
+          return this.requestChunk(chunk, 1)
         });
       }, getConfiguration$1().batchInterval || BATCH_INTERVAL);
     }
