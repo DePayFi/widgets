@@ -26687,40 +26687,40 @@
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                setPaymentState('paying');
+                setUpdatable(false);
+                _context2.next = 4;
                 return wallet.account();
 
-              case 2:
+              case 4:
                 account = _context2.sent;
-                _context2.next = 5;
+                _context2.next = 7;
                 return payment.route.getTransaction({
                   from: account
                 });
 
-              case 5:
+              case 7:
                 transaction = _context2.sent;
 
                 if (!before) {
-                  _context2.next = 12;
+                  _context2.next = 14;
                   break;
                 }
 
-                _context2.next = 9;
+                _context2.next = 11;
                 return before(transaction, account);
 
-              case 9:
+              case 11:
                 stop = _context2.sent;
 
                 if (!(stop === false)) {
-                  _context2.next = 12;
+                  _context2.next = 14;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 12:
-                setPaymentState('paying');
-                setUpdatable(false);
+              case 14:
                 _context2.next = 16;
                 return web3Client.request({
                   blockchain: transaction.blockchain,
@@ -26794,9 +26794,9 @@
     }();
 
     var approve = function approve() {
+      setPaymentState('approving');
       setClosable(false);
       setUpdatable(false);
-      setPaymentState('approving');
       wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
         succeeded: function succeeded() {
           setUpdatable(true);
@@ -27604,6 +27604,9 @@
         secondsLeftCountdown = _useState4[0],
         setSecondsLeftCountdown = _useState4[1];
 
+    var throttledUpdateRouteWithNewPrice = lodash.throttle(updateRouteWithNewPrice, 2000);
+    var throttledPay = lodash.throttle(pay, 2000);
+    var throttledApprove = lodash.throttle(approve, 2000);
     React.useEffect(function () {
       if (confirmationsRequired) {
         var interval = setInterval(function () {
@@ -27760,7 +27763,7 @@
         }, /*#__PURE__*/React__default['default'].createElement("button", {
           type: "button",
           className: "ButtonPrimary",
-          onClick: approve,
+          onClick: throttledApprove,
           title: "Allow ".concat(payment.symbol, " to be used as payment")
         }, "Approve use of ", payment.symbol));
       } else if (paymentState == 'approving') {
@@ -27786,7 +27789,7 @@
           type: "button",
           className: "ButtonPrimary",
           onClick: function onClick() {
-            updateRouteWithNewPrice();
+            throttledUpdateRouteWithNewPrice();
           }
         }, "Reload"));
       } else if (paymentValueLoss) {
@@ -27805,7 +27808,7 @@
               return;
             }
 
-            pay();
+            throttledPay();
           }
         }, "Pay");
       } else if (paymentState == 'paying') {

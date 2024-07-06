@@ -67,14 +67,14 @@ export default (props)=>{
   }
 
   const pay = async ()=> {
+    setPaymentState('paying')
+    setUpdatable(false)
     const account = await wallet.account()
     const transaction = await payment.route.getTransaction({ from: account })
     if(before) {
       let stop = await before(transaction, account)
       if(stop === false){ return }
     }
-    setPaymentState('paying')
-    setUpdatable(false)
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline
     await trace(currentBlock, payment.route, transaction, deadline).then(async()=>{
@@ -110,9 +110,9 @@ export default (props)=>{
   }
 
   const approve = ()=> {
+    setPaymentState('approving')
     setClosable(false)
     setUpdatable(false)
-    setPaymentState('approving')
     wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
       succeeded: ()=>{
         setUpdatable(true)

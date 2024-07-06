@@ -26727,40 +26727,40 @@
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                setPaymentState('paying');
+                setUpdatable(false);
+                _context2.next = 4;
                 return wallet.account();
 
-              case 2:
+              case 4:
                 account = _context2.sent;
-                _context2.next = 5;
+                _context2.next = 7;
                 return payment.route.getTransaction({
                   from: account
                 });
 
-              case 5:
+              case 7:
                 transaction = _context2.sent;
 
                 if (!before) {
-                  _context2.next = 12;
+                  _context2.next = 14;
                   break;
                 }
 
-                _context2.next = 9;
+                _context2.next = 11;
                 return before(transaction, account);
 
-              case 9:
+              case 11:
                 stop = _context2.sent;
 
                 if (!(stop === false)) {
-                  _context2.next = 12;
+                  _context2.next = 14;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 12:
-                setPaymentState('paying');
-                setUpdatable(false);
+              case 14:
                 _context2.next = 16;
                 return web3ClientSolana.request({
                   blockchain: transaction.blockchain,
@@ -26834,9 +26834,9 @@
     }();
 
     var approve = function approve() {
+      setPaymentState('approving');
       setClosable(false);
       setUpdatable(false);
-      setPaymentState('approving');
       wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
         succeeded: function succeeded() {
           setUpdatable(true);
@@ -27644,6 +27644,9 @@
         secondsLeftCountdown = _useState4[0],
         setSecondsLeftCountdown = _useState4[1];
 
+    var throttledUpdateRouteWithNewPrice = lodash.throttle(updateRouteWithNewPrice, 2000);
+    var throttledPay = lodash.throttle(pay, 2000);
+    var throttledApprove = lodash.throttle(approve, 2000);
     React.useEffect(function () {
       if (confirmationsRequired) {
         var interval = setInterval(function () {
@@ -27800,7 +27803,7 @@
         }, /*#__PURE__*/React__default['default'].createElement("button", {
           type: "button",
           className: "ButtonPrimary",
-          onClick: approve,
+          onClick: throttledApprove,
           title: "Allow ".concat(payment.symbol, " to be used as payment")
         }, "Approve use of ", payment.symbol));
       } else if (paymentState == 'approving') {
@@ -27826,7 +27829,7 @@
           type: "button",
           className: "ButtonPrimary",
           onClick: function onClick() {
-            updateRouteWithNewPrice();
+            throttledUpdateRouteWithNewPrice();
           }
         }, "Reload"));
       } else if (paymentValueLoss) {
@@ -27845,7 +27848,7 @@
               return;
             }
 
-            pay();
+            throttledPay();
           }
         }, "Pay");
       } else if (paymentState == 'paying') {
@@ -29381,7 +29384,7 @@
   function _optionalChain$3$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1$1 = 10;
   const CHUNK_SIZE$1$1 = 99;
-  const MAX_RETRY$1 = 3;
+  const MAX_RETRY$1$1 = 3;
 
   class StaticJsonRpcBatchProvider$1 extends ethers.ethers.providers.JsonRpcProvider {
 
@@ -29421,7 +29424,7 @@
               }
             });
           }).catch((error) => {
-            if(attempt < MAX_RETRY$1 && error && error.code == 'SERVER_ERROR') {
+            if(attempt < MAX_RETRY$1$1 && error && error.code == 'SERVER_ERROR') {
               const index = this._endpoints.indexOf(this._endpoint)+1;
               this._failover();
               this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
@@ -33400,6 +33403,7 @@
   // This method is cached and is only to be used to generally existing pools every 24h
   // Do not use for price calulations, fetch accounts for pools individually in order to calculate price 
   let getAccounts = async (base, quote) => {
+    if(quote === Blockchains__default['default'].solana.wrapped.address) { return [] } // WSOL is base not QUOTE!
     let accounts = await request(`solana://whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc/getProgramAccounts`, {
       params: { filters: [
         { dataSize: WHIRLPOOL_LAYOUT.span },
@@ -35322,8 +35326,18 @@
           let amount;
           if(amountIn) {
             amount = await getOutputAmount({ exchange, pool, inputAmount: amountIn });
+            const amountScaled = await getOutputAmount({ exchange, pool, inputAmount: ethers.ethers.BigNumber.from(amountIn).mul(ethers.ethers.BigNumber.from(10)).toString() });
+            const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
+            const difference = amountScaledDown.sub(amount).abs();
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)));
+            if(!enoughLiquidity) { return }
           } else {
             amount = await getInputAmount({ exchange, pool, outputAmount: amountOut });
+            const amountScaled = await getInputAmount({ exchange, pool, outputAmount: ethers.ethers.BigNumber.from(amountOut).mul(ethers.ethers.BigNumber.from(10)).toString() });
+            const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
+            const difference = amountScaledDown.sub(amount).abs();
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)));
+            if(!enoughLiquidity) { return }
           }
 
           return { ...pool, amountIn: amountIn || amount, amountOut: amountOut || amount }
@@ -36538,6 +36552,7 @@
   function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1 = 10;
   const CHUNK_SIZE$1 = 99;
+  const MAX_RETRY$1 = 3;
 
   class StaticJsonRpcBatchProvider extends ethers.ethers.providers.JsonRpcProvider {
 
@@ -36554,7 +36569,7 @@
       return Promise.resolve(Blockchains__default['default'].findByName(this._network).id)
     }
 
-    requestChunk(chunk, endpoint) {
+    requestChunk(chunk, endpoint, attempt) {
 
       try {
 
@@ -36577,11 +36592,11 @@
               }
             });
           }).catch((error) => {
-            if(error && error.code == 'SERVER_ERROR') {
+            if(attempt < MAX_RETRY$1 && error && error.code == 'SERVER_ERROR') {
               const index = this._endpoints.indexOf(this._endpoint)+1;
               this._failover();
               this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-              this.requestChunk(chunk, this._endpoint);
+              this.requestChunk(chunk, this._endpoint, attempt+1);
             } else {
               chunk.forEach((inflightRequest) => {
                 inflightRequest.reject(error);
@@ -36635,7 +36650,7 @@
           chunks.forEach((chunk)=>{
             // Get the request as an array of requests
             chunk.map((inflight) => inflight.request);
-            return this.requestChunk(chunk, this._endpoint)
+            return this.requestChunk(chunk, this._endpoint, 1)
           });
         }, getConfiguration().batchInterval || BATCH_INTERVAL$1);
       }

@@ -12,6 +12,7 @@ import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
+import { throttle } from 'lodash'
 
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
@@ -23,6 +24,9 @@ export default ()=>{
   const { close } = useContext(ClosableContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
+  const throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000)
+  const throttledPay = throttle(pay, 2000)
+  const throttledApprove = throttle(approve, 2000)
 
   useEffect(()=>{
     if(confirmationsRequired) {
@@ -176,7 +180,7 @@ export default ()=>{
     } else if(paymentState == 'initialized') {
       return(
         <div className="PaddingBottomXS">
-          <button type="button" className="ButtonPrimary" onClick={ approve } title={`Allow ${payment.symbol} to be used as payment`}>
+          <button type="button" className="ButtonPrimary" onClick={ throttledApprove } title={`Allow ${payment.symbol} to be used as payment`}>
             Approve use of { payment.symbol }
           </button>
         </div>
@@ -201,7 +205,7 @@ export default ()=>{
               <strong>Price updated!</strong>
             </div>
           </div>
-          <button type="button" className={"ButtonPrimary"} onClick={()=>{ updateRouteWithNewPrice() }}>
+          <button type="button" className={"ButtonPrimary"} onClick={()=>{ throttledUpdateRouteWithNewPrice() }}>
             Reload
           </button>
         </div>
@@ -222,7 +226,7 @@ export default ()=>{
           className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
           onClick={()=>{
             if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
-            pay()
+            throttledPay()
           }}
         >
           Pay
