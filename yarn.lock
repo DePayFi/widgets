@@ -1357,10 +1357,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-10.18.7.tgz#b9131383d680c616e8485fad54c79ed8e33dbe03"
   integrity sha512-5XsYPAbGZ91P7RLrRuZvSY0d2JT2NsUFIJHXf0YfzJQacy1gIuqQwUU7nMq+niL42AfvCqQ7wOAnP9tQcByXzw==
 
-"@depay/web3-exchanges@^13.8.1":
-  version "13.8.1"
-  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-13.8.1.tgz#8c422320811f65fd521081759522c7862b030321"
-  integrity sha512-tNX/iCL45PsRKfF8pFTvBQ7WR158QiwFTfljChhC/9JL0QF9W5dkWAodoC33AvOOuiQg5ljUUf223QMsBbV1Tw==
+"@depay/web3-exchanges@^13.8.3":
+  version "13.8.3"
+  resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-13.8.3.tgz#6e62b30b5f7960d9bd70526343144162684ed792"
+  integrity sha512-t5XIx/uhV7eu7WuWcoBI0rx7y1qwEZMfOLjYt4gYdYzuybA+FZeBr44zCG8Fn0kDBDe3Uv7LS0d8/PMRbCyCxg==
 
 "@depay/web3-mock@^14.17.0":
   version "14.17.0"
@@ -1371,10 +1371,10 @@
     "@depay/web3-blockchains" "^9.1.4"
     ethers "^5.7.1"
 
-"@depay/web3-payments@^13.8.0":
-  version "13.8.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-13.8.0.tgz#4621990549f213507db26d97b055de86e6d313bc"
-  integrity sha512-PzouUhmVYUzrH40TjT1SlQq2HELKMHTnazryav/rr38CHkaR1UbriVHBgRAfOmnrcox1kSvQqyTooUEoi3rf0A==
+"@depay/web3-payments@^13.9.1":
+  version "13.9.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-13.9.1.tgz#20f7c2c75676a6aa14ef72601458a84d4c1c44cb"
+  integrity sha512-+Q/U86GHeUy7fYtthz5Kk9sufQoWgYJuM/PxOJJPYWCF8jnVOu9WBkjV2dQ2sbq2HNElHml74VUMhN/aqkNSCg==
 
 "@depay/web3-tokens@^10.3.0":
   version "10.3.0"

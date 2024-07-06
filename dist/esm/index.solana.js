@@ -29386,7 +29386,7 @@ const getConfiguration$1 = () =>{
 function _optionalChain$3$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1$1 = 10;
 const CHUNK_SIZE$1$1 = 99;
-const MAX_RETRY$1 = 3;
+const MAX_RETRY$1$1 = 3;
 
 class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
 
@@ -29426,7 +29426,7 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
             }
           });
         }).catch((error) => {
-          if(attempt < MAX_RETRY$1 && error && error.code == 'SERVER_ERROR') {
+          if(attempt < MAX_RETRY$1$1 && error && error.code == 'SERVER_ERROR') {
             const index = this._endpoints.indexOf(this._endpoint)+1;
             this._failover();
             this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
@@ -33405,6 +33405,7 @@ const getPrice = async ({
 // This method is cached and is only to be used to generally existing pools every 24h
 // Do not use for price calulations, fetch accounts for pools individually in order to calculate price 
 let getAccounts = async (base, quote) => {
+  if(quote === Blockchains.solana.wrapped.address) { return [] } // WSOL is base not QUOTE!
   let accounts = await request(`solana://whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc/getProgramAccounts`, {
     params: { filters: [
       { dataSize: WHIRLPOOL_LAYOUT.span },
@@ -35327,12 +35328,22 @@ const getBestPool = async ({ blockchain, exchange, path, amountIn, amountOut, bl
         let amount;
         if(amountIn) {
           amount = await getOutputAmount({ exchange, pool, inputAmount: amountIn });
+          const amountScaled = await getOutputAmount({ exchange, pool, inputAmount: amountIn.mul(ethers.BigNumber.from(10)) });
+          const amountScaledDown = amountScaled.div(ethers.BigNumber.from(10));
+          const difference = amountScaledDown.sub(amount).abs();
+          const enoughLiquidity = !difference.gt(amount.div(ethers.BigNumber.from(100)));
+          if(!enoughLiquidity) { return }
         } else {
           amount = await getInputAmount({ exchange, pool, outputAmount: amountOut });
+          const amountScaled = await getInputAmount({ exchange, pool, outputAmount: amountOut.mul(ethers.BigNumber.from(10)) });
+          const amountScaledDown = amountScaled.div(ethers.BigNumber.from(10));
+          const difference = amountScaledDown.sub(amount).abs();
+          const enoughLiquidity = !difference.gt(amount.div(ethers.BigNumber.from(100)));
+          if(!enoughLiquidity) { return }
         }
 
         return { ...pool, amountIn: amountIn || amount, amountOut: amountOut || amount }
-      } catch (e) {}
+      } catch(e) {console.log('!!!', e);}
 
     }))).filter(Boolean);
     
@@ -36543,6 +36554,7 @@ const getConfiguration = () =>{
 function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1 = 10;
 const CHUNK_SIZE$1 = 99;
+const MAX_RETRY$1 = 3;
 
 class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
 
@@ -36559,7 +36571,7 @@ class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
     return Promise.resolve(Blockchains.findByName(this._network).id)
   }
 
-  requestChunk(chunk, endpoint) {
+  requestChunk(chunk, endpoint, attempt) {
 
     try {
 
@@ -36582,11 +36594,11 @@ class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
             }
           });
         }).catch((error) => {
-          if(error && error.code == 'SERVER_ERROR') {
+          if(attempt < MAX_RETRY$1 && error && error.code == 'SERVER_ERROR') {
             const index = this._endpoints.indexOf(this._endpoint)+1;
             this._failover();
             this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-            this.requestChunk(chunk, this._endpoint);
+            this.requestChunk(chunk, this._endpoint, attempt+1);
           } else {
             chunk.forEach((inflightRequest) => {
               inflightRequest.reject(error);
@@ -36640,7 +36652,7 @@ class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
         chunks.forEach((chunk)=>{
           // Get the request as an array of requests
           chunk.map((inflight) => inflight.request);
-          return this.requestChunk(chunk, this._endpoint)
+          return this.requestChunk(chunk, this._endpoint, 1)
         });
       }, getConfiguration().batchInterval || BATCH_INTERVAL$1);
     }
