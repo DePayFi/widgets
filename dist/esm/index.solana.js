@@ -23113,7 +23113,7 @@ var SelectWalletDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft PaddingBottomS"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Connect a wallet")), (detectedWallets && detectedWallets.length > 0 || previouslyConnectedWallet) && /*#__PURE__*/React.createElement("div", {
+    }, "Select a wallet")), (detectedWallets && detectedWallets.length > 0 || previouslyConnectedWallet) && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS PaddingLeftS PaddingRightS"
     }, detectedWallets.filter(function (wallet, index, array) {
       return array.findIndex(function (target) {

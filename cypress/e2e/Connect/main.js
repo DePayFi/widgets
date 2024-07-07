@@ -16,7 +16,7 @@ describe('Connect wallet', () => {
       DePayWidgets.Connect({ document }).catch((error)=>{
         rejectionReason = error
       }).catch(()=>{})
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet')
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click().then(()=>{
           cy.wait(1000).then(()=>{
@@ -36,7 +36,7 @@ describe('Connect wallet', () => {
     it('suggest detected wallets', () => {
       cy.document().then(async (document)=>{
         DePayWidgets.Connect({ document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'detected').click()
       })
     })
@@ -47,7 +47,7 @@ describe('Connect wallet', () => {
     it('allows to search for a wallet', () => {
       cy.document().then(async (document)=>{
         DePayWidgets.Connect({ document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet').then(()=>{
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('tr', { force: true })
             cy.wait(1000).then(()=>{

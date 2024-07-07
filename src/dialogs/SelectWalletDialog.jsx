@@ -99,7 +99,7 @@ export default (props)=>{
       header={
         <div>
           <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft PaddingBottomS">
-            <h1 className="LineHeightL FontSizeL">Connect a wallet</h1>
+            <h1 className="LineHeightL FontSizeL">Select a wallet</h1>
           </div>
           { ((detectedWallets && detectedWallets.length > 0) || previouslyConnectedWallet) &&
             <div className="PaddingBottomXS PaddingLeftS PaddingRightS">
