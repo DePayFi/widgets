@@ -32,7 +32,7 @@ describe('Payment Widget: no wallet', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Connect a wallet')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.CardText', 'Coinbase')
       })
     })
