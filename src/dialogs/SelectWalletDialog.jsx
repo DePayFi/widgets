@@ -12,13 +12,14 @@ import { getWallets, wallets } from '@depay/web3-wallets'
 
 //#endif
 
-import allWallets from '../helpers/allWallets'
+import allWalletsOriginal from '../helpers/allWallets'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import isMobile from '../helpers/isMobile'
 import MenuIcon from '../components/MenuIcon'
 import platformForWallet from '../helpers/platformForWallet'
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext, useRef, useMemo } from 'react'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
 import SelectWalletList from '../components/SelectWalletList'
 import { get as getPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
@@ -31,8 +32,33 @@ export default (props)=>{
   const [ previouslyConnectedWallet, setPreviouslyConnectedWallet ] = useState()
   const [ showDropDown, setShowDropDown ] = useState(false)
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
+  const { wallets } = useContext(ConfigurationContext)
   const searchElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
+
+  let allWallets
+  if(wallets?.sort || wallets?.whitelist) {
+    allWallets = useMemo(()=>{
+      let adjustedWallets = [...allWalletsOriginal]
+
+      if(wallets?.sort) {
+        wallets.sort.forEach((sortedWallet, newIndex)=>{
+          let currentListIndex = adjustedWallets.findIndex((unsortedWallet)=>unsortedWallet.name === sortedWallet)
+          if(currentListIndex > -1) {
+            adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0])
+          }
+        })
+      }
+
+      if(wallets?.whitelist) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>wallets.whitelist.indexOf(wallet.name) > -1)
+      }
+
+      return adjustedWallets
+    }, [wallets])
+  } else {
+    allWallets = allWalletsOriginal
+  }
 
   const onClickWallet = (walletMetaData, wallet)=>{
     if(walletMetaData.via == 'detected') {
@@ -65,6 +91,12 @@ export default (props)=>{
       navigate('ConnectWallet')
     }
   }
+
+  useEffect(()=>{
+    if(allWallets.length === 1) {
+      onClickWallet(allWallets[0])
+    }
+  }, [allWallets])
 
   useEffect(()=>{
     let wallets = []
@@ -168,7 +200,9 @@ export default (props)=>{
           }
           <div className="PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS">
             <div className="Row">
-              <input className="Search" value={ searchTerm } onChange={ (event)=>{ setSearchTerm(event.target.value) } } placeholder="Search by name" ref={ searchElement }/>
+              { allWallets.length > 4 &&
+                <input className="Search" value={ searchTerm } onChange={ (event)=>{ setSearchTerm(event.target.value) } } placeholder="Search by name" ref={ searchElement }/>
+              }
             </div>
           </div>
         </div>
