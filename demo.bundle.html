@@ -128,6 +128,120 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Wallet options</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Uniswap only</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payUniswapOnly">Try it</button>
+                <script>
+                  var button = document.getElementById("payUniswapOnly");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'polygon',
+                          amount: 0.001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },                        
+                      ],
+                      wallets: {
+                        whitelist: [
+                          "Uniswap"
+                        ]
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Wallet options</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Uniswap first</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payUniswapFirst">Try it</button>
+                <script>
+                  var button = document.getElementById("payUniswapFirst");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'polygon',
+                          amount: 0.001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },                        
+                      ],
+                      wallets: {
+                        sort: [
+                          "Uniswap"
+                        ]
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Wallet options</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Uniswap first and partially filtered</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payUniswapFirstAndOthers">Try it</button>
+                <script>
+                  var button = document.getElementById("payUniswapFirstAndOthers");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [
+                        {
+                          blockchain: 'polygon',
+                          amount: 0.001,
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+                        },                        
+                      ],
+                      wallets: {
+                        sort: [
+                          "Uniswap"
+                        ],
+                        whitelist: [
+                          'Uniswap',
+                          'Coinbase',
+                          'MetaMask',
+                          'Rainbow'
+                        ]
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
                 <h5 class="px-4">Payment: multichain</h5>
                 <div class="px-4">
                   <div class="text-secondary ">Accept payments on multiple blockchains.</div>
