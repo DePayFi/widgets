@@ -32,17 +32,17 @@ export default (props)=>{
   const [ previouslyConnectedWallet, setPreviouslyConnectedWallet ] = useState()
   const [ showDropDown, setShowDropDown ] = useState(false)
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
-  const { wallets } = useContext(ConfigurationContext)
+  const { wallets: walletsConfiguration } = useContext(ConfigurationContext)
   const searchElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
   let allWallets
-  if(wallets?.sort || wallets?.whitelist) {
+  if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
     allWallets = useMemo(()=>{
       let adjustedWallets = [...allWalletsOriginal]
 
-      if(wallets?.sort) {
-        wallets.sort.forEach((sortedWallet, newIndex)=>{
+      if(walletsConfiguration?.sort) {
+        walletsConfiguration.sort.forEach((sortedWallet, newIndex)=>{
           let currentListIndex = adjustedWallets.findIndex((unsortedWallet)=>unsortedWallet.name === sortedWallet)
           if(currentListIndex > -1) {
             adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0])
@@ -50,12 +50,12 @@ export default (props)=>{
         })
       }
 
-      if(wallets?.whitelist) {
-        adjustedWallets = adjustedWallets.filter((wallet)=>wallets.whitelist.indexOf(wallet.name) > -1)
+      if(walletsConfiguration?.whitelist) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet.name) > -1)
       }
 
       return adjustedWallets
-    }, [wallets])
+    }, [walletsConfiguration])
   } else {
     allWallets = allWalletsOriginal
   }

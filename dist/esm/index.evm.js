@@ -22930,16 +22930,16 @@ function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if 
 function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletList = (function (props) {
   var _useContext = useContext(ConfigurationContext),
-      wallets = _useContext.wallets;
+      walletsConfiguration = _useContext.wallets;
 
   var allWallets$1;
 
-  if (wallets !== null && wallets !== void 0 && wallets.sort || wallets !== null && wallets !== void 0 && wallets.whitelist) {
+  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
     allWallets$1 = useMemo(function () {
       var adjustedWallets = _toConsumableArray(allWallets);
 
-      if (wallets !== null && wallets !== void 0 && wallets.sort) {
-        wallets.sort.forEach(function (sortedWallet, newIndex) {
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
+        walletsConfiguration.sort.forEach(function (sortedWallet, newIndex) {
           var currentListIndex = adjustedWallets.findIndex(function (unsortedWallet) {
             return unsortedWallet.name === sortedWallet;
           });
@@ -22950,14 +22950,14 @@ var SelectWalletList = (function (props) {
         });
       }
 
-      if (wallets !== null && wallets !== void 0 && wallets.whitelist) {
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
         adjustedWallets = adjustedWallets.filter(function (wallet) {
-          return wallets.whitelist.indexOf(wallet.name) > -1;
+          return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
         });
       }
 
       return adjustedWallets;
-    }, [wallets]);
+    }, [walletsConfiguration]);
   } else {
     allWallets$1 = allWallets;
   }
@@ -23072,7 +23072,7 @@ var SelectWalletDialog = (function (props) {
       setDialogAnimationFinished = _useState10[1];
 
   var _useContext = useContext(ConfigurationContext),
-      wallets = _useContext.wallets;
+      walletsConfiguration = _useContext.wallets;
 
   var searchElement = useRef();
 
@@ -23081,12 +23081,12 @@ var SelectWalletDialog = (function (props) {
 
   var allWallets$1;
 
-  if (wallets !== null && wallets !== void 0 && wallets.sort || wallets !== null && wallets !== void 0 && wallets.whitelist) {
+  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
     allWallets$1 = useMemo(function () {
       var adjustedWallets = _toConsumableArray(allWallets);
 
-      if (wallets !== null && wallets !== void 0 && wallets.sort) {
-        wallets.sort.forEach(function (sortedWallet, newIndex) {
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
+        walletsConfiguration.sort.forEach(function (sortedWallet, newIndex) {
           var currentListIndex = adjustedWallets.findIndex(function (unsortedWallet) {
             return unsortedWallet.name === sortedWallet;
           });
@@ -23097,14 +23097,14 @@ var SelectWalletDialog = (function (props) {
         });
       }
 
-      if (wallets !== null && wallets !== void 0 && wallets.whitelist) {
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
         adjustedWallets = adjustedWallets.filter(function (wallet) {
-          return wallets.whitelist.indexOf(wallet.name) > -1;
+          return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
         });
       }
 
       return adjustedWallets;
-    }, [wallets]);
+    }, [walletsConfiguration]);
   } else {
     allWallets$1 = allWallets;
   }
