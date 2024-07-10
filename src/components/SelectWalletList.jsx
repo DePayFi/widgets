@@ -1,9 +1,35 @@
-import allWallets from '../helpers/allWallets'
+import allWalletsOriginal from '../helpers/allWallets'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import Fuse from 'fuse.js'
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useRef, useContext, useMemo } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 export default (props)=>{
+
+  const { wallets: walletsConfiguration } = useContext(ConfigurationContext)
+  let allWallets
+  if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+    allWallets = useMemo(()=>{
+      let adjustedWallets = [...allWalletsOriginal]
+
+      if(walletsConfiguration?.sort) {
+        walletsConfiguration.sort.forEach((sortedWallet, newIndex)=>{
+          let currentListIndex = adjustedWallets.findIndex((unsortedWallet)=>unsortedWallet.name === sortedWallet)
+          if(currentListIndex > -1) {
+            adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0])
+          }
+        })
+      }
+
+      if(walletsConfiguration?.whitelist) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet.name) > -1)
+      }
+
+      return adjustedWallets
+    }, [walletsConfiguration])
+  } else {
+    allWallets = allWalletsOriginal
+  }
 
   const parentElement = React.useRef()
   const fuse = new Fuse(allWallets, { keys: ['name'], threshold: 0.3, ignoreFieldNorm: true })

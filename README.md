@@ -205,6 +205,42 @@ If you do not pass an amount, the user will be able to select an amount within t
 
 The address receiving the payment. Always double check that you've set the right address.
 
+#### wallets
+
+You can sort and whitelist wallets displayed during the initial wallet selection step as follows:
+
+##### wallets.sort
+
+```
+{
+  wallets: {
+    sort: [
+      'Uniswap',
+      'Coinbase'
+    ]
+  }
+}
+```
+
+This configuration would display Uniswap and Coinbase first, then would list all the others.
+
+##### wallets.whitelist
+
+```
+{
+  wallets: {
+    whitelist: [
+      'Uniswap',
+      'Coinbase',
+      'Rainbow'
+    ]
+  }
+}
+```
+
+This configuration would only display Uniswap, Coinbase and Rainbow. No other options/wallets are displayed.
+
+
 #### amount
 
 ##### fixed currency amounts

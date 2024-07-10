@@ -1,6 +1,6 @@
 import { wallets, getWallets } from '@depay/web3-wallets-evm';
 import Blockchains from '@depay/web3-blockchains';
-import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useContext, useEffect, useCallback, useMemo, useRef } from 'react';
 import { route } from '@depay/web3-payments-evm';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
@@ -22929,14 +22929,47 @@ function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if 
 
 function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletList = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      walletsConfiguration = _useContext.wallets;
+
+  var allWallets$1;
+
+  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+    allWallets$1 = useMemo(function () {
+      var adjustedWallets = _toConsumableArray(allWallets);
+
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
+        walletsConfiguration.sort.forEach(function (sortedWallet, newIndex) {
+          var currentListIndex = adjustedWallets.findIndex(function (unsortedWallet) {
+            return unsortedWallet.name === sortedWallet;
+          });
+
+          if (currentListIndex > -1) {
+            adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0]);
+          }
+        });
+      }
+
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+        adjustedWallets = adjustedWallets.filter(function (wallet) {
+          return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
+        });
+      }
+
+      return adjustedWallets;
+    }, [walletsConfiguration]);
+  } else {
+    allWallets$1 = allWallets;
+  }
+
   var parentElement = React.useRef();
-  var fuse = new Fuse(allWallets, {
+  var fuse = new Fuse(allWallets$1, {
     keys: ['name'],
     threshold: 0.3,
     ignoreFieldNorm: true
   });
 
-  var _useState = useState(allWallets),
+  var _useState = useState(allWallets$1),
       _useState2 = _slicedToArray(_useState, 2),
       resultList = _useState2[0],
       setResultList = _useState2[1];
@@ -22962,7 +22995,7 @@ var SelectWalletList = (function (props) {
     if (props.searchTerm.length) {
       setResultList(results);
     } else {
-      setResultList(allWallets);
+      setResultList(allWallets$1);
     }
   }, [props.searchTerm]);
   return /*#__PURE__*/React.createElement("div", {
@@ -23038,10 +23071,43 @@ var SelectWalletDialog = (function (props) {
       dialogAnimationFinished = _useState10[0],
       setDialogAnimationFinished = _useState10[1];
 
+  var _useContext = useContext(ConfigurationContext),
+      walletsConfiguration = _useContext.wallets;
+
   var searchElement = useRef();
 
-  var _useContext = useContext(NavigateStackContext),
-      navigate = _useContext.navigate;
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var allWallets$1;
+
+  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+    allWallets$1 = useMemo(function () {
+      var adjustedWallets = _toConsumableArray(allWallets);
+
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
+        walletsConfiguration.sort.forEach(function (sortedWallet, newIndex) {
+          var currentListIndex = adjustedWallets.findIndex(function (unsortedWallet) {
+            return unsortedWallet.name === sortedWallet;
+          });
+
+          if (currentListIndex > -1) {
+            adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0]);
+          }
+        });
+      }
+
+      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+        adjustedWallets = adjustedWallets.filter(function (wallet) {
+          return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
+        });
+      }
+
+      return adjustedWallets;
+    }, [walletsConfiguration]);
+  } else {
+    allWallets$1 = allWallets;
+  }
 
   var onClickWallet = function onClickWallet(walletMetaData, wallet) {
     if (walletMetaData.via == 'detected') {
@@ -23077,6 +23143,11 @@ var SelectWalletDialog = (function (props) {
   };
 
   useEffect(function () {
+    if (allWallets$1.length === 1) {
+      onClickWallet(allWallets$1[0]);
+    }
+  }, [allWallets$1]);
+  useEffect(function () {
     var wallets = [];
     getWallets({
       drip: function drip(wallet) {
@@ -23085,9 +23156,9 @@ var SelectWalletDialog = (function (props) {
       }
     });
     var previouslyConnectedWalletName = get();
-    var previouslyConnectedWallet = allWallets.find(function (wallet) {
+    var previouslyConnectedWallet = allWallets$1.find(function (wallet) {
       return wallet.name == previouslyConnectedWalletName;
-    }) || allWallets.find(function (wallet) {
+    }) || allWallets$1.find(function (wallet) {
       return wallet.name == previouslyConnectedWalletName;
     });
 
@@ -23121,7 +23192,7 @@ var SelectWalletDialog = (function (props) {
         return (target === null || target === void 0 ? void 0 : (_target$info = target.info) === null || _target$info === void 0 ? void 0 : _target$info.name) === (wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name);
       }) === index;
     }).map(function (wallet, index) {
-      var walletMetaData = allWallets.find(function (walletFromList) {
+      var walletMetaData = allWallets$1.find(function (walletFromList) {
         return walletFromList.name === (wallet.info ? wallet.info.name : wallet.name);
       });
 
@@ -23206,7 +23277,7 @@ var SelectWalletDialog = (function (props) {
       className: "PaddingBottomXS PaddingLeftS PaddingRightS PaddingTopXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "Row"
-    }, /*#__PURE__*/React.createElement("input", {
+    }, allWallets$1.length > 4 && /*#__PURE__*/React.createElement("input", {
       className: "Search",
       value: searchTerm,
       onChange: function onChange(event) {
@@ -29641,12 +29712,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, unmount;
+    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, wallets, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document;
+            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document, wallets = _ref3.wallets;
             requireReactVersion();
 
             if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -29702,7 +29773,8 @@ var Payment = /*#__PURE__*/function () {
                     link: link,
                     wallet: wallet,
                     title: title,
-                    action: action
+                    action: action,
+                    wallets: wallets
                   }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
