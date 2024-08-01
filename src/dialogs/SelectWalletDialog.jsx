@@ -103,7 +103,27 @@ export default (props)=>{
     getWallets({
       drip: (wallet)=>{
         wallets = wallets.concat(wallet)
-        setDetectedWallets(wallets)
+        
+        if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+          let adjustedWallets = [...wallets]
+
+          if(walletsConfiguration?.sort) {
+            walletsConfiguration.sort.forEach((sortedWallet, newIndex)=>{
+              let currentListIndex = adjustedWallets.findIndex((unsortedWallet)=>unsortedWallet?.info?.name === sortedWallet)
+              if(currentListIndex > -1) {
+                adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0])
+              }
+            })
+          }
+
+          if(walletsConfiguration?.whitelist) {
+            adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet?.info?.name) > -1)
+          }
+
+          setDetectedWallets(adjustedWallets)
+        } else {
+          setDetectedWallets(wallets)
+        }
       }
     })
 

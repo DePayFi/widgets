@@ -234,6 +234,7 @@
     "blockchains": _toConsumableArray(supported$4)
   }, {
     "name": "Rainbow",
+    "extension": "Rainbow",
     "desktop": {
       "qr": "WalletConnectV2"
     },
@@ -23151,7 +23152,36 @@
       web3WalletsSolana.getWallets({
         drip: function drip(wallet) {
           wallets = wallets.concat(wallet);
-          setDetectedWallets(wallets);
+
+          if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+            var adjustedWallets = _toConsumableArray(wallets);
+
+            if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
+              walletsConfiguration.sort.forEach(function (sortedWallet, newIndex) {
+                var currentListIndex = adjustedWallets.findIndex(function (unsortedWallet) {
+                  var _unsortedWallet$info;
+
+                  return (unsortedWallet === null || unsortedWallet === void 0 ? void 0 : (_unsortedWallet$info = unsortedWallet.info) === null || _unsortedWallet$info === void 0 ? void 0 : _unsortedWallet$info.name) === sortedWallet;
+                });
+
+                if (currentListIndex > -1) {
+                  adjustedWallets.splice(newIndex, 0, adjustedWallets.splice(currentListIndex, 1)[0]);
+                }
+              });
+            }
+
+            if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+              adjustedWallets = adjustedWallets.filter(function (wallet) {
+                var _wallet$info;
+
+                return walletsConfiguration.whitelist.indexOf(wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name) > -1;
+              });
+            }
+
+            setDetectedWallets(adjustedWallets);
+          } else {
+            setDetectedWallets(wallets);
+          }
         }
       });
       var previouslyConnectedWalletName = get$1();
@@ -23186,9 +23216,9 @@
         className: "PaddingBottomXS PaddingLeftS PaddingRightS"
       }, detectedWallets.filter(function (wallet, index, array) {
         return array.findIndex(function (target) {
-          var _target$info, _wallet$info;
+          var _target$info, _wallet$info2;
 
-          return (target === null || target === void 0 ? void 0 : (_target$info = target.info) === null || _target$info === void 0 ? void 0 : _target$info.name) === (wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name);
+          return (target === null || target === void 0 ? void 0 : (_target$info = target.info) === null || _target$info === void 0 ? void 0 : _target$info.name) === (wallet === null || wallet === void 0 ? void 0 : (_wallet$info2 = wallet.info) === null || _wallet$info2 === void 0 ? void 0 : _wallet$info2.name);
         }) === index;
       }).map(function (wallet, index) {
         var walletMetaData = allWallets$1.find(function (walletFromList) {

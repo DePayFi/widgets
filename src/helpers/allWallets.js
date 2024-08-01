@@ -120,6 +120,7 @@ export default [
   },
   {
     "name": "Rainbow",
+    "extension": "Rainbow",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
       "ios": { "native": "rainbow:", "universal": "https://rnbwapp.com", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
