@@ -269,7 +269,7 @@ export default (props)=> {
                     <div className="PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
                       <div className="Alert">
                         <span className="FontWeightBold PaddingBottomXS">
-                          You wallet extension window is already asking to connect. It might be hidden.
+                          Your wallet extension is already open and asking to connect. It might be hidden.
                         </span>
                       </div>
                     </div>
