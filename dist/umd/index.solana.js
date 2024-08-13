@@ -22541,7 +22541,7 @@
         className: "Alert"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
         className: "FontWeightBold PaddingBottomXS"
-      }, "You wallet extension window is already asking to connect. It might be hidden."))), props.connectingExtension && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Your wallet extension is already open and asking to connect. It might be hidden."))), props.connectingExtension && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
         style: {
           height: '50px'
@@ -35430,14 +35430,14 @@
             const amountScaled = await getOutputAmount({ exchange, pool, inputAmount: ethers.ethers.BigNumber.from(amountIn).mul(ethers.ethers.BigNumber.from(10)).toString() });
             const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
             const difference = amountScaledDown.sub(amount).abs();
-            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)));
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)).mul(ethers.ethers.BigNumber.from(5))); // up to 5% diff allowed
             if(!enoughLiquidity) { return }
           } else {
             amount = await getInputAmount({ exchange, pool, outputAmount: amountOut });
             const amountScaled = await getInputAmount({ exchange, pool, outputAmount: ethers.ethers.BigNumber.from(amountOut).mul(ethers.ethers.BigNumber.from(10)).toString() });
             const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
             const difference = amountScaledDown.sub(amount).abs();
-            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)));
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)).mul(ethers.ethers.BigNumber.from(5))); // up to 5% diff allowed
             if(!enoughLiquidity) { return }
           }
 

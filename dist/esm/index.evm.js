@@ -22542,7 +22542,7 @@ var ConnectWalletDialog = (function (props) {
       className: "Alert"
     }, /*#__PURE__*/React.createElement("span", {
       className: "FontWeightBold PaddingBottomXS"
-    }, "You wallet extension window is already asking to connect. It might be hidden."))), props.connectingExtension && /*#__PURE__*/React.createElement("div", {
+    }, "Your wallet extension is already open and asking to connect. It might be hidden."))), props.connectingExtension && /*#__PURE__*/React.createElement("div", {
       className: "Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
       style: {
         height: '50px'
