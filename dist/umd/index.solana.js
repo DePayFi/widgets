@@ -25710,7 +25710,7 @@
 
     var getPaymentRoutes = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-        var updatable, slowRoutingTimeout, firstRouteDisplayed;
+        var updatable, slowRoutingTimeout;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -25727,38 +25727,11 @@
               case 3:
                 slowRoutingTimeout = setTimeout(function () {
                   setSlowRouting(true);
-                }, 4000);
+                }, 3000);
                 _context.next = 6;
                 return routePayments(Object.assign({}, configuration, {
                   accept: props.accept,
-                  account: account,
-                  drip: function drip(route) {
-                    if (amountsMissing) {
-                      return;
-                    }
-
-                    if (route.fromToken.address !== route.toToken.address && !Blockchains__default['default'][route.blockchain].tokens.find(function (token) {
-                      return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
-                    })) {
-                      return;
-                    }
-
-                    if (allRoutesLoaded) {
-                      return;
-                    }
-
-                    if (route.approvalRequired) {
-                      return;
-                    }
-
-                    if (firstRouteDisplayed) {
-                      return;
-                    }
-
-                    firstRouteDisplayed = true;
-                    clearInterval(slowRoutingTimeout);
-                    setUpdatedRoutes([route]);
-                  }
+                  account: account
                 })).then(function (routes) {
                   setUpdatedRoutes(routes);
                   setAllRoutesLoadedInternal(true);
@@ -25881,17 +25854,20 @@
 
     React.useEffect(function () {
       var timeout = setTimeout(function () {
-        setReloadCount(reloadCount + 1);
-        getPaymentRoutes({
-          allRoutes: allRoutes,
-          selectedRoute: selectedRoute,
-          updatable: updatable
-        });
+        if (allRoutesLoaded) {
+          // do not reload if first routes have not been loaded yet
+          setReloadCount(reloadCount + 1);
+          getPaymentRoutes({
+            allRoutes: allRoutes,
+            selectedRoute: selectedRoute,
+            updatable: updatable
+          });
+        }
       }, 15000);
       return function () {
         return clearTimeout(timeout);
       };
-    }, [reloadCount, allRoutes, selectedRoute, updatable]);
+    }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable]);
     React.useEffect(function () {
       if (recover) {
         return;

@@ -45,23 +45,8 @@ export default (props)=>{
 
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
-    let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 4000)
-    let selectedRouteFromDrip
-    let firstRouteDisplayed
-    return await routePayments(Object.assign({}, configuration, { accept: props.accept, account, drip: (route)=>{
-      if(amountsMissing) { return }
-      if(
-        route.fromToken.address !== route.toToken.address &&
-        !Blockchains[route.blockchain].tokens.find((token)=>token.address.toLowerCase() === route.fromToken.address.toLowerCase())
-      ) { return }
-      if(allRoutesLoaded) { return }
-      if(route.approvalRequired) { return }
-      if(firstRouteDisplayed) { return }
-      firstRouteDisplayed = true
-      clearInterval(slowRoutingTimeout)
-      selectedRouteFromDrip  = route
-      setUpdatedRoutes([route])
-    }}))
+    let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 3000)
+    return await routePayments(Object.assign({}, configuration, { accept: props.accept, account }))
     .then((routes)=>{
       setUpdatedRoutes(routes)
       setAllRoutesLoadedInternal(true)
@@ -96,12 +81,14 @@ export default (props)=>{
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setReloadCount(reloadCount + 1)
-      getPaymentRoutes({ allRoutes, selectedRoute, updatable })
+      if(allRoutesLoaded) { // do not reload if first routes have not been loaded yet
+        setReloadCount(reloadCount + 1)
+        getPaymentRoutes({ allRoutes, selectedRoute, updatable })
+      }
     }, 15000);
 
     return () => clearTimeout(timeout)
-  }, [reloadCount, allRoutes, selectedRoute, updatable])
+  }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable])
 
   useEffect(() => {
     if(recover) { return }
