@@ -29508,7 +29508,7 @@
           if(response.ok) {
             response.json().then((parsedJson)=>{
               if(parsedJson.find((entry)=>{
-                return _optionalChain$5$1([entry, 'optionalAccess', _ => _.error]) && [-32062].includes(_optionalChain$5$1([entry, 'optionalAccess', _2 => _2.error, 'optionalAccess', _3 => _3.code]))
+                return _optionalChain$5$1([entry, 'optionalAccess', _ => _.error]) && [-32062,-32016].includes(_optionalChain$5$1([entry, 'optionalAccess', _2 => _2.error, 'optionalAccess', _3 => _3.code]))
               })) {
                 if(attempt < MAX_RETRY$1$1) {
                   reject('Error in batch found!');
