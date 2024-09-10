@@ -25653,6 +25653,7 @@ var routePayments = (function (_ref) {
 function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+var RELOAD_PERIOD = 15000;
 var PaymentRoutingProvider = (function (props) {
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -25729,7 +25730,7 @@ var PaymentRoutingProvider = (function (props) {
               slowRoutingTimeout = setTimeout(function () {
                 setSlowRouting(true);
               }, 3000);
-              _context.next = 6;
+              _context.next = 7;
               return routePayments(Object.assign({}, configuration, {
                 accept: props.accept,
                 account: account
@@ -25739,10 +25740,10 @@ var PaymentRoutingProvider = (function (props) {
                 clearInterval(slowRoutingTimeout);
               });
 
-            case 6:
+            case 7:
               return _context.abrupt("return", _context.sent);
 
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -25864,8 +25865,7 @@ var PaymentRoutingProvider = (function (props) {
           updatable: updatable
         });
       }
-    }, 60000); // reload prices every 1 minute
-
+    }, RELOAD_PERIOD);
     return function () {
       return clearTimeout(timeout);
     };

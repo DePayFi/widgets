@@ -28,6 +28,8 @@ import WalletContext from '../contexts/WalletContext'
 import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 
+const RELOAD_PERIOD = 15_000;
+
 export default (props)=>{
   const [ allRoutes, setAllRoutes ] = useState()
   const [ updatedRoutes, setUpdatedRoutes ] = useState()
@@ -46,6 +48,7 @@ export default (props)=>{
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 3000)
+    let allRoutesLoadedStart = Date.now()
     return await routePayments(Object.assign({}, configuration, { accept: props.accept, account }))
     .then((routes)=>{
       setUpdatedRoutes(routes)
@@ -85,7 +88,7 @@ export default (props)=>{
         setReloadCount(reloadCount + 1)
         getPaymentRoutes({ allRoutes, selectedRoute, updatable })
       }
-    }, 60_000); // reload prices every 1 minute
+    }, RELOAD_PERIOD);
 
     return () => clearTimeout(timeout)
   }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable])
