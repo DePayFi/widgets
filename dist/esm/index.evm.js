@@ -25864,7 +25864,8 @@ var PaymentRoutingProvider = (function (props) {
           updatable: updatable
         });
       }
-    }, 15000);
+    }, 60000); // reload prices every 1 minute
+
     return function () {
       return clearTimeout(timeout);
     };

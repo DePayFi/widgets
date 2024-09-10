@@ -85,7 +85,7 @@ export default (props)=>{
         setReloadCount(reloadCount + 1)
         getPaymentRoutes({ allRoutes, selectedRoute, updatable })
       }
-    }, 15000);
+    }, 60_000); // reload prices every 1 minute
 
     return () => clearTimeout(timeout)
   }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable])

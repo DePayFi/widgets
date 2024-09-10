@@ -25865,7 +25865,8 @@ var PaymentRoutingProvider = (function (props) {
           updatable: updatable
         });
       }
-    }, 15000);
+    }, 60000); // reload prices every 1 minute
+
     return function () {
       return clearTimeout(timeout);
     };
@@ -29462,7 +29463,7 @@ const getConfiguration$1 = () =>{
 
 function _optionalChain$5$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1$1 = 10;
-const CHUNK_SIZE$1$1 = 99;
+const CHUNK_SIZE$1$1 = 50;
 const MAX_RETRY$1$1 = 5;
 
 class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
@@ -29476,51 +29477,81 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
     this._pendingBatch = [];
   }
 
+  handleError(error, attempt, chunk) {
+    if(attempt < MAX_RETRY$1$1 && error) {
+      const index = this._endpoints.indexOf(this._endpoint)+1;
+      this._failover();
+      this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
+      this.requestChunk(chunk, this._endpoint, attempt+1);
+    } else {
+      chunk.forEach((inflightRequest) => {
+        inflightRequest.reject(error);
+      });
+    }
+  }
+
   detectNetwork() {
     return Promise.resolve(Blockchains.findByName(this._network).id)
   }
 
+  batchRequest(batch, attempt) {
+    return new Promise((resolve, reject) => {
+      
+      if (batch.length === 0) resolve([]); // Do nothing if requests is empty
+
+      fetch(
+        this._endpoint,
+        {
+          method: 'POST',
+          body: JSON.stringify(batch),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      ).then((response)=>{
+        if(response.ok) {
+          response.json().then((parsedJson)=>{
+            if(parsedJson.find((entry)=>{
+              return _optionalChain$5$1([entry, 'optionalAccess', _ => _.error]) && [-32062].includes(_optionalChain$5$1([entry, 'optionalAccess', _2 => _2.error, 'optionalAccess', _3 => _3.code]))
+            })) {
+              if(attempt < MAX_RETRY$1$1) {
+                reject('Error in batch found!');
+              } else {
+                resolve(parsedJson);
+              }
+            } else {
+              resolve(parsedJson);
+            }
+          }).catch(reject);
+        } else {
+          reject(`${response.status} ${response.text}`);
+        }
+      }).catch(reject);
+    })
+  }
+
   requestChunk(chunk, endpoint, attempt) {
 
-    try {
+    const batch = chunk.map((inflight) => inflight.request);
 
-      const request = chunk.map((inflight) => inflight.request);
-      return ethers.utils.fetchJson(endpoint, JSON.stringify(request))
+    try {
+      return this.batchRequest(batch, attempt)
         .then((result) => {
           // For each result, feed it to the correct Promise, depending
           // on whether it was a success or error
           chunk.forEach((inflightRequest, index) => {
             const payload = result[index];
-            if (_optionalChain$5$1([payload, 'optionalAccess', _ => _.error])) {
+            if (_optionalChain$5$1([payload, 'optionalAccess', _4 => _4.error])) {
               const error = new Error(payload.error.message);
               error.code = payload.error.code;
               error.data = payload.error.data;
               inflightRequest.reject(error);
-            } else if(_optionalChain$5$1([payload, 'optionalAccess', _2 => _2.result])) {
+            } else if(_optionalChain$5$1([payload, 'optionalAccess', _5 => _5.result])) {
               inflightRequest.resolve(payload.result);
             } else {
               inflightRequest.reject();
             }
           });
-        }).catch((error) => {
-          if(attempt < MAX_RETRY$1$1 && error && error.code == 'SERVER_ERROR') {
-            const index = this._endpoints.indexOf(this._endpoint)+1;
-            this._failover();
-            this._endpoint = index >= this._endpoints.length ? this._endpoints[0] : this._endpoints[index];
-            this.requestChunk(chunk, this._endpoint, attempt+1);
-          } else {
-            chunk.forEach((inflightRequest) => {
-              inflightRequest.reject(error);
-            });
-          }
-        })
-
-    } catch (e) {
-
-      chunk.forEach((inflightRequest) => {
-        inflightRequest.reject();
-      });
-    }
+        }).catch((error) => this.handleError(error, attempt, chunk))
+    } catch (error){ this.handleError(error, attempt, chunk); }
   }
     
   send(method, params) {
@@ -29687,7 +29718,7 @@ var EVM = {
 
 function _optionalChain$3$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL = 10;
-const CHUNK_SIZE = 99;
+const CHUNK_SIZE = 50;
 const MAX_RETRY = 10;
 
 class StaticJsonRpcSequentialProvider extends Connection {
@@ -36938,13 +36969,12 @@ let TokenImage = function(props){
   const blockchain = props.blockchain.toLowerCase();
   const address = props.address;
   const id = props.id;
-  const date = new Date();
   const getLocalStorageKey = (blockchain, address)=>{
     return [
       'react-token-image',
+      'v5.0.2',
       blockchain,
       address,
-      [date.getFullYear(), date.getMonth(), date.getDate()].join('-')
     ].join('-')
   };
 
@@ -36952,16 +36982,21 @@ let TokenImage = function(props){
     setSrc(src);
     _setSource(source);
     if(source != 'unknown') {
-      localStorage.setItem(getLocalStorageKey(blockchain, address), src);
+      localStorage.setItem(getLocalStorageKey(blockchain, address), JSON.stringify({ src, expiresAt: Date.now() + (24 * 60 * 60 * 1000) })); // 24 hours
     }
   };
 
   useEffect(()=>{
-    const storedImage = localStorage.getItem(getLocalStorageKey(blockchain, address));
-    if(storedImage && storedImage.length && storedImage != UNKNOWN_IMAGE) {
-      return setSource(storedImage, 'stored')
+    let storedImage = localStorage.getItem(getLocalStorageKey(blockchain, address));
+    if(storedImage && storedImage.length) {
+      try { 
+        storedImage = JSON.parse(storedImage);
+      } catch (e) {}
     }
-    const foundMajorToken = Blockchains[blockchain].tokens.find((token)=> token.address.toLowerCase() === address.toLowerCase());
+    if(storedImage && storedImage.src && storedImage.expiresAt > Date.now() && storedImage.src != UNKNOWN_IMAGE) {
+      return setSource(storedImage.src, 'stored')
+    }
+    const foundMajorToken = Blockchains[blockchain].tokens.find((token)=> token.address.toLowerCase() === _optionalChain([address, 'optionalAccess', _ => _.toLowerCase, 'call', _2 => _2()]));
     if(foundMajorToken) {
       setSource(foundMajorToken.logo, 'web3-blockchains');
     } else {
@@ -37000,7 +37035,7 @@ let TokenImage = function(props){
         });
 
         
-        if(_optionalChain([metaData, 'optionalAccess', _ => _.data, 'optionalAccess', _2 => _2.uri])) {
+        if(_optionalChain([metaData, 'optionalAccess', _3 => _3.data, 'optionalAccess', _4 => _4.uri])) {
 
           const uri = metaData.data.uri.replace(new RegExp('\u0000', 'g'), '');
           if(uri && uri.length) {
@@ -37020,7 +37055,7 @@ let TokenImage = function(props){
           reject('image not found on metaplex');
         }
 
-      } catch (e) { reject('image not found on metaplex'); }
+      } catch (e2) { reject('image not found on metaplex'); }
     })
   };
   
@@ -37106,7 +37141,7 @@ let TokenImage = function(props){
 
   if(src == undefined) {
     return(
-      React.createElement('div', { className:  props.className , __self: this, __source: {fileName: _jsxFileName, lineNumber: 201}} )
+      React.createElement('div', { className:  props.className , __self: this, __source: {fileName: _jsxFileName, lineNumber: 206}} )
     )
   }
 
@@ -37114,7 +37149,7 @@ let TokenImage = function(props){
     React.createElement('img', {
       className:  props.className ,
       src:  src ,
-      onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 206}}
+      onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 211}}
     )
   )
 };
