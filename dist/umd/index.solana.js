@@ -25729,20 +25729,19 @@
                 slowRoutingTimeout = setTimeout(function () {
                   setSlowRouting(true);
                 }, 3000);
-                _context.next = 7;
-                return routePayments(Object.assign({}, configuration, {
-                  accept: props.accept,
-                  account: account
-                })).then(function (routes) {
-                  setUpdatedRoutes(routes);
-                  setAllRoutesLoadedInternal(true);
-                  clearInterval(slowRoutingTimeout);
-                });
+                return _context.abrupt("return", new Promise(function (resolve, reject) {
+                  routePayments(Object.assign({}, configuration, {
+                    accept: props.accept,
+                    account: account
+                  })).then(function (routes) {
+                    setUpdatedRoutes(routes);
+                    setAllRoutesLoadedInternal(true);
+                    clearInterval(slowRoutingTimeout);
+                    resolve();
+                  })["catch"](reject);
+                }));
 
-              case 7:
-                return _context.abrupt("return", _context.sent);
-
-              case 8:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -25908,7 +25907,7 @@
               if (selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
                 setUpdatedRouteWithNewPrice(updatedSelectedRoute);
               } else if ( // other reasons but price to update selected route
-              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired) {
+              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired || selectedRoute.currentAllowance != updatedSelectedRoute.currentAllowance) {
                 setSelectedRoute(updatedSelectedRoute);
               }
             } else {
@@ -26762,10 +26761,15 @@
         approvalTransaction = _useState6[0],
         setApprovalTransaction = _useState6[1];
 
-    var _useState7 = React.useState('initialized'),
+    var _useState7 = React.useState(),
         _useState8 = _slicedToArray(_useState7, 2),
-        paymentState = _useState8[0],
-        setPaymentState = _useState8[1];
+        resetApprovalTransaction = _useState8[0],
+        setResetApprovalTransaction = _useState8[1];
+
+    var _useState9 = React.useState('initialized'),
+        _useState10 = _slicedToArray(_useState9, 2),
+        paymentState = _useState10[0],
+        setPaymentState = _useState10[1];
 
     var paymentSucceeded = function paymentSucceeded(transaction, payment) {
       if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
@@ -26911,21 +26915,56 @@
       };
     }();
 
+    var resetApproval = function resetApproval() {
+      setPaymentState('resetting');
+      setClosable(false);
+      setUpdatable(false);
+      var resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction));
+      resetApprovalTransaction.params[1] = '0'; // reset first
+
+      wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
+        sent: function sent(sentTransaction) {
+          setResetApprovalTransaction(sentTransaction);
+        },
+        succeeded: function succeeded() {
+          setUpdatable(true);
+          setClosable(true);
+          refreshPaymentRoutes().then(function () {
+            setTimeout(function () {
+              setPaymentState('initialized');
+            }, 1000);
+          });
+        }
+      }))["catch"](function (error) {
+        console.log('error', error);
+
+        if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+          navigate('WrongNetwork');
+        }
+
+        setPaymentState('initialized');
+        setClosable(true);
+      });
+    };
+
     var approve = function approve() {
       setPaymentState('approving');
       setClosable(false);
       setUpdatable(false);
       wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
+        sent: function sent(sentTransaction) {
+          setApprovalTransaction(sentTransaction);
+        },
         succeeded: function succeeded() {
           setUpdatable(true);
           setClosable(true);
           refreshPaymentRoutes().then(function () {
-            setPaymentState('initialized');
+            setTimeout(function () {
+              setPaymentState('initialized');
+            }, 1000);
           });
         }
-      })).then(function (sentTransaction) {
-        setApprovalTransaction(sentTransaction);
-      })["catch"](function (error) {
+      }))["catch"](function (error) {
         console.log('error', error);
 
         if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
@@ -27062,7 +27101,9 @@
           pay: pay,
           transaction: transaction,
           approve: approve,
-          approvalTransaction: approvalTransaction
+          resetApproval: resetApproval,
+          approvalTransaction: approvalTransaction,
+          resetApprovalTransaction: resetApprovalTransaction
         }
       }, props.children);
     }
@@ -27677,6 +27718,10 @@
     }, "."));
   });
 
+  var REQUIRES_APPROVAL_RESET = {
+    'ethereum': ['0xdAC17F958D2ee523a2206206994597C13D831ec7'] // USDT on Ethereum
+
+  };
   var Footer = (function () {
     var _useContext = React.useContext(ChangableAmountContext);
         _useContext.amount;
@@ -27697,7 +27742,9 @@
         pay = _useContext3.pay,
         transaction = _useContext3.transaction,
         approve = _useContext3.approve,
-        approvalTransaction = _useContext3.approvalTransaction;
+        approvalTransaction = _useContext3.approvalTransaction,
+        resetApproval = _useContext3.resetApproval,
+        resetApprovalTransaction = _useContext3.resetApprovalTransaction;
 
     var _useContext4 = React.useContext(PaymentValueContext),
         paymentValueLoss = _useContext4.paymentValueLoss;
@@ -27722,9 +27769,15 @@
         secondsLeftCountdown = _useState4[0],
         setSecondsLeftCountdown = _useState4[1];
 
+    var _useState5 = React.useState(false),
+        _useState6 = _slicedToArray(_useState5, 2),
+        requiresApprovalReset = _useState6[0],
+        setRequiresApprovalReset = _useState6[1];
+
     var throttledUpdateRouteWithNewPrice = lodash.throttle(updateRouteWithNewPrice, 2000);
     var throttledPay = lodash.throttle(pay, 2000);
     var throttledApprove = lodash.throttle(approve, 2000);
+    var throttledResetApproval = lodash.throttle(resetApproval, 2000);
     React.useEffect(function () {
       if (confirmationsRequired) {
         var interval = setInterval(function () {
@@ -27745,6 +27798,15 @@
         setSecondsLeftCountdown(0);
       }
     }, [confirmationsPassed]);
+    React.useEffect(function () {
+      var _payment$route, _payment$route2, _payment$route3, _payment$route4;
+
+      if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.blockchain] && REQUIRES_APPROVAL_RESET[payment.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers.ethers.BigNumber.from(payment.route.fromAmount))) {
+        setRequiresApprovalReset(true);
+      } else {
+        setRequiresApprovalReset(false);
+      }
+    }, [payment]);
 
     var trackingInfo = function trackingInfo(transaction) {
       if (!transaction) {
@@ -27863,10 +27925,44 @@
       }
     };
 
+    var approvalResetButton = function approvalResetButton() {
+      if (!requiresApprovalReset || payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice) {
+        return null;
+      } else if (paymentValueLoss) {
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          type: "button",
+          className: "ButtonPrimary disabled",
+          onClick: function onClick() {},
+          title: "Reset approval for ".concat(payment.symbol)
+        }, "Reset ", payment.symbol, " approval"));
+      } else if (paymentState == 'initialized') {
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          type: "button",
+          className: "ButtonPrimary",
+          onClick: throttledResetApproval,
+          title: "Reset approval for ".concat(payment.symbol)
+        }, "Reset ", payment.symbol, " approval"));
+      } else if (paymentState == 'resetting') {
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "ButtonPrimary",
+          title: "Resetting current approval - please wait",
+          href: resetApprovalTransaction === null || resetApprovalTransaction === void 0 ? void 0 : resetApprovalTransaction.url,
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Resetting")));
+      }
+    };
+
     var approvalButton = function approvalButton() {
       if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice) {
         return null;
-      } else if (paymentValueLoss) {
+      } else if (paymentValueLoss || requiresApprovalReset) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomXS"
         }, /*#__PURE__*/React__default['default'].createElement("button", {
@@ -27916,7 +28012,7 @@
           className: "ButtonPrimary disabled",
           onClick: function onClick() {}
         }, "Pay"));
-      } else if ((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
+      } else if ((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
         return /*#__PURE__*/React__default['default'].createElement("button", {
           tabIndex: 1,
           type: "button",
@@ -27976,7 +28072,7 @@
       className: "PaddingBottomXS"
     }, /*#__PURE__*/React__default['default'].createElement("div", {
       className: "Alert"
-    }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), approvalButton(), additionalPaymentInformation(), mainAction());
+    }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Payment would lose ", paymentValueLoss, "% of its value!"))), approvalResetButton(), approvalButton(), additionalPaymentInformation(), mainAction());
   });
 
   var PaymentOverviewSkeleton = (function (props) {
@@ -30324,7 +30420,7 @@
         api,
         method: 'allowance',
         params: [owner, spender],
-        cache: 5000, // 5 seconds
+        // no cache for allowance!
       },
     )
   };
@@ -30336,7 +30432,6 @@
           blockchain: blockchain,
           address: account,
           method: 'balance',
-          cache: 10000, // 10 seconds
         },
       )
     } else {
@@ -30347,7 +30442,6 @@
           method: 'balanceOf',
           api,
           params: id ? [account, id] : [account],
-          cache: 10000, // 10 seconds
         },
       )
     }
@@ -31403,8 +31497,8 @@
     return _optionalChain$1$1([metaData, 'optionalAccess', _ => _.symbol])
   };
 
-  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
-  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$2.solana = ['solana'];
 
   function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
@@ -31592,6 +31686,14 @@
   };
 
   Token.base = {
+    DEFAULT: ERC20,
+    ERC20: ERC20,
+    20: ERC20,
+    1155: ERC1155,
+    WRAPPED: WETH$2,
+  };
+
+  Token.worldchain = {
     DEFAULT: ERC20,
     ERC20: ERC20,
     20: ERC20,

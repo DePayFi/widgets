@@ -49,11 +49,14 @@ export default (props)=>{
     if(updatable == false || !props.accept || !account) { return }
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 3000)
     let allRoutesLoadedStart = Date.now()
-    return await routePayments(Object.assign({}, configuration, { accept: props.accept, account }))
-    .then((routes)=>{
-      setUpdatedRoutes(routes)
-      setAllRoutesLoadedInternal(true)
-      clearInterval(slowRoutingTimeout)
+    return new Promise((resolve, reject)=>{
+      routePayments(Object.assign({}, configuration, { accept: props.accept, account }))
+      .then((routes)=>{
+        setUpdatedRoutes(routes)
+        setAllRoutesLoadedInternal(true)
+        clearInterval(slowRoutingTimeout)
+        resolve()
+      }).catch(reject)
     })
   }
 
@@ -128,7 +131,8 @@ export default (props)=>{
             if(selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
               setUpdatedRouteWithNewPrice(updatedSelectedRoute)
             } else if ( // other reasons but price to update selected route
-              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired
+              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired ||
+              selectedRoute.currentAllowance != updatedSelectedRoute.currentAllowance
             ) {
               setSelectedRoute(updatedSelectedRoute)
             }
