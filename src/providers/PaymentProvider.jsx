@@ -46,6 +46,7 @@ export default (props)=>{
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
+  const [ resetApprovalTransaction, setResetApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
 
   const paymentSucceeded = (transaction, payment)=>{
@@ -109,22 +110,54 @@ export default (props)=>{
     })
   }
 
+  const resetApproval = ()=> {
+    setPaymentState('resetting')
+    setClosable(false)
+    setUpdatable(false)
+    const resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction))
+    resetApprovalTransaction.params[1] = '0' // reset first
+    wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
+      sent: (sentTransaction)=>{
+        setResetApprovalTransaction(sentTransaction)
+      },
+      succeeded: ()=>{
+        setUpdatable(true)
+        setClosable(true)
+        refreshPaymentRoutes().then(()=>{
+          setTimeout(()=>{
+            setPaymentState('initialized')
+          }, 1000)
+        })
+      }
+    }))
+      .catch((error)=>{
+        console.log('error', error)
+        if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
+          navigate('WrongNetwork')
+        }
+        setPaymentState('initialized')
+        setClosable(true)
+      })
+  }
+
   const approve = ()=> {
     setPaymentState('approving')
     setClosable(false)
     setUpdatable(false)
     wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
+      sent: (sentTransaction)=>{
+        setApprovalTransaction(sentTransaction)
+      },
       succeeded: ()=>{
         setUpdatable(true)
         setClosable(true)
         refreshPaymentRoutes().then(()=>{
-          setPaymentState('initialized')
+          setTimeout(()=>{
+            setPaymentState('initialized')
+          }, 1000)
         })
       }
     }))
-      .then((sentTransaction)=>{
-        setApprovalTransaction(sentTransaction)
-      })
       .catch((error)=>{
         console.log('error', error)
         if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
@@ -252,7 +285,9 @@ export default (props)=>{
         pay,
         transaction,
         approve,
-        approvalTransaction
+        resetApproval,
+        approvalTransaction,
+        resetApprovalTransaction,
       }}>
         { props.children }
       </PaymentContext.Provider>

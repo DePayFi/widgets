@@ -11,22 +11,29 @@ import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import { Currency } from '@depay/local-currency'
+import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { throttle } from 'lodash'
+
+const REQUIRES_APPROVAL_RESET = {
+  'ethereum': ['0xdAC17F958D2ee523a2206206994597C13D831ec7'] // USDT on Ethereum
+}
 
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo, confirmationsRequired, confirmationsPassed } = useContext(PaymentTrackingContext)
-  const { payment, paymentState, pay, transaction, approve, approvalTransaction } = useContext(PaymentContext)
+  const { payment, paymentState, pay, transaction, approve, approvalTransaction, resetApproval, resetApprovalTransaction } = useContext(PaymentContext)
   const { paymentValueLoss } = useContext(PaymentValueContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
+  const [ requiresApprovalReset, setRequiresApprovalReset ] = useState(false)
   const throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000)
   const throttledPay = throttle(pay, 2000)
   const throttledApprove = throttle(approve, 2000)
+  const throttledResetApproval = throttle(resetApproval, 2000)
 
   useEffect(()=>{
     if(confirmationsRequired) {
@@ -52,6 +59,21 @@ export default ()=>{
       setSecondsLeftCountdown(0)
     }
   }, [confirmationsPassed])
+
+  useEffect(()=>{
+    if(
+      payment?.route?.approvalRequired &&
+      REQUIRES_APPROVAL_RESET[payment.blockchain] &&
+      REQUIRES_APPROVAL_RESET[payment.blockchain].includes(payment.token) &&
+      payment?.route?.currentAllowance &&
+      payment?.route?.currentAllowance.toString() != '0' &&
+      payment?.route?.currentAllowance.lt(ethers.BigNumber.from(payment.route.fromAmount))
+    ) {
+      setRequiresApprovalReset(true)
+    } else {
+      setRequiresApprovalReset(false)
+    }
+  }, [payment])
 
   const trackingInfo = (transaction)=> {
     if (!transaction) {
@@ -166,10 +188,40 @@ export default ()=>{
     }
   }
 
+  const approvalResetButton = ()=> {
+    if(!requiresApprovalReset || payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
+      return(null)
+    } else if(paymentValueLoss) {
+      return(
+        <div className="PaddingBottomXS">
+          <button type="button" className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Reset approval for ${payment.symbol}`}>
+            Reset { payment.symbol } approval
+          </button>
+        </div>
+      )
+    } else if(paymentState == 'initialized') {
+      return(
+        <div className="PaddingBottomXS">
+          <button type="button" className="ButtonPrimary" onClick={ throttledResetApproval } title={`Reset approval for ${payment.symbol}`}>
+            Reset { payment.symbol } approval
+          </button>
+        </div>
+      )
+    } else if (paymentState == 'resetting') {
+      return(
+        <div className="PaddingBottomXS">
+          <a className="ButtonPrimary" title="Resetting current approval - please wait" href={ resetApprovalTransaction?.url } target="_blank" rel="noopener noreferrer">
+            <LoadingText>Resetting</LoadingText>
+          </a>
+        </div>
+      )
+    }
+  }
+
   const approvalButton = ()=> {
     if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
       return(null)
-    } else if(paymentValueLoss) {
+    } else if(paymentValueLoss || requiresApprovalReset) {
       return(
         <div className="PaddingBottomXS">
           <button type="button" className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Allow ${payment.symbol} to be used as payment`}>
@@ -218,7 +270,7 @@ export default ()=>{
           </button>
         </div>
       )
-    } else if((paymentState == 'initialized' || paymentState == 'approving') && payment.route) {
+    } else if((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
       return(
         <button 
           tabIndex={1}
@@ -286,6 +338,7 @@ export default ()=>{
           </div>
         </div>
       }
+      { approvalResetButton() }
       { approvalButton() }
       { additionalPaymentInformation() }
       { mainAction() }
