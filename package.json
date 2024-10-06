@@ -44,7 +44,7 @@
     "@depay/walletconnect-v2": "^2.12.2",
     "@depay/web3-assets": "^7.3.1",
     "@depay/web3-blockchains": "^9.5.3",
-    "@depay/web3-client": "^10.18.16",
+    "@depay/web3-client": "^10.19.1",
     "@depay/web3-exchanges": "^13.8.6",
     "@depay/web3-payments": "^13.10.0",
     "@depay/web3-tokens": "^10.4.3",

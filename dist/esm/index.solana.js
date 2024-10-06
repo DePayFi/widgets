@@ -29707,6 +29707,7 @@ const getAllProviders$1 = ()=> {
 };
 
 const setProvider$2 = (blockchain, provider)=> {
+  if(provider == undefined) { return }
   if(getAllProviders$1()[blockchain] === undefined) { getAllProviders$1()[blockchain] = []; }
   const index = getAllProviders$1()[blockchain].indexOf(provider);
   if(index > -1) {
@@ -29953,6 +29954,7 @@ const getAllProviders = ()=> {
 };
 
 const setProvider$1 = (blockchain, provider)=> {
+  if(provider == undefined) { return }
   if(getAllProviders()[blockchain] === undefined) { getAllProviders()[blockchain] = []; }
   const index = getAllProviders()[blockchain].indexOf(provider);
   if(index > -1) {
@@ -30058,8 +30060,8 @@ var Solana = {
   setProvider: setProvider$1,
 };
 
-let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
-supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base'];
+let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
 supported$3.solana = ['solana'];
 
 function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
