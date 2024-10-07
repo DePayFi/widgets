@@ -55,7 +55,7 @@
   supported.svm = ['solana'];
   supported.solana = ['solana'];
 
-  var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
+  var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$WorldApp, _wallets$WorldApp$inf, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
   var allWallets = [{
     "name": "Coinbase",
     "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
@@ -199,6 +199,11 @@
     },
     "logo": (_wallets$CryptoCom = web3Wallets.wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
     "blockchains": _toConsumableArray(supported.evm)
+  }, {
+    "name": "World App",
+    "extension": "WorldApp",
+    "logo": (_wallets$WorldApp = web3Wallets.wallets.WorldApp) === null || _wallets$WorldApp === void 0 ? void 0 : (_wallets$WorldApp$inf = _wallets$WorldApp.info) === null || _wallets$WorldApp$inf === void 0 ? void 0 : _wallets$WorldApp$inf.logo,
+    "blockchains": ["worldchain"]
   }, {
     "name": "Coin98",
     "extensions": ["Coin98EVM", "Coin98SVM"],

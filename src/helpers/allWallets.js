@@ -96,6 +96,12 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
+    "name": "World App",
+    "extension": "WorldApp",
+    "logo": wallets.WorldApp?.info?.logo,
+    "blockchains": ["worldchain"]
+  },
+  {
     "name": "Coin98",
     "extensions": ["Coin98EVM", "Coin98SVM"],
     "desktop": { "qr": "WalletConnectV2" },
