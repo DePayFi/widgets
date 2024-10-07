@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-evm'), require('@depay/web3-blockchains'), require('react'), require('@depay/web3-payments-evm'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-evm'), require('@depay/local-currency'), require('@depay/web3-exchanges-evm'), require('@depay/web3-tokens-evm'), require('decimal.js'), require('ethers'), require('@depay/react-token-image-evm')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-evm', '@depay/web3-blockchains', 'react', '@depay/web3-payments-evm', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-evm', '@depay/local-currency', '@depay/web3-exchanges-evm', '@depay/web3-tokens-evm', 'decimal.js', 'ethers', '@depay/react-token-image-evm'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.ReactTokenImage));
-}(this, (function (web3WalletsEvm, Blockchains, React, web3PaymentsEvm, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, Exchanges, Token, decimal_js, ethers, reactTokenImageEvm) { 'use strict';
+}(this, (function (web3WalletsEvm, Blockchains, React, web3PaymentsEvm, copy, reactDialogStack, QRCodeStyling, Fuse$1, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, Exchanges, Token, decimal_js, ethers, reactTokenImageEvm) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -10,7 +10,7 @@
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var copy__default = /*#__PURE__*/_interopDefaultLegacy(copy);
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
-  var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
+  var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse$1);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
   var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
   var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token);
@@ -50,8 +50,8 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
-  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
+  var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
   supported.svm = [];
   supported.solana = [];
 
@@ -26817,7 +26817,7 @@
                 account = _context2.sent;
                 _context2.next = 7;
                 return payment.route.getTransaction({
-                  from: account
+                  wallet: wallet
                 });
 
               case 7:
@@ -30897,12 +30897,29 @@
     var _useContext = React.useContext(SelectionContext),
         setSelection = _useContext.setSelection;
 
+    var _useState = React.useState(''),
+        _useState2 = _slicedToArray(_useState, 2),
+        searchTerm = _useState2[0],
+        setSearchTerm = _useState2[1];
+
     var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext2.navigate;
 
     var stacked = props.stacked || Object.keys(props.selection).length > 1;
-    var blockchains = supported.map(function (blockchainName) {
+    var allBlockchains = supported.map(function (blockchainName) {
       return Blockchains__default['default'][blockchainName];
+    });
+
+    var _useState3 = React.useState(allBlockchains),
+        _useState4 = _slicedToArray(_useState3, 2),
+        blockchains = _useState4[0],
+        setBlockchains = _useState4[1];
+
+    var searchElement = React.useRef();
+    var fuse = new Fuse(allBlockchains, {
+      keys: ['label', 'name'],
+      threshold: 0.3,
+      ignoreFieldNorm: true
     });
 
     var selectBlockchain = function selectBlockchain(blockchain) {
@@ -30918,38 +30935,56 @@
       }
     };
 
-    var elements = blockchains.map(function (blockchain, index) {
-      return /*#__PURE__*/React__default['default'].createElement("div", {
-        key: index,
-        className: "Card Row",
-        onClick: function onClick() {
-          return selectBlockchain(blockchain);
-        }
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent BlockchainLogo",
-        src: blockchain.logo,
-        style: {
-          backgroundColor: blockchain.logoBackgroundColor
-        }
-      })), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "CardText"
-      }, blockchain.label)));
-    });
+    var onChangeSearch = function onChangeSearch(event) {
+      setSearchTerm(event.target.value);
+
+      if (event.target.value.length > 1) {
+        setBlockchains(fuse.search(event.target.value).map(function (result) {
+          return result.item;
+        }));
+      } else {
+        setBlockchains(allBlockchains);
+      }
+    };
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Select Blockchain"))),
+      }, "Select Blockchain"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS TextLeft"
+      }, /*#__PURE__*/React__default['default'].createElement("input", {
+        value: searchTerm,
+        autoFocus: !isMobile(),
+        onChange: onChangeSearch,
+        className: "Search",
+        placeholder: "Search by name",
+        ref: searchElement
+      })))),
       stacked: stacked,
       bodyClassName: "ScrollHeight",
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS"
-      }, elements),
+      body: /*#__PURE__*/React__default['default'].createElement("div", null, blockchains.map(function (blockchain, index) {
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          key: index,
+          className: "Card Row",
+          onClick: function onClick() {
+            return selectBlockchain(blockchain);
+          }
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React__default['default'].createElement("img", {
+          className: "transparent BlockchainLogo",
+          src: blockchain.logo,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          }
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "CardText"
+        }, blockchain.label)));
+      })),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
       })

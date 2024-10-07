@@ -5,7 +5,7 @@ import { route } from '@depay/web3-payments-evm';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
-import Fuse from 'fuse.js';
+import Fuse$1 from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
@@ -52,8 +52,8 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
-supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
+var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
+supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
 supported.svm = [];
 supported.solana = [];
 
@@ -22964,7 +22964,7 @@ var SelectWalletList = (function (props) {
   }
 
   var parentElement = React.useRef();
-  var fuse = new Fuse(allWallets$1, {
+  var fuse = new Fuse$1(allWallets$1, {
     keys: ['name'],
     threshold: 0.3,
     ignoreFieldNorm: true
@@ -26819,7 +26819,7 @@ var PaymentProvider = (function (props) {
               account = _context2.sent;
               _context2.next = 7;
               return payment.route.getTransaction({
-                from: account
+                wallet: wallet
               });
 
             case 7:
@@ -27382,7 +27382,7 @@ var ChangePaymentDialog = (function (props) {
           route: route
         };
       });
-      setFuse(new Fuse(allPaymentRoutesWithDisplayData, {
+      setFuse(new Fuse$1(allPaymentRoutesWithDisplayData, {
         keys: ['name', 'symbol', 'blockchainName'],
         threshold: 0.3,
         ignoreFieldNorm: true
@@ -30899,12 +30899,29 @@ var SelectBlockchainDialog = (function (props) {
   var _useContext = useContext(SelectionContext),
       setSelection = _useContext.setSelection;
 
+  var _useState = useState(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      searchTerm = _useState2[0],
+      setSearchTerm = _useState2[1];
+
   var _useContext2 = useContext(NavigateStackContext),
       navigate = _useContext2.navigate;
 
   var stacked = props.stacked || Object.keys(props.selection).length > 1;
-  var blockchains = supported.map(function (blockchainName) {
+  var allBlockchains = supported.map(function (blockchainName) {
     return Blockchains[blockchainName];
+  });
+
+  var _useState3 = useState(allBlockchains),
+      _useState4 = _slicedToArray(_useState3, 2),
+      blockchains = _useState4[0],
+      setBlockchains = _useState4[1];
+
+  var searchElement = useRef();
+  var fuse = new Fuse(allBlockchains, {
+    keys: ['label', 'name'],
+    threshold: 0.3,
+    ignoreFieldNorm: true
   });
 
   var selectBlockchain = function selectBlockchain(blockchain) {
@@ -30920,38 +30937,56 @@ var SelectBlockchainDialog = (function (props) {
     }
   };
 
-  var elements = blockchains.map(function (blockchain, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: index,
-      className: "Card Row",
-      onClick: function onClick() {
-        return selectBlockchain(blockchain);
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "CardImage"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "transparent BlockchainLogo",
-      src: blockchain.logo,
-      style: {
-        backgroundColor: blockchain.logoBackgroundColor
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "CardBody"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "CardText"
-    }, blockchain.label)));
-  });
+  var onChangeSearch = function onChangeSearch(event) {
+    setSearchTerm(event.target.value);
+
+    if (event.target.value.length > 1) {
+      setBlockchains(fuse.search(event.target.value).map(function (result) {
+        return result.item;
+      }));
+    } else {
+      setBlockchains(allBlockchains);
+    }
+  };
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Select Blockchain"))),
+    }, "Select Blockchain"), /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopS TextLeft"
+    }, /*#__PURE__*/React.createElement("input", {
+      value: searchTerm,
+      autoFocus: !isMobile(),
+      onChange: onChangeSearch,
+      className: "Search",
+      placeholder: "Search by name",
+      ref: searchElement
+    })))),
     stacked: stacked,
     bodyClassName: "ScrollHeight",
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS"
-    }, elements),
+    body: /*#__PURE__*/React.createElement("div", null, blockchains.map(function (blockchain, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "Card Row",
+        onClick: function onClick() {
+          return selectBlockchain(blockchain);
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "transparent BlockchainLogo",
+        src: blockchain.logo,
+        style: {
+          backgroundColor: blockchain.logoBackgroundColor
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "CardText"
+      }, blockchain.label)));
+    })),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
     })
