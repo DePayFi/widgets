@@ -1374,10 +1374,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-10.4.3.tgz#d84b2fa24efac9ccdebd2c04f2b9ef8d7a8aa63a"
   integrity sha512-SYaCrND2yzWDIlI1mxy3El9LDyEYLbfG5jEiTaq9mHrgQ/90keTIzUFXUsKPVC9EKjLuS4RkAKvg3Pgryi7o2w==
 
-"@depay/web3-wallets@^17.4.5":
-  version "17.4.5"
-  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-17.4.5.tgz#d6ba0c2cdc85a620b97849b8169ff92e871e1be3"
-  integrity sha512-33ica1hTSJcQGnntLkatj1sGgHAgdDS1P8NZYhzEUccd4w6WuLQWkp43AlFLeDfnzStEdctmPz/SGmneI82EDg==
+"@depay/web3-wallets@^17.4.6":
+  version "17.4.6"
+  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-17.4.6.tgz#28645c11b5247601fda36362cc08f3d8e9c866e0"
+  integrity sha512-hMHeqK8glMcGY7/lOvh2x0Ht/wa2IjExqX8+e8e+Eqjlq51HUbo4H+M+pwSr3qK+L5XiNfhrW+W+rBNxeQSZKQ==
 
 "@depay/worldcoin-precompiled@^0.0.33":
   version "0.0.33"
