@@ -28,6 +28,7 @@ export default {
   '@depay/web3-wallets': 'Web3Wallets',
   '@depay/web3-wallets-evm': 'Web3Wallets',
   '@depay/web3-wallets-solana': 'Web3Wallets',
+  '@depay/worldcoin-precompiled': 'WorldcoinPrecompiled',
   '@depay/solana-web3.js': 'SolanaWeb3js',
   '@tanstack/react-virtual': 'ReactVirtual',
   '@uiw/copy-to-clipboard': 'copyTextToClipboard',

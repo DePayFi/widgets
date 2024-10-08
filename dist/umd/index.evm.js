@@ -22438,7 +22438,11 @@
                 }) || ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
                 setScanQrAvailable(scanQrAvailable);
 
-              case 32:
+                if (extensionIsAvailable && !connectAppIsAvailable && !copyLinkIsAvailable && !openInAppIsAvailable && !scanQrAvailable) {
+                  props.connectExtension(props.wallet);
+                }
+
+              case 33:
               case "end":
                 return _context2.stop();
             }
