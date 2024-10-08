@@ -35,7 +35,7 @@
     "@depay/web3-exchanges-solana": "^13.11.0",
     "@depay/web3-payments-solana": "^13.12.3",
     "@depay/web3-tokens-solana": "^10.4.3",
-    "@depay/web3-wallets-solana": "^17.4.6",
+    "@depay/web3-wallets-solana": "^17.4.7",
     "@tanstack/react-virtual": "^3.0.0-beta.54",
     "@uiw/copy-to-clipboard": "^1.0.14",
     "decimal.js": "^10.4.3",
