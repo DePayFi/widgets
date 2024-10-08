@@ -1,5 +1,6 @@
 import Blockchains from '@depay/web3-blockchains'
 import Dialog from '../components/Dialog'
+import Fuse from 'fuse.js'
 import isMobile from '../helpers/isMobile'
 import React, { useState, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'

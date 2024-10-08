@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-evm'), require('@depay/web3-blockchains'), require('react'), require('@depay/web3-payments-evm'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-evm'), require('@depay/local-currency'), require('@depay/web3-exchanges-evm'), require('@depay/web3-tokens-evm'), require('decimal.js'), require('ethers'), require('@depay/react-token-image-evm')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-evm', '@depay/web3-blockchains', 'react', '@depay/web3-payments-evm', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-evm', '@depay/local-currency', '@depay/web3-exchanges-evm', '@depay/web3-tokens-evm', 'decimal.js', 'ethers', '@depay/react-token-image-evm'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.ReactTokenImage));
-}(this, (function (web3WalletsEvm, Blockchains, React, web3PaymentsEvm, copy, reactDialogStack, QRCodeStyling, Fuse$1, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, Exchanges, Token, decimal_js, ethers, reactTokenImageEvm) { 'use strict';
+}(this, (function (web3WalletsEvm, Blockchains, React, web3PaymentsEvm, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, Exchanges, Token, decimal_js, ethers, reactTokenImageEvm) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -10,7 +10,7 @@
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var copy__default = /*#__PURE__*/_interopDefaultLegacy(copy);
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
-  var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse$1);
+  var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
   var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
   var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token);
@@ -30921,7 +30921,7 @@
         setBlockchains = _useState4[1];
 
     var searchElement = React.useRef();
-    var fuse = new Fuse(allBlockchains, {
+    var fuse = new Fuse__default['default'](allBlockchains, {
       keys: ['label', 'name'],
       threshold: 0.3,
       ignoreFieldNorm: true

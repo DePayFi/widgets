@@ -5,7 +5,7 @@ import { route as route$2 } from '@depay/web3-payments-solana';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
-import Fuse$1 from 'fuse.js';
+import Fuse from 'fuse.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
@@ -22970,7 +22970,7 @@ var SelectWalletList = (function (props) {
   }
 
   var parentElement = React.useRef();
-  var fuse = new Fuse$1(allWallets$1, {
+  var fuse = new Fuse(allWallets$1, {
     keys: ['name'],
     threshold: 0.3,
     ignoreFieldNorm: true
@@ -27388,7 +27388,7 @@ var ChangePaymentDialog = (function (props) {
           route: route
         };
       });
-      setFuse(new Fuse$1(allPaymentRoutesWithDisplayData, {
+      setFuse(new Fuse(allPaymentRoutesWithDisplayData, {
         keys: ['name', 'symbol', 'blockchainName'],
         threshold: 0.3,
         ignoreFieldNorm: true

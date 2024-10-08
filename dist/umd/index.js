@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('react'), require('@depay/web3-payments'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature-web'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('decimal.js'), require('ethers'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets', '@depay/web3-blockchains', 'react', '@depay/web3-payments', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature-web', '@depay/web3-exchanges', '@depay/web3-tokens', 'decimal.js', 'ethers', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.DePayVerifySignature, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (web3Wallets, Blockchains, React, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse$1, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, decimal_js, ethers, reactTokenImage, solanaWeb3_js) { 'use strict';
+}(this, (function (web3Wallets, Blockchains, React, web3Payments, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, decimal_js, ethers, reactTokenImage, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -10,7 +10,7 @@
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var copy__default = /*#__PURE__*/_interopDefaultLegacy(copy);
   var QRCodeStyling__default = /*#__PURE__*/_interopDefaultLegacy(QRCodeStyling);
-  var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse$1);
+  var Fuse__default = /*#__PURE__*/_interopDefaultLegacy(Fuse);
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
   var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
   var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token);
@@ -32349,7 +32349,7 @@
         setBlockchains = _useState4[1];
 
     var searchElement = React.useRef();
-    var fuse = new Fuse(allBlockchains, {
+    var fuse = new Fuse__default['default'](allBlockchains, {
       keys: ['label', 'name'],
       threshold: 0.3,
       ignoreFieldNorm: true
