@@ -1,9 +1,14 @@
-import React from 'react'
+import link from '../helpers/link'
+import React, { useContext } from 'react'
+import WalletContext from '../contexts/WalletContext'
 
 export default ()=>{
+  const walletContext = useContext(WalletContext)
+  const wallet = walletContext ? walletContext.wallet : undefined
+
   return(
     <div className="PoweredByWrapper">
-      <a href={'https://depay.com'} rel="noopener noreferrer" target="_blank" className="PoweredByLink">by DePay</a>
+      <a href={ link({ url: 'https://depay.com', target: '_blank', wallet }) } rel="noopener noreferrer" target="_blank" className="PoweredByLink">by DePay</a>
     </div>
   )
 }

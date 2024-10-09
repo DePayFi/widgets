@@ -22766,11 +22766,31 @@ var platformForWallet = (function (walletMetaData) {
   return platform;
 });
 
+var link$1 = function link(_ref) {
+  var url = _ref.url,
+      target = _ref.target,
+      wallet = _ref.wallet;
+
+  if (target == '_blank' && (wallet === null || wallet === void 0 ? void 0 : wallet.name) === 'World App' && url.match('depay.com')) {
+    return "https://integrate.depay.fi/redirect?to=".concat(encodeURIComponent(url));
+  }
+
+  return url;
+};
+
+var WalletContext = /*#__PURE__*/React.createContext();
+
 var PoweredBy = (function () {
+  var walletContext = useContext(WalletContext);
+  var wallet = walletContext ? walletContext.wallet : undefined;
   return /*#__PURE__*/React.createElement("div", {
     className: "PoweredByWrapper"
   }, /*#__PURE__*/React.createElement("a", {
-    href: 'https://depay.com',
+    href: link$1({
+      url: 'https://depay.com',
+      target: '_blank',
+      wallet: wallet
+    }),
     rel: "noopener noreferrer",
     target: "_blank",
     className: "PoweredByLink"
@@ -24698,8 +24718,6 @@ var Loading = /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }();
-
-var WalletContext = /*#__PURE__*/React.createContext();
 
 var SignLoginDialog = (function (props) {
   var _useContext = useContext(ErrorContext),
@@ -27594,6 +27612,9 @@ var PaymentFailedDialog = (function () {
   var _useContext2 = useContext(PaymentContext),
       transaction = _useContext2.transaction;
 
+  var _useContext3 = useContext(WalletContext),
+      wallet = _useContext3.wallet;
+
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: false,
     header: /*#__PURE__*/React.createElement("div", {
@@ -27617,7 +27638,11 @@ var PaymentFailedDialog = (function () {
     }, /*#__PURE__*/React.createElement("a", {
       className: "Link",
       title: "Check your transaction on a block explorer",
-      href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+      href: link({
+        url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        target: '_blank',
+        wallet: wallet
+      }),
       target: "_blank",
       rel: "noopener noreferrer"
     }, "View details")))),
@@ -27847,7 +27872,11 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
         title: "DePay has validated the payment",
-        href: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+        href: link$1({
+          url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement("div", {
@@ -27867,7 +27896,11 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
         title: "DePay is validating the payment",
-        href: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+        href: link$1({
+          url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement("div", {
@@ -27907,7 +27940,11 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
       }, "Confirm in your wallet (", /*#__PURE__*/React.createElement("a", {
-        href: "https://depay.com/docs/payments/verify",
+        href: link$1({
+          url: "https://depay.com/docs/payments/verify",
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer",
         style: {
@@ -27920,7 +27957,11 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
         title: "Transaction has been confirmed by the network",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        href: link$1({
+          url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement("div", {
@@ -27966,7 +28007,11 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Resetting current approval - please wait",
-        href: resetApprovalTransaction === null || resetApprovalTransaction === void 0 ? void 0 : resetApprovalTransaction.url,
+        href: link$1({
+          url: resetApprovalTransaction === null || resetApprovalTransaction === void 0 ? void 0 : resetApprovalTransaction.url,
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement(LoadingText, null, "Resetting")));
@@ -28000,7 +28045,11 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Approving payment token - please wait",
-        href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+        href: link$1({
+          url: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement(LoadingText, null, "Approving")));
@@ -28044,7 +28093,11 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Performing the payment - please wait",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        href: link$1({
+          url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"));

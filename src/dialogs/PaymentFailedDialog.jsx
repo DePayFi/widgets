@@ -4,11 +4,13 @@ import Dialog from '../components/Dialog'
 import ErrorGraphic from '../graphics/error'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext } from 'react'
+import WalletContext from '../contexts/WalletContext'
 
 export default ()=> {
 
   const { close } = useContext(ClosableContext)
   const { transaction } = useContext(PaymentContext)
+  const { wallet } = useContext(WalletContext)
 
   return(
     <Dialog
@@ -29,7 +31,7 @@ export default ()=> {
             </strong>
             { transaction && 
               <div className="PaddingTopS">
-                <a className="Link" title="Check your transaction on a block explorer" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+                <a className="Link" title="Check your transaction on a block explorer" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
                   View details
                 </a>
               </div>
