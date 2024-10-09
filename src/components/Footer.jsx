@@ -10,6 +10,7 @@ import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -27,6 +28,7 @@ export default ()=>{
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
+  const { wallet } = useContext(WalletContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
   const [ requiresApprovalReset, setRequiresApprovalReset ] = useState(false)
@@ -219,7 +221,7 @@ export default ()=>{
   }
 
   const approvalButton = ()=> {
-    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
+    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice || wallet?.name === 'World App') {
       return(null)
     } else if(paymentValueLoss || requiresApprovalReset) {
       return(
@@ -271,13 +273,14 @@ export default ()=>{
         </div>
       )
     } else if((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
+      const approvalRequired = payment.route.approvalRequired && !payment.route.directTransfer && wallet?.name != 'World App'
       return(
         <button 
           tabIndex={1}
           type="button"
-          className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
+          className={["ButtonPrimary", (approvalRequired ? 'disabled': '')].join(' ')}
           onClick={()=>{
-            if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
+            if(approvalRequired) { return }
             throttledPay()
           }}
         >

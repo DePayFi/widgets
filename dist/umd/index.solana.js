@@ -27768,6 +27768,9 @@
     var _useContext7 = React.useContext(ClosableContext),
         close = _useContext7.close;
 
+    var _useContext8 = React.useContext(WalletContext),
+        wallet = _useContext8.wallet;
+
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         secondsLeft = _useState2[0],
@@ -27969,7 +27972,7 @@
     };
 
     var approvalButton = function approvalButton() {
-      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice) {
+      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice || (wallet === null || wallet === void 0 ? void 0 : wallet.name) === 'World App') {
         return null;
       } else if (paymentValueLoss || requiresApprovalReset) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
@@ -28022,12 +28025,13 @@
           onClick: function onClick() {}
         }, "Pay"));
       } else if ((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
+        var approvalRequired = payment.route.approvalRequired && !payment.route.directTransfer && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
         return /*#__PURE__*/React__default['default'].createElement("button", {
           tabIndex: 1,
           type: "button",
-          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+          className: ["ButtonPrimary", approvalRequired ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
-            if (payment.route.approvalRequired && !payment.route.directTransfer) {
+            if (approvalRequired) {
               return;
             }
 
