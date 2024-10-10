@@ -26890,6 +26890,9 @@ var PaymentProvider = (function (props) {
                         setClosable(false);
                         _context.next = 3;
                         return wallet.sendTransaction(Object.assign({}, transaction, {
+                          accepted: function accepted() {
+                            setPaymentState('paying');
+                          },
                           sent: function sent(sentTransaction) {
                             initializeTransactionTracking(sentTransaction, currentBlock, deadline);
 

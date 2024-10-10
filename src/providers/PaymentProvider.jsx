@@ -81,6 +81,9 @@ export default (props)=>{
     await trace(currentBlock, payment.route, transaction, deadline).then(async()=>{
       setClosable(false)
       await wallet.sendTransaction(Object.assign({}, transaction, {
+        accepted: ()=>{
+          setPaymentState('paying')
+        },
         sent: (sentTransaction)=>{
           initializeTransactionTracking(sentTransaction, currentBlock, deadline)
           if(sent) { sent(sentTransaction) }
