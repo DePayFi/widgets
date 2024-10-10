@@ -4,12 +4,14 @@ import Checkmark from '../components/Checkmark'
 import ClosableContext from '../contexts/ClosableContext'
 import DigitalWalletIcon from '../components/DigitalWalletIcon'
 import etaForConfirmations from '../helpers/etaForConfirmations'
+import link from '../helpers/link'
 import LoadingText from '../components/LoadingText'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
+import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -27,6 +29,7 @@ export default ()=>{
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
+  const { wallet } = useContext(WalletContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
   const [ requiresApprovalReset, setRequiresApprovalReset ] = useState(false)
@@ -102,7 +105,7 @@ export default ()=>{
     } else if(release) {
       return(
         <div>
-          <a className="Card transparent small" title="DePay has validated the payment" href={ `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}` } target="_blank" rel="noopener noreferrer">
+          <a className="Card transparent small" title="DePay has validated the payment" href={ link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter Opacity05">
                 <Checkmark className="small"/>
@@ -121,7 +124,7 @@ export default ()=>{
     } else {
       return(
         <div>
-          <a className="Card transparent small" title="DePay is validating the payment" href={ `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}` } target="_blank" rel="noopener noreferrer">
+          <a className="Card transparent small" title="DePay is validating the payment" href={ link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter">
                 <div className="Loading Icon"></div>
@@ -156,7 +159,7 @@ export default ()=>{
             <div className="CardBody">
               <div className="CardBodyWrapper">
                 <div className="Opacity05">
-                  Confirm in your wallet (<a href="https://depay.com/docs/payments/verify" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>verify</a>)
+                  Confirm in your wallet (<a href={ link({ url: "https://depay.com/docs/payments/verify", target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>verify</a>)
                 </div>
               </div>
             </div>
@@ -167,7 +170,7 @@ export default ()=>{
       return(
         <div className="PaddingBottomS">
           <div>
-            <a className="Card transparent small" title="Transaction has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+            <a className="Card transparent small" title="Transaction has been confirmed by the network" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
               <div className="CardImage">
                 <div className="TextCenter Opacity05">
                   <Checkmark className="small"/>
@@ -210,7 +213,7 @@ export default ()=>{
     } else if (paymentState == 'resetting') {
       return(
         <div className="PaddingBottomXS">
-          <a className="ButtonPrimary" title="Resetting current approval - please wait" href={ resetApprovalTransaction?.url } target="_blank" rel="noopener noreferrer">
+          <a className="ButtonPrimary" title="Resetting current approval - please wait" href={ link({ url: resetApprovalTransaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
             <LoadingText>Resetting</LoadingText>
           </a>
         </div>
@@ -219,7 +222,7 @@ export default ()=>{
   }
 
   const approvalButton = ()=> {
-    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
+    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice || wallet?.name === 'World App') {
       return(null)
     } else if(paymentValueLoss || requiresApprovalReset) {
       return(
@@ -240,7 +243,7 @@ export default ()=>{
     } else if (paymentState == 'approving') {
       return(
         <div className="PaddingBottomXS">
-          <a className="ButtonPrimary" title="Approving payment token - please wait" href={ approvalTransaction?.url } target="_blank" rel="noopener noreferrer">
+          <a className="ButtonPrimary" title="Approving payment token - please wait" href={ link({ url: approvalTransaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
             <LoadingText>Approving</LoadingText>
           </a>
         </div>
@@ -271,13 +274,14 @@ export default ()=>{
         </div>
       )
     } else if((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
+      const approvalRequired = payment.route.approvalRequired && !payment.route.directTransfer && wallet?.name != 'World App'
       return(
         <button 
           tabIndex={1}
           type="button"
-          className={["ButtonPrimary", (payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled': '')].join(' ')}
+          className={["ButtonPrimary", (approvalRequired ? 'disabled': '')].join(' ')}
           onClick={()=>{
-            if(payment.route.approvalRequired && !payment.route.directTransfer) { return }
+            if(approvalRequired) { return }
             throttledPay()
           }}
         >
@@ -286,7 +290,7 @@ export default ()=>{
       )
     } else if (paymentState == 'paying') {
       return(
-        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
+        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
           <LoadingText>Paying</LoadingText>
         </a>
       )

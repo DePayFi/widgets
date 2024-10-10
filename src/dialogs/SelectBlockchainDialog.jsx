@@ -1,17 +1,23 @@
 import Blockchains from '@depay/web3-blockchains'
 import Dialog from '../components/Dialog'
-import React, { useState, useContext } from 'react'
+import Fuse from 'fuse.js'
+import isMobile from '../helpers/isMobile'
+import React, { useState, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
+import { debounce } from 'lodash'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { supported } from '../blockchains'
 
 export default (props)=> {
 
   const { setSelection } = useContext(SelectionContext)
+  const [ searchTerm, setSearchTerm ] = useState('')
   const { navigate } = useContext(NavigateStackContext)
   const stacked = props.stacked || Object.keys(props.selection).length > 1
-
-  const blockchains = supported.map((blockchainName)=>Blockchains[blockchainName])
+  const allBlockchains = supported.map((blockchainName)=>Blockchains[blockchainName])
+  const [ blockchains, setBlockchains ] = useState(allBlockchains)
+  const searchElement = useRef()
+  const fuse = new Fuse(allBlockchains, { keys: ['label', 'name'], threshold: 0.3, ignoreFieldNorm: true })
 
   const selectBlockchain = (blockchain)=>{
     window._depay_token_selection_selected_blockchain = blockchain.name
@@ -23,35 +29,47 @@ export default (props)=> {
     }
   }
 
-  const elements = blockchains.map((blockchain, index)=>{
-    return(
-      <div key={ index } className="Card Row" onClick={ ()=>selectBlockchain(blockchain) }>
-        <div className="CardImage">
-          <img className="transparent BlockchainLogo" src={ blockchain.logo } style={{ backgroundColor: blockchain.logoBackgroundColor }}/>
-        </div>
-        <div className="CardBody">
-          <span className="CardText">
-            {blockchain.label}
-          </span>
-        </div>
-      </div>
-    )
-  })
+  const onChangeSearch = (event)=>{
+    setSearchTerm(event.target.value)
+    if(event.target.value.length > 1) {
+      setBlockchains(fuse.search(event.target.value).map((result)=>result.item))
+    } else {
+      setBlockchains(allBlockchains)
+    }
+  }
 
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
           <div>
             <h1 className="LineHeightL FontSizeL">Select Blockchain</h1>
+            <div className="PaddingTopS TextLeft">
+              <input value={ searchTerm } autoFocus={ !isMobile() } onChange={ onChangeSearch } className="Search" placeholder="Search by name" ref={searchElement}/>
+            </div>
           </div>
         </div>
       }
       stacked={stacked}
       bodyClassName="ScrollHeight"
       body={
-        <div className="PaddingTopS">
-          { elements }
+        <div>
+          {
+            blockchains.map((blockchain, index)=>{
+              return(
+                <div key={ index } className="Card Row" onClick={ ()=>selectBlockchain(blockchain) }>
+                  <div className="CardImage">
+                    <img className="transparent BlockchainLogo" src={ blockchain.logo } style={{ backgroundColor: blockchain.logoBackgroundColor }}/>
+                  </div>
+                  <div className="CardBody">
+                    <span className="CardText">
+                      {blockchain.label}
+                    </span>
+                  </div>
+                </div>
+              )
+            })
+          }
         </div>
       }
       footer={

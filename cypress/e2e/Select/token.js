@@ -137,7 +137,7 @@ describe('Select Widget: token', () => {
       })
     })
 
-    it('shows major tokens again if reseting search to empty', async()=> {
+    it('shows major tokens again if resetting search to empty', async()=> {
       let selectedToken
     
       cy.document().then(async (document)=>{
