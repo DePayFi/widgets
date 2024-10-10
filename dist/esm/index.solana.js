@@ -22771,7 +22771,7 @@ var link$1 = function link(_ref) {
       target = _ref.target,
       wallet = _ref.wallet;
 
-  if (target == '_blank' && (wallet === null || wallet === void 0 ? void 0 : wallet.name) === 'World App' && url.match('depay.com')) {
+  if (url && url.length && target == '_blank' && (wallet === null || wallet === void 0 ? void 0 : wallet.name) === 'World App' && url.match('depay.com')) {
     return "https://integrate.depay.fi/redirect?to=".concat(encodeURIComponent(url));
   }
 
