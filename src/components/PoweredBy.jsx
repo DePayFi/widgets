@@ -1,5 +1,5 @@
 import link from '../helpers/link'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import WalletContext from '../contexts/WalletContext'
 
 export default ()=>{

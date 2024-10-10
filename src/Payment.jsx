@@ -76,7 +76,6 @@ let Payment = async ({
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <NavigateProvider>
-                  <PoweredBy/>
                   <SolanaPayProvider unmount={ unmount } document={ document } container={ container }>
                     <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                       <ConversionRateProvider>
@@ -90,6 +89,7 @@ let Payment = async ({
                                         document={ document }
                                         container={ container }
                                       />
+                                      <PoweredBy/>
                                   </PaymentValueProvider>
                                 </PaymentProvider>
                               </PaymentTrackingProvider>

@@ -23729,7 +23729,7 @@ var ConnectStack = (function (props) {
         continueWithSolanaPay: props.continueWithSolanaPay
       })
     }
-  }));
+  }), /*#__PURE__*/React.createElement(PoweredBy, null));
 });
 
 var ensureDocument = (function (document) {
@@ -31378,7 +31378,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
                   closable: closable
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(PoweredBy, null), /*#__PURE__*/React.createElement(SolanaPayProvider, {
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(SolanaPayProvider, {
                   unmount: unmount,
                   document: document,
                   container: container
@@ -31398,7 +31398,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
                   document: document,
                   container: container
-                })))))))))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null)))))))))))))));
               };
             });
             return _context2.abrupt("return", {

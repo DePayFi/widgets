@@ -23726,7 +23726,7 @@
           continueWithSolanaPay: props.continueWithSolanaPay
         })
       }
-    }));
+    }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null));
   });
 
   var ensureDocument = (function (document) {
@@ -39101,7 +39101,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
                     closable: closable
-                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(PoweredBy, null), /*#__PURE__*/React__default['default'].createElement(SolanaPayProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(SolanaPayProvider, {
                     unmount: unmount,
                     document: document,
                     container: container
@@ -39121,7 +39121,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentStack, {
                     document: document,
                     container: container
-                  })))))))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))))))));
                 };
               });
               return _context2.abrupt("return", {
