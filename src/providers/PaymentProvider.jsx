@@ -82,9 +82,8 @@ export default (props)=>{
       setClosable(false)
       await wallet.sendTransaction(Object.assign({}, transaction, {
         accepted: ()=>{ 
-          console.log('ACCEPTED!', transaction)
-          setTransaction(transaction)
-        }, // to hide sign CTA and verify link
+          setTransaction(transaction) // to hide sign CTA and verify link
+        },
         sent: (sentTransaction)=>{
           initializeTransactionTracking(sentTransaction, currentBlock, deadline)
           if(sent) { sent(sentTransaction) }
