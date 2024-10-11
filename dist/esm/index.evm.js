@@ -3478,12 +3478,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
+      "native": "blockchain-wallet://",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2"
     },
     "android": {
-      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
+      "native": "blockchain-wallet://",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2"
     }

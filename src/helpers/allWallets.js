@@ -1823,8 +1823,8 @@ export default [
     "name": "Blockchain.com",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": {
-      "ios": { "universal": "https://login.blockchain.com/deeplink/login/wallet-connect", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "universal": "https://login.blockchain.com/deeplink/login/wallet-connect", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "ios": { "native": "blockchain-wallet://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
+      "android": { "native": "blockchain-wallet://", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
      },
     "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
     "blockchains": [...supported.evm]
