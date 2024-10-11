@@ -46,7 +46,7 @@
     "@depay/web3-blockchains": "^9.6.7",
     "@depay/web3-client": "^10.19.1",
     "@depay/web3-exchanges": "^13.11.0",
-    "@depay/web3-payments": "^13.12.4",
+    "@depay/web3-payments": "^13.12.5",
     "@depay/web3-tokens": "^10.4.3",
     "@depay/web3-wallets": "^17.5.0",
     "@depay/worldcoin-precompiled": "^0.0.33",

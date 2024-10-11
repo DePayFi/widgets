@@ -3483,12 +3483,12 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
+      "native": "blockchain-wallet://",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2"
     },
     "android": {
-      "universal": "https://login.blockchain.com/deeplink/login/wallet-connect",
+      "native": "blockchain-wallet://",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2"
     }
@@ -26890,10 +26890,8 @@ var PaymentProvider = (function (props) {
                         _context.next = 3;
                         return wallet.sendTransaction(Object.assign({}, transaction, {
                           accepted: function accepted() {
-                            console.log('ACCEPTED!', transaction);
-                            setTransaction(transaction);
+                            setTransaction(transaction); // to hide sign CTA and verify link
                           },
-                          // to hide sign CTA and verify link
                           sent: function sent(sentTransaction) {
                             initializeTransactionTracking(sentTransaction, currentBlock, deadline);
 
