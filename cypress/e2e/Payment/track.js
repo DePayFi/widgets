@@ -1342,7 +1342,7 @@ describe('Payment Widget: track', () => {
                   fetchMock.calls().filter((call)=>{ return call[0] == '/track/payments' && call.response.status == 502 }).length
                 ).to.equal(2)
 
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Preparing payment failed')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Tracking payment failed')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'Please ensure you are connected to the internet, then click "Try again".')
                 
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click().then(()=>{

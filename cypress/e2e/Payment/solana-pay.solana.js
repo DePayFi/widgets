@@ -456,10 +456,10 @@ describe('Solana Pay: QR code based mobile handover', () => {
                   secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
                   mockedDepayWebsocket.send(JSON.stringify({ message: { created: true } }))
                   cy.wait(1000).then(()=>{
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Preparing payment failed')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Tracking payment failed')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
                     cy.wait(1000).then(()=>{
-                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Preparing payment failed')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Tracking payment failed')
                       fetchMock.post({
                         url: "https://depay.test/track",
                         body: {},
@@ -527,10 +527,10 @@ describe('Solana Pay: QR code based mobile handover', () => {
                           }))
                         })
                         cy.wait(1000).then(()=>{
-                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Preparing payment failed')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Tracking payment failed')
                           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
                           cy.wait(1000).then(()=>{
-                            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Preparing payment failed')
+                            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Tracking payment failed')
                             fetchMock.post({
                               url: "https://depay.test/track",
                               body: {
