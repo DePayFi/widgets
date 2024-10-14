@@ -22767,7 +22767,7 @@ var platformForWallet = (function (walletMetaData) {
   return platform;
 });
 
-var link$1 = function link(_ref) {
+var link = function link(_ref) {
   var url = _ref.url,
       target = _ref.target,
       wallet = _ref.wallet;
@@ -22787,7 +22787,7 @@ var PoweredBy = (function () {
   return /*#__PURE__*/React.createElement("div", {
     className: "PoweredByWrapper"
   }, /*#__PURE__*/React.createElement("a", {
-    href: link$1({
+    href: link({
       url: 'https://depay.com',
       target: '_blank',
       wallet: wallet
@@ -27837,7 +27837,7 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
         title: "DePay has validated the payment",
-        href: link$1({
+        href: link({
           url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
           target: '_blank',
           wallet: wallet
@@ -27861,7 +27861,7 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
         title: "DePay is validating the payment",
-        href: link$1({
+        href: link({
           url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
           target: '_blank',
           wallet: wallet
@@ -27905,7 +27905,7 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("div", {
         className: "Opacity05"
       }, "Confirm in your wallet (", /*#__PURE__*/React.createElement("a", {
-        href: link$1({
+        href: link({
           url: "https://depay.com/docs/payments/verify",
           target: '_blank',
           wallet: wallet
@@ -27922,7 +27922,7 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
         className: "Card transparent small",
         title: "Transaction has been confirmed by the network",
-        href: link$1({
+        href: link({
           url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
           target: '_blank',
           wallet: wallet
@@ -27972,7 +27972,7 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Resetting current approval - please wait",
-        href: link$1({
+        href: link({
           url: resetApprovalTransaction === null || resetApprovalTransaction === void 0 ? void 0 : resetApprovalTransaction.url,
           target: '_blank',
           wallet: wallet
@@ -28010,7 +28010,7 @@ var Footer = (function () {
       }, /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Approving payment token - please wait",
-        href: link$1({
+        href: link({
           url: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
           target: '_blank',
           wallet: wallet
@@ -28058,7 +28058,7 @@ var Footer = (function () {
       return /*#__PURE__*/React.createElement("a", {
         className: "ButtonPrimary",
         title: "Performing the payment - please wait",
-        href: link$1({
+        href: link({
           url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
           target: '_blank',
           wallet: wallet
