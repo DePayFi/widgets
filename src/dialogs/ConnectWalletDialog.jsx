@@ -172,6 +172,10 @@ export default (props)=> {
       setOpenInAppIsAvailable(openInAppIsAvailable)
       const scanQrAvailable = (props.platform?.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
       setScanQrAvailable(scanQrAvailable)
+
+      if(extensionIsAvailable && !connectAppIsAvailable && !copyLinkIsAvailable && !openInAppIsAvailable && !scanQrAvailable) {
+        props.connectExtension(props.wallet)
+      }
     })()
   }, [])
 

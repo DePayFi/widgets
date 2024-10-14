@@ -50,12 +50,12 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
-  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom'];
+  var supported = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
   supported.svm = [];
   supported.solana = [];
 
-  var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
+  var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$WorldApp, _wallets$WorldApp$inf, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
   var allWallets = [{
     "name": "Coinbase",
     "extensions": ["CoinbaseEVM", "CoinbaseSVM"],
@@ -199,6 +199,11 @@
     },
     "logo": (_wallets$CryptoCom = web3WalletsEvm.wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
     "blockchains": _toConsumableArray(supported.evm)
+  }, {
+    "name": "World App",
+    "extension": "WorldApp",
+    "logo": (_wallets$WorldApp = web3WalletsEvm.wallets.WorldApp) === null || _wallets$WorldApp === void 0 ? void 0 : (_wallets$WorldApp$inf = _wallets$WorldApp.info) === null || _wallets$WorldApp$inf === void 0 ? void 0 : _wallets$WorldApp$inf.logo,
+    "blockchains": ["worldchain"]
   }, {
     "name": "Coin98",
     "extensions": ["Coin98EVM", "Coin98SVM"],
@@ -22433,7 +22438,11 @@
                 }) || ((_props$platform9 = props.platform) === null || _props$platform9 === void 0 ? void 0 : _props$platform9.qr) && (!showQRCode || props.platform.qr === 'WalletLink');
                 setScanQrAvailable(scanQrAvailable);
 
-              case 32:
+                if (extensionIsAvailable && !connectAppIsAvailable && !copyLinkIsAvailable && !openInAppIsAvailable && !scanQrAvailable) {
+                  props.connectExtension(props.wallet);
+                }
+
+              case 33:
               case "end":
                 return _context2.stop();
             }
@@ -22754,11 +22763,31 @@
     return platform;
   });
 
+  var link$1 = function link(_ref) {
+    var url = _ref.url,
+        target = _ref.target,
+        wallet = _ref.wallet;
+
+    if (url && url.length && target == '_blank' && (wallet === null || wallet === void 0 ? void 0 : wallet.name) === 'World App' && url.match('depay.com')) {
+      return "https://integrate.depay.fi/redirect?to=".concat(encodeURIComponent(url));
+    }
+
+    return url;
+  };
+
+  var WalletContext = /*#__PURE__*/React__default['default'].createContext();
+
   var PoweredBy = (function () {
+    var walletContext = React.useContext(WalletContext);
+    var wallet = walletContext ? walletContext.wallet : undefined;
     return /*#__PURE__*/React__default['default'].createElement("div", {
       className: "PoweredByWrapper"
     }, /*#__PURE__*/React__default['default'].createElement("a", {
-      href: 'https://depay.com',
+      href: link$1({
+        url: 'https://depay.com',
+        target: '_blank',
+        wallet: wallet
+      }),
       rel: "noopener noreferrer",
       target: "_blank",
       className: "PoweredByLink"
@@ -23696,7 +23725,7 @@
           continueWithSolanaPay: props.continueWithSolanaPay
         })
       }
-    }));
+    }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null));
   });
 
   var ensureDocument = (function (document) {
@@ -24686,8 +24715,6 @@
       return _ref2.apply(this, arguments);
     };
   }();
-
-  var WalletContext = /*#__PURE__*/React__default['default'].createContext();
 
   var SignLoginDialog = (function (props) {
     var _useContext = React.useContext(ErrorContext),
@@ -26817,7 +26844,7 @@
                 account = _context2.sent;
                 _context2.next = 7;
                 return payment.route.getTransaction({
-                  from: account
+                  wallet: wallet
                 });
 
               case 7:
@@ -26860,6 +26887,9 @@
                           setClosable(false);
                           _context.next = 3;
                           return wallet.sendTransaction(Object.assign({}, transaction, {
+                            accepted: function accepted() {
+                              setTransaction(transaction); // to hide sign CTA and verify link
+                            },
                             sent: function sent(sentTransaction) {
                               initializeTransactionTracking(sentTransaction, currentBlock, deadline);
 
@@ -27582,6 +27612,9 @@
     var _useContext2 = React.useContext(PaymentContext),
         transaction = _useContext2.transaction;
 
+    var _useContext3 = React.useContext(WalletContext),
+        wallet = _useContext3.wallet;
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27605,7 +27638,11 @@
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         className: "Link",
         title: "Check your transaction on a block explorer",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+        href: link({
+          url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
         rel: "noopener noreferrer"
       }, "View details")))),
@@ -27758,6 +27795,9 @@
     var _useContext7 = React.useContext(ClosableContext),
         close = _useContext7.close;
 
+    var _useContext8 = React.useContext(WalletContext),
+        wallet = _useContext8.wallet;
+
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
         secondsLeft = _useState2[0],
@@ -27832,7 +27872,11 @@
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "Card transparent small",
           title: "DePay has validated the payment",
-          href: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+          href: link$1({
+            url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27852,7 +27896,11 @@
         return /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "Card transparent small",
           title: "DePay is validating the payment",
-          href: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+          href: link$1({
+            url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27892,7 +27940,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Opacity05"
         }, "Confirm in your wallet (", /*#__PURE__*/React__default['default'].createElement("a", {
-          href: "https://depay.com/docs/payments/verify",
+          href: link$1({
+            url: "https://depay.com/docs/payments/verify",
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer",
           style: {
@@ -27905,7 +27957,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "Card transparent small",
           title: "Transaction has been confirmed by the network",
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          href: link$1({
+            url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27951,7 +28007,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",
           title: "Resetting current approval - please wait",
-          href: resetApprovalTransaction === null || resetApprovalTransaction === void 0 ? void 0 : resetApprovalTransaction.url,
+          href: link$1({
+            url: resetApprovalTransaction === null || resetApprovalTransaction === void 0 ? void 0 : resetApprovalTransaction.url,
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Resetting")));
@@ -27959,7 +28019,7 @@
     };
 
     var approvalButton = function approvalButton() {
-      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice) {
+      if (payment.route == undefined || !payment.route.approvalRequired || payment.route.directTransfer || updatedRouteWithNewPrice || (wallet === null || wallet === void 0 ? void 0 : wallet.name) === 'World App') {
         return null;
       } else if (paymentValueLoss || requiresApprovalReset) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27985,7 +28045,11 @@
         }, /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",
           title: "Approving payment token - please wait",
-          href: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+          href: link$1({
+            url: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving")));
@@ -28012,12 +28076,13 @@
           onClick: function onClick() {}
         }, "Pay"));
       } else if ((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
+        var approvalRequired = payment.route.approvalRequired && !payment.route.directTransfer && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
         return /*#__PURE__*/React__default['default'].createElement("button", {
           tabIndex: 1,
           type: "button",
-          className: ["ButtonPrimary", payment.route.approvalRequired && !payment.route.directTransfer ? 'disabled' : ''].join(' '),
+          className: ["ButtonPrimary", approvalRequired ? 'disabled' : ''].join(' '),
           onClick: function onClick() {
-            if (payment.route.approvalRequired && !payment.route.directTransfer) {
+            if (approvalRequired) {
               return;
             }
 
@@ -28028,7 +28093,11 @@
         return /*#__PURE__*/React__default['default'].createElement("a", {
           className: "ButtonPrimary",
           title: "Performing the payment - please wait",
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+          href: link$1({
+            url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
+            target: '_blank',
+            wallet: wallet
+          }),
           target: "_blank",
           rel: "noopener noreferrer"
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Paying"));
@@ -29880,7 +29949,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
                     closable: closable
-                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(PoweredBy, null), /*#__PURE__*/React__default['default'].createElement(SolanaPayProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(SolanaPayProvider, {
                     unmount: unmount,
                     document: document,
                     container: container
@@ -29900,7 +29969,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentStack, {
                     document: document,
                     container: container
-                  })))))))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))))))));
                 };
               });
               return _context2.abrupt("return", {
@@ -30897,12 +30966,29 @@
     var _useContext = React.useContext(SelectionContext),
         setSelection = _useContext.setSelection;
 
+    var _useState = React.useState(''),
+        _useState2 = _slicedToArray(_useState, 2),
+        searchTerm = _useState2[0],
+        setSearchTerm = _useState2[1];
+
     var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext2.navigate;
 
     var stacked = props.stacked || Object.keys(props.selection).length > 1;
-    var blockchains = supported.map(function (blockchainName) {
+    var allBlockchains = supported.map(function (blockchainName) {
       return Blockchains__default['default'][blockchainName];
+    });
+
+    var _useState3 = React.useState(allBlockchains),
+        _useState4 = _slicedToArray(_useState3, 2),
+        blockchains = _useState4[0],
+        setBlockchains = _useState4[1];
+
+    var searchElement = React.useRef();
+    var fuse = new Fuse__default['default'](allBlockchains, {
+      keys: ['label', 'name'],
+      threshold: 0.3,
+      ignoreFieldNorm: true
     });
 
     var selectBlockchain = function selectBlockchain(blockchain) {
@@ -30918,38 +31004,56 @@
       }
     };
 
-    var elements = blockchains.map(function (blockchain, index) {
-      return /*#__PURE__*/React__default['default'].createElement("div", {
-        key: index,
-        className: "Card Row",
-        onClick: function onClick() {
-          return selectBlockchain(blockchain);
-        }
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "transparent BlockchainLogo",
-        src: blockchain.logo,
-        style: {
-          backgroundColor: blockchain.logoBackgroundColor
-        }
-      })), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React__default['default'].createElement("span", {
-        className: "CardText"
-      }, blockchain.label)));
-    });
+    var onChangeSearch = function onChangeSearch(event) {
+      setSearchTerm(event.target.value);
+
+      if (event.target.value.length > 1) {
+        setBlockchains(fuse.search(event.target.value).map(function (result) {
+          return result.item;
+        }));
+      } else {
+        setBlockchains(allBlockchains);
+      }
+    };
+
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Select Blockchain"))),
+      }, "Select Blockchain"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS TextLeft"
+      }, /*#__PURE__*/React__default['default'].createElement("input", {
+        value: searchTerm,
+        autoFocus: !isMobile(),
+        onChange: onChangeSearch,
+        className: "Search",
+        placeholder: "Search by name",
+        ref: searchElement
+      })))),
       stacked: stacked,
       bodyClassName: "ScrollHeight",
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS"
-      }, elements),
+      body: /*#__PURE__*/React__default['default'].createElement("div", null, blockchains.map(function (blockchain, index) {
+        return /*#__PURE__*/React__default['default'].createElement("div", {
+          key: index,
+          className: "Card Row",
+          onClick: function onClick() {
+            return selectBlockchain(blockchain);
+          }
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React__default['default'].createElement("img", {
+          className: "transparent BlockchainLogo",
+          src: blockchain.logo,
+          style: {
+            backgroundColor: blockchain.logoBackgroundColor
+          }
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "CardText"
+        }, blockchain.label)));
+      })),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
       })

@@ -71,7 +71,7 @@ export default (props)=>{
     setPaymentState('paying')
     setUpdatable(false)
     const account = await wallet.account()
-    const transaction = await payment.route.getTransaction({ from: account })
+    const transaction = await payment.route.getTransaction({ wallet })
     if(before) {
       let stop = await before(transaction, account)
       if(stop === false){ return }
@@ -81,6 +81,9 @@ export default (props)=>{
     await trace(currentBlock, payment.route, transaction, deadline).then(async()=>{
       setClosable(false)
       await wallet.sendTransaction(Object.assign({}, transaction, {
+        accepted: ()=>{ 
+          setTransaction(transaction) // to hide sign CTA and verify link
+        },
         sent: (sentTransaction)=>{
           initializeTransactionTracking(sentTransaction, currentBlock, deadline)
           if(sent) { sent(sentTransaction) }
