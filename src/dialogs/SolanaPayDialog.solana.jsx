@@ -610,7 +610,7 @@ export default (props)=> {
             <div className="GraphicWrapper">
               <img className="Graphic" src={ ErrorGraphic }/>
             </div>
-            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
+            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Preparing payment failed</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <strong className="FontSizeM">
                 Please ensure you are connected to the internet, then click "Try again".
@@ -648,7 +648,7 @@ export default (props)=> {
             <div className="GraphicWrapper">
               <img className="Graphic" src={ ErrorGraphic }/>
             </div>
-            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
+            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Preparing payment failed</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
               <strong className="FontSizeM">
                 Please ensure you are connected to the internet, then click "Try again".

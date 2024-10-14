@@ -28364,7 +28364,7 @@ var TracingFailedDialog = (function (props) {
       src: ErrorGraphic
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+    }, "Preparing payment failed"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
@@ -28406,7 +28406,7 @@ var TrackingFailedDialog = (function () {
       src: ErrorGraphic
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
+    }, "Preparing payment failed"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"

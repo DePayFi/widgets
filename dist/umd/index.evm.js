@@ -28362,7 +28362,7 @@
         src: ErrorGraphic
       })), /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Preparing payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
@@ -28404,7 +28404,7 @@
         src: ErrorGraphic
       })), /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Preparing payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
