@@ -77,7 +77,7 @@ describe('Payment Widget: no payment options found', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No Payment Option Found')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Please check if you have connected the correct wallet')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Correct wallet connected')
       })
     })
   })
