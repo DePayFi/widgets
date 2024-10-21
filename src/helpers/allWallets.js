@@ -1520,16 +1520,6 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
-    "name": "Wirex Wallet",
-    "desktop": { "qr": "WalletConnectV2" },
-    "mobile": { 
-      "ios": { "native": "wirexwallet://", "universal": "https://wwallet.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-      "android": { "native": "wirexwallet://", "universal": "https://wwallet.app.link", "connect": "WalletConnectV2", "qr": "WalletConnectV2" },
-    },
-    "logo": "https://img1.depay.com/wallets/wirex_wallet.jpg",
-    "blockchains": [...supported.evm]
-  },
-  {
     "name": "Robinhood Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 

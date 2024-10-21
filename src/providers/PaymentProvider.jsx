@@ -23,7 +23,6 @@ import InsufficientAmountOfTokensDialog from '../dialogs/InsufficientAmountOfTok
 import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
-import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
@@ -276,7 +275,6 @@ export default (props)=>{
         dialogs={{
           InsufficientAmountOfTokens: <InsufficientAmountOfTokensDialog assets={allRoutes.assets} accept={accept} account={account}/>,
           NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
-          PaymentOptions: <PaymentOptionsDialog/>,
         }}
       />
     )

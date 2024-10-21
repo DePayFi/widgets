@@ -4,7 +4,6 @@ import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentFailedDialog from '../dialogs/PaymentFailedDialog'
-import PaymentOptionsDialog from '../dialogs/PaymentOptionsDialog'
 import React, { useContext } from 'react'
 import SaleOverviewDialog from '../dialogs/SaleOverviewDialog'
 import SaleRoutingContext from '../contexts/SaleRoutingContext'
@@ -30,7 +29,6 @@ export default (props)=>{
         ChangeAmount: <ChangeAmountDialog/>,
         ChangePayment: <ChangePaymentDialog/>,
         NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
-        PaymentOptions: <PaymentOptionsDialog/>,
         PaymentFailed: <PaymentFailedDialog/>,
         WrongNetwork: <WrongNetworkDialog/>,
       }}

@@ -117,6 +117,45 @@
                         token: document.getElementById("paymentTokenInput").value,
                         receiver: document.getElementById("paymentReceiverInput").value
                       }],
+                      style: {
+                        colors: {
+                          primary: '#000000',
+                        }
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: World App on World Chain</h5>
+                <div class="row px-4">
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payWorldAppButton">Try it</button>
+                <script>
+                  var button = document.getElementById("payWorldAppButton");
+                  window.eruda.init();
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      accept: [{
+                        blockchain: 'worldchain',
+                        amount: 0.01,
+                        token: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1',
+                        receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
+                      }],
+                      wallets: {
+                        whitelist: [
+                          "World App"
+                        ]
+                      }
                     });
                   });
                 </script>
