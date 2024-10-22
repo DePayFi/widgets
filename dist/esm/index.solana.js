@@ -36785,6 +36785,7 @@ class StaticJsonRpcBatchProvider extends ethers.providers.JsonRpcProvider {
           method: 'POST',
           body: JSON.stringify(batch),
           headers: { 'Content-Type': 'application/json' },
+          signal: AbortSignal.timeout(10000)  // 10-second timeout
         }
       ).then((response)=>{
         if(response.ok) {
