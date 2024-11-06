@@ -37543,7 +37543,9 @@ var SolanaPayDialog = (function (props) {
                   to_token: selectedPaymentOption.token,
                   to_amount: selectedPaymentOption.toAmountBN.toString(),
                   to_decimals: selectedPaymentOption.decimals,
-                  fee_amount: selectedPaymentOption.feeAmountBN.toString()
+                  fee_amount: selectedPaymentOption.feeAmountBN.toString(),
+                  deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 6000 // 1h
+
                 };
                 sendTrackingAsConfigured({
                   payment: payment,

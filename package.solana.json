@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets-solana",
   "moduleName": "DePayWidgets",
-  "version": "12.16.3",
+  "version": "12.16.4",
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
