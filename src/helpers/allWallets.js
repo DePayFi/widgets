@@ -218,6 +218,7 @@ export default [
     "mobile": {
       "ios": {
         "native": "solflare:",
+        "open": ()=>`https://solflare.com/ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "universal": "https://solflare.com/ul",
         "solanaPay": true,
       },
