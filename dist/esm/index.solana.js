@@ -385,6 +385,9 @@ var allWallets = [{
   "mobile": {
     "ios": {
       "native": "solflare:",
+      "open": function open() {
+        return "https://solflare.com/ul/v1/browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+      },
       "universal": "https://solflare.com/ul",
       "solanaPay": true
     },
