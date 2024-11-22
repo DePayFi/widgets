@@ -99,6 +99,15 @@ export default (props)=>{
   }, [allWallets])
 
   useEffect(()=>{
+    if(detectedWallets.length == 1) {
+      const wallet = allWallets.find((wallet)=>wallet.name === detectedWallets[0].info.name)
+      if(wallet.autoSelect) {
+        onClickWallet(wallet)
+      }
+    }
+  }, [detectedWallets])
+
+  useEffect(()=>{
     let wallets = []
     getWallets({
       drip: (wallet)=>{

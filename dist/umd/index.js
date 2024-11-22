@@ -203,7 +203,10 @@
     "name": "World App",
     "extension": "WorldApp",
     "logo": (_wallets$WorldApp = web3Wallets.wallets.WorldApp) === null || _wallets$WorldApp === void 0 ? void 0 : (_wallets$WorldApp$inf = _wallets$WorldApp.info) === null || _wallets$WorldApp$inf === void 0 ? void 0 : _wallets$WorldApp$inf.logo,
-    "blockchains": ["worldchain"]
+    "autoSelect": true,
+    // if available
+    "blockchains": ["worldchain"],
+    "safe": "worldchain"
   }, {
     "name": "Coin98",
     "extensions": ["Coin98EVM", "Coin98SVM"],
@@ -23157,6 +23160,17 @@
         onClickWallet(allWallets$1[0]);
       }
     }, [allWallets$1]);
+    React.useEffect(function () {
+      if (detectedWallets.length == 1) {
+        var wallet = allWallets$1.find(function (wallet) {
+          return wallet.name === detectedWallets[0].info.name;
+        });
+
+        if (wallet.autoSelect) {
+          onClickWallet(wallet);
+        }
+      }
+    }, [detectedWallets]);
     React.useEffect(function () {
       var wallets = [];
       web3Wallets.getWallets({

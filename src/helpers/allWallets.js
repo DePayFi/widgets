@@ -99,7 +99,9 @@ export default [
     "name": "World App",
     "extension": "WorldApp",
     "logo": wallets.WorldApp?.info?.logo,
-    "blockchains": ["worldchain"]
+    "autoSelect": true, // if available
+    "blockchains": ["worldchain"],
+    "safe": "worldchain"
   },
   {
     "name": "Coin98",
