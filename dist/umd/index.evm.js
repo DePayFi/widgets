@@ -205,8 +205,7 @@
     "logo": (_wallets$WorldApp = web3WalletsEvm.wallets.WorldApp) === null || _wallets$WorldApp === void 0 ? void 0 : (_wallets$WorldApp$inf = _wallets$WorldApp.info) === null || _wallets$WorldApp$inf === void 0 ? void 0 : _wallets$WorldApp$inf.logo,
     "autoSelect": true,
     // if available
-    "blockchains": ["worldchain"],
-    "safe": "worldchain"
+    "blockchains": ["worldchain"]
   }, {
     "name": "Coin98",
     "extensions": ["Coin98EVM", "Coin98SVM"],
