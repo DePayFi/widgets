@@ -40,6 +40,7 @@ export default (props)=> {
   const [ scanQrAvailable, setScanQrAvailable ] = useState()
   const [ appIsConnected, setAppIsConnected ] = useState()
   const [ linkURI, setLinkURI ] = useState()
+  const [ connectionError, setConnectionError ] = useState()
   const [ showQRCode, setShowQRCode ] = useState(false)
   const [ showLinkCopied, setShowLinkCopied ] = useState(false)
   const [ QRCode, setQRCode ] = useState()
@@ -59,8 +60,17 @@ export default (props)=> {
     </div>
   )
 
+  const handleConnectionError = (error)=>{
+    if(typeof(error) == 'string') {
+      setConnectionError(error)
+    } else {
+      setConnectionError()
+    }
+  }
+
   const connectViaCopyLink = ()=>{
     let wallet = new wallets[props.platform.copyLink]()
+    setConnectionError()
     wallet.connect({
       name: props.wallet.name,
       logo: props.wallet.logo,
@@ -71,8 +81,9 @@ export default (props)=> {
         setTimeout(()=>setShowLinkCopied(false), 3000)
       }
     }).then((account)=>{
+      setConnectionError()
       props.resolve(account, wallet)
-    })
+    }).catch(handleConnectionError)
   }
 
   const connect = ()=>{
@@ -122,6 +133,7 @@ export default (props)=> {
       case 'WalletConnectV2':
         if(QRCode == undefined) {                                                                                                                                                                         localStorage[atob('ZGVwYXk6d2FsbGV0czp3YzI6cHJvamVjdElk')] = atob('YjFmYzJmMDZlYTIxMDdmY2Q5OWM2OGY0MTI3MTQxYWI=')
           let wallet = new wallets[props.platform.qr]()
+          setConnectionError()
           wallet.connect({
             name: props.wallet.name,
             logo: props.wallet.logo,
@@ -132,12 +144,14 @@ export default (props)=> {
               setQRCode(newQRCode)
             }
           }).then((account)=>{
+            setConnectionError()
             props.resolve(account, wallet)
-          })
+          }).catch(handleConnectionError)
         }
       break;
       case 'WalletLink':
         let wallet = new wallets[props.platform.qr]()
+        setConnectionError()
         wallet.connect({
           connect: ({ uri })=>{
             let newQRCode = getNewQRCode()
@@ -145,8 +159,9 @@ export default (props)=> {
             setQRCode(newQRCode)
           }
         }).then((account)=>{
+          setConnectionError()
           props.resolve(account, wallet)
-        })
+        }).catch(handleConnectionError)
       break;
     }
   }, 100), [])
@@ -225,9 +240,18 @@ export default (props)=> {
           }
 
           { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !copyLinkIsAvailable && !scanQrAvailable &&
-            <div className="PaddingTopS PaddingBottomS PaddingLeftL PaddingRightL">
+            <div className="PaddingTopS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
                 <strong>Unable to connect to this wallet!</strong>
+              </div>
+            </div>
+          }
+
+          {
+            (props.connectionError || connectionError) &&
+            <div className="PaddingTopS PaddingLeftL PaddingRightL">
+              <div className="Alert FontSizeS">
+                <strong>{ props.connectionError || connectionError }</strong>
               </div>
             </div>
           }
