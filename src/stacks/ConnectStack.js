@@ -38,6 +38,7 @@ export default (props)=>{
   const [ connectingExtension, setConnectingExtension ] = useState(false)
   const [ connectingApp, setConnectingApp ] = useState(false)
   const [ redirectUri, setRedirectUri ] = useState()
+  const [ connectionError, setConnectionError ] = useState()
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
@@ -86,6 +87,8 @@ export default (props)=>{
         clearTimeout(resetConnectingTimeout)
         if(error?.code == -32002) { // Request of type 'wallet_requestPermissions' already pending...
           setShowConnectExtensionWarning(true)
+        } else if(typeof(error) === 'string') {
+          setConnectionError(error)
         }
       })
   }
@@ -152,6 +155,7 @@ export default (props)=>{
       if(redirectUri) {
         return redirect({ walletMetaData, platform, uri: redirectUri })
       }
+      setConnectionError()
       wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
@@ -163,16 +167,27 @@ export default (props)=>{
       }).then((account)=>{
         setConnectingApp(false)
         resolve(account, wallet)
-      }).catch(()=>{ setConnectingApp(false) })
+      }).catch((error)=>{
+        setConnectingApp(false)
+        if(typeof(error) === 'string') {
+          setConnectionError(error)
+        }
+      })
     } else if (platform.connect === 'SolanaMobileWalletAdapter') {
       let wallet = new wallets[platform.connect]()
+      setConnectionError()
       wallet.connect({
         name: walletMetaData.name,
         logo: walletMetaData.logo,
       }).then((account)=>{
         setConnectingApp(false)
         resolve(account, wallet)
-      }).catch(()=>{ setConnectingApp(false) })
+      }).catch((error)=>{ 
+        setConnectingApp(false)
+        if(typeof(error) === 'string') {
+          setConnectionError(error)
+        }
+      })
     }
   }
 
@@ -227,6 +242,7 @@ export default (props)=>{
             connectingApp={connectingApp}
             showConnectExtensionWarning={showConnectExtensionWarning}
             continueWithSolanaPay={props.continueWithSolanaPay}
+            connectionError={connectionError}
           />
         }}
       />

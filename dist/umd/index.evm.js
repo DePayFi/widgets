@@ -22188,20 +22188,25 @@
         _useState14[0];
         _useState14[1];
 
-    var _useState15 = React.useState(false),
+    var _useState15 = React.useState(),
         _useState16 = _slicedToArray(_useState15, 2),
-        showQRCode = _useState16[0],
-        setShowQRCode = _useState16[1];
+        connectionError = _useState16[0],
+        setConnectionError = _useState16[1];
 
     var _useState17 = React.useState(false),
         _useState18 = _slicedToArray(_useState17, 2),
-        showLinkCopied = _useState18[0],
-        setShowLinkCopied = _useState18[1];
+        showQRCode = _useState18[0],
+        setShowQRCode = _useState18[1];
 
-    var _useState19 = React.useState(),
+    var _useState19 = React.useState(false),
         _useState20 = _slicedToArray(_useState19, 2),
-        QRCode = _useState20[0],
-        setQRCode = _useState20[1];
+        showLinkCopied = _useState20[0],
+        setShowLinkCopied = _useState20[1];
+
+    var _useState21 = React.useState(),
+        _useState22 = _slicedToArray(_useState21, 2),
+        QRCode = _useState22[0],
+        setQRCode = _useState22[1];
 
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -22222,8 +22227,17 @@
       src: props.wallet.logo
     })))));
 
+    var handleConnectionError = function handleConnectionError(error) {
+      if (typeof error == 'string') {
+        setConnectionError(error);
+      } else {
+        setConnectionError();
+      }
+    };
+
     var connectViaCopyLink = function connectViaCopyLink() {
       var wallet = new web3WalletsEvm.wallets[props.platform.copyLink]();
+      setConnectionError();
       wallet.connect({
         name: props.wallet.name,
         logo: props.wallet.logo,
@@ -22237,8 +22251,9 @@
           }, 3000);
         }
       }).then(function (account) {
+        setConnectionError();
         props.resolve(account, wallet);
-      });
+      })["catch"](handleConnectionError);
     };
 
     var getNewQRCode = function getNewQRCode() {
@@ -22284,6 +22299,8 @@
 
             var _wallet = new web3WalletsEvm.wallets[props.platform.qr]();
 
+            setConnectionError();
+
             _wallet.connect({
               name: props.wallet.name,
               logo: props.wallet.logo,
@@ -22297,14 +22314,16 @@
                 setQRCode(newQRCode);
               }
             }).then(function (account) {
+              setConnectionError();
               props.resolve(account, _wallet);
-            });
+            })["catch"](handleConnectionError);
           }
 
           break;
 
         case 'WalletLink':
           var wallet = new web3WalletsEvm.wallets[props.platform.qr]();
+          setConnectionError();
           wallet.connect({
             connect: function connect(_ref3) {
               var uri = _ref3.uri;
@@ -22315,8 +22334,9 @@
               setQRCode(newQRCode);
             }
           }).then(function (account) {
+            setConnectionError();
             props.resolve(account, wallet);
-          });
+          })["catch"](handleConnectionError);
           break;
       }
     }, 100), []);
@@ -22476,10 +22496,14 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Most wallets do not connect to http!"))), !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !copyLinkIsAvailable && !scanQrAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingBottomS PaddingLeftL PaddingRightL"
+        className: "PaddingTopS PaddingLeftL PaddingRightL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Unable to connect to this wallet!"))), showQRCode && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Unable to connect to this wallet!"))), (props.connectionError || connectionError) && /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftL PaddingRightL"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Alert FontSizeS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, props.connectionError || connectionError))), showQRCode && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         ref: QRCodeElement,
         className: "QRCode"
       }, showQRCode && QRCode === undefined && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -23445,17 +23469,22 @@
         redirectUri = _useState12[0],
         setRedirectUri = _useState12[1];
 
-    var _useState13 = React.useState({
+    var _useState13 = React.useState(),
+        _useState14 = _slicedToArray(_useState13, 2),
+        connectionError = _useState14[0],
+        setConnectionError = _useState14[1];
+
+    var _useState15 = React.useState({
       blockchain: undefined
     }),
-        _useState14 = _slicedToArray(_useState13, 2),
-        selection = _useState14[0];
-        _useState14[1];
-
-    var _useState15 = React.useState(false),
         _useState16 = _slicedToArray(_useState15, 2),
-        showConnectExtensionWarning = _useState16[0],
-        setShowConnectExtensionWarning = _useState16[1];
+        selection = _useState16[0];
+        _useState16[1];
+
+    var _useState17 = React.useState(false),
+        _useState18 = _slicedToArray(_useState17, 2),
+        showConnectExtensionWarning = _useState18[0],
+        setShowConnectExtensionWarning = _useState18[1];
 
     var resolve = function resolve(account, wallet) {
       if (account && wallet) {
@@ -23513,6 +23542,8 @@
         if ((error === null || error === void 0 ? void 0 : error.code) == -32002) {
           // Request of type 'wallet_requestPermissions' already pending...
           setShowConnectExtensionWarning(true);
+        } else if (typeof error === 'string') {
+          setConnectionError(error);
         }
       });
     };
@@ -23620,6 +23651,8 @@
           });
         }
 
+        setConnectionError();
+
         _wallet.connect({
           name: walletMetaData.name,
           logo: walletMetaData.logo,
@@ -23636,11 +23669,17 @@
         }).then(function (account) {
           setConnectingApp(false);
           resolve(account, _wallet);
-        })["catch"](function () {
+        })["catch"](function (error) {
           setConnectingApp(false);
+
+          if (typeof error === 'string') {
+            setConnectionError(error);
+          }
         });
       } else if (platform.connect === 'SolanaMobileWalletAdapter') {
         var _wallet2 = new web3WalletsEvm.wallets[platform.connect]();
+
+        setConnectionError();
 
         _wallet2.connect({
           name: walletMetaData.name,
@@ -23648,8 +23687,12 @@
         }).then(function (account) {
           setConnectingApp(false);
           resolve(account, _wallet2);
-        })["catch"](function () {
+        })["catch"](function (error) {
           setConnectingApp(false);
+
+          if (typeof error === 'string') {
+            setConnectionError(error);
+          }
         });
       }
     };
@@ -23717,7 +23760,8 @@
           connectingExtension: connectingExtension,
           connectingApp: connectingApp,
           showConnectExtensionWarning: showConnectExtensionWarning,
-          continueWithSolanaPay: props.continueWithSolanaPay
+          continueWithSolanaPay: props.continueWithSolanaPay,
+          connectionError: connectionError
         })
       }
     }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null));
