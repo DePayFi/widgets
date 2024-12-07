@@ -48,5 +48,10 @@ export default (style)=>{
       white-space: pre-wrap;
       word-wrap: break-word;
     }
+
+    .ResponsiveText {
+      font-size: clamp(14px, 2vw, 15px);
+      max-width: fit-content;
+    }
   `)
 }

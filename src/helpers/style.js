@@ -16,6 +16,7 @@ import LoadingTextStyle from '../styles/LoadingTextStyle'
 import LogoStyle from '../styles/LogoStyle'
 import OpacityStyle from '../styles/OpacityStyle'
 import PaddingStyle from '../styles/PaddingStyle'
+import MarginStyle from '../styles/MarginStyle'
 import PoweredByStyle from '../styles/PoweredByStyle'
 import QRCodeStyle from '../styles/QRCodeStyle'
 import RangeSliderStyle from '../styles/RangeSliderStyle'
@@ -62,6 +63,7 @@ export default (style)=>{
       IconStyle(style),
       OpacityStyle(style),
       PaddingStyle(style),
+      MarginStyle(style),
       HeightStyle(style),
       TabStyle(style),
       LoadingTextStyle(style),

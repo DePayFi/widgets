@@ -24151,7 +24151,7 @@ var ButtonPrimaryStyle = (function (style) {
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: rgb(255,255,255);\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 2px 2px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background: rgb(240,240,240);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background: rgb(235,235,235);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: white;\n      border-radius: 9999px;\n      border: 1px solid white;\n      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
@@ -24163,7 +24163,7 @@ var DropDownStyle = (function (style) {
 });
 
 var FontStyle = (function (style) {
-  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    * {\n      font-size: 15px;\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontSizeXXL {\n      font-size: 42px;\n    }\n\n    .FontWeightMedium {\n      font-weight: 500;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
+  return "\n\n    *, div, div * {\n      font-family: ".concat(style.fontFamily, ";\n    }\n\n    * {\n      font-size: 15px;\n    }\n\n    .FontSizeS {\n      font-size: 16px;\n    }\n\n    .FontSizeM {\n      font-size: 19px;\n    }\n\n    .FontSizeL {\n      font-size: 23px;\n    }\n\n    .FontSizeXL {\n      font-size: 32px;\n    }\n\n    .FontSizeXXL {\n      font-size: 42px;\n    }\n\n    .FontWeightLight {\n      font-weight: 300;\n    }\n\n    .FontWeightMedium {\n      font-weight: 500;\n    }\n\n    .FontWeightBold {\n      font-weight: bold;\n    }\n\n    .FontItalic {\n      font-style: italic;\n    }\n  ");
 });
 
 var GraphicStyle = (function () {
@@ -24210,6 +24210,10 @@ var PaddingStyle = (function () {
   return "\n\n    .PaddingTopXS {\n      padding-top: 3px;\n    }\n\n    .PaddingRightXS {\n      padding-right: 3px;\n    }\n\n    .PaddingBottomXS {\n      padding-bottom: 3px;\n    }\n\n    .PaddingLeftXS {\n      padding-left: 3px; \n    }\n\n    .PaddingTopS {\n      padding-top: 13px;\n    }\n\n    .PaddingRightS {\n      padding-right: 13px;\n    }\n\n    .PaddingBottomS {\n      padding-bottom: 13px;\n    }\n\n    .PaddingLeftS {\n      padding-left: 13px; \n    }\n\n    .PaddingTopM {\n      padding-top: 19px;\n    }\n\n    .PaddingRightM {\n      padding-right: 19px;\n    }\n\n    .PaddingBottomM {\n      padding-bottom: 19px;\n    }\n\n    .PaddingLeftM {\n      padding-left: 19px; \n    }\n\n    .PaddingTopL {\n      padding-top: 29px;\n    }\n\n    .PaddingRightL {\n      padding-right: 29px;\n    }\n\n    .PaddingBottomL {\n      padding-bottom: 29px;\n    }\n\n    .PaddingLeftL {\n      padding-left: 29px; \n    }\n  ";
 });
 
+var MarginStyle = (function () {
+  return "\n\n    .MarginTopXS {\n      margin-top: 3px;\n    }\n\n    .MarginRightXS {\n      margin-right: 3px;\n    }\n\n    .MarginBottomXS {\n      margin-bottom: 3px;\n    }\n\n    .MarginLeftXS {\n      margin-left: 3px; \n    }\n\n    .MarginTopS {\n      margin-top: 13px;\n    }\n\n    .MarginRightS {\n      margin-right: 13px;\n    }\n\n    .MarginBottomS {\n      margin-bottom: 13px;\n    }\n\n    .MarginLeftS {\n      margin-left: 13px; \n    }\n\n    .MarginTopM {\n      margin-top: 19px;\n    }\n\n    .MarginRightM {\n      margin-right: 19px;\n    }\n\n    .MarginBottomM {\n      margin-bottom: 19px;\n    }\n\n    .MarginLeftM {\n      margin-left: 19px; \n    }\n\n    .MarginTopL {\n      margin-top: 29px;\n    }\n\n    .MarginRightL {\n      margin-right: 29px;\n    }\n\n    .MarginBottomL {\n      margin-bottom: 29px;\n    }\n\n    .MarginLeftL {\n      margin-left: 29px; \n    }\n  ";
+});
+
 var PoweredByStyle = (function (style) {
   return "\n\n    .PoweredByWrapper {\n      display: block;\n      left: 0;\n      padding-top: 3px;\n      position: fixed;\n      right: 0;\n      text-align: center;\n      top: 0;\n      z-index: 999;\n    }\n\n    .contained .PoweredByWrapper {\n      position: absolute;\n    }\n\n    .PoweredByLink {\n      color: white;\n      display: inline-block;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\" !important;\n      font-size: 14px;\n      font-style: italic;\n      font-weight: bold;\n      letter-spacing: -0.2px;\n      margin-left: 8px;\n      opacity: 0.5;\n      text-decoration: none;\n      text-shadow: black 0 0 2px;\n    }\n\n    .PoweredByLink:hover, .PoweredByLink:active {\n      opacity: 1.0;\n    }\n  ";
 });
@@ -24247,7 +24251,7 @@ var TextButtonStyle = (function (style) {
 });
 
 var TextStyle = (function (style) {
-  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .LightGreen {\n      color: rgba(50,160,60);\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightXS {\n      line-height: 16px;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n  ");
+  return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .LightGreen {\n      color: rgba(50,160,60);\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightXS {\n      line-height: 16px;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n\n    .ResponsiveText {\n      font-size: clamp(14px, 2vw, 15px);\n      max-width: fit-content;\n    }\n  ");
 });
 
 var TokenAmountStyle = (function () {
@@ -24278,7 +24282,7 @@ var styleRenderer = (function (style) {
     }, ((_style = style) === null || _style === void 0 ? void 0 : _style.colors) || {}),
     fontFamily: ((_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   };
-  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), HeightStyle(), TabStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+  return [ResetStyle(), DialogStyle(), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), TabStyle(), LoadingTextStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -26048,7 +26052,8 @@ var NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION = {
   arbitrum: ethers.BigNumber.from('3000000000000000'),
   fantom: ethers.BigNumber.from('3000000000000000'),
   avalanche: ethers.BigNumber.from('3000000000000000'),
-  gnosis: ethers.BigNumber.from('3000000000000000')
+  gnosis: ethers.BigNumber.from('3000000000000000'),
+  worldchain: ethers.BigNumber.from('3000000000000000')
 };
 var InsufficientAmountOfTokensDialog = (function (props) {
   var _useState = useState(),
@@ -26089,6 +26094,18 @@ var InsufficientAmountOfTokensDialog = (function (props) {
 
   var _useContext4 = useContext(ClosableContext),
       close = _useContext4.close;
+
+  var _useContext5 = useContext(WalletContext),
+      wallet = _useContext5.wallet;
+
+  var _useState11 = useState(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      walletAddress = _useState12[0],
+      setWalletAddress = _useState12[1];
+
+  useEffect(function () {
+    wallet.account().then(setWalletAddress);
+  }, [wallet]);
 
   var setRecommendation = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(_ref) {
@@ -26519,8 +26536,8 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       src: InsufficientGraphic
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "Insufficient Amount"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
+    }, "No enough funds!"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingLeftM PaddingRightM"
     }, loading && /*#__PURE__*/React.createElement("div", {
       className: "Skeleton",
       style: {
@@ -26550,7 +26567,13 @@ var InsufficientAmountOfTokensDialog = (function (props) {
       className: "PaddingTopS"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
-    }, "Please top up your ", recommendedAssetSymbol, " to perform this payment."))))))),
+    }, "Please top up your ", recommendedAssetSymbol, " to perform this payment.")))))), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card tiny disabled center"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ResponsiveText FontWeightLight TextCenter"
+    }, walletAddress)))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
@@ -26627,23 +26650,30 @@ var NoPaymentOptionFoundDialog = (function () {
       src: QuestionsGraphic
     })), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-    }, "No Payment Option Found"), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("strong", {
-      className: "FontSizeM"
-    }, "Correct wallet connected ", addressEllipsis(walletAddress), "?")), /*#__PURE__*/React.createElement("div", {
+    }, "No enough funds!"), /*#__PURE__*/React.createElement("div", {
+      className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "Card tiny disabled center"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ResponsiveText FontWeightLight TextCenter"
+    }, walletAddress))), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopXS PaddingBottomXS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("strong", {
       className: "FontSizeM"
-    }, "Please make sure you have cryptocurrencies on one of the following blockchains:")), /*#__PURE__*/React.createElement("div", {
+    }, "Please make sure you have enough funds on one of the following blockchains:")), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopXS PaddingBottomS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("span", {
-      className: "FontSizeS"
     }, _toConsumableArray(new Set(accept.map(function (accept) {
       return accept.blockchain;
     }))).map(function (blockchain) {
-      return Blockchains[blockchain].label;
-    }).join(', '), "."))),
+      return /*#__PURE__*/React.createElement("div", {
+        className: "Card tiny disabled inlineBlock MarginRightXS MarginBottomXS"
+      }, /*#__PURE__*/React.createElement("img", {
+        className: "MarginRightXS",
+        src: Blockchains[blockchain].logoWhiteBackground
+      }), /*#__PURE__*/React.createElement("span", {
+        className: "ResponsiveText FontWeightLight"
+      }, Blockchains[blockchain].label));
+    }))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {

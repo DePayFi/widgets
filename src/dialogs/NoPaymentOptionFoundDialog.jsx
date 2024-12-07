@@ -21,7 +21,6 @@ export default ()=> {
     wallet.account().then(setWalletAddress)
   }, [wallet])
 
-
   return(
     <Dialog
       header={
@@ -33,21 +32,24 @@ export default ()=> {
           <div className="GraphicWrapper" onClick={initDebug}>
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>
-          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">No Payment Option Found</h1>
-          <div className="Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
-            <strong className="FontSizeM">
-              Correct wallet connected {addressEllipsis(walletAddress)}?
-            </strong>
+          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">No enough funds!</h1>
+          <div className="Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM">
+            <div className="Card tiny disabled center">
+              <div className="ResponsiveText FontWeightLight TextCenter">{walletAddress}</div>
+            </div>
           </div>
           <div className="Text PaddingTopXS PaddingBottomXS PaddingLeftM PaddingRightM">
             <strong className="FontSizeM">
-              Please make sure you have cryptocurrencies on one of the following blockchains:
+              Please make sure you have enough funds on one of the following blockchains:
             </strong>
           </div>
           <div className="Text PaddingTopXS PaddingBottomS PaddingLeftM PaddingRightM">
-            <span className="FontSizeS">
-              { [...new Set(accept.map((accept)=>accept.blockchain))].map((blockchain)=>Blockchains[blockchain].label).join(', ') }.
-            </span>
+            { [...new Set(accept.map((accept)=>accept.blockchain))].map((blockchain)=>{return(
+              <div className="Card tiny disabled inlineBlock MarginRightXS MarginBottomXS">
+                <img className="MarginRightXS" src={Blockchains[blockchain].logoWhiteBackground}/>
+                <span className="ResponsiveText FontWeightLight">{Blockchains[blockchain].label}</span>
+              </div>
+            )}) }
           </div>
         </div>
       }

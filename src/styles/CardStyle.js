@@ -87,6 +87,20 @@ export default (style)=>{
       box-shadow: none;
     }
 
+    .Card.tiny {
+      border-radius: 4px;
+      min-height: auto;
+      padding: 2px 2px;
+    }
+    
+    .Card.tiny img {
+      width: 18px;
+      height: 18px;
+      position: relative;
+      top: 3px;
+      marginRight: 2px;
+    }
+
     .Card.small {
       min-height: auto;
       padding: 8px 8px;
@@ -235,6 +249,11 @@ export default (style)=>{
       opacity: 0.2;
     }
 
+    .Card.inlineBlock {
+      display: inline-block;
+      width: auto;
+    }
+    
     .Card.More {
       display: inline-block;
       text-align: center;

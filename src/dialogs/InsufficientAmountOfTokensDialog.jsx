@@ -23,6 +23,7 @@ import Dialog from '../components/Dialog'
 import InsufficientGraphic from '../graphics/insufficient'
 import React, { useContext, useState, useEffect } from 'react'
 import round from '../helpers/round'
+import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
@@ -37,6 +38,7 @@ const NATIVE_AMOUNT_REQUIRED_FOR_TRANSACTION = {
   fantom: ethers.BigNumber.from('3000000000000000'),
   avalanche: ethers.BigNumber.from('3000000000000000'),
   gnosis: ethers.BigNumber.from('3000000000000000'),
+  worldchain: ethers.BigNumber.from('3000000000000000'),
 }
 
 export default (props)=> {
@@ -50,6 +52,12 @@ export default (props)=> {
   const { accept, sell } = useContext(ConfigurationContext)
   const { acceptWithAmount } = useContext(ChangableAmountContext)
   const { close } = useContext(ClosableContext)
+  const { wallet } = useContext(WalletContext)
+  const [ walletAddress, setWalletAddress ] = useState()
+
+  useEffect(()=>{
+    wallet.account().then(setWalletAddress)
+  }, [wallet])
 
   const setRecommendation = async ({ route, accept })=>{
     const nativeAvailableAsset = props.assets.find((asset)=>Blockchains[asset.blockchain].currency.address.toLowerCase() === asset.address.toLowerCase())
@@ -187,8 +195,8 @@ export default (props)=> {
           <div className="GraphicWrapper">
             <img className="Graphic" src={ InsufficientGraphic }/>
           </div>
-          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Insufficient Amount</h1>
-          <div className="Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
+          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">No enough funds!</h1>
+          <div className="Text PaddingTopS PaddingLeftM PaddingRightM">
             { loading && 
               <div className="Skeleton" style={{ borderRadius: "18px", width: "100%", height: "170px" }}>
                 <div className="SkeletonBackground"/>
@@ -231,6 +239,11 @@ export default (props)=> {
                 </div>
               </div>
             }
+          </div>
+          <div className="Text PaddingLeftM PaddingRightM">
+            <div className="Card tiny disabled center">
+              <div className="ResponsiveText FontWeightLight TextCenter">{walletAddress}</div>
+            </div>
           </div>
         </div>
       }
