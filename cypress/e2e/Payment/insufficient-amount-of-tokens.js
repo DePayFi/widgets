@@ -80,7 +80,7 @@ describe('Payment Widget: insufficient amount of tokens', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Insufficient Amount')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No enough funds!')
         cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', '15 DEPAY are additionally required in order to perform this payment of 20 DEPAY.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', 'Please top up or swap another token to DEPAY to perform this payment.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Ok').click()
@@ -96,7 +96,7 @@ describe('Payment Widget: insufficient amount of tokens', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Insufficient Amount')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No enough funds!')
         cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', '0.000101 ETH is required in order to perform this payment.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow() .find('.Text').should('contain.text', 'Please top up your ETH to perform this payment.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Ok').click()
