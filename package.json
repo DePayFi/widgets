@@ -1,9 +1,9 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "12.18.0",
+  "version": "12.18.1",
   "latestSupportedVersions": {
-    "12": "12.18.0",
+    "12": "12.18.1",
     "11": "11.7.4"
   },
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
@@ -47,7 +47,7 @@
     "@depay/solana-web3.js": "^1.26.0",
     "@depay/walletconnect-v2": "^2.12.2",
     "@depay/web3-assets": "^7.4.1",
-    "@depay/web3-blockchains": "^9.7.5",
+    "@depay/web3-blockchains": "^9.7.8",
     "@depay/web3-client": "^10.19.3",
     "@depay/web3-exchanges": "^13.13.0",
     "@depay/web3-payments": "^13.13.0",
