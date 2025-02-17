@@ -14,10 +14,11 @@ import { setProviderEndpoints } from '@depay/web3-client'
 
 import ClosableProvider from '../providers/ClosableProvider'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import ErrorContext from '../contexts/ErrorContext'
 import LoadingStack from '../stacks/LoadingStack'
 import NavigateProvider from '../providers/NavigateProvider'
 import PoweredBy from '../components/PoweredBy'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import UpdatableProvider from '../providers/UpdatableProvider'
 import { Currency } from '@depay/local-currency'
 import { verify } from '@depay/js-verify-signature-web'
@@ -26,10 +27,16 @@ const PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
 
 export default (props)=>{
   const currencyCode = typeof props.configuration.currency === 'string' ? new Currency({ code: props.configuration.currency }).code : new Currency({ amount: 0 }).code
+  const { setError } = useContext(ErrorContext)
   const [configuration, setConfiguration] = useState(!props.configuration?.integration ? {... props.configuration, currencyCode } : undefined)
 
   const loadConfiguration = (id, attempt)=>{
-    if(attempt >= 10) { return }
+    if(attempt > 3) {
+      const msg = 'Unable to load payment configuration!'
+      setError(msg)
+      throw(msg)
+      return
+    }
     const retry = ()=>{ setTimeout(()=>loadConfiguration(id, attempt+1), 1000) }
     fetch(
       `https://public.depay.com/configurations/${id}`,

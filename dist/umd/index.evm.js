@@ -24552,6 +24552,9 @@
       amount: 0
     }).code;
 
+    var _useContext = React.useContext(ErrorContext),
+        setError = _useContext.setError;
+
     var _useState = React.useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$5(_objectSpread$5({}, props.configuration), {}, {
       currencyCode: currencyCode
     }) : undefined),
@@ -24562,8 +24565,10 @@
     var loadConfiguration = function loadConfiguration(id, attempt) {
       var _props$configuration2;
 
-      if (attempt >= 10) {
-        return;
+      if (attempt > 3) {
+        var msg = 'Unable to load payment configuration!';
+        setError(msg);
+        throw msg;
       }
 
       var retry = function retry() {
