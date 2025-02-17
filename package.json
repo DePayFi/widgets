@@ -1,9 +1,9 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "12.18.2",
+  "version": "12.18.3",
   "latestSupportedVersions": {
-    "12": "12.18.1",
+    "12": "12.18.3",
     "11": "11.7.4"
   },
   "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
