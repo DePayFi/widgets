@@ -34,12 +34,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/bundle.js
         run: |
           yarn test:cypress --spec "cypress/e2e/bundle.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -75,12 +75,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Connect/**.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Connect/**.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -117,12 +117,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Login/**.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Login/**.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -159,12 +159,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Select/**.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Select/**.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -200,12 +200,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/amount.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/amount.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -241,12 +241,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/approval.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/approval.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -282,12 +282,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/reset-approval.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/reset-approval.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -323,12 +323,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/before.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/before.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -364,12 +364,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/blacklist.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/blacklist.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -405,12 +405,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/change-account.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/change-account.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -446,12 +446,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/change-payment.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/change-payment.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -487,12 +487,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/change-categorized-payment.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/change-categorized-payment.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -528,12 +528,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/configured-amount.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/configured-amount.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -569,12 +569,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/connected.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/connected.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -610,12 +610,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/container.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/container.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -651,12 +651,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/currency.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/currency.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -692,12 +692,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/error.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/error.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -733,12 +733,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/fail.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/fail.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -774,12 +774,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/fee.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/fee.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -815,12 +815,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/fix-currency-amounts.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/fix-currency-amounts.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -856,12 +856,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/fromToken.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/fromToken.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -897,12 +897,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/no-payment-options-found.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/no-payment-options-found.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -938,12 +938,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/insufficient-amount-of-tokens.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/insufficient-amount-of-tokens.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -979,12 +979,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/main.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/main.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1020,12 +1020,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/integration.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/integration.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1061,12 +1061,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/main.solana.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/main.solana.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1102,12 +1102,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.solana.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.solana.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1143,12 +1143,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/no-wallet.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/no-wallet.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1184,12 +1184,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/overview.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/overview.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1225,12 +1225,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/payment-value-loss-safeguard.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/payment-value-loss-safeguard.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1266,12 +1266,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/preflight.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/preflight.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1307,12 +1307,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/recover.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/recover.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1348,12 +1348,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/replaced-transaction.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/replaced-transaction.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1389,12 +1389,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/style.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/style.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1430,12 +1430,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/track.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/track.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1471,12 +1471,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/unmount.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/unmount.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1512,12 +1512,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/wallet-misses-blockchain-support.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/wallet-misses-blockchain-support.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1553,12 +1553,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/wallet.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/wallet.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
@@ -1594,12 +1594,12 @@ jobs:
       - name: Run Cypress Tests cypress/e2e/Payment/whitelist.js
         run: |
           yarn test:cypress --spec "cypress/e2e/Payment/whitelist.js"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-videos
