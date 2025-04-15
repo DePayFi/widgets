@@ -3,7 +3,7 @@
 import Exchanges from '@depay/web3-exchanges-evm'
 import { request } from '@depay/web3-client-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import Exchanges from '@depay/web3-exchanges-solana'
 import { request } from '@depay/web3-client-solana'

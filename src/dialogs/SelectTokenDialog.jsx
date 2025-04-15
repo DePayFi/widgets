@@ -4,7 +4,7 @@ import { getWallets } from '@depay/web3-wallets-evm'
 import Token from '@depay/web3-tokens-evm'
 import { TokenImage } from '@depay/react-token-image-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { getWallets } from '@depay/web3-wallets-solana'
 import Token from '@depay/web3-tokens-solana'

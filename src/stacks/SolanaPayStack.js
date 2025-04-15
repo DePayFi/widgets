@@ -2,13 +2,13 @@
 
 const SolanaPayDialog = (props)=>{ return null }
 
-/*#elif _SOLANA
+/*#elif _SVM
 
-import SolanaPayDialog from '../dialogs/SolanaPayDialog.solana'
+import SolanaPayDialog from '../dialogs/SolanaPayDialog.svm'
 
 //#else */
 
-import SolanaPayDialog from '../dialogs/SolanaPayDialog.solana'
+import SolanaPayDialog from '../dialogs/SolanaPayDialog.svm'
 
 //#endif
 

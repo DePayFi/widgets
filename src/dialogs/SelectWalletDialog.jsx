@@ -2,7 +2,7 @@
 
 import { getWallets, wallets } from '@depay/web3-wallets-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { getWallets, wallets } from '@depay/web3-wallets-solana'
 

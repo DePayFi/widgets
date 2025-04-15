@@ -2,7 +2,7 @@
 
 import { route } from '@depay/web3-payments-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { route } from '@depay/web3-payments-solana'
 

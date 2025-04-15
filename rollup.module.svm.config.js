@@ -1,7 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import globals from './rollup.globals'
 import jscc from 'rollup-plugin-jscc'
-import pkg from './package.solana.json'
+import pkg from './package.svm.json'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import { babel } from '@rollup/plugin-babel'
@@ -13,14 +13,14 @@ export default {
     {
       format: 'es',
       globals: globals,
-      file: 'dist/esm/index.solana.js',
+      file: 'dist/esm/index.svm.js',
       sourcemap: true
     },
     {
       format: 'umd',
       name: pkg.moduleName,
       globals: globals,
-      file: 'dist/umd/index.solana.js',
+      file: 'dist/umd/index.svm.js',
       sourcemap: true
     },
   ],
@@ -29,7 +29,7 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
-    jscc({ include: 'src/**', values: { _SOLANA: 1 }}),
+    jscc({ include: 'src/**', values: { _SVM: 1 }}),
     resolve({
       extensions: ['.js', '.ts', '.jsx'],
       modulesOnly: true,

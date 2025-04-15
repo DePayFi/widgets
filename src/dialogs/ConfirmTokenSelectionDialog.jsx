@@ -2,7 +2,7 @@
 
 import { TokenImage } from '@depay/react-token-image-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { TokenImage } from '@depay/react-token-image-solana'
 

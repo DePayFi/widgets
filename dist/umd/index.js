@@ -50,10 +50,9 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  var supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
-  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'fantom', 'worldchain'];
+  var supported = ['ethereum', 'bsc', 'polygon', 'solana', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'worldchain'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'arbitrum', 'optimism', 'base', 'avalanche', 'gnosis', 'worldchain'];
   supported.svm = ['solana'];
-  supported.solana = ['solana'];
 
   var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$WorldApp, _wallets$WorldApp$inf, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
   var allWallets = [{
@@ -348,7 +347,7 @@
       }
     },
     "logo": (_wallets$Backpack = web3Wallets.wallets.Backpack) === null || _wallets$Backpack === void 0 ? void 0 : (_wallets$Backpack$inf = _wallets$Backpack.info) === null || _wallets$Backpack$inf === void 0 ? void 0 : _wallets$Backpack$inf.logo,
-    "blockchains": _toConsumableArray(supported.solana)
+    "blockchains": _toConsumableArray(supported.svm)
   }, {
     "name": "Glow",
     "extension": "Glow",
@@ -374,7 +373,7 @@
       }
     },
     "logo": (_wallets$Glow = web3Wallets.wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
-    "blockchains": _toConsumableArray(supported.solana)
+    "blockchains": _toConsumableArray(supported.svm)
   }, {
     "name": "Solflare",
     "extension": "Solflare",
@@ -398,7 +397,7 @@
       }
     },
     "logo": (_wallets$Solflare = web3Wallets.wallets.Solflare) === null || _wallets$Solflare === void 0 ? void 0 : (_wallets$Solflare$inf = _wallets$Solflare.info) === null || _wallets$Solflare$inf === void 0 ? void 0 : _wallets$Solflare$inf.logo,
-    "blockchains": _toConsumableArray(supported.solana)
+    "blockchains": _toConsumableArray(supported.svm)
   }, {
     "name": "Family",
     "desktop": {
@@ -3890,7 +3889,7 @@
       }
     },
     "logo": (_Blockchains$solana = Blockchains__default['default'].solana) === null || _Blockchains$solana === void 0 ? void 0 : _Blockchains$solana.logo,
-    "blockchains": _toConsumableArray(supported.solana)
+    "blockchains": _toConsumableArray(supported.svm)
   }, {
     "name": "Solana Wallet",
     "extension": "WindowSolana",
@@ -3906,7 +3905,7 @@
       }
     },
     "logo": (_wallets$WindowSolana = web3Wallets.wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
-    "blockchains": _toConsumableArray(supported.solana)
+    "blockchains": _toConsumableArray(supported.svm)
   }, {
     "name": "WalletConnect",
     "desktop": {
@@ -28598,7 +28597,7 @@
               break;
 
             case 13:
-              if (!supported.solana.includes(blockchain)) {
+              if (!supported.svm.includes(blockchain)) {
                 _context3.next = 24;
                 break;
               }
@@ -32096,7 +32095,7 @@
           image: image,
           name: name,
           link: link,
-          type: supported.solana.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
+          type: supported.svm.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
         }
       }));
       navigate('ConfirmNFTSelection');
@@ -32181,7 +32180,7 @@
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  if (!(blockchain && !supported.solana.includes(blockchain))) {
+                  if (!(blockchain && !supported.svm.includes(blockchain))) {
                     _context2.next = 10;
                     break;
                   }
@@ -32251,7 +32250,7 @@
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -32276,7 +32275,7 @@
         }
       }), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-      }, "Separate each one with a new line break."))), !supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Separate each one with a new line break."))), !supported.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -32328,7 +32327,7 @@
         onChange: function onChange(event) {
           return setName(event.target.value);
         },
-        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
+        placeholder: supported.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -32345,7 +32344,7 @@
         onChange: function onChange(event) {
           return setImage(event.target.value);
         },
-        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+        placeholder: supported.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -32362,7 +32361,7 @@
         onChange: function onChange(event) {
           return setLink(event.target.value);
         },
-        placeholder: supported.solana.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+        placeholder: supported.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
         className: "InputField small"
       })))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {

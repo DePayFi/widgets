@@ -2,7 +2,7 @@
 
 import { wallets } from '@depay/web3-wallets-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { wallets } from '@depay/web3-wallets-solana'
 
@@ -187,7 +187,7 @@ export default [
       },
     },
     "logo": wallets.Backpack?.info?.logo,
-    "blockchains": [...supported.solana]
+    "blockchains": [...supported.svm]
   },
   {
     "name": "Glow",
@@ -208,7 +208,7 @@ export default [
       },
     },
     "logo": wallets.Glow?.info?.logo,
-    "blockchains": [...supported.solana]
+    "blockchains": [...supported.svm]
   },
   {
     "name": "Solflare",
@@ -231,7 +231,7 @@ export default [
       },
     },
     "logo": wallets.Solflare?.info?.logo,
-    "blockchains": [...supported.solana]
+    "blockchains": [...supported.svm]
   },
   {
     "name": "Family",
@@ -2071,7 +2071,7 @@ export default [
       }
     },
     "logo": Blockchains.solana?.logo,
-    "blockchains": [...supported.solana]
+    "blockchains": [...supported.svm]
   },
   {
     "name": "Solana Wallet",
@@ -2088,7 +2088,7 @@ export default [
       }
     },
     "logo": wallets.WindowSolana?.info?.logo,
-    "blockchains": [...supported.solana]
+    "blockchains": [...supported.svm]
   },
   {
     "name": "WalletConnect",

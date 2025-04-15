@@ -1031,7 +1031,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-main-solana:
+  payment-widget-main-svm:
     
     runs-on: ubuntu-latest
 
@@ -1058,9 +1058,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/main.solana.js
+      - name: Run Cypress Tests cypress/e2e/Payment/main.svm.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/main.solana.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/main.svm.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
@@ -1099,9 +1099,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.solana.js
+      - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.svm.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.solana.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.svm.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

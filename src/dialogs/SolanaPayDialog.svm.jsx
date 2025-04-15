@@ -7,7 +7,7 @@ import DigitalWalletIcon from '../components/DigitalWalletIcon'
 import ErrorGraphic from '../graphics/error'
 import format from '../helpers/format'
 import getFavicon from '../helpers/getFavicon'
-import getPaymentRouterInstruction from '../helpers/getPaymentRouterInstruction.solana'
+import getPaymentRouterInstruction from '../helpers/getPaymentRouterInstruction.svm'
 import LoadingText from '../components/LoadingText'
 import QRCodeStyling from "qr-code-styling"
 import React, { useState, useEffect, useContext, useRef } from 'react'

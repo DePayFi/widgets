@@ -2,7 +2,7 @@
 
 import { request } from '@depay/web3-client-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { Buffer, PublicKey, struct, u64 } from '@depay/solana-web3.js'
 import { request } from '@depay/web3-client-solana'
@@ -59,7 +59,7 @@ const getNonce = async({ blockchain, transaction, account, wallet }) => {
       return (await wallet.transactionCount({ blockchain, address: account })).toString()
     }
 
-  } else if (supported.solana.includes(blockchain)) {
+  } else if (supported.svm.includes(blockchain)) {
 
     if(transaction && transaction?.nonce) {
       return transaction?.nonce?.toString()

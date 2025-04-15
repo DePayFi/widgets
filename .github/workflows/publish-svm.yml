@@ -1,4 +1,4 @@
-name: Publish Solana
+name: Publish SVM
 
 on:
   release:
@@ -15,7 +15,7 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: mv package.solana.json package.json
+      - run: mv package.svm.json package.json
           
       - run: yarn install
 

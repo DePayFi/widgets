@@ -4,7 +4,7 @@ import { getWallets } from '@depay/web3-wallets-evm'
 import { request } from '@depay/web3-client-evm'
 import Token from '@depay/web3-tokens-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { getWallets } from '@depay/web3-wallets-solana'
 import { request } from '@depay/web3-client-solana'
@@ -50,7 +50,7 @@ export default (props)=> {
       image,
       name,
       link,
-      type: supported.solana.includes(blockchain) ? 'metaplex' : (idRequired ? '1155' : '721')
+      type: supported.svm.includes(blockchain) ? 'metaplex' : (idRequired ? '1155' : '721')
     }}))
     navigate('ConfirmNFTSelection')
   }
@@ -105,7 +105,7 @@ export default (props)=> {
   useEffect(()=>{
     let blockchain = selection?.blockchain?.name || selection?.blockchain || selection?.collection?.blockchain
     let checkForIdRequired = async()=>{
-      if(blockchain && !supported.solana.includes(blockchain)) {
+      if(blockchain && !supported.svm.includes(blockchain)) {
         let balanceWithId
         try { balanceWithId = await request({ blockchain, address, method: 'balanceOf', api: Token[blockchain][1155], params: [address, '1'] }) } catch {}
         setIdRequired(!!balanceWithId)
@@ -144,7 +144,7 @@ export default (props)=> {
         <div className="PaddingLeftM PaddingRightM">
           <div>
             {
-              supported.solana.includes(selection?.blockchain?.name) &&
+              supported.svm.includes(selection?.blockchain?.name) &&
               <div>
                 <div className="PaddingTopXS TextLeft">
                   <label htmlFor="DePayWidgetsEnterNFTTokenAddresses">
@@ -160,7 +160,7 @@ export default (props)=> {
               </div>
             }
             {
-              !supported.solana.includes(selection?.blockchain?.name) &&
+              !supported.svm.includes(selection?.blockchain?.name) &&
               <div>
                 <div className="PaddingTopXS TextLeft">
                   <label htmlFor="DePayWidgetsEnterNFTTokenAddress">
@@ -192,7 +192,7 @@ export default (props)=> {
               </label>
             </div>
             <div className="PaddingTopXS PaddingBottomS TextLeft">
-              <input id="DePayWidgetsEnterNFTName" name="DePayWidgetsEnterNFTName" value={ name } onChange={ (event)=>setName(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? 'SMB' : 'CryptoPunks' } className="InputField small" />
+              <input id="DePayWidgetsEnterNFTName" name="DePayWidgetsEnterNFTName" value={ name } onChange={ (event)=>setName(event.target.value) } placeholder={ supported.svm.includes(selection?.blockchain?.name) ? 'SMB' : 'CryptoPunks' } className="InputField small" />
             </div>
           </div>
           <div>
@@ -202,7 +202,7 @@ export default (props)=> {
               </label>
             </div>
             <div className="PaddingTopXS PaddingBottomS TextLeft">
-              <input id="DePayWidgetsEnterNFTImage" name="DePayWidgetsEnterNFTImage" value={ image } onChange={ (event)=>setImage(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128' } className="InputField small" />
+              <input id="DePayWidgetsEnterNFTImage" name="DePayWidgetsEnterNFTImage" value={ image } onChange={ (event)=>setImage(event.target.value) } placeholder={ supported.svm.includes(selection?.blockchain?.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128' } className="InputField small" />
             </div>
           </div>
           <div>
@@ -212,7 +212,7 @@ export default (props)=> {
               </label>
             </div>
             <div className="PaddingTopXS PaddingBottomS TextLeft">
-              <input id="DePayWidgetsEnterNFTLink" name="DePayWidgetsEnterNFTLink" value={ link } onChange={ (event)=>setLink(event.target.value) } placeholder={ supported.solana.includes(selection?.blockchain?.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks" } className="InputField small" />
+              <input id="DePayWidgetsEnterNFTLink" name="DePayWidgetsEnterNFTLink" value={ link } onChange={ (event)=>setLink(event.target.value) } placeholder={ supported.svm.includes(selection?.blockchain?.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks" } className="InputField small" />
             </div>
           </div>
         </div>

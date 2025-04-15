@@ -42,7 +42,7 @@ npm install ethers react react-dom --save
 
 In case you want to use and package only specific platforms, use the platform-specific package:
 
-### EVM platform specific packaging
+### EVM (Ethereum Virtual Machine) platform specific packaging
 
 ```
 yarn add @depay/widgets-evm
@@ -52,14 +52,14 @@ yarn add @depay/widgets-evm
 import DePayWidgets from '@depay/widgets-evm'
 ```
 
-### Solana platform specific packaging
+### SVM (Solana Virtual Machine) platform specific packaging
 
 ```
-yarn add @depay/widgets-solana
+yarn add @depay/widgets-svm
 ```
 
 ```javascript
-import DePayWidgets from '@depay/widgets-solana'
+import DePayWidgets from '@depay/widgets-svm'
 ```
 
 ## Server-side rendering
