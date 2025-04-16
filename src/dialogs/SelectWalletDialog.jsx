@@ -304,6 +304,14 @@ export default (props)=>{
           { dialogAnimationFinished &&
             <SelectWalletList setWallet={ props.setWallet } searchTerm={ searchTerm } onClickWallet={ onClickWallet }/>
           }
+          { !dialogAnimationFinished && // placeholder
+            <div className="ScrollHeightM DialogBody PaddingBottomS PaddingLeftS PaddingRightS">
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "58px" }}><div className="SkeletonBackground"/></div></div>
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "58px" }}><div className="SkeletonBackground"/></div></div>
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "58px" }}><div className="SkeletonBackground"/></div></div>
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "58px" }}><div className="SkeletonBackground"/></div></div>
+            </div>
+          }
         </div>
       }
       footer={ false }
