@@ -23,5 +23,9 @@ export default (style)=>{
       background: rgb(235,235,235);
       box-shadow: inset 0 0 4px rgba(0,0,0,0.02);
     }
+
+    .Tab.search {
+      display: flex;
+    }
   `)
 }

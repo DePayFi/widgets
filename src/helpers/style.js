@@ -24,6 +24,7 @@ import ResetStyle from '../styles/ResetStyle'
 import SearchStyle from '../styles/SearchStyle'
 import SkeletonStyle from '../styles/SkeletonStyle'
 import TableStyle from '../styles/TableStyle'
+import TabBarStyle from '../styles/TabBarStyle'
 import TabStyle from '../styles/TabStyle'
 import TextButtonStyle from '../styles/TextButtonStyle'
 import TextStyle from '../styles/TextStyle'
@@ -65,6 +66,7 @@ export default (style)=>{
       PaddingStyle(style),
       MarginStyle(style),
       HeightStyle(style),
+      TabBarStyle(style),
       TabStyle(style),
       LoadingTextStyle(style),
       RangeSliderStyle(style),

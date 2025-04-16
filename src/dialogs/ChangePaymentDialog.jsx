@@ -164,7 +164,33 @@ export default (props)=>{
           <div className="PaddingTopS">
             <div className="TextLeft" style={{ height: "32px" }}>
               { !searching &&
-                <div>
+                <div className='TabBar'>
+
+                  <button
+                    type="button"
+                    className="Tab search"
+                    title="Search for a payment option"
+                    style={{ width: "92px" }}
+                    onClick={()=>{
+                      setSelectedTab('all')
+                      setSelectedPaymentOptions(allPaymentOptions)
+                      setSearching(true)
+                      listElement.current.scrollTop = 0
+                    }}
+                  ><span style={{fontSize: '12px', position: 'relative'}} className="SearchIcon">🔍</span>
+                    <input
+                      type="text"
+                      className="Search small"
+                      placeholder="Search"
+                      onFocus={()=>{
+                        setSelectedTab('all')
+                        setSelectedPaymentOptions(allPaymentOptions)
+                        setSearching(true)
+                        listElement.current.scrollTop = 0
+                      }}
+                    />
+                  </button>
+
                   { allBestPaymentOptions.length > 0 &&
                     <button 
                       type="button"
@@ -221,18 +247,6 @@ export default (props)=>{
                       listElement.current.scrollTop = 0
                     }}
                   >All</button>
-                  <button
-                    type="button"
-                    className="Tab"
-                    title="Search for a payment option"
-                    style={{fontSize: '12px', position: 'relative', top: '-2px'}}
-                    onClick={()=>{
-                      setSelectedTab('all')
-                      setSelectedPaymentOptions(allPaymentOptions)
-                      setSearching(true)
-                      listElement.current.scrollTop = 0
-                    }}
-                  >🔍</button>
                 </div>
               }
 

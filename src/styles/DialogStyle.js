@@ -36,7 +36,13 @@ export default (style)=>{
 
       .Dialog {
         border-radius: 0;
+        border-top-radius: 0;
         width: 100%;
+      }
+
+      .DialogHeader {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
       }
     }
 
@@ -57,8 +63,8 @@ export default (style)=>{
 
       .Dialog {
         align-content: stretch;
-        border-radius: 13px;
-        border-top-radius: 13px;
+        border-radius: 0px;
+        border-top-radius: 0px;
         display: flex;
         flex-direction: column;
         border-bottom-left-radius: 0 !important;
@@ -100,6 +106,10 @@ export default (style)=>{
       overflow-y: auto;
     }
 
+    .ScrollHeightAnimation {
+      transition: height 0.4s ease, max-height 0.4s ease;
+    }
+
     .ScrollHeight {
       height: 30vh !important;
       max-height: 30vh !important;
@@ -111,8 +121,13 @@ export default (style)=>{
     }
 
     .ScrollHeightM {
-      height: 194px !important;
-      max-height: 194px !important;
+      height: 210px !important;
+      max-height: 210px !important;
+    }
+
+    .ScrollHeightMax {
+      height: 60vh !important;
+      max-height: 60vh !important;
     }
 
     .DialogBody.MinHeight {
@@ -123,7 +138,7 @@ export default (style)=>{
     .DialogHeader {
       border-top-left-radius: 13px;
       border-top-right-radius: 13px;
-      min-height: 54px;
+      min-height: 58px;
       position: relative;
       width: 100%;
     }

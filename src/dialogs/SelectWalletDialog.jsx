@@ -13,6 +13,7 @@ import { getWallets, wallets } from '@depay/web3-wallets'
 //#endif
 
 import allWalletsOriginal from '../helpers/allWallets'
+import capitalizeFirstChar from '../helpers/capitalizeFirstChar'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
@@ -34,6 +35,7 @@ export default (props)=>{
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
   const { wallets: walletsConfiguration } = useContext(ConfigurationContext)
   const searchElement = useRef()
+  const listElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
   let allWallets
@@ -91,6 +93,52 @@ export default (props)=>{
       navigate('ConnectWallet')
     }
   }
+
+  useEffect(() => {
+
+    const focusNextElement = (event)=> {
+      const focusable = Array.from(listElement.current.querySelectorAll(
+        'button.Card'
+      ));
+
+      const index = focusable.indexOf(listElement.current.querySelector(':focus'));
+      if (index > -1 && index < focusable.length - 1) {
+        focusable[index + 1].focus()
+      } else {
+        focusable[0].focus()
+        event.preventDefault()
+        return false
+      }
+    }
+
+    const focusPrevElement = (event)=> {
+      const focusable = Array.from(listElement.current.querySelectorAll(
+        'button.Card'
+      ));
+
+      const index = focusable.indexOf(listElement.current.querySelector(':focus'));
+      if (index > -1 && index < focusable.length - 1) {
+        focusable[index - 1].focus()
+      } else {
+        focusable[0].focus()
+        event.preventDefault()
+        return false
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowUp') {
+        focusPrevElement(event)
+      } else if (event.key === 'ArrowDown') {
+        focusNextElement(event)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   useEffect(()=>{
     if(allWallets.length === 1) {
@@ -192,7 +240,7 @@ export default (props)=>{
                             <div className="CardText FontWeightMedium">
                               { walletMetaData.name }
                             </div>
-                            <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Connect detected { connectionType }</div>
+                            <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> { capitalizeFirstChar(connectionType) } detected</div>
                           </div>
                         </div>
                       </button>
@@ -252,7 +300,7 @@ export default (props)=>{
       }
       bodyClassName={ "PaddingBottomXS" }
       body={
-        <div className="ScrollHeightM PaddingTopXS">
+        <div className="PaddingTopXS" ref={ listElement }>
           { dialogAnimationFinished &&
             <SelectWalletList setWallet={ props.setWallet } searchTerm={ searchTerm } onClickWallet={ onClickWallet }/>
           }

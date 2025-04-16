@@ -63,7 +63,7 @@ export default [
     "blockchains": [...supported]
   },
   {
-    "name": "Trust Wallet",
+    "name": "Trust",
     "extensions": ["TrustEVM", "TrustSVM"],
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
@@ -74,7 +74,7 @@ export default [
     "blockchains": [...supported]
   },
   {
-    "name": "Binance Wallet",
+    "name": "Binance",
     "extension": "Binance",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
@@ -85,7 +85,7 @@ export default [
     "blockchains": [...supported.evm]
   },
   {
-    "name": "Crypto.com | DeFi Wallet",
+    "name": "Crypto.com Onchain",
     "extension": "CryptoCom",
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 

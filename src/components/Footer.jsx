@@ -257,7 +257,7 @@ export default ()=>{
         <div>
           <div className="PaddingBottomXS">
             <div className="Alert">
-              <strong>Price updated!</strong>
+              <strong>Exchange rate updated!</strong>
             </div>
           </div>
           <button type="button" className={"ButtonPrimary"} onClick={()=>{ throttledUpdateRouteWithNewPrice() }}>

@@ -31,9 +31,20 @@ export default (props)=>{
     allWallets = allWalletsOriginal
   }
 
+  const [ listScrolled, setListScrolled ] = useState(false)
+  const handleOnScroll = (event)=>{
+    if(!listScrolled) {
+      setListScrolled(true)
+    }
+    if(event.target.scrollTop <= 0) {
+      setListScrolled(false)
+    }
+  }
+
   const parentElement = React.useRef()
   const fuse = new Fuse(allWallets, { keys: ['name'], threshold: 0.3, ignoreFieldNorm: true })
   const [ resultList, setResultList ] = useState(allWallets)
+  
   const rowVirtualizer = useVirtualizer({
     count: resultList.length,
     getScrollElement: () => parentElement.current,
@@ -52,8 +63,26 @@ export default (props)=>{
     }
   }, [props.searchTerm])
 
+  useEffect(() => {
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        if(resultList && resultList.length) {
+          props.onClickWallet(resultList[0])
+        } else {
+          props.onClickWallet(allWallets[0])
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [resultList])
+
   return(
-    <div ref={ parentElement } className="DialogBody ScrollHeightM PaddingBottomS PaddingLeftS PaddingRightS">
+    <div ref={ parentElement } onScroll={ handleOnScroll } className={`ScrollHeightAnimation ${listScrolled ? 'ScrollHeightMax' : 'ScrollHeightM'} DialogBody PaddingBottomS PaddingLeftS PaddingRightS`}>
       <div
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,

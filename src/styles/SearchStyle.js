@@ -2,13 +2,13 @@ export default (style)=>{
   return(`
 
     .Search {
-      border-radius: 13px;
-      border: 1px solid rgba(0,0,0,0.2);
-      background: white;
+      border-radius: 20px;
+      border: 0;
+      background: none;
       outline: none !important;
       color: ${style.colors.text};
       font-size: 19px;
-      padding: 13px;
+      padding: 8px 12px;
       width: 100%;
       position: relative !important; // fixes LastPass extension problem
     }
@@ -24,7 +24,8 @@ export default (style)=>{
     } 
 
     .Search:focus, .Search:focus-visible {
-      border: 1px solid ${style.colors.primary};
+      border: 0;
+      background: none;
     }
 
   `)

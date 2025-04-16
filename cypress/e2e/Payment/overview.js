@@ -265,7 +265,7 @@ describe('Payment Widget: overview', () => {
             mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
           })
           cy.wait(16000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Price updated!')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Exchange rate updated!')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '35.175')

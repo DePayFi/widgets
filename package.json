@@ -51,7 +51,7 @@
     "@depay/web3-exchanges": "^15.7.0",
     "@depay/web3-payments": "^15.0.0",
     "@depay/web3-tokens": "^11.0.0",
-    "@depay/web3-wallets": "^18.0.0",
+    "@depay/web3-wallets": "^18.0.4",
     "@depay/worldcoin-precompiled": "^1.2.0",
     "@tanstack/react-virtual": "^3.0.0-beta.54",
     "@uiw/copy-to-clipboard": "^1.0.14",
