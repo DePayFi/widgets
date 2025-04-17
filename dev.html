@@ -25,7 +25,7 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/worldcoin-precompiled@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.0.4"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@15"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.0.3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -116,11 +116,6 @@
                         token: document.getElementById("paymentTokenInput").value,
                         receiver: document.getElementById("paymentReceiverInput").value
                       }],
-                      style: {
-                        colors: {
-                          primary: '#000000',
-                        }
-                      }
                     });
                   });
                 </script>
@@ -418,11 +413,6 @@
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },{
                           blockchain: 'bsc',
-                          amount: 0.0001,
-                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
-                          blockchain: 'fantom',
                           amount: 0.0001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'

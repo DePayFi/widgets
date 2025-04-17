@@ -47,6 +47,8 @@ export default (props)=>{
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ resetApprovalTransaction, setResetApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
+  const [ approvalType, setApprovalType ] = useState('transaction')
+  const [ approvalAmount, setApprovalAmount ] = useState('max')
 
   const paymentSucceeded = (transaction, payment)=>{
     if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
@@ -142,36 +144,61 @@ export default (props)=>{
       })
   }
 
-  const approve = ()=> {
+  const approve = async()=> {
     setPaymentState('approving')
     setClosable(false)
     setUpdatable(false)
-    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      sent: (sentTransaction)=>{
-        setApprovalTransaction(sentTransaction)
-      },
-      succeeded: ()=>{
-        setUpdatable(true)
-        setClosable(true)
-        refreshPaymentRoutes().then(()=>{
-          setTimeout(()=>{
-            setPaymentState('initialized')
-          }, 1000)
-        })
+    let approvalTransaction
+    let approvalSignature
+    if(approvalType == 'signature') {
+      console.log('SIGNATURE')
+      console.log('payment.route.currentPermit2Allowance', payment.route.currentPermit2Allowance.toString())
+      console.log('payment.route.fromAmount', payment.route.fromAmount.toString())
+      if(payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)) {
+        approvalSignature = await payment.route.getPermit2ApprovalSignature()
+      } else {
+        approvalTransaction = await payment.route.getPermit2ApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
       }
-    }))
-      .catch((error)=>{
-        console.log('error', error)
-        if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
-          navigate('WrongNetwork')
-        }
-        setPaymentState('initialized')
-        setClosable(true)
+    } else { // transaction
+      approvalTransaction = await payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
+    }
+    if(approvalSignature) {
+      wallet.sign(approvalSignature).then((signature)=>{
+        console.log('SIGNATURE!', signature)
+      }).catch(()=>{
+        console.log("CATCH SIGNATURE")
       })
+    } else if(approvalTransaction) {
+      wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+        sent: (sentTransaction)=>{
+          setApprovalTransaction(sentTransaction)
+        },
+        succeeded: ()=>{
+          setUpdatable(true)
+          setClosable(true)
+          refreshPaymentRoutes().then(()=>{
+            setTimeout(()=>{
+              setPaymentState('initialized')
+            }, 1000)
+          })
+        }
+      }))
+        .catch((error)=>{
+          console.log('error', error)
+          if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
+            navigate('WrongNetwork')
+          }
+          setPaymentState('initialized')
+          setClosable(true)
+        })
+    }
   }
 
   useEffect(()=>{
     setTrackingPayment(payment)
+    if(payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.BigNumber.from('0'))) {
+      setApprovalType('signature')
+    }
   }, [payment])
 
   useEffect(()=>{
@@ -285,6 +312,10 @@ export default (props)=>{
         paymentState,
         pay,
         transaction,
+        approvalType,
+        setApprovalType,
+        approvalAmount,
+        setApprovalAmount,
         approve,
         resetApproval,
         approvalTransaction,

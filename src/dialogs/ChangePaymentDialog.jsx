@@ -19,6 +19,7 @@ import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
 import Fuse from 'fuse.js'
+import isMobile from '../helpers/isMobile'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState, useCallback, useRef } from 'react'
@@ -30,7 +31,6 @@ export default (props)=>{
 
   const { setError } = useContext(ErrorContext)
   const { allRoutes, allRoutesLoaded, setSelectedRoute } = useContext(PaymentRoutingContext)
-  const { displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ allBestPaymentOptions, setBestPaymentOptions ] = useState()
   const [ allMajorPaymentOptions, setMajorPaymentOptions ] = useState()
@@ -42,9 +42,22 @@ export default (props)=>{
   const [ searching, setSearching ] = useState(false)
   const [ searchTerm, setSearchTerm ] = useState('')
   const [ fuse, setFuse ] = useState()
-  const searchPaymentOption = useCallback(debounce((term, fuse)=>{
-    const results = fuse.search(term)
-    setSelectedPaymentOptions(results.map((result)=>result.item))
+  const [ listScrolled, setListScrolled ] = useState(false)
+  const handleOnScroll = (event)=>{
+    if(!listScrolled) {
+      setListScrolled(true)
+    }
+    if(event.target.scrollTop <= 0) {
+      setListScrolled(false)
+    }
+  }
+  const searchPaymentOption = useCallback(debounce((term, fuse, allPaymentOptions)=>{
+    if(term.length == 0) {
+      setSelectedPaymentOptions(allPaymentOptions)
+    } else {
+      const results = fuse.search(term)
+      setSelectedPaymentOptions(results.map((result)=>result.item))
+    }
     listElement.current.scrollTop = 0
   }, 300), [])
   const onChangeSearch = (event, fuse, allPaymentOptions)=>{
@@ -52,6 +65,19 @@ export default (props)=>{
     searchPaymentOption(event.target.value, fuse, allPaymentOptions)
   }
   const listElement = useRef()
+
+  const searchElement = useRef()
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      if(!isMobile()) {
+        if(searchElement.current){
+          searchElement.current.click()
+          searchElement.current.focus()
+        }
+      }
+    }, 200)
+  }, [])
 
   useEffect(()=>{
     if(allRoutes == undefined) { return }
@@ -79,21 +105,25 @@ export default (props)=>{
         }
       })
       setFuse(new Fuse(allPaymentRoutesWithDisplayData, { keys: ['name', 'symbol', 'blockchainName'], threshold: 0.3, ignoreFieldNorm: true }))
+
       const bestPaymentOptions = allPaymentRoutesWithDisplayData.filter((paymentRoute)=>
         paymentRoute.route.fromToken.address.toLowerCase() === paymentRoute.route.toToken.address.toLowerCase()
       )
       setBestPaymentOptions(bestPaymentOptions)
+
       const majorPaymentOptions = allPaymentRoutesWithDisplayData.filter((paymentRoute)=>
         Blockchains[paymentRoute.route.blockchain].tokens.find((token)=>
           token.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase()
         )
       )
       setMajorPaymentOptions(majorPaymentOptions)
+
       setNativePaymentOptions(
         allPaymentRoutesWithDisplayData.filter((paymentRoute)=>
           Blockchains[paymentRoute.route.blockchain].currency.address.toLowerCase() === paymentRoute.route.fromToken.address.toLowerCase()
         )
       )
+
       setStablePaymentOptions(
         allPaymentRoutesWithDisplayData.filter((paymentRoute)=>
           Blockchains[paymentRoute.route.blockchain].stables.usd.find((stable)=>
@@ -101,14 +131,22 @@ export default (props)=>{
           )
         )
       )
-      setAllPaymentOptions(allPaymentRoutesWithDisplayData)
+
+      const allPaymentOptions = allPaymentRoutesWithDisplayData
+      setAllPaymentOptions(allPaymentOptions)
+
       if(selectedPaymentOptions === undefined) {
-        if(bestPaymentOptions.length) {
+        if(allPaymentOptions.length <= 4) {
+          setSelectedPaymentOptions(allPaymentOptions)
+        } else if(bestPaymentOptions.length) {
           setSelectedTab('best')
           setSelectedPaymentOptions(bestPaymentOptions)
-        } else {
+        } else if (majorPaymentOptions.length) {
           setSelectedTab('major')
           setSelectedPaymentOptions(majorPaymentOptions)
+        } else {
+          setSelectedTab('all')
+          setSelectedPaymentOptions(allPaymentOptions)
         }
       }
     }).catch(setError)
@@ -158,137 +196,131 @@ export default (props)=>{
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <h1 className="LineHeightL FontSizeL TextCenter">Payment options</h1>
-          { displayedPaymentValue != undefined &&
-            <div className="FontSizeL TextCenter FontWeightBold"><strong>{ displayedPaymentValue.toString() }</strong></div>
-          }
-          <div className="PaddingTopS">
+          <div className="PaddingTopS PaddingBottomXS">
             <div className="TextLeft" style={{ height: "32px" }}>
-              { !searching &&
-                <div className='TabBar'>
-
-                  <button
-                    type="button"
-                    className="Tab search"
-                    title="Search for a payment option"
-                    style={{ width: "92px" }}
-                    onClick={()=>{
+              <div className='TabBar'>
+                <button
+                  type="button"
+                  title="Search for a payment option"
+                  style={{ width: "100px", position: 'relative'}}
+                  onClick={()=>{
+                    if(!(searchTerm && searchTerm.length)) {
                       setSelectedTab('all')
                       setSelectedPaymentOptions(allPaymentOptions)
-                      setSearching(true)
                       listElement.current.scrollTop = 0
-                    }}
-                  ><span style={{fontSize: '12px', position: 'relative'}} className="SearchIcon">🔍</span>
-                    <input
-                      type="text"
-                      className="Search small"
-                      placeholder="Search"
-                      onFocus={()=>{
+                    }
+                  }}
+                >
+                  <input
+                    type="text"
+                    ref={ searchElement }
+                    className="Search"
+                    placeholder="Search"
+                    style={{ paddingBottom: 0, position: 'relative', top: '-4px' }}
+                    value={ searchTerm }
+                    onChange={ (event)=>onChangeSearch(event, fuse, allPaymentOptions) }
+                    onFocus={()=>{
+                      if(!(searchTerm && searchTerm.length)) {
                         setSelectedTab('all')
                         setSelectedPaymentOptions(allPaymentOptions)
-                        setSearching(true)
                         listElement.current.scrollTop = 0
-                      }}
-                    />
-                  </button>
+                      }
+                    }}
+                  />
+                </button>
 
-                  { allBestPaymentOptions.length > 0 &&
-                    <button 
-                      type="button"
-                      className={`Tab ${selectedTab === 'best' ? 'active' : ''}`}
-                      title="Payment options not requiring conversion"
-                      onClick={()=>{
-                        setSelectedTab('best')
-                        setSelectedPaymentOptions(allBestPaymentOptions)
-                        listElement.current.scrollTop = 0
-                      }}
-                    >Best</button>
-                  }
+                {
+                  allPaymentOptions.length > 4 &&
+                  <button
+                    type="button"
+                    className={`Tab ${selectedTab === 'all' && (!searchTerm || searchTerm.length == 0) ? 'active' : ''}`}
+                    title="All available payment options"
+                    onClick={()=>{
+                      setSelectedTab('all')
+                      setSearchTerm('')
+                      setSelectedPaymentOptions(allPaymentOptions)
+                      listElement.current.scrollTop = 0
+                    }}
+                  >All</button>
+                }
+
+                { allPaymentOptions.length > 4 && allBestPaymentOptions.length > 0 &&
+                  <button 
+                    type="button"
+                    className={`Tab ${selectedTab === 'best' ? 'active' : ''}`}
+                    title="Payment options not requiring conversion"
+                    onClick={()=>{
+                      setSelectedTab('best')
+                      setSearchTerm('')
+                      setSelectedPaymentOptions(allBestPaymentOptions)
+                      listElement.current.scrollTop = 0
+                    }}
+                  >Best</button>
+                }
+                { allPaymentOptions.length > 4 && allStablePaymentOptions.length > 0 &&
+                  <button
+                    type="button"
+                    className={`Tab ${selectedTab === 'stable' ? 'active' : ''}`}
+                    title="Stablecoins available to use"
+                    onClick={()=>{
+                      setSelectedTab('stable')
+                      setSearchTerm('')
+                      setSelectedPaymentOptions(allStablePaymentOptions)
+                      listElement.current.scrollTop = 0
+                    }}
+                  >Stable</button>
+                }
+                { allPaymentOptions.length > 4 && allMajorPaymentOptions.length > 0 &&
                   <button
                     type="button"
                     className={`Tab ${selectedTab === 'major' ? 'active' : ''}`}
                     title="Major tokens available to use"
                     onClick={()=>{
                       setSelectedTab('major')
+                      setSearchTerm('')
                       setSelectedPaymentOptions(allMajorPaymentOptions)
                       listElement.current.scrollTop = 0
                     }}
                   >Major</button>
-                  { allNativePaymentOptions.length > 0 &&
-                    <button
-                      type="button"
-                      className={`Tab ${selectedTab === 'native' ? 'active' : ''}`}
-                      title="Native blockchain currencies available to use"
-                      onClick={()=>{
-                        setSelectedTab('native')
-                        setSelectedPaymentOptions(allNativePaymentOptions)
-                        listElement.current.scrollTop = 0
-                      }}
-                    >Native</button>
-                  }
-                  { allStablePaymentOptions.length > 0 &&
-                    <button
-                      type="button"
-                      className={`Tab ${selectedTab === 'stable' ? 'active' : ''}`}
-                      title="Stablecoins available to use"
-                      onClick={()=>{
-                        setSelectedTab('stable')
-                        setSelectedPaymentOptions(allStablePaymentOptions)
-                        listElement.current.scrollTop = 0
-                      }}
-                    >Stable</button>
-                  }
+                }
+                { allPaymentOptions.length > 4 && allNativePaymentOptions.length > 0 &&
                   <button
                     type="button"
-                    className={`Tab ${selectedTab === 'all' ? 'active' : ''}`}
-                    title="All available payment options"
+                    className={`Tab ${selectedTab === 'native' ? 'active' : ''}`}
+                    title="Native blockchain currencies available to use"
                     onClick={()=>{
-                      setSelectedTab('all')
-                      setSelectedPaymentOptions(allPaymentOptions)
-                      listElement.current.scrollTop = 0
-                    }}
-                  >All</button>
-                </div>
-              }
-
-              { searching &&
-                <div style={{ display: 'flex' }}>
-                  <button
-                    type="button"
-                    className="Tab"
-                    title="Go back to all payment options"
-                    onClick={()=>{
-                      setSelectedTab('all')
-                      setSelectedPaymentOptions(allPaymentOptions)
-                      setSearching(false)
+                      setSelectedTab('native')
                       setSearchTerm('')
+                      setSelectedPaymentOptions(allNativePaymentOptions)
                       listElement.current.scrollTop = 0
                     }}
-                  ><ChevronLeft className="small"/></button>
-                  <input
-                    type="text"
-                    className="Search small"
-                    placeholder="Search by name, symbol or blockchain"
-                    autoFocus={true}
-                    value={ searchTerm }
-                    onChange={ (event)=>onChangeSearch(event, fuse, allPaymentOptions) }
-                  />
-                </div>
-              }
+                  >Native</button>
+                }
+              </div>
+
             </div>
           </div>
         </div>
       }
       bodyRef={ listElement }
       body={
-        <div className="ScrollHeight PaddingTopXS PaddingBottomS">
-          <div className="PaddingLeftM PaddingRightM PaddingBottomM">
+        <div onScroll={ handleOnScroll } className={`DialogBody ScrollHeightAnimation ${listScrolled ? 'ScrollHeightMax' : 'ScrollHeightL'} PaddingTopXS PaddingBottomS`}>
+          <div className="PaddingLeftM PaddingRightM">
             { displayedPaymentOptions }
             { displayedPaymentOptions.length === 0 &&
-              <div className="TextCenter Opacity05 PaddingTopS PaddingBottomS">
-                <strong>Nothing found for the given search term.</strong>
-                <br/>
-                <strong>Please search for something else.</strong>
-              </div>
+              <>
+                <div className="TextCenter Opacity05 PaddingTopS PaddingBottomS">
+                  <strong>Nothing found for the given search term.</strong>
+                  <br/>
+                </div>
+                <div className="TextCenter">
+                  <button className="Link" onClick={()=>{
+                    setSelectedPaymentOptions(allPaymentOptions)
+                    setSearchTerm('')
+                    searchElement.current.focus()
+                  }}>Reset search</button>
+                </div>
+              </>
             }
           </div>
         </div>

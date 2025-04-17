@@ -82,7 +82,7 @@ export default (props)=>{
   }, [resultList])
 
   return(
-    <div ref={ parentElement } onScroll={ handleOnScroll } className={`ScrollHeightAnimation ${listScrolled ? 'ScrollHeightMax' : 'ScrollHeightM'} DialogBody PaddingBottomS PaddingLeftS PaddingRightS`}>
+    <div ref={ parentElement } onScroll={ handleOnScroll } className={`DialogBody ScrollHeightAnimation ${listScrolled ? 'ScrollHeightMax' : 'ScrollHeightM'} PaddingBottomS PaddingLeftS PaddingRightS`}>
       <div
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,

@@ -1,6 +1,10 @@
 export default (style)=>{
   return(`
 
+    .ReactDialog {
+      user-select: none;
+    }
+
     .ReactDialogBackground {
       z-index: -2;
       backdrop-filter: blur(5px);
@@ -29,7 +33,7 @@ export default (style)=>{
       width: 420px;
       box-shadow: 0 0 22px rgba(0,0,0,0.3);
       border-radius: 13px;
-      background: rgb(248,248,248);
+      background: ${style.colors.background};
     }
 
     @media (max-width: 450px) {
@@ -46,7 +50,7 @@ export default (style)=>{
       }
     }
 
-    @media (orientation: portrait) and (max-width: 800px) {
+    @media (orientation: portrait) and (max-width: 600px) {
 
       .ReactDialogAnimation {
         width: 100%;
@@ -69,6 +73,7 @@ export default (style)=>{
         flex-direction: column;
         border-bottom-left-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
+        width: 100%;
       }
 
       .DialogBody {
@@ -123,6 +128,11 @@ export default (style)=>{
     .ScrollHeightM {
       height: 210px !important;
       max-height: 210px !important;
+    }
+
+    .ScrollHeightL {
+      height: 250px !important;
+      max-height: 250px !important;
     }
 
     .ScrollHeightMax {

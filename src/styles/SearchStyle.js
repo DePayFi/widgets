@@ -20,7 +20,11 @@ export default (style)=>{
     }
 
     .Search::placeholder {
-      color: rgb(180,180,180);
+      color: color-mix(in srgb, ${style.colors.text} 55%, ${style.colors.mixPassive} 50%);
+    } 
+
+    .Search:focus::placeholder, .Search:focus-visible::placeholder {
+      color: color-mix(in srgb, ${style.colors.text} 65%, ${style.colors.mixPassive} 35%);
     } 
 
     .Search:focus, .Search:focus-visible {

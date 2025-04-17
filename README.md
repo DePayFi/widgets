@@ -836,6 +836,24 @@ DePayWidgets.Payment({
 })
 ```
 
+##### colorsDarkMode
+
+You can pass colors applicable to dark mode:
+
+```javascript
+DePayWidgets.Payment({
+  
+  style: {
+    colorsDarkMode: {
+      primary: '#000265',
+      text: '#000265',
+      buttonText: '#FFFFFF',
+      icons: '#000265'
+    }
+  }
+})
+```
+
 ##### fontFamily
 
 `fontFamily`
@@ -871,6 +889,26 @@ DePayWidgets.Payment({
   }
 })
 ```
+
+###### cssDarkMode
+
+Allows you to inject css to adjust darkMode:
+
+```javascript
+DePayWidgets.Payment({
+  
+  style: {
+    cssDarkMode: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  }
+})
+```
+
 
 #### unmount
 

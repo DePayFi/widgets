@@ -3,7 +3,7 @@ export default (style)=>{
 
     .Card {
       align-items: center;
-      background: rgb(255,255,255);
+      background: ${style.colors.cardBackground};
       border: 1px solid transparent;
       border-radius: 13px;
       box-shadow: 0 0 8px rgba(0,0,0,0.03);
@@ -14,6 +14,10 @@ export default (style)=>{
       min-height: 76px;
       padding: 16px 10px;
       width: 100%;
+    }
+
+    .Card.transparent {
+      background: none;
     }
 
     .Card:focus {
@@ -130,12 +134,12 @@ export default (style)=>{
     }
 
     .Card:hover:not(.disabled) {
-      background: rgb(240,240,240);
+      background-color: color-mix(in srgb, ${style.colors.background} 80%, ${style.colors.mixActive} 5%);
       box-shadow: 0 0 0 rgba(0,0,0,0); 
     }
 
     .Card:active:not(.disabled) {
-      background: rgb(235,235,235);
+      background-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.02);
       color: inherit;
     }
@@ -200,8 +204,8 @@ export default (style)=>{
     .CardImage img {
       background: white;
       border-radius: 9999px;
-      border: 1px solid white;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+      border: 1px solid color-mix(in srgb, ${style.colors.background} 95%, ${style.colors.mixActive} 5%);
+      box-shadow: 0 0 8px color-mix(in srgb, ${style.colors.background} 80%, black 20%);
       height: 45px;
       position: relative;
       vertical-align: middle;
@@ -226,6 +230,10 @@ export default (style)=>{
       font-size: 15px;
       color: rgb(150,150,150);
       line-height: 20px;
+    }
+
+    .CardText.small .CardTitle {
+      line-height: 14px;
     }
     
     .CardText, a .CardText {

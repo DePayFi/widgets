@@ -1,6 +1,7 @@
 import AlertIcon from '../components/AlertIcon'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
+import ChevronRight from '../components/ChevronRight'
 import ClosableContext from '../contexts/ClosableContext'
 import DigitalWalletIcon from '../components/DigitalWalletIcon'
 import etaForConfirmations from '../helpers/etaForConfirmations'
@@ -31,6 +32,7 @@ export default ()=>{
   const { close } = useContext(ClosableContext)
   const { wallet } = useContext(WalletContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
+  const [ approvalType, setApprovalType ] = useState('transaction')
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
   const [ requiresApprovalReset, setRequiresApprovalReset ] = useState(false)
   const throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000)
@@ -191,22 +193,33 @@ export default ()=>{
     }
   }
 
-  const approvalResetButton = ()=> {
-    if(!requiresApprovalReset || payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice) {
-      return(null)
-    } else if(paymentValueLoss) {
-      return(
+  if(updatedRouteWithNewPrice) {
+    return(
+      <div>
         <div className="PaddingBottomXS">
-          <button type="button" className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Reset approval for ${payment.symbol}`}>
-            Reset { payment.symbol } approval
-          </button>
+          <div className="Alert">
+            <strong>Exchange rate updated!</strong>
+          </div>
         </div>
-      )
-    } else if(paymentState == 'initialized') {
+        <button type="button" className={"ButtonPrimary"} onClick={()=>{ throttledUpdateRouteWithNewPrice() }}>
+          Reload
+        </button>
+      </div>
+    )
+  } else if(paymentValueLoss){
+    return(
+      <div className="PaddingBottomXS">
+        <div className="Alert">
+          <strong>Payment would lose {paymentValueLoss}% of its value!</strong>
+        </div>
+      </div>
+    )
+  } else if(requiresApprovalReset) {
+    if(paymentState == 'initialized') {
       return(
         <div className="PaddingBottomXS">
           <button type="button" className="ButtonPrimary" onClick={ throttledResetApproval } title={`Reset approval for ${payment.symbol}`}>
-            Reset { payment.symbol } approval
+            First, reset { payment.symbol } approval
           </button>
         </div>
       )
@@ -219,133 +232,119 @@ export default ()=>{
         </div>
       )
     }
-  }
-
-  const approvalButton = ()=> {
-    if(payment.route == undefined || (!payment.route.approvalRequired || payment.route.directTransfer) || updatedRouteWithNewPrice || wallet?.name === 'World App') {
-      return(null)
-    } else if(paymentValueLoss || requiresApprovalReset) {
-      return(
-        <div className="PaddingBottomXS">
-          <button type="button" className="ButtonPrimary disabled" onClick={ ()=>{} } title={`Allow ${payment.symbol} to be used as payment`}>
-            Approve use of { payment.symbol }
-          </button>
-        </div>
-      )
-    } else if(paymentState == 'initialized') {
-      return(
-        <div className="PaddingBottomXS">
-          <button type="button" className="ButtonPrimary" onClick={ throttledApprove } title={`Allow ${payment.symbol} to be used as payment`}>
-            Approve use of { payment.symbol }
-          </button>
-        </div>
-      )
-    } else if (paymentState == 'approving') {
-      return(
-        <div className="PaddingBottomXS">
-          <a className="ButtonPrimary" title="Approving payment token - please wait" href={ link({ url: approvalTransaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
-            <LoadingText>Approving</LoadingText>
-          </a>
-        </div>
-      )
-    }
-  }
-
-  const mainAction = ()=> {
-    if(updatedRouteWithNewPrice) {
-      return(
-        <div>
+  } else if((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
+    const approvalRequired = payment.route.approvalRequired && !payment.route.directTransfer && wallet?.name != 'World App'
+    if(approvalRequired) {
+      if(paymentState == 'initialized') {
+        return(
           <div className="PaddingBottomXS">
-            <div className="Alert">
-              <strong>Exchange rate updated!</strong>
+
+            <div className="PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS">
+              <button
+                type="button" 
+                className="Card small transparent"
+                title="Change approval"
+                onClick={ ()=>{
+                  if(paymentState != 'initialized') { return }
+                  navigate('ChangeApproval')
+                } }
+              >
+                <div className="CardBody">
+                  <div className="CardBodyWrapper">
+                    <h4 className="CardTitle">
+                      Approval
+                    </h4>
+                  </div>
+                </div>
+                <div className="CardAction PaddingRightXS">
+                  <ChevronRight className="small"/>
+                </div>
+              </button>
+            </div>
+
+            <div>
+              <button type="button" className="ButtonPrimary" onClick={ throttledApprove }>
+                Approve and pay
+              </button>
             </div>
           </div>
-          <button type="button" className={"ButtonPrimary"} onClick={()=>{ throttledUpdateRouteWithNewPrice() }}>
-            Reload
-          </button>
-        </div>
-      )
-    } else if(paymentValueLoss){
+        )
+      } else if (paymentState == 'approving') {
+        if(!approvalTransaction?.url) {
+          return(
+            <div className="PaddingBottomXS">
+              <div className="ActionCircle MarginBottomXS">
+                <img src={wallet.logo} />
+                <div className="ActionCircleSpinner"></div>
+              </div>
+              <div className="TextCenter PaddingTopXS">
+                <span className="FontSizeL">
+                  Confirm in your wallet
+                </span>
+              </div>
+            </div>
+          )
+        } else {
+
+        }
+        
+      }
+    } else {
       return(
-        <div>
-          <button type="button" className={"ButtonPrimary disabled"} onClick={()=>{}}>
-            Pay
-          </button>
-        </div>
-      )
-    } else if((paymentState == 'initialized' || paymentState == 'approving' || paymentState == 'resetting') && payment.route) {
-      const approvalRequired = payment.route.approvalRequired && !payment.route.directTransfer && wallet?.name != 'World App'
-      return(
-        <button 
-          tabIndex={1}
-          type="button"
-          className={["ButtonPrimary", (approvalRequired ? 'disabled': '')].join(' ')}
-          onClick={()=>{
-            if(approvalRequired) { return }
-            throttledPay()
-          }}
-        >
+        <button tabIndex={1} type="button" className="ButtonPrimary" onClick={throttledPay}>
           Pay
         </button>
       )
-    } else if (paymentState == 'paying') {
-      return(
-        <a className="ButtonPrimary" title="Performing the payment - please wait" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
-          <LoadingText>Paying</LoadingText>
-        </a>
-      )
-    } else if (paymentState == 'success') {
-      if(synchronousTracking == true) {
-        if(release) {
-          if(forwardTo) {
-            return(
-              <a className="ButtonPrimary" href={ forwardTo } rel="noopener noreferrer">
-                Continue
-              </a>
-            )
-          } else {
-            return(
-              <button className="ButtonPrimary" onClick={ close }>
-                Continue
-              </button>
-            )
-          }
+    }
+  } else if (paymentState == 'paying') {
+    return(
+      <a className="ButtonPrimary" title="Performing the payment - please wait" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
+        <LoadingText>Paying</LoadingText>
+      </a>
+    )
+  } else if (paymentState == 'success') {
+    if(synchronousTracking == true) {
+      if(release) {
+        if(forwardTo) {
+          return(
+            <a className="ButtonPrimary" href={ forwardTo } rel="noopener noreferrer">
+              Continue
+            </a>
+          )
         } else {
           return(
-            <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
+            <button className="ButtonPrimary" onClick={ close }>
               Continue
             </button>
           )
         }
-      } else if (asynchronousTracking == true && trackingInitialized == false) {
-        return(
-          <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
-            Close
-          </button>
-        )
       } else {
         return(
-          <button className="ButtonPrimary" onClick={ close }>
-            Close
+          <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
+            Continue
           </button>
         )
       }
+    } else if (asynchronousTracking == true && trackingInitialized == false) {
+      return(
+        <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
+          Close
+        </button>
+      )
+    } else {
+      return(
+        <button className="ButtonPrimary" onClick={ close }>
+          Close
+        </button>
+      )
     }
   }
 
-  return(
-    <div>
-      { paymentValueLoss &&
-        <div className="PaddingBottomXS">
-          <div className="Alert">
-            <strong>Payment would lose {paymentValueLoss}% of its value!</strong>
-          </div>
-        </div>
-      }
-      { approvalResetButton() }
-      { approvalButton() }
-      { additionalPaymentInformation() }
-      { mainAction() }
-    </div>
-  )
+  // return(
+  //   <div>
+  //     { approvalButton() }
+  //     { additionalPaymentInformation() }
+  //     { mainAction() }
+  //   </div>
+  // )
 }
