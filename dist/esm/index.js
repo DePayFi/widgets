@@ -14,7 +14,7 @@ import { verify } from '@depay/js-verify-signature-web';
 import Exchanges from '@depay/web3-exchanges';
 import Token from '@depay/web3-tokens';
 import { Decimal } from 'decimal.js';
-import { ethers as ethers$1 } from 'ethers';
+import { ethers } from 'ethers';
 import { route, routers } from '@depay/web3-payments';
 import { TokenImage } from '@depay/react-token-image';
 import { struct, u64, Buffer, PublicKey } from '@depay/solana-web3.js';
@@ -25825,8 +25825,8 @@ var findMaxRoute = (function (routes) {
       return 1; // a
     }
 
-    var aMaxUsdAmountAsDecimal = new Decimal(ethers$1.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
-    var bMaxUsdAmountAsDecimal = new Decimal(ethers$1.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
+    var aMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+    var bMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
 
     if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
       return -1; // b
@@ -27727,7 +27727,7 @@ var Footer = (function () {
   useEffect(function () {
     var _payment$route, _payment$route2, _payment$route3, _payment$route4;
 
-    if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers$1.BigNumber.from(payment.route.fromAmount))) {
+    if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers.BigNumber.from(payment.route.fromAmount))) {
       setRequiresApprovalReset(true);
     } else {
       setRequiresApprovalReset(false);
@@ -29156,7 +29156,7 @@ var usdAmountForToken = /*#__PURE__*/(function () {
             _decimals = Blockchains[blockchain].tokens.find(function (tokenData) {
               return tokenData.address === token;
             }).decimals;
-            return _context.abrupt("return", ethers$1.utils.formatUnits(amount.toString(), _decimals));
+            return _context.abrupt("return", ethers.utils.formatUnits(amount.toString(), _decimals));
 
           case 4:
             if (!(blockchain == 'solana')) {
@@ -29164,7 +29164,7 @@ var usdAmountForToken = /*#__PURE__*/(function () {
               break;
             }
 
-            amountDecimal = ethers$1.utils.formatUnits(amount, decimals);
+            amountDecimal = ethers.utils.formatUnits(amount, decimals);
             _context.next = 8;
             return fetch("https://api.depay.com/v2/conversions/USD/solana/".concat(token, "?amount=").concat(amountDecimal));
 
@@ -29211,7 +29211,7 @@ var usdAmountForToken = /*#__PURE__*/(function () {
               var decimals = Blockchains[blockchain].tokens.find(function (token) {
                 return token.address === route.tokenOut;
               }).decimals;
-              return parseFloat(ethers$1.utils.formatUnits(route.amountOut, decimals));
+              return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
             }); // remove outliers
 
             average = amounts.reduce(function (a, b) {
@@ -32589,13 +32589,13 @@ var SelectTokenDialog = (function (props) {
   var select = function select(token) {
     if (token.address) {
       if (token.address.match('0x')) {
-        token.address = ethers$1.utils.getAddress(token.address);
+        token.address = ethers.utils.getAddress(token.address);
       }
     }
 
     if (token.external_id) {
       if (token.external_id.match('0x')) {
-        token.external_id = ethers$1.utils.getAddress(token.external_id);
+        token.external_id = ethers.utils.getAddress(token.external_id);
       }
     }
 

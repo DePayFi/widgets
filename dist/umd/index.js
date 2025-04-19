@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets'), require('@depay/web3-blockchains'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client'), require('@depay/local-currency'), require('@depay/js-verify-signature-web'), require('@depay/web3-exchanges'), require('@depay/web3-tokens'), require('decimal.js'), require('ethers'), require('@depay/web3-payments'), require('@depay/react-token-image'), require('@depay/solana-web3.js')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets', '@depay/web3-blockchains', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client', '@depay/local-currency', '@depay/js-verify-signature-web', '@depay/web3-exchanges', '@depay/web3-tokens', 'decimal.js', 'ethers', '@depay/web3-payments', '@depay/react-token-image', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.DePayVerifySignature, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.Web3Payments, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (web3Wallets, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, decimal_js, ethers$1, web3Payments, reactTokenImage, solanaWeb3_js) { 'use strict';
+}(this, (function (web3Wallets, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3Client, localCurrency, jsVerifySignatureWeb, Exchanges, Token, decimal_js, ethers, web3Payments, reactTokenImage, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -25821,8 +25821,8 @@
         return 1; // a
       }
 
-      var aMaxUsdAmountAsDecimal = new decimal_js.Decimal(ethers$1.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
-      var bMaxUsdAmountAsDecimal = new decimal_js.Decimal(ethers$1.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
+      var aMaxUsdAmountAsDecimal = new decimal_js.Decimal(ethers.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+      var bMaxUsdAmountAsDecimal = new decimal_js.Decimal(ethers.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
 
       if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
         return -1; // b
@@ -26749,7 +26749,7 @@
     React.useEffect(function () {
       setTrackingPayment(payment);
 
-      if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.BigNumber.from('0'))) {
+      if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.ethers.BigNumber.from('0'))) {
         setApprovalType('signature');
       }
     }, [payment]);
@@ -27723,7 +27723,7 @@
     React.useEffect(function () {
       var _payment$route, _payment$route2, _payment$route3, _payment$route4;
 
-      if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers$1.ethers.BigNumber.from(payment.route.fromAmount))) {
+      if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers.ethers.BigNumber.from(payment.route.fromAmount))) {
         setRequiresApprovalReset(true);
       } else {
         setRequiresApprovalReset(false);
@@ -29152,7 +29152,7 @@
               _decimals = Blockchains__default['default'][blockchain].tokens.find(function (tokenData) {
                 return tokenData.address === token;
               }).decimals;
-              return _context.abrupt("return", ethers$1.ethers.utils.formatUnits(amount.toString(), _decimals));
+              return _context.abrupt("return", ethers.ethers.utils.formatUnits(amount.toString(), _decimals));
 
             case 4:
               if (!(blockchain == 'solana')) {
@@ -29160,7 +29160,7 @@
                 break;
               }
 
-              amountDecimal = ethers$1.ethers.utils.formatUnits(amount, decimals);
+              amountDecimal = ethers.ethers.utils.formatUnits(amount, decimals);
               _context.next = 8;
               return fetch("https://api.depay.com/v2/conversions/USD/solana/".concat(token, "?amount=").concat(amountDecimal));
 
@@ -29207,7 +29207,7 @@
                 var decimals = Blockchains__default['default'][blockchain].tokens.find(function (token) {
                   return token.address === route.tokenOut;
                 }).decimals;
-                return parseFloat(ethers$1.ethers.utils.formatUnits(route.amountOut, decimals));
+                return parseFloat(ethers.ethers.utils.formatUnits(route.amountOut, decimals));
               }); // remove outliers
 
               average = amounts.reduce(function (a, b) {
@@ -32585,13 +32585,13 @@
     var select = function select(token) {
       if (token.address) {
         if (token.address.match('0x')) {
-          token.address = ethers$1.ethers.utils.getAddress(token.address);
+          token.address = ethers.ethers.utils.getAddress(token.address);
         }
       }
 
       if (token.external_id) {
         if (token.external_id.match('0x')) {
-          token.external_id = ethers$1.ethers.utils.getAddress(token.external_id);
+          token.external_id = ethers.ethers.utils.getAddress(token.external_id);
         }
       }
 

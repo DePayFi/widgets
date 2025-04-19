@@ -30,6 +30,7 @@ import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { debounce } from 'lodash'
+import { ethers } from 'ethers'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
