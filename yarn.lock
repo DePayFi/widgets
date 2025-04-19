@@ -1354,15 +1354,15 @@
     "@depay/web3-blockchains" "^9.7.9"
     ethers "^5.7.1"
 
-"@depay/web3-payments@^15.0.3":
-  version "15.0.3"
-  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-15.0.3.tgz#7be236530fcb053709f344eff9f1ec7265e970ed"
-  integrity sha512-3nFK/t6VdUmg/Iu0LhTpG7t2JSZZ7kYDxTie5luKB+8aeBPoEcnm7yQBcqR97UcVab9ZQXvY+cvPoLr7xEyFKA==
+"@depay/web3-payments@^15.1.1":
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/@depay/web3-payments/-/web3-payments-15.1.1.tgz#f386507dfa8e7116d9122b42cc5986d7d01596b9"
+  integrity sha512-/3w27h1M9vt042novIT7AW6Q8nd8X6jvgW7upUpuaMjy960si3dYUZoL/2IBBw+iO6kmrRhGpJstN8vLdb5O/A==
 
-"@depay/web3-tokens@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-11.0.0.tgz#fc5d22b324efa16f3f339ee0ea2e8dd739932478"
-  integrity sha512-Whav1+c8xiMb3ayGpu6/vI/F4nd4WBWTLpavvi6509gQSuUqx0OnRZX8XBddSw8c9bpxvcJLxxIgSrMHyW0hGg==
+"@depay/web3-tokens@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-11.1.0.tgz#545e904aa7ef2d933324311ec00cc897478e7a63"
+  integrity sha512-6FuERmfOFw8ooOCKgRA4A/qqZU7WPZ+IuS2xANDyTvjs7iGd+j2iEwZN92z5EOYNnp/+7k1C+VG9oK5aZ5nZ6g==
 
 "@depay/web3-wallets@^18.0.4":
   version "18.0.4"
@@ -3986,15 +3986,10 @@ callsites@^3.0.0:
   resolved "https://registry.npmjs.org/callsites/-/callsites-3.1.0.tgz"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
-caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001359:
-  version "1.0.30001487"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001487.tgz"
-  integrity sha512-83564Z3yWGqXsh2vaH/mhXfEM0wX+NlBCm1jYHOb97TrTWJEmPTccZgeLTPBUUb0PNVo+oomb7wkimZBIERClA==
-
-caniuse-lite@^1.0.30001565:
-  version "1.0.30001574"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001574.tgz#fb4f1359c77f6af942510493672e1ec7ec80230c"
-  integrity sha512-BtYEK4r/iHt/txm81KBudCUcTy7t+s9emrIaHqjYurQ10x71zJ5VQ9x1dYPcz/b+pKSp4y/v1xSI67A+LzpNyg==
+caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30001359, caniuse-lite@^1.0.30001565:
+  version "1.0.30001714"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001714.tgz"
+  integrity sha512-mtgapdwDLSSBnCI3JokHM7oEQBLxiJKVRtg10AxM1AyeiKcM96f0Mkbqeq+1AbiCtvMcHRulAAEMu693JrSWqg==
 
 caseless@~0.12.0:
   version "0.12.0"

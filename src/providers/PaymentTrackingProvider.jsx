@@ -4,7 +4,7 @@ import { request } from '@depay/web3-client-evm'
 
 /*#elif _SVM
 
-import { request } from '@depay/web3-client-solana'
+import { request } from '@depay/web3-client-svm'
 
 //#else */
 
@@ -252,51 +252,10 @@ export default (props)=>{
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, attemptId, paymentRoute])
 
-  const storePayment = async(transaction, afterBlock, paymentRoute, deadline)=>{
-    fetch('https://public.depay.com/payments', {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      body: JSON.stringify({
-        blockchain: transaction.blockchain,
-        transaction: transaction.id,
-        sender: transaction.from,
-        nonce: await getNonce({ transaction, account, wallet }),
-        receiver: paymentRoute.toAddress,
-        token: paymentRoute.toToken.address,
-        amount: ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-        confirmations: 1,
-        after_block: afterBlock.toString(),
-        uuid: transaction.id,
-        payload: {
-          sender_id: transaction.from,
-          sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration,
-          link,
-          type
-        },
-        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null,
-        deadline,
-        selected_wallet: wallet?.name
-      })
-    })
-    .then((response)=>{
-      if(response.status == 200 || response.status == 201) {
-      } else {
-        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, deadline) }, 3000)
-      }
-    })
-    .catch((error)=>{
-      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, deadline) }, 3000)
-    })
-  }
-
   const initializeTracking = async(transaction, afterBlock, paymentRoute, deadline)=>{
     if(transaction.blockchain === 'solana') { // ensure solana transaction tracking uses only a single nonce for further processing
       transaction.nonce = await getNonce({ transaction, account, wallet })
     }
-    storePayment(transaction, afterBlock, paymentRoute, deadline)
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute, deadline)
     }

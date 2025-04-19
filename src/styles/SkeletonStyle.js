@@ -11,6 +11,14 @@ export default (style)=>{
       position: relative;
     }
 
+    .Card .Skeleton {
+      background: color-mix(in srgb, ${style.colors.cardBackground} 95%, ${style.colors.mixActive} 5%) !important;
+    }
+
+    .Card .Skeleton .SkeletonBackground {
+      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%) 50%, transparent 100%);
+    }
+
     @keyframes SkeletonBackgroundAnimation {
       from {
         left: -500px;
@@ -22,7 +30,7 @@ export default (style)=>{
 
     .SkeletonBackground {
       animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;
-      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%) 50%, transparent 100%);
+      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ${style.colors.background} 80%, ${style.colors.mixActive} 20%) 50%, transparent 100%);
       height: 100%;
       left: -140%;
       position: absolute;

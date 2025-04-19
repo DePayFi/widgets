@@ -4,5 +4,9 @@ export default (style)=>{
     .TabBar {
       display: flex;
     }
+
+    .TabBar .Search {
+      position: relative;
+    }
   `)
 }

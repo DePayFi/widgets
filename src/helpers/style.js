@@ -1,5 +1,6 @@
-import ActionCircleStyle from '../styles/ActionCircleStyle'
+import ActionIndicatorStyle from '../styles/ActionIndicatorStyle'
 import AlertStyle from '../styles/AlertStyle'
+import InfoStyle from '../styles/InfoStyle'
 import ButtonCircularStyle from '../styles/ButtonCircularStyle'
 import ButtonPrimaryStyle from '../styles/ButtonPrimaryStyle'
 import CardStyle from '../styles/CardStyle'
@@ -21,6 +22,7 @@ import MarginStyle from '../styles/MarginStyle'
 import OpacityStyle from '../styles/OpacityStyle'
 import PaddingStyle from '../styles/PaddingStyle'
 import PoweredByStyle from '../styles/PoweredByStyle'
+import StepStyle from '../styles/StepStyle'
 import QRCodeStyle from '../styles/QRCodeStyle'
 import RadioStyle from '../styles/RadioStyle'
 import RangeSliderStyle from '../styles/RangeSliderStyle'
@@ -45,9 +47,10 @@ export default (style)=>{
 
     primary: '#ea357a',
     buttonText: '#ffffff',
-    icons: '#000000',
     text: '#212529',
-    background: '#f8f8f8',
+    warning: '#bd2e21',
+    success: '#32a03c',
+    background: '#f2f2f2',
     cardBackground: '#ffffff',
     mixActive: '#000000',
     mixPassive: '#ffffff',
@@ -58,11 +61,12 @@ export default (style)=>{
   
     primary: '#c21e5d',
     buttonText: '#ffffff',
-    icons: '#ffffff',
     text: '#d5d9dd',
-    background: '#1f1f24',
-    cardBackground: '#000000',
-    mixActive: '#ffffff',
+    warning: '#d55448',
+    success: '#65c86e',
+    background: '#171717',
+    cardBackground: '#252525',
+    mixActive: '#999999',
     mixPassive: '#000000',
 
   }
@@ -77,12 +81,13 @@ export default (style)=>{
   return(
     [
       ResetStyle(style),
-      ActionCircleStyle(style),
+      ActionIndicatorStyle(style),
       DialogStyle(style),
       ButtonCircularStyle(style),
       ButtonPrimaryStyle(style),
       CardStyle(style),
       PoweredByStyle(style),
+      StepStyle(style),
       QRCodeStyle(style),
       GraphicStyle(style),
       GridStyle(style),
@@ -108,6 +113,7 @@ export default (style)=>{
       SearchStyle(style),
       TokenImageStyle(style),
       AlertStyle(style),
+      InfoStyle(style),
       TableStyle(style),
       LinkStyle(style),
       TooltipStyle(style),

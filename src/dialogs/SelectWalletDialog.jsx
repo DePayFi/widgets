@@ -4,7 +4,7 @@ import { getWallets, wallets } from '@depay/web3-wallets-evm'
 
 /*#elif _SVM
 
-import { getWallets, wallets } from '@depay/web3-wallets-solana'
+import { getWallets, wallets } from '@depay/web3-wallets-svm'
 
 //#else */
 
@@ -240,7 +240,7 @@ export default (props)=>{
                             <div className="CardText FontWeightMedium">
                               { walletMetaData.name }
                             </div>
-                            <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> { capitalizeFirstChar(connectionType) } detected</div>
+                            <div className="TextColorSuccess"><span className="TextColorSuccess" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> { capitalizeFirstChar(connectionType) } detected</div>
                           </div>
                         </div>
                       </button>

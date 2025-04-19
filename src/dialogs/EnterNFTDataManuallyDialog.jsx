@@ -6,9 +6,9 @@ import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SVM
 
-import { getWallets } from '@depay/web3-wallets-solana'
-import { request } from '@depay/web3-client-solana'
-import Token from '@depay/web3-tokens-solana'
+import { getWallets } from '@depay/web3-wallets-svm'
+import { request } from '@depay/web3-client-svm'
+import Token from '@depay/web3-tokens-svm'
 
 //#else */
 

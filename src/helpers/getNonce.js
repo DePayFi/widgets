@@ -5,7 +5,7 @@ import { request } from '@depay/web3-client-evm'
 /*#elif _SVM
 
 import { Buffer, PublicKey, struct, u64 } from '@depay/solana-web3.js'
-import { request } from '@depay/web3-client-solana'
+import { request } from '@depay/web3-client-svm'
 
 //#else */
 

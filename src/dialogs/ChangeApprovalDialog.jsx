@@ -43,23 +43,27 @@ export default (props)=>{
 
           </div>
 
-          <hr className="MarginBottomXS"/>
+          { dialogType == 'transaction' &&
+            <>
+              <hr className="MarginBottomXS"/>
 
-          <div className="PaddingTopS PaddingBottomS PaddingLeftS">
+              <div className="PaddingTopS PaddingBottomS PaddingLeftS">
 
-            <h3 className="fontSizeM PaddingBottomXS MarginBottomXS MarginTopXS">Amount</h3>
+                <h3 className="fontSizeM PaddingBottomXS MarginBottomXS MarginTopXS">Amount</h3>
 
-            <label className="Radio PaddingTopXS PaddingRightS PaddingBottomXS PaddingLeftS">
-              <input type="radio" name="approvalAmount" value="max" checked={dialogAmount === 'max'} onChange={(event)=>setDialogAmount(event.target.value)}/>
-              <span> Maximum</span>
-            </label>
+                <label className="Radio PaddingTopXS PaddingRightS PaddingBottomXS PaddingLeftS">
+                  <input type="radio" name="approvalAmount" value="max" checked={dialogAmount === 'max'} onChange={(event)=>setDialogAmount(event.target.value)}/>
+                  <span> Maximum</span>
+                </label>
 
-            <label className="Radio PaddingTopXS PaddingRightS PaddingBottomXS PaddingLeftS">
-              <input type="radio" name="approvalAmount" value="min" checked={dialogAmount === 'min'} onChange={(event)=>setDialogAmount(event.target.value)}/>
-              <span> Minimum</span>
-            </label>
+                <label className="Radio PaddingTopXS PaddingRightS PaddingBottomXS PaddingLeftS">
+                  <input type="radio" name="approvalAmount" value="min" checked={dialogAmount === 'min'} onChange={(event)=>setDialogAmount(event.target.value)}/>
+                  <span> Minimum</span>
+                </label>
 
-          </div>
+              </div>
+            </>
+          }
 
         </div>
       }

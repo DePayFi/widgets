@@ -2,8 +2,8 @@ export default (style)=>{
   return(`
 
     .Icon {
-      fill: ${style.colors.icons};
-      stroke: ${style.colors.icons};
+      fill: ${style.colors.text};
+      stroke: ${style.colors.text};
     }
 
     .QuestionMarkIcon {
@@ -38,7 +38,7 @@ export default (style)=>{
       stroke: transparent;
     }
 
-    .CheckMark.small {
+    .Checkmark.small {
       height: 16px;
       width: 16px;
     }

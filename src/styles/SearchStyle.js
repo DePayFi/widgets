@@ -2,8 +2,8 @@ export default (style)=>{
   return(`
 
     .Search {
-      border-radius: 20px;
-      border: 0;
+      border-radius: 13px;
+      border: 1px solid transparent;
       background: none;
       outline: none !important;
       color: ${style.colors.text};
@@ -28,7 +28,7 @@ export default (style)=>{
     } 
 
     .Search:focus, .Search:focus-visible {
-      border: 0;
+      border: 1px solid ${style.colors.primary};
       background: none;
     }
 

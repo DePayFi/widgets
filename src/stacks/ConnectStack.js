@@ -4,7 +4,7 @@ import { wallets } from '@depay/web3-wallets-evm'
 
 /*#elif _SVM
 
-import { wallets } from '@depay/web3-wallets-solana'
+import { wallets } from '@depay/web3-wallets-svm'
 
 //#else */
 
@@ -57,7 +57,7 @@ export default (props)=>{
 
       if(wallet.extensions && props.accept) {
         let availableExtensions = wallet.extensions.filter((availableExtension)=>{
-          return props.accept.some((configuration)=>supported[wallets[availableExtension].info.platform].includes(configuration.blockchain))
+          return props.accept.some((configuration)=>wallets[availableExtension].info.blockchains.includes(configuration.blockchain))
         })
         if(availableExtensions.length === 1) {
           extension = availableExtensions[0]

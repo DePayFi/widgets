@@ -1,17 +1,14 @@
 /*#if _EVM
 
-import { route } from '@depay/web3-payments-evm'
 import { wallets } from '@depay/web3-wallets-evm'
 
 /*#elif _SVM
 
-import { route } from '@depay/web3-payments-solana'
-import { wallets } from '@depay/web3-wallets-solana'
+import { wallets } from '@depay/web3-wallets-svm'
 
 //#else */
 
 import Blockchains from '@depay/web3-blockchains'
-import { route } from '@depay/web3-payments'
 import { wallets } from '@depay/web3-wallets'
 
 //#endif
@@ -19,10 +16,10 @@ import { wallets } from '@depay/web3-wallets'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
-import ExtensionImage from '../graphics/extension'
+import ExtensionIcon from '../components/ExtensionIcon'
 import isMobile from '../helpers/isMobile'
-import LinkImage from '../graphics/link'
-import QRCodeImage from '../graphics/qrcode'
+import LinkIcon from '../components/LinkIcon'
+import QRCodeIcon from '../components/QRCodeIcon'
 import QRCodeStyling from "qr-code-styling"
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react'
 import { debounce } from 'lodash'
@@ -231,14 +228,6 @@ export default (props)=> {
             <h1 className="LineHeightL Text FontSizeL FontWeightBold">Connect { props.wallet.name }</h1>
           </div>
 
-          { !window.location.protocol.match('https') &&
-            <div className="PaddingTopS PaddingLeftL PaddingRightL">
-              <div className="Alert FontSizeS">
-                <strong>Most wallets do not connect to http!</strong>
-              </div>
-            </div>
-          }
-
           { !extensionIsAvailable && !connectAppIsAvailable && !openInAppIsAvailable && !copyLinkIsAvailable && !scanQrAvailable &&
             <div className="PaddingTopS PaddingLeftL PaddingRightL">
               <div className="Alert FontSizeS">
@@ -319,7 +308,7 @@ export default (props)=> {
                   { !props.connectingExtension &&
                     <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                       <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                        <img className="transparent " title="Connect your wallet" style={{ height: '26px' }} src={ ExtensionImage }/>
+                        <ExtensionIcon width='26px' height='26px'/>
                       </span>
                       <div className="PaddingLeftS LineHeightXS">
                         <div className="CardText FontWeightMedium">
@@ -349,7 +338,7 @@ export default (props)=> {
                   { !props.connectingApp &&
                     <button onClick={()=> props.connectViaRedirect(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                       <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                        <img className="transparent " title="Click to connect app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
+                        <img className="transparent " title="Click to connect app" style={{ height: '28px', width: '28px', borderRadius: '8px' }} src={ props.wallet.logo }/>
                       </span>
                       <div className="PaddingLeftS LineHeightXS">
                         <div className="CardText FontWeightMedium">
@@ -364,7 +353,7 @@ export default (props)=> {
                 <div className="PaddingBottomXS">
                   <button onClick={ ()=>props.openInApp(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                     <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                      <img className="transparent " title="Click to open in app" style={{ height: '26px', width: '26px', borderRadius: '8px' }} src={ props.wallet.logo }/>
+                      <img className="transparent " title="Click to open in app" style={{ height: '24px', width: '24px', borderRadius: '4px' }} src={ props.wallet.logo }/>
                     </span>
                     <div className="PaddingLeftS LineHeightXS">
                       <div className="CardText FontWeightMedium">
@@ -381,7 +370,7 @@ export default (props)=> {
                     connectViaQRCode()
                   }} className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                     <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                      <img className="transparent " title="Scan QR code to connect a mobile wallet" style={{ height: '26px' }} src={ QRCodeImage }/>
+                      <QRCodeIcon width='20px' height='20px'/>
                     </span>
                     <div className="PaddingLeftS LineHeightXS">
                       <div className="CardText FontWeightMedium">
@@ -395,7 +384,7 @@ export default (props)=> {
                 <div className="PaddingBottomXS TooltipWrapper">
                   <button onClick={ connectViaCopyLink } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                     <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                      <img className="transparent " title="Copy connection link" style={{ height: '26px' }} src={ LinkImage }/>
+                      <LinkIcon width='18px' height='18px'/>
                     </span>
                     <div className="PaddingLeftS LineHeightXS">
                       <div className="CardText FontWeightMedium">

@@ -5,8 +5,8 @@ import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SVM
 
-import { request } from '@depay/web3-client-solana'
-import Token from '@depay/web3-tokens-solana'
+import { request } from '@depay/web3-client-svm'
+import Token from '@depay/web3-tokens-svm'
 
 //#else */
 
@@ -19,7 +19,7 @@ import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
-import InsufficientAmountOfTokensDialog from '../dialogs/InsufficientAmountOfTokensDialog'
+import isMobile from '../helpers/isMobile'
 import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
@@ -45,6 +45,8 @@ export default (props)=>{
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
+  const [ approvalSignature, setApprovalSignature ] = useState()
+  const [ approvalSignatureData, setApprovalSignatureData ] = useState()
   const [ resetApprovalTransaction, setResetApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
   const [ approvalType, setApprovalType ] = useState('transaction')
@@ -68,11 +70,20 @@ export default (props)=>{
     if(failed) { failed(transaction, error, payment) }
   }
 
-  const pay = async ()=> {
+  const pay = async (passedSignatureData, passedSignature)=> {
     setPaymentState('paying')
     setUpdatable(false)
     const account = await wallet.account()
-    const transaction = await payment.route.getTransaction({ wallet })
+    const transaction = await payment.route.getTransaction(
+      Object.assign(
+        { wallet },
+        (approvalSignatureData || passedSignatureData) ? {
+          signature: (approvalSignature || passedSignature),
+          signatureNonce: (approvalSignatureData || passedSignatureData).message.nonce,
+          signatureDeadline: (approvalSignatureData || passedSignatureData).message.deadline
+        } : {}
+      )
+    )
     if(before) {
       let stop = await before(transaction, account)
       if(stop === false){ return }
@@ -83,9 +94,12 @@ export default (props)=>{
       setClosable(false)
       await wallet.sendTransaction(Object.assign({}, transaction, {
         accepted: ()=>{ 
+          setPaymentState('sending')
           setTransaction(transaction) // to hide sign CTA and verify link
         },
         sent: (sentTransaction)=>{
+          setPaymentState('sending')
+          setTransaction(sentTransaction)
           initializeTransactionTracking(sentTransaction, currentBlock, deadline)
           if(sent) { sent(sentTransaction) }
         },
@@ -98,9 +112,13 @@ export default (props)=>{
         })
         .catch((error)=>{
           console.log('error', error)
-          setPaymentState('initialized')
           setClosable(true)
           setUpdatable(true)
+          if(approvalTransaction || approvalSignature || passedSignature) {
+            setPaymentState('approved')
+          } else {
+            setPaymentState('initialized')
+          }
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }
@@ -145,42 +163,50 @@ export default (props)=>{
   }
 
   const approve = async()=> {
-    setPaymentState('approving')
+    setPaymentState('approve')
     setClosable(false)
     setUpdatable(false)
     let approvalTransaction
-    let approvalSignature
+    let approvalSignatureData
     if(approvalType == 'signature') {
-      console.log('SIGNATURE')
-      console.log('payment.route.currentPermit2Allowance', payment.route.currentPermit2Allowance.toString())
-      console.log('payment.route.fromAmount', payment.route.fromAmount.toString())
       if(payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)) {
-        approvalSignature = await payment.route.getPermit2ApprovalSignature()
+        approvalSignatureData = await payment.route.getPermit2ApprovalSignature()
+        setApprovalSignatureData(approvalSignatureData)
       } else {
-        approvalTransaction = await payment.route.getPermit2ApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
+        approvalTransaction = await payment.route.getPermit2ApprovalTransaction()
       }
     } else { // transaction
       approvalTransaction = await payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
     }
-    if(approvalSignature) {
-      wallet.sign(approvalSignature).then((signature)=>{
-        console.log('SIGNATURE!', signature)
-      }).catch(()=>{
-        console.log("CATCH SIGNATURE")
+    if(approvalSignatureData) {
+      wallet.sign(approvalSignatureData).then((signature)=>{
+        setApprovalSignature(signature)
+        setPaymentState('approved')
+        setClosable(true)
+        if(!isMobile()) {
+          pay(approvalSignatureData, signature)
+        }
+      }).catch((e)=>{
+        console.log('ERROR', e)
+        setPaymentState('initialized')
+        setClosable(true)
       })
     } else if(approvalTransaction) {
       wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+        accepted: ()=>{
+          setPaymentState('approving')
+        },
         sent: (sentTransaction)=>{
+          setPaymentState('approving')
           setApprovalTransaction(sentTransaction)
         },
         succeeded: ()=>{
           setUpdatable(true)
           setClosable(true)
-          refreshPaymentRoutes().then(()=>{
-            setTimeout(()=>{
-              setPaymentState('initialized')
-            }, 1000)
-          })
+          setPaymentState('approved')
+          if(!isMobile()) {
+            pay()
+          }
         }
       }))
         .catch((error)=>{
@@ -259,6 +285,10 @@ export default (props)=>{
 
   const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {
+      // reset approval status if selectedRoute has been changed
+      setApprovalTransaction()
+      setApprovalSignature()
+      setApprovalSignatureData()
       let fromToken = selectedRoute.fromToken
       Promise.all([
         fromToken.name(),
@@ -266,7 +296,7 @@ export default (props)=>{
         fromToken.readable(selectedRoute.fromAmount)
       ]).then(([name, symbol, amount])=>{
         setPayment({
-          blockchain: selectedRoute.blockchain,
+          blockchain: Blockchains[selectedRoute.blockchain],
           route: selectedRoute,
           token: fromToken.address,
           name,
@@ -296,11 +326,10 @@ export default (props)=>{
       <ReactDialogStack
         open={ open }
         close={ close }
-        start={ (allRoutes.assets === undefined || allRoutes.assets.length === 0) ? 'NoPaymentOptionFound' : 'InsufficientAmountOfTokens' }
+        start={ 'NoPaymentOptionFound' }
         container={ props.container }
         document={ props.document }
         dialogs={{
-          InsufficientAmountOfTokens: <InsufficientAmountOfTokensDialog assets={allRoutes.assets} accept={accept} account={account}/>,
           NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
         }}
       />
@@ -319,6 +348,7 @@ export default (props)=>{
         approve,
         resetApproval,
         approvalTransaction,
+        approvalSignature,
         resetApprovalTransaction,
       }}>
         { props.children }

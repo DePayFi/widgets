@@ -20,7 +20,7 @@ export default (style)=>{
       background: none;
     }
 
-    .Card:focus {
+    .Card:focus:not(.disabled) {
       border: 1px solid ${style.colors.primary};
     }
 
@@ -94,7 +94,7 @@ export default (style)=>{
     .Card.tiny {
       border-radius: 4px;
       min-height: auto;
-      padding: 2px 2px;
+      padding: 0 3px;
     }
     
     .Card.tiny img {
@@ -134,12 +134,12 @@ export default (style)=>{
     }
 
     .Card:hover:not(.disabled) {
-      background-color: color-mix(in srgb, ${style.colors.background} 80%, ${style.colors.mixActive} 5%);
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
       box-shadow: 0 0 0 rgba(0,0,0,0); 
     }
 
     .Card:active:not(.disabled) {
-      background-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.02);
       color: inherit;
     }
@@ -202,10 +202,9 @@ export default (style)=>{
     }
 
     .CardImage img {
-      background: white;
+      background: ${style.colors.background};
       border-radius: 9999px;
-      border: 1px solid color-mix(in srgb, ${style.colors.background} 95%, ${style.colors.mixActive} 5%);
-      box-shadow: 0 0 8px color-mix(in srgb, ${style.colors.background} 80%, black 20%);
+      border: 1px solid ${style.colors.cardBackground};
       height: 45px;
       position: relative;
       vertical-align: middle;

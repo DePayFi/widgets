@@ -1,21 +1,21 @@
 export default (style)=>{
   return(`
 
-    .ActionCircle {
+    .ActionIndicator {
       height: 64px;
       width: 64px;
       text-align: center;
       margin: 0 auto;
     }
 
-    .ActionCircle img {
+    .ActionIndicator img {
       height: 41px;
       width: 41px;
       position: absolute;
       margin: 11px;
     }
 
-    .ActionCircleSpinner {
+    .ActionIndicatorSpinner {
       position: absolute;
       top: 0;
       right: 0;
@@ -23,7 +23,7 @@ export default (style)=>{
       left: 0;
     }
 
-    .ActionCircleSpinner {
+    .ActionIndicatorSpinner {
       height: 64px;
       width: 64px;
       border: 4px solid ${style.colors.primary};
@@ -33,10 +33,10 @@ export default (style)=>{
       position: relative;
       margin: 0 auto;
       box-sizing: border-box;
-      animation: ActionCircleSpinnerRotation 1s linear infinite;
+      animation: ActionIndicatorSpinnerRotation 1s linear infinite;
     }
 
-    @keyframes ActionCircleSpinnerRotation {
+    @keyframes ActionIndicatorSpinnerRotation {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     } 

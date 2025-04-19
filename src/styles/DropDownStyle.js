@@ -33,11 +33,11 @@ export default (style)=>{
     }
 
     .DropDownItem:hover {
-      background-color: color-mix(in srgb, ${style.colors.background} 80%, ${style.colors.mixActive} 5%);
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
     }
     
     .DropDownItem:active {
-      background-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
     }
     
   `)

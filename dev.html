@@ -7,6 +7,7 @@
     <title>Development</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
@@ -18,18 +19,17 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature-web@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@11"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@11"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@11.1.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2.12.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/worldcoin-precompiled@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.0.4"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@15"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.0.3"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.1.1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@tanstack/react-virtual@3.0.0-beta.54/build/umd/index.production.js"></script>
     <script src="tmp/index.dev.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.css">
@@ -421,12 +421,14 @@
                           amount: 0.0001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        },
+                        {
                           blockchain: 'arbitrum',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        }
+                        ,{
                           blockchain: 'optimism',
                           amount: 0.0001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
@@ -436,12 +438,14 @@
                           amount: 0.0001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        }
+                        ,{
                           blockchain: 'polygon',
                           amount: 0.0001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        }
+                        ,{
                           blockchain: 'solana',
                           amount: 0.0001,
                           token: '11111111111111111111111111111111',

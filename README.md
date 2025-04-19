@@ -802,7 +802,6 @@ DePayWidgets.Payment({
       primary: '#ffd265',
       text: '#e1b64a',
       buttonText: '#000000',
-      icons: '#ffd265'
     },
     fontFamily: '"Cardo", serif !important',
     css: `

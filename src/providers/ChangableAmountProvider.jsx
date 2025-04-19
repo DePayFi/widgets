@@ -5,8 +5,8 @@ import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SVM
 
-import Exchanges from '@depay/web3-exchanges-solana'
-import Token from '@depay/web3-tokens-solana'
+import Exchanges from '@depay/web3-exchanges-svm'
+import Token from '@depay/web3-tokens-svm'
 
 //#else */
 

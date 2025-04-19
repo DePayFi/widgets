@@ -4,7 +4,7 @@ import { TokenImage } from '@depay/react-token-image-evm'
 
 /*#elif _SVM
 
-import { TokenImage } from '@depay/react-token-image-solana'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -51,10 +51,8 @@ export default (props)=>{
     </span>
   )
 
-  if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
+  if(payment == undefined) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
 
-  const blockchain = Blockchains.findByName(payment.blockchain)
-  
   return(
     <Dialog
       header={
@@ -64,7 +62,7 @@ export default (props)=>{
       }
       alternativeHeaderAction={ alternativeHeaderActionElement }
       body={
-        <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingLeftM PaddingRightM">
           { amountsMissing && !fixedAmount &&
             <button
               type="button" 
@@ -112,10 +110,10 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               <TokenImage
-                blockchain={ payment.blockchain }
+                blockchain={ payment.blockchain.name }
                 address={ payment.token }
               />
-              <img className={"BlockchainLogo small bottomRight " + blockchain.name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+              <img className={"BlockchainLogo small bottomRight " + payment.blockchain.name} style={{ backgroundColor: payment.blockchain.logoBackgroundColor }} src={ payment.blockchain.logo } alt={ payment.blockchain.label } title={ payment.blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
@@ -134,14 +132,30 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  { 
-                    (displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` && !(amountsMissing && !fixedCurrency)) &&
+                  {
+                    !(amountsMissing && !fixedCurrency) &&
                     (currency !== false) &&
-                      <div className="TokenAmountRow small grey">
-                        <span className="TokenAmountCell">
-                          { displayedPaymentValue }
-                        </span>
-                      </div>
+                    <>
+                      {
+                        paymentValue &&
+                        displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` &&
+                        <div className="TokenAmountRow small Opacity05">
+                          <span className="TokenAmountCell">
+                            { displayedPaymentValue }
+                          </span>
+                        </div>
+                      }
+                      {
+                        !paymentValue &&
+                        <div className="TokenAmountRow small">
+                          <span className="TokenAmountCell">
+                            <div className="Skeleton" style={{ position: 'relative', marginTop: '2px', borderRadius: '10px', width: '82px', height: '15px' }}>
+                              <div className="SkeletonBackground"/>
+                            </div>
+                          </span>
+                        </div>
+                      }
+                    </>
                   }
                 </h2>
               </div>

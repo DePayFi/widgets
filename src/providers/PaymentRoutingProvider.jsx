@@ -5,8 +5,8 @@ import { request } from '@depay/web3-client-evm'
 
 /*#elif _SVM
 
-import Exchanges from '@depay/web3-exchanges-solana'
-import { request } from '@depay/web3-client-solana'
+import Exchanges from '@depay/web3-exchanges-svm'
+import { request } from '@depay/web3-client-svm'
 
 //#else */
 
@@ -37,7 +37,6 @@ export default (props)=>{
   const [ selectedRoute, setSelectedRoute ] = useState()
   const [ slowRouting, setSlowRouting ] = useState(false)
   const [ reloadCount, setReloadCount ] = useState(0)
-  const [ allRoutesLoadedInternal, setAllRoutesLoadedInternal ] = useState(false)
   const [ allRoutesLoaded, setAllRoutesLoaded ] = useState(false)
   const { account, wallet } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
@@ -50,10 +49,20 @@ export default (props)=>{
     let slowRoutingTimeout = setTimeout(() => { setSlowRouting(true) }, 3000)
     let allRoutesLoadedStart = Date.now()
     return new Promise((resolve, reject)=>{
-      routePayments(Object.assign({}, configuration, { accept: props.accept, account }))
+      routePayments(Object.assign({}, configuration, {
+        accept: props.accept,
+        account,
+        best: (route)=>{
+          if(route) {
+            roundAmounts([route]).then((routes)=>{
+              setSelectedRoute(routes[0])
+              clearInterval(slowRoutingTimeout)
+            })
+          }
+        }
+      }))
       .then((routes)=>{
         setUpdatedRoutes(routes)
-        setAllRoutesLoadedInternal(true)
         clearInterval(slowRoutingTimeout)
         resolve()
       }).catch(reject)
@@ -130,11 +139,6 @@ export default (props)=>{
           if(updatedSelectedRoute) {
             if(selectedRoute.fromAmount != updatedSelectedRoute.fromAmount) {
               setUpdatedRouteWithNewPrice(updatedSelectedRoute)
-            } else if ( // other reasons but price to update selected route
-              selectedRoute.approvalRequired != updatedSelectedRoute.approvalRequired ||
-              selectedRoute.currentAllowance != updatedSelectedRoute.currentAllowance
-            ) {
-              setSelectedRoute(updatedSelectedRoute)
             }
           } else {
             setSelectedRoute(roundedRoutes[0])

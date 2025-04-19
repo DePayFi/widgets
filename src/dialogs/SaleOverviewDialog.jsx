@@ -4,7 +4,7 @@ import { TokenImage } from '@depay/react-token-image-evm'
 
 /*#elif _SVM
 
-import { TokenImage } from '@depay/react-token-image-solana'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -68,8 +68,6 @@ export default (props)=>{
     )
   }
 
-  const blockchain = Blockchains.findByName(payment.blockchain)
-
   return(
     <Dialog
       header={
@@ -90,7 +88,7 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               { tokenImageElement }
-              <img className={"BlockchainLogo small bottomRight " + blockchain.name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+              <img className={"BlockchainLogo small bottomRight " + payment.blockchain.name} style={{ backgroundColor: payment.blockchain.logoBackgroundColor }} src={ payment.blockchain.logo } alt={ payment.blockchain.label } title={ payment.blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
@@ -108,7 +106,7 @@ export default (props)=>{
                     </span>
                   </div>
                   { salePerTokenValue &&
-                    <div className="TokenAmountRow small grey">
+                    <div className="TokenAmountRow small Opacity05">
                       <span className="TokenAmountCell">{ salePerTokenValue } per token</span>
                     </div>
                   }
@@ -150,7 +148,7 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  <div className="TokenAmountRow small grey">
+                  <div className="TokenAmountRow small Opacity05">
                     <span className="TokenAmountCell">
                       { displayedPaymentValue }
                     </span>

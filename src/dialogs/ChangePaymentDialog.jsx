@@ -4,7 +4,7 @@ import { TokenImage } from '@depay/react-token-image-evm'
 
 /*#elif _SVM
 
-import { TokenImage } from '@depay/react-token-image-solana'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -47,7 +47,7 @@ export default (props)=>{
     if(!listScrolled) {
       setListScrolled(true)
     }
-    if(event.target.scrollTop <= 0) {
+    if(event.target.scrollTop <= 0 && selectedPaymentOptions.length > 8) {
       setListScrolled(false)
     }
   }
@@ -197,7 +197,7 @@ export default (props)=>{
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS">
           <h1 className="LineHeightL FontSizeL TextCenter">Payment options</h1>
           <div className="PaddingTopS PaddingBottomXS">
-            <div className="TextLeft" style={{ height: "32px" }}>
+            <div className="TextLeft">
               <div className='TabBar'>
                 <button
                   type="button"
@@ -216,7 +216,6 @@ export default (props)=>{
                     ref={ searchElement }
                     className="Search"
                     placeholder="Search"
-                    style={{ paddingBottom: 0, position: 'relative', top: '-4px' }}
                     value={ searchTerm }
                     onChange={ (event)=>onChangeSearch(event, fuse, allPaymentOptions) }
                     onFocus={()=>{
