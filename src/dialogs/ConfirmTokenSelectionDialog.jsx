@@ -84,7 +84,7 @@ export default (props)=> {
           </div>
           <div className="PaddingTopS TextCenter">
             <div className="Alert FontSizeS">
-              <strong>Please review this information</strong>
+              <strong>Review this information</strong>
             </div>
           </div>
           <div className="PaddingTopXS">

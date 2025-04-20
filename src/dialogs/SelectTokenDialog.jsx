@@ -333,7 +333,7 @@ export default (props)=> {
             { [1,2,3,4,5,6].map((index)=>{
               return(
                 <div className="SkeletonWrapper" key={ index } style={{ marginBottom: '1px' }}>
-                  <div className="Skeleton" style={{ height: '69px', width: '100%' }}>
+                  <div className="Skeleton Card MarginBottomXS PaddingTopXS PaddingBottomXS" style={{ height: '69px', width: '100%' }}>
                     <div className="SkeletonBackground">
                     </div>
                   </div>

@@ -115,7 +115,7 @@ export default (props)=> {
       stacked={stacked}
       bodyClassName="ScrollHeight"
       body={
-        <div className="PaddingLeftS PaddingRightS" ref={ listElement }>
+        <div className="PaddingLeftS PaddingRightS PaddingBottomS" ref={ listElement }>
           {
             blockchains.map((blockchain, index)=>{
               return(
@@ -136,10 +136,7 @@ export default (props)=> {
           }
         </div>
       }
-      footer={
-        <div className="PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS">
-        </div>
-      }
+      footer={ false }
     />
   )
 }

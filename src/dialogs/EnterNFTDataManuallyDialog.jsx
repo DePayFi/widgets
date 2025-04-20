@@ -119,7 +119,7 @@ export default (props)=> {
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <div>
-            <h1 className="LineHeightL FontSizeL">Enter NFT information</h1>
+            <h1 className="LineHeightL FontSizeL">Enter NFT data</h1>
           </div>
           <div className="PaddingTopS PaddingBottomS">
             <div className="Card small" onClick={ ()=>navigate('SelectBlockchain') }>
