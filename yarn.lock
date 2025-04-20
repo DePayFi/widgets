@@ -1330,10 +1330,15 @@
     "@walletconnect/sign-client" "^2.12.2"
     clipboardy "3.0.0"
 
-"@depay/web3-blockchains@^9.7.9", "@depay/web3-blockchains@^9.8.1":
+"@depay/web3-blockchains@^9.7.9":
   version "9.8.1"
   resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-9.8.1.tgz#7b87e7de21f385dd5168790c6677bdb8decba23f"
   integrity sha512-ZwJt/JywcS+N0snrUsAi/G1mcXALpqOFnOvmW6n6xZSBXORO7GiOFIgZ8IkDj6kvrvEP5SCh6j4ll+jiOqHXCw==
+
+"@depay/web3-blockchains@^9.8.2":
+  version "9.8.2"
+  resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-9.8.2.tgz#c6af7e67b3d8c9d661f87993447a70ea6a923513"
+  integrity sha512-glJ1aFNG2ZljdmYS8Ei4ok+2eoCHPqK9lseJ4kBqqKTGNTRxZ2nVZQ1GxyiO9stuixyBowVFif0bRy9E6mAYZQ==
 
 "@depay/web3-client@^11.0.5":
   version "11.0.5"

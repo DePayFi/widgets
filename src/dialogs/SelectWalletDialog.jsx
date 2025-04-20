@@ -104,7 +104,7 @@ export default (props)=>{
       const index = focusable.indexOf(listElement.current.querySelector(':focus'));
       if (index > -1 && index < focusable.length - 1) {
         focusable[index + 1].focus()
-      } else {
+      } else if(index < focusable.length - 1) {
         focusable[0].focus()
         event.preventDefault()
         return false
@@ -117,12 +117,10 @@ export default (props)=>{
       ));
 
       const index = focusable.indexOf(listElement.current.querySelector(':focus'));
-      if (index > -1 && index < focusable.length - 1) {
+      if (index == 0) {
+        searchElement.current.focus()
+      } else if (index > 0 && index <= focusable.length - 1) {
         focusable[index - 1].focus()
-      } else {
-        focusable[0].focus()
-        event.preventDefault()
-        return false
       }
     }
 

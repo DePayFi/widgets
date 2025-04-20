@@ -11,8 +11,8 @@ export default (style)=>{
       display: flex;
       flex-direction: row;
       margin-bottom: 8px;
-      min-height: 76px;
-      padding: 16px 10px;
+      min-height: 74px;
+      padding: 14px 8px;
       width: 100%;
     }
 
@@ -107,12 +107,12 @@ export default (style)=>{
 
     .Card.small {
       min-height: auto;
-      padding: 8px 8px;
+      padding: 8px 12px;
       margin: 0;
     }
 
     .CardImage.small {
-      width: 27px;
+      width: 33px;
     }
 
     .CardImage.small img {
@@ -162,7 +162,7 @@ export default (style)=>{
       flex-shrink: 0;
       justify-content: center;
       position: relative;
-      width: 58px;
+      width: 52px;
     }
 
     .CardBody {
@@ -205,10 +205,10 @@ export default (style)=>{
       background: ${style.colors.background};
       border-radius: 9999px;
       border: 1px solid ${style.colors.cardBackground};
-      height: 45px;
+      height: 42px;
       position: relative;
       vertical-align: middle;
-      width: 45px;
+      width: 42px;
     }
 
     .CardImage.rounded img {

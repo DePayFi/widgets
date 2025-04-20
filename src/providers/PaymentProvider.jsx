@@ -256,7 +256,7 @@ export default (props)=>{
         paymentToken.symbol()
       ]).then(([name, symbol])=>{
         setPayment({
-          blockchain: recover.blockchain,
+          blockchain: Blockchains[recover.blockchain],
           token: recover.token,
           name,
           symbol: symbol.toUpperCase(),

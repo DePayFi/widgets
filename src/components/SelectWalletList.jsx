@@ -66,12 +66,8 @@ export default (props)=>{
   useEffect(() => {
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-        if(resultList && resultList.length) {
-          props.onClickWallet(resultList[0])
-        } else {
-          props.onClickWallet(allWallets[0])
-        }
+      if (event.key === 'Enter' && resultList.length == 1) {
+        props.onClickWallet(resultList[0])
       }
     }
 

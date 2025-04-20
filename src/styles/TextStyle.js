@@ -45,6 +45,7 @@ export default (style)=>{
       padding: 6px;
       overflow-wrap: break-word;
       overflow-y: auto;
+      user-select: all;
       white-space: pre-wrap;
       word-wrap: break-word;
     }

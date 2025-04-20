@@ -23088,12 +23088,8 @@
     }, [props.searchTerm]);
     React.useEffect(function () {
       var handleKeyDown = function handleKeyDown(event) {
-        if (event.key === 'Enter') {
-          if (resultList && resultList.length) {
-            props.onClickWallet(resultList[0]);
-          } else {
-            props.onClickWallet(allWallets$1[0]);
-          }
+        if (event.key === 'Enter' && resultList.length == 1) {
+          props.onClickWallet(resultList[0]);
         }
       };
 
@@ -23255,7 +23251,7 @@
 
         if (index > -1 && index < focusable.length - 1) {
           focusable[index + 1].focus();
-        } else {
+        } else if (index < focusable.length - 1) {
           focusable[0].focus();
           event.preventDefault();
           return false;
@@ -23266,18 +23262,16 @@
         var focusable = Array.from(listElement.current.querySelectorAll('button.Card'));
         var index = focusable.indexOf(listElement.current.querySelector(':focus'));
 
-        if (index > -1 && index < focusable.length - 1) {
+        if (index == 0) {
+          searchElement.current.focus();
+        } else if (index > 0 && index <= focusable.length - 1) {
           focusable[index - 1].focus();
-        } else {
-          focusable[0].focus();
-          event.preventDefault();
-          return false;
         }
       };
 
       var handleKeyDown = function handleKeyDown(event) {
         if (event.key === 'ArrowUp') {
-          focusPrevElement(event);
+          focusPrevElement();
         } else if (event.key === 'ArrowDown') {
           focusNextElement(event);
         }
@@ -24315,7 +24309,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 76px;\n      padding: 16px 10px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 8px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 27px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 58px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 45px;\n      position: relative;\n      vertical-align: middle;\n      width: 45px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -24331,7 +24325,7 @@
   });
 
   var GraphicStyle = (function (style) {
-    return "\n\n    .GraphicWrapper {\n      display: block;\n      background-color: color-mix(in srgb, ".concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      padding: 10px 0;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ");
+    return "\n\n    .GraphicWrapper {\n      display: block;\n      padding: 10px 0;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
   });
 
   var GridStyle = (function (style) {
@@ -24435,7 +24429,7 @@
   });
 
   var TextStyle = (function (style) {
-    return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .TextColorSuccess {\n      color: ").concat(style.colors.success, ";\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightXS {\n      line-height: 16px;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n\n    .ResponsiveText {\n      font-size: clamp(14px, 2vw, 15px);\n      max-width: fit-content;\n    }\n  ");
+    return "\n\n    * {\n      color: ".concat(style.colors.text, ";\n    }\n\n    .TextColorSuccess {\n      color: ").concat(style.colors.success, ";\n    }\n\n    h1, h2, h3, h4, h5, h6 {\n      display: block;\n    }\n\n    .Text {\n      font-size: 16px;\n      line-height: 24px\n    }\n\n    .TextLeft, .TextLeft * {\n      text-align: left !important;\n    }\n\n    .TextCenter, .TextCenter * {\n      text-align: center;\n    }\n\n    .LineHeightXS {\n      line-height: 16px;\n    }\n\n    .LineHeightL {\n      line-height: 32px;\n    }\n\n    .ErrorSnippetText {\n      background: rgb(30, 30, 20);\n      border-radius: 19px;\n      border: 8px solid rgb(30, 30, 20);\n      color: #00FF41;\n      font-size: 15px;\n      font-style: italic;\n      max-height: 100px;\n      padding: 6px;\n      overflow-wrap: break-word;\n      overflow-y: auto;\n      user-select: all;\n      white-space: pre-wrap;\n      word-wrap: break-word;\n    }\n\n    .ResponsiveText {\n      font-size: clamp(14px, 2vw, 15px);\n      max-width: fit-content;\n    }\n  ");
   });
 
   var TokenAmountStyle = (function () {
@@ -24485,7 +24479,7 @@
       colors: Object.assign(defaultColors, configuredColors || {}),
       fontFamily: ((_style4 = style) === null || _style4 === void 0 ? void 0 : _style4.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -24987,6 +24981,20 @@
     };
   }();
 
+  var LoginIcon = (function (props) {
+    return /*#__PURE__*/React__default['default'].createElement("svg", {
+      className: ["LoginIcon Icon", props.className].filter(Boolean).join(' '),
+      xmlns: "http://www.w3.org/2000/svg",
+      width: props.width,
+      height: props.width,
+      viewBox: "0 0 2432.5 2433.7"
+    }, /*#__PURE__*/React__default['default'].createElement("path", {
+      d: "M2428.5,1122.9c-1.5-20.5-3.6-40.9-6.1-61.2,0-.3,0-.7,0-1-.3-2-.5-4-.7-6,0-.2,0-.4-.1-.7-9.7-76.1-26.4-150.8-51.9-223.3-.1-.4-.2-.7-.3-1.1-51.1-155.9-130.4-294.2-237.8-414.7,0,0,0-.1,0-.1-3.4-6-8.2-11.1-13.7-15.1-46.1-50-97.2-96.9-153.3-140.5-3.1-3.2-6.7-6.3-10.8-9.3-19.7-14.6-39.5-28.7-59.5-42-.4-.2-.8-.6-1.2-.8-.8-.6-1.6-1.1-2.5-1.6-68.6-46.6-140.8-85.1-215.6-115.7-.8-.4-1.6-.7-2.5-1.1-115.2-47.6-234.9-75.9-358.8-84.8-237.2-18.9-478.2,31.7-688.5,149.1-7.3,4.1-14.5,8.2-21.7,12.3-4.1,2.4-8.1,4.8-12.2,7.2-3.6,2.2-7.2,4.3-10.7,6.5-4.2,2.5-8.5,5.2-12.7,7.9-4,2.5-8,5.1-12,7.6-4.2,2.7-8.4,5.5-12.6,8.3-4.2,2.8-8.4,5.6-12.5,8.4-4.4,3-8.9,6.1-13.2,9.2-4.4,3-8.7,6.1-13.1,9.3-3.7,2.6-7.2,5.3-10.8,8-1.5,1.1-3.1,2.3-4.6,3.4-4.1,3.1-8.3,6.3-12.4,9.4-7.7,5.9-15.2,12-22.7,18.1-1.7,1.3-3.4,2.7-5,4.1-1.5,1.1-2.9,2.3-4.2,3.5-1.1,1-2.3,1.9-3.4,2.9-1,.8-1.9,1.6-2.9,2.4-4.9,4.1-9.8,8.3-14.7,12.5-.2.2-.4.4-.6.6-2.2,1.9-4.5,3.9-6.7,5.9-70.8,61.6-134.4,131.1-189,207.3-3.2,4.4-6.3,8.7-9.4,13.2-2,2.8-4,5.6-6,8.5-1.2,1.7-2.4,3.5-3.5,5.2-67.2,97.7-118.5,203-153.3,316.1-.1.4-.3.9-.4,1.3C23,952.5,4.5,1058,.8,1166.3c-.8,24.3-1,48.5-.6,72.4,1,90.1,11.6,177.7,31.9,262.6,1.6,7,3.3,14,5.1,21,40.3,159.6,113.6,307.6,220.3,443,.2.4.6.8.9,1.1,14.6,19.1,29.4,38,43.8,57.1l107.5,107.5c10.1,7.7,20.2,15.5,30.3,23.4,97,81.5,204.1,145.5,321,191.7,107.3,43.8,219.3,71.1,335.8,81.8,14.4,1.9,28.9,3.7,43.3,5.8h152c30-4.1,60.2-7.5,90.2-11.7,7.3-1,14.5-2.1,21.7-3.2,3.6-.6,7.2-1.1,10.8-1.7,3.6-.6,7.2-1.2,10.8-1.8.4,0,.7-.1,1.1-.2,78.2-13.2,153.6-33.8,226-61.8,5.2-2,10.4-4,15.6-6.1,115-45.4,220.6-107.7,316.4-186.9.1-.1.2-.2.4-.3,12.3-9.8,24.8-19.3,37.2-28.9,35.9-35.8,71.7-71.7,107.5-107.5,3.4-5.3,6.1-11.1,10.2-15.8,1.8-2.1,3.7-4.3,5.4-6.5,1.5-1.6,2.8-3.1,4-4.7,4.8-5.6,9.4-11.1,14-16.8,44.5-54.4,84.1-112,117.6-173.2.3-.4.5-.9.8-1.4,78.7-141.7,126.5-297.1,144.8-465.1,1.7-15.6,3.9-31.2,5.8-46.7v-152c-1.4-6.1-3.5-12.2-4-18.4ZM2328.5,1355c-5.8,47.3-14.2,93.3-25.2,138-.4,1.5-.9,3-1.3,4.6-38.7,145.7-100.9,276-186.8,390.6-3.7,5-7.5,10-11.4,14.9-1.7,2.2-3.4,4.4-5.2,6.6-2,2.7-4.1,5.3-6.3,7.9-4.2,5.3-8.6,10.6-13.1,15.9-7.9,9.4-16,18.7-24.3,28-8.2,9.2-16.7,18.4-25.3,27.4-2.2,2.4-4.6,4.8-7,7.2-17.2,17.7-35.2,35-53.9,51.8-2.7,2-5.7,3.9-8.7,6.1-76.8-337.5-359.3-575.8-694.2-597.3-51.8-3.4-102.3-1.8-151.4,4.4-35.4,4.6-70.1,11.5-104,21.1-89.2,24.9-173.3,67-251.8,126.2-149.5,112.6-243.3,262.7-285.8,444.7-3.3-1.2-5-1.5-6.1-2.1,0,0-.1,0-.1,0-7.5-6.8-15-13.5-22.3-20.5-46.8-45.4-88.8-92.6-126.3-141.7-2.5-3.3-5-6.6-7.5-9.9-132.8-177.8-204.7-378.8-213.8-602.2h0c-2.3-57.8-.5-117,5.5-177.6,9.6-96.9,30-188.7,60.9-274.9.5-1.3,1-2.7,1.5-4.1,59.6-160.7,157.7-303.8,294.5-428.4,19.6-17.3,40.1-34.2,61.3-50.5,157-120.6,320.4-196.9,489.5-229.5.4,0,.8-.1,1.2-.2,106.7-18.8,217.9-20.8,332.7-5.8,60.9,8,119.3,19.4,175,34.3,56.9,16.5,114.4,37.4,172.2,62.6,73.9,32.2,139.8,82.8,208.8,125.9,5.3,3.4,10.8,6,16.1,7.8,153.2,122,271.2,289.1,353.6,499.2,29.5,75,40.4,157.4,58.6,236.6.3,1.4.6,2.7,1,4.1,11.3,90.6,11.1,183.7-.5,279Z"
+    }), /*#__PURE__*/React__default['default'].createElement("path", {
+      d: "M1595.1,734.4c-29.2-55.7-70.4-104.3-120.1-142.2-71.7-54.8-161.1-87.4-257.9-87.6-235.7-.4-428.2,191.2-428.5,426.7-.4,216.6,161.4,396.7,370.3,424.7,18.4,2.5,37.2,3.8,56.3,3.8,45.2,0,88.8-6.9,129.7-19.9,172.8-54.8,298.6-216.5,298.9-406.8.1-71.7-17.5-139.3-48.7-198.7Z"
+    }));
+  });
+
   var SignLoginDialog = (function (props) {
     var _useContext = React.useContext(ErrorContext),
         setError = _useContext.setError;
@@ -25081,32 +25089,33 @@
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
       }, walletLogo && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "GraphicWrapper PaddingTopS PaddingBottomS"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement(LoginIcon, {
         className: "Graphic",
-        src: walletLogo
-      })), /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL Text FontSizeL FontWeightBold PaddingTopS"
-      }, "Wallet Login"), /*#__PURE__*/React__default['default'].createElement("div", {
+        width: "120px",
+        height: "120px"
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("p", {
         className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
-      }, "Please click \"Log in\" and sign the message with your connected wallet."))),
+      }, "Click \"Log in\" and confirm in your wallet."))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, loggingIn && /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingBottomXS",
-        style: {
-          height: '58px'
-        }
+        className: "PaddingBottomS PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingBottomS TextCenter"
+        className: "PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Loading Icon medium",
-        style: {
-          position: 'relative'
-        }
-      }))), !loggingIn && /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ActionIndicator MarginBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        src: wallet.logo
+      }), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "ActionIndicatorSpinner"
+      })), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter PaddingTopXS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", {
+        className: "FontSizeL"
+      }, "Confirm in your wallet")))), !loggingIn && /*#__PURE__*/React__default['default'].createElement("button", {
         className: "ButtonPrimary",
         onClick: login
       }, "Log in"))
@@ -26843,7 +26852,7 @@
               symbol = _ref5[1];
 
           setPayment({
-            blockchain: recover.blockchain,
+            blockchain: Blockchains__default['default'][recover.blockchain],
             token: recover.token,
             name: name,
             symbol: symbol.toUpperCase(),
@@ -27746,6 +27755,10 @@
     }, [payment]);
 
     var actionIndicator = function actionIndicator() {
+      if (!wallet) {
+        return null;
+      }
+
       if (paymentState == 'approve' || paymentState == 'paying') {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS PaddingTopXS"
@@ -27769,6 +27782,8 @@
 
     var steps = function steps() {
       if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'success') {
+        var _payment$route5, _payment$route6;
+
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
         }, paymentState == 'approve' && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -27808,7 +27823,7 @@
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
         }, "Approve spending ", payment.symbol)), !transaction && paymentState != 'sending' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step ".concat(paymentState == 'approved' || !payment.route.approvalRequired || paymentState == 'paying' ? 'active' : '', " Card disabled small transparent")
+          className: "Step ".concat(paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route5 = payment.route) !== null && _payment$route5 !== void 0 && _payment$route5.approvalRequired) || paymentState == 'paying' ? 'active' : '', " Card disabled small transparent")
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(Checkmark, {
@@ -27828,7 +27843,7 @@
             wallet: wallet
           }),
           target: "_blank",
-          className: "Step ".concat((paymentState == 'approved' || !payment.route.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '', " ").concat(paymentState == 'success' ? 'done' : '', " Card ").concat(!(transaction !== null && transaction !== void 0 && transaction.url) ? 'disabled' : '', " small transparent")
+          className: "Step ".concat((paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route6 = payment.route) !== null && _payment$route6 !== void 0 && _payment$route6.approvalRequired) || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '', " ").concat(paymentState == 'success' ? 'done' : '', " Card ").concat(!(transaction !== null && transaction !== void 0 && transaction.url) ? 'disabled' : '', " small transparent")
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(Checkmark, {
@@ -27880,7 +27895,9 @@
           }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Resetting")));
         }
       } else if ((paymentState == 'initialized' || paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'resetting') && payment.route) {
-        var approvalRequired = paymentState != 'approved' && payment.route.approvalRequired && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
+        var _payment$route7;
+
+        var approvalRequired = paymentState != 'approved' && (payment === null || payment === void 0 ? void 0 : (_payment$route7 = payment.route) === null || _payment$route7 === void 0 ? void 0 : _payment$route7.approvalRequired) && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
 
         if (approvalRequired) {
           if (paymentState == 'initialized') {
@@ -93664,6 +93681,7 @@
         setBlockchains = _useState4[1];
 
     var searchElement = React.useRef();
+    var listElement = React.useRef();
     var fuse = new Fuse__default['default'](allBlockchains, {
       keys: ['label', 'name'],
       threshold: 0.3,
@@ -93695,6 +93713,59 @@
       }
     };
 
+    React.useEffect(function () {
+      var handleKeyDown = function handleKeyDown(event) {
+        if (event.key === 'Enter' && blockchains.length == 1) {
+          selectBlockchain(blockchains[0]);
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          return false;
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return function () {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [blockchains]);
+    React.useEffect(function () {
+      var focusNextElement = function focusNextElement(event) {
+        var focusable = Array.from(listElement.current.querySelectorAll('button.Card'));
+        var index = focusable.indexOf(listElement.current.querySelector(':focus'));
+
+        if (index > -1 && index < focusable.length - 1) {
+          focusable[index + 1].focus();
+        } else if (index < focusable.length - 1) {
+          focusable[0].focus();
+          event.preventDefault();
+          return false;
+        }
+      };
+
+      var focusPrevElement = function focusPrevElement(event) {
+        var focusable = Array.from(listElement.current.querySelectorAll('button.Card'));
+        var index = focusable.indexOf(listElement.current.querySelector(':focus'));
+
+        if (index == 0) {
+          searchElement.current.focus();
+        } else if (index > 0 && index <= focusable.length - 1) {
+          focusable[index - 1].focus();
+        }
+      };
+
+      var handleKeyDown = function handleKeyDown(event) {
+        if (event.key === 'ArrowUp') {
+          focusPrevElement();
+        } else if (event.key === 'ArrowDown') {
+          focusNextElement(event);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return function () {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, []);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS"
@@ -93712,15 +93783,21 @@
       })))),
       stacked: stacked,
       bodyClassName: "ScrollHeight",
-      body: /*#__PURE__*/React__default['default'].createElement("div", null, blockchains.map(function (blockchain, index) {
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingLeftS PaddingRightS",
+        ref: listElement
+      }, blockchains.map(function (blockchain, index) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           key: index,
-          className: "Card Row",
+          className: "MarginBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          type: "button",
+          className: "Card small",
           onClick: function onClick() {
             return selectBlockchain(blockchain);
           }
         }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
+          className: "CardImage small"
         }, /*#__PURE__*/React__default['default'].createElement("img", {
           className: "transparent BlockchainLogo",
           src: blockchain.logo,
@@ -93730,8 +93807,8 @@
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardBody"
         }, /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "CardText"
-        }, blockchain.label)));
+          className: "CardText FontSizeM"
+        }, blockchain.label))));
       })),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
@@ -93931,6 +94008,7 @@
         _useState12[1];
 
     var searchElement = React.useRef();
+    var listElement = React.useRef();
 
     var startWithBlockchain = function startWithBlockchain(name) {
       var blockchain = Blockchains__default['default'].findByName(name);
@@ -93942,6 +94020,56 @@
       setTokens(blockchain.tokens);
     };
 
+    React.useEffect(function () {
+      var focusNextElement = function focusNextElement(event) {
+        var focusable = Array.from(listElement.current.querySelectorAll('button.Card'));
+        var index = focusable.indexOf(listElement.current.querySelector(':focus'));
+
+        if (index > -1 && index < focusable.length - 1) {
+          focusable[index + 1].focus();
+        } else if (index < focusable.length - 1) {
+          focusable[0].focus();
+          event.preventDefault();
+          return false;
+        }
+      };
+
+      var focusPrevElement = function focusPrevElement(event) {
+        var focusable = Array.from(listElement.current.querySelectorAll('button.Card'));
+        var index = focusable.indexOf(listElement.current.querySelector(':focus'));
+
+        if (index == 0) {
+          searchElement.current.focus();
+        } else if (index > 0 && index <= focusable.length - 1) {
+          focusable[index - 1].focus();
+        }
+      };
+
+      var handleKeyDown = function handleKeyDown(event) {
+        if (event.key === 'ArrowUp') {
+          focusPrevElement();
+        } else if (event.key === 'ArrowDown') {
+          focusNextElement(event);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return function () {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, []);
+    React.useEffect(function () {
+      var handleKeyDown = function handleKeyDown(event) {
+        if (event.key === 'Enter' && tokens.length == 1) {
+          select(tokens[0]);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return function () {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [tokens]);
     React.useEffect(function () {
       _asyncToGenerator$1( /*#__PURE__*/regenerator.mark(function _callee() {
         var blockchain;
@@ -94166,7 +94294,7 @@
         className: "SkeletonWrapper",
         key: 'loading'
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Skeleton",
+        className: "Skeleton Card MarginBottomXS PaddingTopXS PaddingBottomXS",
         style: {
           height: '69px',
           width: '100%'
@@ -94178,7 +94306,10 @@
       elements = tokens.map(function (token, index) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
           key: "".concat(index, "-").concat(token.address),
-          className: "Card Row",
+          className: "MarginBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          type: "button",
+          className: "Card small PaddingTopXS PaddingBottomXS",
           onClick: function onClick() {
             return select(token);
           }
@@ -94202,8 +94333,8 @@
           className: "CardTokenName",
           title: token.name
         }, /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "CardText"
-        }, token.name))));
+          className: "CardText FontSizeM"
+        }, token.name)))));
       });
     }
 
@@ -94296,7 +94427,9 @@
       }, blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
       }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingBottomS"
+        className: "PaddingTopXS PaddingBottomXS"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
         value: searchTerm,
         autoFocus: !isMobile(),
@@ -94313,10 +94446,11 @@
         className: "Tooltip"
       }, /*#__PURE__*/React__default['default'].createElement("span", {
         className: "TooltipArrowUp"
-      }), "Enter token address here")))),
+      }), "Enter token address here"))))),
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: ""
+        className: "PaddingLeftS PaddingRightS",
+        ref: listElement
       }, elements),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"

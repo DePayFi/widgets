@@ -1,17 +1,3 @@
-/*#if _EVM
-
-import { TokenImage } from '@depay/react-token-image-evm'
-
-/*#elif _SVM
-
-import { TokenImage } from '@depay/react-token-image-svm'
-
-//#else */
-
-import { TokenImage } from '@depay/react-token-image'
-
-//#endif
-
 import AlertIcon from '../components/AlertIcon'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import Checkmark from '../components/Checkmark'
@@ -161,53 +147,10 @@ export default ()=>{
     }
   }
 
-  const additionalPaymentInformation = ()=> {
-    if (paymentState == 'paying' && transaction == undefined) {
-      return(
-        <div className="PaddingBottomS">
-          <div className="Card transparent disabled small">
-            <div className="CardImage">
-              <div className="TextCenter Opacity05">
-                <DigitalWalletIcon className="small"/>
-              </div>
-            </div>
-            <div className="CardBody">
-              <div className="CardBodyWrapper">
-                <div className="Opacity05">
-                  Confirm in your wallet (<a href={ link({ url: "https://depay.com/docs/payments/verify", target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>verify</a>)
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    } else if (paymentState == 'success') {
-      return(
-        <div className="PaddingBottomS">
-          <div>
-            <a className="Card transparent small" title="Transaction has been confirmed by the network" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
-              <div className="CardImage">
-                <div className="TextCenter Opacity05">
-                  <Checkmark className="small"/>
-                </div>
-              </div>
-              <div className="CardBody">
-                <div className="CardBodyWrapper">
-                  <div className="Opacity05">
-                    Transaction confirmed
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          { trackingInfo(transaction) }
-        </div>
-      )
-    }
-  }
-
   const actionIndicator = ()=>{
-            
+    
+    if(!wallet) { return null }
+
     if(
       paymentState == 'approve' ||
       paymentState == 'paying'
@@ -288,7 +231,7 @@ export default ()=>{
           }
 
           { !transaction && paymentState != 'sending' &&
-            <div className={`Step ${ (paymentState == 'approved' || !payment.route.approvalRequired || paymentState == 'paying') ? 'active' : '' } Card disabled small transparent`}>
+            <div className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying') ? 'active' : '' } Card disabled small transparent`}>
               <div className="StepIcon">
                 { paymentState == 'success' &&
                   <Checkmark className="small"/>
@@ -309,7 +252,7 @@ export default ()=>{
           }
 
           { (transaction || paymentState == 'sending') &&
-            <a href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" className={`Step ${ (paymentState == 'approved' || !payment.route.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '' } ${ paymentState == 'success' ? 'done' : '' } Card ${!transaction?.url ? 'disabled' : ''} small transparent`}>
+            <a href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '' } ${ paymentState == 'success' ? 'done' : '' } Card ${!transaction?.url ? 'disabled' : ''} small transparent`}>
               <div className="StepIcon">
                 { paymentState == 'success' &&
                   <Checkmark className="small"/>
@@ -365,7 +308,7 @@ export default ()=>{
         )
       }
     } else if((paymentState == 'initialized' || paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'resetting') && payment.route) {
-      const approvalRequired = paymentState != 'approved' && payment.route.approvalRequired && wallet?.name != 'World App'
+      const approvalRequired = paymentState != 'approved' && payment?.route?.approvalRequired && wallet?.name != 'World App'
       if(approvalRequired) {
         if(paymentState == 'initialized') {
           return(
