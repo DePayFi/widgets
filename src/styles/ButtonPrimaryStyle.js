@@ -31,6 +31,7 @@ export default (style)=>{
 
     .ButtonPrimary.disabled {
       background-color: color-mix(in srgb, ${style.colors.background} 75%, ${style.colors.mixActive} 15%) !important;
+      color: color-mix(in srgb, ${style.colors.buttonText} 70%, ${style.colors.mixActive} 30%) !important;
       box-shadow: 0 !important;
     }
     

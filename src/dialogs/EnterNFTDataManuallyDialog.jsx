@@ -19,7 +19,7 @@ import Token from '@depay/web3-tokens'
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import Dialog from '../components/Dialog'
 import React, { useCallback, useContext, useState, useEffect } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
@@ -133,7 +133,7 @@ export default (props)=> {
                 { Blockchains.findByName(selection?.blockchain?.name|| selection?.blockchain || selection?.collection?.blockchain )?.label }
               </div>
               <div className="CardAction">
-                <ChevronRight/>
+                <ChevronRightIcon/>
               </div>
             </div>
           </div>

@@ -19,7 +19,7 @@ import { TokenImage } from '@depay/react-token-image'
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightICon from '../icons/ChevronRightICon'
 import ClosableContext from '../contexts/ClosableContext'
 import Dialog from '../components/Dialog'
 import isMobile from '../helpers/isMobile'
@@ -368,7 +368,7 @@ export default (props)=> {
                 { blockchain.label }
               </div>
               <div className="CardAction">
-                <ChevronRight/>
+                <ChevronRightICon/>
               </div>
             </div>
           </div>

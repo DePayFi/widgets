@@ -14,7 +14,7 @@ import { TokenImage } from '@depay/react-token-image'
 
 import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import Footer from '../components/Footer'
@@ -115,7 +115,7 @@ export default (props)=>{
             </div>
             <div className="CardAction">
               { (!amountConfiguration || !amountConfiguration.fix) &&
-                <ChevronRight/>
+                <ChevronRightIcon/>
               }
             </div>
           </div>
@@ -157,7 +157,7 @@ export default (props)=>{
               </div>
             </div>
             <div className="CardAction">
-              <ChevronRight/>
+              <ChevronRightIcon/>
             </div>
           </div>
         </div>

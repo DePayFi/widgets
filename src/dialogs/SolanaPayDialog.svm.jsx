@@ -1,9 +1,9 @@
 import Blockchains from '@depay/web3-blockchains'
-import Checkmark from '../components/Checkmark'
+import CheckmarkIcon from '../icons/CheckmarkIcon'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
-import DigitalWalletIcon from '../components/DigitalWalletIcon'
+import DigitalWalletIcon from '../icons/DigitalWalletIcon'
 import ErrorGraphic from '../graphics/error'
 import format from '../helpers/format'
 import getFavicon from '../helpers/getFavicon'
@@ -853,7 +853,7 @@ export default (props)=> {
                       <a className="Card transparent small" title="Transaction has been confirmed by the network" href={ transaction?.url } target="_blank" rel="noopener noreferrer">
                         <div className="CardImage">
                           <div className="TextCenter Opacity05">
-                            <Checkmark className="small"/>
+                            <CheckmarkIcon className="small"/>
                           </div>
                         </div>
                         <div className="CardBody">
@@ -885,7 +885,7 @@ export default (props)=> {
                       <div className="Card transparent small disabled">
                         <div className="CardImage">
                           <div className="TextCenter Opacity05">
-                            <Checkmark className="small"/>
+                            <CheckmarkIcon className="small"/>
                           </div>
                         </div>
                         <div className="CardBody">

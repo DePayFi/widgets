@@ -4852,7 +4852,7 @@
     accept: []
   });
 
-  var ChevronLeft = (function (props) {
+  var ChevronLeftIcon = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {
       className: ["ChevronLeft", "Icon", props.className].filter(Boolean).join(' '),
       xmlns: "http://www.w3.org/2000/svg",
@@ -4910,7 +4910,7 @@
       },
       className: "ButtonCircular",
       title: "Go back"
-    }, /*#__PURE__*/React__default['default'].createElement(ChevronLeft, null))), closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("div", {
+    }, /*#__PURE__*/React__default['default'].createElement(ChevronLeftIcon, null))), closable && props.closable !== false && /*#__PURE__*/React__default['default'].createElement("div", {
       className: "DialogHeaderActionRight PaddingTopS PaddingLeftS PaddingRightS"
     }, props.alternativeHeaderAction, /*#__PURE__*/React__default['default'].createElement("button", {
       type: "button",
@@ -24293,7 +24293,7 @@
   });
 
   var AlertStyle = (function (style) {
-    return "\n\n    .Alert {\n      background: color-mix(in srgb, ".concat(style.colors.warning, " 60%, ").concat(style.colors.background, " 40%);\n      border: 1px solid ").concat(style.colors.warning, ";\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ");
+    return "\n\n    .Alert {\n      background: color-mix(in srgb, ".concat(style.colors.warning, " 20%, ").concat(style.colors.background, " 80%);\n      border: 1px solid ").concat(style.colors.warning, ";\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n\n    .Alert, .Alert * {\n      color: ").concat(style.colors.text, ";\n    }\n  ");
   });
 
   var InfoStyle = (function (style) {
@@ -24305,7 +24305,7 @@
   });
 
   var ButtonPrimaryStyle = (function (style) {
-    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 75%, ").concat(style.colors.mixActive, " 15%) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 75%, ").concat(style.colors.mixActive, " 15%) !important;\n      color: color-mix(in srgb, ").concat(style.colors.buttonText, " 70%, ").concat(style.colors.mixActive, " 30%) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
   });
 
   var CardStyle = (function (style) {
@@ -24349,7 +24349,7 @@
   });
 
   var InputStyle = (function (style) {
-    return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n\n    .InputField {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: white;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .InputField.small {\n      border-radius: 8px;\n      font-size: 15px;\n    }\n\n    .InputField::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .InputField:focus, .InputField:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n    \n  ");
+    return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n\n    .InputField {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background-color: color-mix(in srgb, ".concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixPassive, " 20%);\n      outline: none !important;\n      color: ").concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .InputField.small {\n      border-radius: 8px;\n      font-size: 15px;\n    }\n\n    .InputField::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .InputField:focus, .InputField:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n    \n  ");
   });
 
   var isDarkMode = function isDarkMode() {
@@ -25097,7 +25097,7 @@
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
       }, /*#__PURE__*/React__default['default'].createElement("p", {
-        className: "FontSizeM PaddingLeftM PaddingRightM PaddingBottomS"
+        className: "FontSizeM PaddingLeftM PaddingRightM"
       }, "Click \"Log in\" and confirm in your wallet."))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
@@ -27595,7 +27595,7 @@
     });
   });
 
-  var ChevronRight = (function (props) {
+  var ChevronRightIcon = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {
       className: ["ChevronRight Icon", props.className].filter(Boolean).join(' '),
       xmlns: "http://www.w3.org/2000/svg",
@@ -27609,7 +27609,7 @@
     }));
   });
 
-  var Checkmark = (function (props) {
+  var CheckmarkIcon = (function (props) {
     return /*#__PURE__*/React__default['default'].createElement("svg", {
       className: "Checkmark Icon " + props.className,
       version: "1.1",
@@ -27847,7 +27847,7 @@
           className: "Step Card ".concat(!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? 'disabled' : '', " ").concat(paymentState == 'approving' ? 'active' : 'done', " small transparent")
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState != 'approving' && /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, paymentState != 'approving' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         }), paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepCircle"
@@ -27859,7 +27859,7 @@
           className: "Step done Card disabled small transparent"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
@@ -27867,7 +27867,7 @@
           className: "Step ".concat(paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route5 = payment.route) !== null && _payment$route5 !== void 0 && _payment$route5.approvalRequired) || paymentState == 'paying' ? 'active' : '', " Card disabled small transparent")
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         }), paymentState != 'success' && /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepCircle"
@@ -27875,7 +27875,7 @@
           className: "StepText"
         }, "Perform payment"), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepStatus"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         }))), (transaction || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement("a", {
           href: link({
@@ -27887,7 +27887,7 @@
           className: "Step ".concat((paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route6 = payment.route) !== null && _payment$route6 !== void 0 && _payment$route6.approvalRequired) || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '', " ").concat(paymentState == 'success' ? 'done' : '', " Card ").concat(!(transaction !== null && transaction !== void 0 && transaction.url) ? 'disabled' : '', " small transparent")
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         }), paymentState != 'success' && /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepCircle"
@@ -27967,7 +27967,7 @@
               className: "CardTitle"
             }, "Approval"))), /*#__PURE__*/React__default['default'].createElement("div", {
               className: "CardAction PaddingRightXS"
-            }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, {
+            }, /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, {
               className: "small"
             }))))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("button", {
               type: "button",
@@ -28163,7 +28163,7 @@
         className: "TokenAmountRow"
       }, amount)))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default['default'].createElement("button", {
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, null))), /*#__PURE__*/React__default['default'].createElement("button", {
         type: "button",
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
         title: paymentState == 'initialized' ? "Change payment" : undefined,
@@ -28223,7 +28223,7 @@
         className: "SkeletonBackground"
       })))))))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))),
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, null)))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement(Footer, null))
@@ -41516,7 +41516,7 @@
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "TextCenter Opacity05"
-        }, /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         }))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardBody"
@@ -41544,7 +41544,7 @@
           className: "CardImage"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "TextCenter Opacity05"
-        }, /*#__PURE__*/React__default['default'].createElement(Checkmark, {
+        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         }))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "CardBody"
@@ -42294,7 +42294,7 @@
         className: "TokenAmountCell"
       }, salePerTokenValue, " per token"))))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, (!amountConfiguration || !amountConfiguration.fix) && /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, (!amountConfiguration || !amountConfiguration.fix) && /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, null))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: ["Card", paymentState == 'initialized' ? '' : 'disabled'].join(' '),
         title: paymentState == 'initialized' ? "Payment options" : undefined,
         onClick: function onClick() {
@@ -42330,7 +42330,7 @@
         className: "TokenAmountCell"
       }, displayedPaymentValue))))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))),
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, null)))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement(Footer, null))
@@ -42591,7 +42591,7 @@
         className: "PaddingTopS TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Please review this information"))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Review this information"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("table", {
         className: "Table TextLeft FontSizeS"
@@ -42825,7 +42825,7 @@
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL FontSizeL"
-      }, "Enter NFT information")), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Enter NFT data")), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingBottomS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Card small",
@@ -42844,7 +42844,7 @@
         className: "CardBody FontSizeM"
       }, (_Blockchains$findByNa = Blockchains__default['default'].findByName((selection === null || selection === void 0 ? void 0 : (_selection$blockchain5 = selection.blockchain) === null || _selection$blockchain5 === void 0 ? void 0 : _selection$blockchain5.name) || (selection === null || selection === void 0 ? void 0 : selection.blockchain) || (selection === null || selection === void 0 ? void 0 : (_selection$collection5 = selection.collection) === null || _selection$collection5 === void 0 ? void 0 : _selection$collection5.blockchain))) === null || _Blockchains$findByNa === void 0 ? void 0 : _Blockchains$findByNa.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null))))),
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, null))))),
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
@@ -43103,7 +43103,7 @@
       stacked: stacked,
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingLeftS PaddingRightS",
+        className: "PaddingLeftS PaddingRightS PaddingBottomS",
         ref: listElement
       }, blockchains.map(function (blockchain, index) {
         return /*#__PURE__*/React__default['default'].createElement("div", {
@@ -43129,9 +43129,7 @@
           className: "CardText FontSizeM"
         }, blockchain.label))));
       })),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingRightM PaddingLeftM PaddingBottomS"
-      })
+      footer: false
     });
   });
 
@@ -43252,7 +43250,7 @@
         className: "PaddingTopS TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Alert FontSizeS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Please review this information"))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("strong", null, "Review this information"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("table", {
         className: "Table TextLeft FontSizeS"
@@ -43284,6 +43282,20 @@
         onClick: onClickConfirm
       }, "Confirm"))
     });
+  });
+
+  var ChevronRightICon = (function (props) {
+    return /*#__PURE__*/React__default['default'].createElement("svg", {
+      className: ["ChevronRight Icon", props.className].filter(Boolean).join(' '),
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16"
+    }, /*#__PURE__*/React__default['default'].createElement("path", {
+      strokeWidth: "1",
+      fillRule: "evenodd",
+      d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+    }));
   });
 
   var SelectTokenDialog = (function (props) {
@@ -43703,7 +43715,7 @@
               marginBottom: '1px'
             }
           }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "Skeleton",
+            className: "Skeleton Card MarginBottomXS PaddingTopXS PaddingBottomXS",
             style: {
               height: '69px',
               width: '100%'
@@ -43745,7 +43757,7 @@
         className: "CardBody FontSizeM"
       }, blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRight, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightICon, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"

@@ -14,13 +14,13 @@ import { TokenImage } from '@depay/react-token-image'
 
 import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
-import MenuIcon from '../components/MenuIcon'
+import MenuIcon from '../icons/MenuIcon'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
@@ -95,7 +95,7 @@ export default (props)=>{
                 </div>
               </div>
               <div className="CardAction">
-                <ChevronRight/>
+                <ChevronRightIcon/>
               </div>
             </button>
           }
@@ -161,7 +161,7 @@ export default (props)=>{
               </div>
             </div>
             <div className="CardAction">
-              <ChevronRight/>
+              <ChevronRightIcon/>
             </div>
           </button>
         </div>

@@ -1,9 +1,9 @@
-import AlertIcon from '../components/AlertIcon'
+import AlertIcon from '../icons/AlertIcon'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import Checkmark from '../components/Checkmark'
-import ChevronRight from '../components/ChevronRight'
+import CheckmarkIcon from '../icons/CheckmarkIcon'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ClosableContext from '../contexts/ClosableContext'
-import DigitalWalletIcon from '../components/DigitalWalletIcon'
+import DigitalWalletIcon from '../icons/DigitalWalletIcon'
 import etaForConfirmations from '../helpers/etaForConfirmations'
 import link from '../helpers/link'
 import LoadingText from '../components/LoadingText'
@@ -109,7 +109,7 @@ export default ()=>{
           <a className="Card transparent small" title="DePay has validated the payment" href={ link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
             <div className="CardImage">
               <div className="TextCenter Opacity05">
-                <Checkmark className="small"/>
+                <CheckmarkIcon className="small"/>
               </div>
             </div>
             <div className="CardBody">
@@ -204,7 +204,7 @@ export default ()=>{
           { approvalTransaction &&
             <a href={ link({ url: approvalTransaction?.url, target: '_blank', wallet }) } target="_blank" className={`Step Card ${!approvalTransaction?.url ? 'disabled' : ''} ${ paymentState == 'approving' ? 'active' : 'done'} small transparent`}>
              <div className="StepIcon">
-                { paymentState != 'approving' && <Checkmark className="small"/> }
+                { paymentState != 'approving' && <CheckmarkIcon className="small"/> }
                 { paymentState == 'approving' &&
                   <>
                     <div className="StepCircle"/>
@@ -222,7 +222,7 @@ export default ()=>{
           { approvalSignature &&
             <div className="Step done Card disabled small transparent">
               <div className="StepIcon">
-                <Checkmark className="small"/>
+                <CheckmarkIcon className="small"/>
               </div>
               <div className="StepText">
                 Approve spending { payment.symbol }
@@ -234,7 +234,7 @@ export default ()=>{
             <div className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying') ? 'active' : '' } Card disabled small transparent`}>
               <div className="StepIcon">
                 { paymentState == 'success' &&
-                  <Checkmark className="small"/>
+                  <CheckmarkIcon className="small"/>
                 }
                 { paymentState != 'success' &&
                   <div className="StepCircle"/>
@@ -245,7 +245,7 @@ export default ()=>{
               </div>
               <div className="StepStatus">
                 { paymentState == 'success' &&
-                  <Checkmark className="small"/>
+                  <CheckmarkIcon className="small"/>
                 }
               </div>
             </div>
@@ -255,7 +255,7 @@ export default ()=>{
             <a href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '' } ${ paymentState == 'success' ? 'done' : '' } Card ${!transaction?.url ? 'disabled' : ''} small transparent`}>
               <div className="StepIcon">
                 { paymentState == 'success' &&
-                  <Checkmark className="small"/>
+                  <CheckmarkIcon className="small"/>
                 }
                 { paymentState != 'success' &&
                   <div className="StepCircle"/>
@@ -333,7 +333,7 @@ export default ()=>{
                       </div>
                     </div>
                     <div className="CardAction PaddingRightXS">
-                      <ChevronRight className="small"/>
+                      <ChevronRightIcon className="small"/>
                     </div>
                   </button>
                 </div>

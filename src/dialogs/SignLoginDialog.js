@@ -1,7 +1,7 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
-import LoginIcon from '../components/LoginIcon'
+import LoginIcon from '../icons/LoginIcon'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -75,7 +75,7 @@ export default (props)=> {
             </div>
           }
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            <p className="FontSizeM PaddingLeftM PaddingRightM PaddingBottomS">
+            <p className="FontSizeM PaddingLeftM PaddingRightM">
               Click "Log in" and confirm in your wallet.
             </p>
           </div>

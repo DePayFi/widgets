@@ -14,7 +14,6 @@ import { TokenImage } from '@depay/react-token-image'
 
 import Blockchains from '@depay/web3-blockchains'
 import ChangePaymentSkeleton from '../skeletons/ChangePaymentSkeleton'
-import ChevronLeft from '../components/ChevronLeft'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
