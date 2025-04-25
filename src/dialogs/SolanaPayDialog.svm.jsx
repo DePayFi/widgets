@@ -4,7 +4,6 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DigitalWalletIcon from '../icons/DigitalWalletIcon'
-import ErrorGraphic from '../graphics/error'
 import format from '../helpers/format'
 import getFavicon from '../helpers/getFavicon'
 import getPaymentRouterInstruction from '../helpers/getPaymentRouterInstruction.svm'
@@ -569,7 +568,7 @@ export default (props)=> {
         body={
           <div className="TextCenter">
             <div className="GraphicWrapper">
-              <img className="Graphic" src={ ErrorGraphic }/>
+              <ErrorGraphic/>
             </div>
             <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

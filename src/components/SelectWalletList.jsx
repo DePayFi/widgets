@@ -36,7 +36,7 @@ export default (props)=>{
     if(!listScrolled) {
       setListScrolled(true)
     }
-    if(event.target.scrollTop <= 0 && allWallets.length > 8) {
+    if(event.target.scrollTop <= 0 && allWallets.length > 9) {
       setListScrolled(false)
     }
   }

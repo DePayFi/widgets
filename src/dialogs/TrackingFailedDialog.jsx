@@ -1,5 +1,5 @@
 import Dialog from '../components/Dialog'
-import ErrorGraphic from '../graphics/error'
+import ErrorGraphic from '../graphics/wallets/error'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -24,7 +24,7 @@ export default ()=> {
       body={
         <div className="TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ ErrorGraphic }/>
+            <ErrorGraphic/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

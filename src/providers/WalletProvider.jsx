@@ -2,7 +2,6 @@ import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectStack from '../stacks/ConnectStack'
 import ErrorContext from '../contexts/ErrorContext'
-import PaymentBlockchainsDialog from '../dialogs/PaymentBlockchainsDialog'
 import React, { useState, useEffect, useContext, useCallback } from 'react'
 import SolanaPayContext from '../contexts/SolanaPayContext'
 import UpdatableContext from '../contexts/UpdatableContext'
@@ -70,7 +69,8 @@ export default (props)=>{
       if(account) {
         setAccount(account)
       } else {
-        connect()
+        setAccount()
+        setWalletState()
       }
     }
 
@@ -94,18 +94,23 @@ export default (props)=>{
 
   if(walletMissesBlockchainSupport) {
     return(
-      <ReactDialogStack
-        open={ open }
-        close={ close }
-        start='WalletMissesBlockchainSupport'
-        container={ props.container }
-        document={ props.document }
-        stacked={ true }
-        dialogs={{
-          WalletMissesBlockchainSupport: <WalletMissesBlockchainSupportDialog disconnect={disconnect}/>,
-          PaymentBlockchains: <PaymentBlockchainsDialog/>,
-        }}
-      />
+      <WalletContext.Provider value={{
+        account,
+        wallet,
+        disconnect,
+      }}>
+        <ReactDialogStack
+          open={ open }
+          close={ close }
+          start='WalletMissesBlockchainSupport'
+          container={ props.container }
+          document={ props.document }
+          stacked={ true }
+          dialogs={{
+            WalletMissesBlockchainSupport: <WalletMissesBlockchainSupportDialog disconnect={disconnect}/>,
+          }}
+        />
+      </WalletContext.Provider>
     )
 
   } else if(walletState == 'connected' || recover != undefined) {

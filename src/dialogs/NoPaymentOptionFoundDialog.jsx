@@ -4,7 +4,7 @@ import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
-import QuestionsGraphic from '../graphics/questions'
+import QuestionsGraphic from '../graphics/wallets/questions'
 import React, { useContext, useEffect, useState } from 'react'
 import WalletContext from '../contexts/WalletContext'
 
@@ -29,7 +29,7 @@ export default ()=> {
         <div className="TextCenter">
           
           <div className="GraphicWrapper" onClick={initDebug}>
-            <img className="Graphic" src={ QuestionsGraphic }/>
+            <QuestionsGraphic/>
           </div>
 
           <div className="PaddingTopXS PaddingBottomXS">
@@ -44,7 +44,7 @@ export default ()=> {
 
             <div className="Text PaddingTopXS PaddingBottomS PaddingLeftM PaddingRightM">
               { [...new Set(accept.map((accept)=>accept.blockchain))].map((blockchain)=>{return(
-                <div key={blockchain} className="Card tiny disabled transparent inlineBlock MarginRightXS MarginBottomXS">
+                <div key={blockchain} className="Card tiny disabled inlineBlock MarginRightXS MarginBottomXS">
                   <img className={"BlockchainLogo small bottomRight " + Blockchains[blockchain].name} style={{ backgroundColor: Blockchains[blockchain].logoBackgroundColor }} src={ Blockchains[blockchain].logo } alt={ Blockchains[blockchain].label } title={ Blockchains[blockchain].label }/>
                   <span className="PaddingLeftXS ResponsiveText FontWeightLight">{Blockchains[blockchain].label}</span>
                 </div>

@@ -79,74 +79,6 @@ export default ()=>{
     }
   }, [payment])
 
-  const trackingInfo = (transaction)=> {
-    if (!transaction) {
-      return null
-    } else if((synchronousTracking == false && asynchronousTracking == false) || (asynchronousTracking && trackingInitialized)) {
-      return null
-    } else if (asynchronousTracking && trackingInitialized == false) {
-      return(
-        <div>
-          <div className="Card transparent small disabled">
-            <div className="CardImage">
-              <div className="TextCenter">
-                <div className="Loading Icon"></div>
-              </div>
-            </div>
-            <div className="CardBody">
-              <div className="CardBodyWrapper">
-                <div className="Opacity05">
-                  Initializing tracking
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    } else if(release) {
-      return(
-        <div>
-          <a className="Card transparent small" title="DePay has validated the payment" href={ link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
-            <div className="CardImage">
-              <div className="TextCenter Opacity05">
-                <CheckmarkIcon className="small"/>
-              </div>
-            </div>
-            <div className="CardBody">
-              <div className="CardBodyWrapper">
-                <div className="Opacity05">
-                  Payment validated
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      )
-    } else {
-      return(
-        <div>
-          <a className="Card transparent small" title="DePay is validating the payment" href={ link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
-            <div className="CardImage">
-              <div className="TextCenter">
-                <div className="Loading Icon"></div>
-              </div>
-            </div>
-            <div className="CardBody">
-              <div className="CardBodyWrapper">
-                <div className="Opacity05">
-                  Validating payment
-                  { confirmationsRequired && secondsLeft > 0 &&
-                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}> { secondsLeft }s</span>
-                  }
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      )
-    }
-  }
-
   const actionIndicator = ()=>{
     
     if(!wallet) { return null }
@@ -202,7 +134,7 @@ export default ()=>{
           }
 
           { approvalTransaction &&
-            <a href={ link({ url: approvalTransaction?.url, target: '_blank', wallet }) } target="_blank" className={`Step Card ${!approvalTransaction?.url ? 'disabled' : ''} ${ paymentState == 'approving' ? 'active' : 'done'} small transparent`}>
+            <a href={ approvalTransaction ? link({ url: approvalTransaction?.url, target: '_blank', wallet }) : '#' } target="_blank" className={`Step Card ${!approvalTransaction?.url ? 'disabled' : ''} ${ paymentState == 'approving' ? 'active' : 'done'} small transparent`}>
              <div className="StepIcon">
                 { paymentState != 'approving' && <CheckmarkIcon className="small"/> }
                 { paymentState == 'approving' &&
@@ -223,6 +155,7 @@ export default ()=>{
             <div className="Step done Card disabled small transparent">
               <div className="StepIcon">
                 <CheckmarkIcon className="small"/>
+                <div className="StepConnector"/>
               </div>
               <div className="StepText">
                 Approve spending { payment.symbol }
@@ -239,6 +172,7 @@ export default ()=>{
                 { paymentState != 'success' &&
                   <div className="StepCircle"/>
                 }
+                <div className="StepConnector"/>
               </div>
               <div className="StepText">
                 Perform payment
@@ -252,7 +186,7 @@ export default ()=>{
           }
 
           { (transaction || paymentState == 'sending') &&
-            <a href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '' } ${ paymentState == 'success' ? 'done' : '' } Card ${!transaction?.url ? 'disabled' : ''} small transparent`}>
+            <a href={ transaction ? link({ url: transaction?.url, target: '_blank', wallet }) : '#' } target="_blank" className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '' } ${ paymentState == 'success' ? 'done' : '' } Card ${!transaction?.url ? 'disabled' : ''} small transparent`}>
               <div className="StepIcon">
                 { paymentState == 'success' &&
                   <CheckmarkIcon className="small"/>
@@ -260,10 +194,57 @@ export default ()=>{
                 { paymentState != 'success' &&
                   <div className="StepCircle"/>
                 }
+                <div className="StepConnector"/>
               </div>
               <div className="StepText">
                 { (paymentState == 'paying' || paymentState == 'sending') && <LoadingText>Performing payment</LoadingText> }
                 { paymentState == 'success' && <span>Perform payment</span> }
+              </div>
+            </a>
+          }
+
+          { (asynchronousTracking && trackingInitialized == false) &&
+            <div className={`Step active Card disabled small transparent`}>
+              <div className="StepIcon">
+                <div className="StepCircle"/>
+                <div className="StepConnector"/>
+              </div>
+              <div className="StepText">
+                <LoadingText>Initializing tracking</LoadingText>
+              </div>
+            </div>
+          }
+
+          { synchronousTracking && !release &&
+            <a href={ transaction ? link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) : '#' } target="_blank" className={`Step done Card small transparent`}>
+              <div className="StepIcon">
+                <div className="StepCircle"/>
+              </div>
+              <div className="StepText">
+                {
+                  !confirmationsRequired && !transaction &&
+                  <span>Validate payment</span>
+                }
+                { !confirmationsRequired && transaction &&
+                  <LoadingText>Validating payment</LoadingText>
+                }
+                { transaction && confirmationsRequired && secondsLeft > 0 &&
+                  <>
+                    <span>Validating payment</span>
+                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}> { secondsLeft }s</span>
+                  </>
+                }
+              </div>
+            </a>
+          }
+
+          { synchronousTracking && release &&
+            <a href={ transaction ? link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) : '#' } target="_blank" className={`Step done Card small transparent`}>
+              <div className="StepIcon">
+                <CheckmarkIcon className="small"/>
+              </div>
+              <div className="StepText">
+                Payment validated
               </div>
             </a>
           }

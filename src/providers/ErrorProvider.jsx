@@ -1,5 +1,5 @@
 import ErrorContext from '../contexts/ErrorContext'
-import ErrorGraphic from '../graphics/error'
+import ErrorGraphic from '../graphics/wallets/error'
 import React, { useState } from 'react'
 import { ReactDialog } from '@depay/react-dialog'
 
@@ -49,7 +49,7 @@ export default (props)=>{
 
           <div className="DialogBody TextCenter">
             <div className="GraphicWrapper PaddingTopS">
-              <img className="Graphic" src={ ErrorGraphic }/>
+              <ErrorGraphic/>
             </div>
             <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Oops, Something Went Wrong</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

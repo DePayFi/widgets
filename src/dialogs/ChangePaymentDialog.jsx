@@ -42,11 +42,12 @@ export default (props)=>{
   const [ searchTerm, setSearchTerm ] = useState('')
   const [ fuse, setFuse ] = useState()
   const [ listScrolled, setListScrolled ] = useState(false)
+  const [ listScrollable, setListScrollable ] = useState(true)
   const handleOnScroll = (event)=>{
     if(!listScrolled) {
       setListScrolled(true)
     }
-    if(event.target.scrollTop <= 0 && selectedPaymentOptions.length > 8) {
+    if(event.target.scrollTop <= 0 && selectedPaymentOptions.length > 9) {
       setListScrolled(false)
     }
   }

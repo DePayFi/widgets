@@ -1,6 +1,6 @@
 import React from 'react'
 import Dialog from '../components/Dialog'
-import QuestionsGraphic from '../graphics/questions'
+import QuestionsGraphic from '../graphics/wallets/questions'
 
 export default (props)=> {
 
@@ -18,7 +18,7 @@ export default (props)=> {
         <div className="TextCenter PaddingLeftL PaddingRightL PaddingTopS">
 
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ QuestionsGraphic }/>
+            <QuestionsGraphic/>
           </div>
           
           <p className="FontSizeM PaddingTopS PaddingLeftM PaddingRightM">

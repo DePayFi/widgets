@@ -299,6 +299,25 @@ DePayWidgets.Payment({
 });
 ```
 
+##### fee2
+
+You can configure up to 2 fees that will be paid out as part of the payment:
+
+```javascript
+DePayWidgets.Payment({
+  accept: [
+    {...
+
+      fee: {...},
+      fee2: {,
+        amount: '5%',
+        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+      }
+    }
+  ],
+});
+```
+
 #### title
 
 `title`

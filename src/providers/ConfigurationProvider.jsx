@@ -39,7 +39,7 @@ export default (props)=>{
     }
     const retry = ()=>{ setTimeout(()=>loadConfiguration(id, attempt+1), 1000) }
     fetch(
-      `https://public.depay.com/configurations/${id}`,
+      `https://public.depay.com/configurations/${id}?v=3`,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -62,6 +62,9 @@ export default (props)=>{
           }, {})
           if(!configuration?.accept || !configuration?.accept?.length > 0) {
             throw('Configuration is missing token acceptance!')
+          }
+          if(!configuration?.protocolFee) {
+            throw('Configuration is missing protocol fee!')
           }
           setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId, currencyCode })
         } else {

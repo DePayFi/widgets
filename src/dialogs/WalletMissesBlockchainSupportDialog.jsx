@@ -1,12 +1,16 @@
+import Blockchains from '@depay/web3-blockchains'
 import Dialog from '../components/Dialog'
-import QuestionsGraphic from '../graphics/questions'
+import QuestionsGraphic from '../graphics/wallets/questions'
 import React, { useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=> {
 
   const { navigate } = useContext(NavigateStackContext)
+  const { accept } = useContext(ConfigurationContext)
+  const blockchains = [...new Set(accept.map((configuration)=>configuration.blockchain))].map((blockchainName)=>Blockchains[blockchainName])
 
   return(
     <Dialog
@@ -17,18 +21,28 @@ export default (props)=> {
       body={
         <div className="TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ QuestionsGraphic }/>
+            <QuestionsGraphic/>
           </div>
-          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Wallet Misses Blockchain Support</h1>
+          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Missing Blockchain Support</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
-            <strong className="FontSizeM">
-              The connected wallet does not support the blockchains required by this payment. Try to connect another wallet that does support one of the available blockchains.
-            </strong>
+            <div>
+              <strong className="FontSizeM">
+                The connected wallet doesn’t support the blockchains needed for this payment.
+              </strong>
+            </div>
+            <div className="PaddingTopS">
+              <strong className="FontSizeM">
+                Please connect a different wallet that supports one of the available blockchains:
+              </strong>
+            </div>
           </div>
           <div className="PaddingBottomM">
-            <button onClick={()=>navigate('PaymentBlockchains')} className="Link FontSizeM" title="Check which blockchains are available">
-              Check available blockchains
-            </button>
+            { blockchains.map((blockchain)=>{return(
+              <div key={blockchain.name} className="Card tiny disabled inlineBlock MarginRightXS MarginBottomXS">
+                <img className={"BlockchainLogo small bottomRight " + blockchain.name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+                <span className="PaddingLeftXS ResponsiveText FontWeightLight">{blockchain.label}</span>
+              </div>
+            )}) }
           </div>
         </div>
       }
