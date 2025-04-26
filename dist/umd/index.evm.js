@@ -26941,8 +26941,7 @@
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "GraphicWrapper",
-        onClick: initDebug
+        className: "GraphicWrapper"
       }, /*#__PURE__*/React__default['default'].createElement(QuestionsGraphic, null)), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {

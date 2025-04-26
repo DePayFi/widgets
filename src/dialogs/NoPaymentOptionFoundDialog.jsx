@@ -28,7 +28,7 @@ export default ()=> {
       body={
         <div className="TextCenter">
           
-          <div className="GraphicWrapper" onClick={initDebug}>
+          <div className="GraphicWrapper">
             <QuestionsGraphic/>
           </div>
 
