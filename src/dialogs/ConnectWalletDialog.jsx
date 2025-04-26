@@ -177,7 +177,7 @@ export default (props)=> {
       setExtensionIsAvailable(extensionIsAvailable)
       const appIsConnected = props.platform?.connect ? (await wallets[props.platform.connect].isAvailable() || false) : false
       setAppIsConnected(appIsConnected)
-      const connectAppIsAvailable = !!props.platform && props.platform.connect
+      const connectAppIsAvailable = !!props.platform && props.platform.connect && !extensionIsAvailable
       setConnectAppIsAvailable(connectAppIsAvailable)
       const copyLinkIsAvailable = !!props.platform?.copyLink
       setCopyLinkIsAvailable(copyLinkIsAvailable)

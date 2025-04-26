@@ -22584,7 +22584,7 @@ var ConnectWalletDialog = (function (props) {
             case 22:
               appIsConnected = _context2.t0;
               setAppIsConnected(appIsConnected);
-              connectAppIsAvailable = !!props.platform && props.platform.connect;
+              connectAppIsAvailable = !!props.platform && props.platform.connect && !extensionIsAvailable;
               setConnectAppIsAvailable(connectAppIsAvailable);
               copyLinkIsAvailable = !!((_props$platform7 = props.platform) !== null && _props$platform7 !== void 0 && _props$platform7.copyLink);
               setCopyLinkIsAvailable(copyLinkIsAvailable);
@@ -23155,13 +23155,17 @@ var SelectWalletList = (function (props) {
       listScrolled = _useState2[0],
       setListScrolled = _useState2[1];
 
+  var debouncedSetListScrolled = useCallback(debounce(function (value) {
+    return setListScrolled(value);
+  }, 500), []);
+
   var handleOnScroll = function handleOnScroll(event) {
     if (!listScrolled) {
       setListScrolled(true);
     }
 
     if (event.target.scrollTop <= 0 && allWallets$1.length > 9) {
-      setListScrolled(false);
+      debouncedSetListScrolled(false);
     }
   };
 
@@ -23326,38 +23330,83 @@ var SelectWalletDialog = (function (props) {
     allWallets$1 = allWallets;
   }
 
-  var onClickWallet = function onClickWallet(walletMetaData, wallet) {
-    if (walletMetaData.via == 'detected') {
-      if (walletMetaData.connectionType == 'app') {
-        wallet.account().then(function (account) {
-          if (account) {
-            props.resolve(account, wallet);
-          }
-        });
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
-      } else if (walletMetaData.connectionType == 'extension') {
-        props.setWallet(walletMetaData);
-        props.connectExtension(walletMetaData);
-        navigate('ConnectWallet');
-      }
-    } else if (isMobile()) {
-      var platform = platformForWallet(walletMetaData);
+  var onClickWallet = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(walletMetaData, wallet) {
+      var platform, extensionIsAvailable;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(walletMetaData.via == 'detected')) {
+                _context.next = 4;
+                break;
+              }
 
-      if (platform && platform.open) {
-        props.openInApp(walletMetaData);
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
-      } else {
-        props.connectViaRedirect(walletMetaData);
-        props.setWallet(walletMetaData);
-        navigate('ConnectWallet');
-      }
-    } else {
-      props.setWallet(walletMetaData);
-      navigate('ConnectWallet');
-    }
-  };
+              if (walletMetaData.connectionType == 'app') {
+                wallet.account().then(function (account) {
+                  if (account) {
+                    props.resolve(account, wallet);
+                  }
+                });
+                props.setWallet(walletMetaData);
+                navigate('ConnectWallet');
+              } else if (walletMetaData.connectionType == 'extension') {
+                props.setWallet(walletMetaData);
+                props.connectExtension(walletMetaData);
+                navigate('ConnectWallet');
+              }
+
+              _context.next = 14;
+              break;
+
+            case 4:
+              if (!isMobile()) {
+                _context.next = 12;
+                break;
+              }
+
+              platform = platformForWallet(walletMetaData);
+              _context.next = 8;
+              return wallets[props.wallet.extension].isAvailable();
+
+            case 8:
+              extensionIsAvailable = _context.sent;
+
+              if (platform && platform.open) {
+                if (!extensionIsAvailable) {
+                  props.openInApp(walletMetaData);
+                }
+
+                props.setWallet(walletMetaData);
+                navigate('ConnectWallet');
+              } else {
+                if (!extensionIsAvailable) {
+                  props.connectViaRedirect(walletMetaData);
+                }
+
+                props.setWallet(walletMetaData);
+                navigate('ConnectWallet');
+              }
+
+              _context.next = 14;
+              break;
+
+            case 12:
+              props.setWallet(walletMetaData);
+              navigate('ConnectWallet');
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function onClickWallet(_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 
   useEffect(function () {
     var focusNextElement = function focusNextElement(event) {
@@ -27802,13 +27851,17 @@ var ChangePaymentDialog = (function (props) {
       _useState24[0];
       _useState24[1];
 
+  var debouncedSetListScrolled = useCallback(lodash.debounce(function (value) {
+    return setListScrolled(value);
+  }, 500), []);
+
   var handleOnScroll = function handleOnScroll(event) {
     if (!listScrolled) {
       setListScrolled(true);
     }
 
     if (event.target.scrollTop <= 0 && selectedPaymentOptions.length > 9) {
-      setListScrolled(false);
+      debouncedSetListScrolled(false);
     }
   };
 

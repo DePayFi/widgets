@@ -62,7 +62,7 @@ export default (props)=>{
     allWallets = allWalletsOriginal
   }
 
-  const onClickWallet = (walletMetaData, wallet)=>{
+  const onClickWallet = async(walletMetaData, wallet)=>{
     if(walletMetaData.via == 'detected') {
       if(walletMetaData.connectionType == 'app') {
         wallet.account().then((account)=>{
@@ -79,12 +79,17 @@ export default (props)=>{
       }
     } else if(isMobile()) {
       const platform = platformForWallet(walletMetaData)
+      let extensionIsAvailable = await wallets[props.wallet.extension].isAvailable()
       if(platform && platform.open) {
-        props.openInApp(walletMetaData)
+        if(!extensionIsAvailable) {
+          props.openInApp(walletMetaData)
+        }
         props.setWallet(walletMetaData)
         navigate('ConnectWallet')
       } else {
-        props.connectViaRedirect(walletMetaData)
+        if(!extensionIsAvailable) {
+          props.connectViaRedirect(walletMetaData)
+        }
         props.setWallet(walletMetaData)
         navigate('ConnectWallet')
       }

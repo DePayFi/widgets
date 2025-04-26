@@ -43,12 +43,13 @@ export default (props)=>{
   const [ fuse, setFuse ] = useState()
   const [ listScrolled, setListScrolled ] = useState(false)
   const [ listScrollable, setListScrollable ] = useState(true)
+  const debouncedSetListScrolled = useCallback(debounce((value)=>setListScrolled(value), 500), [])
   const handleOnScroll = (event)=>{
     if(!listScrolled) {
       setListScrolled(true)
     }
     if(event.target.scrollTop <= 0 && selectedPaymentOptions.length > 9) {
-      setListScrolled(false)
+      debouncedSetListScrolled(false)
     }
   }
   const searchPaymentOption = useCallback(debounce((term, fuse, allPaymentOptions)=>{

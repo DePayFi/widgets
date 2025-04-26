@@ -1,7 +1,7 @@
 import allWalletsOriginal from '../helpers/allWallets'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Fuse from 'fuse.js'
-import React, { useState, useEffect, useRef, useContext, useMemo } from 'react'
+import React, { useState, useEffect, useRef, useContext, useMemo, useCallback } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 export default (props)=>{
@@ -32,12 +32,13 @@ export default (props)=>{
   }
 
   const [ listScrolled, setListScrolled ] = useState(false)
+  const debouncedSetListScrolled = useCallback(debounce((value)=>setListScrolled(value), 500), [])
   const handleOnScroll = (event)=>{
     if(!listScrolled) {
       setListScrolled(true)
     }
     if(event.target.scrollTop <= 0 && allWallets.length > 9) {
-      setListScrolled(false)
+      debouncedSetListScrolled(false)
     }
   }
 
