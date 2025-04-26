@@ -52,5 +52,12 @@
     "@depay/web3-assets/@depay/web3-client": "^11.1.0",
     "@depay/web3-exchange/@depay/web3-client": "^11.1.0",
     "@depay/web3-tokens/@depay/web3-client": "^11.1.0"
+  },
+  "overrides": {
+    "clipboardy": "3.0.0",
+    "@depay/react-token-image/@depay/web3-client": "^11.1.0",
+    "@depay/web3-assets/@depay/web3-client": "^11.1.0",
+    "@depay/web3-exchange/@depay/web3-client": "^11.1.0",
+    "@depay/web3-tokens/@depay/web3-client": "^11.1.0"
   }
 }
