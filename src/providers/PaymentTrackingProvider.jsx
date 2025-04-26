@@ -4,7 +4,7 @@ import { request } from '@depay/web3-client-evm'
 
 /*#elif _SOLANA
 
-import { request } from '@depay/web3-client-solana'
+import { request } from '@depay/web3-client-svm'
 
 //#else */
 

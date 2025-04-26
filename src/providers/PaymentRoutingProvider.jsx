@@ -6,7 +6,7 @@ import { request } from '@depay/web3-client-evm'
 /*#elif _SOLANA
 
 import Exchanges from '@depay/web3-exchanges-solana'
-import { request } from '@depay/web3-client-solana'
+import { request } from '@depay/web3-client-svm'
 
 //#else */
 

@@ -24524,22 +24524,6 @@
 
   var internalVerify = async ({ signature, publicKey, data, saltLength = 64, crypto, atob })=>{
 
-    if(typeof data === 'object') {
-      data = JSON.stringify(data);
-    }
-
-    if(typeof signature !== 'string' || signature === undefined) {
-      throw('signature missing!')
-    }
-
-    if(data === undefined || data.length === 0) {
-      throw('data missing!')
-    }
-
-    if(publicKey === undefined || typeof publicKey !== 'string' || publicKey.length === 0) {
-      throw('publicKey missing!')
-    }
-
     let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
     while (innerPublicKey.length % 4) { // add proper padding
       innerPublicKey += '=';

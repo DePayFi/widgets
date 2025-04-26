@@ -4,7 +4,7 @@ import { setProviderEndpoints } from '@depay/web3-client-evm'
 
 /*#elif _SOLANA
 
-import { setProviderEndpoints } from '@depay/web3-client-solana'
+import { setProviderEndpoints } from '@depay/web3-client-svm'
 
 //#else */
 

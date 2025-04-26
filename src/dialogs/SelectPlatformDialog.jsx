@@ -4,7 +4,7 @@ import { wallets } from '@depay/web3-wallets-evm'
 
 /*#elif _SOLANA
 
-import { wallets } from '@depay/web3-wallets-solana'
+import { wallets } from '@depay/web3-wallets-svm'
 
 //#else */
 
