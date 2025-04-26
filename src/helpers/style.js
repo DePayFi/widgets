@@ -66,7 +66,7 @@ export default (style)=>{
     success: '#65c86e',
     background: '#171717',
     cardBackground: '#252525',
-    mixActive: '#999999',
+    mixActive: '#aaaaaa',
     mixPassive: '#000000',
 
   }

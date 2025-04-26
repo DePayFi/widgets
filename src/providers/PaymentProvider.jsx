@@ -26,7 +26,6 @@ import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
-import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import { debounce } from 'lodash'
@@ -42,7 +41,6 @@ export default (props)=>{
   const { navigate, set } = useContext(NavigateContext)
   const { wallet, account } = useContext(WalletContext)
   const { setPayment: setTrackingPayment, release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
-  const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
@@ -101,7 +99,6 @@ export default (props)=>{
         sent: (sentTransaction)=>{
           setPaymentState('sending')
           setTransaction(sentTransaction)
-          initializeTransactionTracking(sentTransaction, currentBlock, deadline)
           if(sent) { sent(sentTransaction) }
         },
         succeeded: (transaction)=>paymentSucceeded(transaction, payment),
@@ -265,24 +262,6 @@ export default (props)=>{
       }).catch(setError)
     }
   }, [recover])
-
-  useEffect(()=>{
-    if(foundTransaction && foundTransaction.id && foundTransaction.status) {
-      let newTransaction
-      if(foundTransaction.id != transaction.id) {
-        newTransaction = Object.assign({}, transaction, { 
-          id: foundTransaction.id,
-          url: Blockchains.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })
-        })
-        setTransaction(newTransaction)
-      }
-      if(foundTransaction.status == 'success') {
-        paymentSucceeded(newTransaction || transaction, payment)
-      } else if(foundTransaction.status == 'failed'){
-        paymentFailed(newTransaction || transaction, payment)
-      }
-    }
-  }, [foundTransaction, transaction, payment])
 
   const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {

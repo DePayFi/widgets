@@ -10,5 +10,13 @@ export default (style)=>{
       width: 50%;
       position: relative;
     }
+
+    .GraphicPassiveColor {
+      fill: ${style.colors.mixPassive};
+    }
+
+    .GraphicActiveColor {
+      fill: ${style.colors.mixActive};
+    }
   `)
 }

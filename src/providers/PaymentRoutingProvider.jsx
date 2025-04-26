@@ -53,7 +53,7 @@ export default (props)=>{
         accept: props.accept,
         account,
         best: (route)=>{
-          if(route) {
+          if(route && !selectedRoute) {
             roundAmounts([route]).then((routes)=>{
               setSelectedRoute(routes[0])
               clearInterval(slowRoutingTimeout)

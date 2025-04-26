@@ -63,7 +63,7 @@ export default [
     },
     "logo": wallets.PhantomSVM?.info?.logo,
     "blockchains": [...supported],
-    "colors": { "primary": "#ab9ef2", "secondary": "#252525" }
+    "colors": { "primary": "#ab9ef2", "secondary": "#252525", "background": "#252525" }
   },
   {
     "name": "Trust",
@@ -75,7 +75,7 @@ export default [
     },
     "logo": wallets.TrustEVM?.info?.logo,
     "blockchains": [...supported],
-    "colors": { "primary": "#0700ff", "secondary": "#48ff91" }
+    "colors": { "primary": "#0700ff", "secondary": "#48ff91", "background": "#ffffff" }
   },
   {
     "name": "Binance",
@@ -87,7 +87,7 @@ export default [
     },
     "logo": wallets.Binance?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": { "primary": "", "secondary": "" }
+    "colors": { "primary": "#1e2024", "secondary": "#f3ba2f" }
   },
   {
     "name": "Crypto.com Onchain",
@@ -99,7 +99,7 @@ export default [
     },
     "logo": wallets.CryptoCom?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": { "primary": "#1e2024", "secondary": "#f3ba2e" }
+    "colors": { "primary": "#03316c", "secondary": "#ffffff", "background": "#245594" }
   },
   {
     "name": "World App",
@@ -126,7 +126,7 @@ export default [
     "extensions": ["BraveEVM", "BraveSVM"],
     "logo": wallets.BraveEVM?.info?.logo,
     "blockchains": [...supported],
-    "colors": { "primary": "#f05a22", "secondary": "#ffffff" }
+    "colors": { "primary": "#ffffff", "secondary": "#f05a22" }
   },
   {
     "name": "Magic Eden",
@@ -168,7 +168,7 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/safe.jpg",
     "blockchains": [...supported.evm],
-    "colors": { "primary": "", "secondary": "" }
+    "colors": { "primary": "#10ff80", "secondary": "#121312" }
   },
   {
     "name": "Rabby",
@@ -176,7 +176,7 @@ export default [
     "desktop": { "qr": "WalletConnectV2" },
     "logo": wallets.Rabby?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": { "primary": "#6552f3", "secondary": "#a6a6ff" }
+    "colors": { "primary": "#5c48ed", "secondary": "#a6a6ff" }
   },
   {
     "name": "Kraken",
@@ -203,7 +203,7 @@ export default [
     },
     "logo": wallets.Backpack?.info?.logo,
     "blockchains": [...supported.svm],
-    "colors": { "primary": "#e23e3f", "secondary": "#252525" }
+    "colors": { "primary": "#e23e3f", "secondary": "#252525", "background": "#252525" }
   },
   {
     "name": "Glow",
@@ -282,7 +282,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ONTO",
@@ -293,7 +292,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/onto.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Zerion",
@@ -304,7 +302,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/zerion.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Spot",
@@ -315,7 +312,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/spot.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "BitGet (BitKeep)",
@@ -326,7 +322,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bitget.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Unstoppable Domains",
@@ -337,7 +332,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Omni",
@@ -348,7 +342,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/omni.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "KEYRING PRO",
@@ -359,7 +352,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "TP Wallet (TokenPocket)",
@@ -371,7 +363,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "BitPay",
@@ -382,7 +373,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bitpay.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "MathWallet",
@@ -393,7 +383,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Ledger Live",
@@ -404,7 +393,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "1inch Wallet",
@@ -415,7 +403,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "iToken Wallet",
@@ -426,7 +413,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Huddln",
@@ -437,7 +423,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/huddln.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Eidoo",
@@ -448,7 +433,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/eidoo.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Timeless Wallet",
@@ -459,7 +443,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/timeless.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "CoolWallet",
@@ -470,7 +453,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Unstoppable Wallet",
@@ -481,7 +463,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "AlphaWallet",
@@ -492,7 +473,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Pillar",
@@ -503,7 +483,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/pillar.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "D'CENT Wallet",
@@ -514,7 +493,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/dcent.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ZelCore",
@@ -525,7 +503,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/zel_core.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Nash",
@@ -536,7 +513,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/nash.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Coinomi",
@@ -547,7 +523,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/coinomi.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "CYBAVO Wallet",
@@ -558,21 +533,18 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/cybavo.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Tokenary",
     "desktop": { "native": "tokenary:", "universal": "https://tokenary.io", "connect": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/tokenary.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Torus",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/torus.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "SafePal",
@@ -583,14 +555,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/safepal.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Infinity Wallet",
     "desktop": { "native": "infinity:", "universal": "https://infinitywallet.io/", "connect": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bridge Wallet",
@@ -601,7 +571,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "SparkPoint",
@@ -612,7 +581,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "PEAKDEFI Wallet",
@@ -623,7 +591,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "AT.Wallet",
@@ -634,7 +601,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/atwallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Ellipal",
@@ -645,7 +611,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/ellipal.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Aktionariat",
@@ -656,7 +621,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Talken Wallet",
@@ -667,7 +631,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/talken.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "KyberSwap",
@@ -678,7 +641,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Tongue Wallet",
@@ -689,7 +651,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/tongue.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "RWallet",
@@ -700,7 +661,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/rwallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "O3Wallet",
@@ -711,7 +671,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "HashKey Me",
@@ -722,14 +681,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Guarda Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/guarda.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Defiant",
@@ -740,7 +697,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/defiant.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Valora",
@@ -751,7 +707,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/valora.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Celo Wallet",
@@ -762,7 +717,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/celo.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Elastos Essentials",
@@ -773,7 +727,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Stasis",
@@ -784,7 +737,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/stasis.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "JulWallet",
@@ -795,7 +747,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/julwallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bitpie",
@@ -806,7 +757,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bitpie.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Minerva Wallet",
@@ -817,7 +767,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/minerva.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Tangem",
@@ -828,7 +777,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/tangem.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ioPay",
@@ -839,21 +787,18 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/io_pay.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Coinhub",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/coinhub.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Go Pocket",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/gopocket.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Wallet 3",
@@ -864,7 +809,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/wallet3.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "yiToken",
@@ -875,7 +819,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/yitoken.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "DID Wallet",
@@ -886,7 +829,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/didwallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Shinobi Wallet",
@@ -897,7 +839,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "AirGap Wallet",
@@ -908,7 +849,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "SecuX",
@@ -919,7 +859,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/secux.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Orange",
@@ -930,7 +869,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/orange.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Krystal",
@@ -941,7 +879,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/krystal.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Kriptomat",
@@ -952,7 +889,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Ambire Wallet",
@@ -963,7 +899,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "PayBolt",
@@ -974,7 +909,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "OKX",
@@ -986,21 +920,18 @@ export default [
     },
     "logo": wallets.OKXEVM?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Mask Network",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/mask_network.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Uniblow",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/uniblow.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Autonomy: Digital Art Wallet",
@@ -1011,7 +942,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/autonomy.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Lilico",
@@ -1022,7 +952,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/lilico.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Fireblocks",
@@ -1033,7 +962,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "WATT ME",
@@ -1044,7 +972,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/wattme.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Coingrig",
@@ -1055,14 +982,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/coingrig.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Cryptnox Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "bobablocks",
@@ -1073,7 +998,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Plasma Wallet",
@@ -1084,7 +1008,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "HUMBL WALLET",
@@ -1095,7 +1018,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Zelus",
@@ -1106,7 +1028,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/zelus.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Earth Wallet",
@@ -1117,14 +1038,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Boba Multisig",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "EASY",
@@ -1135,7 +1054,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/easy.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ISLAMIwallet",
@@ -1146,7 +1064,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Card Wallet",
@@ -1157,21 +1074,18 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "GameStop Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "RealT Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "PLTwallet",
@@ -1182,7 +1096,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Avacus",
@@ -1193,7 +1106,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/avacus.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "StrikeX Wallet",
@@ -1204,14 +1116,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "BCERTin wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Edge Wallet",
@@ -1222,7 +1132,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Freedom Wallet",
@@ -1233,7 +1142,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Assure",
@@ -1244,7 +1152,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/assure.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Cosmostation",
@@ -1255,7 +1162,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "THORWallet",
@@ -1266,14 +1172,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Gryfyn",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "CoinStats",
@@ -1284,7 +1188,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Abra Wallet",
@@ -1295,7 +1198,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Opera Crypto Browser",
@@ -1306,7 +1208,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Keywallet Touch",
@@ -1317,7 +1218,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Enno Wallet",
@@ -1328,14 +1228,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "A4 Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bitcoin.com Wallet",
@@ -1346,7 +1244,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Defiant",
@@ -1357,14 +1254,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/defiant.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Chain",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/chain.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Verso",
@@ -1375,7 +1270,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/verso.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "LOBSTR Wallet",
@@ -1386,7 +1280,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bifrost Wallet",
@@ -1397,7 +1290,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Okse Wallet",
@@ -1408,14 +1300,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "BRISE Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "HyperPay",
@@ -1423,14 +1313,12 @@ export default [
     "desktop": { "qr": "WalletConnectV2" },
     "logo": wallets.HyperPay?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ATON",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/aton.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Frontier",
@@ -1441,7 +1329,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/frontier.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "MDAO Wallet",
@@ -1452,7 +1339,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "TTM Wallet",
@@ -1463,7 +1349,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Opto Wallet",
@@ -1474,7 +1359,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "XFUN Wallet",
@@ -1485,7 +1369,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Exodus",
@@ -1497,7 +1380,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
     "blockchains": [...supported],
-    "colors": {}
   },
   {
     "name": "Uvtoken",
@@ -1508,7 +1390,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/uv_token.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "PREMA Wallet",
@@ -1519,7 +1400,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Shinobi-Wallet",
@@ -1530,7 +1410,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/shinobi.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ByteBank",
@@ -1541,7 +1420,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Ancrypto Wallet",
@@ -1552,7 +1430,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bee Wallet",
@@ -1563,7 +1440,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "LATOKEN Multichain DeFi Wallet",
@@ -1574,7 +1450,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "TK Finance",
@@ -1585,7 +1460,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Oxalus Wallet",
@@ -1596,7 +1470,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "3S Wallet",
@@ -1607,7 +1480,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Klever Wallet",
@@ -1618,7 +1490,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "OneKey",
@@ -1629,7 +1500,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/one_key.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "helix id",
@@ -1640,7 +1510,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/helix_id.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ABC Wallet",
@@ -1651,7 +1520,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "HaHa",
@@ -1662,7 +1530,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/haha.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Volt: DeFi",
@@ -1673,7 +1540,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/volt.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Robinhood Wallet",
@@ -1684,7 +1550,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "RiceWallet",
@@ -1695,7 +1560,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "SafeMoon",
@@ -1706,7 +1570,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/safemoon.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "SimpleHold",
@@ -1717,7 +1580,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "GoldBit",
@@ -1728,7 +1590,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ioPay",
@@ -1739,7 +1600,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/iopay.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bitizen",
@@ -1750,7 +1610,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/bitizen.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Slavi Wallet",
@@ -1761,7 +1620,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Nufinetes",
@@ -1772,7 +1630,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Arianee Wallet",
@@ -1783,7 +1640,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "NOW Wallet",
@@ -1794,7 +1650,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Arculus Wallet",
@@ -1805,7 +1660,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Linen",
@@ -1816,7 +1670,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/linen.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Nitrogen Wallet",
@@ -1827,7 +1680,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ApolloX",
@@ -1838,14 +1690,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ID Pocket",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "CoinCircle",
@@ -1856,21 +1706,18 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "SahalWallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "UPBOND Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Sequence Wallet",
@@ -1881,7 +1728,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "LocalTrade Wallet",
@@ -1892,14 +1738,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Loopring Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Vision: Crypto Wallet",
@@ -1910,14 +1754,12 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/vision.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Ballet Crypto",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Pitaka",
@@ -1928,49 +1770,42 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/pitaka.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "AbsoluteWallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "The Parallel",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "CypherD Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Keplr",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/keplr.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "MyWalliD",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Status",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/status.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Monarch Wallet",
@@ -1981,7 +1816,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Marble",
@@ -1992,7 +1826,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/marble.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Flooz",
@@ -2003,7 +1836,6 @@ export default [
     },
     "logo": "https://img1.depay.com/wallets/flooz.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Blockchain.com",
@@ -2014,14 +1846,12 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Dohrnii Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "UniPass",
@@ -2032,7 +1862,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ZenGo",
@@ -2043,14 +1872,12 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/zengo2.png",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Locker Token",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/locker_token.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Keeper",
@@ -2061,28 +1888,24 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/keeper.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "XDEFI Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Numio",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/numio.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Neon Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Nabox",
@@ -2093,7 +1916,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/nabox.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Snowball",
@@ -2104,7 +1926,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/snowball.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "KryptoGO Wallet",
@@ -2115,28 +1936,24 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Payperless",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/payperless.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Brave Wallet",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Crossmint",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/crossmint.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Safematrix",
@@ -2147,7 +1964,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/safematrix.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "pier",
@@ -2158,7 +1974,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/pier.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "FILWallet",
@@ -2169,7 +1984,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "ParaSwap Wallet",
@@ -2180,7 +1994,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Bitski",
@@ -2191,7 +2004,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/bitski.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Hippo Wallet",
@@ -2202,7 +2014,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Core",
@@ -2213,7 +2024,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/core.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Xcapit",
@@ -2224,7 +2034,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/xcapit.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Paper",
@@ -2235,7 +2044,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "MetaOne",
@@ -2246,7 +2054,6 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/metaone.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Enjin Wallet",
@@ -2257,21 +2064,18 @@ export default [
      },
     "logo": "https://img1.depay.com/wallets/enjin.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "BC Vault",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": wallets.WindowEthereum?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": {}
   },
   {
     "name": "Solana Pay",
@@ -2288,7 +2092,6 @@ export default [
     },
     "logo": Blockchains.solana?.logo,
     "blockchains": [...supported.svm],
-    "colors": {}
   },
   {
     "name": "Solana Wallet",
@@ -2306,13 +2109,11 @@ export default [
     },
     "logo": wallets.WindowSolana?.info?.logo,
     "blockchains": [...supported.svm],
-    "colors": {}
   },
   {
     "name": "WalletConnect",
     "desktop": { "qr": "WalletConnectV2" },
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
     "blockchains": [...supported.evm],
-    "colors": {}
   },
 ].filter((wallet)=>wallet.blockchains.filter(Boolean).length > 0)

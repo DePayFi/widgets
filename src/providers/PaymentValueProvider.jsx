@@ -43,7 +43,7 @@ export default (props)=>{
       amount: payment.route.fromAmount,
       decimals: payment.route.fromDecimals,
     }).then((usdAmount)=>{
-      if(usdAmount) {
+      if(usdAmount != undefined && usdAmount != null) {
         Currency.fromUSD({ amount: usdAmount, code: currency })
           .then(setPaymentValue)
       }

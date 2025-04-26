@@ -55,15 +55,16 @@ export default (props)=>{
   const { setClosable } = useContext(ClosableContext)
   const { navigate, set } = useContext(NavigateContext)
 
-  const openSocket = (transaction)=>{
+  const openSocket = (paymentRoute, deadline)=>{
     let socket = new WebSocket('wss://integrate.depay.com/cable')
     socket.onopen = async function(event) {
       const msg = {
         command: 'subscribe',
         identifier: JSON.stringify({
-          blockchain: transaction.blockchain,
-          sender: transaction.from || account,
-          nonce: await getNonce({ transaction, account, wallet }),
+          blockchain: paymentRoute.blockchain,
+          sender: paymentRoute.fromAddress,
+          receiver: paymentRoute.toAddress,
+          deadline,
           channel: 'PaymentChannel'
         }),
       }
@@ -72,7 +73,7 @@ export default (props)=>{
     
     socket.onclose = function(event) {
       if(!event || event.code != 1000) {
-        setTimeout(()=>openSocket(transaction), 1000)
+        setTimeout(()=>openSocket(paymentRoute, deadline), 1000)
       }
     }
 
@@ -264,7 +265,7 @@ export default (props)=>{
     setTransaction(transaction)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
-    openSocket(transaction)
+    openSocket(paymentRoute, deadline)
   }
 
   const trace = (afterBlock, paymentRoute, transaction, deadline)=>{
@@ -273,7 +274,7 @@ export default (props)=>{
     setDeadline(deadline)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
-    openSocket(transaction)
+    openSocket(paymentRoute, deadline)
     return new Promise(async(resolve, reject)=>{
       let performedPayment = {
         blockchain: paymentRoute.blockchain,

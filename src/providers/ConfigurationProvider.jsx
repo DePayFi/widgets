@@ -63,7 +63,7 @@ export default (props)=>{
           if(!configuration?.accept || !configuration?.accept?.length > 0) {
             throw('Configuration is missing token acceptance!')
           }
-          if(!configuration?.protocolFee) {
+          if(configuration.accept.some((configuration)=>!configuration.protocolFee)) {
             throw('Configuration is missing protocol fee!')
           }
           setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId, currencyCode })
