@@ -47,6 +47,7 @@
     "react-dom": "^18"
   },
   "resolutions": {
-    "clipboardy": "3.0.0"
+    "clipboardy": "3.0.0",
+    "@depay/web3-client": "11.1.0"
   }
 }

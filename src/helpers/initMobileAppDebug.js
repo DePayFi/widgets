@@ -14,4 +14,4 @@ const initMobileAppDebug = ()=> {
   }
 }
 
-export default initDebug
+export default initMobileAppDebug
