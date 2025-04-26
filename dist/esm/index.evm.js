@@ -23153,7 +23153,7 @@ var SelectWalletList = (function (props) {
       listScrolled = _useState2[0],
       setListScrolled = _useState2[1];
 
-  var debouncedSetListScrolled = useCallback(debounce(function (value) {
+  var debouncedSetListScrolled = useCallback(lodash.debounce(function (value) {
     return setListScrolled(value);
   }, 500), []);
 

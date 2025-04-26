@@ -2,6 +2,7 @@ import allWalletsOriginal from '../helpers/allWallets'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Fuse from 'fuse.js'
 import React, { useState, useEffect, useRef, useContext, useMemo, useCallback } from 'react'
+import { debounce } from 'lodash'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 export default (props)=>{

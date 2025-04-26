@@ -23152,7 +23152,7 @@
         listScrolled = _useState2[0],
         setListScrolled = _useState2[1];
 
-    var debouncedSetListScrolled = React.useCallback(debounce(function (value) {
+    var debouncedSetListScrolled = React.useCallback(lodash.debounce(function (value) {
       return setListScrolled(value);
     }, 500), []);
 
