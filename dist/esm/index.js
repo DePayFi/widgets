@@ -146,7 +146,8 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported),
   "colors": {
     "primary": "#ab9ef2",
-    "secondary": "#252525"
+    "secondary": "#252525",
+    "background": "#252525"
   }
 }, {
   "name": "Trust",
@@ -172,7 +173,8 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported),
   "colors": {
     "primary": "#0700ff",
-    "secondary": "#48ff91"
+    "secondary": "#48ff91",
+    "background": "#ffffff"
   }
 }, {
   "name": "Binance",
@@ -197,8 +199,8 @@ var allWallets = [{
   "logo": (_wallets$Binance = wallets.Binance) === null || _wallets$Binance === void 0 ? void 0 : (_wallets$Binance$info = _wallets$Binance.info) === null || _wallets$Binance$info === void 0 ? void 0 : _wallets$Binance$info.logo,
   "blockchains": _toConsumableArray(supported.evm),
   "colors": {
-    "primary": "",
-    "secondary": ""
+    "primary": "#1e2024",
+    "secondary": "#f3ba2f"
   }
 }, {
   "name": "Crypto.com Onchain",
@@ -223,8 +225,9 @@ var allWallets = [{
   "logo": (_wallets$CryptoCom = wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
   "blockchains": _toConsumableArray(supported.evm),
   "colors": {
-    "primary": "#1e2024",
-    "secondary": "#f3ba2e"
+    "primary": "#03316c",
+    "secondary": "#ffffff",
+    "background": "#245594"
   }
 }, {
   "name": "World App",
@@ -269,8 +272,8 @@ var allWallets = [{
   "logo": (_wallets$BraveEVM = wallets.BraveEVM) === null || _wallets$BraveEVM === void 0 ? void 0 : (_wallets$BraveEVM$inf = _wallets$BraveEVM.info) === null || _wallets$BraveEVM$inf === void 0 ? void 0 : _wallets$BraveEVM$inf.logo,
   "blockchains": _toConsumableArray(supported),
   "colors": {
-    "primary": "#f05a22",
-    "secondary": "#ffffff"
+    "primary": "#ffffff",
+    "secondary": "#f05a22"
   }
 }, {
   "name": "Magic Eden",
@@ -356,8 +359,8 @@ var allWallets = [{
   "logo": "https://img1.depay.com/wallets/safe.jpg",
   "blockchains": _toConsumableArray(supported.evm),
   "colors": {
-    "primary": "",
-    "secondary": ""
+    "primary": "#10ff80",
+    "secondary": "#121312"
   }
 }, {
   "name": "Rabby",
@@ -368,7 +371,7 @@ var allWallets = [{
   "logo": (_wallets$Rabby = wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
   "blockchains": _toConsumableArray(supported.evm),
   "colors": {
-    "primary": "#6552f3",
+    "primary": "#5c48ed",
     "secondary": "#a6a6ff"
   }
 }, {
@@ -414,7 +417,8 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported.svm),
   "colors": {
     "primary": "#e23e3f",
-    "secondary": "#252525"
+    "secondary": "#252525",
+    "background": "#252525"
   }
 }, {
   "name": "Glow",
@@ -540,8 +544,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ONTO",
   "desktop": {
@@ -560,8 +563,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/onto.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Zerion",
   "desktop": {
@@ -584,8 +586,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zerion.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Spot",
   "desktop": {
@@ -606,8 +607,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/spot.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BitGet (BitKeep)",
   "desktop": {
@@ -628,8 +628,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitget.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Unstoppable Domains",
   "desktop": {
@@ -648,8 +647,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Omni",
   "desktop": {
@@ -670,8 +668,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/omni.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KEYRING PRO",
   "desktop": {
@@ -692,8 +689,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TP Wallet (TokenPocket)",
   "extension": "TokenPocket",
@@ -713,8 +709,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BitPay",
   "desktop": {
@@ -735,8 +730,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpay.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MathWallet",
   "desktop": {
@@ -757,8 +751,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ledger Live",
   "desktop": {
@@ -780,8 +773,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "1inch Wallet",
   "desktop": {
@@ -802,8 +794,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "iToken Wallet",
   "desktop": {
@@ -822,8 +813,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Huddln",
   "desktop": {
@@ -842,8 +832,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/huddln.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Eidoo",
   "desktop": {
@@ -864,8 +853,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/eidoo.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Timeless Wallet",
   "desktop": {
@@ -886,8 +874,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/timeless.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoolWallet",
   "desktop": {
@@ -906,8 +893,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Unstoppable Wallet",
   "desktop": {
@@ -926,8 +912,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AlphaWallet",
   "desktop": {
@@ -948,8 +933,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pillar",
   "desktop": {
@@ -968,8 +952,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pillar.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "D'CENT Wallet",
   "desktop": {
@@ -990,8 +973,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/dcent.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ZelCore",
   "desktop": {
@@ -1012,8 +994,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zel_core.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nash",
   "desktop": {
@@ -1034,8 +1015,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nash.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coinomi",
   "desktop": {
@@ -1054,8 +1034,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coinomi.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CYBAVO Wallet",
   "desktop": {
@@ -1076,8 +1055,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cybavo.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tokenary",
   "desktop": {
@@ -1086,16 +1064,14 @@ var allWallets = [{
     "connect": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/tokenary.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Torus",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/torus.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafePal",
   "desktop": {
@@ -1116,8 +1092,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safepal.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Infinity Wallet",
   "desktop": {
@@ -1126,8 +1101,7 @@ var allWallets = [{
     "connect": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bridge Wallet",
   "desktop": {
@@ -1148,8 +1122,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SparkPoint",
   "desktop": {
@@ -1170,8 +1143,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PEAKDEFI Wallet",
   "desktop": {
@@ -1192,8 +1164,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AT.Wallet",
   "desktop": {
@@ -1214,8 +1185,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/atwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ellipal",
   "desktop": {
@@ -1236,8 +1206,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ellipal.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Aktionariat",
   "desktop": {
@@ -1258,8 +1227,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Talken Wallet",
   "desktop": {
@@ -1280,8 +1248,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/talken.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KyberSwap",
   "desktop": {
@@ -1302,8 +1269,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tongue Wallet",
   "desktop": {
@@ -1324,8 +1290,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tongue.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RWallet",
   "desktop": {
@@ -1346,8 +1311,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "O3Wallet",
   "desktop": {
@@ -1368,8 +1332,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HashKey Me",
   "desktop": {
@@ -1390,16 +1353,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Guarda Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/guarda.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
   "desktop": {
@@ -1420,8 +1381,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Valora",
   "desktop": {
@@ -1442,8 +1402,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/valora.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Celo Wallet",
   "desktop": {
@@ -1462,8 +1421,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/celo.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Elastos Essentials",
   "desktop": {
@@ -1484,8 +1442,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Stasis",
   "desktop": {
@@ -1506,8 +1463,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/stasis.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "JulWallet",
   "desktop": {
@@ -1528,8 +1484,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/julwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitpie",
   "desktop": {
@@ -1548,8 +1503,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitpie.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Minerva Wallet",
   "desktop": {
@@ -1570,8 +1524,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/minerva.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Tangem",
   "desktop": {
@@ -1592,8 +1545,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tangem.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ioPay",
   "desktop": {
@@ -1612,24 +1564,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/io_pay.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coinhub",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/coinhub.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Go Pocket",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/gopocket.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Wallet 3",
   "desktop": {
@@ -1649,8 +1598,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wallet3.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "yiToken",
   "desktop": {
@@ -1669,8 +1617,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/yitoken.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "DID Wallet",
   "desktop": {
@@ -1689,8 +1636,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/didwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Shinobi Wallet",
   "desktop": {
@@ -1709,8 +1655,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AirGap Wallet",
   "desktop": {
@@ -1729,8 +1674,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SecuX",
   "desktop": {
@@ -1751,8 +1695,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/secux.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Orange",
   "desktop": {
@@ -1773,8 +1716,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/orange.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Krystal",
   "desktop": {
@@ -1793,8 +1735,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/krystal.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Kriptomat",
   "desktop": {
@@ -1813,8 +1754,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ambire Wallet",
   "desktop": {
@@ -1835,8 +1775,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PayBolt",
   "desktop": {
@@ -1855,8 +1794,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OKX",
   "extensions": ["OKXEVM", "OKXSVM"],
@@ -1882,24 +1820,21 @@ var allWallets = [{
     }
   },
   "logo": (_wallets$OKXEVM = wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Mask Network",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/mask_network.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Uniblow",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/uniblow.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Autonomy: Digital Art Wallet",
   "desktop": {
@@ -1920,8 +1855,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/autonomy.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Lilico",
   "desktop": {
@@ -1942,8 +1876,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/lilico.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Fireblocks",
   "desktop": {
@@ -1964,8 +1897,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "WATT ME",
   "desktop": {
@@ -1984,8 +1916,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/wattme.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Coingrig",
   "desktop": {
@@ -2006,16 +1937,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coingrig.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Cryptnox Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "bobablocks",
   "desktop": {
@@ -2038,8 +1967,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Plasma Wallet",
   "desktop": {
@@ -2060,8 +1988,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HUMBL WALLET",
   "desktop": {
@@ -2082,8 +2009,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Zelus",
   "desktop": {
@@ -2102,8 +2028,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zelus.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Earth Wallet",
   "desktop": {
@@ -2122,16 +2047,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Boba Multisig",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "EASY",
   "desktop": {
@@ -2152,8 +2075,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/easy.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ISLAMIwallet",
   "desktop": {
@@ -2174,8 +2096,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Card Wallet",
   "desktop": {
@@ -2196,24 +2117,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "GameStop Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RealT Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PLTwallet",
   "desktop": {
@@ -2234,8 +2152,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Avacus",
   "desktop": {
@@ -2256,8 +2173,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/avacus.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "StrikeX Wallet",
   "desktop": {
@@ -2276,16 +2192,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BCERTin wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Edge Wallet",
   "desktop": {
@@ -2306,8 +2220,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Freedom Wallet",
   "desktop": {
@@ -2326,8 +2239,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Assure",
   "desktop": {
@@ -2348,8 +2260,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/assure.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Cosmostation",
   "desktop": {
@@ -2368,8 +2279,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "THORWallet",
   "desktop": {
@@ -2388,16 +2298,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Gryfyn",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinStats",
   "desktop": {
@@ -2418,8 +2326,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Abra Wallet",
   "desktop": {
@@ -2438,8 +2345,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Opera Crypto Browser",
   "desktop": {
@@ -2458,8 +2364,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keywallet Touch",
   "desktop": {
@@ -2478,8 +2383,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Enno Wallet",
   "desktop": {
@@ -2498,16 +2402,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "A4 Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitcoin.com Wallet",
   "desktop": {
@@ -2528,8 +2430,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Defiant",
   "desktop": {
@@ -2550,16 +2451,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/defiant.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Chain",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/chain.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Verso",
   "desktop": {
@@ -2580,8 +2479,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/verso.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LOBSTR Wallet",
   "desktop": {
@@ -2602,8 +2500,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bifrost Wallet",
   "desktop": {
@@ -2624,8 +2521,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Okse Wallet",
   "desktop": {
@@ -2644,16 +2540,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BRISE Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HyperPay",
   "extension": "HyperPay",
@@ -2661,16 +2555,14 @@ var allWallets = [{
     "qr": "WalletConnectV2"
   },
   "logo": (_wallets$HyperPay = wallets.HyperPay) === null || _wallets$HyperPay === void 0 ? void 0 : (_wallets$HyperPay$inf = _wallets$HyperPay.info) === null || _wallets$HyperPay$inf === void 0 ? void 0 : _wallets$HyperPay$inf.logo,
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ATON",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/aton.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Frontier",
   "desktop": {
@@ -2689,8 +2581,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/frontier.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MDAO Wallet",
   "desktop": {
@@ -2709,8 +2600,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TTM Wallet",
   "desktop": {
@@ -2729,8 +2619,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Opto Wallet",
   "desktop": {
@@ -2749,8 +2638,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "XFUN Wallet",
   "desktop": {
@@ -2771,8 +2659,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Exodus",
   "extensions": ["ExodusEVM", "ExodusSVM"],
@@ -2793,8 +2680,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/exodus.jpg",
-  "blockchains": _toConsumableArray(supported),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported)
 }, {
   "name": "Uvtoken",
   "desktop": {
@@ -2813,8 +2699,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uv_token.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "PREMA Wallet",
   "desktop": {
@@ -2837,8 +2722,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Shinobi-Wallet",
   "desktop": {
@@ -2857,8 +2741,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/shinobi.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ByteBank",
   "desktop": {
@@ -2877,8 +2760,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ancrypto Wallet",
   "desktop": {
@@ -2897,8 +2779,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bee Wallet",
   "desktop": {
@@ -2919,8 +2800,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LATOKEN Multichain DeFi Wallet",
   "desktop": {
@@ -2939,8 +2819,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "TK Finance",
   "desktop": {
@@ -2961,8 +2840,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Oxalus Wallet",
   "desktop": {
@@ -2983,8 +2861,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "3S Wallet",
   "desktop": {
@@ -3003,8 +2880,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Klever Wallet",
   "desktop": {
@@ -3025,8 +2901,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OneKey",
   "desktop": {
@@ -3049,8 +2924,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/one_key.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "helix id",
   "desktop": {
@@ -3069,8 +2943,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/helix_id.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ABC Wallet",
   "desktop": {
@@ -3091,8 +2964,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "HaHa",
   "desktop": {
@@ -3113,8 +2985,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/haha.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Volt: DeFi",
   "desktop": {
@@ -3135,8 +3006,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/volt.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Robinhood Wallet",
   "desktop": {
@@ -3155,8 +3025,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "RiceWallet",
   "desktop": {
@@ -3177,8 +3046,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SafeMoon",
   "desktop": {
@@ -3199,8 +3067,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safemoon.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SimpleHold",
   "desktop": {
@@ -3221,8 +3088,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "GoldBit",
   "desktop": {
@@ -3241,8 +3107,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ioPay",
   "desktop": {
@@ -3261,8 +3126,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/iopay.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitizen",
   "desktop": {
@@ -3283,8 +3147,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitizen.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Slavi Wallet",
   "desktop": {
@@ -3305,8 +3168,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nufinetes",
   "desktop": {
@@ -3329,8 +3191,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Arianee Wallet",
   "desktop": {
@@ -3351,8 +3212,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "NOW Wallet",
   "desktop": {
@@ -3373,8 +3233,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Arculus Wallet",
   "desktop": {
@@ -3395,8 +3254,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Linen",
   "desktop": {
@@ -3417,8 +3275,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/linen.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nitrogen Wallet",
   "desktop": {
@@ -3437,8 +3294,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ApolloX",
   "desktop": {
@@ -3457,16 +3313,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ID Pocket",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CoinCircle",
   "desktop": {
@@ -3485,24 +3339,21 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "SahalWallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UPBOND Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Sequence Wallet",
   "desktop": {
@@ -3521,8 +3372,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "LocalTrade Wallet",
   "desktop": {
@@ -3541,16 +3391,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Loopring Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Vision: Crypto Wallet",
   "desktop": {
@@ -3569,16 +3417,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/vision.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ballet Crypto",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Pitaka",
   "desktop": {
@@ -3599,56 +3445,49 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pitaka.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "AbsoluteWallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "The Parallel",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "CypherD Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keplr",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/keplr.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MyWalliD",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Status",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/status.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Monarch Wallet",
   "desktop": {
@@ -3667,8 +3506,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Marble",
   "desktop": {
@@ -3687,8 +3525,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/marble.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Flooz",
   "desktop": {
@@ -3707,8 +3544,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/flooz.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Blockchain.com",
   "desktop": {
@@ -3727,16 +3563,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Dohrnii Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "UniPass",
   "desktop": {
@@ -3755,8 +3589,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ZenGo",
   "desktop": {
@@ -3777,16 +3610,14 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/zengo2.png",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Locker Token",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/locker_token.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Keeper",
   "desktop": {
@@ -3805,32 +3636,28 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/keeper.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "XDEFI Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Numio",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/numio.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Neon Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Nabox",
   "desktop": {
@@ -3849,8 +3676,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/nabox.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Snowball",
   "desktop": {
@@ -3869,8 +3695,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/snowball.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "KryptoGO Wallet",
   "desktop": {
@@ -3889,32 +3714,28 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Payperless",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/payperless.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Brave Wallet",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Crossmint",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/crossmint.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Safematrix",
   "desktop": {
@@ -3933,8 +3754,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/safematrix.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "pier",
   "desktop": {
@@ -3953,8 +3773,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/pier.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "FILWallet",
   "desktop": {
@@ -3973,8 +3792,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "ParaSwap Wallet",
   "desktop": {
@@ -3993,8 +3811,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Bitski",
   "desktop": {
@@ -4015,8 +3832,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/bitski.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Hippo Wallet",
   "desktop": {
@@ -4037,8 +3853,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Core",
   "desktop": {
@@ -4057,8 +3872,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/core.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Xcapit",
   "desktop": {
@@ -4077,8 +3891,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/xcapit.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Paper",
   "desktop": {
@@ -4097,8 +3910,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "MetaOne",
   "desktop": {
@@ -4117,8 +3929,7 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/metaone.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Enjin Wallet",
   "desktop": {
@@ -4139,22 +3950,19 @@ var allWallets = [{
     }
   },
   "logo": "https://img1.depay.com/wallets/enjin.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "BC Vault",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Ethereum Wallet",
   "extension": "WindowEthereum",
   "logo": (_wallets$WindowEthere = wallets.WindowEthereum) === null || _wallets$WindowEthere === void 0 ? void 0 : (_wallets$WindowEthere2 = _wallets$WindowEthere.info) === null || _wallets$WindowEthere2 === void 0 ? void 0 : _wallets$WindowEthere2.logo,
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Solana Pay",
   "desktop": {
@@ -4169,8 +3977,7 @@ var allWallets = [{
     }
   },
   "logo": (_Blockchains$solana = Blockchains.solana) === null || _Blockchains$solana === void 0 ? void 0 : _Blockchains$solana.logo,
-  "blockchains": _toConsumableArray(supported.svm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.svm)
 }, {
   "name": "Solana Wallet",
   "extension": "WindowSolana",
@@ -4186,16 +3993,14 @@ var allWallets = [{
     }
   },
   "logo": (_wallets$WindowSolana = wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
-  "blockchains": _toConsumableArray(supported.svm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.svm)
 }, {
   "name": "WalletConnect",
   "desktop": {
     "qr": "WalletConnectV2"
   },
   "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-  "blockchains": _toConsumableArray(supported.evm),
-  "colors": {}
+  "blockchains": _toConsumableArray(supported.evm)
 }].filter(function (wallet) {
   return wallet.blockchains.filter(Boolean).length > 0;
 });
@@ -22922,7 +22727,7 @@ var ConnectWalletDialog = (function (props) {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Connecting extension"))), !props.connectingExtension && /*#__PURE__*/React.createElement("button", {
+    }, "Connecting ", isMobile() ? 'app' : 'extension'))), !props.connectingExtension && /*#__PURE__*/React.createElement("button", {
       onClick: function onClick() {
         return props.connectExtension(props.wallet);
       },
@@ -22935,14 +22740,23 @@ var ConnectWalletDialog = (function (props) {
       style: {
         width: "50px"
       }
-    }, /*#__PURE__*/React.createElement(ExtensionIcon, {
+    }, isMobile() && /*#__PURE__*/React.createElement("img", {
+      className: "transparent ",
+      title: "Click to connect app",
+      style: {
+        height: '28px',
+        width: '28px',
+        borderRadius: '8px'
+      },
+      src: props.wallet.logo
+    }), !isMobile() && /*#__PURE__*/React.createElement(ExtensionIcon, {
       width: "26px",
       height: "26px"
     })), /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftS LineHeightXS"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardText FontWeightMedium"
-    }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React.createElement("div", {
+    }, "Connect ", isMobile() ? 'app' : 'extension')))), connectAppIsAvailable && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomXS"
     }, props.connectingApp && /*#__PURE__*/React.createElement("div", {
       className: "Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
@@ -23720,7 +23534,7 @@ var SelectWalletDialog = (function (props) {
           top: '-1px',
           position: 'relative'
         }
-      }, "\u25CF"), " ", capitalizeFirstChar(connectionType), " detected")))));
+      }, "\u25CF"), " ", capitalizeFirstChar(isMobile() && connectionType == 'extension' ? 'app' : connectionType), " detected")))));
     }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
       return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
     }) && /*#__PURE__*/React.createElement("div", {
@@ -23860,13 +23674,18 @@ var SelectWalletDialog = (function (props) {
 });
 
 var QuestionsGraphic = (function (props) {
-  var _walletMeta$colors, _walletMeta$colors2, _walletMeta$colors3, _walletMeta$colors4, _walletMeta$colors5, _walletMeta$colors6, _walletMeta$colors7, _walletMeta$colors8, _walletMeta$colors9, _walletMeta$colors10, _walletMeta$colors11, _walletMeta$colors12, _walletMeta$colors13, _walletMeta$colors14, _walletMeta$colors15, _walletMeta$colors16, _walletMeta$colors17, _walletMeta$colors18, _walletMeta$colors19, _walletMeta$colors20, _walletMeta$colors21, _walletMeta$colors22, _walletMeta$colors23, _walletMeta$colors24, _walletMeta$colors25, _walletMeta$colors26, _walletMeta$colors27, _walletMeta$colors28, _walletMeta$colors29, _walletMeta$colors30, _walletMeta$colors31, _walletMeta$colors32, _walletMeta$colors33, _walletMeta$colors34, _walletMeta$colors35, _walletMeta$colors36, _walletMeta$colors37, _walletMeta$colors38, _walletMeta$colors39, _walletMeta$colors40, _walletMeta$colors41, _walletMeta$colors42, _walletMeta$colors43, _walletMeta$colors44, _walletMeta$colors45, _walletMeta$colors46, _walletMeta$colors47, _walletMeta$colors48, _walletMeta$colors49, _walletMeta$colors50, _walletMeta$colors51, _walletMeta$colors52, _walletMeta$colors53, _walletMeta$colors54, _walletMeta$colors55, _walletMeta$colors56, _walletMeta$colors57, _walletMeta$colors58, _walletMeta$colors59, _walletMeta$colors60, _walletMeta$colors61;
+  var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors;
 
   var walletctx = useContext(WalletContext);
   var wallet = walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet;
   var walletMeta = wallet ? allWallets.find(function (walletMeta) {
     return walletMeta.name == wallet.name;
   }) : undefined;
+
+  if (!((_walletMeta = walletMeta) !== null && _walletMeta !== void 0 && _walletMeta.colors)) {
+    walletMeta = undefined;
+  }
+
   return /*#__PURE__*/React.createElement("svg", {
     className: "Graphic " + props.className,
     version: "1.1",
@@ -23876,186 +23695,184 @@ var QuestionsGraphic = (function (props) {
     viewBox: "0 0 1128.7 1024"
   }, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
     opacity: "0.5",
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors = walletMeta.colors) === null || _walletMeta$colors === void 0 ? void 0 : _walletMeta$colors.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors2 = walletMeta.colors) === null || _walletMeta$colors2 === void 0 ? void 0 : _walletMeta$colors2.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M1013.1,314.2c.4,1.2,1,2.3,2,3.2.5.4,1,.8,1.6,1.1,1.1.6,2.3.9,3.6.8.4,0,.8,0,1.2,0,1,0,1.9-.2,2.7-.7.9-.3,1.7-.9,2.4-1.6.7-.7,1.2-1.5,1.5-2.5.4-.9.6-1.8.5-2.7,0-.6-.2-1.2-.3-1.8-.4-1.2-1-2.3-2-3.2-.5-.4-1.1-.8-1.6-1.1-1.1-.6-2.3-.9-3.6-.8-.4,0-.8,0-1.2,0-1,0-1.9.2-2.7.7-.9.3-1.7.9-2.4,1.6-.7.7-1.2,1.5-1.5,2.5-.4.9-.6,1.8-.5,2.7,0,.6.2,1.2.3,1.8Z"
   }), /*#__PURE__*/React.createElement("path", {
     opacity: "0.5",
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors3 = walletMeta.colors) === null || _walletMeta$colors3 === void 0 ? void 0 : _walletMeta$colors3.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors4 = walletMeta.colors) === null || _walletMeta$colors4 === void 0 ? void 0 : _walletMeta$colors4.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M1110.6,235.7c-2-10.1-8.1-15.5-16.1-21.3-1.1-.6-2.2-1.1-3.3-1.5-13.8-5.4-39.7.6-39.9,18.8,0,4.4,2.6,9,6.8,10.2,1.8.5,3.6.4,5.4,0,2.2-.6,4.2-1.7,5.9-3,7-5.7,18.1-8.4,23.6,1.1,4.9,9.3-6.1,15.9-13.7,19.2-1,.4-2,.8-3,1.2-7.1,2.7-14.5,4.6-21.4,7.8-11.2,5.2-20.8,13.8-25.5,25.4-1.1,3.8,1.9,4.8,4.9,5.1,2.3.2,4.8-1.9,6.5-3.3,7-8.6,16-14,25.8-16.6,13.6-3.6,29.1-7,38.3-18.6,5.4-6.8,7.2-15.9,5.5-24.4Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors5 = walletMeta.colors) === null || _walletMeta$colors5 === void 0 ? void 0 : _walletMeta$colors5.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors6 = walletMeta.colors) === null || _walletMeta$colors6 === void 0 ? void 0 : _walletMeta$colors6.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M612,971.9c-6.9-4.2-16-4.7-23.5-2-2.1.8-4.2,1.7-6.1,2.8,8-42.4,16.3-84.7,21.6-128,.9-7.1,1.7-14.2,2.4-21.4.7-7.2,1.3-14.4,1.8-21.6.3-4.6-3-9.1-6.1-8.9-3.6.2-5.7,3.8-6.1,8.8-.4,5.1-.7,10.2-1.3,15.3v-.3c0,.6,0,1.6-.1,2.4-.6,6-1.2,12-2,17.9-1.4,12.1-3.1,24.1-5,36.1-3.7,23.8-8,47.4-12.4,70.9-2.5,13.3-5.1,26.6-7.5,40-.4,2-.2,4.1.4,6,0,.6,0,1.2.3,1.8.3,1.1,1,2.2,2.2,2.8,3.8,2.2,8,4,12.3,4.9s8.7,1.7,13.1,2.2c4.6.4,9.2.2,13.7-.9,4.2-1.1,9.1-3,11.2-7,4.2-7.9-2.2-17.4-9-21.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors7 = walletMeta.colors) === null || _walletMeta$colors7 === void 0 ? void 0 : _walletMeta$colors7.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors8 = walletMeta.colors) === null || _walletMeta$colors8 === void 0 ? void 0 : _walletMeta$colors8.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M451.2,983.7c-2.5-13.3-5-26.6-7.5-40-4.4-23.5-8.8-47.1-12.4-70.9-1.8-12-3.5-24-5-36.1-.7-6-1.4-11.9-2-17.9,0-.3-.2-2.1-.2-2.2,0-.5,0-1.1-.1-1.6-.1-1.4-.3-2.8-.4-4.3-.3-3-.5-6-.7-9-.4-4.9-2.5-8.5-6.1-8.7-3-.2-6.4,4.2-6,8.7.5,7.2,1.1,14.4,1.8,21.5.7,7.2,1.5,14.3,2.4,21.4,5.3,43.3,13.6,85.6,21.6,128-1.9-1.1-3.9-2.1-6.1-2.8-7.6-2.7-16.6-2.2-23.5,2-6.7,4.1-13.2,13.6-9,21.5,2.1,4,7,6,11.2,7,4.5,1.1,9.1,1.4,13.7.9,4.4-.4,8.8-1.2,13.1-2.2,4.3-.9,8.5-2.7,12.3-4.9,1.2-.6,1.9-1.6,2.2-2.8.2-.6.3-1.2.3-1.8.6-1.9.8-4,.4-6Z"
   }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors9 = walletMeta.colors) === null || _walletMeta$colors9 === void 0 ? void 0 : _walletMeta$colors9.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors10 = walletMeta.colors) === null || _walletMeta$colors10 === void 0 ? void 0 : _walletMeta$colors10.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M975.2,199.9c-.7.3-1.3.5-2,.8-1.6.6-2.9,1.5-3.9,2.7-1.3,1.1-2.3,2.4-2.9,4-.7,1.6-1,3.2-.9,4.9-.1,1.6.1,3.2.8,4.7.5.9,1.1,1.9,1.6,2.8,1.4,1.8,3.1,3.1,5.2,4,1.1.3,2.2.6,3.2.9,2.2.3,4.3,0,6.3-.8.7-.3,1.3-.5,2-.8,1.6-.6,2.9-1.5,3.9-2.7,1.3-1.1,2.3-2.4,2.9-4,.7-1.6,1-3.2.9-4.9.1-1.6-.1-3.2-.8-4.7-.5-.9-1.1-1.9-1.6-2.8-1.4-1.8-3.1-3.1-5.2-4-1.1-.3-2.2-.6-3.2-.9-2.2-.3-4.3,0-6.3.8h0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors11 = walletMeta.colors) === null || _walletMeta$colors11 === void 0 ? void 0 : _walletMeta$colors11.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors12 = walletMeta.colors) === null || _walletMeta$colors12 === void 0 ? void 0 : _walletMeta$colors12.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M1005.9,71.6c3.2-2.2,5.8-5.3,7.7-8.5,7.9-13.5,24.3-24.7,39-12.6,13.6,12.1-.3,29.5-10.5,39.4-1.4,1.3-2.8,2.5-4.2,3.8-9.9,8.6-20.7,16.3-29.9,25.7-15,15.3-25.3,35.1-25.9,56.8.5,6.8,6,6.7,11.1,5.3,3.9-1,6.7-6,8.6-9.2,6.1-18.3,17.5-32.4,31.8-42.6,19.8-14.2,43-29.1,50.9-53.5,4.7-14.4,2-30.3-5.9-43-9.4-15.2-22.6-20.2-39-24.9-2.1-.3-4.2-.4-6.3-.5-25.8-.4-64,25.1-53.3,54.8,2.6,7.2,9.6,13.1,17.2,12.4,3.1-.3,6.1-1.5,8.7-3.4Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors13 = walletMeta.colors) === null || _walletMeta$colors13 === void 0 ? void 0 : _walletMeta$colors13.primary) || "#d88568",
+    fill: ((_walletMeta2 = walletMeta) === null || _walletMeta2 === void 0 ? void 0 : (_walletMeta2$colors = _walletMeta2.colors) === null || _walletMeta2$colors === void 0 ? void 0 : _walletMeta2$colors.primary) || "#d88568",
     d: "M833.8,842.7c-164.2,44.7-346.5,56.9-518.8,56.4-9.6,0-19.1,0-28.6-.2-53.6-.5-111.7-6.9-153-44.3-5.5-5.1-10.6-10.8-15-16.9-3.9-5.4-7.4-11.2-10.7-17.4-3.3-6.2-6.2-12.9-8.8-20-4.4-11.7-7.9-23.7-10.7-35.6-28.9-149.8-44.7-303.7-31.2-455.8,3.1-14.3,8-28.1,15.5-40.8,7.5-12.7,17.5-24.3,30.8-34.2,32.8-24.2,72.3-25.7,109.7-33.9,13.1-2.2,26.3-4.2,39.4-6.1,117.1-17.1,234.8-29.6,352.9-37.8,83-5.7,175.1-27.1,254.1,7.8,84.3,37.2,103.6,125.2,115.4,206,11.3,77.7,17.2,156.2,17.3,234.7,0,63.8,0,130.9-48.6,180.5-27.7,28.3-66.7,46-109.7,57.7Z"
   }), /*#__PURE__*/React.createElement("path", {
     fill: "#000000",
     d: "M810.7,838.9c-15.7,6.7-32,10.2-48.5,16.2-7.9,2.3-15.8,4.4-23.7,6.4-7.9,2-15.7,3.8-23.6,5.4-10.5,2.1-21,4-31.6,5.8-122.4,21.1-250.6,28.5-374.1,29.1-8.8,0-17.6,0-26.4,0-59.1-1.2-124.6-2.9-172.4-40.7-6.6-5.6-12.5-11.9-17.8-19.1-3.8-5.3-7.4-10.9-10.6-17s-6.2-12.6-8.8-19.6c-4.4-11.5-7.9-23.3-10.7-34.9-28.6-146.8-44.1-297.7-30.3-446.8,3.1-14.1,8.1-27.6,15.6-40,7.5-12.5,17.5-23.8,30.9-33.6,32.8-23.8,72.4-25.3,109.8-33.5,13.1-2.2,26.3-4.2,39.4-6.1,117.1-16.9,234.9-29.5,352.9-37.7,83-5.8,175.1-26.9,254,7.1,84.2,36.3,103.4,122.5,115,201.8,7,47.6,11.8,95.5,14.5,143.5.5,9.6,1,19.2,1.3,28.8,2.1,52.7,6.4,104.9-4.1,157.8-12.4,61.2-69.5,102.3-127.7,118.3-7.5,3-15.2,5.9-23.1,8.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors14 = walletMeta.colors) === null || _walletMeta$colors14 === void 0 ? void 0 : _walletMeta$colors14.primary) || "#d88568",
+    fill: ((_walletMeta3 = walletMeta) === null || _walletMeta3 === void 0 ? void 0 : (_walletMeta3$colors = _walletMeta3.colors) === null || _walletMeta3$colors === void 0 ? void 0 : _walletMeta3$colors.primary) || "#d88568",
     d: "M789.4,864.5c-106.9,29.7-217.2,43.4-327.5,51.8-43.1,3.3-87.3,3.7-131,4.3-8.7.1-17.4.2-26.1.4-72-.5-152.3-.5-210.1-48.5-5.5-5.3-10.5-11.1-15-17.5-3.9-5.6-7.4-11.6-10.5-17.7-3.1-6.1-5.8-12.4-8.2-18.7-4.4-12-7.9-24.3-10.8-36.5C23.7,641.9,8.6,499.4,14.9,356.5c2-45.4,10.7-88.7,48.6-117.9,31.4-23.9,74-28.5,111.9-34.5,48-7.6,96.1-14.3,144.4-20.4,88.9-11.2,178.1-19.6,267.5-25.9,75.1-5.2,153.8-21.3,225.3,11.5,83.7,38.4,103.1,128.5,115,211.4,11.4,79.6,17.6,160,17.9,240.4.3,65.3.5,134.1-47.6,184.7-27.4,28.8-65.9,46.8-108.6,58.7Z"
   }), /*#__PURE__*/React.createElement("g", {
     opacity: "0.5"
   }, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors15 = walletMeta.colors) === null || _walletMeta$colors15 === void 0 ? void 0 : _walletMeta$colors15.secondary) || "#000000",
+    fill: ((_walletMeta4 = walletMeta) === null || _walletMeta4 === void 0 ? void 0 : (_walletMeta4$colors = _walletMeta4.colors) === null || _walletMeta4$colors === void 0 ? void 0 : _walletMeta4$colors.secondary) || "#000000",
     d: "M123.9,271.4c3.9-.7,7.9-1.8,11.5-3.2,1.6-.6,3.5-1.4,5-2.5,1.5-1.1,2.9-2.4,3.4-4.3.8-3-.2-6.7-3.1-8.2-1.3-.7-2.9-.8-4.4-.5-1.7.2-3.4.6-5,1-2.9.6-5.7,1.5-8.5,2.5-2.4.9-4.9,1.7-6.6,3.6-2,2.2-1.8,5.4-.8,8,1.1,3,3.7,4.2,6.7,3.9.6,0,1.3-.1,1.9-.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors16 = walletMeta.colors) === null || _walletMeta$colors16 === void 0 ? void 0 : _walletMeta$colors16.secondary) || "#000000",
+    fill: ((_walletMeta5 = walletMeta) === null || _walletMeta5 === void 0 ? void 0 : (_walletMeta5$colors = _walletMeta5.colors) === null || _walletMeta5$colors === void 0 ? void 0 : _walletMeta5$colors.secondary) || "#000000",
     d: "M169.8,257.8c4-.1,8.1-.9,11.9-2,3.4-1,7.7-2.3,9.1-6,1.1-2.9.4-6.7-2.4-8.4-1.3-.8-2.8-1-4.3-.9-1.7,0-3.4.2-5.1.5-2.9.4-5.8,1-8.7,1.7-2.5.6-5,1.1-7,2.8-2.2,2-2.4,5.2-1.7,7.9.8,3.1,3.2,4.6,6.2,4.6.6,0,1.3,0,1.9,0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors17 = walletMeta.colors) === null || _walletMeta$colors17 === void 0 ? void 0 : _walletMeta$colors17.secondary) || "#000000",
+    fill: ((_walletMeta6 = walletMeta) === null || _walletMeta6 === void 0 ? void 0 : (_walletMeta6$colors = _walletMeta6.colors) === null || _walletMeta6$colors === void 0 ? void 0 : _walletMeta6$colors.secondary) || "#000000",
     d: "M217,248.3c4,.1,8.2-.5,12-1.3,3.5-.7,7.9-1.9,9.4-5.5,1.2-2.8.7-6.7-1.9-8.5-1.2-.8-2.7-1.1-4.2-1.2-1.7,0-3.4,0-5.1.2-2.9.2-5.8.6-8.7,1.1-2.5.4-5,.8-7.1,2.3-2.3,1.7-2.7,5-2.2,7.7.6,3.1,2.8,4.8,5.9,5,.6,0,1.3,0,1.9.1Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors18 = walletMeta.colors) === null || _walletMeta$colors18 === void 0 ? void 0 : _walletMeta$colors18.secondary) || "#000000",
+    fill: ((_walletMeta7 = walletMeta) === null || _walletMeta7 === void 0 ? void 0 : (_walletMeta7$colors = _walletMeta7.colors) === null || _walletMeta7$colors === void 0 ? void 0 : _walletMeta7$colors.secondary) || "#000000",
     d: "M264.9,241c4,.2,8.2-.2,12.1-1,3.5-.7,7.9-1.8,9.5-5.4,1.2-2.8.8-6.7-1.8-8.6-1.2-.9-2.7-1.2-4.2-1.2-1.7,0-3.4,0-5.1.1-2.9.1-5.8.5-8.7.9-2.5.4-5,.6-7.1,2.1-2.4,1.7-2.9,4.9-2.5,7.6.5,3.1,2.7,4.9,5.8,5.2.6,0,1.3.1,1.9.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors19 = walletMeta.colors) === null || _walletMeta$colors19 === void 0 ? void 0 : _walletMeta$colors19.secondary) || "#000000",
+    fill: ((_walletMeta8 = walletMeta) === null || _walletMeta8 === void 0 ? void 0 : (_walletMeta8$colors = _walletMeta8.colors) === null || _walletMeta8$colors === void 0 ? void 0 : _walletMeta8$colors.secondary) || "#000000",
     d: "M313.1,234.1c4,.2,8.2-.3,12.1-1.2,3.5-.8,7.9-1.7,9.5-5.3,1.2-2.8.8-6.6-1.8-8.6-1.2-.9-2.7-1.2-4.2-1.3-1.7-.1-3.4,0-5.1.1-2.9.2-5.8.6-8.7,1.1-2.5.4-5,.7-7.1,2.2-2.3,1.7-2.8,4.9-2.4,7.6.5,3.1,2.7,4.9,5.8,5.2.6,0,1.3.1,2,.1Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors20 = walletMeta.colors) === null || _walletMeta$colors20 === void 0 ? void 0 : _walletMeta$colors20.secondary) || "#000000",
+    fill: ((_walletMeta9 = walletMeta) === null || _walletMeta9 === void 0 ? void 0 : (_walletMeta9$colors = _walletMeta9.colors) === null || _walletMeta9$colors === void 0 ? void 0 : _walletMeta9$colors.secondary) || "#000000",
     d: "M361.1,227.9c4,.3,8.2,0,12.1-.7,3.5-.6,7.9-1.6,9.7-5.2,1.3-2.8,1-6.7-1.6-8.6-1.2-.9-2.7-1.2-4.2-1.3-1.7-.1-3.4,0-5.1,0-2.9,0-5.8.4-8.8.7-2.5.3-5,.5-7.2,2-2.4,1.6-3,4.8-2.6,7.6.4,3.1,2.6,5,5.7,5.4.6,0,1.3.2,1.9.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors21 = walletMeta.colors) === null || _walletMeta$colors21 === void 0 ? void 0 : _walletMeta$colors21.secondary) || "#000000",
+    fill: ((_walletMeta10 = walletMeta) === null || _walletMeta10 === void 0 ? void 0 : (_walletMeta10$colors = _walletMeta10.colors) === null || _walletMeta10$colors === void 0 ? void 0 : _walletMeta10$colors.secondary) || "#000000",
     d: "M409.3,222.6c4,.4,8.2.1,12.1-.5,3.5-.5,8-1.4,9.8-5,1.4-2.8,1.1-6.6-1.4-8.6-1.2-.9-2.7-1.3-4.1-1.4-1.7-.1-3.4-.1-5.1-.1-2.9,0-5.8.3-8.7.6-2.5.3-5,.4-7.2,1.8-2.4,1.6-3.1,4.8-2.8,7.5.3,3.2,2.5,5,5.5,5.5.6,0,1.3.2,1.9.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors22 = walletMeta.colors) === null || _walletMeta$colors22 === void 0 ? void 0 : _walletMeta$colors22.secondary) || "#000000",
+    fill: ((_walletMeta11 = walletMeta) === null || _walletMeta11 === void 0 ? void 0 : (_walletMeta11$colors = _walletMeta11.colors) === null || _walletMeta11$colors === void 0 ? void 0 : _walletMeta11$colors.secondary) || "#000000",
     d: "M457.7,218c4,.4,8.2.2,12.1-.3,3.6-.5,8-1.3,9.8-4.9,1.4-2.7,1.2-6.6-1.4-8.7-1.2-.9-2.7-1.3-4.1-1.4-1.7-.2-3.4-.2-5.1-.2-2.9,0-5.8.2-8.7.5-2.5.2-5,.4-7.2,1.8-2.4,1.6-3.1,4.8-2.9,7.5.3,3.2,2.4,5,5.5,5.5.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors23 = walletMeta.colors) === null || _walletMeta$colors23 === void 0 ? void 0 : _walletMeta$colors23.secondary) || "#000000",
+    fill: ((_walletMeta12 = walletMeta) === null || _walletMeta12 === void 0 ? void 0 : (_walletMeta12$colors = _walletMeta12.colors) === null || _walletMeta12$colors === void 0 ? void 0 : _walletMeta12$colors.secondary) || "#000000",
     d: "M506.1,214c4,.5,8.2.3,12.1-.2,3.6-.5,8-1.3,9.9-4.8,1.4-2.7,1.3-6.6-1.3-8.7-1.1-.9-2.6-1.3-4.1-1.5-1.7-.2-3.4-.2-5.1-.2-2.9,0-5.8.1-8.7.4-2.5.2-5,.3-7.2,1.7-2.5,1.5-3.2,4.7-3,7.5.3,3.2,2.4,5,5.4,5.6.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors24 = walletMeta.colors) === null || _walletMeta$colors24 === void 0 ? void 0 : _walletMeta$colors24.secondary) || "#000000",
+    fill: ((_walletMeta13 = walletMeta) === null || _walletMeta13 === void 0 ? void 0 : (_walletMeta13$colors = _walletMeta13.colors) === null || _walletMeta13$colors === void 0 ? void 0 : _walletMeta13$colors.secondary) || "#000000",
     d: "M554.6,210.4c4,.4,8.3.2,12.2-.4,3.6-.5,8.1-1.5,9.8-5,1.3-2.8,1.1-6.7-1.5-8.6-1.2-.9-2.7-1.3-4.1-1.4-1.7-.1-3.4-.1-5-.1-2.9,0-5.8.2-8.7.5-2.5.3-5,.3-7.2,1.7-2.4,1.6-3.2,4.7-2.9,7.5.3,3.2,2.4,5.1,5.5,5.6.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors25 = walletMeta.colors) === null || _walletMeta$colors25 === void 0 ? void 0 : _walletMeta$colors25.secondary) || "#000000",
+    fill: ((_walletMeta14 = walletMeta) === null || _walletMeta14 === void 0 ? void 0 : (_walletMeta14$colors = _walletMeta14.colors) === null || _walletMeta14$colors === void 0 ? void 0 : _walletMeta14$colors.secondary) || "#000000",
     d: "M603.1,205.5c4,.4,8.2,0,12.1-.5,3.5-.5,8-1.4,9.7-5,1.4-2.7,1.2-6.6-1.4-8.7-1.2-.9-2.7-1.3-4.1-1.4-1.7-.1-3.4-.1-5.1-.1-2.9,0-5.8.3-8.8.6-2.5.3-5,.4-7.2,1.9-2.4,1.6-3.1,4.8-2.8,7.5.4,3.2,2.5,5,5.6,5.4.6,0,1.3.2,1.9.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors26 = walletMeta.colors) === null || _walletMeta$colors26 === void 0 ? void 0 : _walletMeta$colors26.secondary) || "#000000",
+    fill: ((_walletMeta15 = walletMeta) === null || _walletMeta15 === void 0 ? void 0 : (_walletMeta15$colors = _walletMeta15.colors) === null || _walletMeta15$colors === void 0 ? void 0 : _walletMeta15$colors.secondary) || "#000000",
     d: "M651.3,201.4c3.9.6,8.1.5,12,.2,3.5-.3,8-.8,10-4.2,1.6-2.6,1.7-6.5-.7-8.7-1.1-1-2.6-1.5-4.1-1.7-1.7-.3-3.4-.4-5.1-.5-3-.2-5.9-.1-8.9,0-2.5.1-5.1.2-7.4,1.5-2.5,1.5-3.3,4.7-3.1,7.4.2,3.2,2.3,5.1,5.3,5.7.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors27 = walletMeta.colors) === null || _walletMeta$colors27 === void 0 ? void 0 : _walletMeta$colors27.secondary) || "#000000",
+    fill: ((_walletMeta16 = walletMeta) === null || _walletMeta16 === void 0 ? void 0 : (_walletMeta16$colors = _walletMeta16.colors) === null || _walletMeta16$colors === void 0 ? void 0 : _walletMeta16$colors.secondary) || "#000000",
     d: "M699,201.5c1.9.5,3.9.9,5.8,1.2,2,.3,4,.4,5.9.6,1.7.1,3.7.2,5.6-.2,1.8-.3,3.6-1,4.8-2.5,2-2.4,2.8-6.2.7-8.7-.9-1.2-2.3-1.9-3.8-2.4-1.6-.5-3.4-.9-5-1.2-2.9-.7-5.9-.9-8.9-1.2-2.6-.2-5.2-.4-7.6.6-2.7,1.2-3.8,4.3-3.9,7-.1,3.2,1.7,5.3,4.6,6.2.6.2,1.2.4,1.8.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors28 = walletMeta.colors) === null || _walletMeta$colors28 === void 0 ? void 0 : _walletMeta$colors28.secondary) || "#000000",
+    fill: ((_walletMeta17 = walletMeta) === null || _walletMeta17 === void 0 ? void 0 : (_walletMeta17$colors = _walletMeta17.colors) === null || _walletMeta17$colors === void 0 ? void 0 : _walletMeta17$colors.secondary) || "#000000",
     d: "M745.5,209.3c1.7.9,3.6,1.6,5.4,2.4,1.8.7,3.7,1.3,5.5,1.8,3.3,1,7.5,2.1,10.7-.2,2.5-1.8,4.1-5.3,2.8-8.3-.6-1.4-1.8-2.4-3.2-3.2-1.5-.9-3.1-1.6-4.7-2.4-2.8-1.3-5.6-2.2-8.5-3.1-2.5-.7-5-1.6-7.6-1-2.9.7-4.6,3.4-5.3,6.1-.7,3.1.6,5.5,3.2,7,.5.3,1.1.6,1.7.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors29 = walletMeta.colors) === null || _walletMeta$colors29 === void 0 ? void 0 : _walletMeta$colors29.secondary) || "#000000",
+    fill: ((_walletMeta18 = walletMeta) === null || _walletMeta18 === void 0 ? void 0 : (_walletMeta18$colors = _walletMeta18.colors) === null || _walletMeta18$colors === void 0 ? void 0 : _walletMeta18$colors.secondary) || "#000000",
     d: "M788.1,227.8c2.7,2.7,6,5,9,7.2.7.5,1.5,1,2.3,1.4.8.5,1.6.9,2.4,1.3,1.7.7,3.5,1,5.4.4,2.9-.9,5.6-3.7,5.3-7-.2-1.5-1-2.8-2-4-.6-.7-1.2-1.3-1.8-2-.6-.6-1.3-1.2-2-1.8-1.1-1-2.3-2-3.5-3-1.2-.9-2.5-1.8-3.8-2.6-1.1-.7-2.2-1.5-3.4-2.1-1.2-.6-2.4-1-3.8-1.1-3-.2-5.4,2-6.7,4.4-1.5,2.8-.9,5.5,1.1,7.6.4.4.9.9,1.3,1.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors30 = walletMeta.colors) === null || _walletMeta$colors30 === void 0 ? void 0 : _walletMeta$colors30.secondary) || "#000000",
+    fill: ((_walletMeta19 = walletMeta) === null || _walletMeta19 === void 0 ? void 0 : (_walletMeta19$colors = _walletMeta19.colors) === null || _walletMeta19$colors === void 0 ? void 0 : _walletMeta19$colors.secondary) || "#000000",
     d: "M822.3,258.6c1.7,3.5,4,6.8,6.2,9.8.5.7,1.1,1.4,1.7,2.1.6.7,1.2,1.4,1.9,2,1.4,1.2,3.1,2,5,2.1,3,0,6.5-1.7,7.2-5,.3-1.5,0-3-.6-4.4-.6-1.6-1.5-3.2-2.3-4.7-.7-1.3-1.5-2.6-2.3-3.9-.8-1.3-1.8-2.5-2.7-3.7-1.5-2.1-3.2-4.3-5.6-5.3-2.7-1.2-5.8,0-7.8,1.9-1.2,1.1-1.8,2.3-2.1,3.6-.2,1.3,0,2.7.6,4,.3.6.5,1.1.8,1.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors31 = walletMeta.colors) === null || _walletMeta$colors31 === void 0 ? void 0 : _walletMeta$colors31.secondary) || "#000000",
+    fill: ((_walletMeta20 = walletMeta) === null || _walletMeta20 === void 0 ? void 0 : (_walletMeta20$colors = _walletMeta20.colors) === null || _walletMeta20$colors === void 0 ? void 0 : _walletMeta20$colors.secondary) || "#000000",
     d: "M845.7,299c.4,1.9.9,3.9,1.5,5.7.7,1.9,1.3,3.8,2.1,5.5.7,1.6,1.5,3.4,2.6,4.9,1.1,1.5,2.6,2.7,4.4,3.2,3,.7,6.7-.3,8.1-3.3.6-1.4.6-2.9.4-4.4-.3-1.7-.7-3.4-1.1-5.1-.8-2.9-1.8-5.7-2.9-8.5-.5-1.2-1-2.4-1.6-3.5-.6-1.1-1.4-2.2-2.4-3-2.3-1.9-5.5-1.5-8-.3-2.9,1.3-4,4-3.5,6.9,0,.6.2,1.2.3,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors32 = walletMeta.colors) === null || _walletMeta$colors32 === void 0 ? void 0 : _walletMeta$colors32.secondary) || "#000000",
+    fill: ((_walletMeta21 = walletMeta) === null || _walletMeta21 === void 0 ? void 0 : (_walletMeta21$colors = _walletMeta21.colors) === null || _walletMeta21$colors === void 0 ? void 0 : _walletMeta21$colors.secondary) || "#000000",
     d: "M860.1,344.1c.1,4,.9,8.1,1.9,11.8,1,3.4,2.2,7.7,5.9,9.1,2.9,1.1,6.7.5,8.5-2.2.8-1.3,1-2.8,1-4.3,0-1.7-.2-3.4-.4-5.1-.3-2.9-.9-5.9-1.6-8.7-.6-2.5-1.1-5-2.8-7-1.9-2.2-5.2-2.4-7.9-1.7-3.1.8-4.6,3.2-4.6,6.2,0,.6,0,1.3,0,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors33 = walletMeta.colors) === null || _walletMeta$colors33 === void 0 ? void 0 : _walletMeta$colors33.secondary) || "#000000",
+    fill: ((_walletMeta22 = walletMeta) === null || _walletMeta22 === void 0 ? void 0 : (_walletMeta22$colors = _walletMeta22.colors) === null || _walletMeta22$colors === void 0 ? void 0 : _walletMeta22$colors.secondary) || "#000000",
     d: "M869,391.4c-.2,4,.3,8.2,1,12,.7,3.5,1.8,7.9,5.4,9.5,2.8,1.2,6.7.8,8.6-1.8.9-1.2,1.2-2.7,1.2-4.2,0-1.7,0-3.4-.1-5.1-.1-2.9-.5-5.8-1-8.7-.4-2.5-.7-5-2.2-7.1-1.7-2.4-5-2.8-7.7-2.4-3.1.5-4.8,2.8-5.1,5.8,0,.6-.1,1.3-.1,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors34 = walletMeta.colors) === null || _walletMeta$colors34 === void 0 ? void 0 : _walletMeta$colors34.secondary) || "#000000",
+    fill: ((_walletMeta23 = walletMeta) === null || _walletMeta23 === void 0 ? void 0 : (_walletMeta23$colors = _walletMeta23.colors) === null || _walletMeta23$colors === void 0 ? void 0 : _walletMeta23$colors.secondary) || "#000000",
     d: "M875.5,439.3c-.3,4,0,8.2.7,12.1.6,3.5,1.5,8,5.1,9.7,2.8,1.3,6.7,1.1,8.6-1.5.9-1.2,1.2-2.7,1.4-4.2.1-1.7,0-3.4,0-5.1,0-2.9-.4-5.8-.7-8.7-.3-2.5-.5-5-2-7.2-1.6-2.4-4.9-3-7.6-2.6-3.1.4-4.9,2.6-5.3,5.6,0,.6-.1,1.3-.2,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors35 = walletMeta.colors) === null || _walletMeta$colors35 === void 0 ? void 0 : _walletMeta$colors35.secondary) || "#000000",
+    fill: ((_walletMeta24 = walletMeta) === null || _walletMeta24 === void 0 ? void 0 : (_walletMeta24$colors = _walletMeta24.colors) === null || _walletMeta24$colors === void 0 ? void 0 : _walletMeta24$colors.secondary) || "#000000",
     d: "M880.4,487.5c-.4,4-.2,8.2.3,12.1.5,3.5,1.3,8,4.8,9.8,2.7,1.4,6.6,1.3,8.7-1.2.9-1.1,1.3-2.6,1.5-4.1.2-1.7.2-3.4.2-5.1,0-2.9-.1-5.9-.4-8.8-.2-2.5-.4-5.1-1.8-7.3-1.6-2.5-4.8-3.1-7.5-2.9-3.2.3-5,2.4-5.5,5.5-.1.6-.2,1.3-.3,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors36 = walletMeta.colors) === null || _walletMeta$colors36 === void 0 ? void 0 : _walletMeta$colors36.secondary) || "#000000",
+    fill: ((_walletMeta25 = walletMeta) === null || _walletMeta25 === void 0 ? void 0 : (_walletMeta25$colors = _walletMeta25.colors) === null || _walletMeta25$colors === void 0 ? void 0 : _walletMeta25$colors.secondary) || "#000000",
     d: "M883.8,535.8c-.6,4-.5,8.2-.1,12.1.4,3.6,1,8,4.5,10,2.7,1.5,6.6,1.5,8.7-1,1-1.1,1.4-2.6,1.6-4.1.2-1.7.3-3.4.4-5.1.2-2.9,0-5.9-.1-8.8-.2-2.5-.2-5.1-1.5-7.3-1.5-2.5-4.7-3.3-7.4-3.1-3.2.2-5.1,2.3-5.7,5.3-.1.6-.2,1.3-.3,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors37 = walletMeta.colors) === null || _walletMeta$colors37 === void 0 ? void 0 : _walletMeta$colors37.secondary) || "#000000",
+    fill: ((_walletMeta26 = walletMeta) === null || _walletMeta26 === void 0 ? void 0 : (_walletMeta26$colors = _walletMeta26.colors) === null || _walletMeta26$colors === void 0 ? void 0 : _walletMeta26$colors.secondary) || "#000000",
     d: "M885.6,584.1c-.7,3.9-.8,8.2-.5,12.1.3,3.6.7,8.1,4.1,10.1,2.6,1.6,6.5,1.7,8.7-.7,1-1.1,1.5-2.5,1.8-4,.3-1.7.4-3.4.6-5,.2-2.9.2-5.9.2-8.8,0-2.5,0-5.1-1.3-7.4-1.4-2.6-4.5-3.4-7.3-3.4-3.2.1-5.2,2.1-5.9,5.1-.1.6-.3,1.3-.4,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors38 = walletMeta.colors) === null || _walletMeta$colors38 === void 0 ? void 0 : _walletMeta$colors38.secondary) || "#000000",
+    fill: ((_walletMeta27 = walletMeta) === null || _walletMeta27 === void 0 ? void 0 : (_walletMeta27$colors = _walletMeta27.colors) === null || _walletMeta27$colors === void 0 ? void 0 : _walletMeta27$colors.secondary) || "#000000",
     d: "M885.9,632.6c-.8,3.9-1,8.1-.9,12,.1,3.5.4,8,3.7,10.2,2.5,1.7,6.4,2,8.8-.2,1.1-1,1.6-2.5,1.9-4,.3-1.7.5-3.4.8-5.1.4-2.9.5-5.9.5-8.8,0-2.5.1-5.1-1-7.4-1.3-2.6-4.4-3.6-7.2-3.6-3.2,0-5.2,2-6,4.9-.2.6-.3,1.2-.4,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors39 = walletMeta.colors) === null || _walletMeta$colors39 === void 0 ? void 0 : _walletMeta$colors39.secondary) || "#000000",
+    fill: ((_walletMeta28 = walletMeta) === null || _walletMeta28 === void 0 ? void 0 : (_walletMeta28$colors = _walletMeta28.colors) === null || _walletMeta28$colors === void 0 ? void 0 : _walletMeta28$colors.secondary) || "#000000",
     d: "M883.3,680.3c-1.2,3.7-2,7.8-2.4,11.6-.2,1.7-.4,3.7-.2,5.5.2,1.9.8,3.6,2.2,5,2.2,2.1,6,3.1,8.7,1.2,1.2-.9,2-2.2,2.6-3.6.6-1.6,1.1-3.3,1.5-5,.8-2.9,1.3-5.9,1.6-8.9.4-2.6.7-5.1-.2-7.6-1.1-2.8-4.1-4-6.8-4.3-3.2-.3-5.4,1.4-6.5,4.3-.2.6-.4,1.2-.6,1.8Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors40 = walletMeta.colors) === null || _walletMeta$colors40 === void 0 ? void 0 : _walletMeta$colors40.secondary) || "#000000",
+    fill: ((_walletMeta29 = walletMeta) === null || _walletMeta29 === void 0 ? void 0 : (_walletMeta29$colors = _walletMeta29.colors) === null || _walletMeta29$colors === void 0 ? void 0 : _walletMeta29$colors.secondary) || "#000000",
     d: "M872.6,725.9c-1,1.6-2,3.3-2.8,5.1-.9,1.7-1.7,3.5-2.3,5.2-.7,1.6-1.4,3.3-1.7,5.2-.4,1.8-.3,3.6.7,5.4.8,1.3,1.9,2.5,3.3,3.3,1.4.7,3,1,4.6.5,1.4-.5,2.6-1.6,3.6-2.8,1.1-1.4,2-2.9,2.9-4.4,1.6-2.6,2.9-5.4,4-8.3,1-2.4,2-4.9,1.7-7.6-.4-3-3-4.9-5.7-5.8-1.5-.5-2.9-.4-4.1,0-1.2.5-2.3,1.4-3.1,2.6-.4.5-.7,1-1,1.6Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors41 = walletMeta.colors) === null || _walletMeta$colors41 === void 0 ? void 0 : _walletMeta$colors41.secondary) || "#000000",
+    fill: ((_walletMeta30 = walletMeta) === null || _walletMeta30 === void 0 ? void 0 : (_walletMeta30$colors = _walletMeta30.colors) === null || _walletMeta30$colors === void 0 ? void 0 : _walletMeta30$colors.secondary) || "#000000",
     d: "M849.1,765.4c-1.5,1.2-3,2.4-4.4,3.8-1.4,1.4-2.8,2.7-4,4.1-.6.6-1.2,1.3-1.7,2-.6.7-1.2,1.4-1.6,2.2-.9,1.6-1.5,3.4-1.2,5.3.5,3,2.8,6.1,6.1,6.3,1.5,0,3-.6,4.3-1.4.7-.5,1.5-1,2.2-1.5.7-.5,1.4-1.1,2.1-1.7,1.2-1,2.3-2,3.5-3,1.1-1.1,2.1-2.2,3.2-3.3.9-1,1.8-2,2.6-3,.8-1.1,1.4-2.2,1.7-3.5.6-3-1.2-5.7-3.4-7.3-1.3-1-2.6-1.4-3.9-1.4-1.3,0-2.6.5-3.8,1.3-.5.3-1,.7-1.5,1.1Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors42 = walletMeta.colors) === null || _walletMeta$colors42 === void 0 ? void 0 : _walletMeta$colors42.secondary) || "#000000",
+    fill: ((_walletMeta31 = walletMeta) === null || _walletMeta31 === void 0 ? void 0 : (_walletMeta31$colors = _walletMeta31.colors) === null || _walletMeta31$colors === void 0 ? void 0 : _walletMeta31$colors.secondary) || "#000000",
     d: "M813.4,794.9c-3.7,1.3-7.3,3.2-10.6,5.1-.7.4-1.5.9-2.3,1.5-.8.5-1.5,1.1-2.2,1.7-1.4,1.3-2.4,2.9-2.6,4.8-.3,3,1.1,6.6,4.3,7.7,1.4.4,3,.2,4.4-.2,1.7-.5,3.3-1.1,4.9-1.8,1.4-.6,2.8-1.2,4.1-1.9,1.4-.7,2.7-1.5,4-2.2,1.1-.7,2.3-1.3,3.3-2.1,1-.8,2-1.7,2.6-2.8,1.6-2.5.7-5.7-.9-8-1.7-2.6-4.5-3.3-7.3-2.5-.6.2-1.2.4-1.8.6Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors43 = walletMeta.colors) === null || _walletMeta$colors43 === void 0 ? void 0 : _walletMeta$colors43.secondary) || "#000000",
+    fill: ((_walletMeta32 = walletMeta) === null || _walletMeta32 === void 0 ? void 0 : (_walletMeta32$colors = _walletMeta32.colors) === null || _walletMeta32$colors === void 0 ? void 0 : _walletMeta32$colors.secondary) || "#000000",
     d: "M770.6,814.6c-1.9.3-3.9.7-5.9,1.2-1.9.5-3.8,1.2-5.6,1.8-1.7.6-3.5,1.4-5.1,2.4-1.6,1-2.9,2.4-3.4,4.3-.8,3,0,6.7,3,8.3,1.3.7,2.9.8,4.4.6,1.7-.2,3.4-.6,5.1-.9,2.9-.6,5.8-1.5,8.6-2.5,2.4-.8,4.9-1.6,6.7-3.5,2-2.1,1.8-5.5.8-8-1.1-3-3.7-4.2-6.7-3.9-.6,0-1.3.1-1.9.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors44 = walletMeta.colors) === null || _walletMeta$colors44 === void 0 ? void 0 : _walletMeta$colors44.secondary) || "#000000",
+    fill: ((_walletMeta33 = walletMeta) === null || _walletMeta33 === void 0 ? void 0 : (_walletMeta33$colors = _walletMeta33.colors) === null || _walletMeta33$colors === void 0 ? void 0 : _walletMeta33$colors.secondary) || "#000000",
     d: "M724.5,827.7c-4,.2-8.1,1-11.9,2.2-3.4,1-7.7,2.5-9,6.2-1,2.9-.2,6.7,2.6,8.4,1.3.7,2.8.9,4.3.8,1.7,0,3.4-.3,5.1-.6,2.9-.4,5.8-1.1,8.6-1.8,2.4-.6,4.9-1.1,6.9-2.9,2.2-1.9,2.3-5.2,1.6-7.9-.8-3.1-3.2-4.6-6.3-4.6-.6,0-1.3,0-1.9,0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors45 = walletMeta.colors) === null || _walletMeta$colors45 === void 0 ? void 0 : _walletMeta$colors45.secondary) || "#000000",
+    fill: ((_walletMeta34 = walletMeta) === null || _walletMeta34 === void 0 ? void 0 : (_walletMeta34$colors = _walletMeta34.colors) === null || _walletMeta34$colors === void 0 ? void 0 : _walletMeta34$colors.secondary) || "#000000",
     d: "M677.4,838.5c-4,0-8.2.7-12,1.7-3.5.9-7.8,2.2-9.2,5.9-1.1,2.9-.5,6.7,2.2,8.5,1.2.8,2.8,1,4.3,1,1.7,0,3.4-.2,5.1-.4,2.9-.3,5.8-.8,8.7-1.5,2.5-.5,5-.9,7-2.6,2.3-1.9,2.6-5.1,2-7.8-.7-3.1-3-4.7-6.1-4.8-.6,0-1.3,0-1.9,0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors46 = walletMeta.colors) === null || _walletMeta$colors46 === void 0 ? void 0 : _walletMeta$colors46.secondary) || "#000000",
+    fill: ((_walletMeta35 = walletMeta) === null || _walletMeta35 === void 0 ? void 0 : (_walletMeta35$colors = _walletMeta35.colors) === null || _walletMeta35$colors === void 0 ? void 0 : _walletMeta35$colors.secondary) || "#000000",
     d: "M629.8,847.5c-4,0-8.2.4-12,1.3-3.5.8-7.9,1.9-9.4,5.6-1.2,2.8-.7,6.7,2,8.5,1.2.8,2.7,1.1,4.2,1.1,1.7,0,3.4,0,5.1-.2,2.9-.2,5.8-.6,8.7-1.1,2.5-.4,5-.8,7.1-2.3,2.3-1.8,2.7-5,2.2-7.7-.6-3.1-2.8-4.8-5.9-5-.6,0-1.3,0-1.9,0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors47 = walletMeta.colors) === null || _walletMeta$colors47 === void 0 ? void 0 : _walletMeta$colors47.secondary) || "#000000",
+    fill: ((_walletMeta36 = walletMeta) === null || _walletMeta36 === void 0 ? void 0 : (_walletMeta36$colors = _walletMeta36.colors) === null || _walletMeta36$colors === void 0 ? void 0 : _walletMeta36$colors.secondary) || "#000000",
     d: "M582,854.8c-4-.2-8.2.2-12.1.9-3.5.7-7.9,1.7-9.6,5.3-1.3,2.8-.9,6.7,1.7,8.6,1.2.9,2.7,1.2,4.2,1.3,1.7,0,3.4,0,5.1,0,2.9,0,5.8-.5,8.7-.9,2.5-.3,5-.6,7.2-2.1,2.4-1.7,2.9-4.9,2.5-7.6-.5-3.1-2.7-4.9-5.7-5.2-.6,0-1.3-.1-1.9-.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors48 = walletMeta.colors) === null || _walletMeta$colors48 === void 0 ? void 0 : _walletMeta$colors48.secondary) || "#000000",
+    fill: ((_walletMeta37 = walletMeta) === null || _walletMeta37 === void 0 ? void 0 : (_walletMeta37$colors = _walletMeta37.colors) === null || _walletMeta37$colors === void 0 ? void 0 : _walletMeta37$colors.secondary) || "#000000",
     d: "M533.9,860.7c-4-.3-8.2,0-12.1.6-3.5.6-8,1.5-9.7,5-1.4,2.8-1.1,6.6,1.5,8.6,1.2.9,2.7,1.3,4.1,1.4,1.7.1,3.4.1,5.1,0,2.9,0,5.8-.3,8.8-.6,2.5-.3,5-.5,7.2-1.9,2.4-1.6,3-4.8,2.7-7.6-.4-3.2-2.5-5-5.6-5.4-.6,0-1.3-.2-1.9-.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors49 = walletMeta.colors) === null || _walletMeta$colors49 === void 0 ? void 0 : _walletMeta$colors49.secondary) || "#000000",
+    fill: ((_walletMeta38 = walletMeta) === null || _walletMeta38 === void 0 ? void 0 : (_walletMeta38$colors = _walletMeta38.colors) === null || _walletMeta38$colors === void 0 ? void 0 : _walletMeta38$colors.secondary) || "#000000",
     d: "M485.8,865.2c-4-.6-8.2-.5-12.1,0-3.6.4-8.1,1.1-10,4.6-1.5,2.7-1.4,6.6,1.1,8.7,1.1,1,2.6,1.4,4.1,1.6,1.7.2,3.4.3,5,.3,2.9.1,5.8,0,8.8-.2,2.5-.2,5.1-.2,7.3-1.5,2.5-1.5,3.3-4.8,3-7.5-.1-1.6-.7-2.8-1.7-3.8-.9-.9-2.2-1.5-3.7-1.8-.6-.1-1.3-.2-1.9-.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors50 = walletMeta.colors) === null || _walletMeta$colors50 === void 0 ? void 0 : _walletMeta$colors50.secondary) || "#000000",
+    fill: ((_walletMeta39 = walletMeta) === null || _walletMeta39 === void 0 ? void 0 : (_walletMeta39$colors = _walletMeta39.colors) === null || _walletMeta39$colors === void 0 ? void 0 : _walletMeta39$colors.secondary) || "#000000",
     d: "M437.3,867.7c-4-.6-8.2-.5-12.1-.1-3.6.4-8.1,1-10,4.5-1.5,2.7-1.5,6.6,1,8.7,1.1,1,2.6,1.4,4.1,1.6,1.7.2,3.4.3,5.1.4,2.9.2,5.8,0,8.8-.1,2.5-.1,5-.2,7.3-1.5,2.5-1.5,3.3-4.6,3.2-7.4-.2-3.2-2.2-5.1-5.3-5.7-.6-.1-1.3-.2-1.9-.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors51 = walletMeta.colors) === null || _walletMeta$colors51 === void 0 ? void 0 : _walletMeta$colors51.secondary) || "#000000",
+    fill: ((_walletMeta40 = walletMeta) === null || _walletMeta40 === void 0 ? void 0 : (_walletMeta40$colors = _walletMeta40.colors) === null || _walletMeta40$colors === void 0 ? void 0 : _walletMeta40$colors.secondary) || "#000000",
     d: "M388.8,869.7c-4-.6-8.2-.7-12.1-.4-3.6.3-8.1.9-10.1,4.3-1.6,2.6-1.6,6.5.8,8.7,1.1,1,2.6,1.5,4,1.7,1.7.3,3.4.4,5.1.5,2.9.2,5.8.2,8.8,0,2.5,0,5.1,0,7.3-1.3,2.5-1.4,3.4-4.6,3.3-7.3-.1-3.2-2.2-5.1-5.2-5.8-.6-.1-1.3-.3-1.9-.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors52 = walletMeta.colors) === null || _walletMeta$colors52 === void 0 ? void 0 : _walletMeta$colors52.secondary) || "#000000",
+    fill: ((_walletMeta41 = walletMeta) === null || _walletMeta41 === void 0 ? void 0 : (_walletMeta41$colors = _walletMeta41.colors) === null || _walletMeta41$colors === void 0 ? void 0 : _walletMeta41$colors.secondary) || "#000000",
     d: "M340.4,870.6c-3.9-.8-8.2-.9-12.1-.7-3.6.2-8.1.6-10.2,3.9-1.6,2.6-1.8,6.5.5,8.8,1.1,1,2.5,1.6,4,1.8,1.7.3,3.4.5,5,.6,2.9.3,5.9.4,8.8.3,2.5,0,5.1,0,7.4-1.1,2.6-1.3,3.5-4.5,3.5-7.2,0-3.2-2-5.2-5-6-.6-.2-1.3-.3-1.9-.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors53 = walletMeta.colors) === null || _walletMeta$colors53 === void 0 ? void 0 : _walletMeta$colors53.secondary) || "#000000",
+    fill: ((_walletMeta42 = walletMeta) === null || _walletMeta42 === void 0 ? void 0 : (_walletMeta42$colors = _walletMeta42.colors) === null || _walletMeta42$colors === void 0 ? void 0 : _walletMeta42$colors.secondary) || "#000000",
     d: "M292,869.8c-3.9-.9-8.1-1.3-12-1.2-3.6,0-8.1.3-10.3,3.5-1.8,2.5-2.2,6.4,0,8.8,1,1.1,2.5,1.7,3.9,2,1.6.4,3.3.6,5,.8,2.9.4,5.8.6,8.8.7,2.5,0,5.1.3,7.4-.8,2.6-1.2,3.7-4.3,3.8-7.1,0-3.2-1.8-5.3-4.8-6.2-.6-.2-1.2-.4-1.9-.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors54 = walletMeta.colors) === null || _walletMeta$colors54 === void 0 ? void 0 : _walletMeta$colors54.secondary) || "#000000",
+    fill: ((_walletMeta43 = walletMeta) === null || _walletMeta43 === void 0 ? void 0 : (_walletMeta43$colors = _walletMeta43.colors) === null || _walletMeta43$colors === void 0 ? void 0 : _walletMeta43$colors.secondary) || "#000000",
     d: "M243.9,866.6c-3.8-1.2-8-1.8-11.9-2-3.6-.2-8.1-.3-10.5,2.8-1.9,2.4-2.6,6.2-.5,8.8.9,1.1,2.3,1.8,3.8,2.3,1.6.5,3.3.8,5,1.2,2.9.6,5.8,1,8.7,1.3,2.5.3,5.1.6,7.5-.4,2.7-1.1,4-4.1,4.2-6.8.3-3.2-1.5-5.4-4.4-6.4-.6-.2-1.2-.4-1.8-.6Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors55 = walletMeta.colors) === null || _walletMeta$colors55 === void 0 ? void 0 : _walletMeta$colors55.secondary) || "#000000",
+    fill: ((_walletMeta44 = walletMeta) === null || _walletMeta44 === void 0 ? void 0 : (_walletMeta44$colors = _walletMeta44.colors) === null || _walletMeta44$colors === void 0 ? void 0 : _walletMeta44$colors.secondary) || "#000000",
     d: "M196.2,860.3c-3.7-1.4-7.9-2.3-11.7-2.7-3.5-.4-8-.8-10.7,2.1-2.1,2.3-3,6.1-1,8.7.9,1.2,2.2,2,3.6,2.5,1.6.6,3.2,1,4.9,1.5,2.8.8,5.7,1.3,8.6,1.8,2.5.4,5,.9,7.5,0,2.8-.9,4.2-3.9,4.6-6.6.5-3.1-1.2-5.4-4-6.7-.6-.3-1.2-.5-1.8-.7Z"
   })), /*#__PURE__*/React.createElement("g", {
     opacity: "0.3"
   }, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors56 = walletMeta.colors) === null || _walletMeta$colors56 === void 0 ? void 0 : _walletMeta$colors56.secondary) || "#ffffff",
+    fill: ((_walletMeta45 = walletMeta) === null || _walletMeta45 === void 0 ? void 0 : (_walletMeta45$colors = _walletMeta45.colors) === null || _walletMeta45$colors === void 0 ? void 0 : _walletMeta45$colors.secondary) || "#ffffff",
     d: "M89.1,346.5c-19,21.1-24.7,62.3-11.3,89.7,2.7,5.5,6.1,10.4,10.3,14.5,4.8,3.9,10.3,7.8,16.5,6.6,41.2-5.6,44.3-65.5,36.3-96.6-4.1-16-18.3-32.5-36.1-24.4-5.9,1.9-11.5,5.4-15.8,10.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors57 = walletMeta.colors) === null || _walletMeta$colors57 === void 0 ? void 0 : _walletMeta$colors57.secondary) || "#ffffff",
+    fill: ((_walletMeta46 = walletMeta) === null || _walletMeta46 === void 0 ? void 0 : (_walletMeta46$colors = _walletMeta46.colors) === null || _walletMeta46$colors === void 0 ? void 0 : _walletMeta46$colors.secondary) || "#ffffff",
     d: "M90.3,495.7c-7.4,9.9-9.5,22.8-6.3,34.9,4.6,15.4,19.3,35.1,36.1,27,19-9.6,21-36.4,13.8-55.5-3.2-8.7-10.2-15.9-19.5-18.2-9.7-2-18.3,3.7-24.1,11.8Z"
-  })), (walletMeta === null || walletMeta === void 0 ? void 0 : walletMeta.logo) && /*#__PURE__*/React.createElement("image", {
+  })), ((_walletMeta47 = walletMeta) === null || _walletMeta47 === void 0 ? void 0 : _walletMeta47.logo) && /*#__PURE__*/React.createElement(React.Fragment, null, ((_walletMeta48 = walletMeta) === null || _walletMeta48 === void 0 ? void 0 : (_walletMeta48$colors = _walletMeta48.colors) === null || _walletMeta48$colors === void 0 ? void 0 : _walletMeta48$colors.background) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+    id: "clipLogo"
+  }, /*#__PURE__*/React.createElement("rect", {
+    width: "340",
+    height: "340",
+    rx: "80",
+    ry: "80"
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: "310",
+    y: "380",
+    width: "340",
+    height: "340",
+    rx: "80",
+    transform: "rotate(355 485 555)",
+    fill: walletMeta.colors.background
+  })), /*#__PURE__*/React.createElement("image", {
     style: {
+      backgroundColor: (_walletMeta49 = walletMeta) !== null && _walletMeta49 !== void 0 && (_walletMeta49$colors = _walletMeta49.colors) !== null && _walletMeta49$colors !== void 0 && _walletMeta49$colors.background ? (_walletMeta50 = walletMeta) === null || _walletMeta50 === void 0 ? void 0 : (_walletMeta50$colors = _walletMeta50.colors) === null || _walletMeta50$colors === void 0 ? void 0 : _walletMeta50$colors.background : 'transparent',
       clipPath: "inset(0 round 60px)"
     },
     x: "310",
@@ -24065,7 +23882,7 @@ var QuestionsGraphic = (function (props) {
     href: walletMeta.logo,
     transform: "rotate(355 485 555)",
     preserveAspectRatio: "xMidYMid meet"
-  }), !(walletMeta !== null && walletMeta !== void 0 && walletMeta.logo) && /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+  })), !((_walletMeta51 = walletMeta) !== null && _walletMeta51 !== void 0 && _walletMeta51.logo) && /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
     fill: "#000000",
     d: "M302.7,616.1c-2.3-18.4,9-36.6,26.2-42.5,13.3-4.5,27-.8,37.2,9,9.9,10.2,14.3,24.4,11.2,38.3-3.3,15.3-14.8,27.9-30,30.8-16.2,3-32.7-5.5-40.2-20.3-2.4-4.6-3.9-9.7-4.4-15.2Z"
   }), /*#__PURE__*/React.createElement("path", {
@@ -24089,15 +23906,12 @@ var QuestionsGraphic = (function (props) {
     fill: "#000000",
     d: "M499.2,614.9c-.5,0-.9.1-1.4.2-14.3,2.4-28.5,4.5-43,5.1-3.2.1-5.4,2.3-6.4,5.2-.5,1.4-.8,3-.7,4.6.4,9.5,10.2,10.1,17.6,9.5,10.3-1,20.7-1.6,30.7-4.6,4.3-1.3,10-3.2,12.3-7.4,2.5-4.5-.5-11.9-5.8-12.6-1.1-.1-2.2,0-3.3,0Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors58 = walletMeta.colors) === null || _walletMeta$colors58 === void 0 ? void 0 : _walletMeta$colors58.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors59 = walletMeta.colors) === null || _walletMeta$colors59 === void 0 ? void 0 : _walletMeta$colors59.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M1024.1,809c.3-.5.5-1.1.5-1.7,1.3-11.2,1.5-22.4.7-33.6-2-44.8-31.8-83.2-67.9-107.5-3.1-1.8-7.5-2.5-9.8,1.3-1.3,2.5-.6,5.5,1.7,6.8,8,5.6,15.5,11.6,22.5,18.2l-.3-.2c9.5,9.4,18.5,19.4,24.9,30.9v-.6c11.3,19.6,17.1,42.1,16.7,64.9,0,2.9,0,5.8-.3,8.7,0,1.5-.2,3.1-.3,4.6,0,.7-.1,1.4-.2,2.2,0,0,0,0,0,0,0,.4,0,.8-.1,1.3,0,.4,0,.9,0,1.3-4,.8-8.1,1.9-11.9,3.5-5.1,2.1-9.7,5.3-12.4,10.3-1.4,2.5-2.2,5.3-1.5,8.2.7,2.7,2.6,4.6,4.8,6.2.9.6,2,1.1,3.1,1.5-.6,8.1,1.4,16.8,7.9,22.2,7.8,6.5,19.1,6.9,27.2.9,8.8-6.4,12.4-18,10.2-28.5-1.8-8.5-7.7-16.5-15.4-20.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors60 = walletMeta.colors) === null || _walletMeta$colors60 === void 0 ? void 0 : _walletMeta$colors60.secondary) || "#000000",
+    fill: ((_walletMeta52 = walletMeta) === null || _walletMeta52 === void 0 ? void 0 : (_walletMeta52$colors = _walletMeta52.colors) === null || _walletMeta52$colors === void 0 ? void 0 : _walletMeta52$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors61 = walletMeta.colors) === null || _walletMeta$colors61 === void 0 ? void 0 : _walletMeta$colors61.secondary) || "#000000"
+      fill: ((_walletMeta53 = walletMeta) === null || _walletMeta53 === void 0 ? void 0 : (_walletMeta53$colors = _walletMeta53.colors) === null || _walletMeta53$colors === void 0 ? void 0 : _walletMeta53$colors.secondary) || "#000000"
     },
     d: "M465.8,702.9c-4.9-8.9-15.3-13.3-25-10.7-8.1,2.1-13.6,9.2-16.5,16.8-1.2-.2-2.4-.1-3.4,0-2.6.5-5.1,1.5-6.9,3.6-1.9,2.3-2.3,5.1-2.1,8,.3,4.9,2.6,9.3,5.7,13.1,2.7,3.3,5.8,5.8,9.2,7.6-11.1,19.6-27.6,36.3-48.7,44.9-17.7,7.3-38.9,9.3-57.3,3.5-10.2-3.2-19.6-9-25.8-17.8-2-2.9-5.5-4.5-8.9-2.7-2.8,1.5-4.7,6-2.7,8.9,13.8,19.6,36.7,28.1,60.1,27.9,25.3-.2,49.8-9.3,68.8-26,11.3-9.9,20.6-22.1,27.5-35.4,8.7,0,17.3-3.8,23.2-11.6,6.4-8.6,8-20.5,2.8-30Z"
   }));
@@ -24543,13 +24357,18 @@ function _getPrototypeOf(o) {
 var ErrorContext = /*#__PURE__*/React.createContext();
 
 var ErrorGraphic$1 = (function (props) {
-  var _walletMeta$colors, _walletMeta$colors2, _walletMeta$colors3, _walletMeta$colors4, _walletMeta$colors5, _walletMeta$colors6, _walletMeta$colors7, _walletMeta$colors8, _walletMeta$colors9, _walletMeta$colors10, _walletMeta$colors11, _walletMeta$colors12, _walletMeta$colors13, _walletMeta$colors14, _walletMeta$colors15, _walletMeta$colors16, _walletMeta$colors17, _walletMeta$colors18, _walletMeta$colors19, _walletMeta$colors20, _walletMeta$colors21, _walletMeta$colors22, _walletMeta$colors23, _walletMeta$colors24, _walletMeta$colors25, _walletMeta$colors26, _walletMeta$colors27, _walletMeta$colors28, _walletMeta$colors29, _walletMeta$colors30, _walletMeta$colors31, _walletMeta$colors32, _walletMeta$colors33, _walletMeta$colors34, _walletMeta$colors35, _walletMeta$colors36, _walletMeta$colors37, _walletMeta$colors38, _walletMeta$colors39, _walletMeta$colors40, _walletMeta$colors41, _walletMeta$colors42, _walletMeta$colors43, _walletMeta$colors44, _walletMeta$colors45, _walletMeta$colors46, _walletMeta$colors47, _walletMeta$colors48, _walletMeta$colors49, _walletMeta$colors50, _walletMeta$colors51, _walletMeta$colors52, _walletMeta$colors53, _walletMeta$colors54, _walletMeta$colors55, _walletMeta$colors56, _walletMeta$colors57, _walletMeta$colors58, _walletMeta$colors59, _walletMeta$colors60, _walletMeta$colors61, _walletMeta$colors62, _walletMeta$colors63, _walletMeta$colors64, _walletMeta$colors65, _walletMeta$colors66, _walletMeta$colors67, _walletMeta$colors68, _walletMeta$colors69, _walletMeta$colors70, _walletMeta$colors71, _walletMeta$colors72, _walletMeta$colors73, _walletMeta$colors74, _walletMeta$colors75, _walletMeta$colors76, _walletMeta$colors77, _walletMeta$colors78, _walletMeta$colors79, _walletMeta$colors80, _walletMeta$colors81, _walletMeta$colors82, _walletMeta$colors83, _walletMeta$colors84;
+  var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta47$colors, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta51$colors, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors, _walletMeta54, _walletMeta54$colors, _walletMeta55, _walletMeta55$colors, _walletMeta56, _walletMeta56$colors, _walletMeta57, _walletMeta57$colors, _walletMeta58, _walletMeta58$colors, _walletMeta59, _walletMeta59$colors, _walletMeta60, _walletMeta60$colors, _walletMeta61, _walletMeta61$colors, _walletMeta62, _walletMeta62$colors, _walletMeta63, _walletMeta63$colors, _walletMeta64, _walletMeta65, _walletMeta65$colors, _walletMeta66, _walletMeta66$colors, _walletMeta67;
 
   var walletctx = useContext(WalletContext);
   var wallet = walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet;
   var walletMeta = wallet ? allWallets.find(function (walletMeta) {
     return walletMeta.name == wallet.name;
   }) : undefined;
+
+  if (!((_walletMeta = walletMeta) !== null && _walletMeta !== void 0 && _walletMeta.colors)) {
+    walletMeta = undefined;
+  }
+
   return /*#__PURE__*/React.createElement("svg", {
     className: "Graphic " + props.className,
     version: "1.1",
@@ -24559,276 +24378,258 @@ var ErrorGraphic$1 = (function (props) {
     viewBox: "0 0 1171.6 933.3"
   }, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
     opacity: "0.5",
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors = walletMeta.colors) === null || _walletMeta$colors === void 0 ? void 0 : _walletMeta$colors.primary) || "#d88568",
+    className: "GraphicActiveColor",
     d: "M1128.6,796.2c-1.2-3.3-2-6.7-2.9-10.1-.2-.8-.5-1.7-.7-2.5-.2-.4-.3-.9-.5-1.4-.2-.5-.4-.9-.6-1.4-.2-.5-.4-.9-.5-1.4-1-2.5-2-5.6-3.2-8.1-.3-.4-.6-.9-.9-1.2-1.6-1.9-3.6-3-6.1-2.5-5.7,1.5-9.8,7.7-16,10.7-.5.3-1,.6-1.6,1-.5.3-1,.6-1.6.9,0-.2,0-.4.1-.6.6-2.8,1.3-5.5,1.9-8.2,1.1-4.7,2.1-9.8,1-14.6-.1-.7-.3-1.4-.6-2-1.3-3.2-5.4-3.2-7.7-1-.7.4-1.4.9-2.1,1.3-1.4.9-2.7,1.8-4.1,2.6-.6.3-1.1.7-1.7,1-4,2.5-8.2,3.5-12.8,5.1-.5-3.6-2.5-7.2-2.7-10.7,0-.6-.2-1.1-.3-1.7-.2-1.7-.3-3.4-.1-5.4.2-2-1.9-3.9-3.8-3.9-2.2,0-3.7,1.7-3.9,3.8-.3,3,0,6.1.7,9.2.1.8.3,1.5.5,2.3.9,4.2.4,9.4,3.5,12,5.6,6.2,14.9-.5,21.8-3.5.5-.3,1-.6,1.5-.9,1.5-.9,3-1.8,4.5-2.8,0,.3,0,.6,0,.9,0,.3,0,.6,0,.9,0,0,0,.1,0,.2,0,0,0,0,0,.1,0,.6-.2,1.3-.3,1.9-.3,1.4-.6,2.7-.9,4.1-1.3,5.3-2.9,10.8-2.7,16.3.1,3.1,3.1,4.5,5.8,3.3,2.3-1,4.5-2.2,6.6-3.4.7-.4,1.4-.8,2.1-1.3,1.8-1.5,4-2.3,6.2-3.1.4-.1.7-.3,1.1-.4,2.5-.9,5.6-4,8.2-.9,2.1,2.6,2.6,5.7,3.1,8.9.1.4.2.8.3,1.2.6,2.4,1.3,4.7,2.1,7.1.7,2,2.6,3.3,4.7,2.7,1.9-.5,3.4-2.8,2.7-4.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors2 = walletMeta.colors) === null || _walletMeta$colors2 === void 0 ? void 0 : _walletMeta$colors2.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors3 = walletMeta.colors) === null || _walletMeta$colors3 === void 0 ? void 0 : _walletMeta$colors3.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M1096.6,707.6c11.5-.9,23-1.8,34.4-2.7-1.8-2.4-3.6-4.8-5.5-7.1-2.2,7.6-4.3,15.3-6.5,22.9-1.1,3.8,1.2,7.5,5.5,7.1,11.4-.9,22.9-1.8,34.3-2.7,6.6-.5,5.2-10.8-1.4-10.2-11.4.9-22.9,1.8-34.3,2.7,1.8,2.4,3.6,4.8,5.5,7.1,2.2-7.6,4.3-15.3,6.5-22.9,1.1-3.8-1.2-7.5-5.5-7.1-11.5.9-23,1.8-34.4,2.7-6.6.5-5.2,10.8,1.4,10.2h0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors4 = walletMeta.colors) === null || _walletMeta$colors4 === void 0 ? void 0 : _walletMeta$colors4.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors5 = walletMeta.colors) === null || _walletMeta$colors5 === void 0 ? void 0 : _walletMeta$colors5.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M1026.9,794c7.2,11.1,14.5,22.2,21.7,33.2,1-2.8,2.1-5.6,3.1-8.4-8.9,2.1-17.8,4.1-26.7,6.2-4,.9-5.3,5.1-3.1,8.4,7.2,11,14.5,22,21.7,33.1,1.5,2.3,5.3,2.4,7.3.7,2.4-1.9,2.3-4.9.7-7.3-7.2-11-14.5-22-21.7-33.1-1,2.8-2.1,5.6-3.1,8.4,8.9-2.1,17.8-4.1,26.7-6.2,4-.9,5.3-5.1,3.1-8.4-7.2-11.1-14.5-22.2-21.7-33.2-1.5-2.3-5.3-2.4-7.3-.7-2.4,1.9-2.3,4.9-.7,7.3h0Z"
   })), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
     opacity: "0.5",
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors6 = walletMeta.colors) === null || _walletMeta$colors6 === void 0 ? void 0 : _walletMeta$colors6.primary) || "#d88568",
+    className: "GraphicActiveColor",
     d: "M130.4,101.7c.7-3.7,1.8-7.3,2.8-11,.3-.9.5-1.8.7-2.7,0-.5.2-1,.3-1.5,0-.5.1-1.1.2-1.6,0-.5.2-1.1.2-1.6.4-2.9,1.2-6.3,1.4-9.3,0-.6,0-1.1-.2-1.7-.4-2.6-1.7-4.8-4.4-5.7-6.1-1.7-13.4,1.8-20.8,1.2-.7,0-1.3,0-2,0-.7,0-1.3,0-2,0,.1-.2.3-.3.4-.5,2-2.3,4.2-4.4,6.3-6.6,3.6-3.8,7.3-8,8.9-13,.2-.7.4-1.5.6-2.2.5-3.7-3.3-6-6.6-5.1-.9,0-1.8,0-2.6.1-1.8,0-3.5.1-5.3.2-.7,0-1.4,0-2.1,0-5.1.2-9.5-1.2-14.7-2.3,1.5-3.6,1.6-8.1,3.3-11.5.2-.6.5-1.2.7-1.7.7-1.7,1.6-3.4,2.8-5.1,1.3-1.8.4-4.7-1.5-5.7-2.1-1.1-4.4-.5-5.7,1.5-1.9,2.7-3.3,5.8-4.4,8.9-.3.8-.6,1.6-.8,2.4-1.4,4.4-4.8,8.9-3.3,13,1.9,8.9,14.2,7.8,22.3,8.7.6,0,1.3,0,1.9,0,1.9,0,3.8,0,5.7-.1-.2.3-.4.5-.5.8-.2.3-.4.5-.6.8,0,0,0,.1-.1.2,0,0,0,0,0,0-.4.5-.9,1.1-1.4,1.6-1,1.1-2,2.2-3.1,3.3-4.1,4.3-8.6,8.5-11.4,13.7-1.6,3,.4,5.9,3.6,6.3,2.7.3,5.3.4,8,.5.9,0,1.8,0,2.7,0,2.5-.4,5,0,7.5.5.4,0,.8.2,1.2.2,2.8.5,7.4-.6,8.1,3.7.5,3.5-.7,6.7-2,10-.1.4-.2.9-.4,1.3-.7,2.6-1.4,5.1-1.9,7.7-.4,2.2.6,4.5,2.9,5.1,2,.6,4.7-.7,5.1-2.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors7 = walletMeta.colors) === null || _walletMeta$colors7 === void 0 ? void 0 : _walletMeta$colors7.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors8 = walletMeta.colors) === null || _walletMeta$colors8 === void 0 ? void 0 : _walletMeta$colors8.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M86.4,190.2c-11.2,5.5-22.4,11-33.5,16.5,2.8,1.7,5.6,3.3,8.3,5-.9-8.5-1.8-17.1-2.7-25.6-.5-4.3-4.2-7-8.3-5-11.1,5.5-22.2,11-33.4,16.5-6.4,3.2-.9,12.9,5.5,9.7,11.1-5.5,22.2-11,33.4-16.5-2.8-1.7-5.6-3.3-8.3-5,.9,8.5,1.8,17.1,2.7,25.6.5,4.3,4.2,7,8.3,5,11.2-5.5,22.4-11,33.5-16.5,6.5-3.2.9-12.9-5.5-9.7h0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors9 = walletMeta.colors) === null || _walletMeta$colors9 === void 0 ? void 0 : _walletMeta$colors9.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors10 = walletMeta.colors) === null || _walletMeta$colors10 === void 0 ? void 0 : _walletMeta$colors10.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M97.1,136.1c-13.3-5.4-26.5-10.8-39.8-16.2.8,3.1,1.6,6.2,2.4,9.4,6.7-7.3,13.3-14.6,20-21.9,3-3.3,1.6-7.8-2.4-9.4-13.2-5.4-26.4-10.7-39.6-16.1-2.8-1.1-6.1,1.1-6.9,3.8-.9,3.2,1,5.8,3.8,6.9,13.2,5.4,26.4,10.7,39.6,16.1-.8-3.1-1.6-6.2-2.4-9.4-6.7,7.3-13.3,14.6-20,21.9-3,3.3-1.6,7.7,2.4,9.4,13.3,5.4,26.5,10.8,39.8,16.2,2.8,1.1,6.1-1.1,6.9-3.8.9-3.2-1-5.8-3.8-6.9h0Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors11 = walletMeta.colors) === null || _walletMeta$colors11 === void 0 ? void 0 : _walletMeta$colors11.primary) || "#d88568",
+    fill: ((_walletMeta2 = walletMeta) === null || _walletMeta2 === void 0 ? void 0 : (_walletMeta2$colors = _walletMeta2.colors) === null || _walletMeta2$colors === void 0 ? void 0 : _walletMeta2$colors.primary) || "#d88568",
     d: "M898.1,786.2c-186.5,31.3-391.2,20.5-578.4-1.5-7.4-.9-14.6-2-21.5-3.4-43-9.3-88.2-31.4-111.4-71-3.3-5.7-6.3-11.8-8.9-18.3-2.6-6.5-4.9-13.4-6.8-20.8-3.2-12.1-5.5-24.4-7.2-36.5-13.9-151.9-14.4-306.7,14.1-456.6,4.5-13.9,10.8-27.2,19.5-39.1,8.7-11.9,19.8-22.4,34.1-31,35-20.8,74.5-18.4,112.6-22.9,13.2-.9,26.5-1.6,39.8-2.2,118.2-5.4,236.6-6.2,354.9-2.6,83.1,2.5,176.9-9.6,252.1,32.9,80.2,45.4,90.7,134.8,94.4,216.4,3.5,78.4,1.7,157.1-6,235.2-6.2,63.5-12.9,130.3-66.3,174.8-30.4,25.4-70.9,39.1-114.9,46.5Z"
   }), /*#__PURE__*/React.createElement("path", {
     fill: "#000000",
     d: "M875.5,780.1c-16.3,5.1-32.9,7-49.9,11.3-8.1,1.5-16.1,2.9-24.2,4.1-8,1.2-16,2.2-24,3-10.6,1-21.3,1.9-32,2.7-141.6,10.2-288.9,1.7-427.5-13.5-8.1-.9-16.3-1.8-24.3-2.9-49.6-8.7-105.9-26.8-133-72.9-3.3-5.6-6.3-11.6-8.9-18-2.6-6.4-4.9-13.2-6.8-20.4-3.2-11.9-5.5-24-7.2-35.9-13.9-149.3-14.4-301.4,14.1-448.8,4.5-13.7,10.8-26.7,19.5-38.4s19.8-22.1,34.1-30.5c35-20.4,74.5-18.1,112.6-22.5,13.2-.9,26.5-1.5,39.8-2.1,118.2-5.3,236.6-6.1,354.9-2.6,83.1,2.5,176.9-9.4,252.1,32.3,80.2,44.6,90.7,132.5,94.4,212.7,2.2,48.2,2.3,96.4.2,144.6-.4,9.6-.9,19.3-1.5,28.9-3.1,52.8-4,105.3-19.7,157-18.4,59.8-79.3,95.2-138.8,105.4-7.8,2.2-15.8,4.4-23.8,6.4Z"
   }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors12 = walletMeta.colors) === null || _walletMeta$colors12 === void 0 ? void 0 : _walletMeta$colors12.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors13 = walletMeta.colors) === null || _walletMeta$colors13 === void 0 ? void 0 : _walletMeta$colors13.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M679.8,715.7c-.4,5.1-.7,10.2-1.3,15.3v-.3c0,.6,0,1.6-.1,2.4-.6,6-1.2,12-2,17.9-1.4,12.1-3.1,24.1-5,36.1-3.7,23.8-8,47.4-12.4,70.9-2.5,13.3-5.1,26.6-7.5,40-.8,4.4,1,9.6,4.2,10.7,3.2,1,6.6-1.4,7.4-6.1,8.9-47.6,18.6-95,24.6-143.6.9-7.1,1.7-14.2,2.4-21.4.7-7.2,1.3-14.4,1.8-21.6.3-4.6-3-9.1-6.1-8.9-3.6.2-5.7,3.8-6.1,8.8h0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors14 = walletMeta.colors) === null || _walletMeta$colors14 === void 0 ? void 0 : _walletMeta$colors14.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors15 = walletMeta.colors) === null || _walletMeta$colors15 === void 0 ? void 0 : _walletMeta$colors15.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M657,903.9c1.4.8,2.8,1.5,4.3,2.2,1.5.7,3,1.2,4.6,1.8,5.6,1.2,13.1,2.9,19.8,2.7,1.7,0,3.3-.2,4.9-.6,1.1-.2,2.4-.6,3.7-1,1.3-.4,2.5-1,3.6-1.6,3.6-1.9,3.6-6,2.1-9.3-2.1-3.6-4.4-6.5-8-8.2-.9-.5-1.9-.9-2.9-1.2-8.9-3-19.2,0-26.1,7.2-.6.6-1.2,1.2-1.8,1.9-.7,1.7-2.5,2.6-3.2,4.2-.4.7-.7,1.3-1.1,2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors16 = walletMeta.colors) === null || _walletMeta$colors16 === void 0 ? void 0 : _walletMeta$colors16.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors17 = walletMeta.colors) === null || _walletMeta$colors17 === void 0 ? void 0 : _walletMeta$colors17.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M654.4,908.4c3.8,2.2,8,4,12.3,4.9,4.3.9,8.7,1.7,13.1,2.2,4.6.4,9.2.2,13.7-.9,4.2-1.1,9.1-3,11.2-7,4.2-7.9-2.2-17.4-9-21.5-6.9-4.2-16-4.7-23.5-2-4.4,1.6-8.5,4-11.9,7.2-.7.7-1.4,1.4-2,2.1-.5.6-1.1,1.2-1.5,1.8-.1.3-.2.5-.4.7.4-.5.4-.5,0-.1-1.7,1.6-2.9,3.5-3.9,5.7-1.2,2.4-.8,5.7,1.9,7.1,2.3,1.2,5.8.8,7.1-1.9.3-.7.7-1.4,1.1-2,.1-.2.9-1.2,0-.3.2-.2.4-.4.6-.6.7-.7,1.3-1.4,1.9-2.3,0,0,.6-1.1.3-.5-.3.3-.2.2.2-.2.2-.2.5-.5.7-.7.5-.6,1.1-1.1,1.7-1.7.2-.2.5-.4.7-.6,0,0,1.1-.9.5-.5-.6.5.6-.4.6-.4.3-.2.6-.4.9-.6.7-.4,1.4-.9,2.2-1.2.4-.2.8-.4,1.2-.6-.2,0-.9.4,0,0,.7-.3,1.4-.5,2.1-.7.7-.2,1.4-.4,2.1-.5.3,0,.6-.1.9-.2.6,0,.6,0,0,0,.3,0,.6,0,.9,0,1.3-.1,2.6-.1,3.9,0,.2,0,1.6.3.3,0,.3,0,.6,0,.9.2.9.2,1.7.4,2.5.7-.1,0,1.5.5.8.3-.6-.3.9.5.8.4.7.3,1.3.7,1.9,1.1.8.5.1.1,0,0,.3.3.7.6,1,.9.2.2.4.4.6.6.1.1,1.1,1.3.7.8-.5-.6.4.6.4.6.2.3.3.5.5.8.3.4.5.8.7,1.2.6.9.1.1,0-.1.1.3.7,1.5.5,1.8,0-.2,0-.4,0-.6,0,.2,0,.5,0,.7,0,.1,0,.2,0,.4,0,.6,0,.5,0-.3,0,0-.1.7-.2.7,0-.2.2-.4.2-.6-.1.2-.2.4-.4.6.5-.9.3-.5,0-.2.1-.1.3-.2.4-.3-.2.2-.5.3-.7.4-.3.2-.6.3-.8.5,0,0-1.5.7-.6.3-.8.3-1.7.6-2.5.8-.9.2-1.7.4-2.6.6,0,0-1.7.2-.8.1-.4,0-.7,0-1.1,0-2,.1-3.9,0-5.9,0-1,0-2-.2-2.9-.3-1-.1,1.2.2-.5,0-.5,0-1-.2-1.6-.3-2-.3-4-.7-6-1.2-1.8-.4-3.5-.8-5.3-1.5-1.6-.6.4.2-.5-.2-.6-.2-1.1-.5-1.7-.8-1-.5-1.9-1-2.8-1.5-2.4-1.3-5.8-.6-7.1,1.9-1.3,2.5-.7,5.6,1.9,7.1Z"
   })), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors18 = walletMeta.colors) === null || _walletMeta$colors18 === void 0 ? void 0 : _walletMeta$colors18.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors19 = walletMeta.colors) === null || _walletMeta$colors19 === void 0 ? void 0 : _walletMeta$colors19.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M506.6,715.9c.2,3,.5,6,.7,9,.1,1.4.2,2.8.4,4.3,0,.6.1,1.3.2,1.9-.1-1.2.2,1.6.2,1.9.6,6,1.2,12,2,17.9,1.4,12.1,3.1,24.1,5,36.1,3.7,23.8,8,47.4,12.4,70.9,2.5,13.3,5.1,26.6,7.5,40,.8,4.4-1,9.6-4.2,10.7-3.2,1-6.6-1.4-7.4-6.1-8.9-47.6-18.6-95-24.6-143.6-.9-7.1-1.7-14.2-2.4-21.4-.7-7.2-1.3-14.3-1.8-21.5-.3-4.5,3-8.9,6-8.7,3.6.2,5.7,3.8,6.1,8.7h0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors20 = walletMeta.colors) === null || _walletMeta$colors20 === void 0 ? void 0 : _walletMeta$colors20.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors21 = walletMeta.colors) === null || _walletMeta$colors21 === void 0 ? void 0 : _walletMeta$colors21.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M529.5,903.9c-1.4.8-2.8,1.5-4.3,2.2-1.5.7-3,1.2-4.6,1.8-5.6,1.2-13.1,2.9-19.8,2.7-1.7,0-3.3-.2-4.9-.6-1.1-.2-2.4-.6-3.7-1-1.3-.4-2.5-1-3.6-1.6-3.6-1.9-3.6-6-2.1-9.3,2.1-3.6,4.4-6.5,8-8.2.9-.5,1.9-.9,2.9-1.2,8.9-3,19.2,0,26.1,7.2.6.6,1.2,1.2,1.8,1.9.7,1.7,2.5,2.6,3.2,4.2.4.7.7,1.3,1.1,2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors22 = walletMeta.colors) === null || _walletMeta$colors22 === void 0 ? void 0 : _walletMeta$colors22.primary) || "#d88568",
-    style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors23 = walletMeta.colors) === null || _walletMeta$colors23 === void 0 ? void 0 : _walletMeta$colors23.primary) || "#d88568"
-    },
+    className: "GraphicActiveColor",
     d: "M532.1,908.4c-3.8,2.2-8,4-12.3,4.9-4.3.9-8.7,1.7-13.1,2.2-4.6.4-9.2.2-13.7-.9-4.2-1.1-9.1-3-11.2-7-4.2-7.9,2.2-17.4,9-21.5,6.9-4.2,16-4.7,23.5-2,4.4,1.6,8.5,4,11.9,7.2.7.7,1.4,1.4,2,2.1.5.6,1.1,1.2,1.5,1.8.1.3.2.5.4.7-.4-.5-.4-.5,0-.1,1.7,1.6,2.9,3.5,3.9,5.7,1.2,2.4.8,5.7-1.9,7.1-2.3,1.2-5.8.8-7.1-1.9-.3-.7-.7-1.4-1.1-2-.1-.2-.9-1.2,0-.3-.2-.2-.4-.4-.6-.6-.7-.7-1.3-1.4-1.9-2.3,0,0-.6-1.1-.3-.5.3.3.2.2-.2-.2-.2-.2-.5-.5-.7-.7-.5-.6-1.1-1.1-1.7-1.7-.2-.2-.5-.4-.7-.6,0,0-1.1-.9-.5-.5.6.5-.6-.4-.6-.4-.3-.2-.6-.4-.9-.6-.7-.4-1.4-.9-2.2-1.2-.4-.2-.8-.4-1.2-.6.2,0,.9.4,0,0-.7-.3-1.4-.5-2.1-.7-.7-.2-1.4-.4-2.1-.5-.3,0-.6-.1-.9-.2-.6,0-.6,0,0,0-.3,0-.6,0-.9,0-1.3-.1-2.6-.1-3.9,0-.2,0-1.6.3-.3,0-.3,0-.6,0-.9.2-.9.2-1.7.4-2.5.7.1,0-1.5.5-.8.3.6-.3-.9.5-.8.4-.7.3-1.3.7-1.9,1.1-.8.5-.1.1,0,0-.3.3-.7.6-1,.9-.2.2-.4.4-.6.6-.1.1-1.1,1.3-.7.8.5-.6-.4.6-.4.6-.2.3-.3.5-.5.8-.3.4-.5.8-.7,1.2-.6.9-.1.1,0-.1-.1.3-.7,1.5-.5,1.8,0-.2,0-.4,0-.6,0,.2,0,.5,0,.7,0,.1,0,.2,0,.4,0,.6,0,.5,0-.3,0,0,.1.7.2.7,0-.2-.2-.4-.2-.6.1.2.2.4.4.6-.5-.9-.3-.5,0-.2-.1-.1-.3-.2-.4-.3.2.2.5.3.7.4.3.2.6.3.8.5,0,0,1.5.7.6.3.8.3,1.7.6,2.5.8.9.2,1.7.4,2.6.6,0,0,1.7.2.8.1.4,0,.7,0,1.1,0,2,.1,3.9,0,5.9,0,1,0,2-.2,2.9-.3,1-.1-1.2.2.5,0,.5,0,1-.2,1.6-.3,2-.3,4-.7,6-1.2,1.8-.4,3.5-.8,5.3-1.5,1.6-.6-.4.2.5-.2.6-.2,1.1-.5,1.7-.8,1-.5,1.9-1,2.8-1.5,2.4-1.3,5.8-.6,7.1,1.9,1.3,2.5.7,5.6-1.9,7.1Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors24 = walletMeta.colors) === null || _walletMeta$colors24 === void 0 ? void 0 : _walletMeta$colors24.primary) || "#d88568",
+    fill: ((_walletMeta3 = walletMeta) === null || _walletMeta3 === void 0 ? void 0 : (_walletMeta3$colors = _walletMeta3.colors) === null || _walletMeta3$colors === void 0 ? void 0 : _walletMeta3$colors.primary) || "#d88568",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors25 = walletMeta.colors) === null || _walletMeta$colors25 === void 0 ? void 0 : _walletMeta$colors25.primary) || "#d88568"
+      fill: ((_walletMeta4 = walletMeta) === null || _walletMeta4 === void 0 ? void 0 : (_walletMeta4$colors = _walletMeta4.colors) === null || _walletMeta4$colors === void 0 ? void 0 : _walletMeta4$colors.primary) || "#d88568"
     },
     d: "M851.8,803.5c-109.3,19-220.4,21.7-331,19.1-51.9-1.2-104.9-6.6-156.7-10.9-12.6-1-26.1-2-39.9-3.2-6.9-.6-13.9-1.3-20.9-2.1-59.2-8.6-125.6-28-156.6-82.7-3.3-6-6.2-12.2-8.7-18.6-2.5-6.4-4.6-12.9-6.3-19.4-3.2-12.4-5.5-25-7.1-37.4-12.6-142.2-13.4-285.5,7-427.1,6.5-45,19.4-87.2,60-112.5,33.6-20.7,76.5-21,114.8-23.2,48.5-2.8,97.1-4.7,145.7-6,89.6-2.3,179.2-1.9,268.7.8,75.3,2.2,155.2-5.9,223.1,33.8,79.5,46.5,89.9,138.1,93.5,221.7,3.5,80.3,1.6,160.9-6,241-6.2,65-12.8,133.5-65.7,179-30.1,26-70.2,40.1-113.8,47.7Z"
   }), /*#__PURE__*/React.createElement("g", {
     opacity: "0.5"
   }, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors26 = walletMeta.colors) === null || _walletMeta$colors26 === void 0 ? void 0 : _walletMeta$colors26.secondary) || "#000000",
+    fill: ((_walletMeta5 = walletMeta) === null || _walletMeta5 === void 0 ? void 0 : (_walletMeta5$colors = _walletMeta5.colors) === null || _walletMeta5$colors === void 0 ? void 0 : _walletMeta5$colors.secondary) || "#000000",
     d: "M248.3,147.4c3.9-.3,8-1,11.8-2,1.7-.5,3.6-1.1,5.3-2,1.7-1,3.1-2.1,3.8-4,1.1-2.9.5-6.7-2.3-8.5-1.3-.8-2.8-1.1-4.3-1-1.7,0-3.4.3-5.1.5-2.9.4-5.9.9-8.7,1.6-2.5.7-5,1.2-7,3-2.2,2-2.3,5.2-1.6,7.9.9,3.1,3.3,4.6,6.3,4.6.6,0,1.3,0,1.9,0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors27 = walletMeta.colors) === null || _walletMeta$colors27 === void 0 ? void 0 : _walletMeta$colors27.secondary) || "#000000",
+    fill: ((_walletMeta6 = walletMeta) === null || _walletMeta6 === void 0 ? void 0 : (_walletMeta6$colors = _walletMeta6.colors) === null || _walletMeta6$colors === void 0 ? void 0 : _walletMeta6$colors.secondary) || "#000000",
     d: "M295.4,138.5c4,.3,8.2,0,12-.8,3.5-.7,7.9-1.5,9.6-5.1,1.3-2.8,1.1-6.7-1.5-8.6-1.2-.9-2.7-1.3-4.2-1.4-1.7-.1-3.4-.1-5.1,0-2.9,0-5.9.4-8.8.8-2.5.3-5.1.6-7.2,2.1-2.4,1.7-2.9,5-2.5,7.7.5,3.1,2.7,4.9,5.7,5.2.6,0,1.3.1,1.9.1Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors28 = walletMeta.colors) === null || _walletMeta$colors28 === void 0 ? void 0 : _walletMeta$colors28.secondary) || "#000000",
+    fill: ((_walletMeta7 = walletMeta) === null || _walletMeta7 === void 0 ? void 0 : (_walletMeta7$colors = _walletMeta7.colors) === null || _walletMeta7$colors === void 0 ? void 0 : _walletMeta7$colors.secondary) || "#000000",
     d: "M343.3,133.7c4,.5,8.2.4,12.1,0,3.6-.4,8-1.1,9.9-4.6,1.5-2.7,1.4-6.6-1.1-8.7-1.1-1-2.6-1.4-4.1-1.6-1.7-.2-3.4-.3-5.1-.3-2.9-.1-5.9,0-8.8.3-2.5.2-5.1.3-7.3,1.6-2.5,1.5-3.2,4.7-3,7.5.3,3.2,2.4,5,5.4,5.6.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors29 = walletMeta.colors) === null || _walletMeta$colors29 === void 0 ? void 0 : _walletMeta$colors29.secondary) || "#000000",
+    fill: ((_walletMeta8 = walletMeta) === null || _walletMeta8 === void 0 ? void 0 : (_walletMeta8$colors = _walletMeta8.colors) === null || _walletMeta8$colors === void 0 ? void 0 : _walletMeta8$colors.secondary) || "#000000",
     d: "M391.7,131.1c4,.6,8.2.6,12.2.2,3.6-.3,8.1-1,10-4.4,1.5-2.7,1.5-6.6-1-8.7-1.1-1-2.6-1.4-4-1.6-1.7-.2-3.4-.3-5-.4-2.9-.2-5.8,0-8.7,0-2.5.1-5,.1-7.3,1.4-2.5,1.4-3.4,4.6-3.2,7.4.2,3.2,2.2,5.1,5.2,5.8.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors30 = walletMeta.colors) === null || _walletMeta$colors30 === void 0 ? void 0 : _walletMeta$colors30.secondary) || "#000000",
+    fill: ((_walletMeta9 = walletMeta) === null || _walletMeta9 === void 0 ? void 0 : (_walletMeta9$colors = _walletMeta9.colors) === null || _walletMeta9$colors === void 0 ? void 0 : _walletMeta9$colors.secondary) || "#000000",
     d: "M440.3,129c4,.6,8.2.5,12.1,0,3.6-.5,8-.9,10-4.3,1.5-2.6,1.5-6.5-1-8.7-1.1-1-2.6-1.5-4.1-1.7-1.7-.3-3.4-.3-5.1-.4-2.9-.1-5.8,0-8.8.2-2.5.2-5,.2-7.3,1.5-2.5,1.5-3.3,4.6-3.2,7.4.2,3.2,2.2,5.1,5.3,5.7.6.1,1.3.2,1.9.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors31 = walletMeta.colors) === null || _walletMeta$colors31 === void 0 ? void 0 : _walletMeta$colors31.secondary) || "#000000",
+    fill: ((_walletMeta10 = walletMeta) === null || _walletMeta10 === void 0 ? void 0 : (_walletMeta10$colors = _walletMeta10.colors) === null || _walletMeta10$colors === void 0 ? void 0 : _walletMeta10$colors.secondary) || "#000000",
     d: "M488.7,127.6c3.9.7,8.2.8,12.1.5,3.6-.3,8.1-.8,10.1-4.2,1.6-2.6,1.7-6.5-.7-8.7-1.1-1-2.5-1.5-4-1.7-1.7-.3-3.4-.4-5-.5-2.9-.2-5.9-.2-8.8-.1-2.5,0-5.1,0-7.4,1.2-2.6,1.4-3.4,4.5-3.3,7.3.1,3.2,2.1,5.2,5.1,5.9.6.1,1.3.3,1.9.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors32 = walletMeta.colors) === null || _walletMeta$colors32 === void 0 ? void 0 : _walletMeta$colors32.secondary) || "#000000",
+    fill: ((_walletMeta11 = walletMeta) === null || _walletMeta11 === void 0 ? void 0 : (_walletMeta11$colors = _walletMeta11.colors) === null || _walletMeta11$colors === void 0 ? void 0 : _walletMeta11$colors.secondary) || "#000000",
     d: "M537.2,127.1c3.9.8,8.2.9,12.1.7,3.6-.2,8.1-.6,10.2-4,1.6-2.6,1.8-6.5-.6-8.7-1.1-1-2.5-1.5-4-1.8-1.7-.3-3.4-.4-5-.6-2.9-.3-5.8-.3-8.7-.3-2.5,0-5,0-7.4,1.1-2.6,1.3-3.5,4.5-3.5,7.2,0,3.2,2,5.2,5,6,.6.2,1.3.3,1.9.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors33 = walletMeta.colors) === null || _walletMeta$colors33 === void 0 ? void 0 : _walletMeta$colors33.secondary) || "#000000",
+    fill: ((_walletMeta12 = walletMeta) === null || _walletMeta12 === void 0 ? void 0 : (_walletMeta12$colors = _walletMeta12.colors) === null || _walletMeta12$colors === void 0 ? void 0 : _walletMeta12$colors.secondary) || "#000000",
     d: "M585.8,127.4c3.9.8,8.2,1,12.1.9,3.6-.2,8.1-.5,10.2-3.9,1.7-2.6,1.8-6.5-.5-8.8-1.1-1-2.5-1.6-4-1.8-1.6-.3-3.3-.5-5-.7-2.9-.3-5.8-.4-8.7-.4-2.5,0-5-.1-7.4,1-2.6,1.3-3.6,4.4-3.6,7.2,0,3.2,1.9,5.2,4.9,6,.6.2,1.3.3,1.9.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors34 = walletMeta.colors) === null || _walletMeta$colors34 === void 0 ? void 0 : _walletMeta$colors34.secondary) || "#000000",
+    fill: ((_walletMeta13 = walletMeta) === null || _walletMeta13 === void 0 ? void 0 : (_walletMeta13$colors = _walletMeta13.colors) === null || _walletMeta13$colors === void 0 ? void 0 : _walletMeta13$colors.secondary) || "#000000",
     d: "M634.3,128.2c3.9.9,8.2,1.1,12.1,1,3.6-.1,8.1-.5,10.3-3.8,1.7-2.6,1.9-6.5-.4-8.8-1-1-2.5-1.6-3.9-1.9-1.6-.3-3.3-.5-5-.7-2.9-.4-5.8-.5-8.7-.5-2.5,0-5-.2-7.4,1-2.6,1.3-3.6,4.4-3.7,7.1,0,3.2,1.9,5.3,4.8,6.1.6.2,1.2.3,1.9.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors35 = walletMeta.colors) === null || _walletMeta$colors35 === void 0 ? void 0 : _walletMeta$colors35.secondary) || "#000000",
+    fill: ((_walletMeta14 = walletMeta) === null || _walletMeta14 === void 0 ? void 0 : (_walletMeta14$colors = _walletMeta14.colors) === null || _walletMeta14$colors === void 0 ? void 0 : _walletMeta14$colors.secondary) || "#000000",
     d: "M683,129.4c4,.8,8.3,1,12.2.8,3.6-.2,8.2-.7,10.2-4,1.6-2.6,1.7-6.5-.7-8.7-1.1-1-2.5-1.5-4-1.8-1.6-.3-3.3-.4-5-.6-2.9-.3-5.8-.3-8.7-.3-2.5,0-5-.1-7.3,1-2.6,1.3-3.6,4.4-3.7,7.1,0,3.2,1.9,5.3,4.9,6.1.6.2,1.3.3,1.9.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors36 = walletMeta.colors) === null || _walletMeta$colors36 === void 0 ? void 0 : _walletMeta$colors36.secondary) || "#000000",
+    fill: ((_walletMeta15 = walletMeta) === null || _walletMeta15 === void 0 ? void 0 : (_walletMeta15$colors = _walletMeta15.colors) === null || _walletMeta15$colors === void 0 ? void 0 : _walletMeta15$colors.secondary) || "#000000",
     d: "M731.8,129.3c3.9.8,8.2.9,12.1.7,3.6-.2,8.1-.6,10.2-4,1.6-2.6,1.8-6.5-.5-8.8-1.1-1-2.5-1.6-4-1.8-1.7-.3-3.4-.5-5-.6-2.9-.3-5.8-.3-8.8-.3-2.5,0-5.1,0-7.4,1.2-2.6,1.4-3.5,4.5-3.5,7.2,0,3.2,2,5.2,5,6,.6.2,1.3.3,1.9.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors37 = walletMeta.colors) === null || _walletMeta$colors37 === void 0 ? void 0 : _walletMeta$colors37.secondary) || "#000000",
+    fill: ((_walletMeta16 = walletMeta) === null || _walletMeta16 === void 0 ? void 0 : (_walletMeta16$colors = _walletMeta16.colors) === null || _walletMeta16$colors === void 0 ? void 0 : _walletMeta16$colors.secondary) || "#000000",
     d: "M780,130c3.9,1,8,1.3,11.9,1.4,3.5,0,8,0,10.4-3.2,1.8-2.4,2.4-6.3.2-8.8-1-1.1-2.4-1.7-3.9-2.1-1.6-.4-3.4-.7-5-1-2.9-.5-5.9-.7-8.8-.8-2.5-.1-5.1-.3-7.5.8-2.7,1.2-3.7,4.3-3.8,7.1,0,3.2,1.8,5.3,4.7,6.2.6.2,1.2.4,1.9.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors38 = walletMeta.colors) === null || _walletMeta$colors38 === void 0 ? void 0 : _walletMeta$colors38.secondary) || "#000000",
+    fill: ((_walletMeta17 = walletMeta) === null || _walletMeta17 === void 0 ? void 0 : (_walletMeta17$colors = _walletMeta17.colors) === null || _walletMeta17$colors === void 0 ? void 0 : _walletMeta17$colors.secondary) || "#000000",
     d: "M827.5,134.9c1.8.7,3.8,1.3,5.7,1.8,1.9.5,3.9.8,5.8,1.2,1.7.3,3.7.5,5.6.4,1.9-.1,3.7-.6,5.1-2,2.2-2.1,3.4-5.9,1.6-8.6-.8-1.3-2.1-2.1-3.5-2.7-1.6-.7-3.3-1.2-4.9-1.7-2.8-1-5.8-1.5-8.7-2.1-2.5-.5-5.1-1-7.6-.2-2.8.9-4.2,3.9-4.6,6.6-.4,3.2,1.2,5.4,3.9,6.7.6.3,1.2.5,1.8.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors39 = walletMeta.colors) === null || _walletMeta$colors39 === void 0 ? void 0 : _walletMeta$colors39.secondary) || "#000000",
+    fill: ((_walletMeta18 = walletMeta) === null || _walletMeta18 === void 0 ? void 0 : (_walletMeta18$colors = _walletMeta18.colors) === null || _walletMeta18$colors === void 0 ? void 0 : _walletMeta18$colors.secondary) || "#000000",
     d: "M873,147.2c1.6,1.1,3.4,2,5.1,2.9,1.8.9,3.6,1.7,5.3,2.3,3.2,1.3,7.3,2.8,10.6.9,2.6-1.6,4.7-4.9,3.6-8-.5-1.4-1.6-2.6-2.8-3.5-1.4-1-2.9-1.9-4.4-2.8-2.6-1.5-5.4-2.8-8.2-3.9-2.4-.9-4.8-2-7.5-1.7-3,.4-4.9,3-5.8,5.6-1,3,0,5.6,2.5,7.3.5.4,1,.7,1.6,1.1Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors40 = walletMeta.colors) === null || _walletMeta$colors40 === void 0 ? void 0 : _walletMeta$colors40.secondary) || "#000000",
+    fill: ((_walletMeta19 = walletMeta) === null || _walletMeta19 === void 0 ? void 0 : (_walletMeta19$colors = _walletMeta19.colors) === null || _walletMeta19$colors === void 0 ? void 0 : _walletMeta19$colors.secondary) || "#000000",
     d: "M913.6,169.8c2.4,3,5.5,5.6,8.3,8,.7.5,1.4,1.1,2.1,1.6.7.6,1.5,1.1,2.3,1.5,1.6.9,3.4,1.3,5.4.9,2.9-.6,6-3.1,6-6.4,0-1.5-.7-2.9-1.6-4.2-.5-.7-1-1.4-1.6-2.1-.6-.7-1.2-1.3-1.8-2-1-1.1-2.1-2.2-3.2-3.3-1.1-1-2.3-2-3.5-3-1-.8-2-1.7-3.1-2.4-1.1-.7-2.3-1.2-3.6-1.5-3-.5-5.5,1.4-7.1,3.7-1.8,2.6-1.5,5.4.4,7.7.4.5.8,1,1.2,1.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors41 = walletMeta.colors) === null || _walletMeta$colors41 === void 0 ? void 0 : _walletMeta$colors41.secondary) || "#000000",
+    fill: ((_walletMeta20 = walletMeta) === null || _walletMeta20 === void 0 ? void 0 : (_walletMeta20$colors = _walletMeta20.colors) === null || _walletMeta20$colors === void 0 ? void 0 : _walletMeta20$colors.secondary) || "#000000",
     d: "M944.6,203.9c1.4,3.6,3.3,7.1,5.2,10.4.4.7,1,1.5,1.5,2.3.5.8,1.1,1.5,1.7,2.2,1.3,1.3,2.9,2.3,4.8,2.6,3,.3,6.6-1.1,7.7-4.3.4-1.4.2-3-.2-4.5-.5-1.7-1.1-3.3-1.8-4.9-.6-1.4-1.3-2.8-1.9-4.1-.7-1.3-1.5-2.6-2.3-4-1.3-2.3-2.7-4.5-5.1-5.9-2.6-1.5-5.7-.5-8,1.1-1.3.9-2.1,2.1-2.4,3.3-.4,1.3-.3,2.7.2,4.1.2.6.4,1.2.6,1.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors42 = walletMeta.colors) === null || _walletMeta$colors42 === void 0 ? void 0 : _walletMeta$colors42.secondary) || "#000000",
+    fill: ((_walletMeta21 = walletMeta) === null || _walletMeta21 === void 0 ? void 0 : (_walletMeta21$colors = _walletMeta21.colors) === null || _walletMeta21$colors === void 0 ? void 0 : _walletMeta21$colors.secondary) || "#000000",
     d: "M963.8,246.3c.2,1.9.5,3.9,1,5.9.5,1.9.9,3.9,1.5,5.7.6,1.7,1.2,3.5,2.1,5.2.9,1.6,2.3,3,4.1,3.6,2.9,1,6.7.4,8.4-2.5.8-1.3.9-2.8.8-4.4-.1-1.7-.3-3.5-.6-5.2-.5-3-1.2-5.9-2.1-8.8-.4-1.2-.7-2.5-1.2-3.7-.5-1.2-1.2-2.3-2.1-3.2-2.1-2.1-5.4-2-8-1.1-3,1.1-4.3,3.5-4.2,6.5,0,.6,0,1.3.2,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors43 = walletMeta.colors) === null || _walletMeta$colors43 === void 0 ? void 0 : _walletMeta$colors43.secondary) || "#000000",
+    fill: ((_walletMeta22 = walletMeta) === null || _walletMeta22 === void 0 ? void 0 : (_walletMeta22$colors = _walletMeta22.colors) === null || _walletMeta22$colors === void 0 ? void 0 : _walletMeta22$colors.secondary) || "#000000",
     d: "M973.7,292.7c-.3,4,.1,8.1.7,11.9.6,3.5,1.4,7.9,5,9.6,2.7,1.4,6.6,1.2,8.7-1.4.9-1.2,1.3-2.7,1.4-4.2.1-1.7.1-3.4,0-5.1,0-3-.3-5.9-.7-8.9-.3-2.5-.6-5.1-2.1-7.3-1.7-2.4-4.9-2.9-7.6-2.5-3.1.5-4.9,2.7-5.2,5.7,0,.6-.1,1.3-.2,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors44 = walletMeta.colors) === null || _walletMeta$colors44 === void 0 ? void 0 : _walletMeta$colors44.secondary) || "#000000",
+    fill: ((_walletMeta23 = walletMeta) === null || _walletMeta23 === void 0 ? void 0 : (_walletMeta23$colors = _walletMeta23.colors) === null || _walletMeta23$colors === void 0 ? void 0 : _walletMeta23$colors.secondary) || "#000000",
     d: "M977.9,340.6c-.6,4-.5,8.2-.1,12.1.3,3.6,1,8,4.4,10,2.7,1.5,6.6,1.5,8.7-.9,1-1.1,1.4-2.6,1.6-4.1.2-1.7.3-3.4.4-5.1.2-2.9,0-5.9,0-8.8-.1-2.5-.2-5.1-1.5-7.3-1.5-2.5-4.7-3.3-7.4-3.1-3.2.2-5.1,2.3-5.7,5.3-.1.6-.2,1.3-.3,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors45 = walletMeta.colors) === null || _walletMeta$colors45 === void 0 ? void 0 : _walletMeta$colors45.secondary) || "#000000",
+    fill: ((_walletMeta24 = walletMeta) === null || _walletMeta24 === void 0 ? void 0 : (_walletMeta24$colors = _walletMeta24.colors) === null || _walletMeta24$colors === void 0 ? void 0 : _walletMeta24$colors.secondary) || "#000000",
     d: "M979.6,389c-.7,3.9-.8,8.2-.5,12.1.2,3.6.7,8.1,4.1,10.1,2.6,1.6,6.5,1.7,8.7-.7,1-1.1,1.5-2.5,1.8-4,.3-1.7.4-3.4.6-5,.2-2.9.2-5.9.2-8.8,0-2.5,0-5.1-1.3-7.4-1.4-2.6-4.5-3.5-7.3-3.4-3.2,0-5.2,2.1-5.9,5.1-.1.6-.3,1.3-.4,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors46 = walletMeta.colors) === null || _walletMeta$colors46 === void 0 ? void 0 : _walletMeta$colors46.secondary) || "#000000",
+    fill: ((_walletMeta25 = walletMeta) === null || _walletMeta25 === void 0 ? void 0 : (_walletMeta25$colors = _walletMeta25.colors) === null || _walletMeta25$colors === void 0 ? void 0 : _walletMeta25$colors.secondary) || "#000000",
     d: "M979.7,437.4c-.8,3.9-1.1,8.2-.9,12.1.1,3.6.5,8.1,3.8,10.3,2.6,1.7,6.5,1.9,8.8-.4,1-1,1.6-2.5,1.9-3.9.3-1.6.5-3.4.7-5,.3-2.9.4-5.8.5-8.8,0-2.5.1-5.1-1-7.4-1.3-2.6-4.4-3.6-7.2-3.6-3.2,0-5.2,1.9-6,4.9-.2.6-.3,1.2-.4,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors47 = walletMeta.colors) === null || _walletMeta$colors47 === void 0 ? void 0 : _walletMeta$colors47.secondary) || "#000000",
+    fill: ((_walletMeta26 = walletMeta) === null || _walletMeta26 === void 0 ? void 0 : (_walletMeta26$colors = _walletMeta26.colors) === null || _walletMeta26$colors === void 0 ? void 0 : _walletMeta26$colors.secondary) || "#000000",
     d: "M978.3,485.8c-1,3.9-1.3,8.1-1.3,12,0,3.6.2,8.1,3.4,10.4,2.5,1.8,6.4,2.1,8.8,0,1.1-1,1.7-2.4,2-3.9.4-1.6.6-3.3.9-5,.5-2.9.6-5.8.7-8.7,0-2.5.3-5.1-.8-7.4-1.2-2.6-4.3-3.7-7.1-3.8-3.2-.1-5.3,1.8-6.2,4.7-.2.6-.4,1.2-.5,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors48 = walletMeta.colors) === null || _walletMeta$colors48 === void 0 ? void 0 : _walletMeta$colors48.secondary) || "#000000",
+    fill: ((_walletMeta27 = walletMeta) === null || _walletMeta27 === void 0 ? void 0 : (_walletMeta27$colors = _walletMeta27.colors) === null || _walletMeta27$colors === void 0 ? void 0 : _walletMeta27$colors.secondary) || "#000000",
     d: "M975.3,534.1c-1.1,3.9-1.6,8.1-1.7,12,0,3.6,0,8.1,3.1,10.5,2.5,1.8,6.3,2.3,8.8.2,1.1-1,1.8-2.4,2.1-3.8.5-1.6.8-3.3,1-5,.5-2.9.8-5.8,1-8.7.2-2.5.5-5-.5-7.4-1.1-2.7-4.2-3.9-6.9-4.1-3.2-.2-5.4,1.6-6.3,4.5-.2.6-.4,1.2-.6,1.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors49 = walletMeta.colors) === null || _walletMeta$colors49 === void 0 ? void 0 : _walletMeta$colors49.secondary) || "#000000",
+    fill: ((_walletMeta28 = walletMeta) === null || _walletMeta28 === void 0 ? void 0 : (_walletMeta28$colors = _walletMeta28.colors) === null || _walletMeta28$colors === void 0 ? void 0 : _walletMeta28$colors.secondary) || "#000000",
     d: "M970.8,582.3c-1.2,3.8-1.8,8-2.1,11.9-.2,3.5-.4,8,2.6,10.5,2.4,2,6.2,2.7,8.7.6,1.2-.9,1.9-2.3,2.3-3.7.5-1.6.9-3.3,1.3-5,.6-2.9,1-5.8,1.3-8.7.3-2.5.6-5-.3-7.5-1.1-2.7-4.1-4-6.8-4.3-3.2-.3-5.4,1.4-6.5,4.3-.2.6-.4,1.2-.6,1.8Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors50 = walletMeta.colors) === null || _walletMeta$colors50 === void 0 ? void 0 : _walletMeta$colors50.secondary) || "#000000",
+    fill: ((_walletMeta29 = walletMeta) === null || _walletMeta29 === void 0 ? void 0 : (_walletMeta29$colors = _walletMeta29.colors) === null || _walletMeta29$colors === void 0 ? void 0 : _walletMeta29$colors.secondary) || "#000000",
     d: "M963.5,629.6c-1.6,3.6-2.7,7.5-3.5,11.3-.4,1.7-.8,3.6-.7,5.5,0,1.9.4,3.7,1.7,5.2,2,2.3,5.6,3.7,8.5,2.1,1.3-.7,2.2-2,2.9-3.4.8-1.5,1.4-3.2,2-4.8,1-2.8,1.9-5.7,2.5-8.6.6-2.5,1.2-5,.6-7.6-.8-2.9-3.7-4.4-6.4-4.9-3.1-.6-5.5.9-6.9,3.6-.3.6-.6,1.1-.8,1.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors51 = walletMeta.colors) === null || _walletMeta$colors51 === void 0 ? void 0 : _walletMeta$colors51.secondary) || "#000000",
+    fill: ((_walletMeta30 = walletMeta) === null || _walletMeta30 === void 0 ? void 0 : (_walletMeta30$colors = _walletMeta30.colors) === null || _walletMeta30$colors === void 0 ? void 0 : _walletMeta30$colors.secondary) || "#000000",
     d: "M948.3,673.9c-1.1,1.5-2.3,3.1-3.3,4.8-1,1.7-2,3.3-2.9,5-.8,1.5-1.7,3.2-2.2,5-.5,1.7-.6,3.6.2,5.4.6,1.4,1.7,2.7,3,3.6,1.3.9,2.9,1.3,4.5,1,1.5-.3,2.7-1.3,3.8-2.4,1.2-1.3,2.3-2.7,3.3-4.1,1.8-2.5,3.4-5.1,4.8-7.8,1.3-2.3,2.5-4.7,2.5-7.4,0-3-2.5-5.2-5.1-6.3-1.5-.6-2.8-.7-4.1-.4-1.2.4-2.4,1.1-3.4,2.2-.4.5-.8.9-1.2,1.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors52 = walletMeta.colors) === null || _walletMeta$colors52 === void 0 ? void 0 : _walletMeta$colors52.secondary) || "#000000",
+    fill: ((_walletMeta31 = walletMeta) === null || _walletMeta31 === void 0 ? void 0 : (_walletMeta31$colors = _walletMeta31.colors) === null || _walletMeta31$colors === void 0 ? void 0 : _walletMeta31$colors.secondary) || "#000000",
     d: "M921,710.8c-1.6,1-3.2,2.1-4.8,3.3-1.5,1.2-3,2.4-4.4,3.7-.6.6-1.3,1.2-1.9,1.9-.7.6-1.3,1.3-1.8,2.1-1.1,1.5-1.8,3.2-1.7,5.2.2,3,2.2,6.4,5.5,6.9,1.5.2,3-.3,4.4-1,.8-.4,1.6-.8,2.3-1.3.8-.5,1.5-1,2.2-1.4,1.3-.8,2.5-1.7,3.8-2.7,1.2-1,2.3-2,3.5-3,1-.9,2-1.8,2.8-2.8.9-1,1.6-2.1,2-3.3.9-2.9-.6-5.8-2.6-7.6-1.2-1.1-2.4-1.6-3.7-1.7-1.3-.1-2.6.3-3.9,1-.5.3-1.1.6-1.6.9Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors53 = walletMeta.colors) === null || _walletMeta$colors53 === void 0 ? void 0 : _walletMeta$colors53.secondary) || "#000000",
+    fill: ((_walletMeta32 = walletMeta) === null || _walletMeta32 === void 0 ? void 0 : (_walletMeta32$colors = _walletMeta32.colors) === null || _walletMeta32$colors === void 0 ? void 0 : _walletMeta32$colors.secondary) || "#000000",
     d: "M882.6,736.6c-3.8.9-7.6,2.4-11,4-.8.4-1.6.8-2.4,1.2-.8.4-1.6.9-2.4,1.5-1.5,1.1-2.7,2.6-3.1,4.5-.6,3,.5,6.7,3.5,8,1.4.6,2.9.5,4.4.3,1.7-.3,3.4-.8,5.1-1.3,1.4-.4,2.9-.9,4.3-1.5,1.4-.5,2.8-1.2,4.2-1.8,1.2-.5,2.4-1,3.5-1.7,1.1-.7,2.1-1.5,2.9-2.6,1.8-2.4,1.2-5.6,0-8-1.5-2.8-4.1-3.8-7.1-3.2-.6.1-1.2.3-1.8.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors54 = walletMeta.colors) === null || _walletMeta$colors54 === void 0 ? void 0 : _walletMeta$colors54.secondary) || "#000000",
+    fill: ((_walletMeta33 = walletMeta) === null || _walletMeta33 === void 0 ? void 0 : (_walletMeta33$colors = _walletMeta33.colors) === null || _walletMeta33$colors === void 0 ? void 0 : _walletMeta33$colors.secondary) || "#000000",
     d: "M838.1,752c-2,.1-4,.3-5.9.6-2,.3-3.9.8-5.8,1.3-1.7.4-3.6,1-5.3,1.9-1.7.9-3.1,2.1-3.8,3.9-1.1,2.9-.6,6.7,2.1,8.5,1.2.8,2.8,1,4.3,1,1.7,0,3.4-.2,5.1-.4,3-.3,5.9-.9,8.8-1.6,2.5-.6,5-1.1,7-2.9,2.2-1.9,2.4-5.2,1.6-7.9-.8-3.1-3.2-4.5-6.3-4.6-.6,0-1.3,0-1.9,0Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors55 = walletMeta.colors) === null || _walletMeta$colors55 === void 0 ? void 0 : _walletMeta$colors55.secondary) || "#000000",
+    fill: ((_walletMeta34 = walletMeta) === null || _walletMeta34 === void 0 ? void 0 : (_walletMeta34$colors = _walletMeta34.colors) === null || _walletMeta34$colors === void 0 ? void 0 : _walletMeta34$colors.secondary) || "#000000",
     d: "M790.9,760.5c-4-.2-8.2.2-12,1-3.5.7-7.9,1.7-9.5,5.3-1.3,2.8-.9,6.7,1.7,8.6,1.2.9,2.7,1.2,4.2,1.3,1.7,0,3.4,0,5.1,0,2.9-.1,5.8-.5,8.7-.9,2.5-.4,5-.6,7.1-2.2,2.4-1.7,2.9-4.9,2.4-7.7-.5-3.1-2.7-4.9-5.8-5.2-.6,0-1.3-.1-1.9-.1Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors56 = walletMeta.colors) === null || _walletMeta$colors56 === void 0 ? void 0 : _walletMeta$colors56.secondary) || "#000000",
+    fill: ((_walletMeta35 = walletMeta) === null || _walletMeta35 === void 0 ? void 0 : (_walletMeta35$colors = _walletMeta35.colors) === null || _walletMeta35$colors === void 0 ? void 0 : _walletMeta35$colors.secondary) || "#000000",
     d: "M742.9,766.6c-4-.4-8.2-.1-12.1.5-3.5.5-8,1.4-9.7,4.9-1.4,2.8-1.2,6.6,1.4,8.7,1.2.9,2.7,1.3,4.1,1.4,1.7.1,3.4.1,5.1.1,2.9,0,5.9-.3,8.8-.6,2.5-.3,5.1-.4,7.2-1.9,2.4-1.6,3-4.8,2.7-7.6-.4-3.2-2.5-5-5.6-5.4-.6,0-1.3-.2-1.9-.2Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors57 = walletMeta.colors) === null || _walletMeta$colors57 === void 0 ? void 0 : _walletMeta$colors57.secondary) || "#000000",
+    fill: ((_walletMeta36 = walletMeta) === null || _walletMeta36 === void 0 ? void 0 : (_walletMeta36$colors = _walletMeta36.colors) === null || _walletMeta36$colors === void 0 ? void 0 : _walletMeta36$colors.secondary) || "#000000",
     d: "M694.7,770.8c-4-.5-8.2-.4-12.1,0-3.6.4-8,1.1-9.9,4.6-1.5,2.7-1.4,6.6,1.1,8.7,1.1,1,2.6,1.4,4.1,1.6,1.7.2,3.4.3,5.1.3,2.9,0,5.9,0,8.8-.3,2.5-.2,5.1-.3,7.3-1.6,2.5-1.5,3.2-4.7,3-7.4-.3-3.2-2.4-5.1-5.4-5.6-.6-.1-1.3-.2-1.9-.3Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors58 = walletMeta.colors) === null || _walletMeta$colors58 === void 0 ? void 0 : _walletMeta$colors58.secondary) || "#000000",
+    fill: ((_walletMeta37 = walletMeta) === null || _walletMeta37 === void 0 ? void 0 : (_walletMeta37$colors = _walletMeta37.colors) === null || _walletMeta37$colors === void 0 ? void 0 : _walletMeta37$colors.secondary) || "#000000",
     d: "M646.3,773.3c-4-.6-8.2-.7-12.1-.3-3.6.3-8.1.9-10.1,4.3-1.5,2.7-1.6,6.6.8,8.7,1.1,1,2.6,1.5,4,1.7,1.7.3,3.4.4,5.1.5,2.9.2,5.9.1,8.8,0,2.5,0,5.1-.1,7.3-1.4,2.5-1.4,3.4-4.6,3.2-7.3-.2-3.2-2.2-5.1-5.2-5.8-.6-.1-1.3-.3-1.9-.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors59 = walletMeta.colors) === null || _walletMeta$colors59 === void 0 ? void 0 : _walletMeta$colors59.secondary) || "#000000",
+    fill: ((_walletMeta38 = walletMeta) === null || _walletMeta38 === void 0 ? void 0 : (_walletMeta38$colors = _walletMeta38.colors) === null || _walletMeta38$colors === void 0 ? void 0 : _walletMeta38$colors.secondary) || "#000000",
     d: "M597.9,774.4c-3.9-.7-8.2-.9-12.1-.6-3.6.2-8.1.7-10.2,4-1.6,2.6-1.8,6.5.6,8.7,1.1,1,2.5,1.5,4,1.8,1.7.3,3.4.4,5,.6,2.9.3,5.8.3,8.8.3,2.5,0,5.1,0,7.4-1.2,2.6-1.4,3.5-4.5,3.5-7.3,0-3.2-2-5.2-5-5.9-.6-.2-1.3-.3-1.9-.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors60 = walletMeta.colors) === null || _walletMeta$colors60 === void 0 ? void 0 : _walletMeta$colors60.secondary) || "#000000",
+    fill: ((_walletMeta39 = walletMeta) === null || _walletMeta39 === void 0 ? void 0 : (_walletMeta39$colors = _walletMeta39.colors) === null || _walletMeta39$colors === void 0 ? void 0 : _walletMeta39$colors.secondary) || "#000000",
     d: "M549.6,774.1c-3.9-1-8.1-1.3-12-1.3-3.6,0-8.1.3-10.4,3.5-1.7,2.5-2,6.4.2,8.8,1,1.1,2.5,1.6,3.9,2,1.6.4,3.3.6,5,.8,2.9.4,5.8.6,8.8.7,2.5,0,5.1.3,7.4-.8,2.7-1.3,3.7-4.4,3.7-7.1,0-1.6-.5-2.9-1.3-3.9-.8-1-2-1.7-3.5-2.2-.6-.2-1.2-.4-1.9-.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors61 = walletMeta.colors) === null || _walletMeta$colors61 === void 0 ? void 0 : _walletMeta$colors61.secondary) || "#000000",
+    fill: ((_walletMeta40 = walletMeta) === null || _walletMeta40 === void 0 ? void 0 : (_walletMeta40$colors = _walletMeta40.colors) === null || _walletMeta40$colors === void 0 ? void 0 : _walletMeta40$colors.secondary) || "#000000",
     d: "M501.1,771.8c-3.9-1-8.1-1.3-12.1-1.3-3.6,0-8.1.2-10.4,3.5-1.8,2.5-2.1,6.4.1,8.8,1,1.1,2.4,1.7,3.9,2,1.6.4,3.3.6,5,.9,2.9.4,5.8.6,8.7.8,2.5.1,5,.3,7.4-.7,2.6-1.2,3.8-4.3,3.9-7,.1-3.2-1.7-5.3-4.7-6.2-.6-.2-1.2-.4-1.9-.5Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors62 = walletMeta.colors) === null || _walletMeta$colors62 === void 0 ? void 0 : _walletMeta$colors62.secondary) || "#000000",
+    fill: ((_walletMeta41 = walletMeta) === null || _walletMeta41 === void 0 ? void 0 : (_walletMeta41$colors = _walletMeta41.colors) === null || _walletMeta41$colors === void 0 ? void 0 : _walletMeta41$colors.secondary) || "#000000",
     d: "M452.7,769c-3.9-1-8.1-1.5-12-1.6-3.6,0-8.1,0-10.4,3.2-1.8,2.5-2.2,6.3,0,8.8,1,1.1,2.4,1.7,3.8,2.1,1.6.4,3.3.7,5,1,2.9.5,5.8.7,8.7.9,2.5.1,5,.4,7.4-.6,2.7-1.2,3.8-4.2,4-7,.2-3.2-1.6-5.3-4.6-6.3-.6-.2-1.2-.4-1.9-.6Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors63 = walletMeta.colors) === null || _walletMeta$colors63 === void 0 ? void 0 : _walletMeta$colors63.secondary) || "#000000",
+    fill: ((_walletMeta42 = walletMeta) === null || _walletMeta42 === void 0 ? void 0 : (_walletMeta42$colors = _walletMeta42.colors) === null || _walletMeta42$colors === void 0 ? void 0 : _walletMeta42$colors.secondary) || "#000000",
     d: "M404.4,765.1c-3.8-1.1-8-1.8-11.9-1.9-3.6-.1-8.1-.2-10.5,2.9-1.9,2.4-2.5,6.3-.4,8.8,1,1.1,2.4,1.8,3.8,2.2,1.6.5,3.3.8,5,1.1,2.9.6,5.8.9,8.7,1.2,2.5.2,5,.6,7.5-.4,2.7-1.1,4-4.1,4.2-6.9.3-3.2-1.5-5.4-4.4-6.4-.6-.2-1.2-.4-1.8-.6Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors64 = walletMeta.colors) === null || _walletMeta$colors64 === void 0 ? void 0 : _walletMeta$colors64.secondary) || "#000000",
+    fill: ((_walletMeta43 = walletMeta) === null || _walletMeta43 === void 0 ? void 0 : (_walletMeta43$colors = _walletMeta43.colors) === null || _walletMeta43$colors === void 0 ? void 0 : _walletMeta43$colors.secondary) || "#000000",
     d: "M356.3,759.5c-3.8-1.3-7.9-2.1-11.8-2.4-3.6-.3-8.1-.6-10.6,2.4-2,2.3-2.8,6.2-.8,8.7.9,1.2,2.3,1.9,3.7,2.4,1.6.6,3.3,1,4.9,1.4,2.9.7,5.8,1.1,8.7,1.5,2.5.3,5,.8,7.5,0,2.7-1,4.1-4,4.5-6.7.4-3.2-1.3-5.4-4.1-6.6-.6-.2-1.2-.5-1.8-.7Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors65 = walletMeta.colors) === null || _walletMeta$colors65 === void 0 ? void 0 : _walletMeta$colors65.secondary) || "#000000",
+    fill: ((_walletMeta44 = walletMeta) === null || _walletMeta44 === void 0 ? void 0 : (_walletMeta44$colors = _walletMeta44.colors) === null || _walletMeta44$colors === void 0 ? void 0 : _walletMeta44$colors.secondary) || "#000000",
     d: "M308.8,751.7c-3.7-1.5-7.7-2.5-11.6-3-1.8-.2-3.7-.5-5.7-.3-1.9.2-3.7.6-5.1,2-2.2,2.1-3.3,5.9-1.5,8.6.8,1.2,2.1,2.2,3.5,2.7,1.6.6,3.2,1.1,4.9,1.6,2.8.9,5.7,1.5,8.6,2,2.5.5,5,1.1,7.5.4,2.8-.8,4.3-3.7,4.8-6.4.5-3.1-1-5.5-3.7-6.8-.6-.3-1.2-.5-1.8-.8Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors66 = walletMeta.colors) === null || _walletMeta$colors66 === void 0 ? void 0 : _walletMeta$colors66.secondary) || "#000000",
+    fill: ((_walletMeta45 = walletMeta) === null || _walletMeta45 === void 0 ? void 0 : (_walletMeta45$colors = _walletMeta45.colors) === null || _walletMeta45$colors === void 0 ? void 0 : _walletMeta45$colors.secondary) || "#000000",
     d: "M261.9,740.7c-3.6-1.8-7.6-3-11.4-3.8-3.5-.8-7.9-1.6-10.8,1.1-2.3,2.1-3.5,5.7-1.9,8.6.7,1.3,2,2.2,3.4,2.8,1.5.7,3.1,1.4,4.7,2,2.7,1.1,5.6,1.9,8.4,2.6,2.4.6,4.9,1.4,7.4.8,2.8-.6,4.6-3.4,5.2-6.1.8-3.1-.6-5.6-3.3-7-.6-.3-1.1-.6-1.7-.9Z"
   })), /*#__PURE__*/React.createElement("g", {
     opacity: "0.3"
   }, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors67 = walletMeta.colors) === null || _walletMeta$colors67 === void 0 ? void 0 : _walletMeta$colors67.secondary) || "#ffffff",
+    fill: ((_walletMeta46 = walletMeta) === null || _walletMeta46 === void 0 ? void 0 : (_walletMeta46$colors = _walletMeta46.colors) === null || _walletMeta46$colors === void 0 ? void 0 : _walletMeta46$colors.secondary) || "#ffffff",
     d: "M206.3,218.7c-21,19.1-30.7,59.5-20.1,88.1,2.1,5.7,5,11,8.9,15.5,4.4,4.3,9.5,8.8,15.8,8.2,41.6-1.4,50.6-60.8,45.7-92.5-2.5-16.3-15-34.2-33.5-27.9-6.1,1.3-11.9,4.3-16.7,8.6Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors68 = walletMeta.colors) === null || _walletMeta$colors68 === void 0 ? void 0 : _walletMeta$colors68.secondary) || "#ffffff",
+    fill: ((_walletMeta47 = walletMeta) === null || _walletMeta47 === void 0 ? void 0 : (_walletMeta47$colors = _walletMeta47.colors) === null || _walletMeta47$colors === void 0 ? void 0 : _walletMeta47$colors.secondary) || "#ffffff",
     d: "M192.7,367.3c-8.3,9.1-11.8,21.8-9.7,34.1,3.1,15.7,15.8,36.8,33.2,30.4,19.9-7.6,24.5-34.2,19.3-53.9-2.4-9-8.5-16.8-17.6-20-9.4-3-18.6,1.9-25.2,9.4Z"
   })), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors69 = walletMeta.colors) === null || _walletMeta$colors69 === void 0 ? void 0 : _walletMeta$colors69.secondary) || "#000000",
+    fill: ((_walletMeta48 = walletMeta) === null || _walletMeta48 === void 0 ? void 0 : (_walletMeta48$colors = _walletMeta48.colors) === null || _walletMeta48$colors === void 0 ? void 0 : _walletMeta48$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors70 = walletMeta.colors) === null || _walletMeta$colors70 === void 0 ? void 0 : _walletMeta$colors70.secondary) || "#000000"
+      fill: ((_walletMeta49 = walletMeta) === null || _walletMeta49 === void 0 ? void 0 : (_walletMeta49$colors = _walletMeta49.colors) === null || _walletMeta49$colors === void 0 ? void 0 : _walletMeta49$colors.secondary) || "#000000"
     },
     d: "M949.3,571.5c-1.3,9.7-3.1,19.1-5.7,28.4v-.4c-3.8,12.7-8.5,25.4-15.8,36.4l.5-.3c-12.1,19.2-29.3,34.8-49.8,44.9-2.6,1.3-5.2,2.6-7.8,3.8-1.4.6-2.8,1.3-4.2,1.9-.7.3-1.3.6-2,.8-.7.3.2,0,.3-.1-.5.2-1,.4-1.5.6-3.1,1.2-5.7,4.2-4.6,7.8.9,3,4.4,5.9,7.8,4.6,10.5-4.1,20.6-9.1,30.1-15,38.7-22.6,59-66.8,63.7-110,.1-3.6-1.3-7.8-5.7-8.1-2.8,0-5.1,2.1-5.3,4.7h0Z"
   }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors71 = walletMeta.colors) === null || _walletMeta$colors71 === void 0 ? void 0 : _walletMeta$colors71.secondary) || "#000000",
+    fill: ((_walletMeta50 = walletMeta) === null || _walletMeta50 === void 0 ? void 0 : (_walletMeta50$colors = _walletMeta50.colors) === null || _walletMeta50$colors === void 0 ? void 0 : _walletMeta50$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors72 = walletMeta.colors) === null || _walletMeta$colors72 === void 0 ? void 0 : _walletMeta$colors72.secondary) || "#000000"
+      fill: ((_walletMeta51 = walletMeta) === null || _walletMeta51 === void 0 ? void 0 : (_walletMeta51$colors = _walletMeta51.colors) === null || _walletMeta51$colors === void 0 ? void 0 : _walletMeta51$colors.secondary) || "#000000"
     },
     d: "M858,692.8c.5,1.6.9,3.3,1,4.9.1,1.6,0,3.2-.2,4.8-1.8,8.8-7,17.5-16.4,20.7-1.4.5-2.9.8-4.4,1-9.3,2-19-3.9-21-12.7-3-13.9,12.3-23.4,25.5-22.7,2.2,0,4.4.2,6.5.7,2,.4,3.9,1.1,5.8,2,.9.4,2,.9,3.1,1.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors73 = walletMeta.colors) === null || _walletMeta$colors73 === void 0 ? void 0 : _walletMeta$colors73.secondary) || "#000000",
+    fill: ((_walletMeta52 = walletMeta) === null || _walletMeta52 === void 0 ? void 0 : (_walletMeta52$colors = _walletMeta52.colors) === null || _walletMeta52$colors === void 0 ? void 0 : _walletMeta52$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors74 = walletMeta.colors) === null || _walletMeta$colors74 === void 0 ? void 0 : _walletMeta$colors74.secondary) || "#000000"
+      fill: ((_walletMeta53 = walletMeta) === null || _walletMeta53 === void 0 ? void 0 : (_walletMeta53$colors = _walletMeta53.colors) === null || _walletMeta53$colors === void 0 ? void 0 : _walletMeta53$colors.secondary) || "#000000"
     },
     d: "M852.4,694.2c.4,1.2.7,2.4.9,3.7-.1-1.1,0,.9,0,.9,0,.6,0,1.2,0,1.8,0,.2-.3,2,0,.7,0,.5-.2.9-.3,1.3-.2.9-.5,1.8-.8,2.7-.2.4-.3.9-.5,1.3,0,.2-.7,1.6-.1.3-.4.8-.8,1.7-1.3,2.5-.4.7-.8,1.3-1.2,2-.3.4-.5.8-.8,1.1.9-1.1-.4.4-.6.6-.6.7-1.3,1.3-2,1.9-.2.2-.5.4-.7.6,1.1-.8-.2,0-.4.2-.8.5-1.7,1-2.5,1.4-.2,0-1.7.6-.4.2-.7.2-1.4.5-2.1.6-.9.2-1.8.4-2.7.6-.5,0-.9.2-1.4.2,1.5-.2,0,0-.3,0-.9,0-1.8,0-2.8-.1,1.5.2,0,0-.3,0-.4-.1-.9-.2-1.3-.4-.4-.1-.9-.3-1.3-.5-1.4-.5,1,.6-.3-.1-.8-.5-1.5-.9-2.3-1.4-1.2-.8.8.8-.2-.2-.3-.3-.5-.5-.8-.8-.3-.3-.5-.5-.8-.8-.2-.2-.4-.4-.6-.7.4.6.5.6,0,.1-.5-.8-.9-1.5-1.3-2.3-.6-1.3.3,1.1,0-.3,0-.4-.2-.7-.3-1.1,0-.4-.1-.7-.2-1.1-.3-1.4,0,1.2,0-.2,0-.6-.3-2.4.1-2.9,0,.2,0,.5-.1.7,0-.3.1-.5.2-.8,0-.4.2-.8.3-1.1,0-.2.2-.5.3-.7.4-1.3-.6,1.1,0,0,.4-.7.8-1.4,1.2-2,.2-.3.7-1.4,0-.1.2-.4.7-.9,1.1-1.2.5-.5,1-1,1.5-1.4.3-.3.6-.5,1-.8-1.2.9,0,0,.2,0,1.4-.9,3-1.7,4.5-2.4-1.4.6,0,0,.2,0,.5-.2,1.1-.4,1.7-.5,1-.3,2-.5,3-.7.3,0,.6-.1.9-.1.3,0,.6,0,.9-.1-.8,0-.9.1-.2,0,1,0,2,0,3,0,1.3,0,2.7,0,4,.2.2,0,1.1.2.2,0,.8.1,1.6.3,2.3.5,3.1.8,4.6,1.7,7.7,3.1,2.8,1.2,6.5-1.1,7.2-3.9.8-3.3-.9-5.9-3.9-7.2-.3-.1-.6-.2-.9-.4-.9-.4.6.3-.2,0-.7-.3-1.3-.6-2-.9-1.5-.7-3.1-1.3-4.7-1.7-3-.8-6.1-1.2-9.2-1.2-4.3,0-8.7.5-12.8,1.9-8.3,3-16.5,9.1-18.4,18.2-2.1,9.9,2.8,20.1,11.9,24.5,9.8,4.8,21.7,2.6,30-4.2,9-7.3,13.8-21,10.2-32.1-.9-2.9-3.9-5.1-7-4.2-2.8.9-5.1,3.9-4.2,7Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors75 = walletMeta.colors) === null || _walletMeta$colors75 === void 0 ? void 0 : _walletMeta$colors75.secondary) || "#000000",
+    fill: ((_walletMeta54 = walletMeta) === null || _walletMeta54 === void 0 ? void 0 : (_walletMeta54$colors = _walletMeta54.colors) === null || _walletMeta54$colors === void 0 ? void 0 : _walletMeta54$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors76 = walletMeta.colors) === null || _walletMeta$colors76 === void 0 ? void 0 : _walletMeta$colors76.secondary) || "#000000"
+      fill: ((_walletMeta55 = walletMeta) === null || _walletMeta55 === void 0 ? void 0 : (_walletMeta55$colors = _walletMeta55.colors) === null || _walletMeta55$colors === void 0 ? void 0 : _walletMeta55$colors.secondary) || "#000000"
     },
     d: "M840.9,682.9c-.9-.2-1.9-.3-2.8-.5-.3,0-.5-.1-.8-.2.2,0,.3.1.5.2.2.3,1.3,1.6,1.1,1.8,0-.2-.1-.4-.1-.5,0-.3,0-.2,0,.2,0,.5,0,.5,0,.2,0-.2,0-.4,0-.6,0-1,0,.4,0,.4,0-.1,0-.2,0-.4.2-.5.2-.5,0,0-.2.4-.2.5,0,.2,0-.2.2-.3.3-.5.1.2-1,1-1.1,1.1.9-.5-.9.5-.3.1.3-.2-.6,0,0,0,.4,0,.9,0,1.3,0,.5,0,.6,0,0,0,.9.1,1.7.4,2.5.7.4.1.6.2,0,0,.4.2.8.4,1.2.6.7.4,1.4.8,2,1.3.3.2.6.4.9.6-.8-.6.2.1.3.3.6.5,1.2,1.1,1.7,1.6,2.6,2.5,5.1,5.2,7.3,8.1,2.8-2.7,5.5-5.3,8.3-8-2.9-3.8-7.7-6.3-12.5-6.9-2.2-.3-4.4-.5-6.6-.6-.9,0-1.8,0-2.7,0-1.8,0-3.3.6-4.9,1.3-2.7,1.2-3.8,5.3-2.2,7.8,1.7,2.8,4.9,3.6,7.8,2.2,1.3-.6-.9.2-.9.1,0,0,1,0,1.1,0,.8,0,1.7,0,2.5,0,1.7,0,3.5.3,5.2.5-.6,0-.1,0,.2,0,.4.1.7.2,1.1.3.4.1.7.2.1,0,.3.1.6.3.9.5.3.2.6.4.9.5,1.2.8-.2-.4.3.2.5.6,1.1,1.1,1.6,1.8,1.8,2.4,6.2,2.2,8.1.2,2.4-2.5,2.1-5.6.2-8.1-2.8-3.8-6.2-7.4-9.8-10.4-4.2-3.5-9.2-6.2-14.8-6.2-2.9,0-5.7.5-7.9,2.5-2,1.9-2.9,4.4-3.3,7.1-.3,2.6.3,5.8,2.1,7.8,2.2,2.4,5,3.1,8.1,3.7,3,.5,6.4-.6,7.2-3.9.7-2.8-.7-6.6-3.9-7.2Z"
   }))), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors77 = walletMeta.colors) === null || _walletMeta$colors77 === void 0 ? void 0 : _walletMeta$colors77.secondary) || "#000000",
+    fill: ((_walletMeta56 = walletMeta) === null || _walletMeta56 === void 0 ? void 0 : (_walletMeta56$colors = _walletMeta56.colors) === null || _walletMeta56$colors === void 0 ? void 0 : _walletMeta56$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors78 = walletMeta.colors) === null || _walletMeta$colors78 === void 0 ? void 0 : _walletMeta$colors78.secondary) || "#000000"
+      fill: ((_walletMeta57 = walletMeta) === null || _walletMeta57 === void 0 ? void 0 : (_walletMeta57$colors = _walletMeta57.colors) === null || _walletMeta57$colors === void 0 ? void 0 : _walletMeta57$colors.secondary) || "#000000"
     },
     d: "M173.8,571.5c1.3,9.7,3.1,19.1,5.7,28.4v-.4c3.8,12.7,8.5,25.4,15.8,36.4l-.5-.3c12.1,19.2,29.3,34.8,49.8,44.9,2.6,1.3,5.2,2.6,7.8,3.8,1.4.6,2.8,1.3,4.2,1.9.7.3,1.3.6,2,.8.7.3-.2,0-.3-.1.5.2,1,.4,1.5.6,3.1,1.2,5.7,4.2,4.6,7.8-.9,3-4.4,5.9-7.8,4.6-10.5-4.1-20.6-9.1-30.1-15-38.7-22.6-59-66.8-63.7-110-.1-3.6,1.3-7.8,5.7-8.1,2.8,0,5.1,2.1,5.3,4.7h0Z"
   }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors79 = walletMeta.colors) === null || _walletMeta$colors79 === void 0 ? void 0 : _walletMeta$colors79.secondary) || "#000000",
+    fill: ((_walletMeta58 = walletMeta) === null || _walletMeta58 === void 0 ? void 0 : (_walletMeta58$colors = _walletMeta58.colors) === null || _walletMeta58$colors === void 0 ? void 0 : _walletMeta58$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors80 = walletMeta.colors) === null || _walletMeta$colors80 === void 0 ? void 0 : _walletMeta$colors80.secondary) || "#000000"
+      fill: ((_walletMeta59 = walletMeta) === null || _walletMeta59 === void 0 ? void 0 : (_walletMeta59$colors = _walletMeta59.colors) === null || _walletMeta59$colors === void 0 ? void 0 : _walletMeta59$colors.secondary) || "#000000"
     },
     d: "M265.2,692.8c-.5,1.6-.9,3.3-1,4.9-.1,1.6,0,3.2.2,4.8,1.8,8.8,7,17.5,16.4,20.7,1.4.5,2.9.8,4.4,1,9.3,2,19-3.9,21-12.7,3-13.9-12.3-23.4-25.5-22.7-2.2,0-4.4.2-6.5.7-2,.4-3.9,1.1-5.8,2-.9.4-2,.9-3.1,1.4Z"
   }), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors81 = walletMeta.colors) === null || _walletMeta$colors81 === void 0 ? void 0 : _walletMeta$colors81.secondary) || "#000000",
+    fill: ((_walletMeta60 = walletMeta) === null || _walletMeta60 === void 0 ? void 0 : (_walletMeta60$colors = _walletMeta60.colors) === null || _walletMeta60$colors === void 0 ? void 0 : _walletMeta60$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors82 = walletMeta.colors) === null || _walletMeta$colors82 === void 0 ? void 0 : _walletMeta$colors82.secondary) || "#000000"
+      fill: ((_walletMeta61 = walletMeta) === null || _walletMeta61 === void 0 ? void 0 : (_walletMeta61$colors = _walletMeta61.colors) === null || _walletMeta61$colors === void 0 ? void 0 : _walletMeta61$colors.secondary) || "#000000"
     },
     d: "M270.8,694.2c-.4,1.2-.7,2.4-.9,3.7.1-1.1,0,.9,0,.9,0,.6,0,1.2,0,1.8,0,.2.3,2,0,.7,0,.5.2.9.3,1.3.2.9.5,1.8.8,2.7.2.4.3.9.5,1.3,0,.2.7,1.6.1.3.4.8.8,1.7,1.3,2.5.4.7.8,1.3,1.2,2,.3.4.5.8.8,1.1-.9-1.1.4.4.6.6.6.7,1.3,1.3,2,1.9.2.2.5.4.7.6-1.1-.8.2,0,.4.2.8.5,1.7,1,2.5,1.4.2,0,1.7.6.4.2.7.2,1.4.5,2.1.6.9.2,1.8.4,2.7.6.5,0,.9.2,1.4.2-1.5-.2,0,0,.3,0,.9,0,1.8,0,2.8-.1-1.5.2,0,0,.3,0,.4-.1.9-.2,1.3-.4.4-.1.9-.3,1.3-.5,1.4-.5-1,.6.3-.1.8-.5,1.5-.9,2.3-1.4,1.2-.8-.8.8.2-.2.3-.3.5-.5.8-.8.3-.3.5-.5.8-.8.2-.2.4-.4.6-.7-.4.6-.5.6,0,.1.5-.8.9-1.5,1.3-2.3.6-1.3-.3,1.1,0-.3,0-.4.2-.7.3-1.1,0-.4.1-.7.2-1.1.3-1.4,0,1.2,0-.2,0-.6.3-2.4-.1-2.9,0,.2,0,.5.1.7,0-.3-.1-.5-.2-.8,0-.4-.2-.8-.3-1.1,0-.2-.2-.5-.3-.7-.4-1.3.6,1.1,0,0-.4-.7-.8-1.4-1.2-2-.2-.3-.7-1.4,0-.1-.2-.4-.7-.9-1.1-1.2-.5-.5-1-1-1.5-1.4-.3-.3-.6-.5-1-.8,1.2.9,0,0-.2,0-1.4-.9-3-1.7-4.5-2.4,1.4.6,0,0-.2,0-.5-.2-1.1-.4-1.7-.5-1-.3-2-.5-3-.7-.3,0-.6-.1-.9-.1-.3,0-.6,0-.9-.1.8,0,.9.1.2,0-1,0-2,0-3,0-1.3,0-2.7,0-4,.2-.2,0-1.1.2-.2,0-.8.1-1.6.3-2.3.5-3.1.8-4.6,1.7-7.7,3.1-2.8,1.2-6.5-1.1-7.2-3.9-.8-3.3.9-5.9,3.9-7.2.3-.1.6-.2.9-.4.9-.4-.6.3.2,0,.7-.3,1.3-.6,2-.9,1.5-.7,3.1-1.3,4.7-1.7,3-.8,6.1-1.2,9.2-1.2,4.3,0,8.7.5,12.8,1.9,8.3,3,16.5,9.1,18.4,18.2,2.1,9.9-2.8,20.1-11.9,24.5-9.8,4.8-21.7,2.6-30-4.2-9-7.3-13.8-21-10.2-32.1.9-2.9,3.9-5.1,7-4.2,2.8.9,5.1,3.9,4.2,7Z"
   })), /*#__PURE__*/React.createElement("path", {
-    fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors83 = walletMeta.colors) === null || _walletMeta$colors83 === void 0 ? void 0 : _walletMeta$colors83.secondary) || "#000000",
+    fill: ((_walletMeta62 = walletMeta) === null || _walletMeta62 === void 0 ? void 0 : (_walletMeta62$colors = _walletMeta62.colors) === null || _walletMeta62$colors === void 0 ? void 0 : _walletMeta62$colors.secondary) || "#000000",
     style: {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors84 = walletMeta.colors) === null || _walletMeta$colors84 === void 0 ? void 0 : _walletMeta$colors84.secondary) || "#000000"
+      fill: ((_walletMeta63 = walletMeta) === null || _walletMeta63 === void 0 ? void 0 : (_walletMeta63$colors = _walletMeta63.colors) === null || _walletMeta63$colors === void 0 ? void 0 : _walletMeta63$colors.secondary) || "#000000"
     },
     d: "M282.2,682.9c.9-.2,1.9-.3,2.8-.5.3,0,.5-.1.8-.2-.2,0-.3.1-.5.2-.2.3-1.3,1.6-1.1,1.8,0-.2.1-.4.1-.5,0-.3,0-.2,0,.2,0,.5,0,.5,0,.2,0-.2,0-.4,0-.6,0-1,0,.4,0,.4,0-.1,0-.2,0-.4-.2-.5-.2-.5,0,0,.2.4.2.5,0,.2,0-.2-.2-.3-.3-.5-.1.2,1,1,1.1,1.1-.9-.5.9.5.3.1-.3-.2.6,0,0,0-.4,0-.9,0-1.3,0-.5,0-.6,0,0,0-.9.1-1.7.4-2.5.7-.4.1-.6.2,0,0-.4.2-.8.4-1.2.6-.7.4-1.4.8-2,1.3-.3.2-.6.4-.9.6.8-.6-.2.1-.3.3-.6.5-1.2,1.1-1.7,1.6-2.6,2.5-5.1,5.2-7.3,8.1-2.8-2.7-5.5-5.3-8.3-8,2.9-3.8,7.7-6.3,12.5-6.9,2.2-.3,4.4-.5,6.6-.6.9,0,1.8,0,2.7,0,1.8,0,3.3.6,4.9,1.3,2.7,1.2,3.8,5.3,2.2,7.8-1.7,2.8-4.9,3.6-7.8,2.2-1.3-.6.9.2.9.1,0,0-1,0-1.1,0-.8,0-1.7,0-2.5,0-1.7,0-3.5.3-5.2.5.6,0,.1,0-.2,0-.4.1-.7.2-1.1.3-.4.1-.7.2-.1,0-.3.1-.6.3-.9.5-.3.2-.6.4-.9.5-1.2.8.2-.4-.3.2-.5.6-1.1,1.1-1.6,1.8-1.8,2.4-6.2,2.2-8.1.2-2.4-2.5-2.1-5.6-.2-8.1,2.8-3.8,6.2-7.4,9.8-10.4,4.2-3.5,9.2-6.2,14.8-6.2,2.9,0,5.7.5,7.9,2.5,2,1.9,2.9,4.4,3.3,7.1.3,2.6-.3,5.8-2.1,7.8-2.2,2.4-5,3.1-8.1,3.7-3,.5-6.4-.6-7.2-3.9-.7-2.8.7-6.6,3.9-7.2Z"
-  }))), (walletMeta === null || walletMeta === void 0 ? void 0 : walletMeta.logo) && /*#__PURE__*/React.createElement("image", {
-    style: {
-      clipPath: "inset(0 round 60px)"
-    },
+  }))), ((_walletMeta64 = walletMeta) === null || _walletMeta64 === void 0 ? void 0 : _walletMeta64.logo) && /*#__PURE__*/React.createElement(React.Fragment, null, ((_walletMeta65 = walletMeta) === null || _walletMeta65 === void 0 ? void 0 : (_walletMeta65$colors = _walletMeta65.colors) === null || _walletMeta65$colors === void 0 ? void 0 : _walletMeta65$colors.background) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+    id: "clipLogo"
+  }, /*#__PURE__*/React.createElement("rect", {
+    width: "340",
+    height: "340",
+    rx: "80",
+    ry: "80"
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: "420",
+    y: "290",
+    width: "340",
+    height: "340",
+    rx: "80",
+    fill: (_walletMeta66 = walletMeta) === null || _walletMeta66 === void 0 ? void 0 : (_walletMeta66$colors = _walletMeta66.colors) === null || _walletMeta66$colors === void 0 ? void 0 : _walletMeta66$colors.background
+  })), /*#__PURE__*/React.createElement("image", {
     x: "420",
     y: "290",
     width: "340",
     height: "340",
     href: walletMeta.logo,
+    clipPath: "inset(0 round 60px)",
     preserveAspectRatio: "xMidYMid meet"
-  }), !(walletMeta !== null && walletMeta !== void 0 && walletMeta.logo) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("g", {
+  })), !((_walletMeta67 = walletMeta) !== null && _walletMeta67 !== void 0 && _walletMeta67.logo) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("g", {
     opacity: "0.3"
   }, /*#__PURE__*/React.createElement("path", {
     fill: "#ffffff",
@@ -25166,7 +24967,7 @@ var FontStyle = (function (style) {
 });
 
 var GraphicStyle = (function (style) {
-  return "\n\n    .GraphicWrapper {\n      display: block;\n      padding: 10px 0;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
+  return "\n\n    .GraphicWrapper {\n      display: block;\n      padding: 10px 0;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n\n    .GraphicPassiveColor {\n      fill: ".concat(style.colors.mixPassive, ";\n    }\n\n    .GraphicActiveColor {\n      fill: ").concat(style.colors.mixActive, ";\n    }\n  ");
 });
 
 var GridStyle = (function (style) {
@@ -25312,7 +25113,7 @@ var styleRenderer = (function (style) {
     success: '#65c86e',
     background: '#171717',
     cardBackground: '#252525',
-    mixActive: '#999999',
+    mixActive: '#aaaaaa',
     mixPassive: '#000000'
   };
   var configuredColors = (isDarkMode() ? (_style = style) === null || _style === void 0 ? void 0 : _style.colorsDarkMode : (_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.colors) || ((_style3 = style) === null || _style3 === void 0 ? void 0 : _style3.colors);
@@ -25320,7 +25121,7 @@ var styleRenderer = (function (style) {
     colors: Object.assign(defaultColors, configuredColors || {}),
     fontFamily: ((_style4 = style) === null || _style4 === void 0 ? void 0 : _style4.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   };
-  return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+  return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -25645,7 +25446,9 @@ var ConfigurationProvider = (function (props) {
                 throw 'Configuration is missing token acceptance!';
 
               case 15:
-                if (_configuration !== null && _configuration !== void 0 && _configuration.protocolFee) {
+                if (!_configuration.accept.some(function (configuration) {
+                  return !configuration.protocolFee;
+                })) {
                   _context.next = 17;
                   break;
                 }
@@ -26764,12 +26567,12 @@ var PaymentRoutingProvider = (function (props) {
 
   var getPaymentRoutes = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var updatable, slowRoutingTimeout;
+      var selectedRoute, updatable, slowRoutingTimeout;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              updatable = _ref.updatable;
+              selectedRoute = _ref.selectedRoute, updatable = _ref.updatable;
 
               if (!(updatable == false || !props.accept || !account)) {
                 _context.next = 3;
@@ -26787,7 +26590,7 @@ var PaymentRoutingProvider = (function (props) {
                   accept: props.accept,
                   account: account,
                   best: function best(route) {
-                    if (route) {
+                    if (route && !selectedRoute) {
                       roundAmounts([route]).then(function (routes) {
                         setSelectedRoute(routes[0]);
                         clearInterval(slowRoutingTimeout);
@@ -27102,19 +26905,11 @@ var NoPaymentOptionFoundDialog = (function () {
     body: /*#__PURE__*/React.createElement("div", {
       className: "TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
-<<<<<<< HEAD
       className: "GraphicWrapper",
       onClick: initDebug
     }, /*#__PURE__*/React.createElement(QuestionsGraphic, null)), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("h1", {
-=======
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement("img", {
-      className: "Graphic",
-      src: QuestionsGraphic
-    })), /*#__PURE__*/React.createElement("h1", {
->>>>>>> main
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Not Enough Funds"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"
@@ -27159,8 +26954,6 @@ var PaymentContext = /*#__PURE__*/React.createContext();
 
 var PaymentTrackingContext = /*#__PURE__*/React.createContext();
 
-var TransactionTrackingContext = /*#__PURE__*/React.createContext();
-
 var PaymentProvider = (function (props) {
   var _useContext = useContext(ErrorContext),
       setError = _useContext.setError;
@@ -27203,10 +26996,6 @@ var PaymentProvider = (function (props) {
       trackingInitialized = _useContext8.trackingInitialized,
       initializePaymentTracking = _useContext8.initializeTracking,
       trace = _useContext8.trace;
-
-  var _useContext9 = useContext(TransactionTrackingContext),
-      foundTransaction = _useContext9.foundTransaction,
-      initializeTransactionTracking = _useContext9.initializeTracking;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -27354,7 +27143,6 @@ var PaymentProvider = (function (props) {
                           sent: function sent(sentTransaction) {
                             setPaymentState('sending');
                             setTransaction(sentTransaction);
-                            initializeTransactionTracking(sentTransaction, currentBlock, deadline);
 
                             if (_sent) {
                               _sent(sentTransaction);
@@ -27602,27 +27390,6 @@ var PaymentProvider = (function (props) {
       })["catch"](setError);
     }
   }, [recover]);
-  useEffect(function () {
-    if (foundTransaction && foundTransaction.id && foundTransaction.status) {
-      var newTransaction;
-
-      if (foundTransaction.id != transaction.id) {
-        newTransaction = Object.assign({}, transaction, {
-          id: foundTransaction.id,
-          url: Blockchains.findByName(transaction.blockchain).explorerUrlFor({
-            transaction: foundTransaction
-          })
-        });
-        setTransaction(newTransaction);
-      }
-
-      if (foundTransaction.status == 'success') {
-        paymentSucceeded(newTransaction || transaction, payment);
-      } else if (foundTransaction.status == 'failed') {
-        paymentFailed(newTransaction || transaction, payment);
-      }
-    }
-  }, [foundTransaction, transaction, payment]);
   var debouncedSetPayment = useCallback(lodash.debounce(function (selectedRoute) {
     if (selectedRoute) {
       // reset approval status if selectedRoute has been changed
@@ -29468,7 +29235,7 @@ var PaymentTrackingProvider = (function (props) {
       navigate = _useContext5.navigate,
       set = _useContext5.set;
 
-  var openSocket = function openSocket(transaction) {
+  var openSocket = function openSocket(paymentRoute, deadline) {
     var socket = new WebSocket('wss://integrate.depay.com/cable');
 
     socket.onopen = /*#__PURE__*/function () {
@@ -29478,32 +29245,19 @@ var PaymentTrackingProvider = (function (props) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.t0 = JSON;
-                _context.t1 = transaction.blockchain;
-                _context.t2 = transaction.from || account;
-                _context.next = 5;
-                return getNonce({
-                  transaction: transaction,
-                  account: account,
-                  wallet: wallet
-                });
-
-              case 5:
-                _context.t3 = _context.sent;
-                _context.t4 = {
-                  blockchain: _context.t1,
-                  sender: _context.t2,
-                  nonce: _context.t3,
-                  channel: 'PaymentChannel'
-                };
-                _context.t5 = _context.t0.stringify.call(_context.t0, _context.t4);
                 msg = {
                   command: 'subscribe',
-                  identifier: _context.t5
+                  identifier: JSON.stringify({
+                    blockchain: paymentRoute.blockchain,
+                    sender: paymentRoute.fromAddress,
+                    receiver: paymentRoute.toAddress,
+                    deadline: deadline,
+                    channel: 'PaymentChannel'
+                  })
                 };
                 socket.send(JSON.stringify(msg));
 
-              case 10:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -29519,7 +29273,7 @@ var PaymentTrackingProvider = (function (props) {
     socket.onclose = function (event) {
       if (!event || event.code != 1000) {
         setTimeout(function () {
-          return openSocket(transaction);
+          return openSocket(paymentRoute, deadline);
         }, 1000);
       }
     };
@@ -29849,7 +29603,7 @@ var PaymentTrackingProvider = (function (props) {
               setTransaction(transaction);
               setAfterBlock(afterBlock);
               setPaymentRoute(paymentRoute);
-              openSocket(transaction);
+              openSocket(paymentRoute, deadline);
 
             case 12:
             case "end":
@@ -29874,7 +29628,7 @@ var PaymentTrackingProvider = (function (props) {
     setDeadline(deadline);
     setAfterBlock(afterBlock);
     setPaymentRoute(paymentRoute);
-    openSocket(transaction);
+    openSocket(paymentRoute, deadline);
     return new Promise( /*#__PURE__*/function () {
       var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(resolve, reject) {
         var _paymentRoute$feeAmou2;
@@ -30157,7 +29911,7 @@ var PaymentValueProvider = (function (props) {
       amount: payment.route.fromAmount,
       decimals: payment.route.fromDecimals
     }).then(function (usdAmount) {
-      if (usdAmount) {
+      if (usdAmount != undefined && usdAmount != null) {
         Currency.fromUSD({
           amount: usdAmount,
           code: currency
@@ -31607,237 +31361,6 @@ var SolanaPayProvider = (function (props) {
 
 var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
 
-var TransactionTrackingProvider = (function (props) {
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      givenTransaction = _useState2[0],
-      setGivenTransaction = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      foundTransaction = _useState4[0],
-      setFoundTransaction = _useState4[1];
-
-  var _useState5 = useState(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      polling = _useState6[0],
-      setPolling = _useState6[1];
-
-  var _useContext = useContext(ErrorContext);
-      _useContext.errorCallback;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      recover = _useContext2.recover;
-
-  var _useContext3 = useContext(WalletContext),
-      account = _useContext3.account,
-      wallet = _useContext3.wallet;
-
-  useEffect(function () {
-    if (polling) {
-      var poll = function poll() {
-        fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from, "/").concat(givenTransaction.nonce)).then(function (response) {
-          if (response.status == 200) {
-            response.json().then(function (data) {
-              if (data.status != 'pending') {
-                setFoundTransaction({
-                  id: data.external_id,
-                  status: data.status
-                });
-                setPolling(false);
-              }
-            });
-          }
-        });
-      };
-
-      var pollingInterval = setInterval(poll, 5000);
-      poll();
-      return function () {
-        clearInterval(pollingInterval);
-      };
-    }
-  }, [polling]);
-
-  var createTracking = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(transaction, afterBlock, deadline, attempt) {
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!(attempt > 3)) {
-                _context.next = 2;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 2:
-              _context.t0 = fetch;
-              _context.t1 = {
-                'Content-Type': 'application/json'
-              };
-              _context.t2 = JSON;
-              _context.t3 = transaction.id;
-              _context.t4 = afterBlock.toString();
-              _context.t5 = transaction.blockchain;
-              _context.t6 = transaction.from;
-              _context.next = 11;
-              return getNonce({
-                transaction: transaction,
-                wallet: wallet,
-                account: account
-              });
-
-            case 11:
-              _context.t7 = _context.sent;
-              _context.t8 = deadline;
-              _context.t9 = {
-                id: _context.t3,
-                after_block: _context.t4,
-                blockchain: _context.t5,
-                sender: _context.t6,
-                nonce: _context.t7,
-                deadline: _context.t8
-              };
-              _context.t10 = _context.t2.stringify.call(_context.t2, _context.t9);
-              _context.t11 = {
-                method: 'POST',
-                headers: _context.t1,
-                body: _context.t10
-              };
-              (0, _context.t0)('https://public.depay.com/transactions', _context.t11).then(function (response) {
-                if (response.status == 200 || response.status == 201) ; else {
-                  setTimeout(function () {
-                    createTracking(transaction, afterBlock, deadline, attempt + 1);
-                  }, 3000);
-                }
-              })["catch"](function (error) {
-                setTimeout(function () {
-                  createTracking(transaction, afterBlock, deadline, attempt + 1);
-                }, 3000);
-              });
-
-            case 17:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function createTracking(_x, _x2, _x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var openSocket = function openSocket(transaction) {
-    var socket = new WebSocket('wss://integrate.depay.com/cable');
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(event) {
-        var msg;
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.t0 = JSON;
-                _context2.t1 = transaction.blockchain;
-                _context2.t2 = transaction.from;
-                _context2.next = 5;
-                return getNonce({
-                  transaction: transaction,
-                  wallet: wallet,
-                  account: account
-                });
-
-              case 5:
-                _context2.t3 = _context2.sent;
-                _context2.t4 = {
-                  blockchain: _context2.t1,
-                  sender: _context2.t2,
-                  nonce: _context2.t3,
-                  channel: 'TransactionChannel'
-                };
-                _context2.t5 = _context2.t0.stringify.call(_context2.t0, _context2.t4);
-                msg = {
-                  command: 'subscribe',
-                  identifier: _context2.t5
-                };
-                socket.send(JSON.stringify(msg));
-
-              case 10:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function (_x5) {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openSocket(transaction);
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping") {
-        return;
-      }
-
-      if (item.message && item.message.status && item.message.status != 'pending') {
-        setFoundTransaction(item.message);
-        socket.close(1000);
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var initializeTracking = function initializeTracking(transaction, afterBlock, deadline) {
-    if (!supported.evm.includes(transaction.blockchain)) {
-      return;
-    }
-
-    setGivenTransaction(transaction);
-
-    if (recover == undefined) {
-      createTracking(transaction, afterBlock, deadline, 1);
-    }
-
-    openSocket(transaction);
-    setPolling(true);
-  };
-
-  useEffect(function () {
-    if (recover) {
-      initializeTracking({
-        blockchain: recover.blockchain,
-        id: recover.transaction,
-        from: recover.sender,
-        nonce: recover.nonce
-      }, recover.afterBlock);
-    }
-  }, [recover]);
-  return /*#__PURE__*/React.createElement(TransactionTrackingContext.Provider, {
-    value: {
-      initializeTracking: initializeTracking,
-      foundTransaction: foundTransaction
-    }
-  }, props.children);
-});
-
 var preflight$1 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
     var accept, recover, integration;
@@ -31979,7 +31502,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, null, /*#__PURE__*/React.createElement(PaymentAmountRoutingProvider, {
                   container: container,
                   document: document
-                }, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
+                }, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
                 }, /*#__PURE__*/React.createElement(PaymentProvider, {
                   container: container,
@@ -31987,7 +31510,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null)))))))))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -32462,7 +31985,7 @@ var Sale = /*#__PURE__*/function () {
                   container: container,
                   connected: connected,
                   unmount: unmount
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, null, /*#__PURE__*/React.createElement(TransactionTrackingProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(ConversionRateProvider, null, /*#__PURE__*/React.createElement(ChangableAmountProvider, null, /*#__PURE__*/React.createElement(PaymentTrackingProvider, {
                   document: ensureDocument(document)
                 }, /*#__PURE__*/React.createElement(SaleRoutingProvider, {
                   container: container,
@@ -32470,7 +31993,7 @@ var Sale = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(SaleStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null)))))))))));
               };
             });
             return _context2.abrupt("return", {

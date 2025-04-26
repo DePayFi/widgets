@@ -238,7 +238,7 @@ export default (props)=>{
                             <div className="CardText FontWeightMedium">
                               { walletMetaData.name }
                             </div>
-                            <div className="TextColorSuccess"><span className="TextColorSuccess" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> { capitalizeFirstChar(connectionType) } detected</div>
+                            <div className="TextColorSuccess"><span className="TextColorSuccess" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> { capitalizeFirstChar(isMobile() && connectionType == 'extension' ? 'app' : connectionType) } detected</div>
                           </div>
                         </div>
                       </button>

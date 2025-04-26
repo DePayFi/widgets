@@ -17,7 +17,6 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
 import ExtensionIcon from '../icons/ExtensionIcon'
-import ExtensionImage from '../graphics/extension'
 import initMobileAppDebug from '../helpers/initMobileAppDebug'
 import isMobile from '../helpers/isMobile'
 import LinkIcon from '../icons/LinkIcon'
@@ -302,7 +301,7 @@ export default (props)=> {
                       </div>
                       <div className="PaddingLeftS LineHeightXS">
                         <div className="CardText FontWeightMedium">
-                          Connecting extension
+                          Connecting {isMobile() ? 'app' : 'extension'}
                         </div>
                       </div>
                     </div>
@@ -310,11 +309,12 @@ export default (props)=> {
                   { !props.connectingExtension &&
                     <button onClick={ ()=>props.connectExtension(props.wallet) } className="Card small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS" style={{ height: '50px'}}>
                       <span className="PaddingTopXS PaddingRightXS PaddingLeftS TextCenter" style={{ width: "50px" }}>
-                        <ExtensionIcon width='26px' height='26px'/>
+                        {isMobile() && <img className="transparent " title="Click to connect app" style={{ height: '28px', width: '28px', borderRadius: '8px' }} src={ props.wallet.logo }/> }
+                        {!isMobile() && <ExtensionIcon width='26px' height='26px'/> }
                       </span>
                       <div className="PaddingLeftS LineHeightXS">
                         <div className="CardText FontWeightMedium">
-                          Connect extension
+                          Connect {isMobile() ? 'app' : 'extension'}
                         </div>
                       </div>
                     </button>

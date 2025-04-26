@@ -1,15 +1,8 @@
 (function (global, factory) {
-<<<<<<< HEAD:dist/umd/index.svm.js
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-svm'), require('@depay/web3-blockchains'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-svm'), require('@depay/local-currency'), require('@depay/web3-exchanges-svm'), require('@depay/web3-tokens-svm'), require('decimal.js'), require('ethers'), require('@depay/web3-payments-svm'), require('@depay/react-token-image-svm'), require('@depay/solana-web3.js')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-svm', '@depay/web3-blockchains', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-svm', '@depay/local-currency', '@depay/web3-exchanges-svm', '@depay/web3-tokens-svm', 'decimal.js', 'ethers', '@depay/web3-payments-svm', '@depay/react-token-image-svm', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.Web3Payments, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (web3WalletsSvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal$1, ethers, web3PaymentsSvm, reactTokenImageSvm, solanaWeb3_js) { 'use strict';
-=======
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-svm'), require('@depay/web3-blockchains'), require('react'), require('@depay/web3-payments-solana'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-svm'), require('@depay/local-currency'), require('@depay/web3-exchanges-solana'), require('@depay/web3-tokens-solana'), require('decimal.js'), require('ethers'), require('@depay/react-token-image-solana'), require('@depay/solana-web3.js')) :
-  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-svm', '@depay/web3-blockchains', 'react', '@depay/web3-payments-solana', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-svm', '@depay/local-currency', '@depay/web3-exchanges-solana', '@depay/web3-tokens-solana', 'decimal.js', 'ethers', '@depay/react-token-image-solana', '@depay/solana-web3.js'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (web3WalletsSvm, Blockchains, React, web3PaymentsSolana, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal, ethers, reactTokenImageSolana, solanaWeb3_js) { 'use strict';
->>>>>>> main:dist/umd/index.solana.js
+}(this, (function (web3WalletsSvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal, ethers, web3PaymentsSvm, reactTokenImageSvm, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -21,7 +14,7 @@
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
   var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
   var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token$1);
-  var Decimal$1__default = /*#__PURE__*/_interopDefaultLegacy(Decimal$1);
+  var Decimal__default = /*#__PURE__*/_interopDefaultLegacy(Decimal);
 
   function _arrayLikeToArray(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
@@ -86,15 +79,11 @@
       }
     },
     "logo": (_wallets$CoinbaseEVM = web3WalletsSvm.wallets.CoinbaseEVM) === null || _wallets$CoinbaseEVM === void 0 ? void 0 : (_wallets$CoinbaseEVM$ = _wallets$CoinbaseEVM.info) === null || _wallets$CoinbaseEVM$ === void 0 ? void 0 : _wallets$CoinbaseEVM$.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#0153ff",
       "secondary": "#ffffff"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "MetaMask",
     "extension": "MetaMask",
@@ -116,15 +105,11 @@
       }
     },
     "logo": (_wallets$MetaMask = web3WalletsSvm.wallets.MetaMask) === null || _wallets$MetaMask === void 0 ? void 0 : (_wallets$MetaMask$inf = _wallets$MetaMask.info) === null || _wallets$MetaMask$inf === void 0 ? void 0 : _wallets$MetaMask$inf.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
       "primary": "#ff8d5d",
       "secondary": "#661800"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Phantom",
     "extensions": ["PhantomSVM", "PhantomEVM"],
@@ -155,15 +140,12 @@
       }
     },
     "logo": (_wallets$PhantomSVM = web3WalletsSvm.wallets.PhantomSVM) === null || _wallets$PhantomSVM === void 0 ? void 0 : (_wallets$PhantomSVM$i = _wallets$PhantomSVM.info) === null || _wallets$PhantomSVM$i === void 0 ? void 0 : _wallets$PhantomSVM$i.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#ab9ef2",
-      "secondary": "#252525"
+      "secondary": "#252525",
+      "background": "#252525"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Trust",
     "extensions": ["TrustEVM", "TrustSVM"],
@@ -185,15 +167,12 @@
       }
     },
     "logo": (_wallets$TrustEVM = web3WalletsSvm.wallets.TrustEVM) === null || _wallets$TrustEVM === void 0 ? void 0 : (_wallets$TrustEVM$inf = _wallets$TrustEVM.info) === null || _wallets$TrustEVM$inf === void 0 ? void 0 : _wallets$TrustEVM$inf.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#0700ff",
-      "secondary": "#48ff91"
+      "secondary": "#48ff91",
+      "background": "#ffffff"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Binance",
     "extension": "Binance",
@@ -215,15 +194,11 @@
       }
     },
     "logo": (_wallets$Binance = web3WalletsSvm.wallets.Binance) === null || _wallets$Binance === void 0 ? void 0 : (_wallets$Binance$info = _wallets$Binance.info) === null || _wallets$Binance$info === void 0 ? void 0 : _wallets$Binance$info.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
-      "primary": "",
-      "secondary": ""
+      "primary": "#1e2024",
+      "secondary": "#f3ba2f"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Crypto.com Onchain",
     "extension": "CryptoCom",
@@ -245,15 +220,12 @@
       }
     },
     "logo": (_wallets$CryptoCom = web3WalletsSvm.wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
-      "primary": "#1e2024",
-      "secondary": "#f3ba2e"
+      "primary": "#03316c",
+      "secondary": "#ffffff",
+      "background": "#245594"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "World App",
     "extension": "WorldApp",
@@ -286,41 +258,29 @@
       }
     },
     "logo": (_wallets$Coin98EVM = web3WalletsSvm.wallets.Coin98EVM) === null || _wallets$Coin98EVM === void 0 ? void 0 : (_wallets$Coin98EVM$in = _wallets$Coin98EVM.info) === null || _wallets$Coin98EVM$in === void 0 ? void 0 : _wallets$Coin98EVM$in.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#252525",
       "secondary": "#d9b432"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Brave",
     "extensions": ["BraveEVM", "BraveSVM"],
     "logo": (_wallets$BraveEVM = web3WalletsSvm.wallets.BraveEVM) === null || _wallets$BraveEVM === void 0 ? void 0 : (_wallets$BraveEVM$inf = _wallets$BraveEVM.info) === null || _wallets$BraveEVM$inf === void 0 ? void 0 : _wallets$BraveEVM$inf.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
-      "primary": "#f05a22",
-      "secondary": "#ffffff"
+      "primary": "#ffffff",
+      "secondary": "#f05a22"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Magic Eden",
     "extensions": ["MagicEdenEVM", "MagicEdenSVM"],
     "logo": (_wallets$MagicEdenEVM = web3WalletsSvm.wallets.MagicEdenEVM) === null || _wallets$MagicEdenEVM === void 0 ? void 0 : (_wallets$MagicEdenEVM2 = _wallets$MagicEdenEVM.info) === null || _wallets$MagicEdenEVM2 === void 0 ? void 0 : _wallets$MagicEdenEVM2.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#070c34",
       "secondary": "#ff8c00"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Rainbow",
     "extension": "Rainbow",
@@ -396,8 +356,8 @@
     "logo": "https://img1.depay.com/wallets/safe.jpg",
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
-      "primary": "",
-      "secondary": ""
+      "primary": "#10ff80",
+      "secondary": "#121312"
     }
   }, {
     "name": "Rabby",
@@ -406,15 +366,11 @@
       "qr": "WalletConnectV2"
     },
     "logo": (_wallets$Rabby = web3WalletsSvm.wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
-      "primary": "#6552f3",
+      "primary": "#5c48ed",
       "secondary": "#a6a6ff"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Kraken",
     "desktop": {
@@ -455,15 +411,12 @@
       }
     },
     "logo": (_wallets$Backpack = web3WalletsSvm.wallets.Backpack) === null || _wallets$Backpack === void 0 ? void 0 : (_wallets$Backpack$inf = _wallets$Backpack.info) === null || _wallets$Backpack$inf === void 0 ? void 0 : _wallets$Backpack$inf.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {
       "primary": "#e23e3f",
-      "secondary": "#252525"
+      "secondary": "#252525",
+      "background": "#252525"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.solana)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Glow",
     "extension": "Glow",
@@ -489,15 +442,11 @@
       }
     },
     "logo": (_wallets$Glow = web3WalletsSvm.wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {
       "primary": "#aa35d8",
       "secondary": "#f5e4fb"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.solana)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Solflare",
     "extension": "Solflare",
@@ -521,15 +470,11 @@
       }
     },
     "logo": (_wallets$Solflare = web3WalletsSvm.wallets.Solflare) === null || _wallets$Solflare === void 0 ? void 0 : (_wallets$Solflare$inf = _wallets$Solflare.info) === null || _wallets$Solflare$inf === void 0 ? void 0 : _wallets$Solflare$inf.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {
       "primary": "#fef046",
       "secondary": "#03050b"
     }
-=======
-    "blockchains": _toConsumableArray(supported$4.solana)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Family",
     "desktop": {
@@ -596,8 +541,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ONTO",
     "desktop": {
@@ -616,8 +560,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/onto.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Zerion",
     "desktop": {
@@ -640,8 +583,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zerion.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Spot",
     "desktop": {
@@ -662,8 +604,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/spot.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "BitGet (BitKeep)",
     "desktop": {
@@ -684,8 +625,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitget.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Unstoppable Domains",
     "desktop": {
@@ -704,8 +644,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Omni",
     "desktop": {
@@ -726,8 +665,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/omni.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "KEYRING PRO",
     "desktop": {
@@ -748,8 +686,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "TP Wallet (TokenPocket)",
     "extension": "TokenPocket",
@@ -769,8 +706,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "BitPay",
     "desktop": {
@@ -791,8 +727,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitpay.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "MathWallet",
     "desktop": {
@@ -813,8 +748,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Ledger Live",
     "desktop": {
@@ -836,8 +770,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "1inch Wallet",
     "desktop": {
@@ -858,8 +791,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "iToken Wallet",
     "desktop": {
@@ -878,8 +810,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Huddln",
     "desktop": {
@@ -898,8 +829,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/huddln.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Eidoo",
     "desktop": {
@@ -920,8 +850,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/eidoo.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Timeless Wallet",
     "desktop": {
@@ -942,8 +871,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/timeless.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "CoolWallet",
     "desktop": {
@@ -962,8 +890,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Unstoppable Wallet",
     "desktop": {
@@ -982,8 +909,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "AlphaWallet",
     "desktop": {
@@ -1004,8 +930,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Pillar",
     "desktop": {
@@ -1024,8 +949,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pillar.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "D'CENT Wallet",
     "desktop": {
@@ -1046,8 +970,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/dcent.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ZelCore",
     "desktop": {
@@ -1068,8 +991,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zel_core.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Nash",
     "desktop": {
@@ -1090,8 +1012,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nash.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Coinomi",
     "desktop": {
@@ -1110,8 +1031,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coinomi.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "CYBAVO Wallet",
     "desktop": {
@@ -1132,8 +1052,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/cybavo.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Tokenary",
     "desktop": {
@@ -1142,16 +1061,14 @@
       "connect": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/tokenary.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Torus",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/torus.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "SafePal",
     "desktop": {
@@ -1172,8 +1089,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safepal.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Infinity Wallet",
     "desktop": {
@@ -1182,8 +1098,7 @@
       "connect": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bridge Wallet",
     "desktop": {
@@ -1204,8 +1119,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "SparkPoint",
     "desktop": {
@@ -1226,8 +1140,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "PEAKDEFI Wallet",
     "desktop": {
@@ -1248,8 +1161,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "AT.Wallet",
     "desktop": {
@@ -1270,8 +1182,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/atwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Ellipal",
     "desktop": {
@@ -1292,8 +1203,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ellipal.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Aktionariat",
     "desktop": {
@@ -1314,8 +1224,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Talken Wallet",
     "desktop": {
@@ -1336,8 +1245,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/talken.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "KyberSwap",
     "desktop": {
@@ -1358,8 +1266,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Tongue Wallet",
     "desktop": {
@@ -1380,8 +1287,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/tongue.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "RWallet",
     "desktop": {
@@ -1402,8 +1308,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/rwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "O3Wallet",
     "desktop": {
@@ -1424,8 +1329,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "HashKey Me",
     "desktop": {
@@ -1446,16 +1350,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Guarda Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/guarda.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Defiant",
     "desktop": {
@@ -1476,8 +1378,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/defiant.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Valora",
     "desktop": {
@@ -1498,8 +1399,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/valora.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Celo Wallet",
     "desktop": {
@@ -1518,8 +1418,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/celo.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Elastos Essentials",
     "desktop": {
@@ -1540,8 +1439,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Stasis",
     "desktop": {
@@ -1562,8 +1460,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/stasis.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "JulWallet",
     "desktop": {
@@ -1584,8 +1481,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/julwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bitpie",
     "desktop": {
@@ -1604,8 +1500,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitpie.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Minerva Wallet",
     "desktop": {
@@ -1626,8 +1521,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/minerva.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Tangem",
     "desktop": {
@@ -1648,8 +1542,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/tangem.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ioPay",
     "desktop": {
@@ -1668,24 +1561,21 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/io_pay.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Coinhub",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/coinhub.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Go Pocket",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/gopocket.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Wallet 3",
     "desktop": {
@@ -1705,8 +1595,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/wallet3.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "yiToken",
     "desktop": {
@@ -1725,8 +1614,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/yitoken.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "DID Wallet",
     "desktop": {
@@ -1745,8 +1633,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/didwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Shinobi Wallet",
     "desktop": {
@@ -1765,8 +1652,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "AirGap Wallet",
     "desktop": {
@@ -1785,8 +1671,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "SecuX",
     "desktop": {
@@ -1807,8 +1692,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/secux.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Orange",
     "desktop": {
@@ -1829,8 +1713,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/orange.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Krystal",
     "desktop": {
@@ -1849,8 +1732,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/krystal.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Kriptomat",
     "desktop": {
@@ -1869,8 +1751,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Ambire Wallet",
     "desktop": {
@@ -1891,8 +1772,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "PayBolt",
     "desktop": {
@@ -1911,8 +1791,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "OKX",
     "extensions": ["OKXEVM", "OKXSVM"],
@@ -1938,28 +1817,21 @@
       }
     },
     "logo": (_wallets$OKXEVM = web3WalletsSvm.wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
-=======
     "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Mask Network",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/mask_network.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Uniblow",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/uniblow.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Autonomy: Digital Art Wallet",
     "desktop": {
@@ -1980,8 +1852,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/autonomy.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Lilico",
     "desktop": {
@@ -2002,8 +1873,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/lilico.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Fireblocks",
     "desktop": {
@@ -2024,8 +1894,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "WATT ME",
     "desktop": {
@@ -2044,8 +1913,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/wattme.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Coingrig",
     "desktop": {
@@ -2066,16 +1934,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coingrig.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Cryptnox Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "bobablocks",
     "desktop": {
@@ -2098,8 +1964,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Plasma Wallet",
     "desktop": {
@@ -2120,8 +1985,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "HUMBL WALLET",
     "desktop": {
@@ -2142,8 +2006,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Zelus",
     "desktop": {
@@ -2162,8 +2025,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zelus.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Earth Wallet",
     "desktop": {
@@ -2182,16 +2044,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Boba Multisig",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "EASY",
     "desktop": {
@@ -2212,8 +2072,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/easy.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ISLAMIwallet",
     "desktop": {
@@ -2234,8 +2093,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Card Wallet",
     "desktop": {
@@ -2256,24 +2114,21 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "GameStop Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "RealT Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "PLTwallet",
     "desktop": {
@@ -2294,8 +2149,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Avacus",
     "desktop": {
@@ -2316,8 +2170,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/avacus.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "StrikeX Wallet",
     "desktop": {
@@ -2336,16 +2189,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "BCERTin wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Edge Wallet",
     "desktop": {
@@ -2366,8 +2217,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Freedom Wallet",
     "desktop": {
@@ -2386,8 +2236,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Assure",
     "desktop": {
@@ -2408,8 +2257,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/assure.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Cosmostation",
     "desktop": {
@@ -2428,8 +2276,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "THORWallet",
     "desktop": {
@@ -2448,16 +2295,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Gryfyn",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "CoinStats",
     "desktop": {
@@ -2478,8 +2323,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Abra Wallet",
     "desktop": {
@@ -2498,8 +2342,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Opera Crypto Browser",
     "desktop": {
@@ -2518,8 +2361,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Keywallet Touch",
     "desktop": {
@@ -2538,8 +2380,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Enno Wallet",
     "desktop": {
@@ -2558,16 +2399,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "A4 Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bitcoin.com Wallet",
     "desktop": {
@@ -2588,8 +2427,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Defiant",
     "desktop": {
@@ -2610,16 +2448,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/defiant.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Chain",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/chain.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Verso",
     "desktop": {
@@ -2640,8 +2476,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/verso.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "LOBSTR Wallet",
     "desktop": {
@@ -2662,8 +2497,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bifrost Wallet",
     "desktop": {
@@ -2684,8 +2518,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Okse Wallet",
     "desktop": {
@@ -2704,16 +2537,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "BRISE Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "HyperPay",
     "extension": "HyperPay",
@@ -2721,20 +2552,14 @@
       "qr": "WalletConnectV2"
     },
     "logo": (_wallets$HyperPay = web3WalletsSvm.wallets.HyperPay) === null || _wallets$HyperPay === void 0 ? void 0 : (_wallets$HyperPay$inf = _wallets$HyperPay.info) === null || _wallets$HyperPay$inf === void 0 ? void 0 : _wallets$HyperPay$inf.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
-=======
     "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "ATON",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/aton.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Frontier",
     "desktop": {
@@ -2753,8 +2578,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/frontier.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "MDAO Wallet",
     "desktop": {
@@ -2773,8 +2597,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "TTM Wallet",
     "desktop": {
@@ -2793,8 +2616,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Opto Wallet",
     "desktop": {
@@ -2813,8 +2635,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "XFUN Wallet",
     "desktop": {
@@ -2835,8 +2656,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Exodus",
     "extensions": ["ExodusEVM", "ExodusSVM"],
@@ -2857,8 +2677,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
-    "blockchains": _toConsumableArray(supported$4),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4)
   }, {
     "name": "Uvtoken",
     "desktop": {
@@ -2877,8 +2696,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/uv_token.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "PREMA Wallet",
     "desktop": {
@@ -2901,8 +2719,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Shinobi-Wallet",
     "desktop": {
@@ -2921,8 +2738,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/shinobi.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ByteBank",
     "desktop": {
@@ -2941,8 +2757,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Ancrypto Wallet",
     "desktop": {
@@ -2961,8 +2776,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bee Wallet",
     "desktop": {
@@ -2983,8 +2797,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "LATOKEN Multichain DeFi Wallet",
     "desktop": {
@@ -3003,8 +2816,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "TK Finance",
     "desktop": {
@@ -3025,8 +2837,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Oxalus Wallet",
     "desktop": {
@@ -3047,8 +2858,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "3S Wallet",
     "desktop": {
@@ -3067,8 +2877,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Klever Wallet",
     "desktop": {
@@ -3089,8 +2898,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "OneKey",
     "desktop": {
@@ -3113,8 +2921,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/one_key.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "helix id",
     "desktop": {
@@ -3133,8 +2940,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/helix_id.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ABC Wallet",
     "desktop": {
@@ -3155,8 +2961,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "HaHa",
     "desktop": {
@@ -3177,8 +2982,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/haha.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Volt: DeFi",
     "desktop": {
@@ -3199,8 +3003,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/volt.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Robinhood Wallet",
     "desktop": {
@@ -3219,8 +3022,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "RiceWallet",
     "desktop": {
@@ -3241,8 +3043,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "SafeMoon",
     "desktop": {
@@ -3263,8 +3064,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safemoon.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "SimpleHold",
     "desktop": {
@@ -3285,8 +3085,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "GoldBit",
     "desktop": {
@@ -3305,8 +3104,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ioPay",
     "desktop": {
@@ -3325,8 +3123,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/iopay.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bitizen",
     "desktop": {
@@ -3347,8 +3144,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitizen.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Slavi Wallet",
     "desktop": {
@@ -3369,8 +3165,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Nufinetes",
     "desktop": {
@@ -3393,8 +3188,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Arianee Wallet",
     "desktop": {
@@ -3415,8 +3209,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "NOW Wallet",
     "desktop": {
@@ -3437,8 +3230,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Arculus Wallet",
     "desktop": {
@@ -3459,8 +3251,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Linen",
     "desktop": {
@@ -3481,8 +3272,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/linen.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Nitrogen Wallet",
     "desktop": {
@@ -3501,8 +3291,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ApolloX",
     "desktop": {
@@ -3521,16 +3310,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ID Pocket",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "CoinCircle",
     "desktop": {
@@ -3549,24 +3336,21 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "SahalWallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "UPBOND Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Sequence Wallet",
     "desktop": {
@@ -3585,8 +3369,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "LocalTrade Wallet",
     "desktop": {
@@ -3605,16 +3388,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Loopring Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Vision: Crypto Wallet",
     "desktop": {
@@ -3633,16 +3414,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/vision.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Ballet Crypto",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Pitaka",
     "desktop": {
@@ -3663,56 +3442,49 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pitaka.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "AbsoluteWallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "The Parallel",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "CypherD Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Keplr",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/keplr.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "MyWalliD",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Status",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/status.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Monarch Wallet",
     "desktop": {
@@ -3731,8 +3503,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Marble",
     "desktop": {
@@ -3751,8 +3522,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/marble.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Flooz",
     "desktop": {
@@ -3771,8 +3541,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/flooz.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Blockchain.com",
     "desktop": {
@@ -3791,16 +3560,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Dohrnii Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "UniPass",
     "desktop": {
@@ -3819,8 +3586,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ZenGo",
     "desktop": {
@@ -3841,16 +3607,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zengo2.png",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Locker Token",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/locker_token.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Keeper",
     "desktop": {
@@ -3869,32 +3633,28 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/keeper.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "XDEFI Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Numio",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/numio.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Neon Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Nabox",
     "desktop": {
@@ -3913,8 +3673,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nabox.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Snowball",
     "desktop": {
@@ -3933,8 +3692,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/snowball.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "KryptoGO Wallet",
     "desktop": {
@@ -3953,32 +3711,28 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Payperless",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/payperless.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Brave Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Crossmint",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/crossmint.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Safematrix",
     "desktop": {
@@ -3997,8 +3751,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safematrix.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "pier",
     "desktop": {
@@ -4017,8 +3770,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pier.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "FILWallet",
     "desktop": {
@@ -4037,8 +3789,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "ParaSwap Wallet",
     "desktop": {
@@ -4057,8 +3808,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Bitski",
     "desktop": {
@@ -4079,8 +3829,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitski.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Hippo Wallet",
     "desktop": {
@@ -4101,8 +3850,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Core",
     "desktop": {
@@ -4121,8 +3869,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/core.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Xcapit",
     "desktop": {
@@ -4141,8 +3888,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/xcapit.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Paper",
     "desktop": {
@@ -4161,8 +3907,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "MetaOne",
     "desktop": {
@@ -4181,8 +3926,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/metaone.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Enjin Wallet",
     "desktop": {
@@ -4203,26 +3947,19 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/enjin.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "BC Vault",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }, {
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": (_wallets$WindowEthere = web3WalletsSvm.wallets.WindowEthereum) === null || _wallets$WindowEthere === void 0 ? void 0 : (_wallets$WindowEthere2 = _wallets$WindowEthere.info) === null || _wallets$WindowEthere2 === void 0 ? void 0 : _wallets$WindowEthere2.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
-=======
     "blockchains": _toConsumableArray(supported$4.evm)
->>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Solana Pay",
     "desktop": {
@@ -4237,8 +3974,7 @@
       }
     },
     "logo": (_Blockchains$solana = Blockchains__default['default'].solana) === null || _Blockchains$solana === void 0 ? void 0 : _Blockchains$solana.logo,
-    "blockchains": _toConsumableArray(supported$4.svm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.svm)
   }, {
     "name": "Solana Wallet",
     "extension": "WindowSolana",
@@ -4254,20 +3990,14 @@
       }
     },
     "logo": (_wallets$WindowSolana = web3WalletsSvm.wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
-<<<<<<< HEAD:dist/umd/index.svm.js
-    "blockchains": _toConsumableArray(supported$4.svm),
-    "colors": {}
-=======
-    "blockchains": _toConsumableArray(supported$4.solana)
->>>>>>> main:dist/umd/index.solana.js
+    "blockchains": _toConsumableArray(supported$4.svm)
   }, {
     "name": "WalletConnect",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-    "blockchains": _toConsumableArray(supported$4.evm),
-    "colors": {}
+    "blockchains": _toConsumableArray(supported$4.evm)
   }].filter(function (wallet) {
     return wallet.blockchains.filter(Boolean).length > 0;
   });
@@ -4324,7 +4054,7 @@
     return _typeof(obj);
   }
 
-  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+  var commonjsGlobal$1 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
   function createCommonjsModule(fn) {
     var module = { exports: {} };
@@ -5789,7 +5519,7 @@
         freeParseInt = parseInt;
 
     /** Detect free variable `global` from Node.js. */
-    var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+    var freeGlobal = typeof commonjsGlobal$1 == 'object' && commonjsGlobal$1 && commonjsGlobal$1.Object === Object && commonjsGlobal$1;
 
     /** Detect free variable `self`. */
     var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -22554,7 +22284,7 @@
       // Export to the global object.
       root._ = _;
     }
-  }.call(commonjsGlobal));
+  }.call(commonjsGlobal$1));
   });
 
   var KEY = '_DePayConnectDialogPreviouslyConnectedWallet';
@@ -22994,7 +22724,7 @@
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Connecting extension"))), !props.connectingExtension && /*#__PURE__*/React__default['default'].createElement("button", {
+      }, "Connecting ", isMobile() ? 'app' : 'extension'))), !props.connectingExtension && /*#__PURE__*/React__default['default'].createElement("button", {
         onClick: function onClick() {
           return props.connectExtension(props.wallet);
         },
@@ -23007,14 +22737,23 @@
         style: {
           width: "50px"
         }
-      }, /*#__PURE__*/React__default['default'].createElement(ExtensionIcon, {
+      }, isMobile() && /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "transparent ",
+        title: "Click to connect app",
+        style: {
+          height: '28px',
+          width: '28px',
+          borderRadius: '8px'
+        },
+        src: props.wallet.logo
+      }), !isMobile() && /*#__PURE__*/React__default['default'].createElement(ExtensionIcon, {
         width: "26px",
         height: "26px"
       })), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftS LineHeightXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText FontWeightMedium"
-      }, "Connect extension")))), connectAppIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Connect ", isMobile() ? 'app' : 'extension')))), connectAppIsAvailable && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
       }, props.connectingApp && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Card disabled small PaddingTopS PaddingRightXS PaddingBottomS PaddingLeftXS",
@@ -23792,7 +23531,7 @@
             top: '-1px',
             position: 'relative'
           }
-        }, "\u25CF"), " ", capitalizeFirstChar(connectionType), " detected")))));
+        }, "\u25CF"), " ", capitalizeFirstChar(isMobile() && connectionType == 'extension' ? 'app' : connectionType), " detected")))));
       }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
         return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
       }) && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -23932,13 +23671,18 @@
   });
 
   var QuestionsGraphic = (function (props) {
-    var _walletMeta$colors, _walletMeta$colors2, _walletMeta$colors3, _walletMeta$colors4, _walletMeta$colors5, _walletMeta$colors6, _walletMeta$colors7, _walletMeta$colors8, _walletMeta$colors9, _walletMeta$colors10, _walletMeta$colors11, _walletMeta$colors12, _walletMeta$colors13, _walletMeta$colors14, _walletMeta$colors15, _walletMeta$colors16, _walletMeta$colors17, _walletMeta$colors18, _walletMeta$colors19, _walletMeta$colors20, _walletMeta$colors21, _walletMeta$colors22, _walletMeta$colors23, _walletMeta$colors24, _walletMeta$colors25, _walletMeta$colors26, _walletMeta$colors27, _walletMeta$colors28, _walletMeta$colors29, _walletMeta$colors30, _walletMeta$colors31, _walletMeta$colors32, _walletMeta$colors33, _walletMeta$colors34, _walletMeta$colors35, _walletMeta$colors36, _walletMeta$colors37, _walletMeta$colors38, _walletMeta$colors39, _walletMeta$colors40, _walletMeta$colors41, _walletMeta$colors42, _walletMeta$colors43, _walletMeta$colors44, _walletMeta$colors45, _walletMeta$colors46, _walletMeta$colors47, _walletMeta$colors48, _walletMeta$colors49, _walletMeta$colors50, _walletMeta$colors51, _walletMeta$colors52, _walletMeta$colors53, _walletMeta$colors54, _walletMeta$colors55, _walletMeta$colors56, _walletMeta$colors57, _walletMeta$colors58, _walletMeta$colors59, _walletMeta$colors60, _walletMeta$colors61;
+    var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors;
 
     var walletctx = React.useContext(WalletContext);
     var wallet = walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet;
     var walletMeta = wallet ? allWallets.find(function (walletMeta) {
       return walletMeta.name == wallet.name;
     }) : undefined;
+
+    if (!((_walletMeta = walletMeta) !== null && _walletMeta !== void 0 && _walletMeta.colors)) {
+      walletMeta = undefined;
+    }
+
     return /*#__PURE__*/React__default['default'].createElement("svg", {
       className: "Graphic " + props.className,
       version: "1.1",
@@ -23948,186 +23692,184 @@
       viewBox: "0 0 1128.7 1024"
     }, /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
       opacity: "0.5",
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors = walletMeta.colors) === null || _walletMeta$colors === void 0 ? void 0 : _walletMeta$colors.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors2 = walletMeta.colors) === null || _walletMeta$colors2 === void 0 ? void 0 : _walletMeta$colors2.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M1013.1,314.2c.4,1.2,1,2.3,2,3.2.5.4,1,.8,1.6,1.1,1.1.6,2.3.9,3.6.8.4,0,.8,0,1.2,0,1,0,1.9-.2,2.7-.7.9-.3,1.7-.9,2.4-1.6.7-.7,1.2-1.5,1.5-2.5.4-.9.6-1.8.5-2.7,0-.6-.2-1.2-.3-1.8-.4-1.2-1-2.3-2-3.2-.5-.4-1.1-.8-1.6-1.1-1.1-.6-2.3-.9-3.6-.8-.4,0-.8,0-1.2,0-1,0-1.9.2-2.7.7-.9.3-1.7.9-2.4,1.6-.7.7-1.2,1.5-1.5,2.5-.4.9-.6,1.8-.5,2.7,0,.6.2,1.2.3,1.8Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
       opacity: "0.5",
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors3 = walletMeta.colors) === null || _walletMeta$colors3 === void 0 ? void 0 : _walletMeta$colors3.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors4 = walletMeta.colors) === null || _walletMeta$colors4 === void 0 ? void 0 : _walletMeta$colors4.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M1110.6,235.7c-2-10.1-8.1-15.5-16.1-21.3-1.1-.6-2.2-1.1-3.3-1.5-13.8-5.4-39.7.6-39.9,18.8,0,4.4,2.6,9,6.8,10.2,1.8.5,3.6.4,5.4,0,2.2-.6,4.2-1.7,5.9-3,7-5.7,18.1-8.4,23.6,1.1,4.9,9.3-6.1,15.9-13.7,19.2-1,.4-2,.8-3,1.2-7.1,2.7-14.5,4.6-21.4,7.8-11.2,5.2-20.8,13.8-25.5,25.4-1.1,3.8,1.9,4.8,4.9,5.1,2.3.2,4.8-1.9,6.5-3.3,7-8.6,16-14,25.8-16.6,13.6-3.6,29.1-7,38.3-18.6,5.4-6.8,7.2-15.9,5.5-24.4Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors5 = walletMeta.colors) === null || _walletMeta$colors5 === void 0 ? void 0 : _walletMeta$colors5.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors6 = walletMeta.colors) === null || _walletMeta$colors6 === void 0 ? void 0 : _walletMeta$colors6.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M612,971.9c-6.9-4.2-16-4.7-23.5-2-2.1.8-4.2,1.7-6.1,2.8,8-42.4,16.3-84.7,21.6-128,.9-7.1,1.7-14.2,2.4-21.4.7-7.2,1.3-14.4,1.8-21.6.3-4.6-3-9.1-6.1-8.9-3.6.2-5.7,3.8-6.1,8.8-.4,5.1-.7,10.2-1.3,15.3v-.3c0,.6,0,1.6-.1,2.4-.6,6-1.2,12-2,17.9-1.4,12.1-3.1,24.1-5,36.1-3.7,23.8-8,47.4-12.4,70.9-2.5,13.3-5.1,26.6-7.5,40-.4,2-.2,4.1.4,6,0,.6,0,1.2.3,1.8.3,1.1,1,2.2,2.2,2.8,3.8,2.2,8,4,12.3,4.9s8.7,1.7,13.1,2.2c4.6.4,9.2.2,13.7-.9,4.2-1.1,9.1-3,11.2-7,4.2-7.9-2.2-17.4-9-21.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors7 = walletMeta.colors) === null || _walletMeta$colors7 === void 0 ? void 0 : _walletMeta$colors7.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors8 = walletMeta.colors) === null || _walletMeta$colors8 === void 0 ? void 0 : _walletMeta$colors8.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M451.2,983.7c-2.5-13.3-5-26.6-7.5-40-4.4-23.5-8.8-47.1-12.4-70.9-1.8-12-3.5-24-5-36.1-.7-6-1.4-11.9-2-17.9,0-.3-.2-2.1-.2-2.2,0-.5,0-1.1-.1-1.6-.1-1.4-.3-2.8-.4-4.3-.3-3-.5-6-.7-9-.4-4.9-2.5-8.5-6.1-8.7-3-.2-6.4,4.2-6,8.7.5,7.2,1.1,14.4,1.8,21.5.7,7.2,1.5,14.3,2.4,21.4,5.3,43.3,13.6,85.6,21.6,128-1.9-1.1-3.9-2.1-6.1-2.8-7.6-2.7-16.6-2.2-23.5,2-6.7,4.1-13.2,13.6-9,21.5,2.1,4,7,6,11.2,7,4.5,1.1,9.1,1.4,13.7.9,4.4-.4,8.8-1.2,13.1-2.2,4.3-.9,8.5-2.7,12.3-4.9,1.2-.6,1.9-1.6,2.2-2.8.2-.6.3-1.2.3-1.8.6-1.9.8-4,.4-6Z"
     }), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors9 = walletMeta.colors) === null || _walletMeta$colors9 === void 0 ? void 0 : _walletMeta$colors9.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors10 = walletMeta.colors) === null || _walletMeta$colors10 === void 0 ? void 0 : _walletMeta$colors10.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M975.2,199.9c-.7.3-1.3.5-2,.8-1.6.6-2.9,1.5-3.9,2.7-1.3,1.1-2.3,2.4-2.9,4-.7,1.6-1,3.2-.9,4.9-.1,1.6.1,3.2.8,4.7.5.9,1.1,1.9,1.6,2.8,1.4,1.8,3.1,3.1,5.2,4,1.1.3,2.2.6,3.2.9,2.2.3,4.3,0,6.3-.8.7-.3,1.3-.5,2-.8,1.6-.6,2.9-1.5,3.9-2.7,1.3-1.1,2.3-2.4,2.9-4,.7-1.6,1-3.2.9-4.9.1-1.6-.1-3.2-.8-4.7-.5-.9-1.1-1.9-1.6-2.8-1.4-1.8-3.1-3.1-5.2-4-1.1-.3-2.2-.6-3.2-.9-2.2-.3-4.3,0-6.3.8h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors11 = walletMeta.colors) === null || _walletMeta$colors11 === void 0 ? void 0 : _walletMeta$colors11.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors12 = walletMeta.colors) === null || _walletMeta$colors12 === void 0 ? void 0 : _walletMeta$colors12.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M1005.9,71.6c3.2-2.2,5.8-5.3,7.7-8.5,7.9-13.5,24.3-24.7,39-12.6,13.6,12.1-.3,29.5-10.5,39.4-1.4,1.3-2.8,2.5-4.2,3.8-9.9,8.6-20.7,16.3-29.9,25.7-15,15.3-25.3,35.1-25.9,56.8.5,6.8,6,6.7,11.1,5.3,3.9-1,6.7-6,8.6-9.2,6.1-18.3,17.5-32.4,31.8-42.6,19.8-14.2,43-29.1,50.9-53.5,4.7-14.4,2-30.3-5.9-43-9.4-15.2-22.6-20.2-39-24.9-2.1-.3-4.2-.4-6.3-.5-25.8-.4-64,25.1-53.3,54.8,2.6,7.2,9.6,13.1,17.2,12.4,3.1-.3,6.1-1.5,8.7-3.4Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors13 = walletMeta.colors) === null || _walletMeta$colors13 === void 0 ? void 0 : _walletMeta$colors13.primary) || "#d88568",
+      fill: ((_walletMeta2 = walletMeta) === null || _walletMeta2 === void 0 ? void 0 : (_walletMeta2$colors = _walletMeta2.colors) === null || _walletMeta2$colors === void 0 ? void 0 : _walletMeta2$colors.primary) || "#d88568",
       d: "M833.8,842.7c-164.2,44.7-346.5,56.9-518.8,56.4-9.6,0-19.1,0-28.6-.2-53.6-.5-111.7-6.9-153-44.3-5.5-5.1-10.6-10.8-15-16.9-3.9-5.4-7.4-11.2-10.7-17.4-3.3-6.2-6.2-12.9-8.8-20-4.4-11.7-7.9-23.7-10.7-35.6-28.9-149.8-44.7-303.7-31.2-455.8,3.1-14.3,8-28.1,15.5-40.8,7.5-12.7,17.5-24.3,30.8-34.2,32.8-24.2,72.3-25.7,109.7-33.9,13.1-2.2,26.3-4.2,39.4-6.1,117.1-17.1,234.8-29.6,352.9-37.8,83-5.7,175.1-27.1,254.1,7.8,84.3,37.2,103.6,125.2,115.4,206,11.3,77.7,17.2,156.2,17.3,234.7,0,63.8,0,130.9-48.6,180.5-27.7,28.3-66.7,46-109.7,57.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
       fill: "#000000",
       d: "M810.7,838.9c-15.7,6.7-32,10.2-48.5,16.2-7.9,2.3-15.8,4.4-23.7,6.4-7.9,2-15.7,3.8-23.6,5.4-10.5,2.1-21,4-31.6,5.8-122.4,21.1-250.6,28.5-374.1,29.1-8.8,0-17.6,0-26.4,0-59.1-1.2-124.6-2.9-172.4-40.7-6.6-5.6-12.5-11.9-17.8-19.1-3.8-5.3-7.4-10.9-10.6-17s-6.2-12.6-8.8-19.6c-4.4-11.5-7.9-23.3-10.7-34.9-28.6-146.8-44.1-297.7-30.3-446.8,3.1-14.1,8.1-27.6,15.6-40,7.5-12.5,17.5-23.8,30.9-33.6,32.8-23.8,72.4-25.3,109.8-33.5,13.1-2.2,26.3-4.2,39.4-6.1,117.1-16.9,234.9-29.5,352.9-37.7,83-5.8,175.1-26.9,254,7.1,84.2,36.3,103.4,122.5,115,201.8,7,47.6,11.8,95.5,14.5,143.5.5,9.6,1,19.2,1.3,28.8,2.1,52.7,6.4,104.9-4.1,157.8-12.4,61.2-69.5,102.3-127.7,118.3-7.5,3-15.2,5.9-23.1,8.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors14 = walletMeta.colors) === null || _walletMeta$colors14 === void 0 ? void 0 : _walletMeta$colors14.primary) || "#d88568",
+      fill: ((_walletMeta3 = walletMeta) === null || _walletMeta3 === void 0 ? void 0 : (_walletMeta3$colors = _walletMeta3.colors) === null || _walletMeta3$colors === void 0 ? void 0 : _walletMeta3$colors.primary) || "#d88568",
       d: "M789.4,864.5c-106.9,29.7-217.2,43.4-327.5,51.8-43.1,3.3-87.3,3.7-131,4.3-8.7.1-17.4.2-26.1.4-72-.5-152.3-.5-210.1-48.5-5.5-5.3-10.5-11.1-15-17.5-3.9-5.6-7.4-11.6-10.5-17.7-3.1-6.1-5.8-12.4-8.2-18.7-4.4-12-7.9-24.3-10.8-36.5C23.7,641.9,8.6,499.4,14.9,356.5c2-45.4,10.7-88.7,48.6-117.9,31.4-23.9,74-28.5,111.9-34.5,48-7.6,96.1-14.3,144.4-20.4,88.9-11.2,178.1-19.6,267.5-25.9,75.1-5.2,153.8-21.3,225.3,11.5,83.7,38.4,103.1,128.5,115,211.4,11.4,79.6,17.6,160,17.9,240.4.3,65.3.5,134.1-47.6,184.7-27.4,28.8-65.9,46.8-108.6,58.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("g", {
       opacity: "0.5"
     }, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors15 = walletMeta.colors) === null || _walletMeta$colors15 === void 0 ? void 0 : _walletMeta$colors15.secondary) || "#000000",
+      fill: ((_walletMeta4 = walletMeta) === null || _walletMeta4 === void 0 ? void 0 : (_walletMeta4$colors = _walletMeta4.colors) === null || _walletMeta4$colors === void 0 ? void 0 : _walletMeta4$colors.secondary) || "#000000",
       d: "M123.9,271.4c3.9-.7,7.9-1.8,11.5-3.2,1.6-.6,3.5-1.4,5-2.5,1.5-1.1,2.9-2.4,3.4-4.3.8-3-.2-6.7-3.1-8.2-1.3-.7-2.9-.8-4.4-.5-1.7.2-3.4.6-5,1-2.9.6-5.7,1.5-8.5,2.5-2.4.9-4.9,1.7-6.6,3.6-2,2.2-1.8,5.4-.8,8,1.1,3,3.7,4.2,6.7,3.9.6,0,1.3-.1,1.9-.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors16 = walletMeta.colors) === null || _walletMeta$colors16 === void 0 ? void 0 : _walletMeta$colors16.secondary) || "#000000",
+      fill: ((_walletMeta5 = walletMeta) === null || _walletMeta5 === void 0 ? void 0 : (_walletMeta5$colors = _walletMeta5.colors) === null || _walletMeta5$colors === void 0 ? void 0 : _walletMeta5$colors.secondary) || "#000000",
       d: "M169.8,257.8c4-.1,8.1-.9,11.9-2,3.4-1,7.7-2.3,9.1-6,1.1-2.9.4-6.7-2.4-8.4-1.3-.8-2.8-1-4.3-.9-1.7,0-3.4.2-5.1.5-2.9.4-5.8,1-8.7,1.7-2.5.6-5,1.1-7,2.8-2.2,2-2.4,5.2-1.7,7.9.8,3.1,3.2,4.6,6.2,4.6.6,0,1.3,0,1.9,0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors17 = walletMeta.colors) === null || _walletMeta$colors17 === void 0 ? void 0 : _walletMeta$colors17.secondary) || "#000000",
+      fill: ((_walletMeta6 = walletMeta) === null || _walletMeta6 === void 0 ? void 0 : (_walletMeta6$colors = _walletMeta6.colors) === null || _walletMeta6$colors === void 0 ? void 0 : _walletMeta6$colors.secondary) || "#000000",
       d: "M217,248.3c4,.1,8.2-.5,12-1.3,3.5-.7,7.9-1.9,9.4-5.5,1.2-2.8.7-6.7-1.9-8.5-1.2-.8-2.7-1.1-4.2-1.2-1.7,0-3.4,0-5.1.2-2.9.2-5.8.6-8.7,1.1-2.5.4-5,.8-7.1,2.3-2.3,1.7-2.7,5-2.2,7.7.6,3.1,2.8,4.8,5.9,5,.6,0,1.3,0,1.9.1Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors18 = walletMeta.colors) === null || _walletMeta$colors18 === void 0 ? void 0 : _walletMeta$colors18.secondary) || "#000000",
+      fill: ((_walletMeta7 = walletMeta) === null || _walletMeta7 === void 0 ? void 0 : (_walletMeta7$colors = _walletMeta7.colors) === null || _walletMeta7$colors === void 0 ? void 0 : _walletMeta7$colors.secondary) || "#000000",
       d: "M264.9,241c4,.2,8.2-.2,12.1-1,3.5-.7,7.9-1.8,9.5-5.4,1.2-2.8.8-6.7-1.8-8.6-1.2-.9-2.7-1.2-4.2-1.2-1.7,0-3.4,0-5.1.1-2.9.1-5.8.5-8.7.9-2.5.4-5,.6-7.1,2.1-2.4,1.7-2.9,4.9-2.5,7.6.5,3.1,2.7,4.9,5.8,5.2.6,0,1.3.1,1.9.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors19 = walletMeta.colors) === null || _walletMeta$colors19 === void 0 ? void 0 : _walletMeta$colors19.secondary) || "#000000",
+      fill: ((_walletMeta8 = walletMeta) === null || _walletMeta8 === void 0 ? void 0 : (_walletMeta8$colors = _walletMeta8.colors) === null || _walletMeta8$colors === void 0 ? void 0 : _walletMeta8$colors.secondary) || "#000000",
       d: "M313.1,234.1c4,.2,8.2-.3,12.1-1.2,3.5-.8,7.9-1.7,9.5-5.3,1.2-2.8.8-6.6-1.8-8.6-1.2-.9-2.7-1.2-4.2-1.3-1.7-.1-3.4,0-5.1.1-2.9.2-5.8.6-8.7,1.1-2.5.4-5,.7-7.1,2.2-2.3,1.7-2.8,4.9-2.4,7.6.5,3.1,2.7,4.9,5.8,5.2.6,0,1.3.1,2,.1Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors20 = walletMeta.colors) === null || _walletMeta$colors20 === void 0 ? void 0 : _walletMeta$colors20.secondary) || "#000000",
+      fill: ((_walletMeta9 = walletMeta) === null || _walletMeta9 === void 0 ? void 0 : (_walletMeta9$colors = _walletMeta9.colors) === null || _walletMeta9$colors === void 0 ? void 0 : _walletMeta9$colors.secondary) || "#000000",
       d: "M361.1,227.9c4,.3,8.2,0,12.1-.7,3.5-.6,7.9-1.6,9.7-5.2,1.3-2.8,1-6.7-1.6-8.6-1.2-.9-2.7-1.2-4.2-1.3-1.7-.1-3.4,0-5.1,0-2.9,0-5.8.4-8.8.7-2.5.3-5,.5-7.2,2-2.4,1.6-3,4.8-2.6,7.6.4,3.1,2.6,5,5.7,5.4.6,0,1.3.2,1.9.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors21 = walletMeta.colors) === null || _walletMeta$colors21 === void 0 ? void 0 : _walletMeta$colors21.secondary) || "#000000",
+      fill: ((_walletMeta10 = walletMeta) === null || _walletMeta10 === void 0 ? void 0 : (_walletMeta10$colors = _walletMeta10.colors) === null || _walletMeta10$colors === void 0 ? void 0 : _walletMeta10$colors.secondary) || "#000000",
       d: "M409.3,222.6c4,.4,8.2.1,12.1-.5,3.5-.5,8-1.4,9.8-5,1.4-2.8,1.1-6.6-1.4-8.6-1.2-.9-2.7-1.3-4.1-1.4-1.7-.1-3.4-.1-5.1-.1-2.9,0-5.8.3-8.7.6-2.5.3-5,.4-7.2,1.8-2.4,1.6-3.1,4.8-2.8,7.5.3,3.2,2.5,5,5.5,5.5.6,0,1.3.2,1.9.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors22 = walletMeta.colors) === null || _walletMeta$colors22 === void 0 ? void 0 : _walletMeta$colors22.secondary) || "#000000",
+      fill: ((_walletMeta11 = walletMeta) === null || _walletMeta11 === void 0 ? void 0 : (_walletMeta11$colors = _walletMeta11.colors) === null || _walletMeta11$colors === void 0 ? void 0 : _walletMeta11$colors.secondary) || "#000000",
       d: "M457.7,218c4,.4,8.2.2,12.1-.3,3.6-.5,8-1.3,9.8-4.9,1.4-2.7,1.2-6.6-1.4-8.7-1.2-.9-2.7-1.3-4.1-1.4-1.7-.2-3.4-.2-5.1-.2-2.9,0-5.8.2-8.7.5-2.5.2-5,.4-7.2,1.8-2.4,1.6-3.1,4.8-2.9,7.5.3,3.2,2.4,5,5.5,5.5.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors23 = walletMeta.colors) === null || _walletMeta$colors23 === void 0 ? void 0 : _walletMeta$colors23.secondary) || "#000000",
+      fill: ((_walletMeta12 = walletMeta) === null || _walletMeta12 === void 0 ? void 0 : (_walletMeta12$colors = _walletMeta12.colors) === null || _walletMeta12$colors === void 0 ? void 0 : _walletMeta12$colors.secondary) || "#000000",
       d: "M506.1,214c4,.5,8.2.3,12.1-.2,3.6-.5,8-1.3,9.9-4.8,1.4-2.7,1.3-6.6-1.3-8.7-1.1-.9-2.6-1.3-4.1-1.5-1.7-.2-3.4-.2-5.1-.2-2.9,0-5.8.1-8.7.4-2.5.2-5,.3-7.2,1.7-2.5,1.5-3.2,4.7-3,7.5.3,3.2,2.4,5,5.4,5.6.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors24 = walletMeta.colors) === null || _walletMeta$colors24 === void 0 ? void 0 : _walletMeta$colors24.secondary) || "#000000",
+      fill: ((_walletMeta13 = walletMeta) === null || _walletMeta13 === void 0 ? void 0 : (_walletMeta13$colors = _walletMeta13.colors) === null || _walletMeta13$colors === void 0 ? void 0 : _walletMeta13$colors.secondary) || "#000000",
       d: "M554.6,210.4c4,.4,8.3.2,12.2-.4,3.6-.5,8.1-1.5,9.8-5,1.3-2.8,1.1-6.7-1.5-8.6-1.2-.9-2.7-1.3-4.1-1.4-1.7-.1-3.4-.1-5-.1-2.9,0-5.8.2-8.7.5-2.5.3-5,.3-7.2,1.7-2.4,1.6-3.2,4.7-2.9,7.5.3,3.2,2.4,5.1,5.5,5.6.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors25 = walletMeta.colors) === null || _walletMeta$colors25 === void 0 ? void 0 : _walletMeta$colors25.secondary) || "#000000",
+      fill: ((_walletMeta14 = walletMeta) === null || _walletMeta14 === void 0 ? void 0 : (_walletMeta14$colors = _walletMeta14.colors) === null || _walletMeta14$colors === void 0 ? void 0 : _walletMeta14$colors.secondary) || "#000000",
       d: "M603.1,205.5c4,.4,8.2,0,12.1-.5,3.5-.5,8-1.4,9.7-5,1.4-2.7,1.2-6.6-1.4-8.7-1.2-.9-2.7-1.3-4.1-1.4-1.7-.1-3.4-.1-5.1-.1-2.9,0-5.8.3-8.8.6-2.5.3-5,.4-7.2,1.9-2.4,1.6-3.1,4.8-2.8,7.5.4,3.2,2.5,5,5.6,5.4.6,0,1.3.2,1.9.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors26 = walletMeta.colors) === null || _walletMeta$colors26 === void 0 ? void 0 : _walletMeta$colors26.secondary) || "#000000",
+      fill: ((_walletMeta15 = walletMeta) === null || _walletMeta15 === void 0 ? void 0 : (_walletMeta15$colors = _walletMeta15.colors) === null || _walletMeta15$colors === void 0 ? void 0 : _walletMeta15$colors.secondary) || "#000000",
       d: "M651.3,201.4c3.9.6,8.1.5,12,.2,3.5-.3,8-.8,10-4.2,1.6-2.6,1.7-6.5-.7-8.7-1.1-1-2.6-1.5-4.1-1.7-1.7-.3-3.4-.4-5.1-.5-3-.2-5.9-.1-8.9,0-2.5.1-5.1.2-7.4,1.5-2.5,1.5-3.3,4.7-3.1,7.4.2,3.2,2.3,5.1,5.3,5.7.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors27 = walletMeta.colors) === null || _walletMeta$colors27 === void 0 ? void 0 : _walletMeta$colors27.secondary) || "#000000",
+      fill: ((_walletMeta16 = walletMeta) === null || _walletMeta16 === void 0 ? void 0 : (_walletMeta16$colors = _walletMeta16.colors) === null || _walletMeta16$colors === void 0 ? void 0 : _walletMeta16$colors.secondary) || "#000000",
       d: "M699,201.5c1.9.5,3.9.9,5.8,1.2,2,.3,4,.4,5.9.6,1.7.1,3.7.2,5.6-.2,1.8-.3,3.6-1,4.8-2.5,2-2.4,2.8-6.2.7-8.7-.9-1.2-2.3-1.9-3.8-2.4-1.6-.5-3.4-.9-5-1.2-2.9-.7-5.9-.9-8.9-1.2-2.6-.2-5.2-.4-7.6.6-2.7,1.2-3.8,4.3-3.9,7-.1,3.2,1.7,5.3,4.6,6.2.6.2,1.2.4,1.8.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors28 = walletMeta.colors) === null || _walletMeta$colors28 === void 0 ? void 0 : _walletMeta$colors28.secondary) || "#000000",
+      fill: ((_walletMeta17 = walletMeta) === null || _walletMeta17 === void 0 ? void 0 : (_walletMeta17$colors = _walletMeta17.colors) === null || _walletMeta17$colors === void 0 ? void 0 : _walletMeta17$colors.secondary) || "#000000",
       d: "M745.5,209.3c1.7.9,3.6,1.6,5.4,2.4,1.8.7,3.7,1.3,5.5,1.8,3.3,1,7.5,2.1,10.7-.2,2.5-1.8,4.1-5.3,2.8-8.3-.6-1.4-1.8-2.4-3.2-3.2-1.5-.9-3.1-1.6-4.7-2.4-2.8-1.3-5.6-2.2-8.5-3.1-2.5-.7-5-1.6-7.6-1-2.9.7-4.6,3.4-5.3,6.1-.7,3.1.6,5.5,3.2,7,.5.3,1.1.6,1.7.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors29 = walletMeta.colors) === null || _walletMeta$colors29 === void 0 ? void 0 : _walletMeta$colors29.secondary) || "#000000",
+      fill: ((_walletMeta18 = walletMeta) === null || _walletMeta18 === void 0 ? void 0 : (_walletMeta18$colors = _walletMeta18.colors) === null || _walletMeta18$colors === void 0 ? void 0 : _walletMeta18$colors.secondary) || "#000000",
       d: "M788.1,227.8c2.7,2.7,6,5,9,7.2.7.5,1.5,1,2.3,1.4.8.5,1.6.9,2.4,1.3,1.7.7,3.5,1,5.4.4,2.9-.9,5.6-3.7,5.3-7-.2-1.5-1-2.8-2-4-.6-.7-1.2-1.3-1.8-2-.6-.6-1.3-1.2-2-1.8-1.1-1-2.3-2-3.5-3-1.2-.9-2.5-1.8-3.8-2.6-1.1-.7-2.2-1.5-3.4-2.1-1.2-.6-2.4-1-3.8-1.1-3-.2-5.4,2-6.7,4.4-1.5,2.8-.9,5.5,1.1,7.6.4.4.9.9,1.3,1.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors30 = walletMeta.colors) === null || _walletMeta$colors30 === void 0 ? void 0 : _walletMeta$colors30.secondary) || "#000000",
+      fill: ((_walletMeta19 = walletMeta) === null || _walletMeta19 === void 0 ? void 0 : (_walletMeta19$colors = _walletMeta19.colors) === null || _walletMeta19$colors === void 0 ? void 0 : _walletMeta19$colors.secondary) || "#000000",
       d: "M822.3,258.6c1.7,3.5,4,6.8,6.2,9.8.5.7,1.1,1.4,1.7,2.1.6.7,1.2,1.4,1.9,2,1.4,1.2,3.1,2,5,2.1,3,0,6.5-1.7,7.2-5,.3-1.5,0-3-.6-4.4-.6-1.6-1.5-3.2-2.3-4.7-.7-1.3-1.5-2.6-2.3-3.9-.8-1.3-1.8-2.5-2.7-3.7-1.5-2.1-3.2-4.3-5.6-5.3-2.7-1.2-5.8,0-7.8,1.9-1.2,1.1-1.8,2.3-2.1,3.6-.2,1.3,0,2.7.6,4,.3.6.5,1.1.8,1.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors31 = walletMeta.colors) === null || _walletMeta$colors31 === void 0 ? void 0 : _walletMeta$colors31.secondary) || "#000000",
+      fill: ((_walletMeta20 = walletMeta) === null || _walletMeta20 === void 0 ? void 0 : (_walletMeta20$colors = _walletMeta20.colors) === null || _walletMeta20$colors === void 0 ? void 0 : _walletMeta20$colors.secondary) || "#000000",
       d: "M845.7,299c.4,1.9.9,3.9,1.5,5.7.7,1.9,1.3,3.8,2.1,5.5.7,1.6,1.5,3.4,2.6,4.9,1.1,1.5,2.6,2.7,4.4,3.2,3,.7,6.7-.3,8.1-3.3.6-1.4.6-2.9.4-4.4-.3-1.7-.7-3.4-1.1-5.1-.8-2.9-1.8-5.7-2.9-8.5-.5-1.2-1-2.4-1.6-3.5-.6-1.1-1.4-2.2-2.4-3-2.3-1.9-5.5-1.5-8-.3-2.9,1.3-4,4-3.5,6.9,0,.6.2,1.2.3,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors32 = walletMeta.colors) === null || _walletMeta$colors32 === void 0 ? void 0 : _walletMeta$colors32.secondary) || "#000000",
+      fill: ((_walletMeta21 = walletMeta) === null || _walletMeta21 === void 0 ? void 0 : (_walletMeta21$colors = _walletMeta21.colors) === null || _walletMeta21$colors === void 0 ? void 0 : _walletMeta21$colors.secondary) || "#000000",
       d: "M860.1,344.1c.1,4,.9,8.1,1.9,11.8,1,3.4,2.2,7.7,5.9,9.1,2.9,1.1,6.7.5,8.5-2.2.8-1.3,1-2.8,1-4.3,0-1.7-.2-3.4-.4-5.1-.3-2.9-.9-5.9-1.6-8.7-.6-2.5-1.1-5-2.8-7-1.9-2.2-5.2-2.4-7.9-1.7-3.1.8-4.6,3.2-4.6,6.2,0,.6,0,1.3,0,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors33 = walletMeta.colors) === null || _walletMeta$colors33 === void 0 ? void 0 : _walletMeta$colors33.secondary) || "#000000",
+      fill: ((_walletMeta22 = walletMeta) === null || _walletMeta22 === void 0 ? void 0 : (_walletMeta22$colors = _walletMeta22.colors) === null || _walletMeta22$colors === void 0 ? void 0 : _walletMeta22$colors.secondary) || "#000000",
       d: "M869,391.4c-.2,4,.3,8.2,1,12,.7,3.5,1.8,7.9,5.4,9.5,2.8,1.2,6.7.8,8.6-1.8.9-1.2,1.2-2.7,1.2-4.2,0-1.7,0-3.4-.1-5.1-.1-2.9-.5-5.8-1-8.7-.4-2.5-.7-5-2.2-7.1-1.7-2.4-5-2.8-7.7-2.4-3.1.5-4.8,2.8-5.1,5.8,0,.6-.1,1.3-.1,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors34 = walletMeta.colors) === null || _walletMeta$colors34 === void 0 ? void 0 : _walletMeta$colors34.secondary) || "#000000",
+      fill: ((_walletMeta23 = walletMeta) === null || _walletMeta23 === void 0 ? void 0 : (_walletMeta23$colors = _walletMeta23.colors) === null || _walletMeta23$colors === void 0 ? void 0 : _walletMeta23$colors.secondary) || "#000000",
       d: "M875.5,439.3c-.3,4,0,8.2.7,12.1.6,3.5,1.5,8,5.1,9.7,2.8,1.3,6.7,1.1,8.6-1.5.9-1.2,1.2-2.7,1.4-4.2.1-1.7,0-3.4,0-5.1,0-2.9-.4-5.8-.7-8.7-.3-2.5-.5-5-2-7.2-1.6-2.4-4.9-3-7.6-2.6-3.1.4-4.9,2.6-5.3,5.6,0,.6-.1,1.3-.2,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors35 = walletMeta.colors) === null || _walletMeta$colors35 === void 0 ? void 0 : _walletMeta$colors35.secondary) || "#000000",
+      fill: ((_walletMeta24 = walletMeta) === null || _walletMeta24 === void 0 ? void 0 : (_walletMeta24$colors = _walletMeta24.colors) === null || _walletMeta24$colors === void 0 ? void 0 : _walletMeta24$colors.secondary) || "#000000",
       d: "M880.4,487.5c-.4,4-.2,8.2.3,12.1.5,3.5,1.3,8,4.8,9.8,2.7,1.4,6.6,1.3,8.7-1.2.9-1.1,1.3-2.6,1.5-4.1.2-1.7.2-3.4.2-5.1,0-2.9-.1-5.9-.4-8.8-.2-2.5-.4-5.1-1.8-7.3-1.6-2.5-4.8-3.1-7.5-2.9-3.2.3-5,2.4-5.5,5.5-.1.6-.2,1.3-.3,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors36 = walletMeta.colors) === null || _walletMeta$colors36 === void 0 ? void 0 : _walletMeta$colors36.secondary) || "#000000",
+      fill: ((_walletMeta25 = walletMeta) === null || _walletMeta25 === void 0 ? void 0 : (_walletMeta25$colors = _walletMeta25.colors) === null || _walletMeta25$colors === void 0 ? void 0 : _walletMeta25$colors.secondary) || "#000000",
       d: "M883.8,535.8c-.6,4-.5,8.2-.1,12.1.4,3.6,1,8,4.5,10,2.7,1.5,6.6,1.5,8.7-1,1-1.1,1.4-2.6,1.6-4.1.2-1.7.3-3.4.4-5.1.2-2.9,0-5.9-.1-8.8-.2-2.5-.2-5.1-1.5-7.3-1.5-2.5-4.7-3.3-7.4-3.1-3.2.2-5.1,2.3-5.7,5.3-.1.6-.2,1.3-.3,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors37 = walletMeta.colors) === null || _walletMeta$colors37 === void 0 ? void 0 : _walletMeta$colors37.secondary) || "#000000",
+      fill: ((_walletMeta26 = walletMeta) === null || _walletMeta26 === void 0 ? void 0 : (_walletMeta26$colors = _walletMeta26.colors) === null || _walletMeta26$colors === void 0 ? void 0 : _walletMeta26$colors.secondary) || "#000000",
       d: "M885.6,584.1c-.7,3.9-.8,8.2-.5,12.1.3,3.6.7,8.1,4.1,10.1,2.6,1.6,6.5,1.7,8.7-.7,1-1.1,1.5-2.5,1.8-4,.3-1.7.4-3.4.6-5,.2-2.9.2-5.9.2-8.8,0-2.5,0-5.1-1.3-7.4-1.4-2.6-4.5-3.4-7.3-3.4-3.2.1-5.2,2.1-5.9,5.1-.1.6-.3,1.3-.4,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors38 = walletMeta.colors) === null || _walletMeta$colors38 === void 0 ? void 0 : _walletMeta$colors38.secondary) || "#000000",
+      fill: ((_walletMeta27 = walletMeta) === null || _walletMeta27 === void 0 ? void 0 : (_walletMeta27$colors = _walletMeta27.colors) === null || _walletMeta27$colors === void 0 ? void 0 : _walletMeta27$colors.secondary) || "#000000",
       d: "M885.9,632.6c-.8,3.9-1,8.1-.9,12,.1,3.5.4,8,3.7,10.2,2.5,1.7,6.4,2,8.8-.2,1.1-1,1.6-2.5,1.9-4,.3-1.7.5-3.4.8-5.1.4-2.9.5-5.9.5-8.8,0-2.5.1-5.1-1-7.4-1.3-2.6-4.4-3.6-7.2-3.6-3.2,0-5.2,2-6,4.9-.2.6-.3,1.2-.4,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors39 = walletMeta.colors) === null || _walletMeta$colors39 === void 0 ? void 0 : _walletMeta$colors39.secondary) || "#000000",
+      fill: ((_walletMeta28 = walletMeta) === null || _walletMeta28 === void 0 ? void 0 : (_walletMeta28$colors = _walletMeta28.colors) === null || _walletMeta28$colors === void 0 ? void 0 : _walletMeta28$colors.secondary) || "#000000",
       d: "M883.3,680.3c-1.2,3.7-2,7.8-2.4,11.6-.2,1.7-.4,3.7-.2,5.5.2,1.9.8,3.6,2.2,5,2.2,2.1,6,3.1,8.7,1.2,1.2-.9,2-2.2,2.6-3.6.6-1.6,1.1-3.3,1.5-5,.8-2.9,1.3-5.9,1.6-8.9.4-2.6.7-5.1-.2-7.6-1.1-2.8-4.1-4-6.8-4.3-3.2-.3-5.4,1.4-6.5,4.3-.2.6-.4,1.2-.6,1.8Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors40 = walletMeta.colors) === null || _walletMeta$colors40 === void 0 ? void 0 : _walletMeta$colors40.secondary) || "#000000",
+      fill: ((_walletMeta29 = walletMeta) === null || _walletMeta29 === void 0 ? void 0 : (_walletMeta29$colors = _walletMeta29.colors) === null || _walletMeta29$colors === void 0 ? void 0 : _walletMeta29$colors.secondary) || "#000000",
       d: "M872.6,725.9c-1,1.6-2,3.3-2.8,5.1-.9,1.7-1.7,3.5-2.3,5.2-.7,1.6-1.4,3.3-1.7,5.2-.4,1.8-.3,3.6.7,5.4.8,1.3,1.9,2.5,3.3,3.3,1.4.7,3,1,4.6.5,1.4-.5,2.6-1.6,3.6-2.8,1.1-1.4,2-2.9,2.9-4.4,1.6-2.6,2.9-5.4,4-8.3,1-2.4,2-4.9,1.7-7.6-.4-3-3-4.9-5.7-5.8-1.5-.5-2.9-.4-4.1,0-1.2.5-2.3,1.4-3.1,2.6-.4.5-.7,1-1,1.6Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors41 = walletMeta.colors) === null || _walletMeta$colors41 === void 0 ? void 0 : _walletMeta$colors41.secondary) || "#000000",
+      fill: ((_walletMeta30 = walletMeta) === null || _walletMeta30 === void 0 ? void 0 : (_walletMeta30$colors = _walletMeta30.colors) === null || _walletMeta30$colors === void 0 ? void 0 : _walletMeta30$colors.secondary) || "#000000",
       d: "M849.1,765.4c-1.5,1.2-3,2.4-4.4,3.8-1.4,1.4-2.8,2.7-4,4.1-.6.6-1.2,1.3-1.7,2-.6.7-1.2,1.4-1.6,2.2-.9,1.6-1.5,3.4-1.2,5.3.5,3,2.8,6.1,6.1,6.3,1.5,0,3-.6,4.3-1.4.7-.5,1.5-1,2.2-1.5.7-.5,1.4-1.1,2.1-1.7,1.2-1,2.3-2,3.5-3,1.1-1.1,2.1-2.2,3.2-3.3.9-1,1.8-2,2.6-3,.8-1.1,1.4-2.2,1.7-3.5.6-3-1.2-5.7-3.4-7.3-1.3-1-2.6-1.4-3.9-1.4-1.3,0-2.6.5-3.8,1.3-.5.3-1,.7-1.5,1.1Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors42 = walletMeta.colors) === null || _walletMeta$colors42 === void 0 ? void 0 : _walletMeta$colors42.secondary) || "#000000",
+      fill: ((_walletMeta31 = walletMeta) === null || _walletMeta31 === void 0 ? void 0 : (_walletMeta31$colors = _walletMeta31.colors) === null || _walletMeta31$colors === void 0 ? void 0 : _walletMeta31$colors.secondary) || "#000000",
       d: "M813.4,794.9c-3.7,1.3-7.3,3.2-10.6,5.1-.7.4-1.5.9-2.3,1.5-.8.5-1.5,1.1-2.2,1.7-1.4,1.3-2.4,2.9-2.6,4.8-.3,3,1.1,6.6,4.3,7.7,1.4.4,3,.2,4.4-.2,1.7-.5,3.3-1.1,4.9-1.8,1.4-.6,2.8-1.2,4.1-1.9,1.4-.7,2.7-1.5,4-2.2,1.1-.7,2.3-1.3,3.3-2.1,1-.8,2-1.7,2.6-2.8,1.6-2.5.7-5.7-.9-8-1.7-2.6-4.5-3.3-7.3-2.5-.6.2-1.2.4-1.8.6Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors43 = walletMeta.colors) === null || _walletMeta$colors43 === void 0 ? void 0 : _walletMeta$colors43.secondary) || "#000000",
+      fill: ((_walletMeta32 = walletMeta) === null || _walletMeta32 === void 0 ? void 0 : (_walletMeta32$colors = _walletMeta32.colors) === null || _walletMeta32$colors === void 0 ? void 0 : _walletMeta32$colors.secondary) || "#000000",
       d: "M770.6,814.6c-1.9.3-3.9.7-5.9,1.2-1.9.5-3.8,1.2-5.6,1.8-1.7.6-3.5,1.4-5.1,2.4-1.6,1-2.9,2.4-3.4,4.3-.8,3,0,6.7,3,8.3,1.3.7,2.9.8,4.4.6,1.7-.2,3.4-.6,5.1-.9,2.9-.6,5.8-1.5,8.6-2.5,2.4-.8,4.9-1.6,6.7-3.5,2-2.1,1.8-5.5.8-8-1.1-3-3.7-4.2-6.7-3.9-.6,0-1.3.1-1.9.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors44 = walletMeta.colors) === null || _walletMeta$colors44 === void 0 ? void 0 : _walletMeta$colors44.secondary) || "#000000",
+      fill: ((_walletMeta33 = walletMeta) === null || _walletMeta33 === void 0 ? void 0 : (_walletMeta33$colors = _walletMeta33.colors) === null || _walletMeta33$colors === void 0 ? void 0 : _walletMeta33$colors.secondary) || "#000000",
       d: "M724.5,827.7c-4,.2-8.1,1-11.9,2.2-3.4,1-7.7,2.5-9,6.2-1,2.9-.2,6.7,2.6,8.4,1.3.7,2.8.9,4.3.8,1.7,0,3.4-.3,5.1-.6,2.9-.4,5.8-1.1,8.6-1.8,2.4-.6,4.9-1.1,6.9-2.9,2.2-1.9,2.3-5.2,1.6-7.9-.8-3.1-3.2-4.6-6.3-4.6-.6,0-1.3,0-1.9,0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors45 = walletMeta.colors) === null || _walletMeta$colors45 === void 0 ? void 0 : _walletMeta$colors45.secondary) || "#000000",
+      fill: ((_walletMeta34 = walletMeta) === null || _walletMeta34 === void 0 ? void 0 : (_walletMeta34$colors = _walletMeta34.colors) === null || _walletMeta34$colors === void 0 ? void 0 : _walletMeta34$colors.secondary) || "#000000",
       d: "M677.4,838.5c-4,0-8.2.7-12,1.7-3.5.9-7.8,2.2-9.2,5.9-1.1,2.9-.5,6.7,2.2,8.5,1.2.8,2.8,1,4.3,1,1.7,0,3.4-.2,5.1-.4,2.9-.3,5.8-.8,8.7-1.5,2.5-.5,5-.9,7-2.6,2.3-1.9,2.6-5.1,2-7.8-.7-3.1-3-4.7-6.1-4.8-.6,0-1.3,0-1.9,0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors46 = walletMeta.colors) === null || _walletMeta$colors46 === void 0 ? void 0 : _walletMeta$colors46.secondary) || "#000000",
+      fill: ((_walletMeta35 = walletMeta) === null || _walletMeta35 === void 0 ? void 0 : (_walletMeta35$colors = _walletMeta35.colors) === null || _walletMeta35$colors === void 0 ? void 0 : _walletMeta35$colors.secondary) || "#000000",
       d: "M629.8,847.5c-4,0-8.2.4-12,1.3-3.5.8-7.9,1.9-9.4,5.6-1.2,2.8-.7,6.7,2,8.5,1.2.8,2.7,1.1,4.2,1.1,1.7,0,3.4,0,5.1-.2,2.9-.2,5.8-.6,8.7-1.1,2.5-.4,5-.8,7.1-2.3,2.3-1.8,2.7-5,2.2-7.7-.6-3.1-2.8-4.8-5.9-5-.6,0-1.3,0-1.9,0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors47 = walletMeta.colors) === null || _walletMeta$colors47 === void 0 ? void 0 : _walletMeta$colors47.secondary) || "#000000",
+      fill: ((_walletMeta36 = walletMeta) === null || _walletMeta36 === void 0 ? void 0 : (_walletMeta36$colors = _walletMeta36.colors) === null || _walletMeta36$colors === void 0 ? void 0 : _walletMeta36$colors.secondary) || "#000000",
       d: "M582,854.8c-4-.2-8.2.2-12.1.9-3.5.7-7.9,1.7-9.6,5.3-1.3,2.8-.9,6.7,1.7,8.6,1.2.9,2.7,1.2,4.2,1.3,1.7,0,3.4,0,5.1,0,2.9,0,5.8-.5,8.7-.9,2.5-.3,5-.6,7.2-2.1,2.4-1.7,2.9-4.9,2.5-7.6-.5-3.1-2.7-4.9-5.7-5.2-.6,0-1.3-.1-1.9-.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors48 = walletMeta.colors) === null || _walletMeta$colors48 === void 0 ? void 0 : _walletMeta$colors48.secondary) || "#000000",
+      fill: ((_walletMeta37 = walletMeta) === null || _walletMeta37 === void 0 ? void 0 : (_walletMeta37$colors = _walletMeta37.colors) === null || _walletMeta37$colors === void 0 ? void 0 : _walletMeta37$colors.secondary) || "#000000",
       d: "M533.9,860.7c-4-.3-8.2,0-12.1.6-3.5.6-8,1.5-9.7,5-1.4,2.8-1.1,6.6,1.5,8.6,1.2.9,2.7,1.3,4.1,1.4,1.7.1,3.4.1,5.1,0,2.9,0,5.8-.3,8.8-.6,2.5-.3,5-.5,7.2-1.9,2.4-1.6,3-4.8,2.7-7.6-.4-3.2-2.5-5-5.6-5.4-.6,0-1.3-.2-1.9-.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors49 = walletMeta.colors) === null || _walletMeta$colors49 === void 0 ? void 0 : _walletMeta$colors49.secondary) || "#000000",
+      fill: ((_walletMeta38 = walletMeta) === null || _walletMeta38 === void 0 ? void 0 : (_walletMeta38$colors = _walletMeta38.colors) === null || _walletMeta38$colors === void 0 ? void 0 : _walletMeta38$colors.secondary) || "#000000",
       d: "M485.8,865.2c-4-.6-8.2-.5-12.1,0-3.6.4-8.1,1.1-10,4.6-1.5,2.7-1.4,6.6,1.1,8.7,1.1,1,2.6,1.4,4.1,1.6,1.7.2,3.4.3,5,.3,2.9.1,5.8,0,8.8-.2,2.5-.2,5.1-.2,7.3-1.5,2.5-1.5,3.3-4.8,3-7.5-.1-1.6-.7-2.8-1.7-3.8-.9-.9-2.2-1.5-3.7-1.8-.6-.1-1.3-.2-1.9-.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors50 = walletMeta.colors) === null || _walletMeta$colors50 === void 0 ? void 0 : _walletMeta$colors50.secondary) || "#000000",
+      fill: ((_walletMeta39 = walletMeta) === null || _walletMeta39 === void 0 ? void 0 : (_walletMeta39$colors = _walletMeta39.colors) === null || _walletMeta39$colors === void 0 ? void 0 : _walletMeta39$colors.secondary) || "#000000",
       d: "M437.3,867.7c-4-.6-8.2-.5-12.1-.1-3.6.4-8.1,1-10,4.5-1.5,2.7-1.5,6.6,1,8.7,1.1,1,2.6,1.4,4.1,1.6,1.7.2,3.4.3,5.1.4,2.9.2,5.8,0,8.8-.1,2.5-.1,5-.2,7.3-1.5,2.5-1.5,3.3-4.6,3.2-7.4-.2-3.2-2.2-5.1-5.3-5.7-.6-.1-1.3-.2-1.9-.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors51 = walletMeta.colors) === null || _walletMeta$colors51 === void 0 ? void 0 : _walletMeta$colors51.secondary) || "#000000",
+      fill: ((_walletMeta40 = walletMeta) === null || _walletMeta40 === void 0 ? void 0 : (_walletMeta40$colors = _walletMeta40.colors) === null || _walletMeta40$colors === void 0 ? void 0 : _walletMeta40$colors.secondary) || "#000000",
       d: "M388.8,869.7c-4-.6-8.2-.7-12.1-.4-3.6.3-8.1.9-10.1,4.3-1.6,2.6-1.6,6.5.8,8.7,1.1,1,2.6,1.5,4,1.7,1.7.3,3.4.4,5.1.5,2.9.2,5.8.2,8.8,0,2.5,0,5.1,0,7.3-1.3,2.5-1.4,3.4-4.6,3.3-7.3-.1-3.2-2.2-5.1-5.2-5.8-.6-.1-1.3-.3-1.9-.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors52 = walletMeta.colors) === null || _walletMeta$colors52 === void 0 ? void 0 : _walletMeta$colors52.secondary) || "#000000",
+      fill: ((_walletMeta41 = walletMeta) === null || _walletMeta41 === void 0 ? void 0 : (_walletMeta41$colors = _walletMeta41.colors) === null || _walletMeta41$colors === void 0 ? void 0 : _walletMeta41$colors.secondary) || "#000000",
       d: "M340.4,870.6c-3.9-.8-8.2-.9-12.1-.7-3.6.2-8.1.6-10.2,3.9-1.6,2.6-1.8,6.5.5,8.8,1.1,1,2.5,1.6,4,1.8,1.7.3,3.4.5,5,.6,2.9.3,5.9.4,8.8.3,2.5,0,5.1,0,7.4-1.1,2.6-1.3,3.5-4.5,3.5-7.2,0-3.2-2-5.2-5-6-.6-.2-1.3-.3-1.9-.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors53 = walletMeta.colors) === null || _walletMeta$colors53 === void 0 ? void 0 : _walletMeta$colors53.secondary) || "#000000",
+      fill: ((_walletMeta42 = walletMeta) === null || _walletMeta42 === void 0 ? void 0 : (_walletMeta42$colors = _walletMeta42.colors) === null || _walletMeta42$colors === void 0 ? void 0 : _walletMeta42$colors.secondary) || "#000000",
       d: "M292,869.8c-3.9-.9-8.1-1.3-12-1.2-3.6,0-8.1.3-10.3,3.5-1.8,2.5-2.2,6.4,0,8.8,1,1.1,2.5,1.7,3.9,2,1.6.4,3.3.6,5,.8,2.9.4,5.8.6,8.8.7,2.5,0,5.1.3,7.4-.8,2.6-1.2,3.7-4.3,3.8-7.1,0-3.2-1.8-5.3-4.8-6.2-.6-.2-1.2-.4-1.9-.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors54 = walletMeta.colors) === null || _walletMeta$colors54 === void 0 ? void 0 : _walletMeta$colors54.secondary) || "#000000",
+      fill: ((_walletMeta43 = walletMeta) === null || _walletMeta43 === void 0 ? void 0 : (_walletMeta43$colors = _walletMeta43.colors) === null || _walletMeta43$colors === void 0 ? void 0 : _walletMeta43$colors.secondary) || "#000000",
       d: "M243.9,866.6c-3.8-1.2-8-1.8-11.9-2-3.6-.2-8.1-.3-10.5,2.8-1.9,2.4-2.6,6.2-.5,8.8.9,1.1,2.3,1.8,3.8,2.3,1.6.5,3.3.8,5,1.2,2.9.6,5.8,1,8.7,1.3,2.5.3,5.1.6,7.5-.4,2.7-1.1,4-4.1,4.2-6.8.3-3.2-1.5-5.4-4.4-6.4-.6-.2-1.2-.4-1.8-.6Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors55 = walletMeta.colors) === null || _walletMeta$colors55 === void 0 ? void 0 : _walletMeta$colors55.secondary) || "#000000",
+      fill: ((_walletMeta44 = walletMeta) === null || _walletMeta44 === void 0 ? void 0 : (_walletMeta44$colors = _walletMeta44.colors) === null || _walletMeta44$colors === void 0 ? void 0 : _walletMeta44$colors.secondary) || "#000000",
       d: "M196.2,860.3c-3.7-1.4-7.9-2.3-11.7-2.7-3.5-.4-8-.8-10.7,2.1-2.1,2.3-3,6.1-1,8.7.9,1.2,2.2,2,3.6,2.5,1.6.6,3.2,1,4.9,1.5,2.8.8,5.7,1.3,8.6,1.8,2.5.4,5,.9,7.5,0,2.8-.9,4.2-3.9,4.6-6.6.5-3.1-1.2-5.4-4-6.7-.6-.3-1.2-.5-1.8-.7Z"
     })), /*#__PURE__*/React__default['default'].createElement("g", {
       opacity: "0.3"
     }, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors56 = walletMeta.colors) === null || _walletMeta$colors56 === void 0 ? void 0 : _walletMeta$colors56.secondary) || "#ffffff",
+      fill: ((_walletMeta45 = walletMeta) === null || _walletMeta45 === void 0 ? void 0 : (_walletMeta45$colors = _walletMeta45.colors) === null || _walletMeta45$colors === void 0 ? void 0 : _walletMeta45$colors.secondary) || "#ffffff",
       d: "M89.1,346.5c-19,21.1-24.7,62.3-11.3,89.7,2.7,5.5,6.1,10.4,10.3,14.5,4.8,3.9,10.3,7.8,16.5,6.6,41.2-5.6,44.3-65.5,36.3-96.6-4.1-16-18.3-32.5-36.1-24.4-5.9,1.9-11.5,5.4-15.8,10.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors57 = walletMeta.colors) === null || _walletMeta$colors57 === void 0 ? void 0 : _walletMeta$colors57.secondary) || "#ffffff",
+      fill: ((_walletMeta46 = walletMeta) === null || _walletMeta46 === void 0 ? void 0 : (_walletMeta46$colors = _walletMeta46.colors) === null || _walletMeta46$colors === void 0 ? void 0 : _walletMeta46$colors.secondary) || "#ffffff",
       d: "M90.3,495.7c-7.4,9.9-9.5,22.8-6.3,34.9,4.6,15.4,19.3,35.1,36.1,27,19-9.6,21-36.4,13.8-55.5-3.2-8.7-10.2-15.9-19.5-18.2-9.7-2-18.3,3.7-24.1,11.8Z"
-    })), (walletMeta === null || walletMeta === void 0 ? void 0 : walletMeta.logo) && /*#__PURE__*/React__default['default'].createElement("image", {
+    })), ((_walletMeta47 = walletMeta) === null || _walletMeta47 === void 0 ? void 0 : _walletMeta47.logo) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, ((_walletMeta48 = walletMeta) === null || _walletMeta48 === void 0 ? void 0 : (_walletMeta48$colors = _walletMeta48.colors) === null || _walletMeta48$colors === void 0 ? void 0 : _walletMeta48$colors.background) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("defs", null, /*#__PURE__*/React__default['default'].createElement("clipPath", {
+      id: "clipLogo"
+    }, /*#__PURE__*/React__default['default'].createElement("rect", {
+      width: "340",
+      height: "340",
+      rx: "80",
+      ry: "80"
+    }))), /*#__PURE__*/React__default['default'].createElement("rect", {
+      x: "310",
+      y: "380",
+      width: "340",
+      height: "340",
+      rx: "80",
+      transform: "rotate(355 485 555)",
+      fill: walletMeta.colors.background
+    })), /*#__PURE__*/React__default['default'].createElement("image", {
       style: {
+        backgroundColor: (_walletMeta49 = walletMeta) !== null && _walletMeta49 !== void 0 && (_walletMeta49$colors = _walletMeta49.colors) !== null && _walletMeta49$colors !== void 0 && _walletMeta49$colors.background ? (_walletMeta50 = walletMeta) === null || _walletMeta50 === void 0 ? void 0 : (_walletMeta50$colors = _walletMeta50.colors) === null || _walletMeta50$colors === void 0 ? void 0 : _walletMeta50$colors.background : 'transparent',
         clipPath: "inset(0 round 60px)"
       },
       x: "310",
@@ -24137,7 +23879,7 @@
       href: walletMeta.logo,
       transform: "rotate(355 485 555)",
       preserveAspectRatio: "xMidYMid meet"
-    }), !(walletMeta !== null && walletMeta !== void 0 && walletMeta.logo) && /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
+    })), !((_walletMeta51 = walletMeta) !== null && _walletMeta51 !== void 0 && _walletMeta51.logo) && /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
       fill: "#000000",
       d: "M302.7,616.1c-2.3-18.4,9-36.6,26.2-42.5,13.3-4.5,27-.8,37.2,9,9.9,10.2,14.3,24.4,11.2,38.3-3.3,15.3-14.8,27.9-30,30.8-16.2,3-32.7-5.5-40.2-20.3-2.4-4.6-3.9-9.7-4.4-15.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
@@ -24161,15 +23903,12 @@
       fill: "#000000",
       d: "M499.2,614.9c-.5,0-.9.1-1.4.2-14.3,2.4-28.5,4.5-43,5.1-3.2.1-5.4,2.3-6.4,5.2-.5,1.4-.8,3-.7,4.6.4,9.5,10.2,10.1,17.6,9.5,10.3-1,20.7-1.6,30.7-4.6,4.3-1.3,10-3.2,12.3-7.4,2.5-4.5-.5-11.9-5.8-12.6-1.1-.1-2.2,0-3.3,0Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors58 = walletMeta.colors) === null || _walletMeta$colors58 === void 0 ? void 0 : _walletMeta$colors58.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors59 = walletMeta.colors) === null || _walletMeta$colors59 === void 0 ? void 0 : _walletMeta$colors59.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M1024.1,809c.3-.5.5-1.1.5-1.7,1.3-11.2,1.5-22.4.7-33.6-2-44.8-31.8-83.2-67.9-107.5-3.1-1.8-7.5-2.5-9.8,1.3-1.3,2.5-.6,5.5,1.7,6.8,8,5.6,15.5,11.6,22.5,18.2l-.3-.2c9.5,9.4,18.5,19.4,24.9,30.9v-.6c11.3,19.6,17.1,42.1,16.7,64.9,0,2.9,0,5.8-.3,8.7,0,1.5-.2,3.1-.3,4.6,0,.7-.1,1.4-.2,2.2,0,0,0,0,0,0,0,.4,0,.8-.1,1.3,0,.4,0,.9,0,1.3-4,.8-8.1,1.9-11.9,3.5-5.1,2.1-9.7,5.3-12.4,10.3-1.4,2.5-2.2,5.3-1.5,8.2.7,2.7,2.6,4.6,4.8,6.2.9.6,2,1.1,3.1,1.5-.6,8.1,1.4,16.8,7.9,22.2,7.8,6.5,19.1,6.9,27.2.9,8.8-6.4,12.4-18,10.2-28.5-1.8-8.5-7.7-16.5-15.4-20.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors60 = walletMeta.colors) === null || _walletMeta$colors60 === void 0 ? void 0 : _walletMeta$colors60.secondary) || "#000000",
+      fill: ((_walletMeta52 = walletMeta) === null || _walletMeta52 === void 0 ? void 0 : (_walletMeta52$colors = _walletMeta52.colors) === null || _walletMeta52$colors === void 0 ? void 0 : _walletMeta52$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors61 = walletMeta.colors) === null || _walletMeta$colors61 === void 0 ? void 0 : _walletMeta$colors61.secondary) || "#000000"
+        fill: ((_walletMeta53 = walletMeta) === null || _walletMeta53 === void 0 ? void 0 : (_walletMeta53$colors = _walletMeta53.colors) === null || _walletMeta53$colors === void 0 ? void 0 : _walletMeta53$colors.secondary) || "#000000"
       },
       d: "M465.8,702.9c-4.9-8.9-15.3-13.3-25-10.7-8.1,2.1-13.6,9.2-16.5,16.8-1.2-.2-2.4-.1-3.4,0-2.6.5-5.1,1.5-6.9,3.6-1.9,2.3-2.3,5.1-2.1,8,.3,4.9,2.6,9.3,5.7,13.1,2.7,3.3,5.8,5.8,9.2,7.6-11.1,19.6-27.6,36.3-48.7,44.9-17.7,7.3-38.9,9.3-57.3,3.5-10.2-3.2-19.6-9-25.8-17.8-2-2.9-5.5-4.5-8.9-2.7-2.8,1.5-4.7,6-2.7,8.9,13.8,19.6,36.7,28.1,60.1,27.9,25.3-.2,49.8-9.3,68.8-26,11.3-9.9,20.6-22.1,27.5-35.4,8.7,0,17.3-3.8,23.2-11.6,6.4-8.6,8-20.5,2.8-30Z"
     }));
@@ -24273,11 +24012,7 @@
         if (wallet.extensions && props.accept) {
           var availableExtensions = wallet.extensions.filter(function (availableExtension) {
             return props.accept.some(function (configuration) {
-<<<<<<< HEAD:dist/umd/index.svm.js
               return web3WalletsSvm.wallets[availableExtension].info.blockchains.includes(configuration.blockchain);
-=======
-              return supported$4[web3WalletsSvm.wallets[availableExtension].info.platform].includes(configuration.blockchain);
->>>>>>> main:dist/umd/index.solana.js
             });
           });
 
@@ -24619,13 +24354,18 @@
   var ErrorContext = /*#__PURE__*/React__default['default'].createContext();
 
   var ErrorGraphic$1 = (function (props) {
-    var _walletMeta$colors, _walletMeta$colors2, _walletMeta$colors3, _walletMeta$colors4, _walletMeta$colors5, _walletMeta$colors6, _walletMeta$colors7, _walletMeta$colors8, _walletMeta$colors9, _walletMeta$colors10, _walletMeta$colors11, _walletMeta$colors12, _walletMeta$colors13, _walletMeta$colors14, _walletMeta$colors15, _walletMeta$colors16, _walletMeta$colors17, _walletMeta$colors18, _walletMeta$colors19, _walletMeta$colors20, _walletMeta$colors21, _walletMeta$colors22, _walletMeta$colors23, _walletMeta$colors24, _walletMeta$colors25, _walletMeta$colors26, _walletMeta$colors27, _walletMeta$colors28, _walletMeta$colors29, _walletMeta$colors30, _walletMeta$colors31, _walletMeta$colors32, _walletMeta$colors33, _walletMeta$colors34, _walletMeta$colors35, _walletMeta$colors36, _walletMeta$colors37, _walletMeta$colors38, _walletMeta$colors39, _walletMeta$colors40, _walletMeta$colors41, _walletMeta$colors42, _walletMeta$colors43, _walletMeta$colors44, _walletMeta$colors45, _walletMeta$colors46, _walletMeta$colors47, _walletMeta$colors48, _walletMeta$colors49, _walletMeta$colors50, _walletMeta$colors51, _walletMeta$colors52, _walletMeta$colors53, _walletMeta$colors54, _walletMeta$colors55, _walletMeta$colors56, _walletMeta$colors57, _walletMeta$colors58, _walletMeta$colors59, _walletMeta$colors60, _walletMeta$colors61, _walletMeta$colors62, _walletMeta$colors63, _walletMeta$colors64, _walletMeta$colors65, _walletMeta$colors66, _walletMeta$colors67, _walletMeta$colors68, _walletMeta$colors69, _walletMeta$colors70, _walletMeta$colors71, _walletMeta$colors72, _walletMeta$colors73, _walletMeta$colors74, _walletMeta$colors75, _walletMeta$colors76, _walletMeta$colors77, _walletMeta$colors78, _walletMeta$colors79, _walletMeta$colors80, _walletMeta$colors81, _walletMeta$colors82, _walletMeta$colors83, _walletMeta$colors84;
+    var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta47$colors, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta51$colors, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors, _walletMeta54, _walletMeta54$colors, _walletMeta55, _walletMeta55$colors, _walletMeta56, _walletMeta56$colors, _walletMeta57, _walletMeta57$colors, _walletMeta58, _walletMeta58$colors, _walletMeta59, _walletMeta59$colors, _walletMeta60, _walletMeta60$colors, _walletMeta61, _walletMeta61$colors, _walletMeta62, _walletMeta62$colors, _walletMeta63, _walletMeta63$colors, _walletMeta64, _walletMeta65, _walletMeta65$colors, _walletMeta66, _walletMeta66$colors, _walletMeta67;
 
     var walletctx = React.useContext(WalletContext);
     var wallet = walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet;
     var walletMeta = wallet ? allWallets.find(function (walletMeta) {
       return walletMeta.name == wallet.name;
     }) : undefined;
+
+    if (!((_walletMeta = walletMeta) !== null && _walletMeta !== void 0 && _walletMeta.colors)) {
+      walletMeta = undefined;
+    }
+
     return /*#__PURE__*/React__default['default'].createElement("svg", {
       className: "Graphic " + props.className,
       version: "1.1",
@@ -24635,276 +24375,258 @@
       viewBox: "0 0 1171.6 933.3"
     }, /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
       opacity: "0.5",
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors = walletMeta.colors) === null || _walletMeta$colors === void 0 ? void 0 : _walletMeta$colors.primary) || "#d88568",
+      className: "GraphicActiveColor",
       d: "M1128.6,796.2c-1.2-3.3-2-6.7-2.9-10.1-.2-.8-.5-1.7-.7-2.5-.2-.4-.3-.9-.5-1.4-.2-.5-.4-.9-.6-1.4-.2-.5-.4-.9-.5-1.4-1-2.5-2-5.6-3.2-8.1-.3-.4-.6-.9-.9-1.2-1.6-1.9-3.6-3-6.1-2.5-5.7,1.5-9.8,7.7-16,10.7-.5.3-1,.6-1.6,1-.5.3-1,.6-1.6.9,0-.2,0-.4.1-.6.6-2.8,1.3-5.5,1.9-8.2,1.1-4.7,2.1-9.8,1-14.6-.1-.7-.3-1.4-.6-2-1.3-3.2-5.4-3.2-7.7-1-.7.4-1.4.9-2.1,1.3-1.4.9-2.7,1.8-4.1,2.6-.6.3-1.1.7-1.7,1-4,2.5-8.2,3.5-12.8,5.1-.5-3.6-2.5-7.2-2.7-10.7,0-.6-.2-1.1-.3-1.7-.2-1.7-.3-3.4-.1-5.4.2-2-1.9-3.9-3.8-3.9-2.2,0-3.7,1.7-3.9,3.8-.3,3,0,6.1.7,9.2.1.8.3,1.5.5,2.3.9,4.2.4,9.4,3.5,12,5.6,6.2,14.9-.5,21.8-3.5.5-.3,1-.6,1.5-.9,1.5-.9,3-1.8,4.5-2.8,0,.3,0,.6,0,.9,0,.3,0,.6,0,.9,0,0,0,.1,0,.2,0,0,0,0,0,.1,0,.6-.2,1.3-.3,1.9-.3,1.4-.6,2.7-.9,4.1-1.3,5.3-2.9,10.8-2.7,16.3.1,3.1,3.1,4.5,5.8,3.3,2.3-1,4.5-2.2,6.6-3.4.7-.4,1.4-.8,2.1-1.3,1.8-1.5,4-2.3,6.2-3.1.4-.1.7-.3,1.1-.4,2.5-.9,5.6-4,8.2-.9,2.1,2.6,2.6,5.7,3.1,8.9.1.4.2.8.3,1.2.6,2.4,1.3,4.7,2.1,7.1.7,2,2.6,3.3,4.7,2.7,1.9-.5,3.4-2.8,2.7-4.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors2 = walletMeta.colors) === null || _walletMeta$colors2 === void 0 ? void 0 : _walletMeta$colors2.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors3 = walletMeta.colors) === null || _walletMeta$colors3 === void 0 ? void 0 : _walletMeta$colors3.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M1096.6,707.6c11.5-.9,23-1.8,34.4-2.7-1.8-2.4-3.6-4.8-5.5-7.1-2.2,7.6-4.3,15.3-6.5,22.9-1.1,3.8,1.2,7.5,5.5,7.1,11.4-.9,22.9-1.8,34.3-2.7,6.6-.5,5.2-10.8-1.4-10.2-11.4.9-22.9,1.8-34.3,2.7,1.8,2.4,3.6,4.8,5.5,7.1,2.2-7.6,4.3-15.3,6.5-22.9,1.1-3.8-1.2-7.5-5.5-7.1-11.5.9-23,1.8-34.4,2.7-6.6.5-5.2,10.8,1.4,10.2h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors4 = walletMeta.colors) === null || _walletMeta$colors4 === void 0 ? void 0 : _walletMeta$colors4.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors5 = walletMeta.colors) === null || _walletMeta$colors5 === void 0 ? void 0 : _walletMeta$colors5.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M1026.9,794c7.2,11.1,14.5,22.2,21.7,33.2,1-2.8,2.1-5.6,3.1-8.4-8.9,2.1-17.8,4.1-26.7,6.2-4,.9-5.3,5.1-3.1,8.4,7.2,11,14.5,22,21.7,33.1,1.5,2.3,5.3,2.4,7.3.7,2.4-1.9,2.3-4.9.7-7.3-7.2-11-14.5-22-21.7-33.1-1,2.8-2.1,5.6-3.1,8.4,8.9-2.1,17.8-4.1,26.7-6.2,4-.9,5.3-5.1,3.1-8.4-7.2-11.1-14.5-22.2-21.7-33.2-1.5-2.3-5.3-2.4-7.3-.7-2.4,1.9-2.3,4.9-.7,7.3h0Z"
     })), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
       opacity: "0.5",
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors6 = walletMeta.colors) === null || _walletMeta$colors6 === void 0 ? void 0 : _walletMeta$colors6.primary) || "#d88568",
+      className: "GraphicActiveColor",
       d: "M130.4,101.7c.7-3.7,1.8-7.3,2.8-11,.3-.9.5-1.8.7-2.7,0-.5.2-1,.3-1.5,0-.5.1-1.1.2-1.6,0-.5.2-1.1.2-1.6.4-2.9,1.2-6.3,1.4-9.3,0-.6,0-1.1-.2-1.7-.4-2.6-1.7-4.8-4.4-5.7-6.1-1.7-13.4,1.8-20.8,1.2-.7,0-1.3,0-2,0-.7,0-1.3,0-2,0,.1-.2.3-.3.4-.5,2-2.3,4.2-4.4,6.3-6.6,3.6-3.8,7.3-8,8.9-13,.2-.7.4-1.5.6-2.2.5-3.7-3.3-6-6.6-5.1-.9,0-1.8,0-2.6.1-1.8,0-3.5.1-5.3.2-.7,0-1.4,0-2.1,0-5.1.2-9.5-1.2-14.7-2.3,1.5-3.6,1.6-8.1,3.3-11.5.2-.6.5-1.2.7-1.7.7-1.7,1.6-3.4,2.8-5.1,1.3-1.8.4-4.7-1.5-5.7-2.1-1.1-4.4-.5-5.7,1.5-1.9,2.7-3.3,5.8-4.4,8.9-.3.8-.6,1.6-.8,2.4-1.4,4.4-4.8,8.9-3.3,13,1.9,8.9,14.2,7.8,22.3,8.7.6,0,1.3,0,1.9,0,1.9,0,3.8,0,5.7-.1-.2.3-.4.5-.5.8-.2.3-.4.5-.6.8,0,0,0,.1-.1.2,0,0,0,0,0,0-.4.5-.9,1.1-1.4,1.6-1,1.1-2,2.2-3.1,3.3-4.1,4.3-8.6,8.5-11.4,13.7-1.6,3,.4,5.9,3.6,6.3,2.7.3,5.3.4,8,.5.9,0,1.8,0,2.7,0,2.5-.4,5,0,7.5.5.4,0,.8.2,1.2.2,2.8.5,7.4-.6,8.1,3.7.5,3.5-.7,6.7-2,10-.1.4-.2.9-.4,1.3-.7,2.6-1.4,5.1-1.9,7.7-.4,2.2.6,4.5,2.9,5.1,2,.6,4.7-.7,5.1-2.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors7 = walletMeta.colors) === null || _walletMeta$colors7 === void 0 ? void 0 : _walletMeta$colors7.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors8 = walletMeta.colors) === null || _walletMeta$colors8 === void 0 ? void 0 : _walletMeta$colors8.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M86.4,190.2c-11.2,5.5-22.4,11-33.5,16.5,2.8,1.7,5.6,3.3,8.3,5-.9-8.5-1.8-17.1-2.7-25.6-.5-4.3-4.2-7-8.3-5-11.1,5.5-22.2,11-33.4,16.5-6.4,3.2-.9,12.9,5.5,9.7,11.1-5.5,22.2-11,33.4-16.5-2.8-1.7-5.6-3.3-8.3-5,.9,8.5,1.8,17.1,2.7,25.6.5,4.3,4.2,7,8.3,5,11.2-5.5,22.4-11,33.5-16.5,6.5-3.2.9-12.9-5.5-9.7h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors9 = walletMeta.colors) === null || _walletMeta$colors9 === void 0 ? void 0 : _walletMeta$colors9.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors10 = walletMeta.colors) === null || _walletMeta$colors10 === void 0 ? void 0 : _walletMeta$colors10.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M97.1,136.1c-13.3-5.4-26.5-10.8-39.8-16.2.8,3.1,1.6,6.2,2.4,9.4,6.7-7.3,13.3-14.6,20-21.9,3-3.3,1.6-7.8-2.4-9.4-13.2-5.4-26.4-10.7-39.6-16.1-2.8-1.1-6.1,1.1-6.9,3.8-.9,3.2,1,5.8,3.8,6.9,13.2,5.4,26.4,10.7,39.6,16.1-.8-3.1-1.6-6.2-2.4-9.4-6.7,7.3-13.3,14.6-20,21.9-3,3.3-1.6,7.7,2.4,9.4,13.3,5.4,26.5,10.8,39.8,16.2,2.8,1.1,6.1-1.1,6.9-3.8.9-3.2-1-5.8-3.8-6.9h0Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors11 = walletMeta.colors) === null || _walletMeta$colors11 === void 0 ? void 0 : _walletMeta$colors11.primary) || "#d88568",
+      fill: ((_walletMeta2 = walletMeta) === null || _walletMeta2 === void 0 ? void 0 : (_walletMeta2$colors = _walletMeta2.colors) === null || _walletMeta2$colors === void 0 ? void 0 : _walletMeta2$colors.primary) || "#d88568",
       d: "M898.1,786.2c-186.5,31.3-391.2,20.5-578.4-1.5-7.4-.9-14.6-2-21.5-3.4-43-9.3-88.2-31.4-111.4-71-3.3-5.7-6.3-11.8-8.9-18.3-2.6-6.5-4.9-13.4-6.8-20.8-3.2-12.1-5.5-24.4-7.2-36.5-13.9-151.9-14.4-306.7,14.1-456.6,4.5-13.9,10.8-27.2,19.5-39.1,8.7-11.9,19.8-22.4,34.1-31,35-20.8,74.5-18.4,112.6-22.9,13.2-.9,26.5-1.6,39.8-2.2,118.2-5.4,236.6-6.2,354.9-2.6,83.1,2.5,176.9-9.6,252.1,32.9,80.2,45.4,90.7,134.8,94.4,216.4,3.5,78.4,1.7,157.1-6,235.2-6.2,63.5-12.9,130.3-66.3,174.8-30.4,25.4-70.9,39.1-114.9,46.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
       fill: "#000000",
       d: "M875.5,780.1c-16.3,5.1-32.9,7-49.9,11.3-8.1,1.5-16.1,2.9-24.2,4.1-8,1.2-16,2.2-24,3-10.6,1-21.3,1.9-32,2.7-141.6,10.2-288.9,1.7-427.5-13.5-8.1-.9-16.3-1.8-24.3-2.9-49.6-8.7-105.9-26.8-133-72.9-3.3-5.6-6.3-11.6-8.9-18-2.6-6.4-4.9-13.2-6.8-20.4-3.2-11.9-5.5-24-7.2-35.9-13.9-149.3-14.4-301.4,14.1-448.8,4.5-13.7,10.8-26.7,19.5-38.4s19.8-22.1,34.1-30.5c35-20.4,74.5-18.1,112.6-22.5,13.2-.9,26.5-1.5,39.8-2.1,118.2-5.3,236.6-6.1,354.9-2.6,83.1,2.5,176.9-9.4,252.1,32.3,80.2,44.6,90.7,132.5,94.4,212.7,2.2,48.2,2.3,96.4.2,144.6-.4,9.6-.9,19.3-1.5,28.9-3.1,52.8-4,105.3-19.7,157-18.4,59.8-79.3,95.2-138.8,105.4-7.8,2.2-15.8,4.4-23.8,6.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors12 = walletMeta.colors) === null || _walletMeta$colors12 === void 0 ? void 0 : _walletMeta$colors12.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors13 = walletMeta.colors) === null || _walletMeta$colors13 === void 0 ? void 0 : _walletMeta$colors13.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M679.8,715.7c-.4,5.1-.7,10.2-1.3,15.3v-.3c0,.6,0,1.6-.1,2.4-.6,6-1.2,12-2,17.9-1.4,12.1-3.1,24.1-5,36.1-3.7,23.8-8,47.4-12.4,70.9-2.5,13.3-5.1,26.6-7.5,40-.8,4.4,1,9.6,4.2,10.7,3.2,1,6.6-1.4,7.4-6.1,8.9-47.6,18.6-95,24.6-143.6.9-7.1,1.7-14.2,2.4-21.4.7-7.2,1.3-14.4,1.8-21.6.3-4.6-3-9.1-6.1-8.9-3.6.2-5.7,3.8-6.1,8.8h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors14 = walletMeta.colors) === null || _walletMeta$colors14 === void 0 ? void 0 : _walletMeta$colors14.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors15 = walletMeta.colors) === null || _walletMeta$colors15 === void 0 ? void 0 : _walletMeta$colors15.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M657,903.9c1.4.8,2.8,1.5,4.3,2.2,1.5.7,3,1.2,4.6,1.8,5.6,1.2,13.1,2.9,19.8,2.7,1.7,0,3.3-.2,4.9-.6,1.1-.2,2.4-.6,3.7-1,1.3-.4,2.5-1,3.6-1.6,3.6-1.9,3.6-6,2.1-9.3-2.1-3.6-4.4-6.5-8-8.2-.9-.5-1.9-.9-2.9-1.2-8.9-3-19.2,0-26.1,7.2-.6.6-1.2,1.2-1.8,1.9-.7,1.7-2.5,2.6-3.2,4.2-.4.7-.7,1.3-1.1,2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors16 = walletMeta.colors) === null || _walletMeta$colors16 === void 0 ? void 0 : _walletMeta$colors16.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors17 = walletMeta.colors) === null || _walletMeta$colors17 === void 0 ? void 0 : _walletMeta$colors17.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M654.4,908.4c3.8,2.2,8,4,12.3,4.9,4.3.9,8.7,1.7,13.1,2.2,4.6.4,9.2.2,13.7-.9,4.2-1.1,9.1-3,11.2-7,4.2-7.9-2.2-17.4-9-21.5-6.9-4.2-16-4.7-23.5-2-4.4,1.6-8.5,4-11.9,7.2-.7.7-1.4,1.4-2,2.1-.5.6-1.1,1.2-1.5,1.8-.1.3-.2.5-.4.7.4-.5.4-.5,0-.1-1.7,1.6-2.9,3.5-3.9,5.7-1.2,2.4-.8,5.7,1.9,7.1,2.3,1.2,5.8.8,7.1-1.9.3-.7.7-1.4,1.1-2,.1-.2.9-1.2,0-.3.2-.2.4-.4.6-.6.7-.7,1.3-1.4,1.9-2.3,0,0,.6-1.1.3-.5-.3.3-.2.2.2-.2.2-.2.5-.5.7-.7.5-.6,1.1-1.1,1.7-1.7.2-.2.5-.4.7-.6,0,0,1.1-.9.5-.5-.6.5.6-.4.6-.4.3-.2.6-.4.9-.6.7-.4,1.4-.9,2.2-1.2.4-.2.8-.4,1.2-.6-.2,0-.9.4,0,0,.7-.3,1.4-.5,2.1-.7.7-.2,1.4-.4,2.1-.5.3,0,.6-.1.9-.2.6,0,.6,0,0,0,.3,0,.6,0,.9,0,1.3-.1,2.6-.1,3.9,0,.2,0,1.6.3.3,0,.3,0,.6,0,.9.2.9.2,1.7.4,2.5.7-.1,0,1.5.5.8.3-.6-.3.9.5.8.4.7.3,1.3.7,1.9,1.1.8.5.1.1,0,0,.3.3.7.6,1,.9.2.2.4.4.6.6.1.1,1.1,1.3.7.8-.5-.6.4.6.4.6.2.3.3.5.5.8.3.4.5.8.7,1.2.6.9.1.1,0-.1.1.3.7,1.5.5,1.8,0-.2,0-.4,0-.6,0,.2,0,.5,0,.7,0,.1,0,.2,0,.4,0,.6,0,.5,0-.3,0,0-.1.7-.2.7,0-.2.2-.4.2-.6-.1.2-.2.4-.4.6.5-.9.3-.5,0-.2.1-.1.3-.2.4-.3-.2.2-.5.3-.7.4-.3.2-.6.3-.8.5,0,0-1.5.7-.6.3-.8.3-1.7.6-2.5.8-.9.2-1.7.4-2.6.6,0,0-1.7.2-.8.1-.4,0-.7,0-1.1,0-2,.1-3.9,0-5.9,0-1,0-2-.2-2.9-.3-1-.1,1.2.2-.5,0-.5,0-1-.2-1.6-.3-2-.3-4-.7-6-1.2-1.8-.4-3.5-.8-5.3-1.5-1.6-.6.4.2-.5-.2-.6-.2-1.1-.5-1.7-.8-1-.5-1.9-1-2.8-1.5-2.4-1.3-5.8-.6-7.1,1.9-1.3,2.5-.7,5.6,1.9,7.1Z"
     })), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors18 = walletMeta.colors) === null || _walletMeta$colors18 === void 0 ? void 0 : _walletMeta$colors18.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors19 = walletMeta.colors) === null || _walletMeta$colors19 === void 0 ? void 0 : _walletMeta$colors19.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M506.6,715.9c.2,3,.5,6,.7,9,.1,1.4.2,2.8.4,4.3,0,.6.1,1.3.2,1.9-.1-1.2.2,1.6.2,1.9.6,6,1.2,12,2,17.9,1.4,12.1,3.1,24.1,5,36.1,3.7,23.8,8,47.4,12.4,70.9,2.5,13.3,5.1,26.6,7.5,40,.8,4.4-1,9.6-4.2,10.7-3.2,1-6.6-1.4-7.4-6.1-8.9-47.6-18.6-95-24.6-143.6-.9-7.1-1.7-14.2-2.4-21.4-.7-7.2-1.3-14.3-1.8-21.5-.3-4.5,3-8.9,6-8.7,3.6.2,5.7,3.8,6.1,8.7h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors20 = walletMeta.colors) === null || _walletMeta$colors20 === void 0 ? void 0 : _walletMeta$colors20.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors21 = walletMeta.colors) === null || _walletMeta$colors21 === void 0 ? void 0 : _walletMeta$colors21.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M529.5,903.9c-1.4.8-2.8,1.5-4.3,2.2-1.5.7-3,1.2-4.6,1.8-5.6,1.2-13.1,2.9-19.8,2.7-1.7,0-3.3-.2-4.9-.6-1.1-.2-2.4-.6-3.7-1-1.3-.4-2.5-1-3.6-1.6-3.6-1.9-3.6-6-2.1-9.3,2.1-3.6,4.4-6.5,8-8.2.9-.5,1.9-.9,2.9-1.2,8.9-3,19.2,0,26.1,7.2.6.6,1.2,1.2,1.8,1.9.7,1.7,2.5,2.6,3.2,4.2.4.7.7,1.3,1.1,2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors22 = walletMeta.colors) === null || _walletMeta$colors22 === void 0 ? void 0 : _walletMeta$colors22.primary) || "#d88568",
-      style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors23 = walletMeta.colors) === null || _walletMeta$colors23 === void 0 ? void 0 : _walletMeta$colors23.primary) || "#d88568"
-      },
+      className: "GraphicActiveColor",
       d: "M532.1,908.4c-3.8,2.2-8,4-12.3,4.9-4.3.9-8.7,1.7-13.1,2.2-4.6.4-9.2.2-13.7-.9-4.2-1.1-9.1-3-11.2-7-4.2-7.9,2.2-17.4,9-21.5,6.9-4.2,16-4.7,23.5-2,4.4,1.6,8.5,4,11.9,7.2.7.7,1.4,1.4,2,2.1.5.6,1.1,1.2,1.5,1.8.1.3.2.5.4.7-.4-.5-.4-.5,0-.1,1.7,1.6,2.9,3.5,3.9,5.7,1.2,2.4.8,5.7-1.9,7.1-2.3,1.2-5.8.8-7.1-1.9-.3-.7-.7-1.4-1.1-2-.1-.2-.9-1.2,0-.3-.2-.2-.4-.4-.6-.6-.7-.7-1.3-1.4-1.9-2.3,0,0-.6-1.1-.3-.5.3.3.2.2-.2-.2-.2-.2-.5-.5-.7-.7-.5-.6-1.1-1.1-1.7-1.7-.2-.2-.5-.4-.7-.6,0,0-1.1-.9-.5-.5.6.5-.6-.4-.6-.4-.3-.2-.6-.4-.9-.6-.7-.4-1.4-.9-2.2-1.2-.4-.2-.8-.4-1.2-.6.2,0,.9.4,0,0-.7-.3-1.4-.5-2.1-.7-.7-.2-1.4-.4-2.1-.5-.3,0-.6-.1-.9-.2-.6,0-.6,0,0,0-.3,0-.6,0-.9,0-1.3-.1-2.6-.1-3.9,0-.2,0-1.6.3-.3,0-.3,0-.6,0-.9.2-.9.2-1.7.4-2.5.7.1,0-1.5.5-.8.3.6-.3-.9.5-.8.4-.7.3-1.3.7-1.9,1.1-.8.5-.1.1,0,0-.3.3-.7.6-1,.9-.2.2-.4.4-.6.6-.1.1-1.1,1.3-.7.8.5-.6-.4.6-.4.6-.2.3-.3.5-.5.8-.3.4-.5.8-.7,1.2-.6.9-.1.1,0-.1-.1.3-.7,1.5-.5,1.8,0-.2,0-.4,0-.6,0,.2,0,.5,0,.7,0,.1,0,.2,0,.4,0,.6,0,.5,0-.3,0,0,.1.7.2.7,0-.2-.2-.4-.2-.6.1.2.2.4.4.6-.5-.9-.3-.5,0-.2-.1-.1-.3-.2-.4-.3.2.2.5.3.7.4.3.2.6.3.8.5,0,0,1.5.7.6.3.8.3,1.7.6,2.5.8.9.2,1.7.4,2.6.6,0,0,1.7.2.8.1.4,0,.7,0,1.1,0,2,.1,3.9,0,5.9,0,1,0,2-.2,2.9-.3,1-.1-1.2.2.5,0,.5,0,1-.2,1.6-.3,2-.3,4-.7,6-1.2,1.8-.4,3.5-.8,5.3-1.5,1.6-.6-.4.2.5-.2.6-.2,1.1-.5,1.7-.8,1-.5,1.9-1,2.8-1.5,2.4-1.3,5.8-.6,7.1,1.9,1.3,2.5.7,5.6-1.9,7.1Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors24 = walletMeta.colors) === null || _walletMeta$colors24 === void 0 ? void 0 : _walletMeta$colors24.primary) || "#d88568",
+      fill: ((_walletMeta3 = walletMeta) === null || _walletMeta3 === void 0 ? void 0 : (_walletMeta3$colors = _walletMeta3.colors) === null || _walletMeta3$colors === void 0 ? void 0 : _walletMeta3$colors.primary) || "#d88568",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors25 = walletMeta.colors) === null || _walletMeta$colors25 === void 0 ? void 0 : _walletMeta$colors25.primary) || "#d88568"
+        fill: ((_walletMeta4 = walletMeta) === null || _walletMeta4 === void 0 ? void 0 : (_walletMeta4$colors = _walletMeta4.colors) === null || _walletMeta4$colors === void 0 ? void 0 : _walletMeta4$colors.primary) || "#d88568"
       },
       d: "M851.8,803.5c-109.3,19-220.4,21.7-331,19.1-51.9-1.2-104.9-6.6-156.7-10.9-12.6-1-26.1-2-39.9-3.2-6.9-.6-13.9-1.3-20.9-2.1-59.2-8.6-125.6-28-156.6-82.7-3.3-6-6.2-12.2-8.7-18.6-2.5-6.4-4.6-12.9-6.3-19.4-3.2-12.4-5.5-25-7.1-37.4-12.6-142.2-13.4-285.5,7-427.1,6.5-45,19.4-87.2,60-112.5,33.6-20.7,76.5-21,114.8-23.2,48.5-2.8,97.1-4.7,145.7-6,89.6-2.3,179.2-1.9,268.7.8,75.3,2.2,155.2-5.9,223.1,33.8,79.5,46.5,89.9,138.1,93.5,221.7,3.5,80.3,1.6,160.9-6,241-6.2,65-12.8,133.5-65.7,179-30.1,26-70.2,40.1-113.8,47.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("g", {
       opacity: "0.5"
     }, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors26 = walletMeta.colors) === null || _walletMeta$colors26 === void 0 ? void 0 : _walletMeta$colors26.secondary) || "#000000",
+      fill: ((_walletMeta5 = walletMeta) === null || _walletMeta5 === void 0 ? void 0 : (_walletMeta5$colors = _walletMeta5.colors) === null || _walletMeta5$colors === void 0 ? void 0 : _walletMeta5$colors.secondary) || "#000000",
       d: "M248.3,147.4c3.9-.3,8-1,11.8-2,1.7-.5,3.6-1.1,5.3-2,1.7-1,3.1-2.1,3.8-4,1.1-2.9.5-6.7-2.3-8.5-1.3-.8-2.8-1.1-4.3-1-1.7,0-3.4.3-5.1.5-2.9.4-5.9.9-8.7,1.6-2.5.7-5,1.2-7,3-2.2,2-2.3,5.2-1.6,7.9.9,3.1,3.3,4.6,6.3,4.6.6,0,1.3,0,1.9,0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors27 = walletMeta.colors) === null || _walletMeta$colors27 === void 0 ? void 0 : _walletMeta$colors27.secondary) || "#000000",
+      fill: ((_walletMeta6 = walletMeta) === null || _walletMeta6 === void 0 ? void 0 : (_walletMeta6$colors = _walletMeta6.colors) === null || _walletMeta6$colors === void 0 ? void 0 : _walletMeta6$colors.secondary) || "#000000",
       d: "M295.4,138.5c4,.3,8.2,0,12-.8,3.5-.7,7.9-1.5,9.6-5.1,1.3-2.8,1.1-6.7-1.5-8.6-1.2-.9-2.7-1.3-4.2-1.4-1.7-.1-3.4-.1-5.1,0-2.9,0-5.9.4-8.8.8-2.5.3-5.1.6-7.2,2.1-2.4,1.7-2.9,5-2.5,7.7.5,3.1,2.7,4.9,5.7,5.2.6,0,1.3.1,1.9.1Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors28 = walletMeta.colors) === null || _walletMeta$colors28 === void 0 ? void 0 : _walletMeta$colors28.secondary) || "#000000",
+      fill: ((_walletMeta7 = walletMeta) === null || _walletMeta7 === void 0 ? void 0 : (_walletMeta7$colors = _walletMeta7.colors) === null || _walletMeta7$colors === void 0 ? void 0 : _walletMeta7$colors.secondary) || "#000000",
       d: "M343.3,133.7c4,.5,8.2.4,12.1,0,3.6-.4,8-1.1,9.9-4.6,1.5-2.7,1.4-6.6-1.1-8.7-1.1-1-2.6-1.4-4.1-1.6-1.7-.2-3.4-.3-5.1-.3-2.9-.1-5.9,0-8.8.3-2.5.2-5.1.3-7.3,1.6-2.5,1.5-3.2,4.7-3,7.5.3,3.2,2.4,5,5.4,5.6.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors29 = walletMeta.colors) === null || _walletMeta$colors29 === void 0 ? void 0 : _walletMeta$colors29.secondary) || "#000000",
+      fill: ((_walletMeta8 = walletMeta) === null || _walletMeta8 === void 0 ? void 0 : (_walletMeta8$colors = _walletMeta8.colors) === null || _walletMeta8$colors === void 0 ? void 0 : _walletMeta8$colors.secondary) || "#000000",
       d: "M391.7,131.1c4,.6,8.2.6,12.2.2,3.6-.3,8.1-1,10-4.4,1.5-2.7,1.5-6.6-1-8.7-1.1-1-2.6-1.4-4-1.6-1.7-.2-3.4-.3-5-.4-2.9-.2-5.8,0-8.7,0-2.5.1-5,.1-7.3,1.4-2.5,1.4-3.4,4.6-3.2,7.4.2,3.2,2.2,5.1,5.2,5.8.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors30 = walletMeta.colors) === null || _walletMeta$colors30 === void 0 ? void 0 : _walletMeta$colors30.secondary) || "#000000",
+      fill: ((_walletMeta9 = walletMeta) === null || _walletMeta9 === void 0 ? void 0 : (_walletMeta9$colors = _walletMeta9.colors) === null || _walletMeta9$colors === void 0 ? void 0 : _walletMeta9$colors.secondary) || "#000000",
       d: "M440.3,129c4,.6,8.2.5,12.1,0,3.6-.5,8-.9,10-4.3,1.5-2.6,1.5-6.5-1-8.7-1.1-1-2.6-1.5-4.1-1.7-1.7-.3-3.4-.3-5.1-.4-2.9-.1-5.8,0-8.8.2-2.5.2-5,.2-7.3,1.5-2.5,1.5-3.3,4.6-3.2,7.4.2,3.2,2.2,5.1,5.3,5.7.6.1,1.3.2,1.9.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors31 = walletMeta.colors) === null || _walletMeta$colors31 === void 0 ? void 0 : _walletMeta$colors31.secondary) || "#000000",
+      fill: ((_walletMeta10 = walletMeta) === null || _walletMeta10 === void 0 ? void 0 : (_walletMeta10$colors = _walletMeta10.colors) === null || _walletMeta10$colors === void 0 ? void 0 : _walletMeta10$colors.secondary) || "#000000",
       d: "M488.7,127.6c3.9.7,8.2.8,12.1.5,3.6-.3,8.1-.8,10.1-4.2,1.6-2.6,1.7-6.5-.7-8.7-1.1-1-2.5-1.5-4-1.7-1.7-.3-3.4-.4-5-.5-2.9-.2-5.9-.2-8.8-.1-2.5,0-5.1,0-7.4,1.2-2.6,1.4-3.4,4.5-3.3,7.3.1,3.2,2.1,5.2,5.1,5.9.6.1,1.3.3,1.9.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors32 = walletMeta.colors) === null || _walletMeta$colors32 === void 0 ? void 0 : _walletMeta$colors32.secondary) || "#000000",
+      fill: ((_walletMeta11 = walletMeta) === null || _walletMeta11 === void 0 ? void 0 : (_walletMeta11$colors = _walletMeta11.colors) === null || _walletMeta11$colors === void 0 ? void 0 : _walletMeta11$colors.secondary) || "#000000",
       d: "M537.2,127.1c3.9.8,8.2.9,12.1.7,3.6-.2,8.1-.6,10.2-4,1.6-2.6,1.8-6.5-.6-8.7-1.1-1-2.5-1.5-4-1.8-1.7-.3-3.4-.4-5-.6-2.9-.3-5.8-.3-8.7-.3-2.5,0-5,0-7.4,1.1-2.6,1.3-3.5,4.5-3.5,7.2,0,3.2,2,5.2,5,6,.6.2,1.3.3,1.9.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors33 = walletMeta.colors) === null || _walletMeta$colors33 === void 0 ? void 0 : _walletMeta$colors33.secondary) || "#000000",
+      fill: ((_walletMeta12 = walletMeta) === null || _walletMeta12 === void 0 ? void 0 : (_walletMeta12$colors = _walletMeta12.colors) === null || _walletMeta12$colors === void 0 ? void 0 : _walletMeta12$colors.secondary) || "#000000",
       d: "M585.8,127.4c3.9.8,8.2,1,12.1.9,3.6-.2,8.1-.5,10.2-3.9,1.7-2.6,1.8-6.5-.5-8.8-1.1-1-2.5-1.6-4-1.8-1.6-.3-3.3-.5-5-.7-2.9-.3-5.8-.4-8.7-.4-2.5,0-5-.1-7.4,1-2.6,1.3-3.6,4.4-3.6,7.2,0,3.2,1.9,5.2,4.9,6,.6.2,1.3.3,1.9.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors34 = walletMeta.colors) === null || _walletMeta$colors34 === void 0 ? void 0 : _walletMeta$colors34.secondary) || "#000000",
+      fill: ((_walletMeta13 = walletMeta) === null || _walletMeta13 === void 0 ? void 0 : (_walletMeta13$colors = _walletMeta13.colors) === null || _walletMeta13$colors === void 0 ? void 0 : _walletMeta13$colors.secondary) || "#000000",
       d: "M634.3,128.2c3.9.9,8.2,1.1,12.1,1,3.6-.1,8.1-.5,10.3-3.8,1.7-2.6,1.9-6.5-.4-8.8-1-1-2.5-1.6-3.9-1.9-1.6-.3-3.3-.5-5-.7-2.9-.4-5.8-.5-8.7-.5-2.5,0-5-.2-7.4,1-2.6,1.3-3.6,4.4-3.7,7.1,0,3.2,1.9,5.3,4.8,6.1.6.2,1.2.3,1.9.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors35 = walletMeta.colors) === null || _walletMeta$colors35 === void 0 ? void 0 : _walletMeta$colors35.secondary) || "#000000",
+      fill: ((_walletMeta14 = walletMeta) === null || _walletMeta14 === void 0 ? void 0 : (_walletMeta14$colors = _walletMeta14.colors) === null || _walletMeta14$colors === void 0 ? void 0 : _walletMeta14$colors.secondary) || "#000000",
       d: "M683,129.4c4,.8,8.3,1,12.2.8,3.6-.2,8.2-.7,10.2-4,1.6-2.6,1.7-6.5-.7-8.7-1.1-1-2.5-1.5-4-1.8-1.6-.3-3.3-.4-5-.6-2.9-.3-5.8-.3-8.7-.3-2.5,0-5-.1-7.3,1-2.6,1.3-3.6,4.4-3.7,7.1,0,3.2,1.9,5.3,4.9,6.1.6.2,1.3.3,1.9.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors36 = walletMeta.colors) === null || _walletMeta$colors36 === void 0 ? void 0 : _walletMeta$colors36.secondary) || "#000000",
+      fill: ((_walletMeta15 = walletMeta) === null || _walletMeta15 === void 0 ? void 0 : (_walletMeta15$colors = _walletMeta15.colors) === null || _walletMeta15$colors === void 0 ? void 0 : _walletMeta15$colors.secondary) || "#000000",
       d: "M731.8,129.3c3.9.8,8.2.9,12.1.7,3.6-.2,8.1-.6,10.2-4,1.6-2.6,1.8-6.5-.5-8.8-1.1-1-2.5-1.6-4-1.8-1.7-.3-3.4-.5-5-.6-2.9-.3-5.8-.3-8.8-.3-2.5,0-5.1,0-7.4,1.2-2.6,1.4-3.5,4.5-3.5,7.2,0,3.2,2,5.2,5,6,.6.2,1.3.3,1.9.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors37 = walletMeta.colors) === null || _walletMeta$colors37 === void 0 ? void 0 : _walletMeta$colors37.secondary) || "#000000",
+      fill: ((_walletMeta16 = walletMeta) === null || _walletMeta16 === void 0 ? void 0 : (_walletMeta16$colors = _walletMeta16.colors) === null || _walletMeta16$colors === void 0 ? void 0 : _walletMeta16$colors.secondary) || "#000000",
       d: "M780,130c3.9,1,8,1.3,11.9,1.4,3.5,0,8,0,10.4-3.2,1.8-2.4,2.4-6.3.2-8.8-1-1.1-2.4-1.7-3.9-2.1-1.6-.4-3.4-.7-5-1-2.9-.5-5.9-.7-8.8-.8-2.5-.1-5.1-.3-7.5.8-2.7,1.2-3.7,4.3-3.8,7.1,0,3.2,1.8,5.3,4.7,6.2.6.2,1.2.4,1.9.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors38 = walletMeta.colors) === null || _walletMeta$colors38 === void 0 ? void 0 : _walletMeta$colors38.secondary) || "#000000",
+      fill: ((_walletMeta17 = walletMeta) === null || _walletMeta17 === void 0 ? void 0 : (_walletMeta17$colors = _walletMeta17.colors) === null || _walletMeta17$colors === void 0 ? void 0 : _walletMeta17$colors.secondary) || "#000000",
       d: "M827.5,134.9c1.8.7,3.8,1.3,5.7,1.8,1.9.5,3.9.8,5.8,1.2,1.7.3,3.7.5,5.6.4,1.9-.1,3.7-.6,5.1-2,2.2-2.1,3.4-5.9,1.6-8.6-.8-1.3-2.1-2.1-3.5-2.7-1.6-.7-3.3-1.2-4.9-1.7-2.8-1-5.8-1.5-8.7-2.1-2.5-.5-5.1-1-7.6-.2-2.8.9-4.2,3.9-4.6,6.6-.4,3.2,1.2,5.4,3.9,6.7.6.3,1.2.5,1.8.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors39 = walletMeta.colors) === null || _walletMeta$colors39 === void 0 ? void 0 : _walletMeta$colors39.secondary) || "#000000",
+      fill: ((_walletMeta18 = walletMeta) === null || _walletMeta18 === void 0 ? void 0 : (_walletMeta18$colors = _walletMeta18.colors) === null || _walletMeta18$colors === void 0 ? void 0 : _walletMeta18$colors.secondary) || "#000000",
       d: "M873,147.2c1.6,1.1,3.4,2,5.1,2.9,1.8.9,3.6,1.7,5.3,2.3,3.2,1.3,7.3,2.8,10.6.9,2.6-1.6,4.7-4.9,3.6-8-.5-1.4-1.6-2.6-2.8-3.5-1.4-1-2.9-1.9-4.4-2.8-2.6-1.5-5.4-2.8-8.2-3.9-2.4-.9-4.8-2-7.5-1.7-3,.4-4.9,3-5.8,5.6-1,3,0,5.6,2.5,7.3.5.4,1,.7,1.6,1.1Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors40 = walletMeta.colors) === null || _walletMeta$colors40 === void 0 ? void 0 : _walletMeta$colors40.secondary) || "#000000",
+      fill: ((_walletMeta19 = walletMeta) === null || _walletMeta19 === void 0 ? void 0 : (_walletMeta19$colors = _walletMeta19.colors) === null || _walletMeta19$colors === void 0 ? void 0 : _walletMeta19$colors.secondary) || "#000000",
       d: "M913.6,169.8c2.4,3,5.5,5.6,8.3,8,.7.5,1.4,1.1,2.1,1.6.7.6,1.5,1.1,2.3,1.5,1.6.9,3.4,1.3,5.4.9,2.9-.6,6-3.1,6-6.4,0-1.5-.7-2.9-1.6-4.2-.5-.7-1-1.4-1.6-2.1-.6-.7-1.2-1.3-1.8-2-1-1.1-2.1-2.2-3.2-3.3-1.1-1-2.3-2-3.5-3-1-.8-2-1.7-3.1-2.4-1.1-.7-2.3-1.2-3.6-1.5-3-.5-5.5,1.4-7.1,3.7-1.8,2.6-1.5,5.4.4,7.7.4.5.8,1,1.2,1.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors41 = walletMeta.colors) === null || _walletMeta$colors41 === void 0 ? void 0 : _walletMeta$colors41.secondary) || "#000000",
+      fill: ((_walletMeta20 = walletMeta) === null || _walletMeta20 === void 0 ? void 0 : (_walletMeta20$colors = _walletMeta20.colors) === null || _walletMeta20$colors === void 0 ? void 0 : _walletMeta20$colors.secondary) || "#000000",
       d: "M944.6,203.9c1.4,3.6,3.3,7.1,5.2,10.4.4.7,1,1.5,1.5,2.3.5.8,1.1,1.5,1.7,2.2,1.3,1.3,2.9,2.3,4.8,2.6,3,.3,6.6-1.1,7.7-4.3.4-1.4.2-3-.2-4.5-.5-1.7-1.1-3.3-1.8-4.9-.6-1.4-1.3-2.8-1.9-4.1-.7-1.3-1.5-2.6-2.3-4-1.3-2.3-2.7-4.5-5.1-5.9-2.6-1.5-5.7-.5-8,1.1-1.3.9-2.1,2.1-2.4,3.3-.4,1.3-.3,2.7.2,4.1.2.6.4,1.2.6,1.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors42 = walletMeta.colors) === null || _walletMeta$colors42 === void 0 ? void 0 : _walletMeta$colors42.secondary) || "#000000",
+      fill: ((_walletMeta21 = walletMeta) === null || _walletMeta21 === void 0 ? void 0 : (_walletMeta21$colors = _walletMeta21.colors) === null || _walletMeta21$colors === void 0 ? void 0 : _walletMeta21$colors.secondary) || "#000000",
       d: "M963.8,246.3c.2,1.9.5,3.9,1,5.9.5,1.9.9,3.9,1.5,5.7.6,1.7,1.2,3.5,2.1,5.2.9,1.6,2.3,3,4.1,3.6,2.9,1,6.7.4,8.4-2.5.8-1.3.9-2.8.8-4.4-.1-1.7-.3-3.5-.6-5.2-.5-3-1.2-5.9-2.1-8.8-.4-1.2-.7-2.5-1.2-3.7-.5-1.2-1.2-2.3-2.1-3.2-2.1-2.1-5.4-2-8-1.1-3,1.1-4.3,3.5-4.2,6.5,0,.6,0,1.3.2,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors43 = walletMeta.colors) === null || _walletMeta$colors43 === void 0 ? void 0 : _walletMeta$colors43.secondary) || "#000000",
+      fill: ((_walletMeta22 = walletMeta) === null || _walletMeta22 === void 0 ? void 0 : (_walletMeta22$colors = _walletMeta22.colors) === null || _walletMeta22$colors === void 0 ? void 0 : _walletMeta22$colors.secondary) || "#000000",
       d: "M973.7,292.7c-.3,4,.1,8.1.7,11.9.6,3.5,1.4,7.9,5,9.6,2.7,1.4,6.6,1.2,8.7-1.4.9-1.2,1.3-2.7,1.4-4.2.1-1.7.1-3.4,0-5.1,0-3-.3-5.9-.7-8.9-.3-2.5-.6-5.1-2.1-7.3-1.7-2.4-4.9-2.9-7.6-2.5-3.1.5-4.9,2.7-5.2,5.7,0,.6-.1,1.3-.2,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors44 = walletMeta.colors) === null || _walletMeta$colors44 === void 0 ? void 0 : _walletMeta$colors44.secondary) || "#000000",
+      fill: ((_walletMeta23 = walletMeta) === null || _walletMeta23 === void 0 ? void 0 : (_walletMeta23$colors = _walletMeta23.colors) === null || _walletMeta23$colors === void 0 ? void 0 : _walletMeta23$colors.secondary) || "#000000",
       d: "M977.9,340.6c-.6,4-.5,8.2-.1,12.1.3,3.6,1,8,4.4,10,2.7,1.5,6.6,1.5,8.7-.9,1-1.1,1.4-2.6,1.6-4.1.2-1.7.3-3.4.4-5.1.2-2.9,0-5.9,0-8.8-.1-2.5-.2-5.1-1.5-7.3-1.5-2.5-4.7-3.3-7.4-3.1-3.2.2-5.1,2.3-5.7,5.3-.1.6-.2,1.3-.3,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors45 = walletMeta.colors) === null || _walletMeta$colors45 === void 0 ? void 0 : _walletMeta$colors45.secondary) || "#000000",
+      fill: ((_walletMeta24 = walletMeta) === null || _walletMeta24 === void 0 ? void 0 : (_walletMeta24$colors = _walletMeta24.colors) === null || _walletMeta24$colors === void 0 ? void 0 : _walletMeta24$colors.secondary) || "#000000",
       d: "M979.6,389c-.7,3.9-.8,8.2-.5,12.1.2,3.6.7,8.1,4.1,10.1,2.6,1.6,6.5,1.7,8.7-.7,1-1.1,1.5-2.5,1.8-4,.3-1.7.4-3.4.6-5,.2-2.9.2-5.9.2-8.8,0-2.5,0-5.1-1.3-7.4-1.4-2.6-4.5-3.5-7.3-3.4-3.2,0-5.2,2.1-5.9,5.1-.1.6-.3,1.3-.4,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors46 = walletMeta.colors) === null || _walletMeta$colors46 === void 0 ? void 0 : _walletMeta$colors46.secondary) || "#000000",
+      fill: ((_walletMeta25 = walletMeta) === null || _walletMeta25 === void 0 ? void 0 : (_walletMeta25$colors = _walletMeta25.colors) === null || _walletMeta25$colors === void 0 ? void 0 : _walletMeta25$colors.secondary) || "#000000",
       d: "M979.7,437.4c-.8,3.9-1.1,8.2-.9,12.1.1,3.6.5,8.1,3.8,10.3,2.6,1.7,6.5,1.9,8.8-.4,1-1,1.6-2.5,1.9-3.9.3-1.6.5-3.4.7-5,.3-2.9.4-5.8.5-8.8,0-2.5.1-5.1-1-7.4-1.3-2.6-4.4-3.6-7.2-3.6-3.2,0-5.2,1.9-6,4.9-.2.6-.3,1.2-.4,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors47 = walletMeta.colors) === null || _walletMeta$colors47 === void 0 ? void 0 : _walletMeta$colors47.secondary) || "#000000",
+      fill: ((_walletMeta26 = walletMeta) === null || _walletMeta26 === void 0 ? void 0 : (_walletMeta26$colors = _walletMeta26.colors) === null || _walletMeta26$colors === void 0 ? void 0 : _walletMeta26$colors.secondary) || "#000000",
       d: "M978.3,485.8c-1,3.9-1.3,8.1-1.3,12,0,3.6.2,8.1,3.4,10.4,2.5,1.8,6.4,2.1,8.8,0,1.1-1,1.7-2.4,2-3.9.4-1.6.6-3.3.9-5,.5-2.9.6-5.8.7-8.7,0-2.5.3-5.1-.8-7.4-1.2-2.6-4.3-3.7-7.1-3.8-3.2-.1-5.3,1.8-6.2,4.7-.2.6-.4,1.2-.5,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors48 = walletMeta.colors) === null || _walletMeta$colors48 === void 0 ? void 0 : _walletMeta$colors48.secondary) || "#000000",
+      fill: ((_walletMeta27 = walletMeta) === null || _walletMeta27 === void 0 ? void 0 : (_walletMeta27$colors = _walletMeta27.colors) === null || _walletMeta27$colors === void 0 ? void 0 : _walletMeta27$colors.secondary) || "#000000",
       d: "M975.3,534.1c-1.1,3.9-1.6,8.1-1.7,12,0,3.6,0,8.1,3.1,10.5,2.5,1.8,6.3,2.3,8.8.2,1.1-1,1.8-2.4,2.1-3.8.5-1.6.8-3.3,1-5,.5-2.9.8-5.8,1-8.7.2-2.5.5-5-.5-7.4-1.1-2.7-4.2-3.9-6.9-4.1-3.2-.2-5.4,1.6-6.3,4.5-.2.6-.4,1.2-.6,1.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors49 = walletMeta.colors) === null || _walletMeta$colors49 === void 0 ? void 0 : _walletMeta$colors49.secondary) || "#000000",
+      fill: ((_walletMeta28 = walletMeta) === null || _walletMeta28 === void 0 ? void 0 : (_walletMeta28$colors = _walletMeta28.colors) === null || _walletMeta28$colors === void 0 ? void 0 : _walletMeta28$colors.secondary) || "#000000",
       d: "M970.8,582.3c-1.2,3.8-1.8,8-2.1,11.9-.2,3.5-.4,8,2.6,10.5,2.4,2,6.2,2.7,8.7.6,1.2-.9,1.9-2.3,2.3-3.7.5-1.6.9-3.3,1.3-5,.6-2.9,1-5.8,1.3-8.7.3-2.5.6-5-.3-7.5-1.1-2.7-4.1-4-6.8-4.3-3.2-.3-5.4,1.4-6.5,4.3-.2.6-.4,1.2-.6,1.8Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors50 = walletMeta.colors) === null || _walletMeta$colors50 === void 0 ? void 0 : _walletMeta$colors50.secondary) || "#000000",
+      fill: ((_walletMeta29 = walletMeta) === null || _walletMeta29 === void 0 ? void 0 : (_walletMeta29$colors = _walletMeta29.colors) === null || _walletMeta29$colors === void 0 ? void 0 : _walletMeta29$colors.secondary) || "#000000",
       d: "M963.5,629.6c-1.6,3.6-2.7,7.5-3.5,11.3-.4,1.7-.8,3.6-.7,5.5,0,1.9.4,3.7,1.7,5.2,2,2.3,5.6,3.7,8.5,2.1,1.3-.7,2.2-2,2.9-3.4.8-1.5,1.4-3.2,2-4.8,1-2.8,1.9-5.7,2.5-8.6.6-2.5,1.2-5,.6-7.6-.8-2.9-3.7-4.4-6.4-4.9-3.1-.6-5.5.9-6.9,3.6-.3.6-.6,1.1-.8,1.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors51 = walletMeta.colors) === null || _walletMeta$colors51 === void 0 ? void 0 : _walletMeta$colors51.secondary) || "#000000",
+      fill: ((_walletMeta30 = walletMeta) === null || _walletMeta30 === void 0 ? void 0 : (_walletMeta30$colors = _walletMeta30.colors) === null || _walletMeta30$colors === void 0 ? void 0 : _walletMeta30$colors.secondary) || "#000000",
       d: "M948.3,673.9c-1.1,1.5-2.3,3.1-3.3,4.8-1,1.7-2,3.3-2.9,5-.8,1.5-1.7,3.2-2.2,5-.5,1.7-.6,3.6.2,5.4.6,1.4,1.7,2.7,3,3.6,1.3.9,2.9,1.3,4.5,1,1.5-.3,2.7-1.3,3.8-2.4,1.2-1.3,2.3-2.7,3.3-4.1,1.8-2.5,3.4-5.1,4.8-7.8,1.3-2.3,2.5-4.7,2.5-7.4,0-3-2.5-5.2-5.1-6.3-1.5-.6-2.8-.7-4.1-.4-1.2.4-2.4,1.1-3.4,2.2-.4.5-.8.9-1.2,1.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors52 = walletMeta.colors) === null || _walletMeta$colors52 === void 0 ? void 0 : _walletMeta$colors52.secondary) || "#000000",
+      fill: ((_walletMeta31 = walletMeta) === null || _walletMeta31 === void 0 ? void 0 : (_walletMeta31$colors = _walletMeta31.colors) === null || _walletMeta31$colors === void 0 ? void 0 : _walletMeta31$colors.secondary) || "#000000",
       d: "M921,710.8c-1.6,1-3.2,2.1-4.8,3.3-1.5,1.2-3,2.4-4.4,3.7-.6.6-1.3,1.2-1.9,1.9-.7.6-1.3,1.3-1.8,2.1-1.1,1.5-1.8,3.2-1.7,5.2.2,3,2.2,6.4,5.5,6.9,1.5.2,3-.3,4.4-1,.8-.4,1.6-.8,2.3-1.3.8-.5,1.5-1,2.2-1.4,1.3-.8,2.5-1.7,3.8-2.7,1.2-1,2.3-2,3.5-3,1-.9,2-1.8,2.8-2.8.9-1,1.6-2.1,2-3.3.9-2.9-.6-5.8-2.6-7.6-1.2-1.1-2.4-1.6-3.7-1.7-1.3-.1-2.6.3-3.9,1-.5.3-1.1.6-1.6.9Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors53 = walletMeta.colors) === null || _walletMeta$colors53 === void 0 ? void 0 : _walletMeta$colors53.secondary) || "#000000",
+      fill: ((_walletMeta32 = walletMeta) === null || _walletMeta32 === void 0 ? void 0 : (_walletMeta32$colors = _walletMeta32.colors) === null || _walletMeta32$colors === void 0 ? void 0 : _walletMeta32$colors.secondary) || "#000000",
       d: "M882.6,736.6c-3.8.9-7.6,2.4-11,4-.8.4-1.6.8-2.4,1.2-.8.4-1.6.9-2.4,1.5-1.5,1.1-2.7,2.6-3.1,4.5-.6,3,.5,6.7,3.5,8,1.4.6,2.9.5,4.4.3,1.7-.3,3.4-.8,5.1-1.3,1.4-.4,2.9-.9,4.3-1.5,1.4-.5,2.8-1.2,4.2-1.8,1.2-.5,2.4-1,3.5-1.7,1.1-.7,2.1-1.5,2.9-2.6,1.8-2.4,1.2-5.6,0-8-1.5-2.8-4.1-3.8-7.1-3.2-.6.1-1.2.3-1.8.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors54 = walletMeta.colors) === null || _walletMeta$colors54 === void 0 ? void 0 : _walletMeta$colors54.secondary) || "#000000",
+      fill: ((_walletMeta33 = walletMeta) === null || _walletMeta33 === void 0 ? void 0 : (_walletMeta33$colors = _walletMeta33.colors) === null || _walletMeta33$colors === void 0 ? void 0 : _walletMeta33$colors.secondary) || "#000000",
       d: "M838.1,752c-2,.1-4,.3-5.9.6-2,.3-3.9.8-5.8,1.3-1.7.4-3.6,1-5.3,1.9-1.7.9-3.1,2.1-3.8,3.9-1.1,2.9-.6,6.7,2.1,8.5,1.2.8,2.8,1,4.3,1,1.7,0,3.4-.2,5.1-.4,3-.3,5.9-.9,8.8-1.6,2.5-.6,5-1.1,7-2.9,2.2-1.9,2.4-5.2,1.6-7.9-.8-3.1-3.2-4.5-6.3-4.6-.6,0-1.3,0-1.9,0Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors55 = walletMeta.colors) === null || _walletMeta$colors55 === void 0 ? void 0 : _walletMeta$colors55.secondary) || "#000000",
+      fill: ((_walletMeta34 = walletMeta) === null || _walletMeta34 === void 0 ? void 0 : (_walletMeta34$colors = _walletMeta34.colors) === null || _walletMeta34$colors === void 0 ? void 0 : _walletMeta34$colors.secondary) || "#000000",
       d: "M790.9,760.5c-4-.2-8.2.2-12,1-3.5.7-7.9,1.7-9.5,5.3-1.3,2.8-.9,6.7,1.7,8.6,1.2.9,2.7,1.2,4.2,1.3,1.7,0,3.4,0,5.1,0,2.9-.1,5.8-.5,8.7-.9,2.5-.4,5-.6,7.1-2.2,2.4-1.7,2.9-4.9,2.4-7.7-.5-3.1-2.7-4.9-5.8-5.2-.6,0-1.3-.1-1.9-.1Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors56 = walletMeta.colors) === null || _walletMeta$colors56 === void 0 ? void 0 : _walletMeta$colors56.secondary) || "#000000",
+      fill: ((_walletMeta35 = walletMeta) === null || _walletMeta35 === void 0 ? void 0 : (_walletMeta35$colors = _walletMeta35.colors) === null || _walletMeta35$colors === void 0 ? void 0 : _walletMeta35$colors.secondary) || "#000000",
       d: "M742.9,766.6c-4-.4-8.2-.1-12.1.5-3.5.5-8,1.4-9.7,4.9-1.4,2.8-1.2,6.6,1.4,8.7,1.2.9,2.7,1.3,4.1,1.4,1.7.1,3.4.1,5.1.1,2.9,0,5.9-.3,8.8-.6,2.5-.3,5.1-.4,7.2-1.9,2.4-1.6,3-4.8,2.7-7.6-.4-3.2-2.5-5-5.6-5.4-.6,0-1.3-.2-1.9-.2Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors57 = walletMeta.colors) === null || _walletMeta$colors57 === void 0 ? void 0 : _walletMeta$colors57.secondary) || "#000000",
+      fill: ((_walletMeta36 = walletMeta) === null || _walletMeta36 === void 0 ? void 0 : (_walletMeta36$colors = _walletMeta36.colors) === null || _walletMeta36$colors === void 0 ? void 0 : _walletMeta36$colors.secondary) || "#000000",
       d: "M694.7,770.8c-4-.5-8.2-.4-12.1,0-3.6.4-8,1.1-9.9,4.6-1.5,2.7-1.4,6.6,1.1,8.7,1.1,1,2.6,1.4,4.1,1.6,1.7.2,3.4.3,5.1.3,2.9,0,5.9,0,8.8-.3,2.5-.2,5.1-.3,7.3-1.6,2.5-1.5,3.2-4.7,3-7.4-.3-3.2-2.4-5.1-5.4-5.6-.6-.1-1.3-.2-1.9-.3Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors58 = walletMeta.colors) === null || _walletMeta$colors58 === void 0 ? void 0 : _walletMeta$colors58.secondary) || "#000000",
+      fill: ((_walletMeta37 = walletMeta) === null || _walletMeta37 === void 0 ? void 0 : (_walletMeta37$colors = _walletMeta37.colors) === null || _walletMeta37$colors === void 0 ? void 0 : _walletMeta37$colors.secondary) || "#000000",
       d: "M646.3,773.3c-4-.6-8.2-.7-12.1-.3-3.6.3-8.1.9-10.1,4.3-1.5,2.7-1.6,6.6.8,8.7,1.1,1,2.6,1.5,4,1.7,1.7.3,3.4.4,5.1.5,2.9.2,5.9.1,8.8,0,2.5,0,5.1-.1,7.3-1.4,2.5-1.4,3.4-4.6,3.2-7.3-.2-3.2-2.2-5.1-5.2-5.8-.6-.1-1.3-.3-1.9-.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors59 = walletMeta.colors) === null || _walletMeta$colors59 === void 0 ? void 0 : _walletMeta$colors59.secondary) || "#000000",
+      fill: ((_walletMeta38 = walletMeta) === null || _walletMeta38 === void 0 ? void 0 : (_walletMeta38$colors = _walletMeta38.colors) === null || _walletMeta38$colors === void 0 ? void 0 : _walletMeta38$colors.secondary) || "#000000",
       d: "M597.9,774.4c-3.9-.7-8.2-.9-12.1-.6-3.6.2-8.1.7-10.2,4-1.6,2.6-1.8,6.5.6,8.7,1.1,1,2.5,1.5,4,1.8,1.7.3,3.4.4,5,.6,2.9.3,5.8.3,8.8.3,2.5,0,5.1,0,7.4-1.2,2.6-1.4,3.5-4.5,3.5-7.3,0-3.2-2-5.2-5-5.9-.6-.2-1.3-.3-1.9-.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors60 = walletMeta.colors) === null || _walletMeta$colors60 === void 0 ? void 0 : _walletMeta$colors60.secondary) || "#000000",
+      fill: ((_walletMeta39 = walletMeta) === null || _walletMeta39 === void 0 ? void 0 : (_walletMeta39$colors = _walletMeta39.colors) === null || _walletMeta39$colors === void 0 ? void 0 : _walletMeta39$colors.secondary) || "#000000",
       d: "M549.6,774.1c-3.9-1-8.1-1.3-12-1.3-3.6,0-8.1.3-10.4,3.5-1.7,2.5-2,6.4.2,8.8,1,1.1,2.5,1.6,3.9,2,1.6.4,3.3.6,5,.8,2.9.4,5.8.6,8.8.7,2.5,0,5.1.3,7.4-.8,2.7-1.3,3.7-4.4,3.7-7.1,0-1.6-.5-2.9-1.3-3.9-.8-1-2-1.7-3.5-2.2-.6-.2-1.2-.4-1.9-.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors61 = walletMeta.colors) === null || _walletMeta$colors61 === void 0 ? void 0 : _walletMeta$colors61.secondary) || "#000000",
+      fill: ((_walletMeta40 = walletMeta) === null || _walletMeta40 === void 0 ? void 0 : (_walletMeta40$colors = _walletMeta40.colors) === null || _walletMeta40$colors === void 0 ? void 0 : _walletMeta40$colors.secondary) || "#000000",
       d: "M501.1,771.8c-3.9-1-8.1-1.3-12.1-1.3-3.6,0-8.1.2-10.4,3.5-1.8,2.5-2.1,6.4.1,8.8,1,1.1,2.4,1.7,3.9,2,1.6.4,3.3.6,5,.9,2.9.4,5.8.6,8.7.8,2.5.1,5,.3,7.4-.7,2.6-1.2,3.8-4.3,3.9-7,.1-3.2-1.7-5.3-4.7-6.2-.6-.2-1.2-.4-1.9-.5Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors62 = walletMeta.colors) === null || _walletMeta$colors62 === void 0 ? void 0 : _walletMeta$colors62.secondary) || "#000000",
+      fill: ((_walletMeta41 = walletMeta) === null || _walletMeta41 === void 0 ? void 0 : (_walletMeta41$colors = _walletMeta41.colors) === null || _walletMeta41$colors === void 0 ? void 0 : _walletMeta41$colors.secondary) || "#000000",
       d: "M452.7,769c-3.9-1-8.1-1.5-12-1.6-3.6,0-8.1,0-10.4,3.2-1.8,2.5-2.2,6.3,0,8.8,1,1.1,2.4,1.7,3.8,2.1,1.6.4,3.3.7,5,1,2.9.5,5.8.7,8.7.9,2.5.1,5,.4,7.4-.6,2.7-1.2,3.8-4.2,4-7,.2-3.2-1.6-5.3-4.6-6.3-.6-.2-1.2-.4-1.9-.6Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors63 = walletMeta.colors) === null || _walletMeta$colors63 === void 0 ? void 0 : _walletMeta$colors63.secondary) || "#000000",
+      fill: ((_walletMeta42 = walletMeta) === null || _walletMeta42 === void 0 ? void 0 : (_walletMeta42$colors = _walletMeta42.colors) === null || _walletMeta42$colors === void 0 ? void 0 : _walletMeta42$colors.secondary) || "#000000",
       d: "M404.4,765.1c-3.8-1.1-8-1.8-11.9-1.9-3.6-.1-8.1-.2-10.5,2.9-1.9,2.4-2.5,6.3-.4,8.8,1,1.1,2.4,1.8,3.8,2.2,1.6.5,3.3.8,5,1.1,2.9.6,5.8.9,8.7,1.2,2.5.2,5,.6,7.5-.4,2.7-1.1,4-4.1,4.2-6.9.3-3.2-1.5-5.4-4.4-6.4-.6-.2-1.2-.4-1.8-.6Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors64 = walletMeta.colors) === null || _walletMeta$colors64 === void 0 ? void 0 : _walletMeta$colors64.secondary) || "#000000",
+      fill: ((_walletMeta43 = walletMeta) === null || _walletMeta43 === void 0 ? void 0 : (_walletMeta43$colors = _walletMeta43.colors) === null || _walletMeta43$colors === void 0 ? void 0 : _walletMeta43$colors.secondary) || "#000000",
       d: "M356.3,759.5c-3.8-1.3-7.9-2.1-11.8-2.4-3.6-.3-8.1-.6-10.6,2.4-2,2.3-2.8,6.2-.8,8.7.9,1.2,2.3,1.9,3.7,2.4,1.6.6,3.3,1,4.9,1.4,2.9.7,5.8,1.1,8.7,1.5,2.5.3,5,.8,7.5,0,2.7-1,4.1-4,4.5-6.7.4-3.2-1.3-5.4-4.1-6.6-.6-.2-1.2-.5-1.8-.7Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors65 = walletMeta.colors) === null || _walletMeta$colors65 === void 0 ? void 0 : _walletMeta$colors65.secondary) || "#000000",
+      fill: ((_walletMeta44 = walletMeta) === null || _walletMeta44 === void 0 ? void 0 : (_walletMeta44$colors = _walletMeta44.colors) === null || _walletMeta44$colors === void 0 ? void 0 : _walletMeta44$colors.secondary) || "#000000",
       d: "M308.8,751.7c-3.7-1.5-7.7-2.5-11.6-3-1.8-.2-3.7-.5-5.7-.3-1.9.2-3.7.6-5.1,2-2.2,2.1-3.3,5.9-1.5,8.6.8,1.2,2.1,2.2,3.5,2.7,1.6.6,3.2,1.1,4.9,1.6,2.8.9,5.7,1.5,8.6,2,2.5.5,5,1.1,7.5.4,2.8-.8,4.3-3.7,4.8-6.4.5-3.1-1-5.5-3.7-6.8-.6-.3-1.2-.5-1.8-.8Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors66 = walletMeta.colors) === null || _walletMeta$colors66 === void 0 ? void 0 : _walletMeta$colors66.secondary) || "#000000",
+      fill: ((_walletMeta45 = walletMeta) === null || _walletMeta45 === void 0 ? void 0 : (_walletMeta45$colors = _walletMeta45.colors) === null || _walletMeta45$colors === void 0 ? void 0 : _walletMeta45$colors.secondary) || "#000000",
       d: "M261.9,740.7c-3.6-1.8-7.6-3-11.4-3.8-3.5-.8-7.9-1.6-10.8,1.1-2.3,2.1-3.5,5.7-1.9,8.6.7,1.3,2,2.2,3.4,2.8,1.5.7,3.1,1.4,4.7,2,2.7,1.1,5.6,1.9,8.4,2.6,2.4.6,4.9,1.4,7.4.8,2.8-.6,4.6-3.4,5.2-6.1.8-3.1-.6-5.6-3.3-7-.6-.3-1.1-.6-1.7-.9Z"
     })), /*#__PURE__*/React__default['default'].createElement("g", {
       opacity: "0.3"
     }, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors67 = walletMeta.colors) === null || _walletMeta$colors67 === void 0 ? void 0 : _walletMeta$colors67.secondary) || "#ffffff",
+      fill: ((_walletMeta46 = walletMeta) === null || _walletMeta46 === void 0 ? void 0 : (_walletMeta46$colors = _walletMeta46.colors) === null || _walletMeta46$colors === void 0 ? void 0 : _walletMeta46$colors.secondary) || "#ffffff",
       d: "M206.3,218.7c-21,19.1-30.7,59.5-20.1,88.1,2.1,5.7,5,11,8.9,15.5,4.4,4.3,9.5,8.8,15.8,8.2,41.6-1.4,50.6-60.8,45.7-92.5-2.5-16.3-15-34.2-33.5-27.9-6.1,1.3-11.9,4.3-16.7,8.6Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors68 = walletMeta.colors) === null || _walletMeta$colors68 === void 0 ? void 0 : _walletMeta$colors68.secondary) || "#ffffff",
+      fill: ((_walletMeta47 = walletMeta) === null || _walletMeta47 === void 0 ? void 0 : (_walletMeta47$colors = _walletMeta47.colors) === null || _walletMeta47$colors === void 0 ? void 0 : _walletMeta47$colors.secondary) || "#ffffff",
       d: "M192.7,367.3c-8.3,9.1-11.8,21.8-9.7,34.1,3.1,15.7,15.8,36.8,33.2,30.4,19.9-7.6,24.5-34.2,19.3-53.9-2.4-9-8.5-16.8-17.6-20-9.4-3-18.6,1.9-25.2,9.4Z"
     })), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors69 = walletMeta.colors) === null || _walletMeta$colors69 === void 0 ? void 0 : _walletMeta$colors69.secondary) || "#000000",
+      fill: ((_walletMeta48 = walletMeta) === null || _walletMeta48 === void 0 ? void 0 : (_walletMeta48$colors = _walletMeta48.colors) === null || _walletMeta48$colors === void 0 ? void 0 : _walletMeta48$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors70 = walletMeta.colors) === null || _walletMeta$colors70 === void 0 ? void 0 : _walletMeta$colors70.secondary) || "#000000"
+        fill: ((_walletMeta49 = walletMeta) === null || _walletMeta49 === void 0 ? void 0 : (_walletMeta49$colors = _walletMeta49.colors) === null || _walletMeta49$colors === void 0 ? void 0 : _walletMeta49$colors.secondary) || "#000000"
       },
       d: "M949.3,571.5c-1.3,9.7-3.1,19.1-5.7,28.4v-.4c-3.8,12.7-8.5,25.4-15.8,36.4l.5-.3c-12.1,19.2-29.3,34.8-49.8,44.9-2.6,1.3-5.2,2.6-7.8,3.8-1.4.6-2.8,1.3-4.2,1.9-.7.3-1.3.6-2,.8-.7.3.2,0,.3-.1-.5.2-1,.4-1.5.6-3.1,1.2-5.7,4.2-4.6,7.8.9,3,4.4,5.9,7.8,4.6,10.5-4.1,20.6-9.1,30.1-15,38.7-22.6,59-66.8,63.7-110,.1-3.6-1.3-7.8-5.7-8.1-2.8,0-5.1,2.1-5.3,4.7h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors71 = walletMeta.colors) === null || _walletMeta$colors71 === void 0 ? void 0 : _walletMeta$colors71.secondary) || "#000000",
+      fill: ((_walletMeta50 = walletMeta) === null || _walletMeta50 === void 0 ? void 0 : (_walletMeta50$colors = _walletMeta50.colors) === null || _walletMeta50$colors === void 0 ? void 0 : _walletMeta50$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors72 = walletMeta.colors) === null || _walletMeta$colors72 === void 0 ? void 0 : _walletMeta$colors72.secondary) || "#000000"
+        fill: ((_walletMeta51 = walletMeta) === null || _walletMeta51 === void 0 ? void 0 : (_walletMeta51$colors = _walletMeta51.colors) === null || _walletMeta51$colors === void 0 ? void 0 : _walletMeta51$colors.secondary) || "#000000"
       },
       d: "M858,692.8c.5,1.6.9,3.3,1,4.9.1,1.6,0,3.2-.2,4.8-1.8,8.8-7,17.5-16.4,20.7-1.4.5-2.9.8-4.4,1-9.3,2-19-3.9-21-12.7-3-13.9,12.3-23.4,25.5-22.7,2.2,0,4.4.2,6.5.7,2,.4,3.9,1.1,5.8,2,.9.4,2,.9,3.1,1.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors73 = walletMeta.colors) === null || _walletMeta$colors73 === void 0 ? void 0 : _walletMeta$colors73.secondary) || "#000000",
+      fill: ((_walletMeta52 = walletMeta) === null || _walletMeta52 === void 0 ? void 0 : (_walletMeta52$colors = _walletMeta52.colors) === null || _walletMeta52$colors === void 0 ? void 0 : _walletMeta52$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors74 = walletMeta.colors) === null || _walletMeta$colors74 === void 0 ? void 0 : _walletMeta$colors74.secondary) || "#000000"
+        fill: ((_walletMeta53 = walletMeta) === null || _walletMeta53 === void 0 ? void 0 : (_walletMeta53$colors = _walletMeta53.colors) === null || _walletMeta53$colors === void 0 ? void 0 : _walletMeta53$colors.secondary) || "#000000"
       },
       d: "M852.4,694.2c.4,1.2.7,2.4.9,3.7-.1-1.1,0,.9,0,.9,0,.6,0,1.2,0,1.8,0,.2-.3,2,0,.7,0,.5-.2.9-.3,1.3-.2.9-.5,1.8-.8,2.7-.2.4-.3.9-.5,1.3,0,.2-.7,1.6-.1.3-.4.8-.8,1.7-1.3,2.5-.4.7-.8,1.3-1.2,2-.3.4-.5.8-.8,1.1.9-1.1-.4.4-.6.6-.6.7-1.3,1.3-2,1.9-.2.2-.5.4-.7.6,1.1-.8-.2,0-.4.2-.8.5-1.7,1-2.5,1.4-.2,0-1.7.6-.4.2-.7.2-1.4.5-2.1.6-.9.2-1.8.4-2.7.6-.5,0-.9.2-1.4.2,1.5-.2,0,0-.3,0-.9,0-1.8,0-2.8-.1,1.5.2,0,0-.3,0-.4-.1-.9-.2-1.3-.4-.4-.1-.9-.3-1.3-.5-1.4-.5,1,.6-.3-.1-.8-.5-1.5-.9-2.3-1.4-1.2-.8.8.8-.2-.2-.3-.3-.5-.5-.8-.8-.3-.3-.5-.5-.8-.8-.2-.2-.4-.4-.6-.7.4.6.5.6,0,.1-.5-.8-.9-1.5-1.3-2.3-.6-1.3.3,1.1,0-.3,0-.4-.2-.7-.3-1.1,0-.4-.1-.7-.2-1.1-.3-1.4,0,1.2,0-.2,0-.6-.3-2.4.1-2.9,0,.2,0,.5-.1.7,0-.3.1-.5.2-.8,0-.4.2-.8.3-1.1,0-.2.2-.5.3-.7.4-1.3-.6,1.1,0,0,.4-.7.8-1.4,1.2-2,.2-.3.7-1.4,0-.1.2-.4.7-.9,1.1-1.2.5-.5,1-1,1.5-1.4.3-.3.6-.5,1-.8-1.2.9,0,0,.2,0,1.4-.9,3-1.7,4.5-2.4-1.4.6,0,0,.2,0,.5-.2,1.1-.4,1.7-.5,1-.3,2-.5,3-.7.3,0,.6-.1.9-.1.3,0,.6,0,.9-.1-.8,0-.9.1-.2,0,1,0,2,0,3,0,1.3,0,2.7,0,4,.2.2,0,1.1.2.2,0,.8.1,1.6.3,2.3.5,3.1.8,4.6,1.7,7.7,3.1,2.8,1.2,6.5-1.1,7.2-3.9.8-3.3-.9-5.9-3.9-7.2-.3-.1-.6-.2-.9-.4-.9-.4.6.3-.2,0-.7-.3-1.3-.6-2-.9-1.5-.7-3.1-1.3-4.7-1.7-3-.8-6.1-1.2-9.2-1.2-4.3,0-8.7.5-12.8,1.9-8.3,3-16.5,9.1-18.4,18.2-2.1,9.9,2.8,20.1,11.9,24.5,9.8,4.8,21.7,2.6,30-4.2,9-7.3,13.8-21,10.2-32.1-.9-2.9-3.9-5.1-7-4.2-2.8.9-5.1,3.9-4.2,7Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors75 = walletMeta.colors) === null || _walletMeta$colors75 === void 0 ? void 0 : _walletMeta$colors75.secondary) || "#000000",
+      fill: ((_walletMeta54 = walletMeta) === null || _walletMeta54 === void 0 ? void 0 : (_walletMeta54$colors = _walletMeta54.colors) === null || _walletMeta54$colors === void 0 ? void 0 : _walletMeta54$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors76 = walletMeta.colors) === null || _walletMeta$colors76 === void 0 ? void 0 : _walletMeta$colors76.secondary) || "#000000"
+        fill: ((_walletMeta55 = walletMeta) === null || _walletMeta55 === void 0 ? void 0 : (_walletMeta55$colors = _walletMeta55.colors) === null || _walletMeta55$colors === void 0 ? void 0 : _walletMeta55$colors.secondary) || "#000000"
       },
       d: "M840.9,682.9c-.9-.2-1.9-.3-2.8-.5-.3,0-.5-.1-.8-.2.2,0,.3.1.5.2.2.3,1.3,1.6,1.1,1.8,0-.2-.1-.4-.1-.5,0-.3,0-.2,0,.2,0,.5,0,.5,0,.2,0-.2,0-.4,0-.6,0-1,0,.4,0,.4,0-.1,0-.2,0-.4.2-.5.2-.5,0,0-.2.4-.2.5,0,.2,0-.2.2-.3.3-.5.1.2-1,1-1.1,1.1.9-.5-.9.5-.3.1.3-.2-.6,0,0,0,.4,0,.9,0,1.3,0,.5,0,.6,0,0,0,.9.1,1.7.4,2.5.7.4.1.6.2,0,0,.4.2.8.4,1.2.6.7.4,1.4.8,2,1.3.3.2.6.4.9.6-.8-.6.2.1.3.3.6.5,1.2,1.1,1.7,1.6,2.6,2.5,5.1,5.2,7.3,8.1,2.8-2.7,5.5-5.3,8.3-8-2.9-3.8-7.7-6.3-12.5-6.9-2.2-.3-4.4-.5-6.6-.6-.9,0-1.8,0-2.7,0-1.8,0-3.3.6-4.9,1.3-2.7,1.2-3.8,5.3-2.2,7.8,1.7,2.8,4.9,3.6,7.8,2.2,1.3-.6-.9.2-.9.1,0,0,1,0,1.1,0,.8,0,1.7,0,2.5,0,1.7,0,3.5.3,5.2.5-.6,0-.1,0,.2,0,.4.1.7.2,1.1.3.4.1.7.2.1,0,.3.1.6.3.9.5.3.2.6.4.9.5,1.2.8-.2-.4.3.2.5.6,1.1,1.1,1.6,1.8,1.8,2.4,6.2,2.2,8.1.2,2.4-2.5,2.1-5.6.2-8.1-2.8-3.8-6.2-7.4-9.8-10.4-4.2-3.5-9.2-6.2-14.8-6.2-2.9,0-5.7.5-7.9,2.5-2,1.9-2.9,4.4-3.3,7.1-.3,2.6.3,5.8,2.1,7.8,2.2,2.4,5,3.1,8.1,3.7,3,.5,6.4-.6,7.2-3.9.7-2.8-.7-6.6-3.9-7.2Z"
     }))), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors77 = walletMeta.colors) === null || _walletMeta$colors77 === void 0 ? void 0 : _walletMeta$colors77.secondary) || "#000000",
+      fill: ((_walletMeta56 = walletMeta) === null || _walletMeta56 === void 0 ? void 0 : (_walletMeta56$colors = _walletMeta56.colors) === null || _walletMeta56$colors === void 0 ? void 0 : _walletMeta56$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors78 = walletMeta.colors) === null || _walletMeta$colors78 === void 0 ? void 0 : _walletMeta$colors78.secondary) || "#000000"
+        fill: ((_walletMeta57 = walletMeta) === null || _walletMeta57 === void 0 ? void 0 : (_walletMeta57$colors = _walletMeta57.colors) === null || _walletMeta57$colors === void 0 ? void 0 : _walletMeta57$colors.secondary) || "#000000"
       },
       d: "M173.8,571.5c1.3,9.7,3.1,19.1,5.7,28.4v-.4c3.8,12.7,8.5,25.4,15.8,36.4l-.5-.3c12.1,19.2,29.3,34.8,49.8,44.9,2.6,1.3,5.2,2.6,7.8,3.8,1.4.6,2.8,1.3,4.2,1.9.7.3,1.3.6,2,.8.7.3-.2,0-.3-.1.5.2,1,.4,1.5.6,3.1,1.2,5.7,4.2,4.6,7.8-.9,3-4.4,5.9-7.8,4.6-10.5-4.1-20.6-9.1-30.1-15-38.7-22.6-59-66.8-63.7-110-.1-3.6,1.3-7.8,5.7-8.1,2.8,0,5.1,2.1,5.3,4.7h0Z"
     }), /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("g", null, /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors79 = walletMeta.colors) === null || _walletMeta$colors79 === void 0 ? void 0 : _walletMeta$colors79.secondary) || "#000000",
+      fill: ((_walletMeta58 = walletMeta) === null || _walletMeta58 === void 0 ? void 0 : (_walletMeta58$colors = _walletMeta58.colors) === null || _walletMeta58$colors === void 0 ? void 0 : _walletMeta58$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors80 = walletMeta.colors) === null || _walletMeta$colors80 === void 0 ? void 0 : _walletMeta$colors80.secondary) || "#000000"
+        fill: ((_walletMeta59 = walletMeta) === null || _walletMeta59 === void 0 ? void 0 : (_walletMeta59$colors = _walletMeta59.colors) === null || _walletMeta59$colors === void 0 ? void 0 : _walletMeta59$colors.secondary) || "#000000"
       },
       d: "M265.2,692.8c-.5,1.6-.9,3.3-1,4.9-.1,1.6,0,3.2.2,4.8,1.8,8.8,7,17.5,16.4,20.7,1.4.5,2.9.8,4.4,1,9.3,2,19-3.9,21-12.7,3-13.9-12.3-23.4-25.5-22.7-2.2,0-4.4.2-6.5.7-2,.4-3.9,1.1-5.8,2-.9.4-2,.9-3.1,1.4Z"
     }), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors81 = walletMeta.colors) === null || _walletMeta$colors81 === void 0 ? void 0 : _walletMeta$colors81.secondary) || "#000000",
+      fill: ((_walletMeta60 = walletMeta) === null || _walletMeta60 === void 0 ? void 0 : (_walletMeta60$colors = _walletMeta60.colors) === null || _walletMeta60$colors === void 0 ? void 0 : _walletMeta60$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors82 = walletMeta.colors) === null || _walletMeta$colors82 === void 0 ? void 0 : _walletMeta$colors82.secondary) || "#000000"
+        fill: ((_walletMeta61 = walletMeta) === null || _walletMeta61 === void 0 ? void 0 : (_walletMeta61$colors = _walletMeta61.colors) === null || _walletMeta61$colors === void 0 ? void 0 : _walletMeta61$colors.secondary) || "#000000"
       },
       d: "M270.8,694.2c-.4,1.2-.7,2.4-.9,3.7.1-1.1,0,.9,0,.9,0,.6,0,1.2,0,1.8,0,.2.3,2,0,.7,0,.5.2.9.3,1.3.2.9.5,1.8.8,2.7.2.4.3.9.5,1.3,0,.2.7,1.6.1.3.4.8.8,1.7,1.3,2.5.4.7.8,1.3,1.2,2,.3.4.5.8.8,1.1-.9-1.1.4.4.6.6.6.7,1.3,1.3,2,1.9.2.2.5.4.7.6-1.1-.8.2,0,.4.2.8.5,1.7,1,2.5,1.4.2,0,1.7.6.4.2.7.2,1.4.5,2.1.6.9.2,1.8.4,2.7.6.5,0,.9.2,1.4.2-1.5-.2,0,0,.3,0,.9,0,1.8,0,2.8-.1-1.5.2,0,0,.3,0,.4-.1.9-.2,1.3-.4.4-.1.9-.3,1.3-.5,1.4-.5-1,.6.3-.1.8-.5,1.5-.9,2.3-1.4,1.2-.8-.8.8.2-.2.3-.3.5-.5.8-.8.3-.3.5-.5.8-.8.2-.2.4-.4.6-.7-.4.6-.5.6,0,.1.5-.8.9-1.5,1.3-2.3.6-1.3-.3,1.1,0-.3,0-.4.2-.7.3-1.1,0-.4.1-.7.2-1.1.3-1.4,0,1.2,0-.2,0-.6.3-2.4-.1-2.9,0,.2,0,.5.1.7,0-.3-.1-.5-.2-.8,0-.4-.2-.8-.3-1.1,0-.2-.2-.5-.3-.7-.4-1.3.6,1.1,0,0-.4-.7-.8-1.4-1.2-2-.2-.3-.7-1.4,0-.1-.2-.4-.7-.9-1.1-1.2-.5-.5-1-1-1.5-1.4-.3-.3-.6-.5-1-.8,1.2.9,0,0-.2,0-1.4-.9-3-1.7-4.5-2.4,1.4.6,0,0-.2,0-.5-.2-1.1-.4-1.7-.5-1-.3-2-.5-3-.7-.3,0-.6-.1-.9-.1-.3,0-.6,0-.9-.1.8,0,.9.1.2,0-1,0-2,0-3,0-1.3,0-2.7,0-4,.2-.2,0-1.1.2-.2,0-.8.1-1.6.3-2.3.5-3.1.8-4.6,1.7-7.7,3.1-2.8,1.2-6.5-1.1-7.2-3.9-.8-3.3.9-5.9,3.9-7.2.3-.1.6-.2.9-.4.9-.4-.6.3.2,0,.7-.3,1.3-.6,2-.9,1.5-.7,3.1-1.3,4.7-1.7,3-.8,6.1-1.2,9.2-1.2,4.3,0,8.7.5,12.8,1.9,8.3,3,16.5,9.1,18.4,18.2,2.1,9.9-2.8,20.1-11.9,24.5-9.8,4.8-21.7,2.6-30-4.2-9-7.3-13.8-21-10.2-32.1.9-2.9,3.9-5.1,7-4.2,2.8.9,5.1,3.9,4.2,7Z"
     })), /*#__PURE__*/React__default['default'].createElement("path", {
-      fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors83 = walletMeta.colors) === null || _walletMeta$colors83 === void 0 ? void 0 : _walletMeta$colors83.secondary) || "#000000",
+      fill: ((_walletMeta62 = walletMeta) === null || _walletMeta62 === void 0 ? void 0 : (_walletMeta62$colors = _walletMeta62.colors) === null || _walletMeta62$colors === void 0 ? void 0 : _walletMeta62$colors.secondary) || "#000000",
       style: {
-        fill: (walletMeta === null || walletMeta === void 0 ? void 0 : (_walletMeta$colors84 = walletMeta.colors) === null || _walletMeta$colors84 === void 0 ? void 0 : _walletMeta$colors84.secondary) || "#000000"
+        fill: ((_walletMeta63 = walletMeta) === null || _walletMeta63 === void 0 ? void 0 : (_walletMeta63$colors = _walletMeta63.colors) === null || _walletMeta63$colors === void 0 ? void 0 : _walletMeta63$colors.secondary) || "#000000"
       },
       d: "M282.2,682.9c.9-.2,1.9-.3,2.8-.5.3,0,.5-.1.8-.2-.2,0-.3.1-.5.2-.2.3-1.3,1.6-1.1,1.8,0-.2.1-.4.1-.5,0-.3,0-.2,0,.2,0,.5,0,.5,0,.2,0-.2,0-.4,0-.6,0-1,0,.4,0,.4,0-.1,0-.2,0-.4-.2-.5-.2-.5,0,0,.2.4.2.5,0,.2,0-.2-.2-.3-.3-.5-.1.2,1,1,1.1,1.1-.9-.5.9.5.3.1-.3-.2.6,0,0,0-.4,0-.9,0-1.3,0-.5,0-.6,0,0,0-.9.1-1.7.4-2.5.7-.4.1-.6.2,0,0-.4.2-.8.4-1.2.6-.7.4-1.4.8-2,1.3-.3.2-.6.4-.9.6.8-.6-.2.1-.3.3-.6.5-1.2,1.1-1.7,1.6-2.6,2.5-5.1,5.2-7.3,8.1-2.8-2.7-5.5-5.3-8.3-8,2.9-3.8,7.7-6.3,12.5-6.9,2.2-.3,4.4-.5,6.6-.6.9,0,1.8,0,2.7,0,1.8,0,3.3.6,4.9,1.3,2.7,1.2,3.8,5.3,2.2,7.8-1.7,2.8-4.9,3.6-7.8,2.2-1.3-.6.9.2.9.1,0,0-1,0-1.1,0-.8,0-1.7,0-2.5,0-1.7,0-3.5.3-5.2.5.6,0,.1,0-.2,0-.4.1-.7.2-1.1.3-.4.1-.7.2-.1,0-.3.1-.6.3-.9.5-.3.2-.6.4-.9.5-1.2.8.2-.4-.3.2-.5.6-1.1,1.1-1.6,1.8-1.8,2.4-6.2,2.2-8.1.2-2.4-2.5-2.1-5.6-.2-8.1,2.8-3.8,6.2-7.4,9.8-10.4,4.2-3.5,9.2-6.2,14.8-6.2,2.9,0,5.7.5,7.9,2.5,2,1.9,2.9,4.4,3.3,7.1.3,2.6-.3,5.8-2.1,7.8-2.2,2.4-5,3.1-8.1,3.7-3,.5-6.4-.6-7.2-3.9-.7-2.8.7-6.6,3.9-7.2Z"
-    }))), (walletMeta === null || walletMeta === void 0 ? void 0 : walletMeta.logo) && /*#__PURE__*/React__default['default'].createElement("image", {
-      style: {
-        clipPath: "inset(0 round 60px)"
-      },
+    }))), ((_walletMeta64 = walletMeta) === null || _walletMeta64 === void 0 ? void 0 : _walletMeta64.logo) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, ((_walletMeta65 = walletMeta) === null || _walletMeta65 === void 0 ? void 0 : (_walletMeta65$colors = _walletMeta65.colors) === null || _walletMeta65$colors === void 0 ? void 0 : _walletMeta65$colors.background) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("defs", null, /*#__PURE__*/React__default['default'].createElement("clipPath", {
+      id: "clipLogo"
+    }, /*#__PURE__*/React__default['default'].createElement("rect", {
+      width: "340",
+      height: "340",
+      rx: "80",
+      ry: "80"
+    }))), /*#__PURE__*/React__default['default'].createElement("rect", {
+      x: "420",
+      y: "290",
+      width: "340",
+      height: "340",
+      rx: "80",
+      fill: (_walletMeta66 = walletMeta) === null || _walletMeta66 === void 0 ? void 0 : (_walletMeta66$colors = _walletMeta66.colors) === null || _walletMeta66$colors === void 0 ? void 0 : _walletMeta66$colors.background
+    })), /*#__PURE__*/React__default['default'].createElement("image", {
       x: "420",
       y: "290",
       width: "340",
       height: "340",
       href: walletMeta.logo,
+      clipPath: "inset(0 round 60px)",
       preserveAspectRatio: "xMidYMid meet"
-    }), !(walletMeta !== null && walletMeta !== void 0 && walletMeta.logo) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("g", {
+    })), !((_walletMeta67 = walletMeta) !== null && _walletMeta67 !== void 0 && _walletMeta67.logo) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("g", {
       opacity: "0.3"
     }, /*#__PURE__*/React__default['default'].createElement("path", {
       fill: "#ffffff",
@@ -25242,7 +24964,7 @@
   });
 
   var GraphicStyle = (function (style) {
-    return "\n\n    .GraphicWrapper {\n      display: block;\n      padding: 10px 0;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n  ";
+    return "\n\n    .GraphicWrapper {\n      display: block;\n      padding: 10px 0;\n    }\n\n    .Graphic {\n      width: 50%;\n      position: relative;\n    }\n\n    .GraphicPassiveColor {\n      fill: ".concat(style.colors.mixPassive, ";\n    }\n\n    .GraphicActiveColor {\n      fill: ").concat(style.colors.mixActive, ";\n    }\n  ");
   });
 
   var GridStyle = (function (style) {
@@ -25388,7 +25110,7 @@
       success: '#65c86e',
       background: '#171717',
       cardBackground: '#252525',
-      mixActive: '#999999',
+      mixActive: '#aaaaaa',
       mixPassive: '#000000'
     };
     var configuredColors = (isDarkMode() ? (_style = style) === null || _style === void 0 ? void 0 : _style.colorsDarkMode : (_style2 = style) === null || _style2 === void 0 ? void 0 : _style2.colors) || ((_style3 = style) === null || _style3 === void 0 ? void 0 : _style3.colors);
@@ -25396,7 +25118,7 @@
       colors: Object.assign(defaultColors, configuredColors || {}),
       fontFamily: ((_style4 = style) === null || _style4 === void 0 ? void 0 : _style4.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -25639,22 +25361,6 @@
 
   var internalVerify = async ({ signature, publicKey, data, saltLength = 64, crypto, atob })=>{
 
-    if(typeof data === 'object') {
-      data = JSON.stringify(data);
-    }
-
-    if(typeof signature !== 'string' || signature === undefined) {
-      throw('signature missing!')
-    }
-
-    if(data === undefined || data.length === 0) {
-      throw('data missing!')
-    }
-
-    if(publicKey === undefined || typeof publicKey !== 'string' || publicKey.length === 0) {
-      throw('publicKey missing!')
-    }
-
     let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
     while (innerPublicKey.length % 4) { // add proper padding
       innerPublicKey += '=';
@@ -25776,7 +25482,9 @@
                   throw 'Configuration is missing token acceptance!';
 
                 case 15:
-                  if (_configuration !== null && _configuration !== void 0 && _configuration.protocolFee) {
+                  if (!_configuration.accept.some(function (configuration) {
+                    return !configuration.protocolFee;
+                  })) {
                     _context.next = 17;
                     break;
                   }
@@ -26654,12 +26362,12 @@
                 address: maxRoute.toToken.address
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
-                var maxAmount = parseFloat(new Decimal$1.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+                var maxAmount = parseFloat(new Decimal.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
                 setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
               })["catch"](setError);
             })["catch"](setError);
           } else if (maxRoute.fromToken.address == Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]) {
-            var _maxAmount = parseFloat(new Decimal$1.Decimal(readableMaxAmount).mul(conversionRate).toString());
+            var _maxAmount = parseFloat(new Decimal.Decimal(readableMaxAmount).mul(conversionRate).toString());
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
           } else {
@@ -26681,7 +26389,7 @@
                 address: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
-                var maxAmount = parseFloat(new Decimal$1.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+                var maxAmount = parseFloat(new Decimal.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
                 setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
               })["catch"](setError);
             })["catch"](setError);
@@ -26771,8 +26479,8 @@
         return 1; // a
       }
 
-      var aMaxUsdAmountAsDecimal = new Decimal$1.Decimal(ethers.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
-      var bMaxUsdAmountAsDecimal = new Decimal$1.Decimal(ethers.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
+      var aMaxUsdAmountAsDecimal = new Decimal.Decimal(ethers.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+      var bMaxUsdAmountAsDecimal = new Decimal.Decimal(ethers.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
 
       if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
         return -1; // b
@@ -26895,12 +26603,12 @@
 
     var getPaymentRoutes = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-        var updatable, slowRoutingTimeout;
+        var selectedRoute, updatable, slowRoutingTimeout;
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                updatable = _ref.updatable;
+                selectedRoute = _ref.selectedRoute, updatable = _ref.updatable;
 
                 if (!(updatable == false || !props.accept || !account)) {
                   _context.next = 3;
@@ -26918,7 +26626,7 @@
                     accept: props.accept,
                     account: account,
                     best: function best(route) {
-                      if (route) {
+                      if (route && !selectedRoute) {
                         roundAmounts([route]).then(function (routes) {
                           setSelectedRoute(routes[0]);
                           clearInterval(slowRoutingTimeout);
@@ -27233,19 +26941,11 @@
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-<<<<<<< HEAD:dist/umd/index.svm.js
         className: "GraphicWrapper",
         onClick: initDebug
       }, /*#__PURE__*/React__default['default'].createElement(QuestionsGraphic, null)), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
-=======
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "Graphic",
-        src: QuestionsGraphic
-      })), /*#__PURE__*/React__default['default'].createElement("h1", {
->>>>>>> main:dist/umd/index.solana.js
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Not Enough Funds"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"
@@ -27290,8 +26990,6 @@
 
   var PaymentTrackingContext = /*#__PURE__*/React__default['default'].createContext();
 
-  var TransactionTrackingContext = /*#__PURE__*/React__default['default'].createContext();
-
   var PaymentProvider = (function (props) {
     var _useContext = React.useContext(ErrorContext),
         setError = _useContext.setError;
@@ -27334,10 +27032,6 @@
         trackingInitialized = _useContext8.trackingInitialized,
         initializePaymentTracking = _useContext8.initializeTracking,
         trace = _useContext8.trace;
-
-    var _useContext9 = React.useContext(TransactionTrackingContext),
-        foundTransaction = _useContext9.foundTransaction,
-        initializeTransactionTracking = _useContext9.initializeTracking;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -27485,7 +27179,6 @@
                             sent: function sent(sentTransaction) {
                               setPaymentState('sending');
                               setTransaction(sentTransaction);
-                              initializeTransactionTracking(sentTransaction, currentBlock, deadline);
 
                               if (_sent) {
                                 _sent(sentTransaction);
@@ -27733,27 +27426,6 @@
         })["catch"](setError);
       }
     }, [recover]);
-    React.useEffect(function () {
-      if (foundTransaction && foundTransaction.id && foundTransaction.status) {
-        var newTransaction;
-
-        if (foundTransaction.id != transaction.id) {
-          newTransaction = Object.assign({}, transaction, {
-            id: foundTransaction.id,
-            url: Blockchains__default['default'].findByName(transaction.blockchain).explorerUrlFor({
-              transaction: foundTransaction
-            })
-          });
-          setTransaction(newTransaction);
-        }
-
-        if (foundTransaction.status == 'success') {
-          paymentSucceeded(newTransaction || transaction, payment);
-        } else if (foundTransaction.status == 'failed') {
-          paymentFailed(newTransaction || transaction, payment);
-        }
-      }
-    }, [foundTransaction, transaction, payment]);
     var debouncedSetPayment = React.useCallback(lodash.debounce(function (selectedRoute) {
       if (selectedRoute) {
         // reset approval status if selectedRoute has been changed
@@ -27894,7 +27566,7 @@
 
     var toValidStep = function toValidStep(value) {
       if (step) {
-        value = parseFloat(new Decimal$1.Decimal(Math.floor(new Decimal$1.Decimal(value).div(step))).mul(step).toString());
+        value = parseFloat(new Decimal.Decimal(Math.floor(new Decimal.Decimal(value).div(step))).mul(step).toString());
       }
 
       return value;
@@ -29599,7 +29271,7 @@
         navigate = _useContext5.navigate,
         set = _useContext5.set;
 
-    var openSocket = function openSocket(transaction) {
+    var openSocket = function openSocket(paymentRoute, deadline) {
       var socket = new WebSocket('wss://integrate.depay.com/cable');
 
       socket.onopen = /*#__PURE__*/function () {
@@ -29609,32 +29281,19 @@
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  _context.t0 = JSON;
-                  _context.t1 = transaction.blockchain;
-                  _context.t2 = transaction.from || account;
-                  _context.next = 5;
-                  return getNonce({
-                    transaction: transaction,
-                    account: account,
-                    wallet: wallet
-                  });
-
-                case 5:
-                  _context.t3 = _context.sent;
-                  _context.t4 = {
-                    blockchain: _context.t1,
-                    sender: _context.t2,
-                    nonce: _context.t3,
-                    channel: 'PaymentChannel'
-                  };
-                  _context.t5 = _context.t0.stringify.call(_context.t0, _context.t4);
                   msg = {
                     command: 'subscribe',
-                    identifier: _context.t5
+                    identifier: JSON.stringify({
+                      blockchain: paymentRoute.blockchain,
+                      sender: paymentRoute.fromAddress,
+                      receiver: paymentRoute.toAddress,
+                      deadline: deadline,
+                      channel: 'PaymentChannel'
+                    })
                   };
                   socket.send(JSON.stringify(msg));
 
-                case 10:
+                case 2:
                 case "end":
                   return _context.stop();
               }
@@ -29650,7 +29309,7 @@
       socket.onclose = function (event) {
         if (!event || event.code != 1000) {
           setTimeout(function () {
-            return openSocket(transaction);
+            return openSocket(paymentRoute, deadline);
           }, 1000);
         }
       };
@@ -29980,7 +29639,7 @@
                 setTransaction(transaction);
                 setAfterBlock(afterBlock);
                 setPaymentRoute(paymentRoute);
-                openSocket(transaction);
+                openSocket(paymentRoute, deadline);
 
               case 12:
               case "end":
@@ -30005,7 +29664,7 @@
       setDeadline(deadline);
       setAfterBlock(afterBlock);
       setPaymentRoute(paymentRoute);
-      openSocket(transaction);
+      openSocket(paymentRoute, deadline);
       return new Promise( /*#__PURE__*/function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(resolve, reject) {
           var _paymentRoute$feeAmou2;
@@ -30196,21 +29855,13 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
-<<<<<<< HEAD:dist/umd/index.svm.js
-            signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
-=======
             signal: _optionalChain$6$1([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
->>>>>>> main:dist/umd/index.solana.js
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
               if(parsedJson.find((entry)=>{
-<<<<<<< HEAD:dist/umd/index.svm.js
-                return _optionalChain$5$2([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$5$2([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
-=======
                 return _optionalChain$6$1([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$6$1([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
->>>>>>> main:dist/umd/index.solana.js
               })) {
                 if(attempt < MAX_RETRY$1$1) {
                   reject('Error in batch found!');
@@ -30239,20 +29890,12 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-<<<<<<< HEAD:dist/umd/index.svm.js
-              if (_optionalChain$5$2([payload, 'optionalAccess', _5 => _5.error])) {
-=======
               if (_optionalChain$6$1([payload, 'optionalAccess', _5 => _5.error])) {
->>>>>>> main:dist/umd/index.solana.js
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
-<<<<<<< HEAD:dist/umd/index.svm.js
-              } else if(_optionalChain$5$2([payload, 'optionalAccess', _6 => _6.result])) {
-=======
               } else if(_optionalChain$6$1([payload, 'optionalAccess', _6 => _6.result])) {
->>>>>>> main:dist/umd/index.solana.js
                 inflightRequest.resolve(payload.result);
               } else {
                 inflightRequest.reject();
@@ -30368,17 +30011,10 @@
               referrer: "",
               referrerPolicy: "no-referrer",
               body: JSON.stringify({ method: 'net_version', id: 1, jsonrpc: '2.0' }),
-<<<<<<< HEAD:dist/umd/index.svm.js
-              signal: _optionalChain$4$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
-            });
-          } catch (e) {}
-          if(!_optionalChain$4$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
-=======
               signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
             });
           } catch (e) {}
           if(!_optionalChain$5$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
->>>>>>> main:dist/umd/index.solana.js
           let after = new Date().getTime();
           resolve(after-before);
         })
@@ -30478,20 +30114,12 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
-<<<<<<< HEAD:dist/umd/index.svm.js
-            signal: _optionalChain$3$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
-=======
             signal: _optionalChain$4$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
->>>>>>> main:dist/umd/index.solana.js
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
-<<<<<<< HEAD:dist/umd/index.svm.js
-              if(parsedJson.find((entry)=>_optionalChain$3$2([entry, 'optionalAccess', _2 => _2.error]))) {
-=======
               if(parsedJson.find((entry)=>_optionalChain$4$2([entry, 'optionalAccess', _2 => _2.error]))) {
->>>>>>> main:dist/umd/index.solana.js
                 if(attempt < MAX_RETRY) {
                   reject('Error in batch found!');
                 } else {
@@ -30517,11 +30145,7 @@
           .then((result) => {
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-<<<<<<< HEAD:dist/umd/index.svm.js
-              if (_optionalChain$3$2([payload, 'optionalAccess', _3 => _3.error])) {
-=======
               if (_optionalChain$4$2([payload, 'optionalAccess', _3 => _3.error])) {
->>>>>>> main:dist/umd/index.solana.js
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
@@ -30636,17 +30260,10 @@
               referrer: "",
               referrerPolicy: "no-referrer",
               body: JSON.stringify({ method: 'getIdentity', id: 1, jsonrpc: '2.0' }),
-<<<<<<< HEAD:dist/umd/index.svm.js
-              signal: _optionalChain$2$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
-            });
-          } catch (e) {}
-          if(!_optionalChain$2$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
-=======
               signal: _optionalChain$3$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
             });
           } catch (e) {}
           if(!_optionalChain$3$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
->>>>>>> main:dist/umd/index.solana.js
           let after = new Date().getTime();
           resolve(after-before);
         })
@@ -30705,13 +30322,8 @@
   supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$3.svm = ['solana'];
 
-<<<<<<< HEAD:dist/umd/index.svm.js
-  function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-  let getCacheStore$1 = () => {
-=======
   function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   let getCacheStore = () => {
->>>>>>> main:dist/umd/index.solana.js
     if (getWindow$1()._Web3ClientCacheStore == undefined) {
       getWindow$1()._Web3ClientCacheStore = {};
     }
@@ -30726,20 +30338,15 @@
   };
 
   let set = function ({ key, value, expires }) {
-    getCacheStore$1()[key] = {
+    getCacheStore()[key] = {
       expiresAt: Date.now() + expires,
       value,
     };
   };
 
   let get = function ({ key, expires }) {
-<<<<<<< HEAD:dist/umd/index.svm.js
-    let cachedEntry = getCacheStore$1()[key];
-    if (_optionalChain$1$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
-=======
     let cachedEntry = getCacheStore()[key];
     if (_optionalChain$2$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
->>>>>>> main:dist/umd/index.solana.js
       return cachedEntry.value
     }
   };
@@ -30816,11 +30423,7 @@
   // Periodically clean up expired cache entries (every 5 minutes), to prevent memory leaks
   if (typeof process == 'undefined' || process.env && "production" === 'test') {
     setInterval(() => {
-<<<<<<< HEAD:dist/umd/index.svm.js
-      const store = getCacheStore$1();
-=======
       const store = getCacheStore();
->>>>>>> main:dist/umd/index.solana.js
       const now = Date.now();
       for (const key in store) {
         if (store[key].expiresAt < now) {
@@ -32171,29 +31774,24 @@
 
   let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$2.svm = ['solana'];
+  supported$2.solana = ['solana'];
 
-  function _optionalChain$b(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$8(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   class Token {
     
-    constructor({ blockchain, address, name, decimals, symbol }) {
+    constructor({ blockchain, address }) {
       this.blockchain = blockchain;
       if(supported$2.evm.includes(this.blockchain)) {
         this.address = ethers.ethers.utils.getAddress(address);
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
         this.address = address;
       }
-      this._name = name;
-      this._decimals = decimals;
-      this._symbol = symbol;
     }
 
     async decimals() {
-      if(this._decimals) { return this._decimals }
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
-        this._decimals = Blockchains__default['default'].findByName(this.blockchain).currency.decimals;
-        return this._decimals
+        return Blockchains__default['default'].findByName(this.blockchain).currency.decimals
       }
       let decimals;
       try {
@@ -32201,55 +31799,44 @@
 
           decimals = await decimalsOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
 
-        } else if(supported$2.svm.includes(this.blockchain)) {
+        } else if(supported$2.solana.includes(this.blockchain)) {
 
           decimals = await decimalsOnSolana({ blockchain: this.blockchain, address: this.address });
 
           
         }
       } catch (e) {}
-      this._decimals = decimals;
       return decimals
     }
 
     async symbol() {
-      if(this._symbol) { return this._symbol }
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
-        this._symbol = Blockchains__default['default'].findByName(this.blockchain).currency.symbol;
-        return this._symbol
+        return Blockchains__default['default'].findByName(this.blockchain).currency.symbol
       }
-      let symbol;
       if(supported$2.evm.includes(this.blockchain)) {
 
-        symbol = await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
+        return await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
-        symbol = await symbolOnSolana({ blockchain: this.blockchain, address: this.address });
+        return await symbolOnSolana({ blockchain: this.blockchain, address: this.address })
 
       }
-      this._symbol = symbol;
-      return symbol
     }
 
     async name(args) {
-      if(this._name) { return this._name }
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
-        this._name = Blockchains__default['default'].findByName(this.blockchain).currency.name;
-        return this._name
+        return Blockchains__default['default'].findByName(this.blockchain).currency.name
       }
-      let name;
       if(supported$2.evm.includes(this.blockchain)) {
 
-        name = await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$b([args, 'optionalAccess', _ => _.id]) });
+        return await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$8([args, 'optionalAccess', _ => _.id]) })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
-        name = await nameOnSolana({ blockchain: this.blockchain, address: this.address });
+        return await nameOnSolana({ blockchain: this.blockchain, address: this.address })
 
       }
-      this._name = name;
-      return name
     }
 
     async balance(account, id) {
@@ -32257,7 +31844,7 @@
 
         return await balanceOnEVM({ blockchain: this.blockchain, account, address: this.address, api: id ? Token[this.blockchain][1155] : Token[this.blockchain].DEFAULT, id })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
         return await balanceOnSolana({ blockchain: this.blockchain, account, address: this.address, api: Token[this.blockchain].DEFAULT })
 
@@ -32272,25 +31859,15 @@
 
         return await allowanceOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, owner, spender })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
         return ethers.ethers.BigNumber.from(Blockchains__default['default'].findByName(this.blockchain).maxInt)
       } 
     }
 
     async BigNumber(amount) {
-      const decimals = await this.decimals();
-      if(typeof(amount) != 'string') {
-        amount = amount.toString();
-      }
-      if(amount.match('e')) {
-        amount = parseFloat(amount).toFixed(decimals).toString();
-      }
-      const decimalsMatched = amount.match(/\.(\d+)/);
-      if(decimalsMatched && decimalsMatched[1] && decimalsMatched[1].length > decimals) {
-        amount = parseFloat(amount).toFixed(decimals).toString();
-      }
+      let decimals = await this.decimals();
       return ethers.ethers.utils.parseUnits(
-        amount,
+        Token.safeAmount({ amount: parseFloat(amount), decimals }).toString(),
         decimals
       )
     }
@@ -32311,6 +31888,10 @@
   Token.readable = async ({ amount, blockchain, address }) => {
     let token = new Token({ blockchain, address });
     return token.readable(amount)
+  };
+
+  Token.safeAmount = ({ amount, decimals }) => {
+    return parseFloat(amount.toFixed(decimals))
   };
 
 
@@ -32410,7 +31991,7 @@
     ...instructions
   };
 
-  function _optionalChain$9(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
+  function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
     constructor({
       blockchain,
       tokenIn,
@@ -32419,7 +32000,6 @@
       decimalsOut,
       path,
       pools,
-      amounts,
       amountIn,
       amountInMax,
       amountOut,
@@ -32437,11 +32017,10 @@
       this.decimalsOut = decimalsOut;
       this.path = path;
       this.pools = pools;
-      this.amounts = amounts;
-      this.amountIn = _optionalChain$9([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
-      this.amountOutMin = _optionalChain$9([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
-      this.amountOut = _optionalChain$9([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
-      this.amountInMax = _optionalChain$9([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
+      this.amountIn = _optionalChain$6([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
+      this.amountOutMin = _optionalChain$6([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
+      this.amountOut = _optionalChain$6([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
+      this.amountInMax = _optionalChain$6([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
       this.exchange = exchange;
       this.getPrep = getPrep;
       this.getTransaction = getTransaction;
@@ -32450,7 +32029,7 @@
 
   let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$1.svm = ['solana'];
+  supported$1.solana = ['solana'];
 
   const DEFAULT_SLIPPAGE = '0.5'; // percent
 
@@ -32566,27 +32145,21 @@
     if(amountOutMinInput || amountOutInput) {
       if(supported$1.evm.includes(exchange.blockchain || blockchain)) {
         amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut: (amountOutMinInput || amountOut) });
-      } else if(supported$1.svm.includes(exchange.blockchain || blockchain)){
+      } else if(supported$1.solana.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
         await Promise.all(exchangePath.map((step, index)=>{
           if(index != 0) {
             let amountWithSlippage = calculateAmountInWithSlippage({ exchange, pools, exchangePath: [exchangePath[index-1], exchangePath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
-            amountWithSlippage.then((amount)=>{
-              amountsWithSlippage.push(amount);
-            });
+            amountWithSlippage.then((amount)=>amountsWithSlippage.push(amount));
             return amountWithSlippage
           }
         }));
         amountsWithSlippage.push(amounts[amounts.length-1]);
         amounts = amountsWithSlippage;
-        if(amounts.length > 2) { // lower middle amount to avoid first hop slippage issues on output amount (total hops remain within default slippage)
-          let defaultSlippage = getDefaultSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut });
-          amounts[1] = amounts[1].sub(amounts[1].mul(parseFloat(defaultSlippage)*100/2).div(10000));
-        }
         amountIn = amountInMax = amounts[0];
       }
     } else if(amountInMaxInput || amountInInput) {
-      if(supported$1.svm.includes(exchange.blockchain || blockchain)){
+      if(supported$1.solana.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
         await Promise.all(exchangePath.map((step, index)=>{
           if(index !== 0 && index < exchangePath.length-1) {
@@ -32705,7 +32278,6 @@
     getPrep,
     getTransaction,
     slippage,
-    pairsData,
   }) => {
 
     tokenIn = fixAddress(tokenIn);
@@ -32715,17 +32287,14 @@
     if([amountIn, amountOut, amountInMax, amountOutMin].filter(Boolean).length < 1) { throw('You need to pass exactly one: amountIn, amountOut, amountInMax or amountOutMin') }
 
     return new Promise(async (resolve)=> {
-      let { path, exchangePath, pools } = await findPath({ blockchain, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin, pairsData });
+      let { path, exchangePath, pools } = await findPath({ blockchain, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin });
       if (path === undefined || path.length == 0) { return resolve() }
       let [amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput] = [amountIn, amountOut, amountInMax, amountOutMin];
 
       let amounts; // includes intermediary amounts for longer routes
       try {
-        ;({ amountIn, amountInMax, amountOut, amountOutMin, amounts, pools } = await getAmounts({ exchange, blockchain, path, pools, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsData }));
-      } catch(e) {
-        console.log(e);
-        return resolve()
-      }
+        ;({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await getAmounts({ exchange, blockchain, path, pools, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }));
+      } catch (e) { return resolve() }
       if([amountIn, amountInMax, amountOut, amountOutMin].every((amount)=>{ return amount == undefined })) { return resolve() }
 
       if(exchange.slippage && slippage !== false) {
@@ -32740,7 +32309,7 @@
             amountIn, amountInMax, amountOut, amountOutMin,
             amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
           }));
-        } catch(e) { console.log(e); return resolve() }
+        } catch (e2) { return resolve() }
       }
 
       const decimalsIn = await new Token({ blockchain, address: tokenIn }).decimals();
@@ -32755,7 +32324,6 @@
           decimalsOut,
           path,
           pools,
-          amounts,
           amountIn,
           amountInMax,
           amountOut,
@@ -32806,7 +32374,6 @@
       amountInMax,
       amountOutMin,
       slippage,
-      pairsData,
     }) {
       if(tokenIn === tokenOut){ return Promise.resolve() }
 
@@ -32847,24 +32414,380 @@
         getPrep: this.getPrep,
         getTransaction: this.getTransaction,
         slippage,
-        pairsData,
       })
     }
   }
 
+  function _optionalChain$5$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
+  //
+  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
+  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
+  // as they are not the same!
+  //
+  const getExchangePath$4 = ({ blockchain, exchange, path }) => {
+    if(!path) { return }
+    let exchangePath = path.map((token, index) => {
+      if (
+        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
+        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
+      ) {
+        return Blockchains__default['default'][blockchain].wrapped.address
+      } else {
+        return token
+      }
+    });
+
+    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
+    }
+
+    return exchangePath
+  };
+
+  const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
+    if(token0.toLowerCase() == token.toLowerCase()) {
+      return reserves[0].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
+    } else if (token1.toLowerCase() == token.toLowerCase()) {
+      return reserves[1].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
+    } else {
+      return false
+    }
+  };
+
+  const pathExists$5 = async ({ blockchain, exchange, path }) => {
+    const exchangePath = getExchangePath$4({ blockchain, exchange, path });
+    if(!exchangePath || exchangePath.length === 1) { return false }
+    try {
+      let pair = await request({
+        blockchain,
+        address: exchange[blockchain].factory.address,
+        method: 'getPair',
+        api: exchange[blockchain].factory.api,
+        cache: 3600000,
+        params: getExchangePath$4({ blockchain, exchange, path }),
+      });
+      if(!pair || pair == Blockchains__default['default'][blockchain].zero) { return false }
+      let [reserves, token0, token1] = await Promise.all([
+        request({ blockchain, address: pair, method: 'getReserves', api: exchange[blockchain].pair.api, cache: 3600000 }),
+        request({ blockchain, address: pair, method: 'token0', api: exchange[blockchain].pair.api, cache: 3600000 }),
+        request({ blockchain, address: pair, method: 'token1', api: exchange[blockchain].pair.api, cache: 3600000 })
+      ]);
+      if(exchangePath.includes(Blockchains__default['default'][blockchain].wrapped.address)) {
+        return minReserveRequirements({ min: 1, token: Blockchains__default['default'][blockchain].wrapped.address, decimals: Blockchains__default['default'][blockchain].currency.decimals, reserves, token0, token1 })
+      } else if (path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step))) {
+        let address = path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step));
+        let token = new Token({ blockchain, address });
+        let decimals = await token.decimals();
+        return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
+      } else {
+        return true
+      }
+    } catch (e){ console.log('e', e); return false }
+  };
+
+  const findPath$5 = async ({ blockchain, exchange, tokenIn, tokenOut }) => {
+    if(
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
+
+    let path;
+    if (await pathExists$5({ blockchain, exchange, path: [tokenIn, tokenOut] })) {
+      // direct path
+      path = [tokenIn, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenOut, Blockchains__default['default'][blockchain].wrapped.address] })
+    ) {
+      // path via WRAPPED
+      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+    } else if (
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenIn) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [tokenIn, stable] })))).filter(Boolean).length &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut] })
+    ) {
+      // path via tokenIn -> USD -> WRAPPED -> tokenOut
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [tokenIn, stable] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, USD, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
+    ) {
+      // path via tokenIn -> WRAPPED -> USD -> tokenOut
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, USD, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      tokenIn === Blockchains__default['default'][blockchain].currency.address &&
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
+    ) {
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, USD, tokenOut];
+    }
+
+    // Add WRAPPED to route path if things start or end with NATIVE
+    // because that actually reflects how things are routed in reality:
+    if(_optionalChain$5$1([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    } else if(_optionalChain$5$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    }
+
+    return { path, exchangePath: getExchangePath$4({ blockchain, exchange, path }) }
+  };
+
+  let getAmountOut$3 = ({ blockchain, exchange, path, amountIn, tokenIn, tokenOut }) => {
+    return new Promise((resolve) => {
+      request({
+        blockchain,
+        address: exchange[blockchain].router.address,
+        method: 'getAmountsOut',
+        api: exchange[blockchain].router.api,
+        params: {
+          amountIn: amountIn,
+          path: getExchangePath$4({ blockchain, exchange, path }),
+        },
+      })
+      .then((amountsOut)=>{
+        resolve(amountsOut[amountsOut.length - 1]);
+      })
+      .catch(()=>resolve());
+    })
+  };
+
+  let getAmountIn$3 = ({ blockchain, exchange, path, amountOut, block }) => {
+    return new Promise((resolve) => {
+      request({
+        blockchain,
+        address: exchange[blockchain].router.address,
+        method: 'getAmountsIn',
+        api: exchange[blockchain].router.api,
+        params: {
+          amountOut: amountOut,
+          path: getExchangePath$4({ blockchain, exchange, path }),
+        },
+        block
+      })
+      .then((amountsIn)=>resolve(amountsIn[0]))
+      .catch(()=>resolve());
+    })
+  };
+
+  let getAmounts$5 = async ({
+    blockchain,
+    exchange,
+    path,
+    block,
+    tokenIn,
+    tokenOut,
+    amountOut,
+    amountIn,
+    amountInMax,
+    amountOutMin
+  }) => {
+    if (amountOut) {
+      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if (amountIn) {
+      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn, tokenIn, tokenOut });
+      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    } else if(amountOutMin) {
+      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut: amountOutMin, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if(amountInMax) {
+      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn: amountInMax, tokenIn, tokenOut });
+      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
+  };
+
+  let getPrep$3 = async({
+    exchange,
+    blockchain,
+    tokenIn,
+    amountIn,
+    account
+  })=> {
+
+    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
+
+    const allowance = await request({
+      blockchain,
+      address: tokenIn,
+      method: 'allowance',
+      api: Token[blockchain]['20'],
+      params: [account, exchange[blockchain].router.address]
+    });
+
+    if(allowance.gte(amountIn)) { return }
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: tokenIn,
+      api: Token[blockchain]['20'],
+      method: 'approve',
+      params: [exchange[blockchain].router.address, amountIn.sub(allowance)]
+    };
+    
+    return { transaction }
+
+  };
+
+  let getTransaction$5 = ({
+    exchange,
+    blockchain,
+    path,
+    amountIn,
+    amountInMax,
+    amountOut,
+    amountOutMin,
+    amountInInput,
+    amountOutInput,
+    amountInMaxInput,
+    amountOutMinInput,
+    account
+  }) => {
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: exchange[blockchain].router.address,
+      api: exchange[blockchain].router.api,
+    };
+
+    if (path[0] === Blockchains__default['default'][blockchain].currency.address) {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactETHForTokens';
+        transaction.value = amountIn.toString();
+        transaction.params = { amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapETHForExactTokens';
+        transaction.value = amountInMax.toString();
+        transaction.params = { amountOut: amountOut.toString() };
+      }
+    } else if (path[path.length - 1] === Blockchains__default['default'][blockchain].currency.address) {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactTokensForETH';
+        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapTokensForExactETH';
+        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      }
+    } else {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactTokensForTokens';
+        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapTokensForExactTokens';
+        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      }
+    }
+
+    transaction.params = Object.assign({}, transaction.params, {
+      path: getExchangePath$4({ blockchain, exchange, path }),
+      to: account,
+      deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
+    });
+
+    return transaction
+  };
+
+  const ROUTER$3 = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const FACTORY$3 = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+  const PAIR$1 = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+
+  var UniswapV2 = {
+    findPath: findPath$5,
+    pathExists: pathExists$5,
+    getAmounts: getAmounts$5,
+    getPrep: getPrep$3,
+    getTransaction: getTransaction$5,
+    ROUTER: ROUTER$3,
+    FACTORY: FACTORY$3,
+    PAIR: PAIR$1,
+  };
+
+  const exchange$h = {
+    
+    name: 'honeyswap',
+    label: 'Honeyswap',
+    logo: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABQCAYAAADBTPF9AAAACXBIWXMAAAsTAAALEwEAmpwYAAALmklEQVR4nO2de3BU1R3HP7+7eQALAcSNyq4ELDpUS0HJdrRm0aE6oPWJWqtQxUdn1KpcdQy04nssslQbdKxa7cC0iq22+BhsUQcfbBzQAL4V7VQM7OK4i4oJBJLs3l//uEHDkvfevbsb85nJHzn33PP73fu99+x5/M65Mt08jXwlVpuYCTwCjAS+BD5FeRXhaX+Vb51Tdja/khhZUsQpCGcBE4HRQCmwoqWFS8ZN8zU7ZctpJF8FjEbixSLyBnB0B4ebgZeAuzIRMhqJe0XkKuBKYFwn2c7xV/lW9NVGtjFy7UBniKKA1cnhUuA0oDYaSdyxLbLd09vyo5HEFBGJAGE6Fw+0Ux/ygrwV0D+1PKmqc4F1wGZgRwfZPCLcrKJ/i0bixT0tOxqJnyLCy3T8dqeAL9psLlH0+d577x5FuXagKwKh8teja+I/RRimKsMMQyeB/BL4BfZbuJcLRGQPcGl3ZUYj8eNBngK8aYc2AUtVeQk0CjQFQuW7nLqWbJG3v4FdYVd/PAxMSTv0G3+V70+dnxcfJSJrgcPbJStwm6reUwiCpZO3VWhXBEK+Dao6DViddui2aCQ+prPzROR37CteK8psf5XvjkIUDwpUQIBAqLxBVS8A/tsu2SciV3aUPxaJHwZcnpY83x/yLc+Wj25QsAICBELlCWB+WvL50Ui8bL/MIucC7dNr1dI/ZtE9VyhoAQFE5VngrXZJ46SD1qUIp6Yl3ReYWq5Zdc4FCl7A0aEDU6qs3CdRZJ/GTTQS96kyoV3SF6r6qgvuZZ2CFxBAhPfSksalHR8FjGiXtBlle7b9coN+IaDuL8bwtOPDgJJ2SV/3h+oT+omAgn6MPXoCgCpvpmX5FNj63b+6xhXHXMAz/tgjcu1DxpRVeBsbtzTVApYqy0T1obIKr9Xu+O6G+qbXAEuEv7e0yH0jx3lTufPYOQpyJGaA7+gXVej3mQEBC5wBAQucvJ5OyoRtke0eC2tQa6sk8zkkIlP6nYDRSDwkIrMRpghSVlJCc6w28RHwlKo+EwiVt+baRyfpNwLGauMTQO4QkfM6OPwj4DwReTMaid8WCJX/x23/skXB9wM3v5IY2RRrWgDyCHBMN9n9IjKrcUvTUTs2N304fKw34YaP2aRgBdwW2e5p2LrzYo9HlgNnsG+IRXccJcLFjVubhn35v6aNI8d592TJzaxTkK3QaCR+PIauBllKVxFlXSCCF5hfUsyGWG18Tl8i2/KBghIwFomPjdUmHhWRiConOFTsOJClGLo6GomHHCrTNQqiCo1G4t7GrbtuQGQpUAVIFsyMFZE5jVuaKhrrd71XVuH9Ogs2HCfvBYzVJmaKyOMgFwJDsmxOgKMR+VXjll1FDfW7NpZVePO625G3VWg0kjg6Vpv4N/Av7G6AmxwAcpeIvBmrTXTULckb8k7AaCRxcKw2USPCWuCUHLtzJPBkrDbxQjQSD+bYlw7Jmyp088uJ0l3RpisRHkc5ifwaZPiBiMxpqG865Jv6preHV3gbc+3QXvLiJumm2ImlpSW3FXl0altSvvbLrmhNyoz42vjd55+8Y9krO49oybVDOZ3QXXXtmjFqyb3RePGpyZSUFHk05zekO5IpKQHw+1rfKinV62csCUVy6U/OBFx1TWQisAIYjwFIgcUYpQSgFZg14/7QU7lyIyeNmFXXrPECjwHjAXsVYEoK68+mGFi66ppId2OwWSNHrVAxgR/nxrbjeIHf58q46wK2vX1z3LabZabl6i3MwRsohwEV7tvNKsXYQ3yu476AkvJjX3B/IycPZd6NxBQshpWTh3JAwAJnQMACJzdDacUF1mnvCTlaaeGqgMdcv+T4h7avvHXS1sWOly2aSvY0r4rHg8OTwp+POumsiTcurn1v8SVPOllud7giYKW5aKwgCzxF1mUb6g/h3lsOwfA4HoKSs4H55J5mJs4ef+jk8Q3/CJrhS1FuqVtSnb7ELStk9aIrzUVDBLkWuBE4AEDUoqRIEUOzExiRA6RIEfl2Ndt0hBODZvgRYGFdTfW2bNrOWiMmaIbPFmQdsJA28fahn4i3l7TLKQWuBjYEzfDVlXPDvQl57BWOCxg0w8cEzfBK7JmGiU6XX2AcDNwvwutBMzw9GwYcq0IrzUUHCTIfe+vGrD1xBcoUYFXQDP8TuLmupnqTUwVnLOCUuYuKDJHLgZuAQOYu9WvOBWYEzXCNIvesr7lxR6YFZlSFBs3wdENkDfAgA+L1lKHAAkE3BM3wxdE18YxaA316A4NmeDxwKzA7E+Pfcw4Dlp29YtmclFG6YOO9c1/vSyG9ErDSXDxC0BssPNcapPbfj2yAvnCix2p+LWiGl4HeWVczr743J/e4Cg2a4VmCvgEsGBDPcTzAZSAbg2Z4fqW5qMcR6N0KGDTDxwXN8EvYMSzOBZH2s+FQhy7nAGChIOuCZvjsnpzQaRUaNMOjgZuBX2M/IY5gqdCSFMSTYRdU1blHQKTPDQkBkknBcnZr9InAiqAZfg64pa6m+p3OMu4nYOXccKkIVwHV2B1Rx2hJGkwcv5sLbv8m47KKrN07RVMZzwGoeDwpY/DQTAb2hnia+Ni3m09aHHzSbc4ApgfN8IOqLFy/pDqenmEfAYNm+HTs1mX6XtSOoBYcOLyZn1XWs+/ec31Bhjnhk82ODM9voTnVzEeWOC0g2IMipgjnBs3wXZbqoxuWzPt25qUIIGguqgD5A3ZHM/u0Cvk1l5zpwKy4cTkB4EFD5KLg3LC5d7bDqDQXjQV5EbfEGyBTjkNYXWmGTwAwBFmMk63LAdxgqMA9lXPDpQYwI9feDNAnJoswwQAGu2m1AR/KIPpbR3AHB2G4e00eYIgBfOiexVa+IsBORgF5v5KshygphvK5HN59Vmf5Cqg3gD+7ZVGw2Mko3pWT3TLpAi1slmOIcSQeXN0P4em6muptxtMz5zyAPUzmCh5aqTVm0Ygf+zOAhUwzKYbyknEFKYoR975U94miNwEYganlqsrluCSiYLGD0TzmWfydiGLZ/ahC+RMLaEYZxDPGb9nCJIrcexjfA36+vmbeF5C2Qjdohq/AHolxdAitI5KUMoZ3ONl6iBE736eE5tYij5X3r2QyZZS2UFq8Z3CA1cVXsYmQW+KlgAcVubn9TP5+S6zbBrGvU/FcLJryZdMjC09DidH6wlfL76774JUPZyWTMkmEZnIW59w1qgwxDOIHV5T99Yfz7xrRXDzqzGzfI+x78Txwd11N9dr0g52ukW8TciZwIfY2jk4FKn0F1AErFV25vmbeZ2BvG1lcxHXA9ZZK+scZ8wJDdIVlccuYE3wfwLeBXDOw79NPcLbm+gR4DniirqZ6Y2eZerTJQdAMT8BewHgCMAnwY38dpbux251AHPvDG28Da4ANXQW7RiPxw0XkduCCbh1zjzdVtcuNYtvEnIx9n4LY3yksx46B6Y699+l9YG3KKI0Y1p631tfMa+ruxF7vUtEWhVaO/bT5gAOBYdgD40lgN/Zbth1IKLqtJ46kE43ETxKRO4Fje3uug2xTZSHow73dqrktKn009j06GBgFDOK7xa2NwJcpozTusZq/6Ot9yusPf8TWxIuKi7m0NSU3AZ1+mTML7AEeVtVFgVD55y7a7TV5s9VWR5RVeC3vod4NDfW7louIB5hM9pdnr1RldiDkW1ZW4d2ZZVsZk0+Tcp0SCJXH/VW+G1Q5Fng2S2beB87xV/lOD4R8b3WbO08oCAH3Egj53vVX+c5SOBPoNE6kl2wH5qnqsf4q3wqHynSNghJwL4Eq33Nq6XHADbT77FwvSQF/UdUp/ipfuFC/Yp3Xv4FdUVbhTZaN8a795rOmJ4DBIkym5zFFr6rqRYFQ+QNlFd7MI6xySEG+ge05dKovFgj5rgKmAi92k30Tyiy1dFogVN6nUPZ8Iy/2C3UCf5VvHTA9VpuYCVyEPdCQwn4rU8ALqvpIIFS+I3deOs//AZb84smmUsyHAAAAAElFTkSuQmCC',
+    protocol: 'uniswap_v2',
+
+    slippage: true,
+
+    blockchains: ['gnosis'],
+    
+    gnosis: {
+      router: {
+        address: '0x1C232F01118CB8B424793ae03F870aa7D0ac7f77',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0xA818b4F111Ccac7AA31D0BCc0806d64F2E0737D7',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      },
+    }
+  };
+
+  var honeyswap = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$h, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$h }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$h }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$h }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$h }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$h }),
+      })
+    )
+  };
+
   const MAX_SQRT_PRICE = "79226673515401279992447579055";
   const MIN_SQRT_PRICE = "4295048016";
-  const BIT_PRECISION$1 = 14;
-  const LOG_B_2_X32$1 = "59543866431248";
-  const LOG_B_P_ERR_MARGIN_LOWER_X64$1 = "184467440737095516";
-  const LOG_B_P_ERR_MARGIN_UPPER_X64$1 = "15793534762490258745";
+  const BIT_PRECISION = 14;
+  const LOG_B_2_X32 = "59543866431248";
+  const LOG_B_P_ERR_MARGIN_LOWER_X64 = "184467440737095516";
+  const LOG_B_P_ERR_MARGIN_UPPER_X64 = "15793534762490258745";
 
   const toX64 = (num) => {
-    return new solanaWeb3_js.BN(num.mul(Decimal$1__default['default'].pow(2, 64)).floor().toFixed());
+    return new solanaWeb3_js.BN(num.mul(Decimal__default['default'].pow(2, 64)).floor().toFixed());
   };
 
   const fromX64 = (num) => {
-    return new Decimal$1__default['default'](num.toString()).mul(Decimal$1__default['default'].pow(2, -64));
+    return new Decimal__default['default'](num.toString()).mul(Decimal__default['default'].pow(2, -64));
   };
 
   const getInitializableTickIndex = (tickIndex, tickSpacing) => {
@@ -32883,7 +32806,7 @@
   class PriceMath {
 
     static priceToSqrtPriceX64(price, decimalsA, decimalsB) {
-      return toX64(price.mul(Decimal$1__default['default'].pow(10, decimalsB - decimalsA)).sqrt());
+      return toX64(price.mul(Decimal__default['default'].pow(10, decimalsB - decimalsA)).sqrt());
     }
 
     static sqrtPriceX64ToPrice(
@@ -32893,7 +32816,7 @@
     ) {
       return fromX64(sqrtPriceX64)
         .pow(2)
-        .mul(Decimal$1__default['default'].pow(10, decimalsA - decimalsB));
+        .mul(Decimal__default['default'].pow(10, decimalsA - decimalsB));
     }
 
     /**
@@ -32928,7 +32851,7 @@
 
       let r = msb >= 64 ? sqrtPriceX64.shrn(msb - 63) : sqrtPriceX64.shln(63 - msb);
 
-      while (bit.gt(new solanaWeb3_js.BN(0)) && precision < BIT_PRECISION$1) {
+      while (bit.gt(new solanaWeb3_js.BN(0)) && precision < BIT_PRECISION) {
         r = r.mul(r);
         let rMoreThanTwo = r.shrn(127);
         r = r.shrn(63 + rMoreThanTwo.toNumber());
@@ -32940,15 +32863,15 @@
       const log2pFractionX32 = log2pFractionX64.shrn(32);
 
       const log2pX32 = log2pIntegerX32.add(log2pFractionX32);
-      const logbpX64 = log2pX32.mul(new solanaWeb3_js.BN(LOG_B_2_X32$1));
+      const logbpX64 = log2pX32.mul(new solanaWeb3_js.BN(LOG_B_2_X32));
 
       const tickLow = signedShiftRight(
-        logbpX64.sub(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_LOWER_X64$1)),
+        logbpX64.sub(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_LOWER_X64)),
         64,
         128
       ).toNumber();
       const tickHigh = signedShiftRight(
-        logbpX64.add(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_UPPER_X64$1)),
+        logbpX64.add(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_UPPER_X64)),
         64,
         128
       ).toNumber();
@@ -33167,10 +33090,10 @@
 
   const PROTOCOL_FEE_RATE_MUL_VALUE = new solanaWeb3_js.BN(10000);
   const FEE_RATE_MUL_VALUE = new solanaWeb3_js.BN(1000000);
-  const ZERO$2 = new solanaWeb3_js.BN(0);
-  const ONE$1 = new solanaWeb3_js.BN(1);
+  const ZERO = new solanaWeb3_js.BN(0);
+  const ONE = new solanaWeb3_js.BN(1);
   const TWO = new solanaWeb3_js.BN(2);
-  const U64_MAX = TWO.pow(new solanaWeb3_js.BN(64)).sub(ONE$1);
+  const U64_MAX = TWO.pow(new solanaWeb3_js.BN(64)).sub(ONE);
 
   const fromX64_BN = (num)=>{
     return num.div(new solanaWeb3_js.BN(2).pow(new solanaWeb3_js.BN(64)))
@@ -33226,14 +33149,14 @@
     }
 
     static mulDivRoundUpIf(n0, n1, d, roundUp, limit) {
-      if (d.eq(ZERO$2)) {
+      if (d.eq(ZERO)) {
         throw new Error("mulDiv denominator is zero");
       }
 
       const p = this.mul(n0, n1, limit);
       const n = p.div(d);
 
-      return roundUp && p.mod(d).gt(ZERO$2) ? n.add(ONE$1) : n;
+      return roundUp && p.mod(d).gt(ZERO) ? n.add(ONE) : n;
     }
 
     static checked_mul_shift_right(n0, n1, limit) {
@@ -33241,8 +33164,8 @@
     }
 
     static checked_mul_shift_right_round_up_if(n0, n1, roundUp, limit) {
-      if (n0.eq(ZERO$2) || n1.eq(ZERO$2)) {
-        return ZERO$2;
+      if (n0.eq(ZERO) || n1.eq(ZERO)) {
+        return ZERO;
       }
 
       const p = this.mul(n0, n1, limit);
@@ -33252,18 +33175,18 @@
         );
       }
       const result = fromX64_BN(p);
-      const shouldRound = roundUp && result.and(U64_MAX).gt(ZERO$2);
+      const shouldRound = roundUp && result.and(U64_MAX).gt(ZERO);
       if (shouldRound && result.eq(U64_MAX)) {
         throw new Error(
           `MulShiftRight overflowed u${limit}.`
         );
       }
 
-      return shouldRound ? result.add(ONE$1) : result;
+      return shouldRound ? result.add(ONE) : result;
     }
 
     static isOverLimit(n0, limit) {
-      const limitBN = TWO.pow(new solanaWeb3_js.BN(limit)).sub(ONE$1);
+      const limitBN = TWO.pow(new solanaWeb3_js.BN(limit)).sub(ONE);
       return n0.gt(limitBN);
     }
 
@@ -33272,13 +33195,13 @@
     }
 
     static divRoundUpIf(n, d, roundUp) {
-      if (d.eq(ZERO$2)) {
+      if (d.eq(ZERO)) {
         throw new Error("divRoundUpIf - divide by zero");
       }
 
       let q = n.div(d);
 
-      return roundUp && n.mod(d).gt(ZERO$2) ? q.add(ONE$1) : q;
+      return roundUp && n.mod(d).gt(ZERO) ? q.add(ONE) : q;
     }
   }
 
@@ -33307,7 +33230,7 @@
     amount,
     amountSpecifiedIsInput
   ) => {
-    if (amount.eq(ZERO$2)) {
+    if (amount.eq(ZERO)) {
       return sqrtPrice;
     }
 
@@ -33374,7 +33297,7 @@
     let quotient = numerator.div(denominator);
     let remainder = numerator.mod(denominator);
 
-    let result = roundUp && !remainder.eq(ZERO$2) ? quotient.add(ONE$1) : quotient;
+    let result = roundUp && !remainder.eq(ZERO) ? quotient.add(ONE) : quotient;
 
     if (result.gt(U64_MAX)) {
       throw new Error("Results larger than U64");
@@ -33536,7 +33459,7 @@
       nextProtocolFee = nextProtocolFee.add(currProtocolFee);
     }
 
-    if (currLiquidity.gt(ZERO$2)) {
+    if (currLiquidity.gt(ZERO)) {
       const globalFeeIncrement = globalFee.shln(64).div(currLiquidity);
       nextFeeGrowthGlobalInput = nextFeeGrowthGlobalInput.add(globalFeeIncrement);
     }
@@ -33557,17 +33480,17 @@
   })=> {
     
     let amountRemaining = tokenAmount;
-    let amountCalculated = ZERO$2;
+    let amountCalculated = ZERO;
     let currSqrtPrice = freshWhirlpoolData.sqrtPrice;
     let currLiquidity = freshWhirlpoolData.liquidity;
     let currTickIndex = freshWhirlpoolData.tickCurrentIndex;
-    let totalFeeAmount = ZERO$2;
+    let totalFeeAmount = ZERO;
     const feeRate = freshWhirlpoolData.feeRate;
     const protocolFeeRate = freshWhirlpoolData.protocolFeeRate;
     let currProtocolFee = new u64(0);
     let currFeeGrowthGlobalInput = aToB ? freshWhirlpoolData.feeGrowthGlobalA : freshWhirlpoolData.feeGrowthGlobalB;
 
-    while (amountRemaining.gt(ZERO$2) && !sqrtPriceLimit.eq(currSqrtPrice)) {
+    while (amountRemaining.gt(ZERO) && !sqrtPriceLimit.eq(currSqrtPrice)) {
       let { nextIndex: nextTickIndex } = tickSequence.findNextInitializedTickIndex(currTickIndex);
 
       let { nextTickPrice, nextSqrtPriceLimit: targetSqrtPrice } = getNextSqrtPrices(
@@ -33664,28 +33587,23 @@
     solanaWeb3_js.seq(solanaWeb3_js.u128(), 3, "reward_growths_outside"),
   ]);
 
-  const TICK_ARRAY_LAYOUT$1 = solanaWeb3_js.struct([
+  const TICK_ARRAY_LAYOUT = solanaWeb3_js.struct([
     solanaWeb3_js.u64("anchorDiscriminator"),
     solanaWeb3_js.i32("startTickIndex"),
     solanaWeb3_js.seq(TICK_LAYOUT, 88, "ticks"),
     solanaWeb3_js.publicKey("whirlpool"),
   ]);
 
-  var LAYOUTS$1 = {
-    TICK_ARRAY_LAYOUT: TICK_ARRAY_LAYOUT$1,
-    WHIRLPOOL_LAYOUT,
-  };
-
   const MAX_SWAP_TICK_ARRAYS = 3;
   const MAX_TICK_INDEX = 443636; // i32
   const MIN_TICK_INDEX = -443636; // i32
-  const TICK_ARRAY_SIZE$2 = 88; // i32
+  const TICK_ARRAY_SIZE = 88; // i32
 
   const getStartTickIndex = (tickIndex, tickSpacing, offset) => {
-    const realIndex = Math.floor(tickIndex / tickSpacing / TICK_ARRAY_SIZE$2);
-    const startTickIndex = (realIndex + offset) * tickSpacing * TICK_ARRAY_SIZE$2;
+    const realIndex = Math.floor(tickIndex / tickSpacing / TICK_ARRAY_SIZE);
+    const startTickIndex = (realIndex + offset) * tickSpacing * TICK_ARRAY_SIZE;
 
-    const ticksInArray = TICK_ARRAY_SIZE$2 * tickSpacing;
+    const ticksInArray = TICK_ARRAY_SIZE * tickSpacing;
     const minTickIndex = MIN_TICK_INDEX - ((MIN_TICK_INDEX % ticksInArray) + ticksInArray);
     if(startTickIndex < minTickIndex) { throw(`startTickIndex is too small - - ${startTickIndex}`) }
     if(startTickIndex > MAX_TICK_INDEX) { throw(`startTickIndex is too large - ${startTickIndex}`) }
@@ -33733,13 +33651,7 @@
 
         let data;
         try {
-          data = await request({
-            blockchain: 'solana' ,
-            address: address.toString(),
-            api: TICK_ARRAY_LAYOUT$1,
-            cache: 5000, // 5 seconds in ms
-            cacheKey: ['whirlpool', 'tick', address.toString()].join('-')
-          });
+          data = await request({ blockchain: 'solana' , address: address.toString(), api: TICK_ARRAY_LAYOUT, cache: 10 });
         } catch (e2) {}
 
         return { address, data }
@@ -33750,16 +33662,16 @@
   class TickArrayIndex {
     
     static fromTickIndex(index, tickSpacing) {
-      const arrayIndex = Math.floor(Math.floor(index / tickSpacing) / TICK_ARRAY_SIZE$2);
-      let offsetIndex = Math.floor((index % (tickSpacing * TICK_ARRAY_SIZE$2)) / tickSpacing);
+      const arrayIndex = Math.floor(Math.floor(index / tickSpacing) / TICK_ARRAY_SIZE);
+      let offsetIndex = Math.floor((index % (tickSpacing * TICK_ARRAY_SIZE)) / tickSpacing);
       if (offsetIndex < 0) {
-        offsetIndex = TICK_ARRAY_SIZE$2 + offsetIndex;
+        offsetIndex = TICK_ARRAY_SIZE + offsetIndex;
       }
       return new TickArrayIndex(arrayIndex, offsetIndex, tickSpacing)
     }
 
     constructor(arrayIndex, offsetIndex, tickSpacing) {
-      if (offsetIndex >= TICK_ARRAY_SIZE$2) {
+      if (offsetIndex >= TICK_ARRAY_SIZE) {
         throw new Error("Invalid offsetIndex - value has to be smaller than TICK_ARRAY_SIZE")
       }
       if (offsetIndex < 0) {
@@ -33777,7 +33689,7 @@
 
     toTickIndex() {
       return (
-        this.arrayIndex * TICK_ARRAY_SIZE$2 * this.tickSpacing + this.offsetIndex * this.tickSpacing
+        this.arrayIndex * TICK_ARRAY_SIZE * this.tickSpacing + this.offsetIndex * this.tickSpacing
       );
     }
 
@@ -33935,7 +33847,7 @@
     }
 
     checkIfIndexIsInTickArrayRange(startTick, tickIndex) {
-      const upperBound = startTick + this.tickSpacing * TICK_ARRAY_SIZE$2;
+      const upperBound = startTick + this.tickSpacing * TICK_ARRAY_SIZE;
       return tickIndex >= startTick && tickIndex < upperBound;
     }
   }
@@ -33948,23 +33860,16 @@
     amountInMax,
     amountOut,
     amountOutMin,
-    pairsDatum
   })=>{
 
     try {
       
-      let freshWhirlpoolData;
-      if(pairsDatum) {
-        freshWhirlpoolData = account;
-      } else {
-        freshWhirlpoolData = await request({
-          blockchain: 'solana',
-          address: account.pubkey.toString(),
-          api: WHIRLPOOL_LAYOUT,
-          cache: 5000, // 5 seconds in ms
-          cacheKey: ['whirlpool', 'fresh', tokenIn.toString(), tokenOut.toString()].join('-')
-        });
-      }
+      const freshWhirlpoolData = await request({
+        blockchain: 'solana',
+        address: account.pubkey.toString(),
+        api: WHIRLPOOL_LAYOUT,
+        cache: 10,
+      });
 
       const aToB = (freshWhirlpoolData.tokenMintA.toString() === tokenIn);
 
@@ -33998,7 +33903,7 @@
         sqrtPriceLimit,
       }
 
-    } catch(e) {
+    } catch (e) {
       return {
         price: undefined,
         tickArrays: undefined,
@@ -34008,40 +33913,34 @@
     }
   };
 
+  function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
   // This method is cached and is only to be used to generally existing pools every 24h
   // Do not use for price calulations, fetch accounts for pools individually in order to calculate price 
   let getAccounts = async (base, quote) => {
     if(quote === Blockchains__default['default'].solana.wrapped.address) { return [] } // WSOL is base not QUOTE!
+    let whirlpoolsConfig = _optionalChain$4([(typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : undefined), 'optionalAccess', _ => _._whirlpoolsConfig]) || '2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ';
     let accounts = await request(`solana://whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc/getProgramAccounts`, {
       params: { filters: [
         { dataSize: WHIRLPOOL_LAYOUT.span },
+        { memcmp: { offset: 8, bytes: whirlpoolsConfig }},
         { memcmp: { offset: 101, bytes: base }}, // tokenMintA
         { memcmp: { offset: 181, bytes: quote }} // tokenMintB
       ]},
       api: WHIRLPOOL_LAYOUT,
-      cache: 21600000, // 6 hours in ms
+      cache: 86400, // 24h,
       cacheKey: ['whirlpool', base.toString(), quote.toString()].join('-')
     });
     return accounts
   };
 
-  let getPairsWithPrice$3 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum }) => {
+  let getPairsWithPrice = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
     try {
-      let accounts;
-      if(pairsDatum) {
-        accounts = [
-          {...
-            await request(`solana://${pairsDatum.id}/getAccountInfo`, { api: WHIRLPOOL_LAYOUT, cache: 5000 }),
-            pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id),
-          }
-        ];
-      } else {
-        accounts = await getAccounts(tokenIn, tokenOut);
-        if(accounts.length === 0) { accounts = await getAccounts(tokenOut, tokenIn); }
-        accounts = accounts.filter((account)=>account.data.liquidity.gt(1));
-      }
+      let accounts = await getAccounts(tokenIn, tokenOut);
+      if(accounts.length === 0) { accounts = await getAccounts(tokenOut, tokenIn); }
+      accounts = accounts.filter((account)=>account.data.liquidity.gt(1));
       accounts = (await Promise.all(accounts.map(async(account)=>{
-        const { price, tickArrays, sqrtPriceLimit } = await getPrice({ account, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum });
+        const { price, tickArrays, sqrtPriceLimit, aToB } = await getPrice({ account, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin });
         if(price === undefined) { return false }
 
         return { // return a copy, do not mutate accounts
@@ -34049,45 +33948,45 @@
           price: price,
           tickArrays: tickArrays,
           sqrtPriceLimit: sqrtPriceLimit,
-          tokenVaultA: account.tokenVaultA || account.data.tokenVaultA, 
-          tokenVaultB: account.tokenVaultB || account.data.tokenVaultB,
-          tokenMintA: account.tokenMintA || account.data.tokenMintA, 
-          tokenMintB: account.tokenMintB || account.data.tokenMintB,
+          aToB: aToB,
+          data: {
+            tokenVaultA: account.data.tokenVaultA, 
+            tokenVaultB: account.data.tokenVaultB
+          }
         }
       }))).filter(Boolean);
       return accounts
-    } catch(e) {
+    } catch (e) {
       return []
     }
   };
 
-  let getHighestPrice$1 = (pairs)=>{
+  let getHighestPrice = (pairs)=>{
     return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).gt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
   };
 
-  let getLowestPrice$1 = (pairs)=>{
+  let getLowestPrice = (pairs)=>{
     return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).lt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
   };
 
-  let getBestPair$1 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum }) => {
-    const pairs = await getPairsWithPrice$3({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum });
+  let getBestPair = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
+    const pairs = await getPairsWithPrice({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin });
 
     if(!pairs || pairs.length === 0) { return }
 
     let bestPair;
 
     if(amountIn || amountInMax) {
-      bestPair = getHighestPrice$1(pairs);
+      bestPair = getHighestPrice(pairs);
     } else { // amount out
-      bestPair = getLowestPrice$1(pairs);
+      bestPair = getLowestPrice(pairs);
     }
+
     return bestPair
   };
 
-  function _optionalChain$8(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-
-  const blockchain$3 = Blockchains__default['default'].solana;
+  function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  const blockchain$1 = Blockchains__default['default'].solana;
 
   // Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
   //
@@ -34095,83 +33994,64 @@
   // to be able to differentiate between SOL<>Token and WSOL<>Token swaps
   // as they are not the same!
   //
-  let getExchangePath$5 = ({ path }) => {
+  let getExchangePath$3 = ({ path }) => {
     if(!path) { return }
     let exchangePath = path.map((token, index) => {
       if (
-        token === blockchain$3.currency.address && path[index+1] != blockchain$3.wrapped.address &&
-        path[index-1] != blockchain$3.wrapped.address
+        token === blockchain$1.currency.address && path[index+1] != blockchain$1.wrapped.address &&
+        path[index-1] != blockchain$1.wrapped.address
       ) {
-        return blockchain$3.wrapped.address
+        return blockchain$1.wrapped.address
       } else {
         return token
       }
     });
 
-    if(exchangePath[0] == blockchain$3.currency.address && exchangePath[1] == blockchain$3.wrapped.address) {
+    if(exchangePath[0] == blockchain$1.currency.address && exchangePath[1] == blockchain$1.wrapped.address) {
       exchangePath.splice(0, 1);
-    } else if(exchangePath[exchangePath.length-1] == blockchain$3.currency.address && exchangePath[exchangePath.length-2] == blockchain$3.wrapped.address) {
+    } else if(exchangePath[exchangePath.length-1] == blockchain$1.currency.address && exchangePath[exchangePath.length-2] == blockchain$1.wrapped.address) {
       exchangePath.splice(exchangePath.length-1, 1);
     }
 
     return exchangePath
   };
 
-  let pathExists$6 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
+  let pathExists$4 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
     if(path.length == 1) { return false }
-    path = getExchangePath$5({ path });
-    if((await getPairsWithPrice$3({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin })).length > 0) {
+    path = getExchangePath$3({ path });
+    if((await getPairsWithPrice({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin })).length > 0) {
       return true
     } else {
       return false
     }
   };
 
-  let findPath$6 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin, pairsData }) => {
-    
-    if(pairsData) {
-      let path;
-      if(pairsData.length == 1) {
-        path = [tokenIn, tokenOut];
-      } else if(pairsData.length == 2) {
-        const tokenMiddle = [pairsData[0].mintA, pairsData[0].mintB].includes(pairsData[1].mintA) ? pairsData[1].mintA : pairsData[1].mintB;
-        path = [tokenIn, tokenMiddle, tokenOut];
-      }
-      if(path) {
-        return { path , exchangePath: getExchangePath$5({ path }), pools: await Promise.all(pairsData.map(async(pairsDatum)=>{
-          return {...
-            await request(`solana://${pairsDatum.id}/getAccountInfo`, { api: WHIRLPOOL_LAYOUT, cache: 5000 }),
-            pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id)
-          }
-        })) }
-      }
-    }
-
+  let findPath$4 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
     if(
-      [tokenIn, tokenOut].includes(blockchain$3.currency.address) &&
-      [tokenIn, tokenOut].includes(blockchain$3.wrapped.address)
+      [tokenIn, tokenOut].includes(blockchain$1.currency.address) &&
+      [tokenIn, tokenOut].includes(blockchain$1.wrapped.address)
     ) { return { path: undefined, exchangePath: undefined } }
 
     let path, stablesIn, stablesOut, stable;
 
-    if (await pathExists$6({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
+    if (await pathExists$4({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
       // direct path
       path = [tokenIn, tokenOut];
     } else if (
-      tokenIn != blockchain$3.wrapped.address &&
-      tokenIn != blockchain$3.currency.address &&
-      await pathExists$6({ path: [tokenIn, blockchain$3.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
-      tokenOut != blockchain$3.wrapped.address &&
-      tokenOut != blockchain$3.currency.address &&
-      await pathExists$6({ path: [tokenOut, blockchain$3.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
+      tokenIn != blockchain$1.wrapped.address &&
+      tokenIn != blockchain$1.currency.address &&
+      await pathExists$4({ path: [tokenIn, blockchain$1.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
+      tokenOut != blockchain$1.wrapped.address &&
+      tokenOut != blockchain$1.currency.address &&
+      await pathExists$4({ path: [tokenOut, blockchain$1.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
     ) {
       // path via blockchain.wrapped.address
-      path = [tokenIn, blockchain$3.wrapped.address, tokenOut];
+      path = [tokenIn, blockchain$1.wrapped.address, tokenOut];
     } else if (
-      !blockchain$3.stables.usd.includes(tokenIn) &&
-      (stablesIn = (await Promise.all(blockchain$3.stables.usd.map(async(stable)=>await pathExists$6({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
-      !blockchain$3.stables.usd.includes(tokenOut) &&
-      (stablesOut = (await Promise.all(blockchain$3.stables.usd.map(async(stable)=>await pathExists$6({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
+      !blockchain$1.stables.usd.includes(tokenIn) &&
+      (stablesIn = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$4({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
+      !blockchain$1.stables.usd.includes(tokenOut) &&
+      (stablesOut = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$4({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
       (stable = stablesIn.filter((stable)=> stablesOut.includes(stable))[0])
     ) {
       // path via TOKEN_IN <> STABLE <> TOKEN_OUT
@@ -34180,74 +34060,58 @@
 
     // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$8([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$3.currency.address) {
-      path.splice(1, 0, blockchain$3.wrapped.address);
-    } else if(_optionalChain$8([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$3.currency.address) {
-      path.splice(path.length-1, 0, blockchain$3.wrapped.address);
+    if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
+      path.splice(1, 0, blockchain$1.wrapped.address);
+    } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
+      path.splice(path.length-1, 0, blockchain$1.wrapped.address);
     }
-    return { path, exchangePath: getExchangePath$5({ path }) }
+    return { path, exchangePath: getExchangePath$3({ path }) }
   };
 
-  let getAmountsOut$1 = async ({ path, amountIn, amountInMax, pairsData }) => {
+  let getAmountsOut = async ({ path, amountIn, amountInMax }) => {
 
-    let pools = [];
     let amounts = [ethers.ethers.BigNumber.from(amountIn || amountInMax)];
 
-    let bestPair = await getBestPair$1({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, pairsDatum: pairsData && pairsData[0] });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
+    amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax })).price));
     
     if (path.length === 3) {
-      let bestPair = await getBestPair$1({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[1] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
+      amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined })).price));
     }
 
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
+    if(amounts.length != path.length) { return }
 
-    return { amounts, pools }
+    return amounts
   };
 
-  let getAmountsIn$1 = async({ path, amountOut, amountOutMin, pairsData }) => {
+  let getAmountsIn = async({ path, amountOut, amountOutMin }) => {
 
     path = path.slice().reverse();
-    let pools = [];
     let amounts = [ethers.ethers.BigNumber.from(amountOut || amountOutMin)];
 
-    let bestPair = await getBestPair$1({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin, pairsDatum: pairsData && (path.length === 2 ? pairsData[0] : pairsData[1]) });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
+    amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin })).price));
     
     if (path.length === 3) {
-      let bestPair = await getBestPair$1({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[0] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
+      amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined })).price));
     }
     
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
+    if(amounts.length != path.length) { return }
 
-    return { amounts: amounts.slice().reverse(), pools: pools.slice().reverse() }
+    return amounts.slice().reverse()
   };
 
-  let getAmounts$6 = async ({
+  let getAmounts$4 = async ({
     path,
     tokenIn,
     tokenOut,
     amountOut,
     amountIn,
     amountInMax,
-    amountOutMin,
-    pairsData
+    amountOutMin
   }) => {
-    path = getExchangePath$5({ path });
+    path = getExchangePath$3({ path });
     let amounts;
-    let pools;
     if (amountOut) {
-  ({ amounts, pools } = await getAmountsIn$1({ path, amountOut, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsIn({ path, amountOut, tokenIn, tokenOut });
       amountIn = amounts ? amounts[0] : undefined;
       if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
         return {}
@@ -34255,7 +34119,7 @@
         amountInMax = amountIn;
       }
     } else if (amountIn) {
-  ({ amounts, pools } = await getAmountsOut$1({ path, amountIn, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsOut({ path, amountIn, tokenIn, tokenOut });
       amountOut = amounts ? amounts[amounts.length-1] : undefined;
       if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
         return {}
@@ -34263,7 +34127,7 @@
         amountOutMin = amountOut;
       }
     } else if(amountOutMin) {
-  ({ amounts, pools } = await getAmountsIn$1({ path, amountOutMin, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsIn({ path, amountOutMin, tokenIn, tokenOut });
       amountIn = amounts ? amounts[0] : undefined;
       if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
         return {}
@@ -34271,7 +34135,7 @@
         amountInMax = amountIn;
       }
     } else if(amountInMax) {
-  ({ amounts, pools } = await getAmountsOut$1({ path, amountInMax, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsOut({ path, amountInMax, tokenIn, tokenOut });
       amountOut = amounts ? amounts[amounts.length-1] : undefined;
       if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
         return {}
@@ -34284,16 +34148,15 @@
       amountIn: (amountIn || amountInMax),
       amountInMax: (amountInMax || amountIn),
       amountOutMin: (amountOutMin || amountOut),
-      amounts,
-      pools,
+      amounts
     }
   };
 
-  const blockchain$2 = Blockchains__default['default'].solana;
+  const blockchain = Blockchains__default['default'].solana;
   const SWAP_INSTRUCTION = new solanaWeb3_js.BN("14449647541112719096");
   const TWO_HOP_SWAP_INSTRUCTION = new solanaWeb3_js.BN("16635068063392030915");
 
-  const createTokenAccountIfNotExisting$1 = async ({ instructions, owner, token, account })=>{
+  const createTokenAccountIfNotExisting = async ({ instructions, owner, token, account })=>{
     let outAccountExists;
     try{ outAccountExists = !!(await request({ blockchain: 'solana', address: account.toString() })); } catch (e2) {}
     if(!outAccountExists) {
@@ -34400,7 +34263,7 @@
     sqrtPriceLimitTwo,
   })=> {
     let LAYOUT, data;
-
+    
     LAYOUT = solanaWeb3_js.struct([
       solanaWeb3_js.u64("anchorDiscriminator"),
       solanaWeb3_js.u64("amount"),
@@ -34504,7 +34367,7 @@
     return data
   };
 
-  const getTransaction$6 = async ({
+  const getTransaction$4 = async ({
     path,
     amountIn,
     amountInMax,
@@ -34515,2749 +34378,27 @@
     amountOutInput,
     amountInMaxInput,
     amountOutMinInput,
-    account,
-    pools
+    account
   }) => {
     let transaction = { blockchain: 'solana' };
     let instructions = [];
 
-    const exchangePath = getExchangePath$5({ path });
+    const exchangePath = getExchangePath$3({ path });
     if(exchangePath.length > 3) { throw 'Orca can only handle fixed paths with a max length of 3 (2 pools)!' }
     const tokenIn = exchangePath[0];
     const tokenMiddle = exchangePath.length == 3 ? exchangePath[1] : undefined;
     const tokenOut = exchangePath[exchangePath.length-1];
 
     let pairs;
-    if(pools) {
-      pairs = pools;
-    } else if(exchangePath.length == 2) {
-      pairs = [await getBestPair$1({ tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
+    if(exchangePath.length == 2) {
+      pairs = [await getBestPair({ tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
     } else {
       if(amountInInput || amountInMaxInput) {
-        pairs = [await getBestPair$1({ tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
-        pairs.push(await getBestPair$1({ tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
+        pairs = [await getBestPair({ tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
+        pairs.push(await getBestPair({ tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
       } else { // originally amountOut
-        pairs = [await getBestPair$1({ tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
-        pairs.unshift(await getBestPair$1({ tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
-      }
-    }
-
-    let startsWrapped = (path[0] === blockchain$2.currency.address && exchangePath[0] === blockchain$2.wrapped.address);
-    let endsUnwrapped = (path[path.length-1] === blockchain$2.currency.address && exchangePath[exchangePath.length-1] === blockchain$2.wrapped.address);
-    let wrappedAccount;
-    const provider = await getProvider('solana');
-    
-    if(startsWrapped || endsUnwrapped) {
-      const rent = await provider.getMinimumBalanceForRentExemption(Token.solana.TOKEN_LAYOUT.span);
-      const keypair = solanaWeb3_js.Keypair.generate();
-      wrappedAccount = keypair.publicKey.toString();
-      const lamports = startsWrapped ? new solanaWeb3_js.BN(amountIn.toString()).add(new solanaWeb3_js.BN(rent)) :  new solanaWeb3_js.BN(rent);
-      let createAccountInstruction = solanaWeb3_js.SystemProgram.createAccount({
-        fromPubkey: new solanaWeb3_js.PublicKey(account),
-        newAccountPubkey: new solanaWeb3_js.PublicKey(wrappedAccount),
-        programId: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM),
-        space: Token.solana.TOKEN_LAYOUT.span,
-        lamports
-      });
-      createAccountInstruction.signers = [keypair];
-      instructions.push(createAccountInstruction);
-      instructions.push(
-        Token.solana.initializeAccountInstruction({
-          account: wrappedAccount,
-          token: blockchain$2.wrapped.address,
-          owner: account
-        })
-      );
-    }
-
-    if(pairs.length === 1) {
-      // amount is NOT the precise part of the swap (otherAmountThreshold is)
-      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
-      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
-      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
-      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
-      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
-      if(!endsUnwrapped) {
-        await createTokenAccountIfNotExisting$1({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
-      }
-      let aToB = tokenIn.toLowerCase() == pairs[0].tokenMintA.toString().toLowerCase();
-      instructions.push(
-        new solanaWeb3_js.TransactionInstruction({
-          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
-          keys: await getSwapInstructionKeys({
-            account,
-            pool: pairs[0].pubkey,
-            tokenAccountA: aToB ? tokenAccountIn : tokenAccountOut,
-            tokenVaultA: pairs[0].tokenVaultA,
-            tokenAccountB: aToB ? tokenAccountOut : tokenAccountIn,
-            tokenVaultB: pairs[0].tokenVaultB,
-            tickArrays: pairs[0].tickArrays,
-          }),
-          data: getSwapInstructionData({
-            amount,
-            otherAmountThreshold,
-            sqrtPriceLimit: pairs[0].sqrtPriceLimit,
-            amountSpecifiedIsInput,
-            aToB
-          }),
-        })
-      );
-    } else if (pairs.length === 2) {
-      // amount is NOT the precise part of the swap (otherAmountThreshold is)
-      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
-      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
-      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
-      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
-      let tokenMiddle = exchangePath[1];
-      let tokenAccountMiddle = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
-      await createTokenAccountIfNotExisting$1({ instructions, owner: account, token: tokenMiddle, account: tokenAccountMiddle });
-      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
-      if(!endsUnwrapped) {
-        await createTokenAccountIfNotExisting$1({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
-      }
-      console.log('pairs[0].tokenMintA.toString()', pairs[0].tokenMintA.toString());
-      console.log('tokenIn.toLowerCase()', tokenIn.toLowerCase());
-      let aToBOne = tokenIn.toLowerCase() == pairs[0].tokenMintA.toString().toLowerCase();
-      console.log('aToBOne', aToBOne);
-      console.log('pairs[1].tokenMintB.toString()', pairs[1].tokenMintB.toString());
-      console.log('tokenOut.toLowerCase()', tokenOut.toLowerCase());
-      let aToBTwo = tokenOut.toLowerCase() == pairs[1].tokenMintB.toString().toLowerCase();
-      console.log('aToBTwo', aToBTwo);
-      instructions.push(
-        new solanaWeb3_js.TransactionInstruction({
-          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
-          keys: await getTwoHopSwapInstructionKeys({
-            account,
-            poolOne: pairs[0].pubkey,
-            tickArraysOne: pairs[0].tickArrays,
-            tokenAccountOneA: aToBOne ? tokenAccountIn : tokenAccountMiddle,
-            tokenVaultOneA: pairs[0].tokenVaultA,
-            tokenAccountOneB: aToBOne ? tokenAccountMiddle : tokenAccountIn,
-            tokenVaultOneB: pairs[0].tokenVaultB,
-            poolTwo: pairs[1].pubkey,
-            tickArraysTwo: pairs[1].tickArrays,
-            tokenAccountTwoA: aToBTwo ? tokenAccountMiddle : tokenAccountOut,
-            tokenVaultTwoA: pairs[1].tokenVaultA,
-            tokenAccountTwoB: aToBTwo ? tokenAccountOut : tokenAccountMiddle,
-            tokenVaultTwoB: pairs[1].tokenVaultB,
-          }),
-          data: getTwoHopSwapInstructionData({
-            amount,
-            otherAmountThreshold,
-            amountSpecifiedIsInput,
-            aToBOne,
-            aToBTwo,
-            sqrtPriceLimitOne: pairs[0].sqrtPriceLimit,
-            sqrtPriceLimitTwo: pairs[1].sqrtPriceLimit,
-          }),
-        })
-      );
-    }
-    
-    if(startsWrapped || endsUnwrapped) {
-      instructions.push(
-        Token.solana.closeAccountInstruction({
-          account: wrappedAccount,
-          owner: account
-        })
-      );
-    }
-
-    // await debug(instructions, provider)
-
-    transaction.instructions = instructions;
-    return transaction
-  };
-
-  var Orca = {
-    findPath: findPath$6,
-    pathExists: pathExists$6,
-    getAmounts: getAmounts$6,
-    getTransaction: getTransaction$6,
-    WHIRLPOOL_LAYOUT,
-  };
-
-  const exchange$i = {
-    
-    name: 'orca',
-    label: 'Orca',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
-    protocol: 'orca',
-    
-    slippage: true,
-
-    blockchains: ['solana'],
-
-    solana: {
-      router: {
-        address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
-        api: Orca.WHIRLPOOL_LAYOUT,
-      },
-    }
-  };
-
-  var orca = (scope)=>{
-    
-    return new Exchange(
-
-      Object.assign(exchange$i, {
-        scope,
-
-        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$i }),
-        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$i }),
-        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$i }),
-        getPrep: (args)=>{},
-        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$i }),
-        getPrice,
-        compute,
-        getTickArrays,
-        TickArraySequence,
-        MIN_SQRT_PRICE,
-        MAX_SQRT_PRICE,
-        LAYOUTS: LAYOUTS$1,
-      })
-    )
-  };
-
-  // CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C
-  const CPMM_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.publicKey("configId"),
-    solanaWeb3_js.publicKey("poolCreator"),
-    solanaWeb3_js.publicKey("vaultA"),
-    solanaWeb3_js.publicKey("vaultB"),
-    solanaWeb3_js.publicKey("mintLp"),
-    solanaWeb3_js.publicKey("mintA"),
-    solanaWeb3_js.publicKey("mintB"),
-    solanaWeb3_js.publicKey("mintProgramA"),
-    solanaWeb3_js.publicKey("mintProgramB"),
-    solanaWeb3_js.publicKey("observationId"),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.u8("status"),
-    solanaWeb3_js.u8("lpDecimals"),
-    solanaWeb3_js.u8("mintDecimalA"),
-    solanaWeb3_js.u8("mintDecimalB"),
-    solanaWeb3_js.u64("lpAmount"),
-    solanaWeb3_js.u64("protocolFeesMintA"),
-    solanaWeb3_js.u64("protocolFeesMintB"),
-    solanaWeb3_js.u64("fundFeesMintA"),
-    solanaWeb3_js.u64("fundFeesMintB"),
-    solanaWeb3_js.u64("openTime"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 32),
-  ]);
-
-  const CPMM_CONFIG_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.bool("disableCreatePool"),
-    solanaWeb3_js.u16("index"),
-    solanaWeb3_js.u64("tradeFeeRate"),
-    solanaWeb3_js.u64("protocolFeeRate"),
-    solanaWeb3_js.u64("fundFeeRate"),
-    solanaWeb3_js.u64("createPoolFee"),
-
-    solanaWeb3_js.publicKey("protocolOwner"),
-    solanaWeb3_js.publicKey("fundOwner"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 16),
-  ]);
-
-  // CLMM 
-  const RewardInfo = solanaWeb3_js.struct([
-    solanaWeb3_js.u8("rewardState"),
-    solanaWeb3_js.u64("openTime"),
-    solanaWeb3_js.u64("endTime"),
-    solanaWeb3_js.u64("lastUpdateTime"),
-    solanaWeb3_js.u128("emissionsPerSecondX64"),
-    solanaWeb3_js.u64("rewardTotalEmissioned"),
-    solanaWeb3_js.u64("rewardClaimed"),
-    solanaWeb3_js.publicKey("tokenMint"),
-    solanaWeb3_js.publicKey("tokenVault"),
-    solanaWeb3_js.publicKey("creator"),
-    solanaWeb3_js.u128("rewardGrowthGlobalX64"),
-  ]);
-
-  const CLMM_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.publicKey("ammConfig"),
-    solanaWeb3_js.publicKey("creator"),
-    solanaWeb3_js.publicKey("mintA"),
-    solanaWeb3_js.publicKey("mintB"),
-    solanaWeb3_js.publicKey("vaultA"),
-    solanaWeb3_js.publicKey("vaultB"),
-    solanaWeb3_js.publicKey("observationId"),
-    solanaWeb3_js.u8("mintDecimalsA"),
-    solanaWeb3_js.u8("mintDecimalsB"),
-    solanaWeb3_js.u16("tickSpacing"),
-    solanaWeb3_js.u128("liquidity"),
-    solanaWeb3_js.u128("sqrtPriceX64"),
-    solanaWeb3_js.i32("tickCurrent"),
-    solanaWeb3_js.u32(),
-    solanaWeb3_js.u128("feeGrowthGlobalX64A"),
-    solanaWeb3_js.u128("feeGrowthGlobalX64B"),
-    solanaWeb3_js.u64("protocolFeesTokenA"),
-    solanaWeb3_js.u64("protocolFeesTokenB"),
-    solanaWeb3_js.u128("swapInAmountTokenA"),
-    solanaWeb3_js.u128("swapOutAmountTokenB"),
-    solanaWeb3_js.u128("swapInAmountTokenB"),
-    solanaWeb3_js.u128("swapOutAmountTokenA"),
-    solanaWeb3_js.u8("status"),
-    solanaWeb3_js.seq(solanaWeb3_js.u8(), 7, ""),
-    solanaWeb3_js.seq(RewardInfo, 3, "rewardInfos"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 16, "tickArrayBitmap"),
-    solanaWeb3_js.u64("totalFeesTokenA"),
-    solanaWeb3_js.u64("totalFeesClaimedTokenA"),
-    solanaWeb3_js.u64("totalFeesTokenB"),
-    solanaWeb3_js.u64("totalFeesClaimedTokenB"),
-    solanaWeb3_js.u64("fundFeesTokenA"),
-    solanaWeb3_js.u64("fundFeesTokenB"),
-    solanaWeb3_js.u64("startTime"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 15 * 4 - 3, "padding"),
-  ]);
-
-  const CLMM_CONFIG_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.u16("index"),
-    solanaWeb3_js.publicKey(""),
-    solanaWeb3_js.u32("protocolFeeRate"),
-    solanaWeb3_js.u32("tradeFeeRate"),
-    solanaWeb3_js.u16("tickSpacing"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 8, ""),
-  ]);
-
-  const TICK_ARRAY_SIZE$1 = 60;
-
-  const TickLayout = solanaWeb3_js.struct([
-    solanaWeb3_js.i32("tick"),
-    solanaWeb3_js.i128("liquidityNet"),
-    solanaWeb3_js.u128("liquidityGross"),
-    solanaWeb3_js.u128("feeGrowthOutsideX64A"),
-    solanaWeb3_js.u128("feeGrowthOutsideX64B"),
-    solanaWeb3_js.seq(solanaWeb3_js.u128(), 3, "rewardGrowthsOutsideX64"),
-    solanaWeb3_js.seq(solanaWeb3_js.u32(), 13, ""),
-  ]);
-
-  const TICK_ARRAY_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.publicKey("poolId"),
-    solanaWeb3_js.i32("startTickIndex"),
-    solanaWeb3_js.seq(TickLayout, TICK_ARRAY_SIZE$1, "ticks"),
-    solanaWeb3_js.u8("initializedTickCount"),
-    solanaWeb3_js.seq(solanaWeb3_js.u8(), 115, ""),
-  ]);
-
-  const EXTENSION_TICKARRAY_BITMAP_SIZE = 14;
-
-  const TICK_ARRAY_BITMAP_EXTENSION_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.publicKey("poolId"),
-    solanaWeb3_js.seq(solanaWeb3_js.seq(solanaWeb3_js.u64(), 8), EXTENSION_TICKARRAY_BITMAP_SIZE, "positiveTickArrayBitmap"),
-    solanaWeb3_js.seq(solanaWeb3_js.seq(solanaWeb3_js.u64(), 8), EXTENSION_TICKARRAY_BITMAP_SIZE, "negativeTickArrayBitmap"),
-  ]);
-
-  var LAYOUTS = {
-    CPMM_LAYOUT,
-    CPMM_CONFIG_LAYOUT,
-    CLMM_LAYOUT,
-    CLMM_CONFIG_LAYOUT,
-    TICK_ARRAY_LAYOUT,
-    TICK_ARRAY_BITMAP_EXTENSION_LAYOUT,
-  };
-
-  function BNDivCeil(bn1, bn2) {
-    const { div, mod } = bn1.divmod(bn2);
-
-    if (mod.gt(new solanaWeb3_js.BN(0))) {
-      return div.add(new solanaWeb3_js.BN(1));
-    } else {
-      return div;
-    }
-  }
-
-  function checkedRem(dividend, divisor) {
-    
-    if (divisor.isZero()) throw Error("divisor is zero");
-
-    const result = dividend.mod(divisor);
-    return result;
-  }
-
-  function checkedCeilDiv(dividend, rhs) {
-    if (rhs.isZero()) throw Error("rhs is zero");
-
-    let quotient = dividend.div(rhs);
-
-    if (quotient.isZero()) throw Error("quotient is zero");
-
-    let remainder = checkedRem(dividend, rhs);
-
-    if (remainder.gt(ZERO$1)) {
-      quotient = quotient.add(new solanaWeb3_js.BN(1));
-
-      rhs = dividend.div(quotient);
-      remainder = checkedRem(dividend, quotient);
-      if (remainder.gt(ZERO$1)) {
-        rhs = rhs.add(new solanaWeb3_js.BN(1));
-      }
-    }
-    return [quotient, rhs];
-  }
-
-  const ZERO$1 = new solanaWeb3_js.BN(0);
-
-  class ConstantProductCurve {
-    
-    static swapWithoutFees(sourceAmount, swapSourceAmount, swapDestinationAmount) {
-      const invariant = swapSourceAmount.mul(swapDestinationAmount);
-
-      const newSwapSourceAmount = swapSourceAmount.add(sourceAmount);
-      const [newSwapDestinationAmount, _newSwapSourceAmount] = checkedCeilDiv(invariant, newSwapSourceAmount);
-
-      const sourceAmountSwapped = _newSwapSourceAmount.sub(swapSourceAmount);
-      const destinationAmountSwapped = swapDestinationAmount.sub(newSwapDestinationAmount);
-      if (destinationAmountSwapped.isZero()) throw Error("destinationAmountSwapped is zero");
-
-      return {
-        sourceAmountSwapped,
-        destinationAmountSwapped,
-      };
-    }
-
-    static lpTokensToTradingTokens(
-      lpTokenAmount,
-      lpTokenSupply,
-      swapTokenAmount0,
-      swapTokenAmount1,
-      roundDirection,
-    ) {
-      let tokenAmount0 = lpTokenAmount.mul(swapTokenAmount0).div(lpTokenSupply);
-      let tokenAmount1 = lpTokenAmount.mul(swapTokenAmount1).div(lpTokenSupply);
-
-      if (roundDirection === RoundDirection.Floor) {
-        return { tokenAmount0, tokenAmount1 };
-      } else if (roundDirection === RoundDirection.Ceiling) {
-        const tokenRemainder0 = checkedRem(lpTokenAmount.mul(swapTokenAmount0), lpTokenSupply);
-
-        if (tokenRemainder0.gt(ZERO$1) && tokenAmount0.gt(ZERO$1)) {
-          tokenAmount0 = tokenAmount0.add(new solanaWeb3_js.BN(1));
-        }
-
-        const token1Remainder = checkedRem(lpTokenAmount.mul(swapTokenAmount1), lpTokenSupply);
-
-        if (token1Remainder.gt(ZERO$1) && tokenAmount1.gt(ZERO$1)) {
-          tokenAmount1 = tokenAmount1.add(new solanaWeb3_js.BN(1));
-        }
-
-        return { tokenAmount0, tokenAmount1 };
-      }
-      throw Error("roundDirection value error");
-    }
-  }
-
-  const FEE_RATE_DENOMINATOR_VALUE = new solanaWeb3_js.BN(1000000);
-
-  function ceilDiv(tokenAmount, feeNumerator, feeDenominator) {
-    return tokenAmount.mul(feeNumerator).add(feeDenominator).sub(new solanaWeb3_js.BN(1)).div(feeDenominator);
-  }
-
-  function floorDiv(tokenAmount, feeNumerator, feeDenominator) {
-    return tokenAmount.mul(feeNumerator).div(feeDenominator);
-  }
-
-  class CpmmFee {
-    
-    static tradingFee(amount, tradeFeeRate) {
-      return ceilDiv(amount, tradeFeeRate, FEE_RATE_DENOMINATOR_VALUE);
-    }
-    static protocolFee(amount, protocolFeeRate) {
-      return floorDiv(amount, protocolFeeRate, FEE_RATE_DENOMINATOR_VALUE);
-    }
-    static fundFee(amount, fundFeeRate) {
-      return floorDiv(amount, fundFeeRate, FEE_RATE_DENOMINATOR_VALUE);
-    }
-  }
-
-  class CurveCalculator {
-
-    static validate_supply(tokenAmount0, tokenAmount1) {
-      if (tokenAmount0.isZero()) throw Error("tokenAmount0 is zero");
-      if (tokenAmount1.isZero()) throw Error("tokenAmount1 is zero");
-    }
-
-    static swap(sourceAmount, swapSourceAmount, swapDestinationAmount, tradeFeeRate) {
-      const tradeFee = CpmmFee.tradingFee(sourceAmount, tradeFeeRate);
-
-      const sourceAmountLessFees = sourceAmount.sub(tradeFee);
-
-      const { sourceAmountSwapped, destinationAmountSwapped } = ConstantProductCurve.swapWithoutFees(
-        sourceAmountLessFees,
-        swapSourceAmount,
-        swapDestinationAmount,
-      );
-
-      const _sourceAmountSwapped = sourceAmountSwapped.add(tradeFee);
-      return {
-        newSwapSourceAmount: swapSourceAmount.add(_sourceAmountSwapped),
-        newSwapDestinationAmount: swapDestinationAmount.sub(destinationAmountSwapped),
-        sourceAmountSwapped: _sourceAmountSwapped,
-        destinationAmountSwapped,
-        tradeFee,
-      };
-    }
-
-    static swapBaseOut({
-      poolMintA,
-      poolMintB,
-      tradeFeeRate,
-      baseReserve,
-      quoteReserve,
-      outputMint,
-      outputAmount,
-    }) {
-      const [reserveInAmount, reserveOutAmount, reserveInDecimals, reserveOutDecimals, inputMint] =
-        poolMintB.address === outputMint.toString()
-          ? [baseReserve, quoteReserve, poolMintA.decimals, poolMintB.decimals, poolMintA.address]
-          : [quoteReserve, baseReserve, poolMintB.decimals, poolMintA.decimals, poolMintB.address];
-      const currentPrice = new Decimal$1__default['default'](reserveOutAmount.toString())
-        .div(10 ** reserveOutDecimals)
-        .div(new Decimal$1__default['default'](reserveInAmount.toString()).div(10 ** reserveInDecimals));
-      const amountRealOut = outputAmount.gte(reserveOutAmount) ? reserveOutAmount.sub(new solanaWeb3_js.BN(1)) : outputAmount;
-
-      const denominator = reserveOutAmount.sub(amountRealOut);
-      const amountInWithoutFee = BNDivCeil(reserveInAmount.mul(amountRealOut), denominator);
-      const amountIn = BNDivCeil(amountInWithoutFee.mul(new solanaWeb3_js.BN(1000000)), new solanaWeb3_js.BN(1000000).sub(tradeFeeRate));
-      const fee = amountIn.sub(amountInWithoutFee);
-      const executionPrice = new Decimal$1__default['default'](amountRealOut.toString())
-        .div(10 ** reserveOutDecimals)
-        .div(new Decimal$1__default['default'](amountIn.toString()).div(10 ** reserveInDecimals));
-      const priceImpact = currentPrice.isZero() ? 0 : executionPrice.sub(currentPrice).div(currentPrice).abs().toNumber();
-
-      return {
-        amountRealOut,
-
-        amountIn,
-        amountInWithoutFee,
-
-        tradeFee: fee,
-        priceImpact,
-      };
-    }
-  }
-
-  const getConfig = (address)=>{
-    return request(`solana://${address}/getAccountInfo`, {
-      api: CPMM_CONFIG_LAYOUT,
-      cache: 21600000, // 6 hours in ms
-      cacheKey: ['raydium/cpmm/config/', address.toString()].join('/')
-    })
-  };
-
-  const getPairs$1 = (base, quote)=>{
-    return request(`solana://CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C/getProgramAccounts`, {
-      params: { filters: [
-        { dataSize: CPMM_LAYOUT.span },
-        { memcmp: { offset: 168, bytes: base }},
-        { memcmp: { offset: 200, bytes: quote }},
-      ]},
-      api: CPMM_LAYOUT,
-      cache: 21600000, // 6 hours in ms
-      cacheKey: ['raydium/cpmm/', base.toString(), quote.toString()].join('/')
-    })
-  };
-
-  const getPairsWithPrice$2 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })=>{
-
-    let accounts;
-
-    if(pairsDatum) {
-
-      accounts = await request(`solana://${pairsDatum.id}`, { api: CPMM_LAYOUT, cache: 5000 }).then((data)=>{
-        return [{
-          pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id),
-          data
-        }]
-      });
-
-    } else {
-
-      accounts = await getPairs$1(tokenIn, tokenOut);
-
-      if(accounts.length == 0) {
-        accounts = await getPairs$1(tokenOut, tokenIn);
-      }
-    }
-
-    const pairs = await Promise.all(accounts.map(async(account)=>{
-
-      let config = await getConfig(account.data.configId.toString());
-
-      // BASE == A
-
-      const baseVaultAmountData = await request(`solana://${account.data.vaultA.toString()}/getTokenAccountBalance`, {
-        cache: 5000, // 5 seconds in ms
-        cacheKey: ['raydium', 'cp', 'baseVaultAmount', account.data.vaultA.toString()].join('-')
-      });
-      const baseReserve = ethers.ethers.BigNumber.from(baseVaultAmountData.value.amount).sub(
-        ethers.ethers.BigNumber.from(account.data.protocolFeesMintA.toString())
-      ).sub(
-        ethers.ethers.BigNumber.from(account.data.fundFeesMintA.toString())
-      );
-
-      if( // min liquidity SOL
-        (
-          tokenIn === Blockchains__default['default'].solana.currency.address || 
-          tokenIn === Blockchains__default['default'].solana.wrapped.address
-        ) && ( baseVaultAmountData.value.uiAmount < 50 )
-      ) { return }
-
-      if( // min liquidity stable usd
-        (
-          Blockchains__default['default'].solana.stables.usd.includes(tokenIn)
-        ) && ( baseVaultAmountData.value.uiAmount < 10000 )
-      ) { return }
-
-      // QUOTE == B
-
-      const quoteVaultAmountData = await request(`solana://${account.data.vaultB.toString()}/getTokenAccountBalance`, {
-        cache: 5000, // 5 seconds in ms
-        cacheKey: ['raydium', 'cp', 'quoteVaultAmount', account.data.vaultB.toString()].join('-')
-      });
-      const quoteReserve = ethers.ethers.BigNumber.from(quoteVaultAmountData.value.amount).sub(
-        ethers.ethers.BigNumber.from(account.data.protocolFeesMintB.toString())
-      ).sub(
-        ethers.ethers.BigNumber.from(account.data.fundFeesMintB.toString())
-      );
-
-      if( // min liquidity SOL
-        (
-          tokenIn === Blockchains__default['default'].solana.currency.address || 
-          tokenIn === Blockchains__default['default'].solana.wrapped.address
-        ) && ( quoteVaultAmountData.value.uiAmount < 50 )
-      ) { return }
-
-      if( // min liquidity stable usd
-        (
-          Blockchains__default['default'].solana.stables.usd.includes(tokenIn)
-        ) && ( quoteVaultAmountData.value.uiAmount < 10000 )
-      ) { return }
-
-      let price = 0;
-
-      if(amountIn || amountInMax) { // uses CurveCalculator.swap: Given an input amount, compute how much comes out.
-
-        const isBaseIn = tokenOut.toString() === account.data.mintB.toString();
-
-        const swapResult = CurveCalculator.swap(
-          new solanaWeb3_js.BN((amountIn || amountInMax).toString()),
-          new solanaWeb3_js.BN((isBaseIn ? baseReserve : quoteReserve).toString()),
-          new solanaWeb3_js.BN((isBaseIn ? quoteReserve : baseReserve).toString()),
-          config.tradeFeeRate,
-        );
-
-        price = swapResult.destinationAmountSwapped.toString();
-
-      } else { // uses CurveCalculator.swapBaseOut: Given a desired output amount, compute how much you need to put in (and some extra info like price impact).
-
-        const swapResult = CurveCalculator.swapBaseOut({
-          poolMintA: { decimals: account.data.mintDecimalA, address: account.data.mintA.toString() },
-          poolMintB: { decimals: account.data.mintDecimalB, address: account.data.mintB.toString() },
-          tradeFeeRate: config.tradeFeeRate,
-          baseReserve: new solanaWeb3_js.BN(baseReserve.toString()),
-          quoteReserve: new solanaWeb3_js.BN(quoteReserve.toString()),
-          outputMint: tokenOut,
-          outputAmount: new solanaWeb3_js.BN((amountOut || amountOutMin).toString())
-        });
-
-        price = swapResult.amountIn.toString();
-
-      }
-
-      if(price === 0) { return }
-
-      return {
-        type: 'cpmm',
-        publicKey: account.pubkey.toString(),
-        mintA: account.data.mintA.toString(),
-        mintB: account.data.mintB.toString(),
-        price,
-        data: account.data
-      }
-    }));
-
-    return pairs.filter(Boolean)
-
-  };
-
-  const BIT_PRECISION = 16;
-  const FEE_RATE_DENOMINATOR = new solanaWeb3_js.BN(10).pow(new solanaWeb3_js.BN(6));
-  const LOG_B_2_X32 = "59543866431248";
-  const LOG_B_P_ERR_MARGIN_LOWER_X64 = "184467440737095516";
-  const LOG_B_P_ERR_MARGIN_UPPER_X64 = "15793534762490258745";
-  const MAX_SQRT_PRICE_X64 = new solanaWeb3_js.BN("79226673521066979257578248091");
-  new solanaWeb3_js.BN("79226673521066979257578248090");
-  const MIN_TICK = -443636;
-  const MAX_TICK = -MIN_TICK;
-  const Q64 = new solanaWeb3_js.BN(1).shln(64);
-  const ONE = new solanaWeb3_js.BN(1);
-  const MaxU64 = Q64.sub(ONE);
-  const Q128 = new solanaWeb3_js.BN(1).shln(128);
-  const MaxUint128 = Q128.subn(1);
-  const MIN_SQRT_PRICE_X64 = new solanaWeb3_js.BN("4295048016");
-  new solanaWeb3_js.BN("4295048017");
-  const NEGATIVE_ONE = new solanaWeb3_js.BN(-1);
-  const POOL_TICK_ARRAY_BITMAP_SEED = solanaWeb3_js.Buffer.from("pool_tick_array_bitmap_extension", "utf8");
-  const PROGRAM_ID = 'CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK';
-  const TICK_ARRAY_BITMAP_SIZE = 512;
-  const TICK_ARRAY_SEED = solanaWeb3_js.Buffer.from("tick_array", "utf8");
-  const TICK_ARRAY_SIZE = 60;
-  const U64Resolution = 64;
-  const ZERO = new solanaWeb3_js.BN(0);
-
-  const TOKEN_PROGRAM_ID = new solanaWeb3_js.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-  const TOKEN_2022_PROGRAM_ID = new solanaWeb3_js.PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
-  const MEMO_PROGRAM_ID = new solanaWeb3_js.PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr');
-
-  function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  class LiquidityMath {
-    
-    static addDelta(x, y) {
-      return x.add(y);
-    }
-
-    static getTokenAmountAFromLiquidity(
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      roundUp,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      if (!sqrtPriceX64A.gt(ZERO)) {
-        throw new Error("sqrtPriceX64A must greater than 0");
-      }
-
-      const numerator1 = liquidity.ushln(U64Resolution);
-      const numerator2 = sqrtPriceX64B.sub(sqrtPriceX64A);
-
-      return roundUp
-        ? MathUtil.mulDivRoundingUp(MathUtil.mulDivCeil(numerator1, numerator2, sqrtPriceX64B), ONE, sqrtPriceX64A)
-        : MathUtil.mulDivFloor(numerator1, numerator2, sqrtPriceX64B).div(sqrtPriceX64A);
-    }
-
-    static getTokenAmountBFromLiquidity(
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      roundUp,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-      if (!sqrtPriceX64A.gt(ZERO)) {
-        throw new Error("sqrtPriceX64A must greater than 0");
-      }
-
-      return roundUp
-        ? MathUtil.mulDivCeil(liquidity, sqrtPriceX64B.sub(sqrtPriceX64A), Q64)
-        : MathUtil.mulDivFloor(liquidity, sqrtPriceX64B.sub(sqrtPriceX64A), Q64);
-    }
-
-    static getLiquidityFromTokenAmountA(sqrtPriceX64A, sqrtPriceX64B, amountA, roundUp) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      const numerator = amountA.mul(sqrtPriceX64A).mul(sqrtPriceX64B);
-      const denominator = sqrtPriceX64B.sub(sqrtPriceX64A);
-      const result = numerator.div(denominator);
-
-      if (roundUp) {
-        return MathUtil.mulDivRoundingUp(result, ONE, MaxU64);
-      } else {
-        return result.shrn(U64Resolution);
-      }
-    }
-
-    static getLiquidityFromTokenAmountB(sqrtPriceX64A, sqrtPriceX64B, amountB) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-      return MathUtil.mulDivFloor(amountB, MaxU64, sqrtPriceX64B.sub(sqrtPriceX64A));
-    }
-
-    static getLiquidityFromTokenAmounts(
-      sqrtPriceCurrentX64,
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      amountA,
-      amountB,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      if (sqrtPriceCurrentX64.lte(sqrtPriceX64A)) {
-        return LiquidityMath.getLiquidityFromTokenAmountA(sqrtPriceX64A, sqrtPriceX64B, amountA, false);
-      } else if (sqrtPriceCurrentX64.lt(sqrtPriceX64B)) {
-        const liquidity0 = LiquidityMath.getLiquidityFromTokenAmountA(sqrtPriceCurrentX64, sqrtPriceX64B, amountA, false);
-        const liquidity1 = LiquidityMath.getLiquidityFromTokenAmountB(sqrtPriceX64A, sqrtPriceCurrentX64, amountB);
-        return liquidity0.lt(liquidity1) ? liquidity0 : liquidity1;
-      } else {
-        return LiquidityMath.getLiquidityFromTokenAmountB(sqrtPriceX64A, sqrtPriceX64B, amountB);
-      }
-    }
-
-    static getAmountsFromLiquidity(
-      sqrtPriceCurrentX64,
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      roundUp,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      if (sqrtPriceCurrentX64.lte(sqrtPriceX64A)) {
-        return {
-          amountA: LiquidityMath.getTokenAmountAFromLiquidity(sqrtPriceX64A, sqrtPriceX64B, liquidity, roundUp),
-          amountB: new solanaWeb3_js.BN(0),
-        };
-      } else if (sqrtPriceCurrentX64.lt(sqrtPriceX64B)) {
-        const amountA = LiquidityMath.getTokenAmountAFromLiquidity(
-          sqrtPriceCurrentX64,
-          sqrtPriceX64B,
-          liquidity,
-          roundUp,
-        );
-        const amountB = LiquidityMath.getTokenAmountBFromLiquidity(
-          sqrtPriceX64A,
-          sqrtPriceCurrentX64,
-          liquidity,
-          roundUp,
-        );
-        return { amountA, amountB };
-      } else {
-        return {
-          amountA: new solanaWeb3_js.BN(0),
-          amountB: LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64A, sqrtPriceX64B, liquidity, roundUp),
-        };
-      }
-    }
-
-    static getAmountsFromLiquidityWithSlippage(
-      sqrtPriceCurrentX64,
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      amountMax,
-      roundUp,
-      amountSlippage,
-    ) {
-      const { amountA, amountB } = LiquidityMath.getAmountsFromLiquidity(
-        sqrtPriceCurrentX64,
-        sqrtPriceX64A,
-        sqrtPriceX64B,
-        liquidity,
-        roundUp,
-      );
-      const coefficient = amountMax ? 1 + amountSlippage : 1 - amountSlippage;
-
-      const amount0Slippage = new solanaWeb3_js.BN(new Decimal(amountA.toString()).mul(coefficient).toFixed(0));
-      const amount1Slippage = new solanaWeb3_js.BN(new Decimal(amountB.toString()).mul(coefficient).toFixed(0));
-      return {
-        amountSlippageA: amount0Slippage,
-        amountSlippageB: amount1Slippage,
-      };
-    }
-
-    static getAmountsOutFromLiquidity({
-      poolInfo,
-      tickLower,
-      tickUpper,
-      liquidity,
-      slippage,
-      add,
-      epochInfo,
-      amountAddFee,
-    }) {
-      const sqrtPriceX64 = SqrtPriceMath.priceToSqrtPriceX64(
-        new Decimal(poolInfo.price),
-        poolInfo.mintA.decimals,
-        poolInfo.mintB.decimals,
-      );
-      const sqrtPriceX64A = SqrtPriceMath.getSqrtPriceX64FromTick(tickLower);
-      const sqrtPriceX64B = SqrtPriceMath.getSqrtPriceX64FromTick(tickUpper);
-
-      const coefficientRe = add ? 1 + slippage : 1 - slippage;
-
-      const amounts = LiquidityMath.getAmountsFromLiquidity(sqrtPriceX64, sqrtPriceX64A, sqrtPriceX64B, liquidity, add);
-
-      const [amountA, amountB] = [
-        getTransferAmountFeeV2(amounts.amountA, _optionalChain$7([poolInfo, 'access', _ => _.mintA, 'access', _2 => _2.extensions, 'optionalAccess', _3 => _3.feeConfig]), epochInfo, amountAddFee),
-        getTransferAmountFeeV2(amounts.amountB, _optionalChain$7([poolInfo, 'access', _4 => _4.mintB, 'access', _5 => _5.extensions, 'optionalAccess', _6 => _6.feeConfig]), epochInfo, amountAddFee),
-      ];
-      const [amountSlippageA, amountSlippageB] = [
-        getTransferAmountFeeV2(
-          new solanaWeb3_js.BN(new Decimal(amounts.amountA.toString()).mul(coefficientRe).toFixed(0)),
-          _optionalChain$7([poolInfo, 'access', _7 => _7.mintA, 'access', _8 => _8.extensions, 'optionalAccess', _9 => _9.feeConfig]),
-          epochInfo,
-          amountAddFee,
-        ),
-        getTransferAmountFeeV2(
-          new solanaWeb3_js.BN(new Decimal(amounts.amountB.toString()).mul(coefficientRe).toFixed(0)),
-          _optionalChain$7([poolInfo, 'access', _10 => _10.mintB, 'access', _11 => _11.extensions, 'optionalAccess', _12 => _12.feeConfig]),
-          epochInfo,
-          amountAddFee,
-        ),
-      ];
-
-      return {
-        liquidity,
-        amountA,
-        amountB,
-        amountSlippageA,
-        amountSlippageB,
-        expirationTime: minExpirationTime(amountA.expirationTime, amountB.expirationTime),
-      };
-    }
-  }
-
-  class MathUtil {
-
-    static mulDivRoundingUp(a, b, denominator) {
-      const numerator = a.mul(b);
-      let result = numerator.div(denominator);
-      if (!numerator.mod(denominator).eq(ZERO)) {
-        result = result.add(ONE);
-      }
-      return result;
-    }
-
-    static mulDivFloor(a, b, denominator) {
-      if (denominator.eq(ZERO)) {
-        throw new Error("division by 0");
-      }
-      return a.mul(b).div(denominator);
-    }
-
-    static mulDivCeil(a, b, denominator) {
-      if (denominator.eq(ZERO)) {
-        throw new Error("division by 0");
-      }
-      const numerator = a.mul(b).add(denominator.sub(ONE));
-      return numerator.div(denominator);
-    }
-
-    static x64ToDecimal(num, decimalPlaces) {
-      return new Decimal(num.toString()).div(Decimal.pow(2, 64)).toDecimalPlaces(decimalPlaces);
-    }
-
-    static decimalToX64(num) {
-      return new solanaWeb3_js.BN(num.mul(Decimal.pow(2, 64)).floor().toFixed());
-    }
-
-    static wrappingSubU128(n0, n1) {
-      return n0.add(Q128).sub(n1).mod(Q128);
-    }
-  }
-
-  // sqrt price math
-  function mulRightShift(val, mulBy) {
-    return signedRightShift(val.mul(mulBy), 64, 256);
-  }
-
-  function signedLeftShift(n0, shiftBy, bitWidth) {
-    const twosN0 = n0.toTwos(bitWidth).shln(shiftBy);
-    twosN0.imaskn(bitWidth + 1);
-    return twosN0.fromTwos(bitWidth);
-  }
-
-  function signedRightShift(n0, shiftBy, bitWidth) {
-    const twoN0 = n0.toTwos(bitWidth).shrn(shiftBy);
-    twoN0.imaskn(bitWidth - shiftBy + 1);
-    return twoN0.fromTwos(bitWidth - shiftBy);
-  }
-
-  class SqrtPriceMath {
-    
-    static sqrtPriceX64ToPrice(sqrtPriceX64, decimalsA, decimalsB) {
-      return MathUtil.x64ToDecimal(sqrtPriceX64)
-        .pow(2)
-        .mul(Decimal.pow(10, decimalsA - decimalsB));
-    }
-
-    static priceToSqrtPriceX64(price, decimalsA, decimalsB) {
-      return MathUtil.decimalToX64(price.mul(Decimal.pow(10, decimalsB - decimalsA)).sqrt());
-    }
-
-    static getNextSqrtPriceX64FromInput(sqrtPriceX64, liquidity, amountIn, zeroForOne) {
-      
-      if (!sqrtPriceX64.gt(ZERO)) {
-        throw new Error("sqrtPriceX64 must greater than 0");
-      }
-      if (!liquidity.gt(ZERO)) {
-        throw new Error("liquidity must greater than 0");
-      }
-
-      return zeroForOne
-        ? this.getNextSqrtPriceFromTokenAmountARoundingUp(sqrtPriceX64, liquidity, amountIn, true)
-        : this.getNextSqrtPriceFromTokenAmountBRoundingDown(sqrtPriceX64, liquidity, amountIn, true);
-    }
-
-    static getNextSqrtPriceX64FromOutput(sqrtPriceX64, liquidity, amountOut, zeroForOne) {
-
-      if (!sqrtPriceX64.gt(ZERO)) {
-        throw new Error("sqrtPriceX64 must greater than 0");
-      }
-      if (!liquidity.gt(ZERO)) {
-        throw new Error("liquidity must greater than 0");
-      }
-
-      return zeroForOne
-        ? this.getNextSqrtPriceFromTokenAmountBRoundingDown(sqrtPriceX64, liquidity, amountOut, false)
-        : this.getNextSqrtPriceFromTokenAmountARoundingUp(sqrtPriceX64, liquidity, amountOut, false);
-    }
-
-    static getNextSqrtPriceFromTokenAmountARoundingUp(
-      sqrtPriceX64,
-      liquidity,
-      amount,
-      add,
-    ) {
-
-      if (amount.eq(ZERO)) return sqrtPriceX64;
-      const liquidityLeftShift = liquidity.shln(U64Resolution);
-
-      if (add) {
-        const numerator1 = liquidityLeftShift;
-        const denominator = liquidityLeftShift.add(amount.mul(sqrtPriceX64));
-        if (denominator.gte(numerator1)) {
-          return MathUtil.mulDivCeil(numerator1, sqrtPriceX64, denominator);
-        }
-        return MathUtil.mulDivRoundingUp(numerator1, ONE, numerator1.div(sqrtPriceX64).add(amount));
-      } else {
-        const amountMulSqrtPrice = amount.mul(sqrtPriceX64);
-        if (!liquidityLeftShift.gt(amountMulSqrtPrice)) {
-          throw new Error("getNextSqrtPriceFromTokenAmountARoundingUp,liquidityLeftShift must gt amountMulSqrtPrice");
-        }
-        const denominator = liquidityLeftShift.sub(amountMulSqrtPrice);
-        return MathUtil.mulDivCeil(liquidityLeftShift, sqrtPriceX64, denominator);
-      }
-    }
-
-    static getNextSqrtPriceFromTokenAmountBRoundingDown(
-      sqrtPriceX64,
-      liquidity,
-      amount,
-      add,
-    ) {
-      const deltaY = amount.shln(U64Resolution);
-      if (add) {
-        return sqrtPriceX64.add(deltaY.div(liquidity));
-      } else {
-        const amountDivLiquidity = MathUtil.mulDivRoundingUp(deltaY, ONE, liquidity);
-        if (!sqrtPriceX64.gt(amountDivLiquidity)) {
-          throw new Error("getNextSqrtPriceFromTokenAmountBRoundingDown sqrtPriceX64 must gt amountDivLiquidity");
-        }
-        return sqrtPriceX64.sub(amountDivLiquidity);
-      }
-    }
-
-    static getSqrtPriceX64FromTick(tick) {
-      if (!Number.isInteger(tick)) {
-        throw new Error("tick must be integer");
-      }
-      if (tick < MIN_TICK || tick > MAX_TICK) {
-        throw new Error("tick must be in MIN_TICK and MAX_TICK");
-      }
-      const tickAbs = tick < 0 ? tick * -1 : tick;
-
-      let ratio = (tickAbs & 0x1) != 0 ? new solanaWeb3_js.BN("18445821805675395072") : new solanaWeb3_js.BN("18446744073709551616");
-      if ((tickAbs & 0x2) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18444899583751176192"));
-      if ((tickAbs & 0x4) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18443055278223355904"));
-      if ((tickAbs & 0x8) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18439367220385607680"));
-      if ((tickAbs & 0x10) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18431993317065453568"));
-      if ((tickAbs & 0x20) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18417254355718170624"));
-      if ((tickAbs & 0x40) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18387811781193609216"));
-      if ((tickAbs & 0x80) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18329067761203558400"));
-      if ((tickAbs & 0x100) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18212142134806163456"));
-      if ((tickAbs & 0x200) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("17980523815641700352"));
-      if ((tickAbs & 0x400) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("17526086738831433728"));
-      if ((tickAbs & 0x800) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("16651378430235570176"));
-      if ((tickAbs & 0x1000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("15030750278694412288"));
-      if ((tickAbs & 0x2000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("12247334978884435968"));
-      if ((tickAbs & 0x4000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("8131365268886854656"));
-      if ((tickAbs & 0x8000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("3584323654725218816"));
-      if ((tickAbs & 0x10000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("696457651848324352"));
-      if ((tickAbs & 0x20000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("26294789957507116"));
-      if ((tickAbs & 0x40000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("37481735321082"));
-
-      if (tick > 0) ratio = MaxUint128.div(ratio);
-      return ratio;
-    }
-
-    static getTickFromPrice(price, decimalsA, decimalsB) {
-      return SqrtPriceMath.getTickFromSqrtPriceX64(SqrtPriceMath.priceToSqrtPriceX64(price, decimalsA, decimalsB));
-    }
-
-    static getTickFromSqrtPriceX64(sqrtPriceX64) {
-      if (sqrtPriceX64.gt(MAX_SQRT_PRICE_X64) || sqrtPriceX64.lt(MIN_SQRT_PRICE_X64)) {
-        throw new Error("Provided sqrtPrice is not within the supported sqrtPrice range.");
-      }
-
-      const msb = sqrtPriceX64.bitLength() - 1;
-      const adjustedMsb = new solanaWeb3_js.BN(msb - 64);
-      const log2pIntegerX32 = signedLeftShift(adjustedMsb, 32, 128);
-
-      let bit = new solanaWeb3_js.BN("8000000000000000", "hex");
-      let precision = 0;
-      let log2pFractionX64 = new solanaWeb3_js.BN(0);
-
-      let r = msb >= 64 ? sqrtPriceX64.shrn(msb - 63) : sqrtPriceX64.shln(63 - msb);
-
-      while (bit.gt(new solanaWeb3_js.BN(0)) && precision < BIT_PRECISION) {
-        r = r.mul(r);
-        const rMoreThanTwo = r.shrn(127);
-        r = r.shrn(63 + rMoreThanTwo.toNumber());
-        log2pFractionX64 = log2pFractionX64.add(bit.mul(rMoreThanTwo));
-        bit = bit.shrn(1);
-        precision += 1;
-      }
-
-      const log2pFractionX32 = log2pFractionX64.shrn(32);
-
-      const log2pX32 = log2pIntegerX32.add(log2pFractionX32);
-      const logbpX64 = log2pX32.mul(new solanaWeb3_js.BN(LOG_B_2_X32));
-
-      const tickLow = signedRightShift(logbpX64.sub(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_LOWER_X64)), 64, 128).toNumber();
-      const tickHigh = signedRightShift(logbpX64.add(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_UPPER_X64)), 64, 128).toNumber();
-
-      if (tickLow == tickHigh) {
-        return tickLow;
-      } else {
-        const derivedTickHighSqrtPriceX64 = SqrtPriceMath.getSqrtPriceX64FromTick(tickHigh);
-        return derivedTickHighSqrtPriceX64.lte(sqrtPriceX64) ? tickHigh : tickLow;
-      }
-    }
-  }
-
-  function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  const nextInitializedTickArray = (tickIndex, tickSpacing, zeroForOne, tickArrayBitmap, exBitmapInfo) => {
-    const currentOffset = Math.floor(tickIndex / tickCount(tickSpacing));
-    const result = zeroForOne
-      ? searchLowBitFromStart(tickArrayBitmap, exBitmapInfo, currentOffset - 1, 1, tickSpacing)
-      : searchHightBitFromStart(tickArrayBitmap, exBitmapInfo, currentOffset + 1, 1, tickSpacing);
-
-    return result.length > 0 ? { isExist: true, nextStartIndex: result[0] } : { isExist: false, nextStartIndex: 0 };
-  };
-
-  class SwapMath {
-    
-    static swapCompute(
-      programId,
-      poolId,
-      tickArrayCache,
-      tickArrayBitmap,
-      tickarrayBitmapExtension,
-      zeroForOne,
-      fee,
-      liquidity,
-      currentTick,
-      tickSpacing,
-      currentSqrtPriceX64,
-      amountSpecified,
-      lastSavedTickArrayStartIndex,
-      sqrtPriceLimitX64,
-      catchLiquidityInsufficient
-    ) {
-      if (amountSpecified.eq(ZERO)) {
-        throw new Error("amountSpecified must not be 0");
-      }
-      if (!sqrtPriceLimitX64) {
-        sqrtPriceLimitX64 = zeroForOne ? MIN_SQRT_PRICE_X64.add(ONE) : MAX_SQRT_PRICE_X64.sub(ONE);
-      }
-
-      if (zeroForOne) {
-        if (sqrtPriceLimitX64.lt(MIN_SQRT_PRICE_X64)) {
-          throw new Error("sqrtPriceX64 must greater than MIN_SQRT_PRICE_X64");
-        }
-
-        if (sqrtPriceLimitX64.gte(currentSqrtPriceX64)) {
-          throw new Error("sqrtPriceX64 must smaller than current");
-        }
-      } else {
-        if (sqrtPriceLimitX64.gt(MAX_SQRT_PRICE_X64)) {
-          throw new Error("sqrtPriceX64 must smaller than MAX_SQRT_PRICE_X64");
-        }
-
-        if (sqrtPriceLimitX64.lte(currentSqrtPriceX64)) {
-          throw new Error("sqrtPriceX64 must greater than current");
-        }
-      }
-      const baseInput = amountSpecified.gt(ZERO);
-
-      const state = {
-        amountSpecifiedRemaining: amountSpecified,
-        amountCalculated: ZERO,
-        sqrtPriceX64: currentSqrtPriceX64,
-        tick:
-          currentTick > lastSavedTickArrayStartIndex
-            ? Math.min(lastSavedTickArrayStartIndex + tickCount(tickSpacing) - 1, currentTick)
-            : lastSavedTickArrayStartIndex,
-        accounts: [],
-        liquidity,
-        feeAmount: new solanaWeb3_js.BN(0),
-      };
-      let tickAarrayStartIndex = lastSavedTickArrayStartIndex;
-      let tickArrayCurrent = tickArrayCache[lastSavedTickArrayStartIndex];
-      let loopCount = 0;
-      let t = !zeroForOne && tickArrayCurrent.startTickIndex === state.tick;
-      while (
-        !state.amountSpecifiedRemaining.eq(ZERO) &&
-        !state.sqrtPriceX64.eq(sqrtPriceLimitX64)
-      ) {
-        if (loopCount > 1000) {
-          throw Error('liquidity limit')
-        }
-        const step = {};
-        step.sqrtPriceStartX64 = state.sqrtPriceX64;
-
-        const tickState = nextInitTick(tickArrayCurrent, state.tick, tickSpacing, zeroForOne, t);
-
-        let _nextInitTick = tickState ? tickState : null;
-        let tickArrayAddress = null;
-
-        if (!_optionalChain$6([_nextInitTick, 'optionalAccess', _ => _.liquidityGross, 'access', _2 => _2.gtn, 'call', _3 => _3(0)])) {
-          const nextInitTickArrayIndex = nextInitializedTickArrayStartIndex(
-            {
-              tickCurrent: state.tick,
-              tickSpacing,
-              tickArrayBitmap,
-              exBitmapInfo: tickarrayBitmapExtension,
-            },
-            tickAarrayStartIndex,
-            zeroForOne,
-          );
-          if (!nextInitTickArrayIndex.isExist) {
-            if (catchLiquidityInsufficient) {
-              return {
-                allTrade: false,
-                amountSpecifiedRemaining: state.amountSpecifiedRemaining,
-                amountCalculated: state.amountCalculated,
-                feeAmount: state.feeAmount,
-                sqrtPriceX64: state.sqrtPriceX64,
-                liquidity: state.liquidity,
-                tickCurrent: state.tick,
-                accounts: state.accounts,
-              };
-            }
-            throw Error("swapCompute LiquidityInsufficient");
-          }
-          tickAarrayStartIndex = nextInitTickArrayIndex.nextStartIndex;
-
-          const expectedNextTickArrayAddress = getPdaTickArrayAddress(
-            programId,
-            poolId,
-            tickAarrayStartIndex,
-          );
-          tickArrayAddress = expectedNextTickArrayAddress;
-          tickArrayCurrent = tickArrayCache[tickAarrayStartIndex];
-
-          try {
-            _nextInitTick = firstInitializedTick(tickArrayCurrent, zeroForOne);
-          } catch (e) {
-            throw Error("not found next tick info");
-          }
-        }
-
-        step.tickNext = _nextInitTick.tick;
-        step.initialized = _nextInitTick.liquidityGross.gtn(0);
-        if (lastSavedTickArrayStartIndex !== tickAarrayStartIndex && tickArrayAddress) {
-          state.accounts.push(tickArrayAddress);
-          lastSavedTickArrayStartIndex = tickAarrayStartIndex;
-        }
-        if (step.tickNext < MIN_TICK) {
-          step.tickNext = MIN_TICK;
-        } else if (step.tickNext > MAX_TICK) {
-          step.tickNext = MAX_TICK;
-        }
-
-        step.sqrtPriceNextX64 = SqrtPriceMath.getSqrtPriceX64FromTick(step.tickNext);
-        let targetPrice;
-        if (
-          (zeroForOne && step.sqrtPriceNextX64.lt(sqrtPriceLimitX64)) ||
-          (!zeroForOne && step.sqrtPriceNextX64.gt(sqrtPriceLimitX64))
-        ) {
-          targetPrice = sqrtPriceLimitX64;
-        } else {
-          targetPrice = step.sqrtPriceNextX64;
-        }
-        [state.sqrtPriceX64, step.amountIn, step.amountOut, step.feeAmount] = SwapMath.swapStepCompute(
-          state.sqrtPriceX64,
-          targetPrice,
-          state.liquidity,
-          state.amountSpecifiedRemaining,
-          fee,
-        );
-
-        state.feeAmount = state.feeAmount.add(step.feeAmount);
-
-        if (baseInput) {
-          state.amountSpecifiedRemaining = state.amountSpecifiedRemaining.sub(step.amountIn.add(step.feeAmount));
-          state.amountCalculated = state.amountCalculated.sub(step.amountOut);
-        } else {
-          state.amountSpecifiedRemaining = state.amountSpecifiedRemaining.add(step.amountOut);
-          state.amountCalculated = state.amountCalculated.add(step.amountIn.add(step.feeAmount));
-        }
-        if (state.sqrtPriceX64.eq(step.sqrtPriceNextX64)) {
-          if (step.initialized) {
-            let liquidityNet = _nextInitTick.liquidityNet;
-            if (zeroForOne) liquidityNet = liquidityNet.mul(NEGATIVE_ONE);
-            state.liquidity = LiquidityMath.addDelta(state.liquidity, liquidityNet);
-          }
-
-          t = step.tickNext != state.tick && !zeroForOne && tickArrayCurrent.startTickIndex === step.tickNext;
-          state.tick = zeroForOne ? step.tickNext - 1 : step.tickNext; //
-        } else if (state.sqrtPriceX64 != step.sqrtPriceStartX64) {
-          const _T = SqrtPriceMath.getTickFromSqrtPriceX64(state.sqrtPriceX64);
-          t = _T != state.tick && !zeroForOne && tickArrayCurrent.startTickIndex === _T;
-          state.tick = _T;
-        }
-        ++loopCount;
-      }
-
-      try {
-        const { nextStartIndex: tickAarrayStartIndex, isExist } = nextInitializedTickArray(
-          state.tick,
-          tickSpacing,
-          zeroForOne,
-          tickArrayBitmap,
-          tickarrayBitmapExtension,
-        );
-        if (isExist && lastSavedTickArrayStartIndex !== tickAarrayStartIndex) {
-          state.accounts.push(getPdaTickArrayAddress(programId, poolId, tickAarrayStartIndex));
-          lastSavedTickArrayStartIndex = tickAarrayStartIndex;
-        }
-      } catch (e) {
-        console.log('ERROR!!!!', e);
-        /* empty */
-      }
-
-      return {
-        allTrade: true,
-        amountSpecifiedRemaining: ZERO,
-        amountCalculated: state.amountCalculated,
-        feeAmount: state.feeAmount,
-        sqrtPriceX64: state.sqrtPriceX64,
-        liquidity: state.liquidity,
-        tickCurrent: state.tick,
-        accounts: state.accounts,
-      };
-    }
-
-    static swapStepCompute(
-      sqrtPriceX64Current,
-      sqrtPriceX64Target,
-      liquidity,
-      amountRemaining,
-      feeRate,
-    ) {
-      const swapStep = {
-        sqrtPriceX64Next: new solanaWeb3_js.BN(0),
-        amountIn: new solanaWeb3_js.BN(0),
-        amountOut: new solanaWeb3_js.BN(0),
-        feeAmount: new solanaWeb3_js.BN(0),
-      };
-
-      const zeroForOne = sqrtPriceX64Current.gte(sqrtPriceX64Target);
-      const baseInput = amountRemaining.gte(ZERO);
-
-      if (baseInput) {
-        const amountRemainingSubtractFee = MathUtil.mulDivFloor(
-          amountRemaining,
-          FEE_RATE_DENOMINATOR.sub(new solanaWeb3_js.BN(feeRate.toString())),
-          FEE_RATE_DENOMINATOR,
-        );
-        swapStep.amountIn = zeroForOne
-          ? LiquidityMath.getTokenAmountAFromLiquidity(sqrtPriceX64Target, sqrtPriceX64Current, liquidity, true)
-          : LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64Current, sqrtPriceX64Target, liquidity, true);
-        if (amountRemainingSubtractFee.gte(swapStep.amountIn)) {
-          swapStep.sqrtPriceX64Next = sqrtPriceX64Target;
-        } else {
-          swapStep.sqrtPriceX64Next = SqrtPriceMath.getNextSqrtPriceX64FromInput(
-            sqrtPriceX64Current,
-            liquidity,
-            amountRemainingSubtractFee,
-            zeroForOne,
-          );
-        }
-      } else {
-        swapStep.amountOut = zeroForOne
-          ? LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64Target, sqrtPriceX64Current, liquidity, false)
-          : LiquidityMath.getTokenAmountAFromLiquidity(sqrtPriceX64Current, sqrtPriceX64Target, liquidity, false);
-        if (amountRemaining.mul(NEGATIVE_ONE).gte(swapStep.amountOut)) {
-          swapStep.sqrtPriceX64Next = sqrtPriceX64Target;
-        } else {
-          swapStep.sqrtPriceX64Next = SqrtPriceMath.getNextSqrtPriceX64FromOutput(
-            sqrtPriceX64Current,
-            liquidity,
-            amountRemaining.mul(NEGATIVE_ONE),
-            zeroForOne,
-          );
-        }
-      }
-
-      const reachTargetPrice = sqrtPriceX64Target.eq(swapStep.sqrtPriceX64Next);
-
-      if (zeroForOne) {
-        if (!(reachTargetPrice && baseInput)) {
-          swapStep.amountIn = LiquidityMath.getTokenAmountAFromLiquidity(
-            swapStep.sqrtPriceX64Next,
-            sqrtPriceX64Current,
-            liquidity,
-            true,
-          );
-        }
-
-        if (!(reachTargetPrice && !baseInput)) {
-          swapStep.amountOut = LiquidityMath.getTokenAmountBFromLiquidity(
-            swapStep.sqrtPriceX64Next,
-            sqrtPriceX64Current,
-            liquidity,
-            false,
-          );
-        }
-      } else {
-        swapStep.amountIn =
-          reachTargetPrice && baseInput
-            ? swapStep.amountIn
-            : LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64Current, swapStep.sqrtPriceX64Next, liquidity, true);
-        swapStep.amountOut =
-          reachTargetPrice && !baseInput
-            ? swapStep.amountOut
-            : LiquidityMath.getTokenAmountAFromLiquidity(
-              sqrtPriceX64Current,
-              swapStep.sqrtPriceX64Next,
-              liquidity,
-              false,
-            );
-      }
-
-      if (!baseInput && swapStep.amountOut.gt(amountRemaining.mul(NEGATIVE_ONE))) {
-        swapStep.amountOut = amountRemaining.mul(NEGATIVE_ONE);
-      }
-      if (baseInput && !swapStep.sqrtPriceX64Next.eq(sqrtPriceX64Target)) {
-        swapStep.feeAmount = amountRemaining.sub(swapStep.amountIn);
-      } else {
-        swapStep.feeAmount = MathUtil.mulDivCeil(
-          swapStep.amountIn,
-          new solanaWeb3_js.BN(feeRate),
-          FEE_RATE_DENOMINATOR.sub(new solanaWeb3_js.BN(feeRate)),
-        );
-      }
-      return [swapStep.sqrtPriceX64Next, swapStep.amountIn, swapStep.amountOut, swapStep.feeAmount];
-    }
-  }
-
-
-  const getPairs = (base, quote)=>{
-    return request(`solana://${PROGRAM_ID}/getProgramAccounts`, {
-      params: { filters: [
-        { dataSize: CLMM_LAYOUT.span },
-        { memcmp: { offset: 73, bytes: base }},
-        { memcmp: { offset: 105, bytes: quote }},
-        { memcmp: { offset: 389, bytes: solanaWeb3_js.bs58.encode(solanaWeb3_js.Buffer.from([0])) }}, // status 0 for active pool: https://github.com/raydium-io/raydium-clmm/blob/master/programs/amm/src/states/pool.rs#L109
-      ]},
-      api: CLMM_LAYOUT,
-      cache: 21600000, // 6 hours in ms
-      cacheKey: ['raydium/clmm/', base.toString(), quote.toString()].join('/')
-    })
-  };
-
-  const firstInitializedTick = (tickArrayCurrent, zeroForOne) => {
-    if (zeroForOne) {
-      let i = TICK_ARRAY_SIZE - 1;
-      while (i >= 0) {
-        if (tickArrayCurrent.ticks[i].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[i];
-        }
-        i = i - 1;
-      }
-    } else {
-      let i = 0;
-      while (i < TICK_ARRAY_SIZE) {
-        if (tickArrayCurrent.ticks[i].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[i];
-        }
-        i = i + 1;
-      }
-    }
-
-    throw Error(`firstInitializedTick check error: ${tickArrayCurrent} - ${zeroForOne}`);
-  };
-
-  const nextInitTick = ( tickArrayCurrent, currentTickIndex, tickSpacing, zeroForOne, t) => {
-    const currentTickArrayStartIndex = getArrayStartIndex(currentTickIndex, tickSpacing);
-    if (currentTickArrayStartIndex != tickArrayCurrent.startTickIndex) {
-      return null;
-    }
-    let offsetInArray = Math.floor((currentTickIndex - tickArrayCurrent.startTickIndex) / tickSpacing);
-
-    if (zeroForOne) {
-      while (offsetInArray >= 0) {
-        if (tickArrayCurrent.ticks[offsetInArray].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[offsetInArray];
-        }
-        offsetInArray = offsetInArray - 1;
-      }
-    } else {
-      if (!t) offsetInArray = offsetInArray + 1;
-      while (offsetInArray < TICK_ARRAY_SIZE) {
-        if (tickArrayCurrent.ticks[offsetInArray].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[offsetInArray];
-        }
-        offsetInArray = offsetInArray + 1;
-      }
-    }
-    return null;
-  };
-
-  const maxTickInTickarrayBitmap = (tickSpacing) => {
-    return tickSpacing * TICK_ARRAY_SIZE * TICK_ARRAY_BITMAP_SIZE
-  };
-
-  const tickCount = (tickSpacing) => {
-    return TICK_ARRAY_SIZE * tickSpacing
-  };
-
-  const getArrayStartIndex = (tickIndex, tickSpacing) => {
-    const ticksInArray = tickCount(tickSpacing);
-    const start = Math.floor(tickIndex / ticksInArray);
-    return start * ticksInArray
-  };
-
-  const tickRange = (tickSpacing) =>{
-    let maxTickBoundary = maxTickInTickarrayBitmap(tickSpacing);
-    let minTickBoundary = -maxTickBoundary;
-
-    if (maxTickBoundary > MAX_TICK) {
-      maxTickBoundary = getArrayStartIndex(MAX_TICK, tickSpacing) + tickCount(tickSpacing);
-    }
-    if (minTickBoundary < MIN_TICK) {
-      minTickBoundary = getArrayStartIndex(MIN_TICK, tickSpacing);
-    }
-    return { maxTickBoundary, minTickBoundary }
-  };
-
-  const getInitializedTickArrayInRange = (tickArrayBitmap, exTickArrayBitmap, tickSpacing, tickArrayStartIndex, expectedCount) => {
-    const tickArrayOffset = Math.floor(tickArrayStartIndex / (tickSpacing * TICK_ARRAY_SIZE));
-    return [
-      // find right of currenct offset
-      ...searchLowBitFromStart(
-        tickArrayBitmap,
-        exTickArrayBitmap,
-        tickArrayOffset - 1,
-        expectedCount,
-        tickSpacing,
-      ),
-
-      // find left of current offset
-      ...searchHightBitFromStart(
-        tickArrayBitmap,
-        exTickArrayBitmap,
-        tickArrayOffset,
-        expectedCount,
-        tickSpacing,
-      ),
-    ];
-  };
-
-  const getTickArrayBitIndex = (tickIndex, tickSpacing) => {
-    const ticksInArray = tickCount(tickSpacing);
-
-    let startIndex = tickIndex / ticksInArray;
-    if (tickIndex < 0 && tickIndex % ticksInArray != 0) {
-      startIndex = Math.ceil(startIndex) - 1;
-    } else {
-      startIndex = Math.floor(startIndex);
-    }
-    return startIndex
-  };
-
-  const getTickArrayStartIndexByTick = (tickIndex, tickSpacing) => {
-    return getTickArrayBitIndex(tickIndex, tickSpacing) * tickCount(tickSpacing)
-  };
-
-  const isOverflowDefaultTickarrayBitmap = (tickSpacing, tickarrayStartIndexs)=> {
-    const { maxTickBoundary, minTickBoundary } = tickRange(tickSpacing);
-
-    for (const tickIndex of tickarrayStartIndexs) {
-      const tickarrayStartIndex = getTickArrayStartIndexByTick(tickIndex, tickSpacing);
-
-      if (tickarrayStartIndex >= maxTickBoundary || tickarrayStartIndex < minTickBoundary) {
-        return true
-      }
-    }
-
-    return false
-  };
-
-  const checkIsOutOfBoundary = (tick) => {
-    return tick < MIN_TICK || tick > MAX_TICK
-  };
-
-  const checkIsValidStartIndex = (tickIndex, tickSpacing) => {
-    if (checkIsOutOfBoundary(tickIndex)) {
-      if (tickIndex > MAX_TICK) {
-        return false;
-      }
-      const minStartIndex = getTickArrayStartIndexByTick(MIN_TICK, tickSpacing);
-      return tickIndex == minStartIndex;
-    }
-    return tickIndex % tickCount(tickSpacing) == 0;
-  };
-
-  const extensionTickBoundary = (tickSpacing) => {
-    const positiveTickBoundary = maxTickInTickarrayBitmap(tickSpacing);
-
-    const negativeTickBoundary = -positiveTickBoundary;
-
-    if (MAX_TICK <= positiveTickBoundary)
-      throw Error(`extensionTickBoundary check error: ${MAX_TICK}, ${positiveTickBoundary}`);
-    if (negativeTickBoundary <= MIN_TICK)
-      throw Error(`extensionTickBoundary check error: ${negativeTickBoundary}, ${MIN_TICK}`);
-
-    return { positiveTickBoundary, negativeTickBoundary };
-  };
-
-  const checkExtensionBoundary = (tickIndex, tickSpacing) => {
-    const { positiveTickBoundary, negativeTickBoundary } = extensionTickBoundary(tickSpacing);
-
-    if (tickIndex >= negativeTickBoundary && tickIndex < positiveTickBoundary) {
-      throw Error("checkExtensionBoundary -> InvalidTickArrayBoundary");
-    }
-  };
-
-  const getBitmapOffset = (tickIndex, tickSpacing) => {
-    if (!checkIsValidStartIndex(tickIndex, tickSpacing)) {
-      throw new Error("No enough initialized tickArray");
-    }
-    checkExtensionBoundary(tickIndex, tickSpacing);
-
-    const ticksInOneBitmap = maxTickInTickarrayBitmap(tickSpacing);
-    let offset = Math.floor(Math.abs(tickIndex) / ticksInOneBitmap) - 1;
-
-    if (tickIndex < 0 && Math.abs(tickIndex) % ticksInOneBitmap === 0) offset--;
-    return offset;
-  };
-
-  const getBitmap = (tickIndex, tickSpacing, tickArrayBitmapExtension) => {
-    const offset = getBitmapOffset(tickIndex, tickSpacing);
-    if (tickIndex < 0) {
-      return { offset, tickarrayBitmap: tickArrayBitmapExtension.negativeTickArrayBitmap[offset] }
-    } else {
-      return { offset, tickarrayBitmap: tickArrayBitmapExtension.positiveTickArrayBitmap[offset] }
-    }
-  };
-
-  const tickArrayOffsetInBitmap = (tickArrayStartIndex, tickSpacing) => {
-    const m = Math.abs(tickArrayStartIndex) % maxTickInTickarrayBitmap(tickSpacing);
-    let tickArrayOffsetInBitmap = Math.floor(m / tickCount(tickSpacing));
-    if (tickArrayStartIndex < 0 && m != 0) {
-      tickArrayOffsetInBitmap = TICK_ARRAY_BITMAP_SIZE - tickArrayOffsetInBitmap;
-    }
-    return tickArrayOffsetInBitmap;
-  };
-
-  const mergeTickArrayBitmap = (bns) => {
-    let b = new solanaWeb3_js.BN(0);
-    for (let i = 0; i < bns.length; i++) {
-      b = b.add(bns[i].shln(64 * i));
-    }
-    return b;
-  };
-
-  const checkTickArrayIsInit = (tickArrayStartIndex, tickSpacing, tickArrayBitmapExtension) => {
-    const { tickarrayBitmap } = getBitmap(tickArrayStartIndex, tickSpacing, tickArrayBitmapExtension);
-
-    const _tickArrayOffsetInBitmap = tickArrayOffsetInBitmap(tickArrayStartIndex, tickSpacing);
-
-    return {
-      isInitialized: mergeTickArrayBitmap(tickarrayBitmap).testn(_tickArrayOffsetInBitmap),
-      startIndex: tickArrayStartIndex,
-    };
-  };
-
-  const checkTickArrayIsInitialized = (bitmap, tick, tickSpacing) => {
-    const multiplier = tickSpacing * TICK_ARRAY_SIZE;
-    const compressed = Math.floor(tick / multiplier) + 512;
-    const bitPos = Math.abs(compressed);
-    return {
-      isInitialized: bitmap.testn(bitPos),
-      startIndex: (bitPos - 512) * multiplier,
-    };
-  };
-
-  const i32ToBytes = (num) => {
-    const arr = new ArrayBuffer(4);
-    const view = new DataView(arr);
-    view.setInt32(0, num, false);
-    return new Uint8Array(arr)
-  };
-
-  const getPdaTickArrayAddress = (programId, poolId, startIndex) => {
-    const [publicKey, nonce] = solanaWeb3_js.PublicKey.findProgramAddressSync([TICK_ARRAY_SEED, solanaWeb3_js.Buffer.from(poolId.toBuffer()), i32ToBytes(startIndex)], programId);
-    return publicKey
-  };
-
-  const isZero = (bitNum, data) => {
-    for (let i = 0; i < bitNum; i++) {
-      if (data.testn(i)) return false;
-    }
-    return true;
-  };
-
-  const leadingZeros = (bitNum, data) => {
-    let i = 0;
-    for (let j = bitNum - 1; j >= 0; j--) {
-      if (!data.testn(j)) {
-        i++;
-      } else {
-        break;
-      }
-    }
-    return i;
-  };
-
-  const trailingZeros = (bitNum, data) => {
-    let i = 0;
-    for (let j = 0; j < bitNum; j++) {
-      if (!data.testn(j)) {
-        i++;
-      } else {
-        break;
-      }
-    }
-    return i;
-  };
-
-  const mostSignificantBit = (bitNum, data) => {
-    if (isZero(bitNum, data)) return null;
-    else return leadingZeros(bitNum, data);
-  };
-
-  const leastSignificantBit = (bitNum, data) => {
-    if (isZero(bitNum, data)) return null;
-    else return trailingZeros(bitNum, data);
-  };
-
-  const nextInitializedTickArrayBitmapStartIndex = (bitMap, lastTickArrayStartIndex, tickSpacing, zeroForOne) => {
-    if (!checkIsValidStartIndex(lastTickArrayStartIndex, tickSpacing))
-      throw Error("nextInitializedTickArrayStartIndex check error");
-
-    const tickBoundary = maxTickInTickarrayBitmap(tickSpacing);
-    const nextTickArrayStartIndex = zeroForOne
-      ? lastTickArrayStartIndex - tickCount(tickSpacing)
-      : lastTickArrayStartIndex + tickCount(tickSpacing);
-
-    if (nextTickArrayStartIndex < -tickBoundary || nextTickArrayStartIndex >= tickBoundary) {
-      return { isInit: false, tickIndex: lastTickArrayStartIndex };
-    }
-
-    const multiplier = tickSpacing * TICK_ARRAY_SIZE;
-    let compressed = nextTickArrayStartIndex / multiplier + 512;
-
-    if (nextTickArrayStartIndex < 0 && nextTickArrayStartIndex % multiplier != 0) {
-      compressed--;
-    }
-
-    const bitPos = Math.abs(compressed);
-
-    if (zeroForOne) {
-      const offsetBitMap = bitMap.shln(1024 - bitPos - 1);
-      const nextBit = mostSignificantBit(1024, offsetBitMap);
-      if (nextBit !== null) {
-        const nextArrayStartIndex = (bitPos - nextBit - 512) * multiplier;
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        return { isInit: false, tickIndex: -tickBoundary };
-      }
-    } else {
-      const offsetBitMap = bitMap.shrn(bitPos);
-      const nextBit = leastSignificantBit(1024, offsetBitMap);
-      if (nextBit !== null) {
-        const nextArrayStartIndex = (bitPos + nextBit - 512) * multiplier;
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        return { isInit: false, tickIndex: tickBoundary - tickCount(tickSpacing) };
-      }
-    }
-  };
-
-  const getBitmapTickBoundary =(tickarrayStartIndex, tickSpacing) => {
-    const ticksInOneBitmap = maxTickInTickarrayBitmap(tickSpacing);
-    let m = Math.floor(Math.abs(tickarrayStartIndex) / ticksInOneBitmap);
-    if (tickarrayStartIndex < 0 && Math.abs(tickarrayStartIndex) % ticksInOneBitmap != 0) m += 1;
-
-    const minValue = ticksInOneBitmap * m;
-
-    return tickarrayStartIndex < 0
-      ? { minValue: -minValue, maxValue: -minValue + ticksInOneBitmap }
-      : { minValue, maxValue: minValue + ticksInOneBitmap };
-  };
-
-  const nextInitializedTickArrayInBitmap = (tickarrayBitmap, nextTickArrayStartIndex, tickSpacing, zeroForOne) => {
-    const { minValue: bitmapMinTickBoundary, maxValue: bitmapMaxTickBoundary } = getBitmapTickBoundary(
-      nextTickArrayStartIndex,
-      tickSpacing,
-    );
-
-    const _tickArrayOffsetInBitmap = tickArrayOffsetInBitmap(nextTickArrayStartIndex, tickSpacing);
-    if (zeroForOne) {
-      // tick from upper to lower
-      // find from highter bits to lower bits
-      const offsetBitMap = mergeTickArrayBitmap(tickarrayBitmap).shln(
-        TICK_ARRAY_BITMAP_SIZE - 1 - _tickArrayOffsetInBitmap,
-      );
-
-      const nextBit = isZero(512, offsetBitMap) ? null : leadingZeros(512, offsetBitMap);
-
-      if (nextBit !== null) {
-        const nextArrayStartIndex = nextTickArrayStartIndex - nextBit * tickCount(tickSpacing);
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        // not found til to the end
-        return { isInit: false, tickIndex: bitmapMinTickBoundary };
-      }
-    } else {
-      // tick from lower to upper
-      // find from lower bits to highter bits
-      const offsetBitMap = mergeTickArrayBitmap(tickarrayBitmap).shrn(_tickArrayOffsetInBitmap);
-
-      const nextBit = isZero(512, offsetBitMap) ? null : trailingZeros(512, offsetBitMap);
-
-      if (nextBit !== null) {
-        const nextArrayStartIndex = nextTickArrayStartIndex + nextBit * tickCount(tickSpacing);
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        // not found til to the end
-        return { isInit: false, tickIndex: bitmapMaxTickBoundary - tickCount(tickSpacing) };
-      }
-    }
-  };
-
-  const nextInitializedTickArrayFromOneBitmap = (lastTickArrayStartIndex, tickSpacing, zeroForOne, tickArrayBitmapExtension) => {
-    const multiplier = tickCount(tickSpacing);
-    const nextTickArrayStartIndex = zeroForOne
-      ? lastTickArrayStartIndex - multiplier
-      : lastTickArrayStartIndex + multiplier;
-    const { tickarrayBitmap } = getBitmap(nextTickArrayStartIndex, tickSpacing, tickArrayBitmapExtension);
-
-    return nextInitializedTickArrayInBitmap(tickarrayBitmap, nextTickArrayStartIndex, tickSpacing, zeroForOne);
-  };
-
-  const nextInitializedTickArrayStartIndex = (poolInfo, lastTickArrayStartIndex, zeroForOne) => {
-    lastTickArrayStartIndex = getArrayStartIndex(poolInfo.tickCurrent, poolInfo.tickSpacing);
-
-    while (true) {
-      const { isInit: startIsInit, tickIndex: startIndex } = nextInitializedTickArrayBitmapStartIndex(
-        mergeTickArrayBitmap(poolInfo.tickArrayBitmap),
-        lastTickArrayStartIndex,
-        poolInfo.tickSpacing,
-        zeroForOne,
-      );
-      if (startIsInit) {
-        return { isExist: true, nextStartIndex: startIndex };
-      }
-      lastTickArrayStartIndex = startIndex;
-
-      const { isInit, tickIndex } = nextInitializedTickArrayFromOneBitmap(
-        lastTickArrayStartIndex,
-        poolInfo.tickSpacing,
-        zeroForOne,
-        poolInfo.exBitmapInfo,
-      );
-      if (isInit) return { isExist: true, nextStartIndex: tickIndex };
-
-      lastTickArrayStartIndex = tickIndex;
-
-      if (lastTickArrayStartIndex < MIN_TICK || lastTickArrayStartIndex > MAX_TICK)
-        return { isExist: false, nextStartIndex: 0 };
-    }
-  };
-
-  const getFirstInitializedTickArray = async(
-    poolInfo,
-    zeroForOne,
-  )=> {
-    const { isInitialized, startIndex } = isOverflowDefaultTickarrayBitmap(poolInfo.tickSpacing, [
-      poolInfo.tickCurrent,
-    ])
-      ? checkTickArrayIsInit(
-          getArrayStartIndex(poolInfo.tickCurrent, poolInfo.tickSpacing),
-          poolInfo.tickSpacing,
-          poolInfo.exBitmapInfo,
-        )
-      : checkTickArrayIsInitialized(
-          mergeTickArrayBitmap(poolInfo.tickArrayBitmap),
-          poolInfo.tickCurrent,
-          poolInfo.tickSpacing,
-        );
-
-    if (isInitialized) {
-      const address = getPdaTickArrayAddress(poolInfo.programId, poolInfo.id, startIndex);
-      return {
-        isExist: true,
-        startIndex,
-        nextAccountMeta: address,
-      };
-    }
-    const { isExist, nextStartIndex } = nextInitializedTickArrayStartIndex(
-      poolInfo,
-      getArrayStartIndex(poolInfo.tickCurrent, poolInfo.tickSpacing),
-      zeroForOne,
-    );
-    if (isExist) {
-      const address = getPdaTickArrayAddress(poolInfo.programId, poolInfo.id, nextStartIndex);
-      return {
-        isExist: true,
-        startIndex: nextStartIndex,
-        nextAccountMeta: address,
-      };
-    }
-    return { isExist: false, nextAccountMeta: undefined, startIndex: undefined };
-  };
-
-  const getPdaExBitmapAddress = async(programId, poolId) => {
-    const [publicKey, nonce] = await solanaWeb3_js.PublicKey.findProgramAddress([POOL_TICK_ARRAY_BITMAP_SEED, solanaWeb3_js.Buffer.from(poolId.toBuffer())], programId);
-    return publicKey.toString()
-  };
-
-  const searchLowBitFromStart = (tickArrayBitmap, exTickArrayBitmap, currentTickArrayBitStartIndex, expectedCount, tickSpacing) => {
-    const tickArrayBitmaps = [
-      ...[...exTickArrayBitmap.negativeTickArrayBitmap].reverse(),
-      tickArrayBitmap.slice(0, 8),
-      tickArrayBitmap.slice(8, 16),
-      ...exTickArrayBitmap.positiveTickArrayBitmap,
-    ].map((i) => mergeTickArrayBitmap(i));
-    const result = [];
-    while (currentTickArrayBitStartIndex >= -7680) {
-      const arrayIndex = Math.floor((currentTickArrayBitStartIndex + 7680) / 512);
-      const searchIndex = (currentTickArrayBitStartIndex + 7680) % 512;
-
-      if (tickArrayBitmaps[arrayIndex].testn(searchIndex)) result.push(currentTickArrayBitStartIndex);
-
-      currentTickArrayBitStartIndex--;
-      if (result.length === expectedCount) break;
-    }
-
-    const _tickCount = tickCount(tickSpacing);
-    return result.map((i) => i * _tickCount);
-  };
-
-  const searchHightBitFromStart = (tickArrayBitmap, exTickArrayBitmap, currentTickArrayBitStartIndex, expectedCount, tickSpacing) => {
-    const tickArrayBitmaps = [
-      ...[...exTickArrayBitmap.negativeTickArrayBitmap].reverse(),
-      tickArrayBitmap.slice(0, 8),
-      tickArrayBitmap.slice(8, 16),
-      ...exTickArrayBitmap.positiveTickArrayBitmap,
-    ].map((i) => mergeTickArrayBitmap(i));
-    const result = [];
-    while (currentTickArrayBitStartIndex < 7680) {
-      const arrayIndex = Math.floor((currentTickArrayBitStartIndex + 7680) / 512);
-      const searchIndex = (currentTickArrayBitStartIndex + 7680) % 512;
-
-      if (tickArrayBitmaps[arrayIndex].testn(searchIndex)) result.push(currentTickArrayBitStartIndex);
-
-      currentTickArrayBitStartIndex++;
-      if (result.length === expectedCount) break;
-    }
-
-    const _tickCount = tickCount(tickSpacing);
-    return result.map((i) => i * _tickCount);
-  };
-
-  const fetchPoolTickArrays = async(poolKeys) =>{
-    
-    // const tickArrays: { pubkey: PublicKey }[] = [];
-    const tickArrays = [];
-
-    for (const itemPoolInfo of poolKeys) {
-      const currentTickArrayStartIndex = getTickArrayStartIndexByTick(
-        itemPoolInfo.tickCurrent,
-        itemPoolInfo.tickSpacing,
-      );
-      const startIndexArray = getInitializedTickArrayInRange(
-        itemPoolInfo.tickArrayBitmap,
-        itemPoolInfo.exBitmapInfo,
-        itemPoolInfo.tickSpacing,
-        currentTickArrayStartIndex,
-        25,
-      );
-      for (const itemIndex of startIndexArray) {
-        const tickArrayAddress = getPdaTickArrayAddress(
-          itemPoolInfo.programId,
-          itemPoolInfo.id,
-          itemIndex,
-        );
-        tickArrays.push({ pubkey: tickArrayAddress });
-      }
-    }
-
-    const tickArrayCache = {};
-    
-    await Promise.all(tickArrays.map(
-      async(tickArray) => {
-        const tickData = await request(`solana://${tickArray.pubkey.toString()}`, {
-          api: TICK_ARRAY_LAYOUT,
-          cache: 5000, // 5 seconds in ms
-          cacheKey: ['raydium', 'cl', 'tickarray', tickArray.pubkey.toString()].join('-')
-        });
-        if (tickArrayCache[tickData.poolId.toString()] === undefined) tickArrayCache[tickData.poolId.toString()] = {};
-
-        tickArrayCache[tickData.poolId.toString()][tickData.startTickIndex] = {
-          ...tickData,
-          address: tickArray.pubkey,
-        };
-      }
-    ));
-
-    return tickArrayCache
-  };
-
-  const preInitializedTickArrayStartIndex = (poolInfo, zeroForOne) => {
-    const currentOffset = Math.floor(poolInfo.tickCurrent / tickCount(poolInfo.tickSpacing));
-
-    const result = !zeroForOne
-      ? searchLowBitFromStart(
-          poolInfo.tickArrayBitmap,
-          poolInfo.exBitmapInfo,
-          currentOffset - 1,
-          1,
-          poolInfo.tickSpacing,
-        )
-      : searchHightBitFromStart(
-          poolInfo.tickArrayBitmap,
-          poolInfo.exBitmapInfo,
-          currentOffset + 1,
-          1,
-          poolInfo.tickSpacing,
-        );
-
-    return result.length > 0 ? { isExist: true, nextStartIndex: result[0] } : { isExist: false, nextStartIndex: 0 };
-  };
-
-  const getPairsWithPrice$1 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })=>{
-
-    let accounts;
-    const exBitData = {};
-
-    if(pairsDatum) {
-
-      let exBitDataForAddress;
-
-      [accounts, exBitDataForAddress] = await Promise.all([
-        await request(`solana://${pairsDatum.id}`, { api: CLMM_LAYOUT, cache: 5000 }).then((data)=>{
-          return [{
-            pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id),
-            data
-          }]
-        }),
-        await request(`solana://${pairsDatum.exBitmapAddress}`, { api: TICK_ARRAY_BITMAP_EXTENSION_LAYOUT, cache: 5000 }),
-      ]);
-
-      exBitData[pairsDatum.exBitmapAddress] = exBitDataForAddress;
-
-    } else {
-      accounts = await getPairs(tokenIn, tokenOut);
-
-      if(accounts.length == 0) {
-        accounts = await getPairs(tokenOut, tokenIn);
-      }
-
-      accounts = accounts.filter((account)=>account.data.liquidity.gte(new solanaWeb3_js.BN('1000')));
-      
-      let addresses = await Promise.all(accounts.map(
-        (account) => getPdaExBitmapAddress(new solanaWeb3_js.PublicKey(PROGRAM_ID), account.pubkey)
-      ));
-
-      await Promise.all(addresses.map(
-        async(address) => {
-          exBitData[address] = await request(`solana://${address}`, {
-            api: TICK_ARRAY_BITMAP_EXTENSION_LAYOUT,
-            cache: 5000, // 5 seconds in ms
-          });
-        }
-      ));
-    }
-
-    const poolInfos = await Promise.all(accounts.map(async(account)=>{
-      const ammConfig = await request(`solana://${account.data.ammConfig.toString()}`, {
-        api: CLMM_CONFIG_LAYOUT,
-        cache: 5000
-      });
-      return {
-        ...account.data,
-        ammConfig: {...ammConfig, pubkey: account.data.ammConfig},
-        id: account.pubkey,
-        programId: new solanaWeb3_js.PublicKey(PROGRAM_ID),
-        exBitmapInfo: exBitData[await getPdaExBitmapAddress(new solanaWeb3_js.PublicKey(PROGRAM_ID), account.pubkey)],
-      }
-    }));
-
-    const tickArrayCache = await fetchPoolTickArrays(poolInfos);
-
-    const pairs = await Promise.all(poolInfos.map(async(poolInfo)=>{
-
-      try {
-
-        let price = 0;
-
-        let _return;
-
-        let allNeededAccounts = [];
-
-        if(amountIn || amountInMax) { // compute amountOut
-
-          const zeroForOne = tokenIn.toString() === poolInfo.mintA.toString();
-          
-          const {
-            isExist,
-            startIndex: firstTickArrayStartIndex,
-            nextAccountMeta,
-          } = await getFirstInitializedTickArray(poolInfo, zeroForOne);
-          if (!isExist || firstTickArrayStartIndex === undefined || !nextAccountMeta) throw new Error("Invalid tick array")
-
-          const inputAmount = new solanaWeb3_js.BN((amountIn || amountInMax).toString());
-
-          const {
-            amountCalculated: outputAmount,
-            accounts: remainingAccounts,
-            sqrtPriceX64: executionPrice,
-            feeAmount,
-          } = SwapMath.swapCompute(
-            poolInfo.programId,
-            poolInfo.id,
-            tickArrayCache[poolInfo.id],
-            poolInfo.tickArrayBitmap,
-            poolInfo.exBitmapInfo,
-            zeroForOne,
-            poolInfo.ammConfig.tradeFeeRate,
-            poolInfo.liquidity,
-            poolInfo.tickCurrent,
-            poolInfo.tickSpacing,
-            poolInfo.sqrtPriceX64,
-            inputAmount,
-            firstTickArrayStartIndex,
-            undefined,
-          );
-
-          _return = {
-            type: 'clmm',
-            price: outputAmount.abs().toString(),
-            data: { ...poolInfo },
-          };
-
-        } else { // compute amountIn
-
-          const zeroForOne = tokenOut.toString() === poolInfo.mintA.toString();
-          
-          const {
-            isExist,
-            startIndex: firstTickArrayStartIndex,
-            nextAccountMeta,
-          } = await getFirstInitializedTickArray(poolInfo, zeroForOne);
-          if (!isExist || firstTickArrayStartIndex === undefined || !nextAccountMeta) throw new Error("Invalid tick array")
-
-          try {
-            const preTick = preInitializedTickArrayStartIndex(poolInfo, zeroForOne);
-            if (preTick.isExist) {
-              const address = getPdaTickArrayAddress(poolInfo.programId, poolInfo.id, preTick.nextStartIndex);
-              allNeededAccounts.push(new solanaWeb3_js.PublicKey(address));
-            }
-          } catch (e) {
-            console.log('ERROR', e);
-            /* empty */
-          }
-
-          allNeededAccounts.push(nextAccountMeta);
-          
-          const outputAmount = new solanaWeb3_js.BN((amountOut || amountOutMin).toString());
-
-          const {
-            amountCalculated: inputAmount,
-            accounts: remainingAccounts,
-          } = SwapMath.swapCompute(
-            poolInfo.programId,
-            poolInfo.id,
-            tickArrayCache[poolInfo.id],
-            poolInfo.tickArrayBitmap,
-            poolInfo.exBitmapInfo,
-            zeroForOne,
-            poolInfo.ammConfig.tradeFeeRate,
-            poolInfo.liquidity,
-            poolInfo.tickCurrent,
-            poolInfo.tickSpacing,
-            poolInfo.sqrtPriceX64,
-            outputAmount,
-            firstTickArrayStartIndex,
-            undefined,
-          );
-          allNeededAccounts.push(...remainingAccounts);
-          _return = {
-            type: 'clmm',
-            price: inputAmount.abs().toString(),
-            data: { ...poolInfo, allNeededAccounts },
-          };
-        }
-
-        if(!_return || _return.price === 0) { return }
-
-        return _return
-      
-      } catch (e) { console.log(e); }
-    
-    }));
-
-    return pairs.filter(Boolean)
-
-  };
-
-  function _optionalChain$5$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  const getPairsWithPrice = async({ exchange, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })=>{
-    try {
-      if(_optionalChain$5$1([exchange, 'optionalAccess', _ => _.name]) == 'raydium_cp') {
-        return getPairsWithPrice$2({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })
-      } else if (_optionalChain$5$1([exchange, 'optionalAccess', _2 => _2.name]) == 'raydium_cl') {
-        return getPairsWithPrice$1({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })
-      } else {
-        return []
-      }
-    } catch(e) {
-      console.log('ERROR', e);
-      return []
-    }
-  };
-
-  let getHighestPrice = (pairs)=>{
-    return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).gt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
-  };
-
-  let getLowestPrice = (pairs)=>{
-    return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).lt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
-  };
-
-  let getBestPair = async({ exchange, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum }) => {
-    const pairs = await getPairsWithPrice({ exchange, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum });
-
-    if(!pairs || pairs.length === 0) { return }
-
-    let bestPair;
-
-    if(amountIn || amountInMax) {
-      bestPair = getHighestPrice(pairs);
-    } else { // amount out
-      bestPair = getLowestPrice(pairs);
-    }
-
-    return bestPair
-  };
-
-  function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-  const blockchain$1 = Blockchains__default['default'].solana;
-
-  // Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
-  //
-  // We keep 11111111111111111111111111111111 internally
-  // to be able to differentiate between SOL<>Token and WSOL<>Token swaps
-  // as they are not the same!
-  //
-  let getExchangePath$4 = ({ path }) => {
-    if(!path) { return }
-    let exchangePath = path.map((token, index) => {
-      if (
-        token === blockchain$1.currency.address && path[index+1] != blockchain$1.wrapped.address &&
-        path[index-1] != blockchain$1.wrapped.address
-      ) {
-        return blockchain$1.wrapped.address
-      } else {
-        return token
-      }
-    });
-
-    if(exchangePath[0] == blockchain$1.currency.address && exchangePath[1] == blockchain$1.wrapped.address) {
-      exchangePath.splice(0, 1);
-    } else if(exchangePath[exchangePath.length-1] == blockchain$1.currency.address && exchangePath[exchangePath.length-2] == blockchain$1.wrapped.address) {
-      exchangePath.splice(exchangePath.length-1, 1);
-    }
-
-    return exchangePath
-  };
-
-  let pathExists$5 = async ({ exchange, path, amountIn, amountInMax, amountOut, amountOutMin }) => {
-    if(path.length == 1) { return false }
-    path = getExchangePath$4({ path });
-    let pairs = (await getPairsWithPrice({ exchange, tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin }));
-    if(pairs.length > 0) {
-      return true
-    } else {
-      return false
-    }
-  };
-
-  let findPath$5 = async ({ exchange, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin, pairsData }) => {
-    
-    if(pairsData) {
-      let path;
-      if(pairsData.length == 1) {
-        path = [tokenIn, tokenOut];
-      } else if(pairsData.length == 2) {
-        const tokenMiddle = [pairsData[0].mintA, pairsData[0].mintB].includes(pairsData[1].mintA) ? pairsData[1].mintA : pairsData[1].mintB;
-        path = [tokenIn, tokenMiddle, tokenOut];
-      }
-      if(path) {
-        return { path , exchangePath: getExchangePath$4({ path }) }
-      }
-    }
-
-    if(
-      [tokenIn, tokenOut].includes(blockchain$1.currency.address) &&
-      [tokenIn, tokenOut].includes(blockchain$1.wrapped.address)
-    ) { return { path: undefined, exchangePath: undefined } }
-
-    let path, stablesIn, stablesOut, stable;
-
-    if (await pathExists$5({ exchange, path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
-      // direct path
-      path = [tokenIn, tokenOut];
-    } else if (
-      tokenIn != blockchain$1.wrapped.address &&
-      tokenIn != blockchain$1.currency.address &&
-      await pathExists$5({ exchange, path: [tokenIn, blockchain$1.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
-      tokenOut != blockchain$1.wrapped.address &&
-      tokenOut != blockchain$1.currency.address &&
-      await pathExists$5({ exchange, path: [tokenOut, blockchain$1.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
-    ) {
-      // path via blockchain.wrapped.address
-      path = [tokenIn, blockchain$1.wrapped.address, tokenOut];
-    } else if (
-      !blockchain$1.stables.usd.includes(tokenIn) &&
-      (stablesIn = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$5({ exchange, path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
-      !blockchain$1.stables.usd.includes(tokenOut) &&
-      (stablesOut = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$5({ exchange, path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
-      (stable = stablesIn.filter((stable)=> stablesOut.includes(stable))[0])
-    ) {
-      // path via TOKEN_IN <> STABLE <> TOKEN_OUT
-      path = [tokenIn, stable, tokenOut];
-    }
-
-    // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
-    // because that actually reflects how things are routed in reality:
-    if(_optionalChain$4([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
-      path.splice(1, 0, blockchain$1.wrapped.address);
-    } else if(_optionalChain$4([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
-      path.splice(path.length-1, 0, blockchain$1.wrapped.address);
-    }
-    return { path, exchangePath: getExchangePath$4({ path }) }
-  };
-
-  let getAmountsOut = async ({ exchange, path, amountIn, amountInMax, pairsData }) => {
-
-    let pools = [];
-    let amounts = [ethers.ethers.BigNumber.from(amountIn || amountInMax)];
-
-    let bestPair = await getBestPair({ exchange, tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, pairsDatum: pairsData && pairsData[0] });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
-    
-    if (path.length === 3) {
-      let bestPair = await getBestPair({ exchange, tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[1] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
-    }
-
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
-
-    return { amounts, pools }
-  };
-
-  let getAmountsIn = async({ exchange, path, amountOut, amountOutMin, pairsData }) => {
-
-    path = path.slice().reverse();
-    let pools = [];
-    let amounts = [ethers.ethers.BigNumber.from(amountOut || amountOutMin)];
-
-    let bestPair = await getBestPair({ exchange, tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin, pairsDatum: pairsData && (path.length === 2 ? pairsData[0] : pairsData[1]) });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
-    
-    if (path.length === 3) {
-      let bestPair = await getBestPair({ exchange, tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[0] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
-    }
-    
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
-
-    return { amounts: amounts.slice().reverse(), pools: pools.slice().reverse() }
-  };
-
-  let getAmounts$5 = async ({
-    path,
-    tokenIn,
-    tokenOut,
-    amountOut,
-    amountIn,
-    amountInMax,
-    amountOutMin,
-    exchange,
-    pairsData
-  }) => {
-    path = getExchangePath$4({ path });
-    let amounts;
-    let pools;
-    if (amountOut) {
-  ({ amounts, pools } = await getAmountsIn({ exchange, path, amountOut, tokenIn, tokenOut, pairsData }));
-      amountIn = amounts ? amounts[0] : undefined;
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if (amountIn) {
-  ({ amounts, pools } = await getAmountsOut({ exchange, path, amountIn, tokenIn, tokenOut, pairsData }));
-      amountOut = amounts ? amounts[amounts.length-1] : undefined;
-      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    } else if(amountOutMin) {
-  ({ amounts, pools } = await getAmountsIn({ exchange, path, amountOutMin, tokenIn, tokenOut, pairsData }));
-      amountIn = amounts ? amounts[0] : undefined;
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if(amountInMax) {
-  ({ amounts, pools } = await getAmountsOut({ exchange, path, amountInMax, tokenIn, tokenOut, pairsData }));
-      amountOut = amounts ? amounts[amounts.length-1] : undefined;
-      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    }
-    return {
-      amountOut: (amountOut || amountOutMin),
-      amountIn: (amountIn || amountInMax),
-      amountInMax: (amountInMax || amountIn),
-      amountOutMin: (amountOutMin || amountOut),
-      amounts,
-      pools,
-    }
-  };
-
-  const blockchain = Blockchains__default['default'].solana;
-
-  const CP_PROGRAM_ID = new solanaWeb3_js.PublicKey('CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C');
-  const CL_PROGRAM_ID = new solanaWeb3_js.PublicKey('CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK');
-
-  const swapBaseInputInstruction = [143, 190, 90, 218, 196, 30, 51, 222];
-  const swapBaseOutputInstruction = [55, 217, 98, 86, 163, 74, 180, 173];
-
-  const anchorDataBuf = {
-    swap: [43, 4, 237, 11, 26, 201, 30, 98], // [248, 198, 158, 145, 225, 117, 135, 200],
-  };
-
-  const createTokenAccountIfNotExisting = async ({ instructions, owner, token, account })=>{
-    let outAccountExists;
-    try{ outAccountExists = !!(await request({ blockchain: 'solana', address: account.toString() })); } catch (e2) {}
-    if(!outAccountExists) {
-      instructions.push(
-        await Token.solana.createAssociatedTokenAccountInstruction({
-          token,
-          owner,
-          payer: owner,
-        })
-      );
-    }
-  };
-
-  const getPdaPoolAuthority = async(programId)=> {
-    let [publicKey, nonce] = await solanaWeb3_js.PublicKey.findProgramAddress(
-      [solanaWeb3_js.Buffer.from("vault_and_lp_mint_auth_seed", "utf8")],
-      programId
-    );
-    return publicKey
-  };
-
-  const getPdaObservationId = async(programId, poolId)=> {
-    let [publicKey, nonce] = await solanaWeb3_js.PublicKey.findProgramAddress(
-      [
-        solanaWeb3_js.Buffer.from("observation", "utf8"),
-        solanaWeb3_js.Buffer.from(poolId.toBuffer())
-      ],
-      programId
-    );
-    return publicKey
-  };
-
-  const getCPMMInstruction = async({
-    account,
-    tokenIn,
-    tokenOut,
-    tokenAccountIn,
-    tokenAccountOut,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amountInInput,
-    amountInMaxInput,
-    amountOutInput,
-    amountOutMinInput,
-    pool
-  })=>{
-    const inputMint = tokenIn == pool.mintA ? pool.data.mintA : pool.data.mintB;
-    const outputMint = tokenIn == pool.mintA ? pool.data.mintB : pool.data.mintA;
-    const inputVault = tokenIn == pool.mintA ? pool.data.vaultA : pool.data.vaultB;
-    const outputVault = tokenIn == pool.mintA ? pool.data.vaultB : pool.data.vaultA;
-    const poolId = new solanaWeb3_js.PublicKey(pool.publicKey);
-
-    if(amountInInput || amountOutMinInput) { // fixed amountIn, variable amountOut (amountOutMin)
-
-      const dataLayout = solanaWeb3_js.struct([solanaWeb3_js.u64("amountIn"), solanaWeb3_js.u64("amounOutMin")]);
-
-        const keys = [
-          // 0 payer
-          { pubkey: new solanaWeb3_js.PublicKey(account), isSigner: true, isWritable: false },
-          // 1 authority
-          { pubkey: await getPdaPoolAuthority(CP_PROGRAM_ID), isSigner: false, isWritable: false },
-          // 2 configId
-          { pubkey: pool.data.configId, isSigner: false, isWritable: false },
-          // 3 poolId
-          { pubkey: poolId, isSigner: false, isWritable: true },
-          // 4 userInputAccount
-          { pubkey: tokenAccountIn, isSigner: false, isWritable: true },
-          // 5 userOutputAccount
-          { pubkey: tokenAccountOut, isSigner: false, isWritable: true },
-          // 6 inputVault
-          { pubkey: inputVault, isSigner: false, isWritable: true },
-          // 7 outputVault
-          { pubkey: outputVault, isSigner: false, isWritable: true },
-          // 8 inputTokenProgram
-          { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-          // 9 outputTokenProgram
-          { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-          // 10 inputMint
-          { pubkey: inputMint, isSigner: false, isWritable: false },
-          // 11 outputMint
-          { pubkey: outputMint, isSigner: false, isWritable: false },
-          // 12 observationId
-          { pubkey: await getPdaObservationId(CP_PROGRAM_ID, poolId), isSigner: false, isWritable: true },
-        ];
-
-        const data = solanaWeb3_js.Buffer.alloc(dataLayout.span);
-        dataLayout.encode({ 
-          amountIn: new solanaWeb3_js.BN((amountIn || amountInMax).toString()),
-          amounOutMin: new solanaWeb3_js.BN((amountOut || amountOutMin).toString())
-        }, data);
-
-        return new solanaWeb3_js.TransactionInstruction({
-          programId: CP_PROGRAM_ID,
-          keys,
-          data: solanaWeb3_js.Buffer.from([...swapBaseInputInstruction, ...data]),
-        })
-
-    } else { // fixed amountOut, variable amountIn (amountInMax)
-
-      const dataLayout = solanaWeb3_js.struct([solanaWeb3_js.u64("amountInMax"), solanaWeb3_js.u64("amountOut")]);
-
-      const keys = [
-        // payer
-        { pubkey: new solanaWeb3_js.PublicKey(account), isSigner: true, isWritable: false },
-        // authority
-        { pubkey: await getPdaPoolAuthority(CP_PROGRAM_ID), isSigner: false, isWritable: false },
-        // configId
-        { pubkey: pool.data.configId, isSigner: false, isWritable: false },
-        // poolId
-        { pubkey: poolId, isSigner: false, isWritable: true },
-        // userInputAccount
-        { pubkey: tokenAccountIn, isSigner: false, isWritable: true },
-        // userOutputAccount
-        { pubkey: tokenAccountOut, isSigner: false, isWritable: true },
-        // inputVault
-        { pubkey: inputVault, isSigner: false, isWritable: true },
-        // outputVault
-        { pubkey: outputVault, isSigner: false, isWritable: true },
-        // inputTokenProgram
-        { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-        // outputTokenProgram
-        { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-        // inputMint
-        { pubkey: inputMint, isSigner: false, isWritable: false },
-        // outputMint
-        { pubkey: outputMint, isSigner: false, isWritable: false },
-        // observationId
-        { pubkey: await getPdaObservationId(CP_PROGRAM_ID, poolId), isSigner: false, isWritable: true },
-      ];
-
-      const data = solanaWeb3_js.Buffer.alloc(dataLayout.span);
-      dataLayout.encode({ 
-        amountInMax: new solanaWeb3_js.BN((amountIn || amountInMax).toString()),
-        amountOut: new solanaWeb3_js.BN((amountOut || amountOutMin).toString())
-      }, data);
-
-      return new solanaWeb3_js.TransactionInstruction({
-        programId: CP_PROGRAM_ID,
-        keys,
-        data: solanaWeb3_js.Buffer.from([...swapBaseOutputInstruction, ...data]),
-      })
-
-    }
-  };
-
-  const getCLMMInstruction = async({
-    account,
-    tokenIn,
-    tokenOut,
-    tokenAccountIn,
-    tokenAccountOut,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amountInInput,
-    amountInMaxInput,
-    amountOutInput,
-    amountOutMinInput,
-    pool
-  })=>{
-    const inputMint = tokenIn == pool.data.mintA.toString() ? pool.data.mintA : pool.data.mintB;
-    const outputMint = tokenIn == pool.data.mintA.toString() ? pool.data.mintB : pool.data.mintA;
-    const poolId = pool.data.id;
-    const exTickArrayBitmapAddress = new solanaWeb3_js.PublicKey(await getPdaExBitmapAddress(new solanaWeb3_js.PublicKey(CL_PROGRAM_ID), poolId));
-
-    if(amountInInput || amountOutMinInput) { // fixed amountIn, variable amountOut (amountOutMin)
-
-      const remainingAccounts = [
-        ...pool.data.allNeededAccounts.map((pubkey) => ({ pubkey, isSigner: false, isWritable: true })),
-      ];
-
-      const keys = [
-        // payer
-        { pubkey: new solanaWeb3_js.PublicKey(account), isSigner: true, isWritable: true },
-        // ammConfigId
-        { pubkey: pool.data.ammConfig.pubkey, isSigner: false, isWritable: true },
-
-        // poolId
-        { pubkey: pool.data.id, isSigner: false, isWritable: true },
-        // inputTokenAccount
-        { pubkey: tokenAccountIn, isSigner: false, isWritable: true },
-        // outputTokenAccount
-        { pubkey: tokenAccountOut, isSigner: false, isWritable: true },
-        // inputVault
-        { pubkey: tokenIn == pool.data.mintA.toString() ? pool.data.vaultA : pool.data.vaultB, isSigner: false, isWritable: true },
-        // outputVault
-        { pubkey: tokenIn == pool.data.mintA.toString() ? pool.data.vaultB : pool.data.vaultA, isSigner: false, isWritable: true },
-
-        // observationId
-        { pubkey: pool.data.observationId, isSigner: false, isWritable: true },
-
-        // TOKEN_PROGRAM_ID
-        { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-        // TOKEN_2022_PROGRAM_ID
-        { pubkey: TOKEN_2022_PROGRAM_ID, isSigner: false, isWritable: false },
-        // MEMO_PROGRAM_ID
-        { pubkey: MEMO_PROGRAM_ID, isSigner: false, isWritable: false },
-
-        // inputMint
-        { pubkey: inputMint, isSigner: false, isWritable: false },
-        // outputMint
-        { pubkey: outputMint, isSigner: false, isWritable: false },
-        
-        // exTickArrayBitmapAddress
-        { pubkey: exTickArrayBitmapAddress, isSigner: false, isWritable: true },
-
-        ...remainingAccounts,
-      ];
-
-      const dataLayout = solanaWeb3_js.struct([
-        solanaWeb3_js.u64("amount"),
-        solanaWeb3_js.u64("otherAmountThreshold"),
-        solanaWeb3_js.u128("sqrtPriceLimitX64"),
-        solanaWeb3_js.bool("isBaseInput"),
-      ]);
-
-      const data = solanaWeb3_js.Buffer.alloc(dataLayout.span);
-      dataLayout.encode(
-        {
-          amount: new solanaWeb3_js.BN(amountIn.toString()),
-          otherAmountThreshold: new solanaWeb3_js.BN(amountOut.toString()),
-          sqrtPriceLimitX64: new solanaWeb3_js.BN('0'),
-          isBaseInput: true, // exact input
-        },
-        data,
-      );
-
-      return new solanaWeb3_js.TransactionInstruction({
-        programId: CL_PROGRAM_ID,
-        keys,
-        data: solanaWeb3_js.Buffer.from([...anchorDataBuf.swap, ...data]),
-      })
-
-    }
-  };
-
-  const getTransaction$5 = async({
-    path,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amounts,
-    amountInInput,
-    amountOutInput,
-    amountInMaxInput,
-    amountOutMinInput,
-    account,
-    exchange,
-    pools
-  })=>{
-    let transaction = { blockchain: 'solana' };
-    let instructions = [];
-
-    const exchangePath = getExchangePath$4({ path });
-    if(exchangePath.length > 3) { throw 'Raydium can only handle fixed paths with a max length of 3 (2 pools)!' }
-    const tokenIn = exchangePath[0];
-    const tokenMiddle = exchangePath.length == 3 ? exchangePath[1] : undefined;
-    const tokenOut = exchangePath[exchangePath.length-1];
-      
-    let pairs;
-    if(pools) {
-      pairs = pools;
-    } else if(exchangePath.length == 2) {
-      pairs = [await getBestPair({ exchange, tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
-    } else {
-      if(amountInInput || amountInMaxInput) {
-        pairs = [await getBestPair({ exchange, tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
-        pairs.push(await getBestPair({ exchange, tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
-      } else { // originally amountOut
-        pairs = [await getBestPair({ exchange, tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
-        pairs.unshift(await getBestPair({ exchange, tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
+        pairs = [await getBestPair({ tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
+        pairs.unshift(await getBestPair({ tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
       }
     }
 
@@ -37289,138 +34430,79 @@
       );
     }
 
-    const tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
-    const tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
-    if(!endsUnwrapped) {
-      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
-    }
-
-    if(pairs.length == 1) { // single hop swap
-
-      if(pairs[0].type === 'clmm') {
-        instructions.push(
-          await getCLMMInstruction({
-            account,
-            tokenIn,
-            tokenOut,
-            tokenAccountIn,
-            tokenAccountOut,
-            amountIn,
-            amountInMax,
-            amountOut,
-            amountOutMin,
-            amountInInput,
-            amountInMaxInput,
-            amountOutInput,
-            amountOutMinInput,
-            pool: pairs[0],
-          })
-        );
-      } else {
-        instructions.push(
-          await getCPMMInstruction({
-            account,
-            tokenIn,
-            tokenOut,
-            tokenAccountIn,
-            tokenAccountOut,
-            amountIn,
-            amountInMax,
-            amountOut,
-            amountOutMin,
-            amountInInput,
-            amountInMaxInput,
-            amountOutInput,
-            amountOutMinInput,
-            pool: pairs[0],
-          })
-        );
+    if(pairs.length === 1) {
+      // amount is NOT the precise part of the swap (otherAmountThreshold is)
+      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
+      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
+      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
+      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
+      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
+      if(!endsUnwrapped) {
+        await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
       }
-
-    } else if(pairs.length == 2) { // two hop swap
-
-      const tokenMiddleAccount = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
-      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenMiddle, account: tokenMiddleAccount });
-
-      if(pairs[0].type === 'clmm') {
-        instructions.push(
-          await getCLMMInstruction({
+      instructions.push(
+        new solanaWeb3_js.TransactionInstruction({
+          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
+          keys: await getSwapInstructionKeys({
             account,
-            tokenIn,
-            tokenOut: tokenMiddle,
-            tokenAccountIn,
-            tokenAccountOut: tokenMiddleAccount,
-            amountIn: amounts[0],
-            amountInMax: amounts[0],
-            amountOut: amounts[1],
-            amountOutMin: amounts[1],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[1],
-            pool: pairs[0],
-          })
-        );
-      } else {
-        instructions.push(
-          await getCPMMInstruction({
-            account,
-            tokenIn,
-            tokenOut: tokenMiddle,
-            tokenAccountIn,
-            tokenAccountOut: tokenMiddleAccount,
-            amountIn: amounts[0],
-            amountInMax: amounts[0],
-            amountOut: amounts[1],
-            amountOutMin: amounts[1],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[1],
-            pool: pairs[0],
-          })
-        );
+            pool: pairs[0].pubkey,
+            tokenAccountA: pairs[0].aToB ? tokenAccountIn : tokenAccountOut,
+            tokenVaultA: pairs[0].data.tokenVaultA,
+            tokenAccountB: pairs[0].aToB ? tokenAccountOut : tokenAccountIn,
+            tokenVaultB: pairs[0].data.tokenVaultB,
+            tickArrays: pairs[0].tickArrays,
+          }),
+          data: getSwapInstructionData({
+            amount,
+            otherAmountThreshold,
+            sqrtPriceLimit: pairs[0].sqrtPriceLimit,
+            amountSpecifiedIsInput,
+            aToB: pairs[0].aToB
+          }),
+        })
+      );
+    } else if (pairs.length === 2) {
+      // amount is NOT the precise part of the swap (otherAmountThreshold is)
+      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
+      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
+      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
+      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
+      let tokenMiddle = exchangePath[1];
+      let tokenAccountMiddle = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
+      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenMiddle, account: tokenAccountMiddle });
+      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
+      if(!endsUnwrapped) {
+        await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
       }
-
-      if(pairs[1].type === 'clmm') {
-        instructions.push(
-          await getCLMMInstruction({
+      instructions.push(
+        new solanaWeb3_js.TransactionInstruction({
+          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
+          keys: await getTwoHopSwapInstructionKeys({
             account,
-            tokenIn: tokenMiddle,
-            tokenOut,
-            tokenAccountIn: tokenMiddleAccount,
-            tokenAccountOut,
-            amountIn: amounts[1],
-            amountInMax: amounts[1],
-            amountOut: amounts[2],
-            amountOutMin: amounts[2],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[2],
-            pool: pairs[1],
-          })
-        );
-      } else {
-        instructions.push(
-          await getCPMMInstruction({
-            account,
-            tokenIn: tokenMiddle,
-            tokenOut,
-            tokenAccountIn: tokenMiddleAccount,
-            tokenAccountOut,
-            amountIn: amounts[1],
-            amountInMax: amounts[1],
-            amountOut: amounts[2],
-            amountOutMin: amounts[2],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[2],
-            pool: pairs[1],
-          })
-        );
-      }
+            poolOne: pairs[0].pubkey,
+            tickArraysOne: pairs[0].tickArrays,
+            tokenAccountOneA: pairs[0].aToB ? tokenAccountIn : tokenAccountMiddle,
+            tokenVaultOneA: pairs[0].data.tokenVaultA,
+            tokenAccountOneB: pairs[0].aToB ? tokenAccountMiddle : tokenAccountIn,
+            tokenVaultOneB: pairs[0].data.tokenVaultB,
+            poolTwo: pairs[1].pubkey,
+            tickArraysTwo: pairs[1].tickArrays,
+            tokenAccountTwoA: pairs[1].aToB ? tokenAccountMiddle : tokenAccountOut,
+            tokenVaultTwoA: pairs[1].data.tokenVaultA,
+            tokenAccountTwoB: pairs[1].aToB ? tokenAccountOut : tokenAccountMiddle,
+            tokenVaultTwoB: pairs[1].data.tokenVaultB,
+          }),
+          data: getTwoHopSwapInstructionData({
+            amount,
+            otherAmountThreshold,
+            amountSpecifiedIsInput,
+            aToBOne: pairs[0].aToB,
+            aToBTwo: pairs[1].aToB,
+            sqrtPriceLimitOne: pairs[0].sqrtPriceLimit,
+            sqrtPriceLimitTwo: pairs[1].sqrtPriceLimit,
+          }),
+        })
+      );
     }
     
     if(startsWrapped || endsUnwrapped) {
@@ -37438,411 +34520,47 @@
     return transaction
   };
 
-  const LOGO$1 = 'data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjMzIiB2aWV3Qm94PSIwIDAgMjkgMzMiIHdpZHRoPSIyOSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjI4LjMxNjgiIHgyPSItMS43MzMzNiIgeTE9IjguMTkxNjIiIHkyPSIyMC4yMDg2Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjMjAwZmIiLz48c3RvcCBvZmZzZXQ9Ii40ODk2NTgiIHN0b3AtY29sb3I9IiMzNzcyZmYiLz48c3RvcCBvZmZzZXQ9Ii40ODk3NTgiIHN0b3AtY29sb3I9IiMzNzczZmUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YWM0YmUiLz48L2xpbmVhckdyYWRpZW50PjxnIGZpbGw9InVybCgjYSkiPjxwYXRoIGQ9Im0yNi44NjI1IDEyLjI4MXYxMS40MTA0bC0xMi42OTE2IDcuMzI2MS0xMi42OTg1OS03LjMyNjF2LTE0LjY1OTM3bDEyLjY5ODU5LTcuMzMzMjIgOS43NTQxIDUuNjM0NDEgMS40NzIzLS44NDk0MS0xMS4yMjY0LTYuNDgzODEtMTQuMTcwOSA4LjE4MjYydjE2LjM1ODE4bDE0LjE3MDkgOC4xODI2IDE0LjE3MS04LjE4MjZ2LTEzLjEwOTJ6Ii8+PHBhdGggZD0ibTEwLjYxNzYgMjMuNjk4NWgtMi4xMjM1M3YtNy4xMjA5aDcuMDc4NDNjLjY2OTctLjAwNzQgMS4zMDk1LS4yNzgyIDEuNzgxMS0uNzUzOC40NzE2LS40NzU1LjczNy0xLjExNzYuNzM4OC0xLjc4NzQuMDAzOC0uMzMxMS0uMDYwMS0uNjU5Ni0uMTg3OS0uOTY1MS0uMTI3OS0uMzA1Ni0uMzE2OC0uNTgxNy0uNTU1NC0uODExNS0uMjMwOC0uMjM3Mi0uNTA3MS0uNDI1My0uODEyNC0uNTUzLS4zMDUzLS4xMjc4LS42MzMzLS4xOTI1LS45NjQyLS4xOTAzaC03LjA3ODQzdi0yLjE2NTk1aDcuMDg1NDNjMS4yNDA1LjAwNzQzIDIuNDI4MS41MDM1MSAzLjMwNTMgMS4zODA2NS44NzcxLjg3NzIgMS4zNzMyIDIuMDY0OCAxLjM4MDYgMy4zMDUyLjAwNzYuOTQ5Ni0uMjgxOSAxLjg3NzctLjgyODEgMi42NTQ0LS41MDI3Ljc0MzItMS4yMTExIDEuMzIzNy0yLjAzODYgMS42NzA1LS44MTk0LjI1OTktMS42NzQ1LjM4ODktMi41MzQxLjM4MjNoLTQuMjQ3eiIvPjxwYXRoIGQ9Im0yMC4yMTU5IDIzLjUyMTVoLTIuNDc3NWwtMS45MTExLTMuMzMzOWMuNzU2MS0uMDQ2MyAxLjUwMTktLjE5ODggMi4yMTU1LS40NTN6Ii8+PHBhdGggZD0ibTI1LjM4MzEgOS45MDk3NSAxLjQ2NTIuODE0MDUgMS40NjUzLS44MTQwNXYtMS43MjAwNWwtMS40NjUzLS44NDk0MS0xLjQ2NTIuODQ5NDF6Ii8+PC9nPjwvc3ZnPg==';
-
-  var Raydium = {
-    LOGO: LOGO$1,
-    findPath: findPath$5,
-    pathExists: pathExists$5,
-    getAmounts: getAmounts$5,
-    getTransaction: getTransaction$5,
-    CPMM_LAYOUT,
-    CLMM_LAYOUT,
-  };
-
-  const exchange$h = {
-    
-    name: 'raydium_cp',
-    label: 'Raydium',
-    logo: Raydium.LOGO,
-    protocol: 'raydium_cp',
-    
-    slippage: true,
-
-    blockchains: ['solana'],
-
-    solana: {
-      
-      router: {
-        address: 'CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C',
-        api: Raydium.CPMM_LAYOUT
-      },
-    }
-  };
-
-  var raydium_cp = (scope)=>{
-    
-    return new Exchange(
-
-      Object.assign(exchange$h, {
-        scope,
-
-        findPath: (args)=>Raydium.findPath({ ...args, exchange: exchange$h }),
-        pathExists: (args)=>Raydium.pathExists({ ...args, exchange: exchange$h }),
-        getAmounts: (args)=>Raydium.getAmounts({ ...args, exchange: exchange$h }),
-        getPrep: (args)=>{},
-        getTransaction: (args)=>Raydium.getTransaction({ ...args, exchange: exchange$h }),
-        CurveCalculator,
-        LAYOUTS,
-      })
-    )
+  var Orca = {
+    findPath: findPath$4,
+    pathExists: pathExists$4,
+    getAmounts: getAmounts$4,
+    getTransaction: getTransaction$4,
+    WHIRLPOOL_LAYOUT,
   };
 
   const exchange$g = {
     
-    name: 'raydium_cl',
-    label: 'Raydium',
-    logo: Raydium.LOGO,
-    protocol: 'raydium_cl',
+    name: 'orca',
+    label: 'Orca',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
+    protocol: 'orca',
     
     slippage: true,
 
     blockchains: ['solana'],
 
     solana: {
-      
       router: {
-        address: 'CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK',
-        api: Raydium.CLMM_LAYOUT
+        address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+        api: Orca.WHIRLPOOL_LAYOUT,
       },
     }
   };
 
-  var raydium_cl = (scope)=>{
+  var orca = (scope)=>{
     
     return new Exchange(
 
       Object.assign(exchange$g, {
         scope,
 
-        findPath: (args)=>Raydium.findPath({ ...args, exchange: exchange$g }),
-        pathExists: (args)=>Raydium.pathExists({ ...args, exchange: exchange$g }),
-        getAmounts: (args)=>Raydium.getAmounts({ ...args, exchange: exchange$g }),
+        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$g }),
+        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$g }),
+        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$g }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>Raydium.getTransaction({ ...args, exchange: exchange$g }),
-        SwapMath,
-        getPdaExBitmapAddress,
-        getFirstInitializedTickArray,
-        fetchPoolTickArrays,
-        LAYOUTS,
+        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$g }),
       })
     )
-  };
-
-  function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
-  //
-  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
-  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
-  // as they are not the same!
-  //
-  const getExchangePath$3 = ({ blockchain, exchange, path }) => {
-    if(!path) { return }
-    let exchangePath = path.map((token, index) => {
-      if (
-        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
-        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
-      ) {
-        return Blockchains__default['default'][blockchain].wrapped.address
-      } else {
-        return token
-      }
-    });
-
-    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
-      exchangePath.splice(0, 1);
-    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
-      exchangePath.splice(exchangePath.length-1, 1);
-    }
-
-    return exchangePath
-  };
-
-  const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
-    if(token0.toLowerCase() == token.toLowerCase()) {
-      return reserves[0].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
-    } else if (token1.toLowerCase() == token.toLowerCase()) {
-      return reserves[1].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
-    } else {
-      return false
-    }
-  };
-
-  const pathExists$4 = async ({ blockchain, exchange, path }) => {
-    const exchangePath = getExchangePath$3({ blockchain, exchange, path });
-    if(!exchangePath || exchangePath.length === 1) { return false }
-    try {
-      let pair = await request({
-        blockchain,
-        address: exchange[blockchain].factory.address,
-        method: 'getPair',
-        api: exchange[blockchain].factory.api,
-        cache: 3600000, // 1 hour in ms
-        params: getExchangePath$3({ blockchain, exchange, path }),
-      });
-      if(!pair || pair == Blockchains__default['default'][blockchain].zero) { return false }
-      let [reserves, token0, token1] = await Promise.all([
-        request({ blockchain, address: pair, method: 'getReserves', api: exchange[blockchain].pair.api, cache: 3600000 }),
-        request({ blockchain, address: pair, method: 'token0', api: exchange[blockchain].pair.api, cache: 3600000 }),
-        request({ blockchain, address: pair, method: 'token1', api: exchange[blockchain].pair.api, cache: 3600000 })
-      ]);
-      if(exchangePath.includes(Blockchains__default['default'][blockchain].wrapped.address)) {
-        return minReserveRequirements({ min: 1, token: Blockchains__default['default'][blockchain].wrapped.address, decimals: Blockchains__default['default'][blockchain].currency.decimals, reserves, token0, token1 })
-      } else if (path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step))) {
-        let address = path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step));
-        let token = new Token({ blockchain, address });
-        let decimals = await token.decimals();
-        return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
-      } else {
-        return true
-      }
-    } catch (e){ console.log('e', e); return false }
-  };
-
-  const findPath$4 = async ({ blockchain, exchange, tokenIn, tokenOut }) => {
-    if(
-      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
-      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
-    ) { return { path: undefined, exchangePath: undefined } }
-
-    let path;
-    if (await pathExists$4({ blockchain, exchange, path: [tokenIn, tokenOut] })) {
-      // direct path
-      path = [tokenIn, tokenOut];
-    } else if (
-      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
-      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [tokenOut, Blockchains__default['default'][blockchain].wrapped.address] })
-    ) {
-      // path via WRAPPED
-      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
-    } else if (
-      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenIn) &&
-      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$4({ blockchain, exchange, path: [tokenIn, stable] })))).filter(Boolean).length &&
-      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut] })
-    ) {
-      // path via tokenIn -> USD -> WRAPPED -> tokenOut
-      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$4({ blockchain, exchange, path: [tokenIn, stable] }) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, USD, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
-    } else if (
-      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
-      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
-      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$4({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
-    ) {
-      // path via tokenIn -> WRAPPED -> USD -> tokenOut
-      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$4({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, USD, tokenOut];
-    } else if (
-      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
-      tokenIn === Blockchains__default['default'][blockchain].currency.address &&
-      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
-      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$4({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
-    ) {
-      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$4({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, USD, tokenOut];
-    }
-
-    // Add WRAPPED to route path if things start or end with NATIVE
-    // because that actually reflects how things are routed in reality:
-    if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
-      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
-      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    }
-
-    return { path, exchangePath: getExchangePath$3({ blockchain, exchange, path }) }
-  };
-
-  let getAmountOut$3 = ({ blockchain, exchange, path, amountIn, tokenIn, tokenOut }) => {
-    return new Promise((resolve) => {
-      request({
-        blockchain,
-        address: exchange[blockchain].router.address,
-        method: 'getAmountsOut',
-        api: exchange[blockchain].router.api,
-        params: {
-          amountIn: amountIn,
-          path: getExchangePath$3({ blockchain, exchange, path }),
-        },
-      })
-      .then((amountsOut)=>{
-        resolve(amountsOut[amountsOut.length - 1]);
-      })
-      .catch(()=>resolve());
-    })
-  };
-
-  let getAmountIn$3 = ({ blockchain, exchange, path, amountOut, block }) => {
-    return new Promise((resolve) => {
-      request({
-        blockchain,
-        address: exchange[blockchain].router.address,
-        method: 'getAmountsIn',
-        api: exchange[blockchain].router.api,
-        params: {
-          amountOut: amountOut,
-          path: getExchangePath$3({ blockchain, exchange, path }),
-        },
-        block
-      })
-      .then((amountsIn)=>resolve(amountsIn[0]))
-      .catch(()=>resolve());
-    })
-  };
-
-  let getAmounts$4 = async ({
-    blockchain,
-    exchange,
-    path,
-    block,
-    tokenIn,
-    tokenOut,
-    amountOut,
-    amountIn,
-    amountInMax,
-    amountOutMin
-  }) => {
-    if (amountOut) {
-      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut, tokenIn, tokenOut });
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if (amountIn) {
-      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn, tokenIn, tokenOut });
-      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    } else if(amountOutMin) {
-      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut: amountOutMin, tokenIn, tokenOut });
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if(amountInMax) {
-      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn: amountInMax, tokenIn, tokenOut });
-      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    }
-    return { amountOut, amountIn, amountInMax, amountOutMin }
-  };
-
-  let getPrep$3 = async({
-    exchange,
-    blockchain,
-    tokenIn,
-    amountIn,
-    account
-  })=> {
-
-    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
-
-    const allowance = await request({
-      blockchain,
-      address: tokenIn,
-      method: 'allowance',
-      api: Token[blockchain]['20'],
-      params: [account, exchange[blockchain].router.address]
-    });
-
-    if(allowance.gte(amountIn)) { return }
-
-    let transaction = {
-      blockchain,
-      from: account,
-      to: tokenIn,
-      api: Token[blockchain]['20'],
-      method: 'approve',
-      params: [exchange[blockchain].router.address, amountIn.sub(allowance)]
-    };
-    
-    return { transaction }
-
-  };
-
-  let getTransaction$4 = ({
-    exchange,
-    blockchain,
-    path,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amountInInput,
-    amountOutInput,
-    amountInMaxInput,
-    amountOutMinInput,
-    account
-  }) => {
-
-    let transaction = {
-      blockchain,
-      from: account,
-      to: exchange[blockchain].router.address,
-      api: exchange[blockchain].router.api,
-    };
-
-    if (path[0] === Blockchains__default['default'][blockchain].currency.address) {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactETHForTokens';
-        transaction.value = amountIn.toString();
-        transaction.params = { amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapETHForExactTokens';
-        transaction.value = amountInMax.toString();
-        transaction.params = { amountOut: amountOut.toString() };
-      }
-    } else if (path[path.length - 1] === Blockchains__default['default'][blockchain].currency.address) {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactTokensForETH';
-        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapTokensForExactETH';
-        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
-      }
-    } else {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactTokensForTokens';
-        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapTokensForExactTokens';
-        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
-      }
-    }
-
-    transaction.params = Object.assign({}, transaction.params, {
-      path: getExchangePath$3({ blockchain, exchange, path }),
-      to: account,
-      deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
-    });
-
-    return transaction
-  };
-
-  const ROUTER$3 = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
-  const FACTORY$3 = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-  const PAIR$1 = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-
-  var UniswapV2 = {
-    findPath: findPath$4,
-    pathExists: pathExists$4,
-    getAmounts: getAmounts$4,
-    getPrep: getPrep$3,
-    getTransaction: getTransaction$4,
-    ROUTER: ROUTER$3,
-    FACTORY: FACTORY$3,
-    PAIR: PAIR$1,
   };
 
   const exchange$f = {
@@ -37929,7 +34647,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[1], pool.fee, pool.path[0]]),
         amountOut: outputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountIn
@@ -37946,7 +34664,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[0], pool.fee, pool.path[1]]),
         amountIn: inputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountOut
@@ -37964,7 +34682,7 @@
           address: exchange[blockchain].factory.address,
           method: 'getPool',
           api: exchange[blockchain].factory.api,
-          cache: 3600000, // 1 hour in ms
+          cache: 3600,
           params: [path[0], path[1], fee],
         }).then((address)=>{
           return {
@@ -38171,7 +34889,7 @@
         amountOutMin = amountOut;
       }
     }
-    return { amountOut, amountIn, amountInMax, amountOutMin, pools }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
   let getPrep$2 = async({
@@ -38589,7 +35307,7 @@
         address: exchange[blockchain].quoter.address,
         method: 'findBestPathFromAmountIn',
         api: exchange[blockchain].quoter.api,
-        cache: 5000, // 5 seconds in ms
+        cache: 5,
         block,
         params: {
           route: path,
@@ -38604,7 +35322,7 @@
         address: exchange[blockchain].quoter.address,
         method: 'findBestPathFromAmountOut',
         api: exchange[blockchain].quoter.api,
-        cache: 5000, // 5 seconds in ms
+        cache: 5,
         block,
         params: {
           route: path,
@@ -38713,7 +35431,7 @@
       address: exchange[blockchain].quoter.address,
       method: 'findBestPathFromAmountIn',
       api: exchange[blockchain].quoter.api,
-      cache: 5000, // 5 seconds in ms
+      cache: 5,
       params: {
         route: getExchangePath$1({ blockchain, path }),
         amountIn,
@@ -38730,7 +35448,7 @@
       address: exchange[blockchain].quoter.address,
       method: 'findBestPathFromAmountOut',
       api: exchange[blockchain].quoter.api,
-      cache: 5000, // 5 seconds in ms
+      cache: 5,
       block,
       params: {
         route: getExchangePath$1({ blockchain, path }),
@@ -38784,7 +35502,7 @@
         amountOutMin = amountOut;
       }
     }
-    return { amountOut, amountIn, amountInMax, amountOutMin, pools }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
   let getPrep$1 = async({
@@ -39033,7 +35751,7 @@
     )
   };
 
-  function _optionalChain$a(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   const SENDER_AS_RECIPIENT = '0x0000000000000000000000000000000000000001';
   const ROUTER_AS_RECIPIENT = '0x0000000000000000000000000000000000000002';
@@ -39077,7 +35795,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[1], pool.fee, pool.path[0]]),
         amountOut: outputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountIn
@@ -39094,7 +35812,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[0], pool.fee, pool.path[1]]),
         amountIn: inputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountOut
@@ -39112,7 +35830,7 @@
           address: exchange[blockchain].factory.address,
           method: 'getPool',
           api: exchange[blockchain].factory.api,
-          cache: 3600000, // 1 hour in ms
+          cache: 3600,
           params: [path[0], path[1], fee],
         }).then((address)=>{
           return {
@@ -39138,14 +35856,14 @@
             const amountScaled = await getOutputAmount({ exchange, pool, inputAmount: ethers.ethers.BigNumber.from(amountIn).mul(ethers.ethers.BigNumber.from(10)).toString() });
             const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
             const difference = amountScaledDown.sub(amount).abs();
-            const enoughLiquidity = !difference.gt(amount.mul(ethers.ethers.BigNumber.from(5)).div(ethers.ethers.BigNumber.from(100))); // up to 5% diff allowed
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)).mul(ethers.ethers.BigNumber.from(5))); // up to 5% diff allowed
             if(!enoughLiquidity) { return }
           } else {
             amount = await getInputAmount({ exchange, pool, outputAmount: amountOut });
             const amountScaled = await getInputAmount({ exchange, pool, outputAmount: ethers.ethers.BigNumber.from(amountOut).mul(ethers.ethers.BigNumber.from(10)).toString() });
             const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
             const difference = amountScaledDown.sub(amount).abs();
-            const enoughLiquidity = !difference.gt(amount.mul(ethers.ethers.BigNumber.from(5)).div(ethers.ethers.BigNumber.from(100))); // up to 5% diff allowed
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)).mul(ethers.ethers.BigNumber.from(5))); // up to 5% diff allowed
             if(!enoughLiquidity) { return }
           }
 
@@ -39244,9 +35962,9 @@
 
     // Add WRAPPED to route path if things start or end with NATIVE
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$a([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+    if(_optionalChain$7([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
       path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    } else if(_optionalChain$a([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+    } else if(_optionalChain$7([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
       path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
     }
 
@@ -39329,7 +36047,7 @@
         amountOutMin = amountOut;
       }
     }
-    return { amountOut, amountIn, amountInMax, amountOutMin, pools }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
   let getPrep = async({
@@ -39495,7 +36213,7 @@
     slippage: true,
     fees: [100, 500, 3000, 10000],
     
-    blockchains: ['ethereum', 'bsc', 'polygon', 'optimism', 'arbitrum', 'base', 'avalanche', 'worldchain', 'gnosis'],
+    blockchains: ['ethereum', 'bsc', 'polygon', 'optimism', 'arbitrum', 'base', 'avalanche', 'worldchain'],
     
     ethereum: {
       router: {
@@ -39665,28 +36383,6 @@
       },
       quoter: {
         address: '0x10158D43e6cc414deE1Bd1eB0EfC6a5cBCfF244c',
-        api: UniswapV3.QUOTER
-      },
-      permit: {
-        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
-        api: UniswapV3.PERMIT2
-      }
-    },
-
-    gnosis: {
-      router: {
-        address: '0xc6D25285D5C5b62b7ca26D6092751A145D50e9Be',
-        api: UniswapV3.ROUTER
-      },
-      factory: {
-        address: '0xe32F7dD7e3f098D518ff19A22d5f028e076489B1',
-        api: UniswapV3.FACTORY
-      },
-      pool: {
-        api: UniswapV3.POOL
-      },
-      quoter: {
-        address: '0x7E9cB3499A6cee3baBe5c8a3D328EA7FD36578f4',
         api: UniswapV3.QUOTER
       },
       permit: {
@@ -40106,8 +36802,6 @@
 
   const exchanges = [
     orca(),
-    raydium_cp(),
-    raydium_cl(),
     uniswap_v3(),
     pancakeswap_v3(),
     uniswap_v2(),
@@ -40115,6 +36809,7 @@
     trader_joe_v2_1(),
     quickswap(),
     spookyswap(),
+    honeyswap(),
     weth(),
     weth_optimism(),
     weth_base(),
@@ -40153,8 +36848,6 @@
 
   exchanges.solana = [
     orca('solana'),
-    raydium_cp('solana'),
-    raydium_cl('solana'),
   ];
   exchanges.solana.forEach((exchange)=>{ exchanges.solana[exchange.name] = exchange; });
 
@@ -40191,7 +36884,7 @@
   exchanges.avalanche.forEach((exchange)=>{ exchanges.avalanche[exchange.name] = exchange; });
 
   exchanges.gnosis = [
-    uniswap_v3('gnosis'),
+    honeyswap('gnosis'),
     wxdai('gnosis'),
   ];
   exchanges.gnosis.forEach((exchange)=>{ exchanges.gnosis[exchange.name] = exchange; });
@@ -40392,7 +37085,7 @@
         amount: payment.route.fromAmount,
         decimals: payment.route.fromDecimals
       }).then(function (usdAmount) {
-        if (usdAmount) {
+        if (usdAmount != undefined && usdAmount != null) {
           localCurrency.Currency.fromUSD({
             amount: usdAmount,
             code: currency
@@ -40452,16 +37145,18 @@
     }
   }
 
-  var svmRouters = {
+  var solanaRouters = {
     solana: {
-      address: 'DePayR1gQfDmViCPKctnZXNtUgqRwnEqMax8LX9ho1Zg',
-      exchanges: {
-        orca: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
-        raydiumCP: 'CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C',
-        raydiumCL: 'CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK',
-      },
-      alt: '8bYq3tcwX1NM2K2JYMjrEqAPtCXFPCjzPazFothc618e',
+      address: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
+      ammProgram: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+      alt: 'EYGgx5fYCZtLN2pvnR4Bhn5KpMffKwyHCms4VhjSvF2K',
       api: {
+        createPaymentsAccount: {
+          anchorDiscriminator: new solanaWeb3_js.BN("8445995362644372894"),
+          layout: solanaWeb3_js.struct([
+            solanaWeb3_js.u64("anchorDiscriminator"),
+          ])
+        },
         createEscrowSolAccount: {
           anchorDiscriminator: new solanaWeb3_js.BN("2482112285991870004"),
           layout: solanaWeb3_js.struct([
@@ -40478,10 +37173,9 @@
           anchorDiscriminator: new solanaWeb3_js.BN("6497164560834983274"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -40489,10 +37183,9 @@
           anchorDiscriminator: new solanaWeb3_js.BN("13483873682232752277"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -40500,12 +37193,13 @@
           anchorDiscriminator: new solanaWeb3_js.BN("9797248061404332986"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.u128("sqrtPriceLimit"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToB"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -40513,25 +37207,13 @@
           anchorDiscriminator: new solanaWeb3_js.BN("13662217913752830165"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.u128("sqrtPriceLimit"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToB"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeOrcaSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("16115018480206947614"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.bool("aToB"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -40539,14 +37221,15 @@
           anchorDiscriminator: new solanaWeb3_js.BN("15695720599845325801"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
+            solanaWeb3_js.u64("nonce"),
+            solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToBOne"),
             solanaWeb3_js.bool("aToBTwo"),
+            solanaWeb3_js.u128("sqrtPriceLimitOne"),
+            solanaWeb3_js.u128("sqrtPriceLimitTwo"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -40554,182 +37237,15 @@
           anchorDiscriminator: new solanaWeb3_js.BN("15074061855608091530"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
+            solanaWeb3_js.u64("nonce"),
+            solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToBOne"),
             solanaWeb3_js.bool("aToBTwo"),
+            solanaWeb3_js.u128("sqrtPriceLimitOne"),
+            solanaWeb3_js.u128("sqrtPriceLimitTwo"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeOrcaTwoHopSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("2678451299937372540"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.bool("aToBOne"),
-            solanaWeb3_js.bool("aToBTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("2954182973248174268"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("18389700643710627390"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("564150378912976829"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClTwoHopSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("3828760301615328551"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-            solanaWeb3_js.u8("remainingAccountsSplit"),
-          ])
-        },
-        routeRaydiumClTwoHopSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("11373220799455718953"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-            solanaWeb3_js.u8("remainingAccountsSplit"),
-          ])
-        },
-        routeRaydiumClTwoHopSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("1635173573630140652"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-            solanaWeb3_js.u8("remainingAccountsSplit"),
-          ])
-        },
-        routeRaydiumCpSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("7437765211943645137"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("9045257739866411286"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("432305509198797158"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpTwoHopSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("3384279312781294015"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpTwoHopSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("18428464202744806632"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpTwoHopSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("16266677464406446072"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         }
@@ -40800,13 +37316,13 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
-            signal: _optionalChain$5([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+            signal: AbortSignal.timeout(10000)  // 10-second timeout
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
               if(parsedJson.find((entry)=>{
-                return _optionalChain$5([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$5([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+                return _optionalChain$5([entry, 'optionalAccess', _ => _.error]) && [-32062,-32016].includes(_optionalChain$5([entry, 'optionalAccess', _2 => _2.error, 'optionalAccess', _3 => _3.code]))
               })) {
                 if(attempt < MAX_RETRY$1) {
                   reject('Error in batch found!');
@@ -40835,12 +37351,12 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-              if (_optionalChain$5([payload, 'optionalAccess', _5 => _5.error])) {
+              if (_optionalChain$5([payload, 'optionalAccess', _4 => _4.error])) {
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
-              } else if(_optionalChain$5([payload, 'optionalAccess', _6 => _6.result])) {
+              } else if(_optionalChain$5([payload, 'optionalAccess', _5 => _5.result])) {
                 inflightRequest.resolve(payload.result);
               } else {
                 inflightRequest.reject();
@@ -40897,78 +37413,91 @@
     }
 
   }
-  let getCacheStore = () => {
-    if (getWindow()._Web3ClientCacheStore == undefined) {
-      getWindow()._Web3ClientCacheStore = {};
-    }
-    return getWindow()._Web3ClientCacheStore
-  };
 
-  // Periodically clean up expired cache entries (every 5 minutes), to prevent memory leaks
-  if (typeof process == 'undefined' || process.env && "production" === 'test') {
-    setInterval(() => {
-      const store = getCacheStore();
-      const now = Date.now();
-      for (const key in store) {
-        if (store[key].expiresAt < now) {
-          delete store[key];
-        }
-      }
-    }, 10 * 60 * 1000); // 10 minutes in milliseconds
-  }
-
-  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientProtocolAmount","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"deadline","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amountIn","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"feeAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"slippageInAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"slippageOutAmount","type":"uint256"},{"indexed":false,"internalType":"address","name":"tokenInAddress","type":"address"},{"indexed":false,"internalType":"address","name":"tokenOutAddress","type":"address"},{"indexed":false,"internalType":"address","name":"feeReceiverAddress","type":"address"},{"indexed":false,"internalType":"address","name":"feeReceiverAddress2","type":"address"}],"name":"Payment","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress2","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"struct IDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct IPermit2.TokenPermissions","name":"permitted","type":"tuple"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IPermit2.PermitTransferFrom","name":"permitTransferFrom","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"internalType":"struct IDePayRouterV3.PermitTransferFromAndSignature","name":"permitTransferFromAndSignature","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress2","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"struct IDePayRouterV3.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress2","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"struct IDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"InternalTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
 
   var routers$1 = {
 
     ethereum: {
-      address: '0x365f7B56D2fB16C8Af89D7d33b420E4e013461e8',
+      address: '0x6466F27B169C908Ba8174d80aEfa7173CbC3D0c7',
       api: API
     },
 
     bsc: {
-      address: '0x5F565EDfB9C446976a9F9910631cfeDb6A87220c',
+      address: '0x7ea09401db4692a8AEF4111b75bD32AE758f552A',
       api: API
     },
 
     polygon: {
-      address: '0xe04b08Dfc6CaA0F4Ec523a3Ae283Ece7efE00019',
+      address: '0x50CFAB577623B1359602E11514a9482B061A941e',
+      api: API
+    },
+
+    fantom: {
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     avalanche: {
-      address: '0x39E7C98BF4ac3E4C394dD600397f5f7Ee3779BE8',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     gnosis: {
-      address: '0x328FE8bbd30487BB7b5A8eEb909f892E9E229271',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     arbitrum: {
-      address: '0x328FE8bbd30487BB7b5A8eEb909f892E9E229271',
+      address: '0xA1cfbeeF344A52e18f748fd6a126f9426A40fbc7',
       api: API
     },
 
     optimism: {
-      address: '0x558302715e3011Be6695605c11A65526D2ba2245',
+      address: '0x8698E529E9867eEbcC68b4792daC627cd8870736',
       api: API
     },
 
     base: {
-      address: '0x48825133EF08327535D0b24d73779E82BE6Ea4d9',
+      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
       api: API
     },
 
     worldchain: {
-      address: '0x886eb82a7e5E7310F66A0E83748662A17E391eb0',
-      api: API
+      address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+      api: [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientProtocolAmount","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"deadline","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amountIn","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"feeAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"slippageAmount","type":"uint256"},{"indexed":false,"internalType":"address","name":"tokenInAddress","type":"address"},{"indexed":false,"internalType":"address","name":"tokenOutAddress","type":"address"},{"indexed":false,"internalType":"address","name":"feeReceiverAddress","type":"address"}],"name":"Payment","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"structIDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"structIPermit2.TokenPermissions","name":"permitted","type":"tuple"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"structIPermit2.PermitTransferFrom","name":"permitTransferFrom","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"internalType":"structIDePayRouterV3.PermitTransferFromAndSignature","name":"permitTransferFromAndSignature","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"structIDePayRouterV3.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"structIDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"structIPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"structIPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
     },
 
   };
 
-  var routers = {... routers$1, ...svmRouters};
+  var routers = {... routers$1, ...solanaRouters};
+
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  /** Detect free variable `global` from Node.js. */
+
+  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+  var _freeGlobal = freeGlobal;
+
+  /** Detect free variable `self`. */
+  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+  /** Used as a reference to the global object. */
+  var root = _freeGlobal || freeSelf || Function('return this')();
+
+  var _root = root;
+
+  /** Built-in value references. */
+  var Symbol$1 = _root.Symbol;
+
+  var _Symbol = Symbol$1;
+
+  /** Built-in value references. */
+  _Symbol ? _Symbol.toStringTag : undefined;
+
+  /** Built-in value references. */
+  _Symbol ? _Symbol.toStringTag : undefined;
 
   ({
     'arbitrum': {
@@ -41058,7 +37587,7 @@
 
   let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported.svm = ['solana'];
+  supported.solana = ['solana'];
 
   const _jsxFileName = "/Users/sebastian/Work/DePay/react-token-image/src/index.js"; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
@@ -42599,237 +39128,6 @@
 
   var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
 
-  var TransactionTrackingProvider = (function (props) {
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        givenTransaction = _useState2[0],
-        setGivenTransaction = _useState2[1];
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        foundTransaction = _useState4[0],
-        setFoundTransaction = _useState4[1];
-
-    var _useState5 = React.useState(false),
-        _useState6 = _slicedToArray(_useState5, 2),
-        polling = _useState6[0],
-        setPolling = _useState6[1];
-
-    var _useContext = React.useContext(ErrorContext);
-        _useContext.errorCallback;
-
-    var _useContext2 = React.useContext(ConfigurationContext),
-        recover = _useContext2.recover;
-
-    var _useContext3 = React.useContext(WalletContext),
-        account = _useContext3.account,
-        wallet = _useContext3.wallet;
-
-    React.useEffect(function () {
-      if (polling) {
-        var poll = function poll() {
-          fetch("https://public.depay.com/transactions/".concat(givenTransaction.blockchain, "/").concat(givenTransaction.from, "/").concat(givenTransaction.nonce)).then(function (response) {
-            if (response.status == 200) {
-              response.json().then(function (data) {
-                if (data.status != 'pending') {
-                  setFoundTransaction({
-                    id: data.external_id,
-                    status: data.status
-                  });
-                  setPolling(false);
-                }
-              });
-            }
-          });
-        };
-
-        var pollingInterval = setInterval(poll, 5000);
-        poll();
-        return function () {
-          clearInterval(pollingInterval);
-        };
-      }
-    }, [polling]);
-
-    var createTracking = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(transaction, afterBlock, deadline, attempt) {
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!(attempt > 3)) {
-                  _context.next = 2;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 2:
-                _context.t0 = fetch;
-                _context.t1 = {
-                  'Content-Type': 'application/json'
-                };
-                _context.t2 = JSON;
-                _context.t3 = transaction.id;
-                _context.t4 = afterBlock.toString();
-                _context.t5 = transaction.blockchain;
-                _context.t6 = transaction.from;
-                _context.next = 11;
-                return getNonce({
-                  transaction: transaction,
-                  wallet: wallet,
-                  account: account
-                });
-
-              case 11:
-                _context.t7 = _context.sent;
-                _context.t8 = deadline;
-                _context.t9 = {
-                  id: _context.t3,
-                  after_block: _context.t4,
-                  blockchain: _context.t5,
-                  sender: _context.t6,
-                  nonce: _context.t7,
-                  deadline: _context.t8
-                };
-                _context.t10 = _context.t2.stringify.call(_context.t2, _context.t9);
-                _context.t11 = {
-                  method: 'POST',
-                  headers: _context.t1,
-                  body: _context.t10
-                };
-                (0, _context.t0)('https://public.depay.com/transactions', _context.t11).then(function (response) {
-                  if (response.status == 200 || response.status == 201) ; else {
-                    setTimeout(function () {
-                      createTracking(transaction, afterBlock, deadline, attempt + 1);
-                    }, 3000);
-                  }
-                })["catch"](function (error) {
-                  setTimeout(function () {
-                    createTracking(transaction, afterBlock, deadline, attempt + 1);
-                  }, 3000);
-                });
-
-              case 17:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function createTracking(_x, _x2, _x3, _x4) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    var openSocket = function openSocket(transaction) {
-      var socket = new WebSocket('wss://integrate.depay.com/cable');
-
-      socket.onopen = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(event) {
-          var msg;
-          return regenerator.wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  _context2.t0 = JSON;
-                  _context2.t1 = transaction.blockchain;
-                  _context2.t2 = transaction.from;
-                  _context2.next = 5;
-                  return getNonce({
-                    transaction: transaction,
-                    wallet: wallet,
-                    account: account
-                  });
-
-                case 5:
-                  _context2.t3 = _context2.sent;
-                  _context2.t4 = {
-                    blockchain: _context2.t1,
-                    sender: _context2.t2,
-                    nonce: _context2.t3,
-                    channel: 'TransactionChannel'
-                  };
-                  _context2.t5 = _context2.t0.stringify.call(_context2.t0, _context2.t4);
-                  msg = {
-                    command: 'subscribe',
-                    identifier: _context2.t5
-                  };
-                  socket.send(JSON.stringify(msg));
-
-                case 10:
-                case "end":
-                  return _context2.stop();
-              }
-            }
-          }, _callee2);
-        }));
-
-        return function (_x5) {
-          return _ref2.apply(this, arguments);
-        };
-      }();
-
-      socket.onclose = function (event) {
-        if (!event || event.code != 1000) {
-          setTimeout(function () {
-            return openSocket(transaction);
-          }, 1000);
-        }
-      };
-
-      socket.onmessage = function (event) {
-        var item = JSON.parse(event.data);
-
-        if (item.type === "ping") {
-          return;
-        }
-
-        if (item.message && item.message.status && item.message.status != 'pending') {
-          setFoundTransaction(item.message);
-          socket.close(1000);
-        }
-      };
-
-      socket.onerror = function (error) {
-        console.log('WebSocket Error: ', error);
-      };
-    };
-
-    var initializeTracking = function initializeTracking(transaction, afterBlock, deadline) {
-      if (!supported$4.evm.includes(transaction.blockchain)) {
-        return;
-      }
-
-      setGivenTransaction(transaction);
-
-      if (recover == undefined) {
-        createTracking(transaction, afterBlock, deadline, 1);
-      }
-
-      openSocket(transaction);
-      setPolling(true);
-    };
-
-    React.useEffect(function () {
-      if (recover) {
-        initializeTracking({
-          blockchain: recover.blockchain,
-          id: recover.transaction,
-          from: recover.sender,
-          nonce: recover.nonce
-        }, recover.afterBlock);
-      }
-    }, [recover]);
-    return /*#__PURE__*/React__default['default'].createElement(TransactionTrackingContext.Provider, {
-      value: {
-        initializeTracking: initializeTracking,
-        foundTransaction: foundTransaction
-      }
-    }, props.children);
-  });
-
   var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
       var accept, recover, integration;
@@ -42971,7 +39269,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentAmountRoutingProvider, {
                     container: container,
                     document: document
-                  }, /*#__PURE__*/React__default['default'].createElement(TransactionTrackingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
                     document: ensureDocument(document)
                   }, /*#__PURE__*/React__default['default'].createElement(PaymentProvider, {
                     container: container,
@@ -42979,7 +39277,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentStack, {
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))))))))))));
                 };
               });
               return _context2.abrupt("return", {
@@ -43454,7 +39752,7 @@
                     container: container,
                     connected: connected,
                     unmount: unmount
-                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, null, /*#__PURE__*/React__default['default'].createElement(TransactionTrackingProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(ConversionRateProvider, null, /*#__PURE__*/React__default['default'].createElement(ChangableAmountProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentTrackingProvider, {
                     document: ensureDocument(document)
                   }, /*#__PURE__*/React__default['default'].createElement(SaleRoutingProvider, {
                     container: container,
@@ -43462,7 +39760,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(SaleStack, {
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))));
                 };
               });
               return _context2.abrupt("return", {
