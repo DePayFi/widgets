@@ -1,5 +1,5 @@
 import addressEllipsis from '../helpers/addressEllipsis'
-import initDebug from '../helpers/initDebug'
+
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
@@ -29,7 +29,7 @@ export default ()=> {
       }
       body={
         <div className="TextCenter">
-          <div className="GraphicWrapper" onClick={initDebug}>
+          <div className="GraphicWrapper">
             <img className="Graphic" src={ QuestionsGraphic }/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">No enough funds!</h1>

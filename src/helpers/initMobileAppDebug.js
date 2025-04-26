@@ -1,4 +1,4 @@
-const initDebug = ()=> {
+const initMobileAppDebug = ()=> {
   if (typeof window.eruda === 'undefined') {
     // Create a script element
     const script = document.createElement('script');

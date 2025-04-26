@@ -4931,6 +4931,8 @@ var Dialog$1 = (function (props) {
 
 var ExtensionImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI2LjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTE3Mi44LDY4LjNjLTQuOS0yLjItNy40LTguNC00LjUtMTMuNmM1LjMtOS40LDEwLTE4LjYsNC4zLTI5LjFjLTctMTIuNy0yNC4xLTE3LjQtMzYuNi0xMGMtMTUuNCw5LjEtMTMuNCwyNS42LTUuMSwzOC45CgkJYzMuMyw1LjIsMC45LDExLjYtNC4yLDEzLjlsLTYxLjIsMC4xbDAsMC44bDAuMSwyMS44bDAuMSwzNy45Yy0xLjksNS41LTguNyw4LjQtMTQuMSw1Yy0xMy40LTguMy0yOS44LTEwLjEtMzguOSw1LjMKCQljLTcuMywxMi41LTIuNSwyOS43LDEwLjIsMzYuNWMxMC41LDUuNywxOS43LDEsMjkuMS00LjRjNS40LTMuMSwxMS45LTAuMywxMy44LDVsMC4xLDU5LjhsNTcuMi0wLjFjMC4xLDAsMC4yLDAsMC4zLDBsMy42LDAKCQljNS0yLjMsNy40LTguNyw0LjItMTMuOWMtOC4zLTEzLjMtMTAuMy0yOS44LDUuMS0zOC45YzEyLjUtNy40LDI5LjYtMi43LDM2LjYsMTBjNS43LDEwLjUsMS4xLDE5LjctNC4zLDI5LjEKCQljLTIuOSw1LjItMC41LDExLjQsNC41LDEzLjZsMy42LDBjMC4xLDAsMC4yLDAsMC4zLDBsNTYuNS0wLjFsLTAuMS01OC44Yy0xLjQtNi42LTcuOC05LjItMTQuMS01LjhjLTkuNSw1LjItMTcuOSw5LjgtMjguNCw0LjEKCQljLTEyLjgtNi45LTE4LjItMjMuNy0xMC45LTM2LjNjOS0xNS40LDI1LjUtMTMuNiwzOC45LTUuM2M1LjcsMy41LDEyLjksMC4yLDE0LjQtNS45bC0wLjEtMzUuNEwyMzMuMyw2OWwwLTAuOEwxNzIuOCw2OC4zeiIvPgo8L2c+Cjwvc3ZnPgo=';
 
+var initMobileAppDebug = initDebug;
+
 var isMobile = function isMobile() {
   if (typeof window !== 'undefined') {
     return Boolean(window.matchMedia('(pointer:coarse)').matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/.test(navigator.userAgent));
@@ -22227,6 +22229,7 @@ var ConnectWalletDialog = (function (props) {
   }, /*#__PURE__*/React.createElement("span", {
     className: "CardImage rounded large"
   }, /*#__PURE__*/React.createElement("img", {
+    onClick: initMobileAppDebug,
     className: "transparent",
     src: props.wallet.logo
   })))));
@@ -26602,24 +26605,6 @@ function addressEllipsis (address) {
   return _address;
 }
 
-var initDebug = function initDebug() {
-  if (typeof window.eruda === 'undefined') {
-    // Create a script element
-    var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/eruda';
-
-    script.onload = function () {
-      // Initialize Eruda once the script is loaded
-      window.eruda.init();
-      console.log('Eruda has been initialized.');
-    };
-
-    document.body.appendChild(script);
-  } else {
-    console.log('Eruda is already loaded.');
-  }
-};
-
 var NoPaymentOptionFoundDialog = (function () {
   var _useContext = useContext(NavigateStackContext);
       _useContext.navigate;
@@ -26648,8 +26633,7 @@ var NoPaymentOptionFoundDialog = (function () {
     body: /*#__PURE__*/React.createElement("div", {
       className: "TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper",
-      onClick: initDebug
+      className: "GraphicWrapper"
     }, /*#__PURE__*/React.createElement("img", {
       className: "Graphic",
       src: QuestionsGraphic

@@ -20,6 +20,7 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import copy from '@uiw/copy-to-clipboard'
 import Dialog from '../components/Dialog'
 import ExtensionImage from '../graphics/extension'
+import initMobileAppDebug from '../helpers/initMobileAppDebug'
 import isMobile from '../helpers/isMobile'
 import LinkImage from '../graphics/link'
 import QRCodeImage from '../graphics/qrcode'
@@ -52,7 +53,7 @@ export default (props)=> {
         <div className="PaddingTopXS">
           <div className="LineHeightL FontSizeL PaddingTopS">
             <span className="CardImage rounded large">
-              <img className="transparent" src={ props.wallet.logo }/>
+              <img onClick={initMobileAppDebug} className="transparent" src={ props.wallet.logo }/>
             </span>
           </div>
         </div>
