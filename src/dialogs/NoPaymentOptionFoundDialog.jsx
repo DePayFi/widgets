@@ -1,5 +1,5 @@
 import addressEllipsis from '../helpers/addressEllipsis'
-import initDebug from '../helpers/initDebug'
+
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'

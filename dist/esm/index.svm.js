@@ -5218,6 +5218,24 @@ var ExtensionIcon = (function (props) {
   }));
 });
 
+var initMobileAppDebug = function initMobileAppDebug() {
+  if (typeof window.eruda === 'undefined') {
+    // Create a script element
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/eruda';
+
+    script.onload = function () {
+      // Initialize Eruda once the script is loaded
+      window.eruda.init();
+      console.log('Eruda has been initialized.');
+    };
+
+    document.body.appendChild(script);
+  } else {
+    console.log('Eruda is already loaded.');
+  }
+};
+
 var isMobile = function isMobile() {
   if (typeof window !== 'undefined') {
     return Boolean(window.matchMedia('(pointer:coarse)').matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/.test(navigator.userAgent));
@@ -22551,6 +22569,7 @@ var ConnectWalletDialog = (function (props) {
   }, /*#__PURE__*/React.createElement("span", {
     className: "CardImage rounded large"
   }, /*#__PURE__*/React.createElement("img", {
+    onClick: initMobileAppDebug,
     className: "transparent",
     src: props.wallet.logo
   })))));
@@ -27112,24 +27131,6 @@ function addressEllipsis (address) {
   return _address;
 }
 
-var initDebug = function initDebug() {
-  if (typeof window.eruda === 'undefined') {
-    // Create a script element
-    var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/eruda';
-
-    script.onload = function () {
-      // Initialize Eruda once the script is loaded
-      window.eruda.init();
-      console.log('Eruda has been initialized.');
-    };
-
-    document.body.appendChild(script);
-  } else {
-    console.log('Eruda is already loaded.');
-  }
-};
-
 var NoPaymentOptionFoundDialog = (function () {
   var _useContext = useContext(ConfigurationContext),
       accept = _useContext.accept;
@@ -27155,11 +27156,19 @@ var NoPaymentOptionFoundDialog = (function () {
     body: /*#__PURE__*/React.createElement("div", {
       className: "TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
+<<<<<<< HEAD:dist/esm/index.svm.js
       className: "GraphicWrapper",
       onClick: initDebug
     }, /*#__PURE__*/React.createElement(QuestionsGraphic, null)), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("h1", {
+=======
+      className: "GraphicWrapper"
+    }, /*#__PURE__*/React.createElement("img", {
+      className: "Graphic",
+      src: QuestionsGraphic
+    })), /*#__PURE__*/React.createElement("h1", {
+>>>>>>> main:dist/esm/index.solana.js
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Not Enough Funds"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"
@@ -30066,7 +30075,7 @@ const getConfiguration$1 = () =>{
   return getWindow$1()._Web3ClientConfiguration
 };
 
-function _optionalChain$5$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$6$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL$1$1 = 10;
 const CHUNK_SIZE$1$1 = 50;
 const MAX_RETRY$1$1 = 5;
@@ -30110,13 +30119,21 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
           method: 'POST',
           body: JSON.stringify(batch),
           headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD:dist/esm/index.svm.js
           signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+=======
+          signal: _optionalChain$6$1([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+>>>>>>> main:dist/esm/index.solana.js
         }
       ).then((response)=>{
         if(response.ok) {
           response.json().then((parsedJson)=>{
             if(parsedJson.find((entry)=>{
+<<<<<<< HEAD:dist/esm/index.svm.js
               return _optionalChain$5$2([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$5$2([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+=======
+              return _optionalChain$6$1([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$6$1([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+>>>>>>> main:dist/esm/index.solana.js
             })) {
               if(attempt < MAX_RETRY$1$1) {
                 reject('Error in batch found!');
@@ -30145,12 +30162,20 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
           // on whether it was a success or error
           chunk.forEach((inflightRequest, index) => {
             const payload = result[index];
+<<<<<<< HEAD:dist/esm/index.svm.js
             if (_optionalChain$5$2([payload, 'optionalAccess', _5 => _5.error])) {
+=======
+            if (_optionalChain$6$1([payload, 'optionalAccess', _5 => _5.error])) {
+>>>>>>> main:dist/esm/index.solana.js
               const error = new Error(payload.error.message);
               error.code = payload.error.code;
               error.data = payload.error.data;
               inflightRequest.reject(error);
+<<<<<<< HEAD:dist/esm/index.svm.js
             } else if(_optionalChain$5$2([payload, 'optionalAccess', _6 => _6.result])) {
+=======
+            } else if(_optionalChain$6$1([payload, 'optionalAccess', _6 => _6.result])) {
+>>>>>>> main:dist/esm/index.solana.js
               inflightRequest.resolve(payload.result);
             } else {
               inflightRequest.reject();
@@ -30208,7 +30233,7 @@ class StaticJsonRpcBatchProvider$1 extends ethers.providers.JsonRpcProvider {
 
 }
 
-function _optionalChain$4$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$5$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const getAllProviders$1 = ()=> {
   if(getWindow$1()._Web3ClientProviders == undefined) {
     getWindow$1()._Web3ClientProviders = {};
@@ -30266,10 +30291,17 @@ const setProviderEndpoints$2 = async (blockchain, endpoints, detectFastest = tru
             referrer: "",
             referrerPolicy: "no-referrer",
             body: JSON.stringify({ method: 'net_version', id: 1, jsonrpc: '2.0' }),
+<<<<<<< HEAD:dist/esm/index.svm.js
             signal: _optionalChain$4$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
           });
         } catch (e) {}
         if(!_optionalChain$4$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+=======
+            signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+          });
+        } catch (e) {}
+        if(!_optionalChain$5$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+>>>>>>> main:dist/esm/index.solana.js
         let after = new Date().getTime();
         resolve(after-before);
       })
@@ -30324,7 +30356,7 @@ var EVM = {
   setProvider: setProvider$2,
 };
 
-function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$4$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const BATCH_INTERVAL = 10;
 const CHUNK_SIZE = 25;
 const MAX_RETRY = 10;
@@ -30369,12 +30401,20 @@ class StaticJsonRpcSequentialProvider extends Connection {
           method: 'POST',
           body: JSON.stringify(batch),
           headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD:dist/esm/index.svm.js
           signal: _optionalChain$3$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
+=======
+          signal: _optionalChain$4$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
+>>>>>>> main:dist/esm/index.solana.js
         }
       ).then((response)=>{
         if(response.ok) {
           response.json().then((parsedJson)=>{
+<<<<<<< HEAD:dist/esm/index.svm.js
             if(parsedJson.find((entry)=>_optionalChain$3$2([entry, 'optionalAccess', _2 => _2.error]))) {
+=======
+            if(parsedJson.find((entry)=>_optionalChain$4$2([entry, 'optionalAccess', _2 => _2.error]))) {
+>>>>>>> main:dist/esm/index.solana.js
               if(attempt < MAX_RETRY) {
                 reject('Error in batch found!');
               } else {
@@ -30400,7 +30440,11 @@ class StaticJsonRpcSequentialProvider extends Connection {
         .then((result) => {
           chunk.forEach((inflightRequest, index) => {
             const payload = result[index];
+<<<<<<< HEAD:dist/esm/index.svm.js
             if (_optionalChain$3$2([payload, 'optionalAccess', _3 => _3.error])) {
+=======
+            if (_optionalChain$4$2([payload, 'optionalAccess', _3 => _3.error])) {
+>>>>>>> main:dist/esm/index.solana.js
               const error = new Error(payload.error.message);
               error.code = payload.error.code;
               error.data = payload.error.data;
@@ -30457,7 +30501,7 @@ class StaticJsonRpcSequentialProvider extends Connection {
   }
 }
 
-function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 const getAllProviders = ()=> {
   if(getWindow$1()._Web3ClientProviders == undefined) {
     getWindow$1()._Web3ClientProviders = {};
@@ -30515,10 +30559,17 @@ const setProviderEndpoints$1 = async (blockchain, endpoints, detectFastest = tru
             referrer: "",
             referrerPolicy: "no-referrer",
             body: JSON.stringify({ method: 'getIdentity', id: 1, jsonrpc: '2.0' }),
+<<<<<<< HEAD:dist/esm/index.svm.js
             signal: _optionalChain$2$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
           });
         } catch (e) {}
         if(!_optionalChain$2$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+=======
+            signal: _optionalChain$3$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
+          });
+        } catch (e) {}
+        if(!_optionalChain$3$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+>>>>>>> main:dist/esm/index.solana.js
         let after = new Date().getTime();
         resolve(after-before);
       })
@@ -30577,8 +30628,13 @@ let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum',
 supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
 supported$3.svm = ['solana'];
 
+<<<<<<< HEAD:dist/esm/index.svm.js
 function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 let getCacheStore$1 = () => {
+=======
+function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+let getCacheStore = () => {
+>>>>>>> main:dist/esm/index.solana.js
   if (getWindow$1()._Web3ClientCacheStore == undefined) {
     getWindow$1()._Web3ClientCacheStore = {};
   }
@@ -30600,8 +30656,13 @@ let set = function ({ key, value, expires }) {
 };
 
 let get = function ({ key, expires }) {
+<<<<<<< HEAD:dist/esm/index.svm.js
   let cachedEntry = getCacheStore$1()[key];
   if (_optionalChain$1$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
+=======
+  let cachedEntry = getCacheStore()[key];
+  if (_optionalChain$2$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
+>>>>>>> main:dist/esm/index.solana.js
     return cachedEntry.value
   }
 };
@@ -30678,7 +30739,11 @@ let cache = function ({ call, key, expires = 0 }) {
 // Periodically clean up expired cache entries (every 5 minutes), to prevent memory leaks
 if (typeof process == 'undefined' || process.env && "production" === 'test') {
   setInterval(() => {
+<<<<<<< HEAD:dist/esm/index.svm.js
     const store = getCacheStore$1();
+=======
+    const store = getCacheStore();
+>>>>>>> main:dist/esm/index.solana.js
     const now = Date.now();
     for (const key in store) {
       if (store[key].expiresAt < now) {
@@ -30743,7 +30808,7 @@ const transactionCount = ({ address, provider }) => {
   return provider.getTransactionCount(address)
 };
 
-const singleRequest$1 = ({ blockchain, address, api, method, params, block, provider }) =>{
+const singleRequest$3 = ({ blockchain, address, api, method, params, block, provider }) =>{
   if (api) {
     return contractCall({ address, api, method, params, provider, block })
   } else if (method === 'latestBlockNumber') {
@@ -30769,7 +30834,7 @@ var requestEVM = async ({ blockchain, address, api, method, params, block, timeo
     const allRequestsInParallel = providers.map((provider)=>{
       return new Promise((resolve)=>{
         allRequestsFailed.push(
-          singleRequest$1({ blockchain, address, api, method, params, block, provider }).then(resolve)
+          singleRequest$3({ blockchain, address, api, method, params, block, provider }).then(resolve)
         );
       })
     });
@@ -30785,7 +30850,7 @@ var requestEVM = async ({ blockchain, address, api, method, params, block, timeo
   } else { // failover
 
     const provider = await EVM.getProvider(blockchain);
-    const request = singleRequest$1({ blockchain, address, api, method, params, block, provider });
+    const request = singleRequest$3({ blockchain, address, api, method, params, block, provider });
     
     if(timeout) {
       timeout = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout));
@@ -30806,7 +30871,7 @@ const balance = ({ address, provider }) => {
   return provider.getBalance(new PublicKey(address))
 };
 
-const singleRequest = async({ blockchain, address, api, method, params, block, provider, providers })=> {
+const singleRequest$2 = async({ blockchain, address, api, method, params, block, provider, providers })=> {
 
   try {
 
@@ -30839,7 +30904,7 @@ const singleRequest = async({ blockchain, address, api, method, params, block, p
       'Failed to fetch', 'limit reached', '504', '503', '502', '500', '429', '426', '422', '413', '409', '408', '406', '405', '404', '403', '402', '401', '400'
     ].some((errorType)=>error.toString().match(errorType))) {
       let nextProvider = providers[providers.indexOf(provider)+1] || providers[0];
-      return singleRequest({ blockchain, address, api, method, params, block, provider: nextProvider, providers })
+      return singleRequest$2({ blockchain, address, api, method, params, block, provider: nextProvider, providers })
     } else {
       throw error
     }
@@ -30860,7 +30925,7 @@ var requestSolana = async ({ blockchain, address, api, method, params, block, ti
     const allRequestsInParallel = providers.map((provider)=>{
       return new Promise((resolve)=>{
         allRequestsFailed.push(
-          singleRequest({ blockchain, address, api, method, params, block, provider }).then(resolve)
+          singleRequest$2({ blockchain, address, api, method, params, block, provider }).then(resolve)
         );
       })
     });
@@ -30876,7 +30941,7 @@ var requestSolana = async ({ blockchain, address, api, method, params, block, ti
   } else { // failover
 
     const provider = await Solana.getProvider(blockchain);
-    const request = singleRequest({ blockchain, address, api, method, params, block, provider, providers });
+    const request = singleRequest$2({ blockchain, address, api, method, params, block, provider, providers });
 
     if(timeout) {
       timeout = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout));

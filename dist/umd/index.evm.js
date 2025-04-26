@@ -5216,6 +5216,24 @@
     }));
   });
 
+  var initMobileAppDebug = function initMobileAppDebug() {
+    if (typeof window.eruda === 'undefined') {
+      // Create a script element
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/eruda';
+
+      script.onload = function () {
+        // Initialize Eruda once the script is loaded
+        window.eruda.init();
+        console.log('Eruda has been initialized.');
+      };
+
+      document.body.appendChild(script);
+    } else {
+      console.log('Eruda is already loaded.');
+    }
+  };
+
   var isMobile = function isMobile() {
     if (typeof window !== 'undefined') {
       return Boolean(window.matchMedia('(pointer:coarse)').matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|Opera Mini/.test(navigator.userAgent));
@@ -22549,6 +22567,7 @@
     }, /*#__PURE__*/React__default['default'].createElement("span", {
       className: "CardImage rounded large"
     }, /*#__PURE__*/React__default['default'].createElement("img", {
+      onClick: initMobileAppDebug,
       className: "transparent",
       src: props.wallet.logo
     })))));
@@ -27110,24 +27129,6 @@
     return _address;
   }
 
-  var initDebug = function initDebug() {
-    if (typeof window.eruda === 'undefined') {
-      // Create a script element
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/eruda';
-
-      script.onload = function () {
-        // Initialize Eruda once the script is loaded
-        window.eruda.init();
-        console.log('Eruda has been initialized.');
-      };
-
-      document.body.appendChild(script);
-    } else {
-      console.log('Eruda is already loaded.');
-    }
-  };
-
   var NoPaymentOptionFoundDialog = (function () {
     var _useContext = React.useContext(ConfigurationContext),
         accept = _useContext.accept;
@@ -27153,11 +27154,19 @@
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
+<<<<<<< HEAD
         className: "GraphicWrapper",
         onClick: initDebug
       }, /*#__PURE__*/React__default['default'].createElement(QuestionsGraphic, null)), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
+=======
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "Graphic",
+        src: QuestionsGraphic
+      })), /*#__PURE__*/React__default['default'].createElement("h1", {
+>>>>>>> main
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Not Enough Funds"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"

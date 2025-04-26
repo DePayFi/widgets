@@ -1,8 +1,15 @@
 (function (global, factory) {
+<<<<<<< HEAD:dist/umd/index.svm.js
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-svm'), require('@depay/web3-blockchains'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-svm'), require('@depay/local-currency'), require('@depay/web3-exchanges-svm'), require('@depay/web3-tokens-svm'), require('decimal.js'), require('ethers'), require('@depay/web3-payments-svm'), require('@depay/react-token-image-svm'), require('@depay/solana-web3.js')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-svm', '@depay/web3-blockchains', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-svm', '@depay/local-currency', '@depay/web3-exchanges-svm', '@depay/web3-tokens-svm', 'decimal.js', 'ethers', '@depay/web3-payments-svm', '@depay/react-token-image-svm', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.Web3Payments, global.ReactTokenImage, global.SolanaWeb3js));
 }(this, (function (web3WalletsSvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal$1, ethers, web3PaymentsSvm, reactTokenImageSvm, solanaWeb3_js) { 'use strict';
+=======
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-svm'), require('@depay/web3-blockchains'), require('react'), require('@depay/web3-payments-solana'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-svm'), require('@depay/local-currency'), require('@depay/web3-exchanges-solana'), require('@depay/web3-tokens-solana'), require('decimal.js'), require('ethers'), require('@depay/react-token-image-solana'), require('@depay/solana-web3.js')) :
+  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-svm', '@depay/web3-blockchains', 'react', '@depay/web3-payments-solana', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-svm', '@depay/local-currency', '@depay/web3-exchanges-solana', '@depay/web3-tokens-solana', 'decimal.js', 'ethers', '@depay/react-token-image-solana', '@depay/solana-web3.js'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.Web3Payments, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.ReactTokenImage, global.SolanaWeb3js));
+}(this, (function (web3WalletsSvm, Blockchains, React, web3PaymentsSolana, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal, ethers, reactTokenImageSolana, solanaWeb3_js) { 'use strict';
+>>>>>>> main:dist/umd/index.solana.js
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -79,11 +86,15 @@
       }
     },
     "logo": (_wallets$CoinbaseEVM = web3WalletsSvm.wallets.CoinbaseEVM) === null || _wallets$CoinbaseEVM === void 0 ? void 0 : (_wallets$CoinbaseEVM$ = _wallets$CoinbaseEVM.info) === null || _wallets$CoinbaseEVM$ === void 0 ? void 0 : _wallets$CoinbaseEVM$.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#0153ff",
       "secondary": "#ffffff"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "MetaMask",
     "extension": "MetaMask",
@@ -105,11 +116,15 @@
       }
     },
     "logo": (_wallets$MetaMask = web3WalletsSvm.wallets.MetaMask) === null || _wallets$MetaMask === void 0 ? void 0 : (_wallets$MetaMask$inf = _wallets$MetaMask.info) === null || _wallets$MetaMask$inf === void 0 ? void 0 : _wallets$MetaMask$inf.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
       "primary": "#ff8d5d",
       "secondary": "#661800"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Phantom",
     "extensions": ["PhantomSVM", "PhantomEVM"],
@@ -140,11 +155,15 @@
       }
     },
     "logo": (_wallets$PhantomSVM = web3WalletsSvm.wallets.PhantomSVM) === null || _wallets$PhantomSVM === void 0 ? void 0 : (_wallets$PhantomSVM$i = _wallets$PhantomSVM.info) === null || _wallets$PhantomSVM$i === void 0 ? void 0 : _wallets$PhantomSVM$i.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#ab9ef2",
       "secondary": "#252525"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Trust",
     "extensions": ["TrustEVM", "TrustSVM"],
@@ -166,11 +185,15 @@
       }
     },
     "logo": (_wallets$TrustEVM = web3WalletsSvm.wallets.TrustEVM) === null || _wallets$TrustEVM === void 0 ? void 0 : (_wallets$TrustEVM$inf = _wallets$TrustEVM.info) === null || _wallets$TrustEVM$inf === void 0 ? void 0 : _wallets$TrustEVM$inf.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#0700ff",
       "secondary": "#48ff91"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Binance",
     "extension": "Binance",
@@ -192,11 +215,15 @@
       }
     },
     "logo": (_wallets$Binance = web3WalletsSvm.wallets.Binance) === null || _wallets$Binance === void 0 ? void 0 : (_wallets$Binance$info = _wallets$Binance.info) === null || _wallets$Binance$info === void 0 ? void 0 : _wallets$Binance$info.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
       "primary": "",
       "secondary": ""
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Crypto.com Onchain",
     "extension": "CryptoCom",
@@ -218,11 +245,15 @@
       }
     },
     "logo": (_wallets$CryptoCom = web3WalletsSvm.wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
       "primary": "#1e2024",
       "secondary": "#f3ba2e"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "World App",
     "extension": "WorldApp",
@@ -255,29 +286,41 @@
       }
     },
     "logo": (_wallets$Coin98EVM = web3WalletsSvm.wallets.Coin98EVM) === null || _wallets$Coin98EVM === void 0 ? void 0 : (_wallets$Coin98EVM$in = _wallets$Coin98EVM.info) === null || _wallets$Coin98EVM$in === void 0 ? void 0 : _wallets$Coin98EVM$in.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#252525",
       "secondary": "#d9b432"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Brave",
     "extensions": ["BraveEVM", "BraveSVM"],
     "logo": (_wallets$BraveEVM = web3WalletsSvm.wallets.BraveEVM) === null || _wallets$BraveEVM === void 0 ? void 0 : (_wallets$BraveEVM$inf = _wallets$BraveEVM.info) === null || _wallets$BraveEVM$inf === void 0 ? void 0 : _wallets$BraveEVM$inf.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#f05a22",
       "secondary": "#ffffff"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Magic Eden",
     "extensions": ["MagicEdenEVM", "MagicEdenSVM"],
     "logo": (_wallets$MagicEdenEVM = web3WalletsSvm.wallets.MagicEdenEVM) === null || _wallets$MagicEdenEVM === void 0 ? void 0 : (_wallets$MagicEdenEVM2 = _wallets$MagicEdenEVM.info) === null || _wallets$MagicEdenEVM2 === void 0 ? void 0 : _wallets$MagicEdenEVM2.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4),
     "colors": {
       "primary": "#070c34",
       "secondary": "#ff8c00"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Rainbow",
     "extension": "Rainbow",
@@ -363,11 +406,15 @@
       "qr": "WalletConnectV2"
     },
     "logo": (_wallets$Rabby = web3WalletsSvm.wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {
       "primary": "#6552f3",
       "secondary": "#a6a6ff"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Kraken",
     "desktop": {
@@ -408,11 +455,15 @@
       }
     },
     "logo": (_wallets$Backpack = web3WalletsSvm.wallets.Backpack) === null || _wallets$Backpack === void 0 ? void 0 : (_wallets$Backpack$inf = _wallets$Backpack.info) === null || _wallets$Backpack$inf === void 0 ? void 0 : _wallets$Backpack$inf.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {
       "primary": "#e23e3f",
       "secondary": "#252525"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.solana)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Glow",
     "extension": "Glow",
@@ -438,11 +489,15 @@
       }
     },
     "logo": (_wallets$Glow = web3WalletsSvm.wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {
       "primary": "#aa35d8",
       "secondary": "#f5e4fb"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.solana)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Solflare",
     "extension": "Solflare",
@@ -466,11 +521,15 @@
       }
     },
     "logo": (_wallets$Solflare = web3WalletsSvm.wallets.Solflare) === null || _wallets$Solflare === void 0 ? void 0 : (_wallets$Solflare$inf = _wallets$Solflare.info) === null || _wallets$Solflare$inf === void 0 ? void 0 : _wallets$Solflare$inf.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {
       "primary": "#fef046",
       "secondary": "#03050b"
     }
+=======
+    "blockchains": _toConsumableArray(supported$4.solana)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Family",
     "desktop": {
@@ -1879,8 +1938,12 @@
       }
     },
     "logo": (_wallets$OKXEVM = web3WalletsSvm.wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {}
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Mask Network",
     "desktop": {
@@ -2658,8 +2721,12 @@
       "qr": "WalletConnectV2"
     },
     "logo": (_wallets$HyperPay = web3WalletsSvm.wallets.HyperPay) === null || _wallets$HyperPay === void 0 ? void 0 : (_wallets$HyperPay$inf = _wallets$HyperPay.info) === null || _wallets$HyperPay$inf === void 0 ? void 0 : _wallets$HyperPay$inf.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {}
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "ATON",
     "desktop": {
@@ -4150,8 +4217,12 @@
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": (_wallets$WindowEthere = web3WalletsSvm.wallets.WindowEthereum) === null || _wallets$WindowEthere === void 0 ? void 0 : (_wallets$WindowEthere2 = _wallets$WindowEthere.info) === null || _wallets$WindowEthere2 === void 0 ? void 0 : _wallets$WindowEthere2.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.evm),
     "colors": {}
+=======
+    "blockchains": _toConsumableArray(supported$4.evm)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "Solana Pay",
     "desktop": {
@@ -4183,8 +4254,12 @@
       }
     },
     "logo": (_wallets$WindowSolana = web3WalletsSvm.wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
+<<<<<<< HEAD:dist/umd/index.svm.js
     "blockchains": _toConsumableArray(supported$4.svm),
     "colors": {}
+=======
+    "blockchains": _toConsumableArray(supported$4.solana)
+>>>>>>> main:dist/umd/index.solana.js
   }, {
     "name": "WalletConnect",
     "desktop": {
@@ -5215,6 +5290,24 @@
       d: "M172.8,68.3c-4.9-2.2-7.4-8.4-4.5-13.6c5.3-9.4,10-18.6,4.3-29.1c-7-12.7-24.1-17.4-36.6-10c-15.4,9.1-13.4,25.6-5.1,38.9,c3.3,5.2,0.9,11.6-4.2,13.9l-61.2,0.1l0,0.8l0.1,21.8l0.1,37.9c-1.9,5.5-8.7,8.4-14.1,5c-13.4-8.3-29.8-10.1-38.9,5.3,c-7.3,12.5-2.5,29.7,10.2,36.5c10.5,5.7,19.7,1,29.1-4.4c5.4-3.1,11.9-0.3,13.8,5l0.1,59.8l57.2-0.1c0.1,0,0.2,0,0.3,0l3.6,0,c5-2.3,7.4-8.7,4.2-13.9c-8.3-13.3-10.3-29.8,5.1-38.9c12.5-7.4,29.6-2.7,36.6,10c5.7,10.5,1.1,19.7-4.3,29.1,c-2.9,5.2-0.5,11.4,4.5,13.6l3.6,0c0.1,0,0.2,0,0.3,0l56.5-0.1l-0.1-58.8c-1.4-6.6-7.8-9.2-14.1-5.8c-9.5,5.2-17.9,9.8-28.4,4.1,c-12.8-6.9-18.2-23.7-10.9-36.3c9-15.4,25.5-13.6,38.9-5.3c5.7,3.5,12.9,0.2,14.4-5.9l-0.1-35.4L233.3,69l0-0.8L172.8,68.3z"
     }));
   });
+
+  var initMobileAppDebug = function initMobileAppDebug() {
+    if (typeof window.eruda === 'undefined') {
+      // Create a script element
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/eruda';
+
+      script.onload = function () {
+        // Initialize Eruda once the script is loaded
+        window.eruda.init();
+        console.log('Eruda has been initialized.');
+      };
+
+      document.body.appendChild(script);
+    } else {
+      console.log('Eruda is already loaded.');
+    }
+  };
 
   var isMobile = function isMobile() {
     if (typeof window !== 'undefined') {
@@ -22549,6 +22642,7 @@
     }, /*#__PURE__*/React__default['default'].createElement("span", {
       className: "CardImage rounded large"
     }, /*#__PURE__*/React__default['default'].createElement("img", {
+      onClick: initMobileAppDebug,
       className: "transparent",
       src: props.wallet.logo
     })))));
@@ -24179,7 +24273,11 @@
         if (wallet.extensions && props.accept) {
           var availableExtensions = wallet.extensions.filter(function (availableExtension) {
             return props.accept.some(function (configuration) {
+<<<<<<< HEAD:dist/umd/index.svm.js
               return web3WalletsSvm.wallets[availableExtension].info.blockchains.includes(configuration.blockchain);
+=======
+              return supported$4[web3WalletsSvm.wallets[availableExtension].info.platform].includes(configuration.blockchain);
+>>>>>>> main:dist/umd/index.solana.js
             });
           });
 
@@ -27110,24 +27208,6 @@
     return _address;
   }
 
-  var initDebug = function initDebug() {
-    if (typeof window.eruda === 'undefined') {
-      // Create a script element
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/eruda';
-
-      script.onload = function () {
-        // Initialize Eruda once the script is loaded
-        window.eruda.init();
-        console.log('Eruda has been initialized.');
-      };
-
-      document.body.appendChild(script);
-    } else {
-      console.log('Eruda is already loaded.');
-    }
-  };
-
   var NoPaymentOptionFoundDialog = (function () {
     var _useContext = React.useContext(ConfigurationContext),
         accept = _useContext.accept;
@@ -27153,11 +27233,19 @@
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
+<<<<<<< HEAD:dist/umd/index.svm.js
         className: "GraphicWrapper",
         onClick: initDebug
       }, /*#__PURE__*/React__default['default'].createElement(QuestionsGraphic, null)), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
+=======
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "Graphic",
+        src: QuestionsGraphic
+      })), /*#__PURE__*/React__default['default'].createElement("h1", {
+>>>>>>> main:dist/umd/index.solana.js
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Not Enough Funds"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"
@@ -30064,7 +30152,7 @@
     return getWindow$1()._Web3ClientConfiguration
   };
 
-  function _optionalChain$5$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$6$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1$1 = 10;
   const CHUNK_SIZE$1$1 = 50;
   const MAX_RETRY$1$1 = 5;
@@ -30108,13 +30196,21 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD:dist/umd/index.svm.js
             signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+=======
+            signal: _optionalChain$6$1([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+>>>>>>> main:dist/umd/index.solana.js
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
               if(parsedJson.find((entry)=>{
+<<<<<<< HEAD:dist/umd/index.svm.js
                 return _optionalChain$5$2([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$5$2([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+=======
+                return _optionalChain$6$1([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$6$1([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+>>>>>>> main:dist/umd/index.solana.js
               })) {
                 if(attempt < MAX_RETRY$1$1) {
                   reject('Error in batch found!');
@@ -30143,12 +30239,20 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
+<<<<<<< HEAD:dist/umd/index.svm.js
               if (_optionalChain$5$2([payload, 'optionalAccess', _5 => _5.error])) {
+=======
+              if (_optionalChain$6$1([payload, 'optionalAccess', _5 => _5.error])) {
+>>>>>>> main:dist/umd/index.solana.js
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
+<<<<<<< HEAD:dist/umd/index.svm.js
               } else if(_optionalChain$5$2([payload, 'optionalAccess', _6 => _6.result])) {
+=======
+              } else if(_optionalChain$6$1([payload, 'optionalAccess', _6 => _6.result])) {
+>>>>>>> main:dist/umd/index.solana.js
                 inflightRequest.resolve(payload.result);
               } else {
                 inflightRequest.reject();
@@ -30206,7 +30310,7 @@
 
   }
 
-  function _optionalChain$4$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$5$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const getAllProviders$1 = ()=> {
     if(getWindow$1()._Web3ClientProviders == undefined) {
       getWindow$1()._Web3ClientProviders = {};
@@ -30264,10 +30368,17 @@
               referrer: "",
               referrerPolicy: "no-referrer",
               body: JSON.stringify({ method: 'net_version', id: 1, jsonrpc: '2.0' }),
+<<<<<<< HEAD:dist/umd/index.svm.js
               signal: _optionalChain$4$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
             });
           } catch (e) {}
           if(!_optionalChain$4$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+=======
+              signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+            });
+          } catch (e) {}
+          if(!_optionalChain$5$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+>>>>>>> main:dist/umd/index.solana.js
           let after = new Date().getTime();
           resolve(after-before);
         })
@@ -30322,7 +30433,7 @@
     setProvider: setProvider$2,
   };
 
-  function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$4$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL = 10;
   const CHUNK_SIZE = 25;
   const MAX_RETRY = 10;
@@ -30367,12 +30478,20 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
+<<<<<<< HEAD:dist/umd/index.svm.js
             signal: _optionalChain$3$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
+=======
+            signal: _optionalChain$4$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
+>>>>>>> main:dist/umd/index.solana.js
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
+<<<<<<< HEAD:dist/umd/index.svm.js
               if(parsedJson.find((entry)=>_optionalChain$3$2([entry, 'optionalAccess', _2 => _2.error]))) {
+=======
+              if(parsedJson.find((entry)=>_optionalChain$4$2([entry, 'optionalAccess', _2 => _2.error]))) {
+>>>>>>> main:dist/umd/index.solana.js
                 if(attempt < MAX_RETRY) {
                   reject('Error in batch found!');
                 } else {
@@ -30398,7 +30517,11 @@
           .then((result) => {
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
+<<<<<<< HEAD:dist/umd/index.svm.js
               if (_optionalChain$3$2([payload, 'optionalAccess', _3 => _3.error])) {
+=======
+              if (_optionalChain$4$2([payload, 'optionalAccess', _3 => _3.error])) {
+>>>>>>> main:dist/umd/index.solana.js
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
@@ -30455,7 +30578,7 @@
     }
   }
 
-  function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$3$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const getAllProviders = ()=> {
     if(getWindow$1()._Web3ClientProviders == undefined) {
       getWindow$1()._Web3ClientProviders = {};
@@ -30513,10 +30636,17 @@
               referrer: "",
               referrerPolicy: "no-referrer",
               body: JSON.stringify({ method: 'getIdentity', id: 1, jsonrpc: '2.0' }),
+<<<<<<< HEAD:dist/umd/index.svm.js
               signal: _optionalChain$2$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
             });
           } catch (e) {}
           if(!_optionalChain$2$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+=======
+              signal: _optionalChain$3$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(60000) : undefined  // 60-second timeout
+            });
+          } catch (e) {}
+          if(!_optionalChain$3$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+>>>>>>> main:dist/umd/index.solana.js
           let after = new Date().getTime();
           resolve(after-before);
         })
@@ -30575,8 +30705,13 @@
   supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$3.svm = ['solana'];
 
+<<<<<<< HEAD:dist/umd/index.svm.js
   function _optionalChain$1$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   let getCacheStore$1 = () => {
+=======
+  function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  let getCacheStore = () => {
+>>>>>>> main:dist/umd/index.solana.js
     if (getWindow$1()._Web3ClientCacheStore == undefined) {
       getWindow$1()._Web3ClientCacheStore = {};
     }
@@ -30598,8 +30733,13 @@
   };
 
   let get = function ({ key, expires }) {
+<<<<<<< HEAD:dist/umd/index.svm.js
     let cachedEntry = getCacheStore$1()[key];
     if (_optionalChain$1$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
+=======
+    let cachedEntry = getCacheStore()[key];
+    if (_optionalChain$2$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
+>>>>>>> main:dist/umd/index.solana.js
       return cachedEntry.value
     }
   };
@@ -30676,7 +30816,11 @@
   // Periodically clean up expired cache entries (every 5 minutes), to prevent memory leaks
   if (typeof process == 'undefined' || process.env && "production" === 'test') {
     setInterval(() => {
+<<<<<<< HEAD:dist/umd/index.svm.js
       const store = getCacheStore$1();
+=======
+      const store = getCacheStore();
+>>>>>>> main:dist/umd/index.solana.js
       const now = Date.now();
       for (const key in store) {
         if (store[key].expiresAt < now) {
@@ -30741,7 +30885,7 @@
     return provider.getTransactionCount(address)
   };
 
-  const singleRequest$1 = ({ blockchain, address, api, method, params, block, provider }) =>{
+  const singleRequest$3 = ({ blockchain, address, api, method, params, block, provider }) =>{
     if (api) {
       return contractCall({ address, api, method, params, provider, block })
     } else if (method === 'latestBlockNumber') {
@@ -30767,7 +30911,7 @@
       const allRequestsInParallel = providers.map((provider)=>{
         return new Promise((resolve)=>{
           allRequestsFailed.push(
-            singleRequest$1({ blockchain, address, api, method, params, block, provider }).then(resolve)
+            singleRequest$3({ blockchain, address, api, method, params, block, provider }).then(resolve)
           );
         })
       });
@@ -30783,7 +30927,7 @@
     } else { // failover
 
       const provider = await EVM.getProvider(blockchain);
-      const request = singleRequest$1({ blockchain, address, api, method, params, block, provider });
+      const request = singleRequest$3({ blockchain, address, api, method, params, block, provider });
       
       if(timeout) {
         timeout = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout));
@@ -30804,7 +30948,7 @@
     return provider.getBalance(new solanaWeb3_js.PublicKey(address))
   };
 
-  const singleRequest = async({ blockchain, address, api, method, params, block, provider, providers })=> {
+  const singleRequest$2 = async({ blockchain, address, api, method, params, block, provider, providers })=> {
 
     try {
 
@@ -30837,7 +30981,7 @@
         'Failed to fetch', 'limit reached', '504', '503', '502', '500', '429', '426', '422', '413', '409', '408', '406', '405', '404', '403', '402', '401', '400'
       ].some((errorType)=>error.toString().match(errorType))) {
         let nextProvider = providers[providers.indexOf(provider)+1] || providers[0];
-        return singleRequest({ blockchain, address, api, method, params, block, provider: nextProvider, providers })
+        return singleRequest$2({ blockchain, address, api, method, params, block, provider: nextProvider, providers })
       } else {
         throw error
       }
@@ -30858,7 +31002,7 @@
       const allRequestsInParallel = providers.map((provider)=>{
         return new Promise((resolve)=>{
           allRequestsFailed.push(
-            singleRequest({ blockchain, address, api, method, params, block, provider }).then(resolve)
+            singleRequest$2({ blockchain, address, api, method, params, block, provider }).then(resolve)
           );
         })
       });
@@ -30874,7 +31018,7 @@
     } else { // failover
 
       const provider = await Solana.getProvider(blockchain);
-      const request = singleRequest({ blockchain, address, api, method, params, block, provider, providers });
+      const request = singleRequest$2({ blockchain, address, api, method, params, block, provider, providers });
 
       if(timeout) {
         timeout = new Promise((_, reject)=>setTimeout(()=>{ reject(new Error("Web3ClientTimeout")); }, timeout));
