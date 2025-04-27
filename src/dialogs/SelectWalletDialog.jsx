@@ -79,7 +79,12 @@ export default (props)=>{
       }
     } else if(isMobile()) {
       const platform = platformForWallet(walletMetaData)
-      let extensionIsAvailable = await wallets[props.wallet.extension].isAvailable()
+      let extensionIsAvailable
+      if(walletMetaData.extension) {
+        extensionIsAvailable = await wallets[walletMetaData.extension].isAvailable()
+      } else if (walletMetaData.extensions) {
+        extensionIsAvailable = (await Promise.all(walletMetaData.extensions.map((extension)=>wallets[extension].isAvailable()))).filter(Boolean).length > 0
+      }
       if(platform && platform.open) {
         if(!extensionIsAvailable) {
           props.openInApp(walletMetaData)

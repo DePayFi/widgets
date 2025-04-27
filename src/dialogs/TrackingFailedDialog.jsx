@@ -19,6 +19,9 @@ export default ()=> {
       stacked={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracking Failed Error`, '_blank') }} type="button" className="Card small inlineBlock">
+            Contact support
+          </button>
         </div>
       }
       body={

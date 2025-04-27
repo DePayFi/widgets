@@ -15,15 +15,16 @@ import { wallets } from '@depay/web3-wallets'
 
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import copy from '@uiw/copy-to-clipboard'
+import debounce from '../helpers/debounce'
 import Dialog from '../components/Dialog'
 import ExtensionIcon from '../icons/ExtensionIcon'
 import initMobileAppDebug from '../helpers/initMobileAppDebug'
+import isDarkMode from '../helpers/isDarkMode'
 import isMobile from '../helpers/isMobile'
 import LinkIcon from '../icons/LinkIcon'
 import QRCodeIcon from '../icons/QRCodeIcon'
 import QRCodeStyling from "qr-code-styling"
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react'
-import { debounce } from 'lodash'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { set as setPreviouslyConnectedWallet } from '../helpers/previouslyConnectedWallet'
 
@@ -108,7 +109,10 @@ export default (props)=> {
       width: 340,
       height: 340,
       type: "svg",
-      dotsOptions: { type: "extra-rounded" },
+      dotsOptions: { 
+        color: isDarkMode() ? "#FFFFFF" : "#000000",
+        type: "extra-rounded"
+      },
       cornersSquareOptions: { type: 'rounded' },
       backgroundOptions: {
         color: "transparent",
@@ -172,7 +176,7 @@ export default (props)=> {
       } else if (props.wallet?.extensions) {
         extensionIsAvailable = (await Promise.all(props.wallet.extensions.map(async(extension)=>{
           return await wallets[extension].isAvailable()
-        }))).filter(Boolean)[0]
+        }))).filter(Boolean).length > 0
       }
       setExtensionIsAvailable(extensionIsAvailable)
       const appIsConnected = props.platform?.connect ? (await wallets[props.platform.connect].isAvailable() || false) : false
@@ -181,7 +185,7 @@ export default (props)=> {
       setConnectAppIsAvailable(connectAppIsAvailable)
       const copyLinkIsAvailable = !!props.platform?.copyLink
       setCopyLinkIsAvailable(copyLinkIsAvailable)
-      const openInAppIsAvailable = !!props.platform && props.platform.open
+      const openInAppIsAvailable = !!props.platform && props.platform.open && !extensionIsAvailable
       setOpenInAppIsAvailable(openInAppIsAvailable)
       const scanQrAvailable = (props.platform?.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) || (props.platform?.qr && (!showQRCode || props.platform.qr === 'WalletLink'))
       setScanQrAvailable(scanQrAvailable)
@@ -247,35 +251,37 @@ export default (props)=> {
           }
 
           { showQRCode &&
-            <div>
-              <div ref={ QRCodeElement } className="QRCode">
+            <div className="PaddingTopXS PaddingRightXS PaddingBottomXS PaddingLeftXS">
+              <div>
+                <div ref={ QRCodeElement } className="QRCode">
+                  { showQRCode && QRCode === undefined &&
+                    <div className="PaddingTopS">
+                      <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
+                        <div className="SkeletonBackground"/>
+                      </div>
+                    </div>
+                  }
+                </div>
                 { showQRCode && QRCode === undefined &&
-                  <div className="PaddingTopS">
-                    <div className="Skeleton" style={{ borderRadius: "18px", width: "305px", height: "305px" }}>
-                      <div className="SkeletonBackground"/>
+                  <div className="Opacity05 PaddingBottomXS PaddingTopS">
+                    <small>Generating QR code...</small>
+                  </div>
+                }
+                { showQRCode && QRCode !== undefined &&
+                  <div className="Opacity05 PaddingBottomXS PaddingTopXS">
+                    <small>Scan QR code with your wallet</small>
+                  </div>
+                }
+                { (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || copyLinkIsAvailable) &&
+                  <div>
+                    <div className="PaddingBottomXS PaddingTopS Opacity03" style={{ display: "flex" }}>
+                      <div style={{ borderBottom: "1px solid black", flex: "0.4", position: "relative", top: '-9px' }} className="Opacity05"></div>
+                      <div style={{ flex: "0.2" }} className="PaddingLeftXS PaddingRightXS"><small>or</small></div>
+                      <div style={{ borderBottom: "1px solid black", flex: "0.4", position: "relative", top: '-9px' }} className="Opacity05"></div>
                     </div>
                   </div>
                 }
               </div>
-              { showQRCode && QRCode === undefined &&
-                <div className="Opacity05 PaddingBottomXS PaddingTopS">
-                  <small>Generating QR code...</small>
-                </div>
-              }
-              { showQRCode && QRCode !== undefined &&
-                <div className="Opacity05 PaddingBottomXS PaddingTopXS">
-                  <small>Scan QR code with your wallet</small>
-                </div>
-              }
-              { (extensionIsAvailable || connectAppIsAvailable || openInAppIsAvailable || copyLinkIsAvailable) &&
-                <div>
-                  <div className="PaddingBottomXS PaddingTopS Opacity03" style={{ display: "flex" }}>
-                    <div style={{ borderBottom: "1px solid black", flex: "0.4", position: "relative", top: '-9px' }} className="Opacity05"></div>
-                    <div style={{ flex: "0.2" }} className="PaddingLeftXS PaddingRightXS"><small>or</small></div>
-                    <div style={{ borderBottom: "1px solid black", flex: "0.4", position: "relative", top: '-9px' }} className="Opacity05"></div>
-                  </div>
-                </div>
-              }
             </div>
           }
 

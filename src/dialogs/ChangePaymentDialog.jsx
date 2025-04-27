@@ -14,6 +14,7 @@ import { TokenImage } from '@depay/react-token-image'
 
 import Blockchains from '@depay/web3-blockchains'
 import ChangePaymentSkeleton from '../skeletons/ChangePaymentSkeleton'
+import debounce from '../helpers/debounce'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
@@ -23,7 +24,7 @@ import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState, useCallback, useRef } from 'react'
 import round from '../helpers/round'
-import { debounce } from 'lodash'
+import throttle from '../helpers/throttle'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
@@ -43,13 +44,13 @@ export default (props)=>{
   const [ fuse, setFuse ] = useState()
   const [ listScrolled, setListScrolled ] = useState(false)
   const [ listScrollable, setListScrollable ] = useState(true)
-  const debouncedSetListScrolled = useCallback(debounce((value)=>setListScrolled(value), 500), [])
+  const throttledSetListScrolled = useCallback(throttle((value)=>setListScrolled(value), 1000), [])
   const handleOnScroll = (event)=>{
     if(!listScrolled) {
-      setListScrolled(true)
+      throttledSetListScrolled(true)
     }
     if(event.target.scrollTop <= 0 && selectedPaymentOptions.length > 9) {
-      debouncedSetListScrolled(false)
+      throttledSetListScrolled(false)
     }
   }
   const searchPaymentOption = useCallback(debounce((term, fuse, allPaymentOptions)=>{

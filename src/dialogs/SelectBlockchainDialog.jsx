@@ -1,10 +1,10 @@
 import Blockchains from '@depay/web3-blockchains'
+import debounce from '../helpers/debounce'
 import Dialog from '../components/Dialog'
 import Fuse from 'fuse.js'
 import isMobile from '../helpers/isMobile'
 import React, { useState, useContext, useRef, useEffect } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { debounce } from 'lodash'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 import { supported } from '../blockchains'
 

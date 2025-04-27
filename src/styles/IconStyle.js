@@ -6,10 +6,6 @@ export default (style)=>{
       stroke: ${style.colors.text};
     }
 
-    .QuestionMarkIcon {
-      fill: transparent;
-    }
-
     .ChevronLeft, .ChevronRight {
       position: relative;
       top: 1px;

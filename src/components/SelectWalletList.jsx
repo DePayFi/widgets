@@ -1,8 +1,8 @@
 import allWalletsOriginal from '../helpers/allWallets'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import throttle from '../helpers/throttle'
 import Fuse from 'fuse.js'
 import React, { useState, useEffect, useRef, useContext, useMemo, useCallback } from 'react'
-import { debounce } from 'lodash'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 export default (props)=>{
@@ -33,13 +33,13 @@ export default (props)=>{
   }
 
   const [ listScrolled, setListScrolled ] = useState(false)
-  const debouncedSetListScrolled = useCallback(debounce((value)=>setListScrolled(value), 500), [])
+  const throttledSetListScrolled = useCallback(throttle((value)=>setListScrolled(value), 1000), [])
   const handleOnScroll = (event)=>{
     if(!listScrolled) {
-      setListScrolled(true)
+      throttledSetListScrolled(true)
     }
     if(event.target.scrollTop <= 0 && allWallets.length > 9) {
-      debouncedSetListScrolled(false)
+      throttledSetListScrolled(false)
     }
   }
 

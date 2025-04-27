@@ -23,9 +23,9 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2.12.2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.0.9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.1.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@15"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.1.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.1.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -238,35 +238,6 @@
                       integration: '5e658691-bba4-4496-bd75-4c9daf3c6ea5'
                     })
                   })
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Payment: Value loss protection.</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Prevents people from using tokens that will loose to much % of value if exchanged.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="payPaymentValueLossProtection">Try it</button>
-                <script>
-                  var button = document.getElementById("payPaymentValueLossProtection");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Payment({
-                      accept: [{
-                        blockchain: 'bsc',
-                        amount: 1,
-                        token: '0x0040152a8b8c689f2e528ce8e7de754b9daf92b4',
-                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                      }]
-                    });
-                  });
                 </script>
               </div>
             </div>
@@ -506,23 +477,9 @@
                       accept: [
                         {
                           blockchain: 'solana',
-                          amount: 0.001,
-                          token: '11111111111111111111111111111111',
-                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
-                          fee: {
-                            amount: "1.5%",
-                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
-                          }
-                        },
-                        {
-                          blockchain: 'solana',
-                          amount: 0.001,
+                          amount: 0.01,
                           token: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
-                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
-                          fee: {
-                            amount: "1%",
-                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
-                          }
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
                         },
                       ],
                     });

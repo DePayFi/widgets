@@ -19,11 +19,11 @@ import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConversionRateContext from '../contexts/ConversionRateContext'
+import debounce from '../helpers/debounce'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useCallback, useState, useEffect, useContext } from 'react'
 import round from '../helpers/round'
 import WalletContext from '../contexts/WalletContext'
-import { debounce } from 'lodash'
 import { Decimal } from 'decimal.js'
 
 export default (props)=>{

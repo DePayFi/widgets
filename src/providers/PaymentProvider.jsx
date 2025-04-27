@@ -18,6 +18,7 @@ import Token from '@depay/web3-tokens'
 import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import debounce from '../helpers/debounce'
 import ErrorContext from '../contexts/ErrorContext'
 import isMobile from '../helpers/isMobile'
 import NavigateContext from '../contexts/NavigateContext'
@@ -27,8 +28,8 @@ import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import UpdatableContext from '../contexts/UpdatableContext'
+import useEvent from '../hooks/useEvent'
 import WalletContext from '../contexts/WalletContext'
-import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
@@ -51,15 +52,17 @@ export default (props)=>{
   const [ approvalType, setApprovalType ] = useState('transaction')
   const [ approvalAmount, setApprovalAmount ] = useState('max')
 
-  const paymentSucceeded = (transaction, payment)=>{
+  const paymentSucceeded = useEvent((transaction, payment)=>{
     if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
       setClosable(true)
+      setPaymentState('success')
+    } else if(release != true && paymentState != 'success') {
+      setPaymentState('validating')
     }
-    setPaymentState('success')
     if(succeeded) { setTimeout(()=>succeeded(transaction, payment), 200) }
-  }
+  })
 
-  const paymentFailed = (transaction, error, payment)=> {
+  const paymentFailed = useEvent((transaction, error, payment)=> {
     console.log('error', error?.toString())
     if(asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true)
@@ -67,9 +70,9 @@ export default (props)=>{
     set(['PaymentFailed'])
     setPaymentState('failed')
     if(failed) { failed(transaction, error, payment) }
-  }
+  })
 
-  const pay = async (passedSignatureData, passedSignature)=> {
+  const pay = useEvent(async(passedSignatureData, passedSignature)=> {
     setPaymentState('paying')
     setUpdatable(false)
     const account = await wallet.account()
@@ -128,9 +131,9 @@ export default (props)=>{
       setUpdatable(true)
       navigate('TracingFailed')
     })
-  }
+  })
 
-  const resetApproval = ()=> {
+  const resetApproval = useEvent(()=> {
     setPaymentState('resetting')
     setClosable(false)
     setUpdatable(false)
@@ -158,9 +161,9 @@ export default (props)=>{
         setPaymentState('initialized')
         setClosable(true)
       })
-  }
+  })
 
-  const approve = async()=> {
+  const approve = useEvent(async()=> {
     setPaymentState('approve')
     setClosable(false)
     setUpdatable(false)
@@ -216,7 +219,7 @@ export default (props)=>{
           setClosable(true)
         })
     }
-  }
+  })
 
   useEffect(()=>{
     setTrackingPayment(payment)

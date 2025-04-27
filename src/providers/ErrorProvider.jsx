@@ -44,6 +44,9 @@ export default (props)=>{
           
           <div className="DialogHeader">
             <div className="PaddingTopS PaddingLeftS PaddingRightS">
+              <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=[Widget Error] ${ error.message || error.toString() }`, '_blank') }} type="button" className="Card small inlineBlock">
+                Contact support
+              </button>
             </div>
           </div>
 

@@ -15,7 +15,6 @@ import { request } from '@depay/web3-client'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
-import getNonce from '../helpers/getNonce'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState, useRef } from 'react'
@@ -156,7 +155,6 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: await getNonce({ transaction, account, wallet }),
       after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
@@ -164,7 +162,11 @@ export default (props)=>{
       to_token: paymentRoute.toToken.address,
       to_amount: paymentRoute.toAmount.toString(),
       to_decimals: paymentRoute.toDecimals,
+      protocol_fee_amount: paymentRoute?.protocolFeeAmount?.toString(),
       fee_amount: paymentRoute?.feeAmount?.toString(),
+      fee_receiver: paymentRoute?.fee?.receiver,
+      fee2_amount: paymentRoute?.feeAmount2?.toString(),
+      fee2_receiver: paymentRoute?.fee2?.receiver,
       trace_attempt_id: attemptIdRef.current,
       deadline,
       selected_wallet: wallet?.name
@@ -177,7 +179,7 @@ export default (props)=>{
       })
   }
 
-  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId)=>{
+  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline)=>{
     if(
       !polling ||
       transaction == undefined ||
@@ -205,7 +207,8 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: await getNonce({ transaction, account, wallet }),
+      receiver: paymentRoute.toAddress,
+      deadline,
       after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     }
@@ -249,14 +252,11 @@ export default (props)=>{
   useEffect(()=>{
     if(!polling) { return }
     if(!synchronousTracking){ return }
-    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId), 5000)
+    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline), 5000)
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, attemptId, paymentRoute])
 
   const initializeTracking = async(transaction, afterBlock, paymentRoute, deadline)=>{
-    if(transaction.blockchain === 'solana') { // ensure solana transaction tracking uses only a single nonce for further processing
-      transaction.nonce = await getNonce({ transaction, account, wallet })
-    }
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute, deadline)
     }
@@ -279,7 +279,6 @@ export default (props)=>{
       let performedPayment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: await getNonce({ blockchain: paymentRoute.blockchain, transaction, account, wallet }),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
@@ -287,7 +286,11 @@ export default (props)=>{
         to_token: paymentRoute.toToken.address,
         to_amount: paymentRoute.toAmount.toString(),
         to_decimals: paymentRoute.toDecimals,
+        protocol_fee_amount: paymentRoute?.protocolFeeAmount?.toString(),
         fee_amount: paymentRoute?.feeAmount?.toString(),
+        fee_receiver: paymentRoute?.fee?.receiver,
+        fee2_amount: paymentRoute?.feeAmount2?.toString(),
+        fee2_receiver: paymentRoute?.fee2?.receiver,
         deadline,
         selected_wallet: wallet?.name
       }

@@ -16,6 +16,9 @@ export default (props)=> {
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Missing Blockchain Support Error`, '_blank') }} type="button" className="Card small inlineBlock">
+            Contact support
+          </button>
         </div>
       }
       body={
