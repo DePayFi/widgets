@@ -18,7 +18,7 @@ export default (props)=> {
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <div className="PaddingTopS PaddingLeftM PaddingRightM">
-            <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracing Failed Error`, '_blank') }} type="button" className="Card small inlineBlock">
+            <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracing Failed Error`, '_blank') }} type="button" className="Card secondary small inlineBlock">
               Contact support
             </button>
           </div>

@@ -21,7 +21,7 @@ export default (style)=>{
       padding: 6px 12px;
     }
 
-    .Step.active, .Step.done {
+    .Step.active {
       opacity: 100%;
     }
 
@@ -60,8 +60,11 @@ export default (style)=>{
       display: none;
     }
 
+    .Step.done:last-child {
+      opacity: 100;
+    }
+
     .StepText {
-      width: 76%;
       text-align: left;
       display: flex;
       align-items: center;

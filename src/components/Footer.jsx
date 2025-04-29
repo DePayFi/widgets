@@ -25,13 +25,12 @@ const REQUIRES_APPROVAL_RESET = {
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
   const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo, confirmationsRequired, confirmationsPassed } = useContext(PaymentTrackingContext)
-  const { payment, paymentState, pay, transaction, approve, approvalTransaction, approvalSignature, approvalDone, resetApproval, resetApprovalTransaction } = useContext(PaymentContext)
+  const { payment, paymentState, pay, transaction, approve, approvalTransaction, approvalSignature, approvalDone, approvalType, resetApproval, resetApprovalTransaction } = useContext(PaymentContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
   const { wallet } = useContext(WalletContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
-  const [ approvalType, setApprovalType ] = useState('transaction')
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
   const [ requiresApprovalReset, setRequiresApprovalReset ] = useState(false)
   const throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000)
@@ -118,135 +117,243 @@ export default ()=>{
       paymentState == 'success'
     ) {
 
-      return(
+      // --- Permit2 signature approval block ---
+      const needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount)
+      const permit2Done = Boolean(approvalTransaction?.url)
+      const permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature
+
+      // --- Spending approval block ---
+      const approvalRequired = Boolean(payment.route.approvalRequired)
+      const needsToApproveSpending = approvalRequired
+      const justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)
+      const spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || (approvalType === 'signature' && (Boolean(approvalTransaction?.url || justNeedsPermit2Signature))))
+      const spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature)
+      const spendingDone = (approvalType === 'signature' && Boolean(approvalSignature)) || (approvalTransaction?.url && !['approve', 'approving'].includes(paymentState))
+
+      // --- Perform payment block ---
+      const paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying'
+      const paymentProcessing = paymentState === 'paying' || paymentState === 'sending'
+      const paymentDone = paymentState === 'success'
+
+      // --- Validation block ---
+      const showAsyncInit = asynchronousTracking && trackingInitialized === false
+      const showSyncWaiting = synchronousTracking && !release
+      const showSyncDone = synchronousTracking && release
+
+      return (
         <div className="PaddingBottomS">
-
-          { (paymentState == 'approve') &&
-            <div className="Step active Card disabled small transparent">
+          {/* Enable signature approval (Permit2) */}
+          {needsPermit2Transaction && (
+            <a
+              href={
+                approvalTransaction
+                  ? link({ url: approvalTransaction.url, target: '_blank', wallet })
+                  : undefined
+              }
+              target="_blank"
+              className={
+                'Step Card small transparent' +
+                (!permit2Done || permit2Processing ? ' active' : '') +
+                (permit2Done ? ' done' : '') +
+                (!approvalTransaction?.url ? ' disabled' : '')
+              }
+            >
               <div className="StepIcon">
-                <div className="StepCircle"/>
+                {!permit2Done && !permit2Processing && <div className="StepCircle" />}
+                {permit2Processing && <div className="ActionIndicatorSpinner" />}
+                {permit2Done && !permit2Processing && <CheckmarkIcon className="small" />}
               </div>
               <div className="StepText">
-                Approve spending { payment.symbol }
+                {!permit2Done && !permit2Processing && (
+                  <span>Enable signature approval for {payment.symbol}</span>
+                )}
+                {permit2Processing &&
+                  <LoadingText>
+                    Enabling signature approval for {payment.symbol}
+                  </LoadingText>
+                }
+                {permit2Done && !permit2Processing && (
+                  <span>Signature approval for {payment.symbol} enabled</span>
+                )}
               </div>
-              <div className="StepConnector"/>
-            </div>
-          }
-
-          { approvalTransaction &&
-            <a href={ approvalTransaction ? link({ url: approvalTransaction?.url, target: '_blank', wallet }) : null } target="_blank" className={`Step Card ${!approvalTransaction?.url ? 'disabled' : ''} ${ paymentState == 'approving' ? 'active' : 'done'} small transparent`}>
-             <div className="StepIcon">
-                { paymentState != 'approving' && <CheckmarkIcon className="small"/> }
-                { paymentState == 'approving' && <div className="ActionIndicatorSpinner"/> }
-              </div>
-              <div className="StepText">
-                { paymentState == 'approving' && <LoadingText>Approving</LoadingText> }
-                { paymentState != 'approving' && <span>Approve spending { payment.symbol }</span> }
-              </div>
-              { paymentState == 'approving' && <div className="StepConnector"/> }
+              <div className="StepConnector" />
             </a>
-          }
+          )}
 
-          { approvalSignature &&
+          {/* Approve spending of TOKEN */}
+          {needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && (
+            <div
+              className={
+                'Step Card disabled small transparent' +
+                (spendingActive || spendingProcessing ? ' active' : '')
+              }
+            >
+              <div className="StepIcon">
+                <div className="StepCircle" />
+              </div>
+              <div className="StepText">Approve spending {payment.symbol}</div>
+              <div className="StepConnector" />
+            </div>
+          )}
+          {approvalType === 'transaction' && approvalRequired && (
+            <a
+              href={
+                (approvalType === 'transaction' && approvalTransaction)
+                  ? link({ url: approvalTransaction.url, target: '_blank', wallet })
+                  : undefined
+              }
+              target="_blank"
+              className={
+                'Step Card small transparent' +
+                (!approvalTransaction?.url ? ' disabled' : '') +
+                (spendingActive || spendingProcessing  ? ' active' : '') +
+                (spendingDone ? ' done' : '')
+              }
+            >
+              <div className="StepIcon">
+                {!spendingProcessing && !spendingDone && <div className="StepCircle" />}
+                {spendingProcessing && !spendingDone && <div className="ActionIndicatorSpinner" />}
+                {!spendingProcessing && spendingDone && <CheckmarkIcon className="small" />}
+              </div>
+              <div className="StepText">
+                {!spendingProcessing && <span>Approve spending {payment.symbol}</span>}
+                {spendingProcessing && <LoadingText>Approving {payment.symbol} for spending</LoadingText>}
+              </div>
+              <div className="StepConnector" />
+            </a>
+          )}
+          {approvalType === 'signature' && spendingDone && (
             <div className="Step done Card disabled small transparent">
               <div className="StepIcon">
-                <CheckmarkIcon className="small"/>
+                <CheckmarkIcon className="small" />
               </div>
-              <div className="StepText">
-                Approve spending { payment.symbol }
-              </div>
-              <div className="StepConnector"/>
+              <div className="StepText">Spending {payment.symbol} approved</div>
+              <div className="StepConnector" />
             </div>
-          }
+          )}
 
-          { !transaction && paymentState != 'sending' &&
-            <div className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying') ? 'active' : '' } Card disabled small transparent`}>
+          {/* Perform payment */}
+          {(transaction || paymentProcessing) ? (
+            <a
+              href={
+                transaction
+                  ? link({ url: transaction.url, target: '_blank', wallet })
+                  : undefined
+              }
+              target="_blank"
+              className={
+                'Step Card small transparent' +
+                ((paymentReady && !paymentDone) || paymentProcessing ? ' active' : '') +
+                (paymentDone ? ' done' : '') +
+                (!transaction?.url ? ' disabled' : '')
+              }
+            >
               <div className="StepIcon">
-                { paymentState == 'success' &&
-                  <CheckmarkIcon className="small"/>
-                }
-                { paymentState != 'success' &&
-                  <div className="StepCircle"/>
-                }
+                {paymentDone && <CheckmarkIcon className="small" />}
+                {paymentProcessing && <div className="ActionIndicatorSpinner" />}
               </div>
               <div className="StepText">
-                Perform payment
+                {paymentProcessing && <LoadingText>Performing payment</LoadingText>}
+                {paymentDone && <span>Perform payment</span>}
               </div>
-              <div className="StepStatus">
-                { paymentState == 'success' &&
-                  <CheckmarkIcon className="small"/>
-                }
-              </div>
-              <div className="StepConnector"/>
-            </div>
-          }
-
-          { (transaction || paymentState == 'sending') &&
-            <a href={ transaction ? link({ url: transaction?.url, target: '_blank', wallet }) : null } target="_blank" className={`Step ${ (paymentState == 'approved' || !payment?.route?.approvalRequired || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '' } ${ paymentState == 'success' ? 'done' : '' } Card ${!transaction?.url ? 'disabled' : ''} small transparent`}>
-              <div className="StepIcon">
-                { paymentState == 'success' &&
-                  <CheckmarkIcon className="small"/>
-                }
-                { (paymentState == 'paying' || paymentState == 'sending') && <div className="ActionIndicatorSpinner"/> }
-              </div>
-              <div className="StepText">
-                { (paymentState == 'paying' || paymentState == 'sending') && <LoadingText>Performing payment</LoadingText> }
-                { paymentState == 'success' && <span>Perform payment</span> }
-              </div>
-              <div className="StepConnector"/>
+              <div className="StepConnector" />
             </a>
-          }
-
-          { (asynchronousTracking && trackingInitialized == false) &&
-            <div className={`Step active Card disabled small transparent`}>
+          ) : (
+            <div
+              className={
+                'Step Card disabled small transparent' +
+                (paymentReady ? ' active' : '')
+              }
+            >
               <div className="StepIcon">
-                <div className="ActionIndicatorSpinner"/>
+                {paymentDone ? (
+                  <CheckmarkIcon className="small" />
+                ) : (
+                  <div className="StepCircle" />
+                )}
+              </div>
+              <div className="StepText">Perform payment</div>
+              <div className="StepStatus">
+                {paymentDone && <CheckmarkIcon className="small" />}
+              </div>
+              <div className="StepConnector" />
+            </div>
+          )}
+
+          {/* Validation */}
+          {showAsyncInit && (
+            <div className="Step Card disabled small transparent active">
+              <div className="StepIcon">
+                <div className="ActionIndicatorSpinner" />
               </div>
               <div className="StepText">
                 <LoadingText>Initializing tracking</LoadingText>
               </div>
-              <div className="StepConnector"/>
+              <div className="StepConnector" />
             </div>
-          }
-
-          { synchronousTracking && !release &&
-            <a href={ transaction ? link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) : null } target="_blank" className={`Step ${paymentState == 'validating' ? 'active' : ''} Card ${!transaction ? 'disabled' : ''} small transparent`}>
+          )}
+          {showSyncWaiting && (
+            <a
+              href={
+                transaction
+                  ? link({
+                      url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`,
+                      target: '_blank',
+                      wallet,
+                    })
+                  : undefined
+              }
+              target="_blank"
+              className={
+                'Step Card small transparent' +
+                (paymentState === 'validating' ? ' active' : '') +
+                (!transaction?.url ? ' disabled' : '')
+              }
+            >
               <div className="StepIcon">
-                { paymentState != 'validating' &&
-                  <div className="StepCircle"/>
-                }
-                { paymentState == 'validating' &&
-                  <div className="ActionIndicatorSpinner"/>
-                }
+                {paymentState === 'validating' ? (
+                  <div className="ActionIndicatorSpinner" />
+                ) : (
+                  <div className="StepCircle" />
+                )}
               </div>
               <div className="StepText">
-                { paymentState != 'validating' &&
-                  <span>Wait for payment confirmation</span>
-                }
-                { paymentState == 'validating' &&
-                  <LoadingText>Confirming payment</LoadingText>
-                }
-                { transaction && confirmationsRequired && secondsLeft > 0 &&
+                {paymentState !== 'validating' && <span>Wait for payment confirmation</span>}
+                {paymentState === 'validating' && <LoadingText>Confirming payment</LoadingText>}
+                {transaction && confirmationsRequired > 0 && secondsLeft > 0 && (
                   <>
                     <span>Confirming payment</span>
-                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}> { secondsLeft }s</span>
+                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}>
+                      {secondsLeft}s
+                    </span>
                   </>
-                }
+                )}
               </div>
             </a>
-          }
-
-          { synchronousTracking && release &&
-            <a href={ transaction ? link({ url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`, target: '_blank', wallet }) : null } target="_blank" className={`Step done Card ${!transaction ? 'disabled' : ''} small transparent`}>
+          )}
+          {showSyncDone && (
+            <a
+              href={
+                transaction
+                  ? link({
+                      url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`,
+                      target: '_blank',
+                      wallet,
+                    })
+                  : undefined
+              }
+              target="_blank"
+              className={
+                'Step Card small transparent done' +
+                (!transaction ? ' disabled' : '')
+              }
+            >
               <div className="StepIcon">
-                <CheckmarkIcon className="small"/>
+                <CheckmarkIcon className="small" />
               </div>
-              <div className="StepText">
-                Payment confirmed
-              </div>
+              <div className="StepText">Payment confirmed</div>
             </a>
-          }
-
+          )}
         </div>
       )
 
@@ -273,7 +380,7 @@ export default ()=>{
         return(
           <div className="PaddingBottomXS">
             <button type="button" className="ButtonPrimary" onClick={ throttledResetApproval } title={`Reset approval for ${payment.symbol}`}>
-              First, reset { payment.symbol } approval
+              Reset { payment.symbol } approval
             </button>
           </div>
         )

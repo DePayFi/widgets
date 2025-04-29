@@ -144,6 +144,18 @@ export default (style)=>{
       color: inherit;
     }
 
+    .Card.secondary {
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
+    }
+
+    .Card.secondary:hover:not(.disabled) {
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
+    }
+
+    .Card.secondary:active:not(.disabled) {
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 80%, ${style.colors.mixActive} 20%);
+    }
+
     .Card:hover:not(.disabled) .CardAction {
       opacity: 0.4;
     }

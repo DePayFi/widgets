@@ -163,14 +163,14 @@ export default (props)=>{
       })
   })
 
-  const approve = useEvent(async()=> {
+  const approve = useEvent(async(performSignature)=> {
     setPaymentState('approve')
     setClosable(false)
     setUpdatable(false)
     let approvalTransaction
     let approvalSignatureData
     if(approvalType == 'signature') {
-      if(payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)) {
+      if(performSignature || (payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
         approvalSignatureData = await payment.route.getPermit2ApprovalSignature()
         setApprovalSignatureData(approvalSignatureData)
       } else {
@@ -204,9 +204,16 @@ export default (props)=>{
         succeeded: ()=>{
           setUpdatable(true)
           setClosable(true)
-          setPaymentState('approved')
-          if(!isMobile()) {
-            pay()
+          if(approvalType == 'signature') { 
+            setPaymentState('approve') // signature still requires signature approval
+            if(!isMobile()) {
+              approve(true)
+            }
+          } else {
+            setPaymentState('approved') // transaction made it fully approved
+            if(!isMobile()) {
+              pay()
+            }
           }
         }
       }))
