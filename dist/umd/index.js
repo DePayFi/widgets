@@ -7823,7 +7823,7 @@
           window.open("mailto:support@depay.com?subject=[Widget Error] ".concat(error.message || error.toString()), '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "DialogBody TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -7881,7 +7881,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card.secondary {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n\n    .Card.secondary:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n\n    .Card.secondary:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixActive, " 20%);\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -7929,7 +7929,7 @@
   });
 
   var LoadingTextStyle = (function (style) {
-    return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
+    return "\n\n    .LoadingText {\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ";
   });
 
   var LogoStyle = (function (style) {
@@ -7953,7 +7953,7 @@
   });
 
   var StepStyle = (function (style) {
-    return "\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active, .Step.done {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 50%;\n      position: absolute;\n      bottom: -25%;\n      left: 19px;\n      background: ").concat(style.colors.text, ";\n      z-index: 999;\n    }\n\n    .Step:last-child .StepConnector {\n      display: none;\n    }\n\n    .StepText {\n      width: 76%;\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
+    return "\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 50%;\n      position: absolute;\n      bottom: -25%;\n      left: 19px;\n      background: ").concat(style.colors.text, ";\n      z-index: 999;\n    }\n\n    .Step:last-child .StepConnector {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
   });
 
   var QRCodeStyle = (function () {
@@ -8047,7 +8047,7 @@
       colors: Object.assign(defaultColors, configuredColors || {}),
       fontFamily: ((_style4 = style) === null || _style4 === void 0 ? void 0 : _style4.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -8689,7 +8689,7 @@
           window.open("mailto:support@depay.com?subject=Missing Blockchain Support Error", '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -9838,7 +9838,7 @@
           window.open("mailto:support@depay.com?subject=Not Enough Funds Error (".concat(walletAddress, "})"), '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -10176,107 +10176,122 @@
         setClosable(true);
       });
     });
-    var approve = useEvent( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
-      var approvalTransaction, approvalSignatureData;
-      return regenerator.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              setPaymentState('approve');
-              setClosable(false);
-              setUpdatable(false);
+    var approve = useEvent( /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(performSignature) {
+        var approvalTransaction, approvalSignatureData;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                setPaymentState('approve');
+                setClosable(false);
+                setUpdatable(false);
 
-              if (!(approvalType == 'signature')) {
-                _context3.next = 16;
+                if (!(approvalType == 'signature')) {
+                  _context3.next = 16;
+                  break;
+                }
+
+                if (!(performSignature || payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
+                  _context3.next = 11;
+                  break;
+                }
+
+                _context3.next = 7;
+                return payment.route.getPermit2ApprovalSignature();
+
+              case 7:
+                approvalSignatureData = _context3.sent;
+                setApprovalSignatureData(approvalSignatureData);
+                _context3.next = 14;
                 break;
-              }
 
-              if (!(payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-                _context3.next = 11;
+              case 11:
+                _context3.next = 13;
+                return payment.route.getPermit2ApprovalTransaction();
+
+              case 13:
+                approvalTransaction = _context3.sent;
+
+              case 14:
+                _context3.next = 19;
                 break;
-              }
 
-              _context3.next = 7;
-              return payment.route.getPermit2ApprovalSignature();
+              case 16:
+                _context3.next = 18;
+                return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
+                  amount: payment.route.fromAmount
+                } : undefined);
 
-            case 7:
-              approvalSignatureData = _context3.sent;
-              setApprovalSignatureData(approvalSignatureData);
-              _context3.next = 14;
-              break;
+              case 18:
+                approvalTransaction = _context3.sent;
 
-            case 11:
-              _context3.next = 13;
-              return payment.route.getPermit2ApprovalTransaction();
-
-            case 13:
-              approvalTransaction = _context3.sent;
-
-            case 14:
-              _context3.next = 19;
-              break;
-
-            case 16:
-              _context3.next = 18;
-              return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
-                amount: payment.route.fromAmount
-              } : undefined);
-
-            case 18:
-              approvalTransaction = _context3.sent;
-
-            case 19:
-              if (approvalSignatureData) {
-                wallet.sign(approvalSignatureData).then(function (signature) {
-                  setApprovalSignature(signature);
-                  setPaymentState('approved');
-                  setClosable(true);
-
-                  if (!isMobile()) {
-                    pay(approvalSignatureData, signature);
-                  }
-                })["catch"](function (e) {
-                  console.log('ERROR', e);
-                  setPaymentState('initialized');
-                  setClosable(true);
-                });
-              } else if (approvalTransaction) {
-                wallet.sendTransaction(Object.assign({}, approvalTransaction, {
-                  accepted: function accepted() {
-                    setPaymentState('approving');
-                  },
-                  sent: function sent(sentTransaction) {
-                    setPaymentState('approving');
-                    setApprovalTransaction(sentTransaction);
-                  },
-                  succeeded: function succeeded() {
-                    setUpdatable(true);
-                    setClosable(true);
+              case 19:
+                if (approvalSignatureData) {
+                  wallet.sign(approvalSignatureData).then(function (signature) {
+                    setApprovalSignature(signature);
                     setPaymentState('approved');
+                    setClosable(true);
 
                     if (!isMobile()) {
-                      pay();
+                      pay(approvalSignatureData, signature);
                     }
-                  }
-                }))["catch"](function (error) {
-                  console.log('error', error);
+                  })["catch"](function (e) {
+                    console.log('ERROR', e);
+                    setPaymentState('initialized');
+                    setClosable(true);
+                  });
+                } else if (approvalTransaction) {
+                  wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+                    accepted: function accepted() {
+                      setPaymentState('approving');
+                    },
+                    sent: function sent(sentTransaction) {
+                      setPaymentState('approving');
+                      setApprovalTransaction(sentTransaction);
+                    },
+                    succeeded: function succeeded() {
+                      setUpdatable(true);
+                      setClosable(true);
 
-                  if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
-                    navigate('WrongNetwork');
-                  }
+                      if (approvalType == 'signature') {
+                        setPaymentState('approve'); // signature still requires signature approval
 
-                  setPaymentState('initialized');
-                  setClosable(true);
-                });
-              }
+                        if (!isMobile()) {
+                          approve(true);
+                        }
+                      } else {
+                        setPaymentState('approved'); // transaction made it fully approved
 
-            case 20:
-            case "end":
-              return _context3.stop();
+                        if (!isMobile()) {
+                          pay();
+                        }
+                      }
+                    }
+                  }))["catch"](function (error) {
+                    console.log('error', error);
+
+                    if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                      navigate('WrongNetwork');
+                    }
+
+                    setPaymentState('initialized');
+                    setClosable(true);
+                  });
+                }
+
+              case 20:
+              case "end":
+                return _context3.stop();
+            }
           }
-        }
-      }, _callee3);
-    })));
+        }, _callee3);
+      }));
+
+      return function (_x3) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
     React.useEffect(function () {
       setTrackingPayment(payment);
 
@@ -11183,7 +11198,8 @@
         approvalTransaction = _useContext3.approvalTransaction,
         approvalSignature = _useContext3.approvalSignature;
         _useContext3.approvalDone;
-        var resetApproval = _useContext3.resetApproval,
+        var approvalType = _useContext3.approvalType,
+        resetApproval = _useContext3.resetApproval,
         resetApprovalTransaction = _useContext3.resetApprovalTransaction;
 
     var _useContext4 = React.useContext(PaymentRoutingContext),
@@ -11204,20 +11220,15 @@
         secondsLeft = _useState2[0],
         setSecondsLeft = _useState2[1];
 
-    var _useState3 = React.useState('transaction'),
-        _useState4 = _slicedToArray(_useState3, 2);
-        _useState4[0];
-        _useState4[1];
+    var _useState3 = React.useState(0),
+        _useState4 = _slicedToArray(_useState3, 2),
+        secondsLeftCountdown = _useState4[0],
+        setSecondsLeftCountdown = _useState4[1];
 
-    var _useState5 = React.useState(0),
+    var _useState5 = React.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        secondsLeftCountdown = _useState6[0],
-        setSecondsLeftCountdown = _useState6[1];
-
-    var _useState7 = React.useState(false),
-        _useState8 = _slicedToArray(_useState7, 2),
-        requiresApprovalReset = _useState8[0],
-        setRequiresApprovalReset = _useState8[1];
+        requiresApprovalReset = _useState6[0],
+        setRequiresApprovalReset = _useState6[1];
 
     var throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000);
     var throttledPay = throttle(function () {
@@ -11287,12 +11298,49 @@
 
     var steps = function steps() {
       if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'success') {
-        var _payment$route5, _payment$route6;
+        // --- Permit2 signature approval block ---
+        var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
+        var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
+        var permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature; // --- Spending approval block ---
 
+        var approvalRequired = Boolean(payment.route.approvalRequired);
+        var needsToApproveSpending = approvalRequired;
+        var justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount);
+        var spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || approvalType === 'signature' && Boolean((approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) || justNeedsPermit2Signature));
+        var spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature);
+        var spendingDone = approvalType === 'signature' && Boolean(approvalSignature) || (approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) && !['approve', 'approving'].includes(paymentState); // --- Perform payment block ---
+
+        var paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying';
+        var paymentProcessing = paymentState === 'paying' || paymentState === 'sending';
+        var paymentDone = paymentState === 'success'; // --- Validation block ---
+
+        var showAsyncInit = asynchronousTracking && trackingInitialized === false;
+        var showSyncWaiting = synchronousTracking && !release;
+        var showSyncDone = synchronousTracking && release;
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
-        }, paymentState == 'approve' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step active Card disabled small transparent"
+        }, needsPermit2Transaction && /*#__PURE__*/React__default['default'].createElement("a", {
+          href: approvalTransaction ? link({
+            url: approvalTransaction.url,
+            target: '_blank',
+            wallet: wallet
+          }) : undefined,
+          target: "_blank",
+          className: 'Step Card small transparent' + (!permit2Done || permit2Processing ? ' active' : '') + (permit2Done ? ' done' : '') + (!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? ' disabled' : '')
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, !permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepCircle"
+        }), permit2Processing && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicatorSpinner"
+        }), permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, !permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Enable signature approval for ", payment.symbol), permit2Processing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Enabling signature approval for ", payment.symbol), permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Signature approval for ", payment.symbol, " enabled")), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepConnector"
+        })), needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: 'Step Card disabled small transparent' + (spendingActive || spendingProcessing ? ' active' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -11301,25 +11349,27 @@
           className: "StepText"
         }, "Approve spending ", payment.symbol), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), approvalTransaction && /*#__PURE__*/React__default['default'].createElement("a", {
-          href: approvalTransaction ? link({
-            url: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+        })), approvalType === 'transaction' && approvalRequired && /*#__PURE__*/React__default['default'].createElement("a", {
+          href: approvalType === 'transaction' && approvalTransaction ? link({
+            url: approvalTransaction.url,
             target: '_blank',
             wallet: wallet
-          }) : null,
+          }) : undefined,
           target: "_blank",
-          className: "Step Card ".concat(!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? 'disabled' : '', " ").concat(paymentState == 'approving' ? 'active' : 'done', " small transparent")
+          className: 'Step Card small transparent' + (!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? ' disabled' : '') + (spendingActive || spendingProcessing ? ' active' : '') + (spendingDone ? ' done' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState != 'approving' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
-          className: "small"
-        }), paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }, !spendingProcessing && !spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepCircle"
+        }), spendingProcessing && !spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
           className: "ActionIndicatorSpinner"
+        }), !spendingProcessing && spendingDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving"), paymentState != 'approving' && /*#__PURE__*/React__default['default'].createElement("span", null, "Approve spending ", payment.symbol)), paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }, !spendingProcessing && /*#__PURE__*/React__default['default'].createElement("span", null, "Approve spending ", payment.symbol), spendingProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving ", payment.symbol, " for spending")), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), approvalSignature && /*#__PURE__*/React__default['default'].createElement("div", {
+        })), approvalType === 'signature' && spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Step done Card disabled small transparent"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
@@ -11327,44 +11377,44 @@
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, "Approve spending ", payment.symbol), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, "Spending ", payment.symbol, " approved"), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), !transaction && paymentState != 'sending' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step ".concat(paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route5 = payment.route) !== null && _payment$route5 !== void 0 && _payment$route5.approvalRequired) || paymentState == 'paying' ? 'active' : '', " Card disabled small transparent")
+        })), transaction || paymentProcessing ? /*#__PURE__*/React__default['default'].createElement("a", {
+          href: transaction ? link({
+            url: transaction.url,
+            target: '_blank',
+            wallet: wallet
+          }) : undefined,
+          target: "_blank",
+          className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+        }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
-        }), paymentState != 'success' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }), paymentProcessing && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicatorSpinner"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment")), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepConnector"
+        })) : /*#__PURE__*/React__default['default'].createElement("div", {
+          className: 'Step Card disabled small transparent' + (paymentReady ? ' active' : '')
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, paymentDone ? /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
+        }) : /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepCircle"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
         }, "Perform payment"), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepStatus"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+        }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), (transaction || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement("a", {
-          href: transaction ? link({
-            url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-            target: '_blank',
-            wallet: wallet
-          }) : null,
-          target: "_blank",
-          className: "Step ".concat((paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route6 = payment.route) !== null && _payment$route6 !== void 0 && _payment$route6.approvalRequired) || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '', " ").concat(paymentState == 'success' ? 'done' : '', " Card ").concat(!(transaction !== null && transaction !== void 0 && transaction.url) ? 'disabled' : '', " small transparent")
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepIcon"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
-          className: "small"
-        }), (paymentState == 'paying' || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "ActionIndicatorSpinner"
-        })), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepText"
-        }, (paymentState == 'paying' || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment")), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepConnector"
-        })), asynchronousTracking && trackingInitialized == false && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step active Card disabled small transparent"
+        })), showAsyncInit && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Step Card disabled small transparent active"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -11373,32 +11423,32 @@
           className: "StepText"
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Initializing tracking")), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), synchronousTracking && !release && /*#__PURE__*/React__default['default'].createElement("a", {
+        })), showSyncWaiting && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
             url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
             target: '_blank',
             wallet: wallet
-          }) : null,
+          }) : undefined,
           target: "_blank",
-          className: "Step ".concat(paymentState == 'validating' ? 'active' : '', " Card ").concat(!transaction ? 'disabled' : '', " small transparent")
+          className: 'Step Card small transparent' + (paymentState === 'validating' ? ' active' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState != 'validating' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepCircle"
-        }), paymentState == 'validating' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }, paymentState === 'validating' ? /*#__PURE__*/React__default['default'].createElement("div", {
           className: "ActionIndicatorSpinner"
+        }) : /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepCircle"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, paymentState != 'validating' && /*#__PURE__*/React__default['default'].createElement("span", null, "Wait for payment confirmation"), paymentState == 'validating' && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Confirming payment"), transaction && confirmationsRequired && secondsLeft > 0 && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("span", null, "Confirming payment"), /*#__PURE__*/React__default['default'].createElement("span", {
+        }, paymentState !== 'validating' && /*#__PURE__*/React__default['default'].createElement("span", null, "Wait for payment confirmation"), paymentState === 'validating' && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Confirming payment"), transaction && confirmationsRequired > 0 && secondsLeft > 0 && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("span", null, "Confirming payment"), /*#__PURE__*/React__default['default'].createElement("span", {
           title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
-        }, " ", secondsLeft, "s")))), synchronousTracking && release && /*#__PURE__*/React__default['default'].createElement("a", {
+        }, secondsLeft, "s")))), showSyncDone && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
             url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
             target: '_blank',
             wallet: wallet
-          }) : null,
+          }) : undefined,
           target: "_blank",
-          className: "Step done Card ".concat(!transaction ? 'disabled' : '', " small transparent")
+          className: 'Step Card small transparent done' + (!transaction ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
@@ -11431,7 +11481,7 @@
             className: "ButtonPrimary",
             onClick: throttledResetApproval,
             title: "Reset approval for ".concat(payment.symbol)
-          }, "First, reset ", payment.symbol, " approval"));
+          }, "Reset ", payment.symbol, " approval"));
         } else if (paymentState == 'resetting') {
           return /*#__PURE__*/React__default['default'].createElement("div", {
             className: "PaddingBottomXS"
@@ -11448,9 +11498,9 @@
           }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Resetting")));
         }
       } else if ((paymentState == 'initialized' || paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'resetting') && payment.route) {
-        var _payment$route7;
+        var _payment$route5;
 
-        var approvalRequired = paymentState != 'approved' && (payment === null || payment === void 0 ? void 0 : (_payment$route7 = payment.route) === null || _payment$route7 === void 0 ? void 0 : _payment$route7.approvalRequired) && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
+        var approvalRequired = paymentState != 'approved' && (payment === null || payment === void 0 ? void 0 : (_payment$route5 = payment.route) === null || _payment$route5 === void 0 ? void 0 : _payment$route5.approvalRequired) && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
 
         if (approvalRequired) {
           if (paymentState == 'initialized') {
@@ -11770,7 +11820,7 @@
           window.open("mailto:support@depay.com?subject=Tracing Failed Error", '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support"))),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -11815,7 +11865,7 @@
           window.open("mailto:support@depay.com?subject=Tracking Failed Error", '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"

@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-svm'), require('@depay/web3-blockchains'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-svm'), require('@depay/local-currency'), require('@depay/web3-exchanges-svm'), require('@depay/web3-tokens-svm'), require('decimal.js'), require('ethers'), require('@depay/web3-payments-svm'), require('@depay/react-token-image-svm'), require('@depay/solana-web3.js')) :
   typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-svm', '@depay/web3-blockchains', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-svm', '@depay/local-currency', '@depay/web3-exchanges-svm', '@depay/web3-tokens-svm', 'decimal.js', 'ethers', '@depay/web3-payments-svm', '@depay/react-token-image-svm', '@depay/solana-web3.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Exchanges, global.Web3Tokens, global.Decimal, global.ethers, global.Web3Payments, global.ReactTokenImage, global.SolanaWeb3js));
-}(this, (function (web3WalletsSvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal$1, ethers, web3PaymentsSvm, reactTokenImageSvm, solanaWeb3_js) { 'use strict';
+}(this, (function (web3WalletsSvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientSvm, localCurrency, Exchanges, Token$1, Decimal, ethers, web3PaymentsSvm, reactTokenImageSvm, solanaWeb3_js) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -14,7 +14,7 @@
   var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
   var Exchanges__default = /*#__PURE__*/_interopDefaultLegacy(Exchanges);
   var Token__default = /*#__PURE__*/_interopDefaultLegacy(Token$1);
-  var Decimal$1__default = /*#__PURE__*/_interopDefaultLegacy(Decimal$1);
+  var Decimal__default = /*#__PURE__*/_interopDefaultLegacy(Decimal);
 
   function _arrayLikeToArray(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
@@ -7824,7 +7824,7 @@
           window.open("mailto:support@depay.com?subject=[Widget Error] ".concat(error.message || error.toString()), '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support"))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "DialogBody TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -7882,7 +7882,7 @@
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card.secondary {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n\n    .Card.secondary:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n\n    .Card.secondary:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixActive, " 20%);\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -7930,7 +7930,7 @@
   });
 
   var LoadingTextStyle = (function (style) {
-    return "\n\n    .LoadingText {\n      color: ".concat(style.colors.buttonText, ";\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ");
+    return "\n\n    .LoadingText {\n      display: inline-block;\n      text-decoration: none;\n    }\n\n    @keyframes blink {\n      0% { opacity: .2; }\n      20% { opacity: 1; }\n      100% { opacity: .2; }\n    }\n    \n    .LoadingText .dot {\n      animation-name: blink;\n      animation-duration: 1.4s;\n      animation-iteration-count: infinite;\n      animation-fill-mode: both;\n    }\n    \n    .LoadingText .dot:nth-child(2) {\n      animation-delay: .2s;\n    }\n    \n    .LoadingText .dot:nth-child(3) {\n      animation-delay: .4s;\n    }\n  ";
   });
 
   var LogoStyle = (function (style) {
@@ -7954,7 +7954,7 @@
   });
 
   var StepStyle = (function (style) {
-    return "\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active, .Step.done {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 50%;\n      position: absolute;\n      bottom: -25%;\n      left: 19px;\n      background: ").concat(style.colors.text, ";\n      z-index: 999;\n    }\n\n    .Step:last-child .StepConnector {\n      display: none;\n    }\n\n    .StepText {\n      width: 76%;\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
+    return "\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 50%;\n      position: absolute;\n      bottom: -25%;\n      left: 19px;\n      background: ").concat(style.colors.text, ";\n      z-index: 999;\n    }\n\n    .Step:last-child .StepConnector {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
   });
 
   var QRCodeStyle = (function () {
@@ -8048,7 +8048,7 @@
       colors: Object.assign(defaultColors, configuredColors || {}),
       fontFamily: ((_style4 = style) === null || _style4 === void 0 ? void 0 : _style4.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
     };
-    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(style), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+    return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
   });
 
   var mount = (function (_ref, content) {
@@ -8290,22 +8290,6 @@
   };
 
   var internalVerify = async ({ signature, publicKey, data, saltLength = 64, crypto, atob })=>{
-
-    if(typeof data === 'object') {
-      data = JSON.stringify(data);
-    }
-
-    if(typeof signature !== 'string' || signature === undefined) {
-      throw('signature missing!')
-    }
-
-    if(data === undefined || data.length === 0) {
-      throw('data missing!')
-    }
-
-    if(publicKey === undefined || typeof publicKey !== 'string' || publicKey.length === 0) {
-      throw('publicKey missing!')
-    }
 
     let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
     while (innerPublicKey.length % 4) { // add proper padding
@@ -8745,7 +8729,7 @@
           window.open("mailto:support@depay.com?subject=Missing Blockchain Support Error", '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -9314,12 +9298,12 @@
                 address: maxRoute.toToken.address
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
-                var maxAmount = parseFloat(new Decimal$1.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+                var maxAmount = parseFloat(new Decimal.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
                 setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
               })["catch"](setError);
             })["catch"](setError);
           } else if (maxRoute.fromToken.address == Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]) {
-            var _maxAmount = parseFloat(new Decimal$1.Decimal(readableMaxAmount).mul(conversionRate).toString());
+            var _maxAmount = parseFloat(new Decimal.Decimal(readableMaxAmount).mul(conversionRate).toString());
 
             setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
           } else {
@@ -9341,7 +9325,7 @@
                 address: Blockchains__default['default'][maxRoute.blockchain].stables.usd[0]
               }).then(function (readableMaxAmount) {
                 var slippage = 1.01;
-                var maxAmount = parseFloat(new Decimal$1.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
+                var maxAmount = parseFloat(new Decimal.Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
                 setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
               })["catch"](setError);
             })["catch"](setError);
@@ -9431,8 +9415,8 @@
         return 1; // a
       }
 
-      var aMaxUsdAmountAsDecimal = new Decimal$1.Decimal(ethers.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
-      var bMaxUsdAmountAsDecimal = new Decimal$1.Decimal(ethers.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
+      var aMaxUsdAmountAsDecimal = new Decimal.Decimal(ethers.ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
+      var bMaxUsdAmountAsDecimal = new Decimal.Decimal(ethers.ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
 
       if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
         return -1; // b
@@ -9894,7 +9878,7 @@
           window.open("mailto:support@depay.com?subject=Not Enough Funds Error (".concat(walletAddress, "})"), '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -10232,107 +10216,122 @@
         setClosable(true);
       });
     });
-    var approve = useEvent( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
-      var approvalTransaction, approvalSignatureData;
-      return regenerator.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              setPaymentState('approve');
-              setClosable(false);
-              setUpdatable(false);
+    var approve = useEvent( /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(performSignature) {
+        var approvalTransaction, approvalSignatureData;
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                setPaymentState('approve');
+                setClosable(false);
+                setUpdatable(false);
 
-              if (!(approvalType == 'signature')) {
-                _context3.next = 16;
+                if (!(approvalType == 'signature')) {
+                  _context3.next = 16;
+                  break;
+                }
+
+                if (!(performSignature || payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
+                  _context3.next = 11;
+                  break;
+                }
+
+                _context3.next = 7;
+                return payment.route.getPermit2ApprovalSignature();
+
+              case 7:
+                approvalSignatureData = _context3.sent;
+                setApprovalSignatureData(approvalSignatureData);
+                _context3.next = 14;
                 break;
-              }
 
-              if (!(payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-                _context3.next = 11;
+              case 11:
+                _context3.next = 13;
+                return payment.route.getPermit2ApprovalTransaction();
+
+              case 13:
+                approvalTransaction = _context3.sent;
+
+              case 14:
+                _context3.next = 19;
                 break;
-              }
 
-              _context3.next = 7;
-              return payment.route.getPermit2ApprovalSignature();
+              case 16:
+                _context3.next = 18;
+                return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
+                  amount: payment.route.fromAmount
+                } : undefined);
 
-            case 7:
-              approvalSignatureData = _context3.sent;
-              setApprovalSignatureData(approvalSignatureData);
-              _context3.next = 14;
-              break;
+              case 18:
+                approvalTransaction = _context3.sent;
 
-            case 11:
-              _context3.next = 13;
-              return payment.route.getPermit2ApprovalTransaction();
-
-            case 13:
-              approvalTransaction = _context3.sent;
-
-            case 14:
-              _context3.next = 19;
-              break;
-
-            case 16:
-              _context3.next = 18;
-              return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
-                amount: payment.route.fromAmount
-              } : undefined);
-
-            case 18:
-              approvalTransaction = _context3.sent;
-
-            case 19:
-              if (approvalSignatureData) {
-                wallet.sign(approvalSignatureData).then(function (signature) {
-                  setApprovalSignature(signature);
-                  setPaymentState('approved');
-                  setClosable(true);
-
-                  if (!isMobile()) {
-                    pay(approvalSignatureData, signature);
-                  }
-                })["catch"](function (e) {
-                  console.log('ERROR', e);
-                  setPaymentState('initialized');
-                  setClosable(true);
-                });
-              } else if (approvalTransaction) {
-                wallet.sendTransaction(Object.assign({}, approvalTransaction, {
-                  accepted: function accepted() {
-                    setPaymentState('approving');
-                  },
-                  sent: function sent(sentTransaction) {
-                    setPaymentState('approving');
-                    setApprovalTransaction(sentTransaction);
-                  },
-                  succeeded: function succeeded() {
-                    setUpdatable(true);
-                    setClosable(true);
+              case 19:
+                if (approvalSignatureData) {
+                  wallet.sign(approvalSignatureData).then(function (signature) {
+                    setApprovalSignature(signature);
                     setPaymentState('approved');
+                    setClosable(true);
 
                     if (!isMobile()) {
-                      pay();
+                      pay(approvalSignatureData, signature);
                     }
-                  }
-                }))["catch"](function (error) {
-                  console.log('error', error);
+                  })["catch"](function (e) {
+                    console.log('ERROR', e);
+                    setPaymentState('initialized');
+                    setClosable(true);
+                  });
+                } else if (approvalTransaction) {
+                  wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+                    accepted: function accepted() {
+                      setPaymentState('approving');
+                    },
+                    sent: function sent(sentTransaction) {
+                      setPaymentState('approving');
+                      setApprovalTransaction(sentTransaction);
+                    },
+                    succeeded: function succeeded() {
+                      setUpdatable(true);
+                      setClosable(true);
 
-                  if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
-                    navigate('WrongNetwork');
-                  }
+                      if (approvalType == 'signature') {
+                        setPaymentState('approve'); // signature still requires signature approval
 
-                  setPaymentState('initialized');
-                  setClosable(true);
-                });
-              }
+                        if (!isMobile()) {
+                          approve(true);
+                        }
+                      } else {
+                        setPaymentState('approved'); // transaction made it fully approved
 
-            case 20:
-            case "end":
-              return _context3.stop();
+                        if (!isMobile()) {
+                          pay();
+                        }
+                      }
+                    }
+                  }))["catch"](function (error) {
+                    console.log('error', error);
+
+                    if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                      navigate('WrongNetwork');
+                    }
+
+                    setPaymentState('initialized');
+                    setClosable(true);
+                  });
+                }
+
+              case 20:
+              case "end":
+                return _context3.stop();
+            }
           }
-        }
-      }, _callee3);
-    })));
+        }, _callee3);
+      }));
+
+      return function (_x3) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
     React.useEffect(function () {
       setTrackingPayment(payment);
 
@@ -10523,7 +10522,7 @@
 
     var toValidStep = function toValidStep(value) {
       if (step) {
-        value = parseFloat(new Decimal$1.Decimal(Math.floor(new Decimal$1.Decimal(value).div(step))).mul(step).toString());
+        value = parseFloat(new Decimal.Decimal(Math.floor(new Decimal.Decimal(value).div(step))).mul(step).toString());
       }
 
       return value;
@@ -11239,7 +11238,8 @@
         approvalTransaction = _useContext3.approvalTransaction,
         approvalSignature = _useContext3.approvalSignature;
         _useContext3.approvalDone;
-        var resetApproval = _useContext3.resetApproval,
+        var approvalType = _useContext3.approvalType,
+        resetApproval = _useContext3.resetApproval,
         resetApprovalTransaction = _useContext3.resetApprovalTransaction;
 
     var _useContext4 = React.useContext(PaymentRoutingContext),
@@ -11260,20 +11260,15 @@
         secondsLeft = _useState2[0],
         setSecondsLeft = _useState2[1];
 
-    var _useState3 = React.useState('transaction'),
-        _useState4 = _slicedToArray(_useState3, 2);
-        _useState4[0];
-        _useState4[1];
+    var _useState3 = React.useState(0),
+        _useState4 = _slicedToArray(_useState3, 2),
+        secondsLeftCountdown = _useState4[0],
+        setSecondsLeftCountdown = _useState4[1];
 
-    var _useState5 = React.useState(0),
+    var _useState5 = React.useState(false),
         _useState6 = _slicedToArray(_useState5, 2),
-        secondsLeftCountdown = _useState6[0],
-        setSecondsLeftCountdown = _useState6[1];
-
-    var _useState7 = React.useState(false),
-        _useState8 = _slicedToArray(_useState7, 2),
-        requiresApprovalReset = _useState8[0],
-        setRequiresApprovalReset = _useState8[1];
+        requiresApprovalReset = _useState6[0],
+        setRequiresApprovalReset = _useState6[1];
 
     var throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000);
     var throttledPay = throttle(function () {
@@ -11343,12 +11338,49 @@
 
     var steps = function steps() {
       if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'success') {
-        var _payment$route5, _payment$route6;
+        // --- Permit2 signature approval block ---
+        var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
+        var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
+        var permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature; // --- Spending approval block ---
 
+        var approvalRequired = Boolean(payment.route.approvalRequired);
+        var needsToApproveSpending = approvalRequired;
+        var justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount);
+        var spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || approvalType === 'signature' && Boolean((approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) || justNeedsPermit2Signature));
+        var spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature);
+        var spendingDone = approvalType === 'signature' && Boolean(approvalSignature) || (approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) && !['approve', 'approving'].includes(paymentState); // --- Perform payment block ---
+
+        var paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying';
+        var paymentProcessing = paymentState === 'paying' || paymentState === 'sending';
+        var paymentDone = paymentState === 'success'; // --- Validation block ---
+
+        var showAsyncInit = asynchronousTracking && trackingInitialized === false;
+        var showSyncWaiting = synchronousTracking && !release;
+        var showSyncDone = synchronousTracking && release;
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS"
-        }, paymentState == 'approve' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step active Card disabled small transparent"
+        }, needsPermit2Transaction && /*#__PURE__*/React__default['default'].createElement("a", {
+          href: approvalTransaction ? link({
+            url: approvalTransaction.url,
+            target: '_blank',
+            wallet: wallet
+          }) : undefined,
+          target: "_blank",
+          className: 'Step Card small transparent' + (!permit2Done || permit2Processing ? ' active' : '') + (permit2Done ? ' done' : '') + (!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? ' disabled' : '')
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, !permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepCircle"
+        }), permit2Processing && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicatorSpinner"
+        }), permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, !permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Enable signature approval for ", payment.symbol), permit2Processing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Enabling signature approval for ", payment.symbol), permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Signature approval for ", payment.symbol, " enabled")), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepConnector"
+        })), needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: 'Step Card disabled small transparent' + (spendingActive || spendingProcessing ? ' active' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -11357,25 +11389,27 @@
           className: "StepText"
         }, "Approve spending ", payment.symbol), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), approvalTransaction && /*#__PURE__*/React__default['default'].createElement("a", {
-          href: approvalTransaction ? link({
-            url: approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url,
+        })), approvalType === 'transaction' && approvalRequired && /*#__PURE__*/React__default['default'].createElement("a", {
+          href: approvalType === 'transaction' && approvalTransaction ? link({
+            url: approvalTransaction.url,
             target: '_blank',
             wallet: wallet
-          }) : null,
+          }) : undefined,
           target: "_blank",
-          className: "Step Card ".concat(!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? 'disabled' : '', " ").concat(paymentState == 'approving' ? 'active' : 'done', " small transparent")
+          className: 'Step Card small transparent' + (!(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) ? ' disabled' : '') + (spendingActive || spendingProcessing ? ' active' : '') + (spendingDone ? ' done' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState != 'approving' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
-          className: "small"
-        }), paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }, !spendingProcessing && !spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepCircle"
+        }), spendingProcessing && !spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
           className: "ActionIndicatorSpinner"
+        }), !spendingProcessing && spendingDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving"), paymentState != 'approving' && /*#__PURE__*/React__default['default'].createElement("span", null, "Approve spending ", payment.symbol)), paymentState == 'approving' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }, !spendingProcessing && /*#__PURE__*/React__default['default'].createElement("span", null, "Approve spending ", payment.symbol), spendingProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving ", payment.symbol, " for spending")), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), approvalSignature && /*#__PURE__*/React__default['default'].createElement("div", {
+        })), approvalType === 'signature' && spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Step done Card disabled small transparent"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
@@ -11383,44 +11417,44 @@
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, "Approve spending ", payment.symbol), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, "Spending ", payment.symbol, " approved"), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), !transaction && paymentState != 'sending' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step ".concat(paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route5 = payment.route) !== null && _payment$route5 !== void 0 && _payment$route5.approvalRequired) || paymentState == 'paying' ? 'active' : '', " Card disabled small transparent")
+        })), transaction || paymentProcessing ? /*#__PURE__*/React__default['default'].createElement("a", {
+          href: transaction ? link({
+            url: transaction.url,
+            target: '_blank',
+            wallet: wallet
+          }) : undefined,
+          target: "_blank",
+          className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+        }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
-        }), paymentState != 'success' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }), paymentProcessing && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicatorSpinner"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment")), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepConnector"
+        })) : /*#__PURE__*/React__default['default'].createElement("div", {
+          className: 'Step Card disabled small transparent' + (paymentReady ? ' active' : '')
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, paymentDone ? /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
+        }) : /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepCircle"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
         }, "Perform payment"), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepStatus"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+        }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), (transaction || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement("a", {
-          href: transaction ? link({
-            url: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-            target: '_blank',
-            wallet: wallet
-          }) : null,
-          target: "_blank",
-          className: "Step ".concat((paymentState == 'approved' || !(payment !== null && payment !== void 0 && (_payment$route6 = payment.route) !== null && _payment$route6 !== void 0 && _payment$route6.approvalRequired) || paymentState == 'paying' || paymentState == 'sending') && paymentState != 'success' ? 'active' : '', " ").concat(paymentState == 'success' ? 'done' : '', " Card ").concat(!(transaction !== null && transaction !== void 0 && transaction.url) ? 'disabled' : '', " small transparent")
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepIcon"
-        }, paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
-          className: "small"
-        }), (paymentState == 'paying' || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "ActionIndicatorSpinner"
-        })), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepText"
-        }, (paymentState == 'paying' || paymentState == 'sending') && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentState == 'success' && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment")), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepConnector"
-        })), asynchronousTracking && trackingInitialized == false && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Step active Card disabled small transparent"
+        })), showAsyncInit && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Step Card disabled small transparent active"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -11429,32 +11463,32 @@
           className: "StepText"
         }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Initializing tracking")), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), synchronousTracking && !release && /*#__PURE__*/React__default['default'].createElement("a", {
+        })), showSyncWaiting && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
             url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
             target: '_blank',
             wallet: wallet
-          }) : null,
+          }) : undefined,
           target: "_blank",
-          className: "Step ".concat(paymentState == 'validating' ? 'active' : '', " Card ").concat(!transaction ? 'disabled' : '', " small transparent")
+          className: 'Step Card small transparent' + (paymentState === 'validating' ? ' active' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
-        }, paymentState != 'validating' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "StepCircle"
-        }), paymentState == 'validating' && /*#__PURE__*/React__default['default'].createElement("div", {
+        }, paymentState === 'validating' ? /*#__PURE__*/React__default['default'].createElement("div", {
           className: "ActionIndicatorSpinner"
+        }) : /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepCircle"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, paymentState != 'validating' && /*#__PURE__*/React__default['default'].createElement("span", null, "Wait for payment confirmation"), paymentState == 'validating' && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Confirming payment"), transaction && confirmationsRequired && secondsLeft > 0 && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("span", null, "Confirming payment"), /*#__PURE__*/React__default['default'].createElement("span", {
+        }, paymentState !== 'validating' && /*#__PURE__*/React__default['default'].createElement("span", null, "Wait for payment confirmation"), paymentState === 'validating' && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Confirming payment"), transaction && confirmationsRequired > 0 && secondsLeft > 0 && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("span", null, "Confirming payment"), /*#__PURE__*/React__default['default'].createElement("span", {
           title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
-        }, " ", secondsLeft, "s")))), synchronousTracking && release && /*#__PURE__*/React__default['default'].createElement("a", {
+        }, secondsLeft, "s")))), showSyncDone && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
             url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
             target: '_blank',
             wallet: wallet
-          }) : null,
+          }) : undefined,
           target: "_blank",
-          className: "Step done Card ".concat(!transaction ? 'disabled' : '', " small transparent")
+          className: 'Step Card small transparent done' + (!transaction ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
@@ -11487,7 +11521,7 @@
             className: "ButtonPrimary",
             onClick: throttledResetApproval,
             title: "Reset approval for ".concat(payment.symbol)
-          }, "First, reset ", payment.symbol, " approval"));
+          }, "Reset ", payment.symbol, " approval"));
         } else if (paymentState == 'resetting') {
           return /*#__PURE__*/React__default['default'].createElement("div", {
             className: "PaddingBottomXS"
@@ -11504,9 +11538,9 @@
           }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Resetting")));
         }
       } else if ((paymentState == 'initialized' || paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'resetting') && payment.route) {
-        var _payment$route7;
+        var _payment$route5;
 
-        var approvalRequired = paymentState != 'approved' && (payment === null || payment === void 0 ? void 0 : (_payment$route7 = payment.route) === null || _payment$route7 === void 0 ? void 0 : _payment$route7.approvalRequired) && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
+        var approvalRequired = paymentState != 'approved' && (payment === null || payment === void 0 ? void 0 : (_payment$route5 = payment.route) === null || _payment$route5 === void 0 ? void 0 : _payment$route5.approvalRequired) && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
 
         if (approvalRequired) {
           if (paymentState == 'initialized') {
@@ -11826,7 +11860,7 @@
           window.open("mailto:support@depay.com?subject=Tracing Failed Error", '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support"))),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -11871,7 +11905,7 @@
           window.open("mailto:support@depay.com?subject=Tracking Failed Error", '_blank');
         },
         type: "button",
-        className: "Card small inlineBlock"
+        className: "Card secondary small inlineBlock"
       }, "Contact support")),
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TextCenter"
@@ -12563,7 +12597,7 @@
     return getWindow$1()._Web3ClientConfiguration
   };
 
-  function _optionalChain$6$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$6$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1$1 = 10;
   const CHUNK_SIZE$1$1 = 50;
   const MAX_RETRY$1$1 = 5;
@@ -12607,13 +12641,13 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
-            signal: _optionalChain$6$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+            signal: _optionalChain$6$1([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
               if(parsedJson.find((entry)=>{
-                return _optionalChain$6$2([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$6$2([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+                return _optionalChain$6$1([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$6$1([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
               })) {
                 if(attempt < MAX_RETRY$1$1) {
                   reject('Error in batch found!');
@@ -12642,12 +12676,12 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-              if (_optionalChain$6$2([payload, 'optionalAccess', _5 => _5.error])) {
+              if (_optionalChain$6$1([payload, 'optionalAccess', _5 => _5.error])) {
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
-              } else if(_optionalChain$6$2([payload, 'optionalAccess', _6 => _6.result])) {
+              } else if(_optionalChain$6$1([payload, 'optionalAccess', _6 => _6.result])) {
                 inflightRequest.resolve(payload.result);
               } else {
                 inflightRequest.reject();
@@ -12705,7 +12739,7 @@
 
   }
 
-  function _optionalChain$5$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$5$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const getAllProviders$1 = ()=> {
     if(getWindow$1()._Web3ClientProviders == undefined) {
       getWindow$1()._Web3ClientProviders = {};
@@ -12763,10 +12797,10 @@
               referrer: "",
               referrerPolicy: "no-referrer",
               body: JSON.stringify({ method: 'net_version', id: 1, jsonrpc: '2.0' }),
-              signal: _optionalChain$5$1([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+              signal: _optionalChain$5$2([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
             });
           } catch (e) {}
-          if(!_optionalChain$5$1([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
+          if(!_optionalChain$5$2([response, 'optionalAccess', _2 => _2.ok])) { return resolve(999) }
           let after = new Date().getTime();
           resolve(after-before);
         })
@@ -13075,7 +13109,7 @@
   supported$3.svm = ['solana'];
 
   function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-  let getCacheStore$1 = () => {
+  let getCacheStore = () => {
     if (getWindow$1()._Web3ClientCacheStore == undefined) {
       getWindow$1()._Web3ClientCacheStore = {};
     }
@@ -13090,14 +13124,14 @@
   };
 
   let set = function ({ key, value, expires }) {
-    getCacheStore$1()[key] = {
+    getCacheStore()[key] = {
       expiresAt: Date.now() + expires,
       value,
     };
   };
 
   let get = function ({ key, expires }) {
-    let cachedEntry = getCacheStore$1()[key];
+    let cachedEntry = getCacheStore()[key];
     if (_optionalChain$2$2([cachedEntry, 'optionalAccess', _ => _.expiresAt]) > Date.now()) {
       return cachedEntry.value
     }
@@ -13175,7 +13209,7 @@
   // Periodically clean up expired cache entries (every 5 minutes), to prevent memory leaks
   if (typeof process == 'undefined' || process.env && "production" === 'test') {
     setInterval(() => {
-      const store = getCacheStore$1();
+      const store = getCacheStore();
       const now = Date.now();
       for (const key in store) {
         if (store[key].expiresAt < now) {
@@ -14526,29 +14560,24 @@
 
   let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$2.svm = ['solana'];
+  supported$2.solana = ['solana'];
 
-  function _optionalChain$b(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$8(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   class Token {
     
-    constructor({ blockchain, address, name, decimals, symbol }) {
+    constructor({ blockchain, address }) {
       this.blockchain = blockchain;
       if(supported$2.evm.includes(this.blockchain)) {
         this.address = ethers.ethers.utils.getAddress(address);
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
         this.address = address;
       }
-      this._name = name;
-      this._decimals = decimals;
-      this._symbol = symbol;
     }
 
     async decimals() {
-      if(this._decimals) { return this._decimals }
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
-        this._decimals = Blockchains__default['default'].findByName(this.blockchain).currency.decimals;
-        return this._decimals
+        return Blockchains__default['default'].findByName(this.blockchain).currency.decimals
       }
       let decimals;
       try {
@@ -14556,55 +14585,44 @@
 
           decimals = await decimalsOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
 
-        } else if(supported$2.svm.includes(this.blockchain)) {
+        } else if(supported$2.solana.includes(this.blockchain)) {
 
           decimals = await decimalsOnSolana({ blockchain: this.blockchain, address: this.address });
 
           
         }
       } catch (e) {}
-      this._decimals = decimals;
       return decimals
     }
 
     async symbol() {
-      if(this._symbol) { return this._symbol }
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
-        this._symbol = Blockchains__default['default'].findByName(this.blockchain).currency.symbol;
-        return this._symbol
+        return Blockchains__default['default'].findByName(this.blockchain).currency.symbol
       }
-      let symbol;
       if(supported$2.evm.includes(this.blockchain)) {
 
-        symbol = await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
+        return await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
-        symbol = await symbolOnSolana({ blockchain: this.blockchain, address: this.address });
+        return await symbolOnSolana({ blockchain: this.blockchain, address: this.address })
 
       }
-      this._symbol = symbol;
-      return symbol
     }
 
     async name(args) {
-      if(this._name) { return this._name }
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
-        this._name = Blockchains__default['default'].findByName(this.blockchain).currency.name;
-        return this._name
+        return Blockchains__default['default'].findByName(this.blockchain).currency.name
       }
-      let name;
       if(supported$2.evm.includes(this.blockchain)) {
 
-        name = await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$b([args, 'optionalAccess', _ => _.id]) });
+        return await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$8([args, 'optionalAccess', _ => _.id]) })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
-        name = await nameOnSolana({ blockchain: this.blockchain, address: this.address });
+        return await nameOnSolana({ blockchain: this.blockchain, address: this.address })
 
       }
-      this._name = name;
-      return name
     }
 
     async balance(account, id) {
@@ -14612,7 +14630,7 @@
 
         return await balanceOnEVM({ blockchain: this.blockchain, account, address: this.address, api: id ? Token[this.blockchain][1155] : Token[this.blockchain].DEFAULT, id })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
 
         return await balanceOnSolana({ blockchain: this.blockchain, account, address: this.address, api: Token[this.blockchain].DEFAULT })
 
@@ -14627,25 +14645,15 @@
 
         return await allowanceOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, owner, spender })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$2.solana.includes(this.blockchain)) {
         return ethers.ethers.BigNumber.from(Blockchains__default['default'].findByName(this.blockchain).maxInt)
       } 
     }
 
     async BigNumber(amount) {
-      const decimals = await this.decimals();
-      if(typeof(amount) != 'string') {
-        amount = amount.toString();
-      }
-      if(amount.match('e')) {
-        amount = parseFloat(amount).toFixed(decimals).toString();
-      }
-      const decimalsMatched = amount.match(/\.(\d+)/);
-      if(decimalsMatched && decimalsMatched[1] && decimalsMatched[1].length > decimals) {
-        amount = parseFloat(amount).toFixed(decimals).toString();
-      }
+      let decimals = await this.decimals();
       return ethers.ethers.utils.parseUnits(
-        amount,
+        Token.safeAmount({ amount: parseFloat(amount), decimals }).toString(),
         decimals
       )
     }
@@ -14666,6 +14674,10 @@
   Token.readable = async ({ amount, blockchain, address }) => {
     let token = new Token({ blockchain, address });
     return token.readable(amount)
+  };
+
+  Token.safeAmount = ({ amount, decimals }) => {
+    return parseFloat(amount.toFixed(decimals))
   };
 
 
@@ -14765,7 +14777,7 @@
     ...instructions
   };
 
-  function _optionalChain$9(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
+  function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }class Route {
     constructor({
       blockchain,
       tokenIn,
@@ -14774,7 +14786,6 @@
       decimalsOut,
       path,
       pools,
-      amounts,
       amountIn,
       amountInMax,
       amountOut,
@@ -14792,11 +14803,10 @@
       this.decimalsOut = decimalsOut;
       this.path = path;
       this.pools = pools;
-      this.amounts = amounts;
-      this.amountIn = _optionalChain$9([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
-      this.amountOutMin = _optionalChain$9([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
-      this.amountOut = _optionalChain$9([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
-      this.amountInMax = _optionalChain$9([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
+      this.amountIn = _optionalChain$6([amountIn, 'optionalAccess', _ => _.toString, 'call', _2 => _2()]);
+      this.amountOutMin = _optionalChain$6([amountOutMin, 'optionalAccess', _3 => _3.toString, 'call', _4 => _4()]);
+      this.amountOut = _optionalChain$6([amountOut, 'optionalAccess', _5 => _5.toString, 'call', _6 => _6()]);
+      this.amountInMax = _optionalChain$6([amountInMax, 'optionalAccess', _7 => _7.toString, 'call', _8 => _8()]);
       this.exchange = exchange;
       this.getPrep = getPrep;
       this.getTransaction = getTransaction;
@@ -14805,7 +14815,7 @@
 
   let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$1.svm = ['solana'];
+  supported$1.solana = ['solana'];
 
   const DEFAULT_SLIPPAGE = '0.5'; // percent
 
@@ -14921,27 +14931,21 @@
     if(amountOutMinInput || amountOutInput) {
       if(supported$1.evm.includes(exchange.blockchain || blockchain)) {
         amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut: (amountOutMinInput || amountOut) });
-      } else if(supported$1.svm.includes(exchange.blockchain || blockchain)){
+      } else if(supported$1.solana.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
         await Promise.all(exchangePath.map((step, index)=>{
           if(index != 0) {
             let amountWithSlippage = calculateAmountInWithSlippage({ exchange, pools, exchangePath: [exchangePath[index-1], exchangePath[index]], amountIn: amounts[index-1], amountOut: amounts[index] });
-            amountWithSlippage.then((amount)=>{
-              amountsWithSlippage.push(amount);
-            });
+            amountWithSlippage.then((amount)=>amountsWithSlippage.push(amount));
             return amountWithSlippage
           }
         }));
         amountsWithSlippage.push(amounts[amounts.length-1]);
         amounts = amountsWithSlippage;
-        if(amounts.length > 2) { // lower middle amount to avoid first hop slippage issues on output amount (total hops remain within default slippage)
-          let defaultSlippage = getDefaultSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut });
-          amounts[1] = amounts[1].sub(amounts[1].mul(parseFloat(defaultSlippage)*100/2).div(10000));
-        }
         amountIn = amountInMax = amounts[0];
       }
     } else if(amountInMaxInput || amountInInput) {
-      if(supported$1.svm.includes(exchange.blockchain || blockchain)){
+      if(supported$1.solana.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
         await Promise.all(exchangePath.map((step, index)=>{
           if(index !== 0 && index < exchangePath.length-1) {
@@ -15060,7 +15064,6 @@
     getPrep,
     getTransaction,
     slippage,
-    pairsData,
   }) => {
 
     tokenIn = fixAddress(tokenIn);
@@ -15070,17 +15073,14 @@
     if([amountIn, amountOut, amountInMax, amountOutMin].filter(Boolean).length < 1) { throw('You need to pass exactly one: amountIn, amountOut, amountInMax or amountOutMin') }
 
     return new Promise(async (resolve)=> {
-      let { path, exchangePath, pools } = await findPath({ blockchain, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin, pairsData });
+      let { path, exchangePath, pools } = await findPath({ blockchain, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin });
       if (path === undefined || path.length == 0) { return resolve() }
       let [amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput] = [amountIn, amountOut, amountInMax, amountOutMin];
 
       let amounts; // includes intermediary amounts for longer routes
       try {
-        ;({ amountIn, amountInMax, amountOut, amountOutMin, amounts, pools } = await getAmounts({ exchange, blockchain, path, pools, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsData }));
-      } catch(e) {
-        console.log(e);
-        return resolve()
-      }
+        ;({ amountIn, amountInMax, amountOut, amountOutMin, amounts } = await getAmounts({ exchange, blockchain, path, pools, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }));
+      } catch (e) { return resolve() }
       if([amountIn, amountInMax, amountOut, amountOutMin].every((amount)=>{ return amount == undefined })) { return resolve() }
 
       if(exchange.slippage && slippage !== false) {
@@ -15095,7 +15095,7 @@
             amountIn, amountInMax, amountOut, amountOutMin,
             amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
           }));
-        } catch(e) { console.log(e); return resolve() }
+        } catch (e2) { return resolve() }
       }
 
       const decimalsIn = await new Token({ blockchain, address: tokenIn }).decimals();
@@ -15110,7 +15110,6 @@
           decimalsOut,
           path,
           pools,
-          amounts,
           amountIn,
           amountInMax,
           amountOut,
@@ -15161,7 +15160,6 @@
       amountInMax,
       amountOutMin,
       slippage,
-      pairsData,
     }) {
       if(tokenIn === tokenOut){ return Promise.resolve() }
 
@@ -15202,24 +15200,380 @@
         getPrep: this.getPrep,
         getTransaction: this.getTransaction,
         slippage,
-        pairsData,
       })
     }
   }
 
+  function _optionalChain$5$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
+  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
+  //
+  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
+  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
+  // as they are not the same!
+  //
+  const getExchangePath$4 = ({ blockchain, exchange, path }) => {
+    if(!path) { return }
+    let exchangePath = path.map((token, index) => {
+      if (
+        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
+        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
+      ) {
+        return Blockchains__default['default'][blockchain].wrapped.address
+      } else {
+        return token
+      }
+    });
+
+    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(0, 1);
+    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
+      exchangePath.splice(exchangePath.length-1, 1);
+    }
+
+    return exchangePath
+  };
+
+  const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
+    if(token0.toLowerCase() == token.toLowerCase()) {
+      return reserves[0].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
+    } else if (token1.toLowerCase() == token.toLowerCase()) {
+      return reserves[1].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
+    } else {
+      return false
+    }
+  };
+
+  const pathExists$5 = async ({ blockchain, exchange, path }) => {
+    const exchangePath = getExchangePath$4({ blockchain, exchange, path });
+    if(!exchangePath || exchangePath.length === 1) { return false }
+    try {
+      let pair = await request({
+        blockchain,
+        address: exchange[blockchain].factory.address,
+        method: 'getPair',
+        api: exchange[blockchain].factory.api,
+        cache: 3600000,
+        params: getExchangePath$4({ blockchain, exchange, path }),
+      });
+      if(!pair || pair == Blockchains__default['default'][blockchain].zero) { return false }
+      let [reserves, token0, token1] = await Promise.all([
+        request({ blockchain, address: pair, method: 'getReserves', api: exchange[blockchain].pair.api, cache: 3600000 }),
+        request({ blockchain, address: pair, method: 'token0', api: exchange[blockchain].pair.api, cache: 3600000 }),
+        request({ blockchain, address: pair, method: 'token1', api: exchange[blockchain].pair.api, cache: 3600000 })
+      ]);
+      if(exchangePath.includes(Blockchains__default['default'][blockchain].wrapped.address)) {
+        return minReserveRequirements({ min: 1, token: Blockchains__default['default'][blockchain].wrapped.address, decimals: Blockchains__default['default'][blockchain].currency.decimals, reserves, token0, token1 })
+      } else if (path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step))) {
+        let address = path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step));
+        let token = new Token({ blockchain, address });
+        let decimals = await token.decimals();
+        return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
+      } else {
+        return true
+      }
+    } catch (e){ console.log('e', e); return false }
+  };
+
+  const findPath$5 = async ({ blockchain, exchange, tokenIn, tokenOut }) => {
+    if(
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
+      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
+    ) { return { path: undefined, exchangePath: undefined } }
+
+    let path;
+    if (await pathExists$5({ blockchain, exchange, path: [tokenIn, tokenOut] })) {
+      // direct path
+      path = [tokenIn, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenOut, Blockchains__default['default'][blockchain].wrapped.address] })
+    ) {
+      // path via WRAPPED
+      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+    } else if (
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenIn) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [tokenIn, stable] })))).filter(Boolean).length &&
+      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut] })
+    ) {
+      // path via tokenIn -> USD -> WRAPPED -> tokenOut
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [tokenIn, stable] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, USD, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      await pathExists$5({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
+    ) {
+      // path via tokenIn -> WRAPPED -> USD -> tokenOut
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, USD, tokenOut];
+    } else if (
+      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
+      tokenIn === Blockchains__default['default'][blockchain].currency.address &&
+      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
+      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$5({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
+    ) {
+      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$5({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
+      path = [tokenIn, USD, tokenOut];
+    }
+
+    // Add WRAPPED to route path if things start or end with NATIVE
+    // because that actually reflects how things are routed in reality:
+    if(_optionalChain$5$1([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    } else if(_optionalChain$5$1([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
+    }
+
+    return { path, exchangePath: getExchangePath$4({ blockchain, exchange, path }) }
+  };
+
+  let getAmountOut$3 = ({ blockchain, exchange, path, amountIn, tokenIn, tokenOut }) => {
+    return new Promise((resolve) => {
+      request({
+        blockchain,
+        address: exchange[blockchain].router.address,
+        method: 'getAmountsOut',
+        api: exchange[blockchain].router.api,
+        params: {
+          amountIn: amountIn,
+          path: getExchangePath$4({ blockchain, exchange, path }),
+        },
+      })
+      .then((amountsOut)=>{
+        resolve(amountsOut[amountsOut.length - 1]);
+      })
+      .catch(()=>resolve());
+    })
+  };
+
+  let getAmountIn$3 = ({ blockchain, exchange, path, amountOut, block }) => {
+    return new Promise((resolve) => {
+      request({
+        blockchain,
+        address: exchange[blockchain].router.address,
+        method: 'getAmountsIn',
+        api: exchange[blockchain].router.api,
+        params: {
+          amountOut: amountOut,
+          path: getExchangePath$4({ blockchain, exchange, path }),
+        },
+        block
+      })
+      .then((amountsIn)=>resolve(amountsIn[0]))
+      .catch(()=>resolve());
+    })
+  };
+
+  let getAmounts$5 = async ({
+    blockchain,
+    exchange,
+    path,
+    block,
+    tokenIn,
+    tokenOut,
+    amountOut,
+    amountIn,
+    amountInMax,
+    amountOutMin
+  }) => {
+    if (amountOut) {
+      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if (amountIn) {
+      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn, tokenIn, tokenOut });
+      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    } else if(amountOutMin) {
+      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut: amountOutMin, tokenIn, tokenOut });
+      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
+        return {}
+      } else if (amountInMax === undefined) {
+        amountInMax = amountIn;
+      }
+    } else if(amountInMax) {
+      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn: amountInMax, tokenIn, tokenOut });
+      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
+        return {}
+      } else if (amountOutMin === undefined) {
+        amountOutMin = amountOut;
+      }
+    }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
+  };
+
+  let getPrep$3 = async({
+    exchange,
+    blockchain,
+    tokenIn,
+    amountIn,
+    account
+  })=> {
+
+    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
+
+    const allowance = await request({
+      blockchain,
+      address: tokenIn,
+      method: 'allowance',
+      api: Token[blockchain]['20'],
+      params: [account, exchange[blockchain].router.address]
+    });
+
+    if(allowance.gte(amountIn)) { return }
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: tokenIn,
+      api: Token[blockchain]['20'],
+      method: 'approve',
+      params: [exchange[blockchain].router.address, amountIn.sub(allowance)]
+    };
+    
+    return { transaction }
+
+  };
+
+  let getTransaction$5 = ({
+    exchange,
+    blockchain,
+    path,
+    amountIn,
+    amountInMax,
+    amountOut,
+    amountOutMin,
+    amountInInput,
+    amountOutInput,
+    amountInMaxInput,
+    amountOutMinInput,
+    account
+  }) => {
+
+    let transaction = {
+      blockchain,
+      from: account,
+      to: exchange[blockchain].router.address,
+      api: exchange[blockchain].router.api,
+    };
+
+    if (path[0] === Blockchains__default['default'][blockchain].currency.address) {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactETHForTokens';
+        transaction.value = amountIn.toString();
+        transaction.params = { amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapETHForExactTokens';
+        transaction.value = amountInMax.toString();
+        transaction.params = { amountOut: amountOut.toString() };
+      }
+    } else if (path[path.length - 1] === Blockchains__default['default'][blockchain].currency.address) {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactTokensForETH';
+        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapTokensForExactETH';
+        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      }
+    } else {
+      if (amountInInput || amountOutMinInput) {
+        transaction.method = 'swapExactTokensForTokens';
+        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
+      } else if (amountOutInput || amountInMaxInput) {
+        transaction.method = 'swapTokensForExactTokens';
+        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
+      }
+    }
+
+    transaction.params = Object.assign({}, transaction.params, {
+      path: getExchangePath$4({ blockchain, exchange, path }),
+      to: account,
+      deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
+    });
+
+    return transaction
+  };
+
+  const ROUTER$3 = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const FACTORY$3 = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+  const PAIR$1 = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
+
+  var UniswapV2 = {
+    findPath: findPath$5,
+    pathExists: pathExists$5,
+    getAmounts: getAmounts$5,
+    getPrep: getPrep$3,
+    getTransaction: getTransaction$5,
+    ROUTER: ROUTER$3,
+    FACTORY: FACTORY$3,
+    PAIR: PAIR$1,
+  };
+
+  const exchange$h = {
+    
+    name: 'honeyswap',
+    label: 'Honeyswap',
+    logo: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABQCAYAAADBTPF9AAAACXBIWXMAAAsTAAALEwEAmpwYAAALmklEQVR4nO2de3BU1R3HP7+7eQALAcSNyq4ELDpUS0HJdrRm0aE6oPWJWqtQxUdn1KpcdQy04nssslQbdKxa7cC0iq22+BhsUQcfbBzQAL4V7VQM7OK4i4oJBJLs3l//uEHDkvfevbsb85nJHzn33PP73fu99+x5/M65Mt08jXwlVpuYCTwCjAS+BD5FeRXhaX+Vb51Tdja/khhZUsQpCGcBE4HRQCmwoqWFS8ZN8zU7ZctpJF8FjEbixSLyBnB0B4ebgZeAuzIRMhqJe0XkKuBKYFwn2c7xV/lW9NVGtjFy7UBniKKA1cnhUuA0oDYaSdyxLbLd09vyo5HEFBGJAGE6Fw+0Ux/ygrwV0D+1PKmqc4F1wGZgRwfZPCLcrKJ/i0bixT0tOxqJnyLCy3T8dqeAL9psLlH0+d577x5FuXagKwKh8teja+I/RRimKsMMQyeB/BL4BfZbuJcLRGQPcGl3ZUYj8eNBngK8aYc2AUtVeQk0CjQFQuW7nLqWbJG3v4FdYVd/PAxMSTv0G3+V70+dnxcfJSJrgcPbJStwm6reUwiCpZO3VWhXBEK+Dao6DViddui2aCQ+prPzROR37CteK8psf5XvjkIUDwpUQIBAqLxBVS8A/tsu2SciV3aUPxaJHwZcnpY83x/yLc+Wj25QsAICBELlCWB+WvL50Ui8bL/MIucC7dNr1dI/ZtE9VyhoAQFE5VngrXZJ46SD1qUIp6Yl3ReYWq5Zdc4FCl7A0aEDU6qs3CdRZJ/GTTQS96kyoV3SF6r6qgvuZZ2CFxBAhPfSksalHR8FjGiXtBlle7b9coN+IaDuL8bwtOPDgJJ2SV/3h+oT+omAgn6MPXoCgCpvpmX5FNj63b+6xhXHXMAz/tgjcu1DxpRVeBsbtzTVApYqy0T1obIKr9Xu+O6G+qbXAEuEv7e0yH0jx3lTufPYOQpyJGaA7+gXVej3mQEBC5wBAQucvJ5OyoRtke0eC2tQa6sk8zkkIlP6nYDRSDwkIrMRpghSVlJCc6w28RHwlKo+EwiVt+baRyfpNwLGauMTQO4QkfM6OPwj4DwReTMaid8WCJX/x23/skXB9wM3v5IY2RRrWgDyCHBMN9n9IjKrcUvTUTs2N304fKw34YaP2aRgBdwW2e5p2LrzYo9HlgNnsG+IRXccJcLFjVubhn35v6aNI8d592TJzaxTkK3QaCR+PIauBllKVxFlXSCCF5hfUsyGWG18Tl8i2/KBghIwFomPjdUmHhWRiConOFTsOJClGLo6GomHHCrTNQqiCo1G4t7GrbtuQGQpUAVIFsyMFZE5jVuaKhrrd71XVuH9Ogs2HCfvBYzVJmaKyOMgFwJDsmxOgKMR+VXjll1FDfW7NpZVePO625G3VWg0kjg6Vpv4N/Av7G6AmxwAcpeIvBmrTXTULckb8k7AaCRxcKw2USPCWuCUHLtzJPBkrDbxQjQSD+bYlw7Jmyp088uJ0l3RpisRHkc5ifwaZPiBiMxpqG865Jv6preHV3gbc+3QXvLiJumm2ImlpSW3FXl0altSvvbLrmhNyoz42vjd55+8Y9krO49oybVDOZ3QXXXtmjFqyb3RePGpyZSUFHk05zekO5IpKQHw+1rfKinV62csCUVy6U/OBFx1TWQisAIYjwFIgcUYpQSgFZg14/7QU7lyIyeNmFXXrPECjwHjAXsVYEoK68+mGFi66ppId2OwWSNHrVAxgR/nxrbjeIHf58q46wK2vX1z3LabZabl6i3MwRsohwEV7tvNKsXYQ3yu476AkvJjX3B/IycPZd6NxBQshpWTh3JAwAJnQMACJzdDacUF1mnvCTlaaeGqgMdcv+T4h7avvHXS1sWOly2aSvY0r4rHg8OTwp+POumsiTcurn1v8SVPOllud7giYKW5aKwgCzxF1mUb6g/h3lsOwfA4HoKSs4H55J5mJs4ef+jk8Q3/CJrhS1FuqVtSnb7ELStk9aIrzUVDBLkWuBE4AEDUoqRIEUOzExiRA6RIEfl2Ndt0hBODZvgRYGFdTfW2bNrOWiMmaIbPFmQdsJA28fahn4i3l7TLKQWuBjYEzfDVlXPDvQl57BWOCxg0w8cEzfBK7JmGiU6XX2AcDNwvwutBMzw9GwYcq0IrzUUHCTIfe+vGrD1xBcoUYFXQDP8TuLmupnqTUwVnLOCUuYuKDJHLgZuAQOYu9WvOBWYEzXCNIvesr7lxR6YFZlSFBs3wdENkDfAgA+L1lKHAAkE3BM3wxdE18YxaA316A4NmeDxwKzA7E+Pfcw4Dlp29YtmclFG6YOO9c1/vSyG9ErDSXDxC0BssPNcapPbfj2yAvnCix2p+LWiGl4HeWVczr743J/e4Cg2a4VmCvgEsGBDPcTzAZSAbg2Z4fqW5qMcR6N0KGDTDxwXN8EvYMSzOBZH2s+FQhy7nAGChIOuCZvjsnpzQaRUaNMOjgZuBX2M/IY5gqdCSFMSTYRdU1blHQKTPDQkBkknBcnZr9InAiqAZfg64pa6m+p3OMu4nYOXccKkIVwHV2B1Rx2hJGkwcv5sLbv8m47KKrN07RVMZzwGoeDwpY/DQTAb2hnia+Ni3m09aHHzSbc4ApgfN8IOqLFy/pDqenmEfAYNm+HTs1mX6XtSOoBYcOLyZn1XWs+/ec31Bhjnhk82ODM9voTnVzEeWOC0g2IMipgjnBs3wXZbqoxuWzPt25qUIIGguqgD5A3ZHM/u0Cvk1l5zpwKy4cTkB4EFD5KLg3LC5d7bDqDQXjQV5EbfEGyBTjkNYXWmGTwAwBFmMk63LAdxgqMA9lXPDpQYwI9feDNAnJoswwQAGu2m1AR/KIPpbR3AHB2G4e00eYIgBfOiexVa+IsBORgF5v5KshygphvK5HN59Vmf5Cqg3gD+7ZVGw2Mko3pWT3TLpAi1slmOIcSQeXN0P4em6muptxtMz5zyAPUzmCh5aqTVm0Ygf+zOAhUwzKYbyknEFKYoR975U94miNwEYganlqsrluCSiYLGD0TzmWfydiGLZ/ahC+RMLaEYZxDPGb9nCJIrcexjfA36+vmbeF5C2Qjdohq/AHolxdAitI5KUMoZ3ONl6iBE736eE5tYij5X3r2QyZZS2UFq8Z3CA1cVXsYmQW+KlgAcVubn9TP5+S6zbBrGvU/FcLJryZdMjC09DidH6wlfL76774JUPZyWTMkmEZnIW59w1qgwxDOIHV5T99Yfz7xrRXDzqzGzfI+x78Txwd11N9dr0g52ukW8TciZwIfY2jk4FKn0F1AErFV25vmbeZ2BvG1lcxHXA9ZZK+scZ8wJDdIVlccuYE3wfwLeBXDOw79NPcLbm+gR4DniirqZ6Y2eZerTJQdAMT8BewHgCMAnwY38dpbux251AHPvDG28Da4ANXQW7RiPxw0XkduCCbh1zjzdVtcuNYtvEnIx9n4LY3yksx46B6Y699+l9YG3KKI0Y1p631tfMa+ruxF7vUtEWhVaO/bT5gAOBYdgD40lgN/Zbth1IKLqtJ46kE43ETxKRO4Fje3uug2xTZSHow73dqrktKn009j06GBgFDOK7xa2NwJcpozTusZq/6Ot9yusPf8TWxIuKi7m0NSU3AZ1+mTML7AEeVtVFgVD55y7a7TV5s9VWR5RVeC3vod4NDfW7louIB5hM9pdnr1RldiDkW1ZW4d2ZZVsZk0+Tcp0SCJXH/VW+G1Q5Fng2S2beB87xV/lOD4R8b3WbO08oCAH3Egj53vVX+c5SOBPoNE6kl2wH5qnqsf4q3wqHynSNghJwL4Eq33Nq6XHADbT77FwvSQF/UdUp/ipfuFC/Yp3Xv4FdUVbhTZaN8a795rOmJ4DBIkym5zFFr6rqRYFQ+QNlFd7MI6xySEG+ge05dKovFgj5rgKmAi92k30Tyiy1dFogVN6nUPZ8Iy/2C3UCf5VvHTA9VpuYCVyEPdCQwn4rU8ALqvpIIFS+I3deOs//AZb84smmUsyHAAAAAElFTkSuQmCC',
+    protocol: 'uniswap_v2',
+
+    slippage: true,
+
+    blockchains: ['gnosis'],
+    
+    gnosis: {
+      router: {
+        address: '0x1C232F01118CB8B424793ae03F870aa7D0ac7f77',
+        api: UniswapV2.ROUTER
+      },
+      factory: {
+        address: '0xA818b4F111Ccac7AA31D0BCc0806d64F2E0737D7',
+        api: UniswapV2.FACTORY
+      },
+      pair: {
+        api: UniswapV2.PAIR
+      },
+    }
+  };
+
+  var honeyswap = (scope)=>{
+    
+    return new Exchange(
+
+      Object.assign(exchange$h, {
+        scope,
+        findPath: (args)=>UniswapV2.findPath({ ...args, exchange: exchange$h }),
+        pathExists: (args)=>UniswapV2.pathExists({ ...args, exchange: exchange$h }),
+        getAmounts: (args)=>UniswapV2.getAmounts({ ...args, exchange: exchange$h }),
+        getPrep: (args)=>UniswapV2.getPrep({ ...args, exchange: exchange$h }),
+        getTransaction: (args)=>UniswapV2.getTransaction({ ...args, exchange: exchange$h }),
+      })
+    )
+  };
+
   const MAX_SQRT_PRICE = "79226673515401279992447579055";
   const MIN_SQRT_PRICE = "4295048016";
-  const BIT_PRECISION$1 = 14;
-  const LOG_B_2_X32$1 = "59543866431248";
-  const LOG_B_P_ERR_MARGIN_LOWER_X64$1 = "184467440737095516";
-  const LOG_B_P_ERR_MARGIN_UPPER_X64$1 = "15793534762490258745";
+  const BIT_PRECISION = 14;
+  const LOG_B_2_X32 = "59543866431248";
+  const LOG_B_P_ERR_MARGIN_LOWER_X64 = "184467440737095516";
+  const LOG_B_P_ERR_MARGIN_UPPER_X64 = "15793534762490258745";
 
   const toX64 = (num) => {
-    return new solanaWeb3_js.BN(num.mul(Decimal$1__default['default'].pow(2, 64)).floor().toFixed());
+    return new solanaWeb3_js.BN(num.mul(Decimal__default['default'].pow(2, 64)).floor().toFixed());
   };
 
   const fromX64 = (num) => {
-    return new Decimal$1__default['default'](num.toString()).mul(Decimal$1__default['default'].pow(2, -64));
+    return new Decimal__default['default'](num.toString()).mul(Decimal__default['default'].pow(2, -64));
   };
 
   const getInitializableTickIndex = (tickIndex, tickSpacing) => {
@@ -15238,7 +15592,7 @@
   class PriceMath {
 
     static priceToSqrtPriceX64(price, decimalsA, decimalsB) {
-      return toX64(price.mul(Decimal$1__default['default'].pow(10, decimalsB - decimalsA)).sqrt());
+      return toX64(price.mul(Decimal__default['default'].pow(10, decimalsB - decimalsA)).sqrt());
     }
 
     static sqrtPriceX64ToPrice(
@@ -15248,7 +15602,7 @@
     ) {
       return fromX64(sqrtPriceX64)
         .pow(2)
-        .mul(Decimal$1__default['default'].pow(10, decimalsA - decimalsB));
+        .mul(Decimal__default['default'].pow(10, decimalsA - decimalsB));
     }
 
     /**
@@ -15283,7 +15637,7 @@
 
       let r = msb >= 64 ? sqrtPriceX64.shrn(msb - 63) : sqrtPriceX64.shln(63 - msb);
 
-      while (bit.gt(new solanaWeb3_js.BN(0)) && precision < BIT_PRECISION$1) {
+      while (bit.gt(new solanaWeb3_js.BN(0)) && precision < BIT_PRECISION) {
         r = r.mul(r);
         let rMoreThanTwo = r.shrn(127);
         r = r.shrn(63 + rMoreThanTwo.toNumber());
@@ -15295,15 +15649,15 @@
       const log2pFractionX32 = log2pFractionX64.shrn(32);
 
       const log2pX32 = log2pIntegerX32.add(log2pFractionX32);
-      const logbpX64 = log2pX32.mul(new solanaWeb3_js.BN(LOG_B_2_X32$1));
+      const logbpX64 = log2pX32.mul(new solanaWeb3_js.BN(LOG_B_2_X32));
 
       const tickLow = signedShiftRight(
-        logbpX64.sub(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_LOWER_X64$1)),
+        logbpX64.sub(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_LOWER_X64)),
         64,
         128
       ).toNumber();
       const tickHigh = signedShiftRight(
-        logbpX64.add(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_UPPER_X64$1)),
+        logbpX64.add(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_UPPER_X64)),
         64,
         128
       ).toNumber();
@@ -15522,10 +15876,10 @@
 
   const PROTOCOL_FEE_RATE_MUL_VALUE = new solanaWeb3_js.BN(10000);
   const FEE_RATE_MUL_VALUE = new solanaWeb3_js.BN(1000000);
-  const ZERO$2 = new solanaWeb3_js.BN(0);
-  const ONE$1 = new solanaWeb3_js.BN(1);
+  const ZERO = new solanaWeb3_js.BN(0);
+  const ONE = new solanaWeb3_js.BN(1);
   const TWO = new solanaWeb3_js.BN(2);
-  const U64_MAX = TWO.pow(new solanaWeb3_js.BN(64)).sub(ONE$1);
+  const U64_MAX = TWO.pow(new solanaWeb3_js.BN(64)).sub(ONE);
 
   const fromX64_BN = (num)=>{
     return num.div(new solanaWeb3_js.BN(2).pow(new solanaWeb3_js.BN(64)))
@@ -15581,14 +15935,14 @@
     }
 
     static mulDivRoundUpIf(n0, n1, d, roundUp, limit) {
-      if (d.eq(ZERO$2)) {
+      if (d.eq(ZERO)) {
         throw new Error("mulDiv denominator is zero");
       }
 
       const p = this.mul(n0, n1, limit);
       const n = p.div(d);
 
-      return roundUp && p.mod(d).gt(ZERO$2) ? n.add(ONE$1) : n;
+      return roundUp && p.mod(d).gt(ZERO) ? n.add(ONE) : n;
     }
 
     static checked_mul_shift_right(n0, n1, limit) {
@@ -15596,8 +15950,8 @@
     }
 
     static checked_mul_shift_right_round_up_if(n0, n1, roundUp, limit) {
-      if (n0.eq(ZERO$2) || n1.eq(ZERO$2)) {
-        return ZERO$2;
+      if (n0.eq(ZERO) || n1.eq(ZERO)) {
+        return ZERO;
       }
 
       const p = this.mul(n0, n1, limit);
@@ -15607,18 +15961,18 @@
         );
       }
       const result = fromX64_BN(p);
-      const shouldRound = roundUp && result.and(U64_MAX).gt(ZERO$2);
+      const shouldRound = roundUp && result.and(U64_MAX).gt(ZERO);
       if (shouldRound && result.eq(U64_MAX)) {
         throw new Error(
           `MulShiftRight overflowed u${limit}.`
         );
       }
 
-      return shouldRound ? result.add(ONE$1) : result;
+      return shouldRound ? result.add(ONE) : result;
     }
 
     static isOverLimit(n0, limit) {
-      const limitBN = TWO.pow(new solanaWeb3_js.BN(limit)).sub(ONE$1);
+      const limitBN = TWO.pow(new solanaWeb3_js.BN(limit)).sub(ONE);
       return n0.gt(limitBN);
     }
 
@@ -15627,13 +15981,13 @@
     }
 
     static divRoundUpIf(n, d, roundUp) {
-      if (d.eq(ZERO$2)) {
+      if (d.eq(ZERO)) {
         throw new Error("divRoundUpIf - divide by zero");
       }
 
       let q = n.div(d);
 
-      return roundUp && n.mod(d).gt(ZERO$2) ? q.add(ONE$1) : q;
+      return roundUp && n.mod(d).gt(ZERO) ? q.add(ONE) : q;
     }
   }
 
@@ -15662,7 +16016,7 @@
     amount,
     amountSpecifiedIsInput
   ) => {
-    if (amount.eq(ZERO$2)) {
+    if (amount.eq(ZERO)) {
       return sqrtPrice;
     }
 
@@ -15729,7 +16083,7 @@
     let quotient = numerator.div(denominator);
     let remainder = numerator.mod(denominator);
 
-    let result = roundUp && !remainder.eq(ZERO$2) ? quotient.add(ONE$1) : quotient;
+    let result = roundUp && !remainder.eq(ZERO) ? quotient.add(ONE) : quotient;
 
     if (result.gt(U64_MAX)) {
       throw new Error("Results larger than U64");
@@ -15891,7 +16245,7 @@
       nextProtocolFee = nextProtocolFee.add(currProtocolFee);
     }
 
-    if (currLiquidity.gt(ZERO$2)) {
+    if (currLiquidity.gt(ZERO)) {
       const globalFeeIncrement = globalFee.shln(64).div(currLiquidity);
       nextFeeGrowthGlobalInput = nextFeeGrowthGlobalInput.add(globalFeeIncrement);
     }
@@ -15912,17 +16266,17 @@
   })=> {
     
     let amountRemaining = tokenAmount;
-    let amountCalculated = ZERO$2;
+    let amountCalculated = ZERO;
     let currSqrtPrice = freshWhirlpoolData.sqrtPrice;
     let currLiquidity = freshWhirlpoolData.liquidity;
     let currTickIndex = freshWhirlpoolData.tickCurrentIndex;
-    let totalFeeAmount = ZERO$2;
+    let totalFeeAmount = ZERO;
     const feeRate = freshWhirlpoolData.feeRate;
     const protocolFeeRate = freshWhirlpoolData.protocolFeeRate;
     let currProtocolFee = new u64(0);
     let currFeeGrowthGlobalInput = aToB ? freshWhirlpoolData.feeGrowthGlobalA : freshWhirlpoolData.feeGrowthGlobalB;
 
-    while (amountRemaining.gt(ZERO$2) && !sqrtPriceLimit.eq(currSqrtPrice)) {
+    while (amountRemaining.gt(ZERO) && !sqrtPriceLimit.eq(currSqrtPrice)) {
       let { nextIndex: nextTickIndex } = tickSequence.findNextInitializedTickIndex(currTickIndex);
 
       let { nextTickPrice, nextSqrtPriceLimit: targetSqrtPrice } = getNextSqrtPrices(
@@ -16019,28 +16373,23 @@
     solanaWeb3_js.seq(solanaWeb3_js.u128(), 3, "reward_growths_outside"),
   ]);
 
-  const TICK_ARRAY_LAYOUT$1 = solanaWeb3_js.struct([
+  const TICK_ARRAY_LAYOUT = solanaWeb3_js.struct([
     solanaWeb3_js.u64("anchorDiscriminator"),
     solanaWeb3_js.i32("startTickIndex"),
     solanaWeb3_js.seq(TICK_LAYOUT, 88, "ticks"),
     solanaWeb3_js.publicKey("whirlpool"),
   ]);
 
-  var LAYOUTS$1 = {
-    TICK_ARRAY_LAYOUT: TICK_ARRAY_LAYOUT$1,
-    WHIRLPOOL_LAYOUT,
-  };
-
   const MAX_SWAP_TICK_ARRAYS = 3;
   const MAX_TICK_INDEX = 443636; // i32
   const MIN_TICK_INDEX = -443636; // i32
-  const TICK_ARRAY_SIZE$2 = 88; // i32
+  const TICK_ARRAY_SIZE = 88; // i32
 
   const getStartTickIndex = (tickIndex, tickSpacing, offset) => {
-    const realIndex = Math.floor(tickIndex / tickSpacing / TICK_ARRAY_SIZE$2);
-    const startTickIndex = (realIndex + offset) * tickSpacing * TICK_ARRAY_SIZE$2;
+    const realIndex = Math.floor(tickIndex / tickSpacing / TICK_ARRAY_SIZE);
+    const startTickIndex = (realIndex + offset) * tickSpacing * TICK_ARRAY_SIZE;
 
-    const ticksInArray = TICK_ARRAY_SIZE$2 * tickSpacing;
+    const ticksInArray = TICK_ARRAY_SIZE * tickSpacing;
     const minTickIndex = MIN_TICK_INDEX - ((MIN_TICK_INDEX % ticksInArray) + ticksInArray);
     if(startTickIndex < minTickIndex) { throw(`startTickIndex is too small - - ${startTickIndex}`) }
     if(startTickIndex > MAX_TICK_INDEX) { throw(`startTickIndex is too large - ${startTickIndex}`) }
@@ -16088,13 +16437,7 @@
 
         let data;
         try {
-          data = await request({
-            blockchain: 'solana' ,
-            address: address.toString(),
-            api: TICK_ARRAY_LAYOUT$1,
-            cache: 5000, // 5 seconds in ms
-            cacheKey: ['whirlpool', 'tick', address.toString()].join('-')
-          });
+          data = await request({ blockchain: 'solana' , address: address.toString(), api: TICK_ARRAY_LAYOUT, cache: 10 });
         } catch (e2) {}
 
         return { address, data }
@@ -16105,16 +16448,16 @@
   class TickArrayIndex {
     
     static fromTickIndex(index, tickSpacing) {
-      const arrayIndex = Math.floor(Math.floor(index / tickSpacing) / TICK_ARRAY_SIZE$2);
-      let offsetIndex = Math.floor((index % (tickSpacing * TICK_ARRAY_SIZE$2)) / tickSpacing);
+      const arrayIndex = Math.floor(Math.floor(index / tickSpacing) / TICK_ARRAY_SIZE);
+      let offsetIndex = Math.floor((index % (tickSpacing * TICK_ARRAY_SIZE)) / tickSpacing);
       if (offsetIndex < 0) {
-        offsetIndex = TICK_ARRAY_SIZE$2 + offsetIndex;
+        offsetIndex = TICK_ARRAY_SIZE + offsetIndex;
       }
       return new TickArrayIndex(arrayIndex, offsetIndex, tickSpacing)
     }
 
     constructor(arrayIndex, offsetIndex, tickSpacing) {
-      if (offsetIndex >= TICK_ARRAY_SIZE$2) {
+      if (offsetIndex >= TICK_ARRAY_SIZE) {
         throw new Error("Invalid offsetIndex - value has to be smaller than TICK_ARRAY_SIZE")
       }
       if (offsetIndex < 0) {
@@ -16132,7 +16475,7 @@
 
     toTickIndex() {
       return (
-        this.arrayIndex * TICK_ARRAY_SIZE$2 * this.tickSpacing + this.offsetIndex * this.tickSpacing
+        this.arrayIndex * TICK_ARRAY_SIZE * this.tickSpacing + this.offsetIndex * this.tickSpacing
       );
     }
 
@@ -16290,7 +16633,7 @@
     }
 
     checkIfIndexIsInTickArrayRange(startTick, tickIndex) {
-      const upperBound = startTick + this.tickSpacing * TICK_ARRAY_SIZE$2;
+      const upperBound = startTick + this.tickSpacing * TICK_ARRAY_SIZE;
       return tickIndex >= startTick && tickIndex < upperBound;
     }
   }
@@ -16303,23 +16646,16 @@
     amountInMax,
     amountOut,
     amountOutMin,
-    pairsDatum
   })=>{
 
     try {
       
-      let freshWhirlpoolData;
-      if(pairsDatum) {
-        freshWhirlpoolData = account;
-      } else {
-        freshWhirlpoolData = await request({
-          blockchain: 'solana',
-          address: account.pubkey.toString(),
-          api: WHIRLPOOL_LAYOUT,
-          cache: 5000, // 5 seconds in ms
-          cacheKey: ['whirlpool', 'fresh', tokenIn.toString(), tokenOut.toString()].join('-')
-        });
-      }
+      const freshWhirlpoolData = await request({
+        blockchain: 'solana',
+        address: account.pubkey.toString(),
+        api: WHIRLPOOL_LAYOUT,
+        cache: 10,
+      });
 
       const aToB = (freshWhirlpoolData.tokenMintA.toString() === tokenIn);
 
@@ -16353,7 +16689,7 @@
         sqrtPriceLimit,
       }
 
-    } catch(e) {
+    } catch (e) {
       return {
         price: undefined,
         tickArrays: undefined,
@@ -16363,40 +16699,34 @@
     }
   };
 
+  function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+
   // This method is cached and is only to be used to generally existing pools every 24h
   // Do not use for price calulations, fetch accounts for pools individually in order to calculate price 
   let getAccounts = async (base, quote) => {
     if(quote === Blockchains__default['default'].solana.wrapped.address) { return [] } // WSOL is base not QUOTE!
+    let whirlpoolsConfig = _optionalChain$4([(typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : undefined), 'optionalAccess', _ => _._whirlpoolsConfig]) || '2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ';
     let accounts = await request(`solana://whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc/getProgramAccounts`, {
       params: { filters: [
         { dataSize: WHIRLPOOL_LAYOUT.span },
+        { memcmp: { offset: 8, bytes: whirlpoolsConfig }},
         { memcmp: { offset: 101, bytes: base }}, // tokenMintA
         { memcmp: { offset: 181, bytes: quote }} // tokenMintB
       ]},
       api: WHIRLPOOL_LAYOUT,
-      cache: 21600000, // 6 hours in ms
+      cache: 86400, // 24h,
       cacheKey: ['whirlpool', base.toString(), quote.toString()].join('-')
     });
     return accounts
   };
 
-  let getPairsWithPrice$3 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum }) => {
+  let getPairsWithPrice = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
     try {
-      let accounts;
-      if(pairsDatum) {
-        accounts = [
-          {...
-            await request(`solana://${pairsDatum.id}/getAccountInfo`, { api: WHIRLPOOL_LAYOUT, cache: 5000 }),
-            pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id),
-          }
-        ];
-      } else {
-        accounts = await getAccounts(tokenIn, tokenOut);
-        if(accounts.length === 0) { accounts = await getAccounts(tokenOut, tokenIn); }
-        accounts = accounts.filter((account)=>account.data.liquidity.gt(1));
-      }
+      let accounts = await getAccounts(tokenIn, tokenOut);
+      if(accounts.length === 0) { accounts = await getAccounts(tokenOut, tokenIn); }
+      accounts = accounts.filter((account)=>account.data.liquidity.gt(1));
       accounts = (await Promise.all(accounts.map(async(account)=>{
-        const { price, tickArrays, sqrtPriceLimit } = await getPrice({ account, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum });
+        const { price, tickArrays, sqrtPriceLimit, aToB } = await getPrice({ account, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin });
         if(price === undefined) { return false }
 
         return { // return a copy, do not mutate accounts
@@ -16404,45 +16734,45 @@
           price: price,
           tickArrays: tickArrays,
           sqrtPriceLimit: sqrtPriceLimit,
-          tokenVaultA: account.tokenVaultA || account.data.tokenVaultA, 
-          tokenVaultB: account.tokenVaultB || account.data.tokenVaultB,
-          tokenMintA: account.tokenMintA || account.data.tokenMintA, 
-          tokenMintB: account.tokenMintB || account.data.tokenMintB,
+          aToB: aToB,
+          data: {
+            tokenVaultA: account.data.tokenVaultA, 
+            tokenVaultB: account.data.tokenVaultB
+          }
         }
       }))).filter(Boolean);
       return accounts
-    } catch(e) {
+    } catch (e) {
       return []
     }
   };
 
-  let getHighestPrice$1 = (pairs)=>{
+  let getHighestPrice = (pairs)=>{
     return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).gt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
   };
 
-  let getLowestPrice$1 = (pairs)=>{
+  let getLowestPrice = (pairs)=>{
     return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).lt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
   };
 
-  let getBestPair$1 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum }) => {
-    const pairs = await getPairsWithPrice$3({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum });
+  let getBestPair = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin }) => {
+    const pairs = await getPairsWithPrice({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin });
 
     if(!pairs || pairs.length === 0) { return }
 
     let bestPair;
 
     if(amountIn || amountInMax) {
-      bestPair = getHighestPrice$1(pairs);
+      bestPair = getHighestPrice(pairs);
     } else { // amount out
-      bestPair = getLowestPrice$1(pairs);
+      bestPair = getLowestPrice(pairs);
     }
+
     return bestPair
   };
 
-  function _optionalChain$8(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-
-  const blockchain$3 = Blockchains__default['default'].solana;
+  function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  const blockchain$1 = Blockchains__default['default'].solana;
 
   // Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
   //
@@ -16450,83 +16780,64 @@
   // to be able to differentiate between SOL<>Token and WSOL<>Token swaps
   // as they are not the same!
   //
-  let getExchangePath$5 = ({ path }) => {
+  let getExchangePath$3 = ({ path }) => {
     if(!path) { return }
     let exchangePath = path.map((token, index) => {
       if (
-        token === blockchain$3.currency.address && path[index+1] != blockchain$3.wrapped.address &&
-        path[index-1] != blockchain$3.wrapped.address
+        token === blockchain$1.currency.address && path[index+1] != blockchain$1.wrapped.address &&
+        path[index-1] != blockchain$1.wrapped.address
       ) {
-        return blockchain$3.wrapped.address
+        return blockchain$1.wrapped.address
       } else {
         return token
       }
     });
 
-    if(exchangePath[0] == blockchain$3.currency.address && exchangePath[1] == blockchain$3.wrapped.address) {
+    if(exchangePath[0] == blockchain$1.currency.address && exchangePath[1] == blockchain$1.wrapped.address) {
       exchangePath.splice(0, 1);
-    } else if(exchangePath[exchangePath.length-1] == blockchain$3.currency.address && exchangePath[exchangePath.length-2] == blockchain$3.wrapped.address) {
+    } else if(exchangePath[exchangePath.length-1] == blockchain$1.currency.address && exchangePath[exchangePath.length-2] == blockchain$1.wrapped.address) {
       exchangePath.splice(exchangePath.length-1, 1);
     }
 
     return exchangePath
   };
 
-  let pathExists$6 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
+  let pathExists$4 = async ({ path, amountIn, amountInMax, amountOut, amountOutMin }) => {
     if(path.length == 1) { return false }
-    path = getExchangePath$5({ path });
-    if((await getPairsWithPrice$3({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin })).length > 0) {
+    path = getExchangePath$3({ path });
+    if((await getPairsWithPrice({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin })).length > 0) {
       return true
     } else {
       return false
     }
   };
 
-  let findPath$6 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin, pairsData }) => {
-    
-    if(pairsData) {
-      let path;
-      if(pairsData.length == 1) {
-        path = [tokenIn, tokenOut];
-      } else if(pairsData.length == 2) {
-        const tokenMiddle = [pairsData[0].mintA, pairsData[0].mintB].includes(pairsData[1].mintA) ? pairsData[1].mintA : pairsData[1].mintB;
-        path = [tokenIn, tokenMiddle, tokenOut];
-      }
-      if(path) {
-        return { path , exchangePath: getExchangePath$5({ path }), pools: await Promise.all(pairsData.map(async(pairsDatum)=>{
-          return {...
-            await request(`solana://${pairsDatum.id}/getAccountInfo`, { api: WHIRLPOOL_LAYOUT, cache: 5000 }),
-            pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id)
-          }
-        })) }
-      }
-    }
-
+  let findPath$4 = async ({ tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin }) => {
     if(
-      [tokenIn, tokenOut].includes(blockchain$3.currency.address) &&
-      [tokenIn, tokenOut].includes(blockchain$3.wrapped.address)
+      [tokenIn, tokenOut].includes(blockchain$1.currency.address) &&
+      [tokenIn, tokenOut].includes(blockchain$1.wrapped.address)
     ) { return { path: undefined, exchangePath: undefined } }
 
     let path, stablesIn, stablesOut, stable;
 
-    if (await pathExists$6({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
+    if (await pathExists$4({ path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
       // direct path
       path = [tokenIn, tokenOut];
     } else if (
-      tokenIn != blockchain$3.wrapped.address &&
-      tokenIn != blockchain$3.currency.address &&
-      await pathExists$6({ path: [tokenIn, blockchain$3.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
-      tokenOut != blockchain$3.wrapped.address &&
-      tokenOut != blockchain$3.currency.address &&
-      await pathExists$6({ path: [tokenOut, blockchain$3.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
+      tokenIn != blockchain$1.wrapped.address &&
+      tokenIn != blockchain$1.currency.address &&
+      await pathExists$4({ path: [tokenIn, blockchain$1.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
+      tokenOut != blockchain$1.wrapped.address &&
+      tokenOut != blockchain$1.currency.address &&
+      await pathExists$4({ path: [tokenOut, blockchain$1.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
     ) {
       // path via blockchain.wrapped.address
-      path = [tokenIn, blockchain$3.wrapped.address, tokenOut];
+      path = [tokenIn, blockchain$1.wrapped.address, tokenOut];
     } else if (
-      !blockchain$3.stables.usd.includes(tokenIn) &&
-      (stablesIn = (await Promise.all(blockchain$3.stables.usd.map(async(stable)=>await pathExists$6({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
-      !blockchain$3.stables.usd.includes(tokenOut) &&
-      (stablesOut = (await Promise.all(blockchain$3.stables.usd.map(async(stable)=>await pathExists$6({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
+      !blockchain$1.stables.usd.includes(tokenIn) &&
+      (stablesIn = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$4({ path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
+      !blockchain$1.stables.usd.includes(tokenOut) &&
+      (stablesOut = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$4({ path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
       (stable = stablesIn.filter((stable)=> stablesOut.includes(stable))[0])
     ) {
       // path via TOKEN_IN <> STABLE <> TOKEN_OUT
@@ -16535,74 +16846,58 @@
 
     // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$8([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$3.currency.address) {
-      path.splice(1, 0, blockchain$3.wrapped.address);
-    } else if(_optionalChain$8([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$3.currency.address) {
-      path.splice(path.length-1, 0, blockchain$3.wrapped.address);
+    if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
+      path.splice(1, 0, blockchain$1.wrapped.address);
+    } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
+      path.splice(path.length-1, 0, blockchain$1.wrapped.address);
     }
-    return { path, exchangePath: getExchangePath$5({ path }) }
+    return { path, exchangePath: getExchangePath$3({ path }) }
   };
 
-  let getAmountsOut$1 = async ({ path, amountIn, amountInMax, pairsData }) => {
+  let getAmountsOut = async ({ path, amountIn, amountInMax }) => {
 
-    let pools = [];
     let amounts = [ethers.ethers.BigNumber.from(amountIn || amountInMax)];
 
-    let bestPair = await getBestPair$1({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, pairsDatum: pairsData && pairsData[0] });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
+    amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax })).price));
     
     if (path.length === 3) {
-      let bestPair = await getBestPair$1({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[1] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
+      amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined })).price));
     }
 
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
+    if(amounts.length != path.length) { return }
 
-    return { amounts, pools }
+    return amounts
   };
 
-  let getAmountsIn$1 = async({ path, amountOut, amountOutMin, pairsData }) => {
+  let getAmountsIn = async({ path, amountOut, amountOutMin }) => {
 
     path = path.slice().reverse();
-    let pools = [];
     let amounts = [ethers.ethers.BigNumber.from(amountOut || amountOutMin)];
 
-    let bestPair = await getBestPair$1({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin, pairsDatum: pairsData && (path.length === 2 ? pairsData[0] : pairsData[1]) });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
+    amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin })).price));
     
     if (path.length === 3) {
-      let bestPair = await getBestPair$1({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[0] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
+      amounts.push(ethers.ethers.BigNumber.from((await getBestPair({ tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined })).price));
     }
     
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
+    if(amounts.length != path.length) { return }
 
-    return { amounts: amounts.slice().reverse(), pools: pools.slice().reverse() }
+    return amounts.slice().reverse()
   };
 
-  let getAmounts$6 = async ({
+  let getAmounts$4 = async ({
     path,
     tokenIn,
     tokenOut,
     amountOut,
     amountIn,
     amountInMax,
-    amountOutMin,
-    pairsData
+    amountOutMin
   }) => {
-    path = getExchangePath$5({ path });
+    path = getExchangePath$3({ path });
     let amounts;
-    let pools;
     if (amountOut) {
-  ({ amounts, pools } = await getAmountsIn$1({ path, amountOut, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsIn({ path, amountOut, tokenIn, tokenOut });
       amountIn = amounts ? amounts[0] : undefined;
       if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
         return {}
@@ -16610,7 +16905,7 @@
         amountInMax = amountIn;
       }
     } else if (amountIn) {
-  ({ amounts, pools } = await getAmountsOut$1({ path, amountIn, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsOut({ path, amountIn, tokenIn, tokenOut });
       amountOut = amounts ? amounts[amounts.length-1] : undefined;
       if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
         return {}
@@ -16618,7 +16913,7 @@
         amountOutMin = amountOut;
       }
     } else if(amountOutMin) {
-  ({ amounts, pools } = await getAmountsIn$1({ path, amountOutMin, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsIn({ path, amountOutMin, tokenIn, tokenOut });
       amountIn = amounts ? amounts[0] : undefined;
       if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
         return {}
@@ -16626,7 +16921,7 @@
         amountInMax = amountIn;
       }
     } else if(amountInMax) {
-  ({ amounts, pools } = await getAmountsOut$1({ path, amountInMax, tokenIn, tokenOut, pairsData }));
+      amounts = await getAmountsOut({ path, amountInMax, tokenIn, tokenOut });
       amountOut = amounts ? amounts[amounts.length-1] : undefined;
       if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
         return {}
@@ -16639,16 +16934,15 @@
       amountIn: (amountIn || amountInMax),
       amountInMax: (amountInMax || amountIn),
       amountOutMin: (amountOutMin || amountOut),
-      amounts,
-      pools,
+      amounts
     }
   };
 
-  const blockchain$2 = Blockchains__default['default'].solana;
+  const blockchain = Blockchains__default['default'].solana;
   const SWAP_INSTRUCTION = new solanaWeb3_js.BN("14449647541112719096");
   const TWO_HOP_SWAP_INSTRUCTION = new solanaWeb3_js.BN("16635068063392030915");
 
-  const createTokenAccountIfNotExisting$1 = async ({ instructions, owner, token, account })=>{
+  const createTokenAccountIfNotExisting = async ({ instructions, owner, token, account })=>{
     let outAccountExists;
     try{ outAccountExists = !!(await request({ blockchain: 'solana', address: account.toString() })); } catch (e2) {}
     if(!outAccountExists) {
@@ -16755,7 +17049,7 @@
     sqrtPriceLimitTwo,
   })=> {
     let LAYOUT, data;
-
+    
     LAYOUT = solanaWeb3_js.struct([
       solanaWeb3_js.u64("anchorDiscriminator"),
       solanaWeb3_js.u64("amount"),
@@ -16859,7 +17153,7 @@
     return data
   };
 
-  const getTransaction$6 = async ({
+  const getTransaction$4 = async ({
     path,
     amountIn,
     amountInMax,
@@ -16870,2749 +17164,27 @@
     amountOutInput,
     amountInMaxInput,
     amountOutMinInput,
-    account,
-    pools
+    account
   }) => {
     let transaction = { blockchain: 'solana' };
     let instructions = [];
 
-    const exchangePath = getExchangePath$5({ path });
+    const exchangePath = getExchangePath$3({ path });
     if(exchangePath.length > 3) { throw 'Orca can only handle fixed paths with a max length of 3 (2 pools)!' }
     const tokenIn = exchangePath[0];
     const tokenMiddle = exchangePath.length == 3 ? exchangePath[1] : undefined;
     const tokenOut = exchangePath[exchangePath.length-1];
 
     let pairs;
-    if(pools) {
-      pairs = pools;
-    } else if(exchangePath.length == 2) {
-      pairs = [await getBestPair$1({ tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
+    if(exchangePath.length == 2) {
+      pairs = [await getBestPair({ tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
     } else {
       if(amountInInput || amountInMaxInput) {
-        pairs = [await getBestPair$1({ tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
-        pairs.push(await getBestPair$1({ tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
+        pairs = [await getBestPair({ tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
+        pairs.push(await getBestPair({ tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
       } else { // originally amountOut
-        pairs = [await getBestPair$1({ tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
-        pairs.unshift(await getBestPair$1({ tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
-      }
-    }
-
-    let startsWrapped = (path[0] === blockchain$2.currency.address && exchangePath[0] === blockchain$2.wrapped.address);
-    let endsUnwrapped = (path[path.length-1] === blockchain$2.currency.address && exchangePath[exchangePath.length-1] === blockchain$2.wrapped.address);
-    let wrappedAccount;
-    const provider = await getProvider('solana');
-    
-    if(startsWrapped || endsUnwrapped) {
-      const rent = await provider.getMinimumBalanceForRentExemption(Token.solana.TOKEN_LAYOUT.span);
-      const keypair = solanaWeb3_js.Keypair.generate();
-      wrappedAccount = keypair.publicKey.toString();
-      const lamports = startsWrapped ? new solanaWeb3_js.BN(amountIn.toString()).add(new solanaWeb3_js.BN(rent)) :  new solanaWeb3_js.BN(rent);
-      let createAccountInstruction = solanaWeb3_js.SystemProgram.createAccount({
-        fromPubkey: new solanaWeb3_js.PublicKey(account),
-        newAccountPubkey: new solanaWeb3_js.PublicKey(wrappedAccount),
-        programId: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM),
-        space: Token.solana.TOKEN_LAYOUT.span,
-        lamports
-      });
-      createAccountInstruction.signers = [keypair];
-      instructions.push(createAccountInstruction);
-      instructions.push(
-        Token.solana.initializeAccountInstruction({
-          account: wrappedAccount,
-          token: blockchain$2.wrapped.address,
-          owner: account
-        })
-      );
-    }
-
-    if(pairs.length === 1) {
-      // amount is NOT the precise part of the swap (otherAmountThreshold is)
-      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
-      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
-      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
-      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
-      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
-      if(!endsUnwrapped) {
-        await createTokenAccountIfNotExisting$1({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
-      }
-      let aToB = tokenIn.toLowerCase() == pairs[0].tokenMintA.toString().toLowerCase();
-      instructions.push(
-        new solanaWeb3_js.TransactionInstruction({
-          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
-          keys: await getSwapInstructionKeys({
-            account,
-            pool: pairs[0].pubkey,
-            tokenAccountA: aToB ? tokenAccountIn : tokenAccountOut,
-            tokenVaultA: pairs[0].tokenVaultA,
-            tokenAccountB: aToB ? tokenAccountOut : tokenAccountIn,
-            tokenVaultB: pairs[0].tokenVaultB,
-            tickArrays: pairs[0].tickArrays,
-          }),
-          data: getSwapInstructionData({
-            amount,
-            otherAmountThreshold,
-            sqrtPriceLimit: pairs[0].sqrtPriceLimit,
-            amountSpecifiedIsInput,
-            aToB
-          }),
-        })
-      );
-    } else if (pairs.length === 2) {
-      // amount is NOT the precise part of the swap (otherAmountThreshold is)
-      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
-      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
-      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
-      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
-      let tokenMiddle = exchangePath[1];
-      let tokenAccountMiddle = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
-      await createTokenAccountIfNotExisting$1({ instructions, owner: account, token: tokenMiddle, account: tokenAccountMiddle });
-      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
-      if(!endsUnwrapped) {
-        await createTokenAccountIfNotExisting$1({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
-      }
-      console.log('pairs[0].tokenMintA.toString()', pairs[0].tokenMintA.toString());
-      console.log('tokenIn.toLowerCase()', tokenIn.toLowerCase());
-      let aToBOne = tokenIn.toLowerCase() == pairs[0].tokenMintA.toString().toLowerCase();
-      console.log('aToBOne', aToBOne);
-      console.log('pairs[1].tokenMintB.toString()', pairs[1].tokenMintB.toString());
-      console.log('tokenOut.toLowerCase()', tokenOut.toLowerCase());
-      let aToBTwo = tokenOut.toLowerCase() == pairs[1].tokenMintB.toString().toLowerCase();
-      console.log('aToBTwo', aToBTwo);
-      instructions.push(
-        new solanaWeb3_js.TransactionInstruction({
-          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
-          keys: await getTwoHopSwapInstructionKeys({
-            account,
-            poolOne: pairs[0].pubkey,
-            tickArraysOne: pairs[0].tickArrays,
-            tokenAccountOneA: aToBOne ? tokenAccountIn : tokenAccountMiddle,
-            tokenVaultOneA: pairs[0].tokenVaultA,
-            tokenAccountOneB: aToBOne ? tokenAccountMiddle : tokenAccountIn,
-            tokenVaultOneB: pairs[0].tokenVaultB,
-            poolTwo: pairs[1].pubkey,
-            tickArraysTwo: pairs[1].tickArrays,
-            tokenAccountTwoA: aToBTwo ? tokenAccountMiddle : tokenAccountOut,
-            tokenVaultTwoA: pairs[1].tokenVaultA,
-            tokenAccountTwoB: aToBTwo ? tokenAccountOut : tokenAccountMiddle,
-            tokenVaultTwoB: pairs[1].tokenVaultB,
-          }),
-          data: getTwoHopSwapInstructionData({
-            amount,
-            otherAmountThreshold,
-            amountSpecifiedIsInput,
-            aToBOne,
-            aToBTwo,
-            sqrtPriceLimitOne: pairs[0].sqrtPriceLimit,
-            sqrtPriceLimitTwo: pairs[1].sqrtPriceLimit,
-          }),
-        })
-      );
-    }
-    
-    if(startsWrapped || endsUnwrapped) {
-      instructions.push(
-        Token.solana.closeAccountInstruction({
-          account: wrappedAccount,
-          owner: account
-        })
-      );
-    }
-
-    // await debug(instructions, provider)
-
-    transaction.instructions = instructions;
-    return transaction
-  };
-
-  var Orca = {
-    findPath: findPath$6,
-    pathExists: pathExists$6,
-    getAmounts: getAmounts$6,
-    getTransaction: getTransaction$6,
-    WHIRLPOOL_LAYOUT,
-  };
-
-  const exchange$i = {
-    
-    name: 'orca',
-    label: 'Orca',
-    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
-    protocol: 'orca',
-    
-    slippage: true,
-
-    blockchains: ['solana'],
-
-    solana: {
-      router: {
-        address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
-        api: Orca.WHIRLPOOL_LAYOUT,
-      },
-    }
-  };
-
-  var orca = (scope)=>{
-    
-    return new Exchange(
-
-      Object.assign(exchange$i, {
-        scope,
-
-        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$i }),
-        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$i }),
-        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$i }),
-        getPrep: (args)=>{},
-        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$i }),
-        getPrice,
-        compute,
-        getTickArrays,
-        TickArraySequence,
-        MIN_SQRT_PRICE,
-        MAX_SQRT_PRICE,
-        LAYOUTS: LAYOUTS$1,
-      })
-    )
-  };
-
-  // CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C
-  const CPMM_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.publicKey("configId"),
-    solanaWeb3_js.publicKey("poolCreator"),
-    solanaWeb3_js.publicKey("vaultA"),
-    solanaWeb3_js.publicKey("vaultB"),
-    solanaWeb3_js.publicKey("mintLp"),
-    solanaWeb3_js.publicKey("mintA"),
-    solanaWeb3_js.publicKey("mintB"),
-    solanaWeb3_js.publicKey("mintProgramA"),
-    solanaWeb3_js.publicKey("mintProgramB"),
-    solanaWeb3_js.publicKey("observationId"),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.u8("status"),
-    solanaWeb3_js.u8("lpDecimals"),
-    solanaWeb3_js.u8("mintDecimalA"),
-    solanaWeb3_js.u8("mintDecimalB"),
-    solanaWeb3_js.u64("lpAmount"),
-    solanaWeb3_js.u64("protocolFeesMintA"),
-    solanaWeb3_js.u64("protocolFeesMintB"),
-    solanaWeb3_js.u64("fundFeesMintA"),
-    solanaWeb3_js.u64("fundFeesMintB"),
-    solanaWeb3_js.u64("openTime"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 32),
-  ]);
-
-  const CPMM_CONFIG_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.bool("disableCreatePool"),
-    solanaWeb3_js.u16("index"),
-    solanaWeb3_js.u64("tradeFeeRate"),
-    solanaWeb3_js.u64("protocolFeeRate"),
-    solanaWeb3_js.u64("fundFeeRate"),
-    solanaWeb3_js.u64("createPoolFee"),
-
-    solanaWeb3_js.publicKey("protocolOwner"),
-    solanaWeb3_js.publicKey("fundOwner"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 16),
-  ]);
-
-  // CLMM 
-  const RewardInfo = solanaWeb3_js.struct([
-    solanaWeb3_js.u8("rewardState"),
-    solanaWeb3_js.u64("openTime"),
-    solanaWeb3_js.u64("endTime"),
-    solanaWeb3_js.u64("lastUpdateTime"),
-    solanaWeb3_js.u128("emissionsPerSecondX64"),
-    solanaWeb3_js.u64("rewardTotalEmissioned"),
-    solanaWeb3_js.u64("rewardClaimed"),
-    solanaWeb3_js.publicKey("tokenMint"),
-    solanaWeb3_js.publicKey("tokenVault"),
-    solanaWeb3_js.publicKey("creator"),
-    solanaWeb3_js.u128("rewardGrowthGlobalX64"),
-  ]);
-
-  const CLMM_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.publicKey("ammConfig"),
-    solanaWeb3_js.publicKey("creator"),
-    solanaWeb3_js.publicKey("mintA"),
-    solanaWeb3_js.publicKey("mintB"),
-    solanaWeb3_js.publicKey("vaultA"),
-    solanaWeb3_js.publicKey("vaultB"),
-    solanaWeb3_js.publicKey("observationId"),
-    solanaWeb3_js.u8("mintDecimalsA"),
-    solanaWeb3_js.u8("mintDecimalsB"),
-    solanaWeb3_js.u16("tickSpacing"),
-    solanaWeb3_js.u128("liquidity"),
-    solanaWeb3_js.u128("sqrtPriceX64"),
-    solanaWeb3_js.i32("tickCurrent"),
-    solanaWeb3_js.u32(),
-    solanaWeb3_js.u128("feeGrowthGlobalX64A"),
-    solanaWeb3_js.u128("feeGrowthGlobalX64B"),
-    solanaWeb3_js.u64("protocolFeesTokenA"),
-    solanaWeb3_js.u64("protocolFeesTokenB"),
-    solanaWeb3_js.u128("swapInAmountTokenA"),
-    solanaWeb3_js.u128("swapOutAmountTokenB"),
-    solanaWeb3_js.u128("swapInAmountTokenB"),
-    solanaWeb3_js.u128("swapOutAmountTokenA"),
-    solanaWeb3_js.u8("status"),
-    solanaWeb3_js.seq(solanaWeb3_js.u8(), 7, ""),
-    solanaWeb3_js.seq(RewardInfo, 3, "rewardInfos"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 16, "tickArrayBitmap"),
-    solanaWeb3_js.u64("totalFeesTokenA"),
-    solanaWeb3_js.u64("totalFeesClaimedTokenA"),
-    solanaWeb3_js.u64("totalFeesTokenB"),
-    solanaWeb3_js.u64("totalFeesClaimedTokenB"),
-    solanaWeb3_js.u64("fundFeesTokenA"),
-    solanaWeb3_js.u64("fundFeesTokenB"),
-    solanaWeb3_js.u64("startTime"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 15 * 4 - 3, "padding"),
-  ]);
-
-  const CLMM_CONFIG_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.u8("bump"),
-    solanaWeb3_js.u16("index"),
-    solanaWeb3_js.publicKey(""),
-    solanaWeb3_js.u32("protocolFeeRate"),
-    solanaWeb3_js.u32("tradeFeeRate"),
-    solanaWeb3_js.u16("tickSpacing"),
-    solanaWeb3_js.seq(solanaWeb3_js.u64(), 8, ""),
-  ]);
-
-  const TICK_ARRAY_SIZE$1 = 60;
-
-  const TickLayout = solanaWeb3_js.struct([
-    solanaWeb3_js.i32("tick"),
-    solanaWeb3_js.i128("liquidityNet"),
-    solanaWeb3_js.u128("liquidityGross"),
-    solanaWeb3_js.u128("feeGrowthOutsideX64A"),
-    solanaWeb3_js.u128("feeGrowthOutsideX64B"),
-    solanaWeb3_js.seq(solanaWeb3_js.u128(), 3, "rewardGrowthsOutsideX64"),
-    solanaWeb3_js.seq(solanaWeb3_js.u32(), 13, ""),
-  ]);
-
-  const TICK_ARRAY_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.publicKey("poolId"),
-    solanaWeb3_js.i32("startTickIndex"),
-    solanaWeb3_js.seq(TickLayout, TICK_ARRAY_SIZE$1, "ticks"),
-    solanaWeb3_js.u8("initializedTickCount"),
-    solanaWeb3_js.seq(solanaWeb3_js.u8(), 115, ""),
-  ]);
-
-  const EXTENSION_TICKARRAY_BITMAP_SIZE = 14;
-
-  const TICK_ARRAY_BITMAP_EXTENSION_LAYOUT = solanaWeb3_js.struct([
-    solanaWeb3_js.blob(8),
-    solanaWeb3_js.publicKey("poolId"),
-    solanaWeb3_js.seq(solanaWeb3_js.seq(solanaWeb3_js.u64(), 8), EXTENSION_TICKARRAY_BITMAP_SIZE, "positiveTickArrayBitmap"),
-    solanaWeb3_js.seq(solanaWeb3_js.seq(solanaWeb3_js.u64(), 8), EXTENSION_TICKARRAY_BITMAP_SIZE, "negativeTickArrayBitmap"),
-  ]);
-
-  var LAYOUTS = {
-    CPMM_LAYOUT,
-    CPMM_CONFIG_LAYOUT,
-    CLMM_LAYOUT,
-    CLMM_CONFIG_LAYOUT,
-    TICK_ARRAY_LAYOUT,
-    TICK_ARRAY_BITMAP_EXTENSION_LAYOUT,
-  };
-
-  function BNDivCeil(bn1, bn2) {
-    const { div, mod } = bn1.divmod(bn2);
-
-    if (mod.gt(new solanaWeb3_js.BN(0))) {
-      return div.add(new solanaWeb3_js.BN(1));
-    } else {
-      return div;
-    }
-  }
-
-  function checkedRem(dividend, divisor) {
-    
-    if (divisor.isZero()) throw Error("divisor is zero");
-
-    const result = dividend.mod(divisor);
-    return result;
-  }
-
-  function checkedCeilDiv(dividend, rhs) {
-    if (rhs.isZero()) throw Error("rhs is zero");
-
-    let quotient = dividend.div(rhs);
-
-    if (quotient.isZero()) throw Error("quotient is zero");
-
-    let remainder = checkedRem(dividend, rhs);
-
-    if (remainder.gt(ZERO$1)) {
-      quotient = quotient.add(new solanaWeb3_js.BN(1));
-
-      rhs = dividend.div(quotient);
-      remainder = checkedRem(dividend, quotient);
-      if (remainder.gt(ZERO$1)) {
-        rhs = rhs.add(new solanaWeb3_js.BN(1));
-      }
-    }
-    return [quotient, rhs];
-  }
-
-  const ZERO$1 = new solanaWeb3_js.BN(0);
-
-  class ConstantProductCurve {
-    
-    static swapWithoutFees(sourceAmount, swapSourceAmount, swapDestinationAmount) {
-      const invariant = swapSourceAmount.mul(swapDestinationAmount);
-
-      const newSwapSourceAmount = swapSourceAmount.add(sourceAmount);
-      const [newSwapDestinationAmount, _newSwapSourceAmount] = checkedCeilDiv(invariant, newSwapSourceAmount);
-
-      const sourceAmountSwapped = _newSwapSourceAmount.sub(swapSourceAmount);
-      const destinationAmountSwapped = swapDestinationAmount.sub(newSwapDestinationAmount);
-      if (destinationAmountSwapped.isZero()) throw Error("destinationAmountSwapped is zero");
-
-      return {
-        sourceAmountSwapped,
-        destinationAmountSwapped,
-      };
-    }
-
-    static lpTokensToTradingTokens(
-      lpTokenAmount,
-      lpTokenSupply,
-      swapTokenAmount0,
-      swapTokenAmount1,
-      roundDirection,
-    ) {
-      let tokenAmount0 = lpTokenAmount.mul(swapTokenAmount0).div(lpTokenSupply);
-      let tokenAmount1 = lpTokenAmount.mul(swapTokenAmount1).div(lpTokenSupply);
-
-      if (roundDirection === RoundDirection.Floor) {
-        return { tokenAmount0, tokenAmount1 };
-      } else if (roundDirection === RoundDirection.Ceiling) {
-        const tokenRemainder0 = checkedRem(lpTokenAmount.mul(swapTokenAmount0), lpTokenSupply);
-
-        if (tokenRemainder0.gt(ZERO$1) && tokenAmount0.gt(ZERO$1)) {
-          tokenAmount0 = tokenAmount0.add(new solanaWeb3_js.BN(1));
-        }
-
-        const token1Remainder = checkedRem(lpTokenAmount.mul(swapTokenAmount1), lpTokenSupply);
-
-        if (token1Remainder.gt(ZERO$1) && tokenAmount1.gt(ZERO$1)) {
-          tokenAmount1 = tokenAmount1.add(new solanaWeb3_js.BN(1));
-        }
-
-        return { tokenAmount0, tokenAmount1 };
-      }
-      throw Error("roundDirection value error");
-    }
-  }
-
-  const FEE_RATE_DENOMINATOR_VALUE = new solanaWeb3_js.BN(1000000);
-
-  function ceilDiv(tokenAmount, feeNumerator, feeDenominator) {
-    return tokenAmount.mul(feeNumerator).add(feeDenominator).sub(new solanaWeb3_js.BN(1)).div(feeDenominator);
-  }
-
-  function floorDiv(tokenAmount, feeNumerator, feeDenominator) {
-    return tokenAmount.mul(feeNumerator).div(feeDenominator);
-  }
-
-  class CpmmFee {
-    
-    static tradingFee(amount, tradeFeeRate) {
-      return ceilDiv(amount, tradeFeeRate, FEE_RATE_DENOMINATOR_VALUE);
-    }
-    static protocolFee(amount, protocolFeeRate) {
-      return floorDiv(amount, protocolFeeRate, FEE_RATE_DENOMINATOR_VALUE);
-    }
-    static fundFee(amount, fundFeeRate) {
-      return floorDiv(amount, fundFeeRate, FEE_RATE_DENOMINATOR_VALUE);
-    }
-  }
-
-  class CurveCalculator {
-
-    static validate_supply(tokenAmount0, tokenAmount1) {
-      if (tokenAmount0.isZero()) throw Error("tokenAmount0 is zero");
-      if (tokenAmount1.isZero()) throw Error("tokenAmount1 is zero");
-    }
-
-    static swap(sourceAmount, swapSourceAmount, swapDestinationAmount, tradeFeeRate) {
-      const tradeFee = CpmmFee.tradingFee(sourceAmount, tradeFeeRate);
-
-      const sourceAmountLessFees = sourceAmount.sub(tradeFee);
-
-      const { sourceAmountSwapped, destinationAmountSwapped } = ConstantProductCurve.swapWithoutFees(
-        sourceAmountLessFees,
-        swapSourceAmount,
-        swapDestinationAmount,
-      );
-
-      const _sourceAmountSwapped = sourceAmountSwapped.add(tradeFee);
-      return {
-        newSwapSourceAmount: swapSourceAmount.add(_sourceAmountSwapped),
-        newSwapDestinationAmount: swapDestinationAmount.sub(destinationAmountSwapped),
-        sourceAmountSwapped: _sourceAmountSwapped,
-        destinationAmountSwapped,
-        tradeFee,
-      };
-    }
-
-    static swapBaseOut({
-      poolMintA,
-      poolMintB,
-      tradeFeeRate,
-      baseReserve,
-      quoteReserve,
-      outputMint,
-      outputAmount,
-    }) {
-      const [reserveInAmount, reserveOutAmount, reserveInDecimals, reserveOutDecimals, inputMint] =
-        poolMintB.address === outputMint.toString()
-          ? [baseReserve, quoteReserve, poolMintA.decimals, poolMintB.decimals, poolMintA.address]
-          : [quoteReserve, baseReserve, poolMintB.decimals, poolMintA.decimals, poolMintB.address];
-      const currentPrice = new Decimal$1__default['default'](reserveOutAmount.toString())
-        .div(10 ** reserveOutDecimals)
-        .div(new Decimal$1__default['default'](reserveInAmount.toString()).div(10 ** reserveInDecimals));
-      const amountRealOut = outputAmount.gte(reserveOutAmount) ? reserveOutAmount.sub(new solanaWeb3_js.BN(1)) : outputAmount;
-
-      const denominator = reserveOutAmount.sub(amountRealOut);
-      const amountInWithoutFee = BNDivCeil(reserveInAmount.mul(amountRealOut), denominator);
-      const amountIn = BNDivCeil(amountInWithoutFee.mul(new solanaWeb3_js.BN(1000000)), new solanaWeb3_js.BN(1000000).sub(tradeFeeRate));
-      const fee = amountIn.sub(amountInWithoutFee);
-      const executionPrice = new Decimal$1__default['default'](amountRealOut.toString())
-        .div(10 ** reserveOutDecimals)
-        .div(new Decimal$1__default['default'](amountIn.toString()).div(10 ** reserveInDecimals));
-      const priceImpact = currentPrice.isZero() ? 0 : executionPrice.sub(currentPrice).div(currentPrice).abs().toNumber();
-
-      return {
-        amountRealOut,
-
-        amountIn,
-        amountInWithoutFee,
-
-        tradeFee: fee,
-        priceImpact,
-      };
-    }
-  }
-
-  const getConfig = (address)=>{
-    return request(`solana://${address}/getAccountInfo`, {
-      api: CPMM_CONFIG_LAYOUT,
-      cache: 21600000, // 6 hours in ms
-      cacheKey: ['raydium/cpmm/config/', address.toString()].join('/')
-    })
-  };
-
-  const getPairs$1 = (base, quote)=>{
-    return request(`solana://CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C/getProgramAccounts`, {
-      params: { filters: [
-        { dataSize: CPMM_LAYOUT.span },
-        { memcmp: { offset: 168, bytes: base }},
-        { memcmp: { offset: 200, bytes: quote }},
-      ]},
-      api: CPMM_LAYOUT,
-      cache: 21600000, // 6 hours in ms
-      cacheKey: ['raydium/cpmm/', base.toString(), quote.toString()].join('/')
-    })
-  };
-
-  const getPairsWithPrice$2 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })=>{
-
-    let accounts;
-
-    if(pairsDatum) {
-
-      accounts = await request(`solana://${pairsDatum.id}`, { api: CPMM_LAYOUT, cache: 5000 }).then((data)=>{
-        return [{
-          pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id),
-          data
-        }]
-      });
-
-    } else {
-
-      accounts = await getPairs$1(tokenIn, tokenOut);
-
-      if(accounts.length == 0) {
-        accounts = await getPairs$1(tokenOut, tokenIn);
-      }
-    }
-
-    const pairs = await Promise.all(accounts.map(async(account)=>{
-
-      let config = await getConfig(account.data.configId.toString());
-
-      // BASE == A
-
-      const baseVaultAmountData = await request(`solana://${account.data.vaultA.toString()}/getTokenAccountBalance`, {
-        cache: 5000, // 5 seconds in ms
-        cacheKey: ['raydium', 'cp', 'baseVaultAmount', account.data.vaultA.toString()].join('-')
-      });
-      const baseReserve = ethers.ethers.BigNumber.from(baseVaultAmountData.value.amount).sub(
-        ethers.ethers.BigNumber.from(account.data.protocolFeesMintA.toString())
-      ).sub(
-        ethers.ethers.BigNumber.from(account.data.fundFeesMintA.toString())
-      );
-
-      if( // min liquidity SOL
-        (
-          tokenIn === Blockchains__default['default'].solana.currency.address || 
-          tokenIn === Blockchains__default['default'].solana.wrapped.address
-        ) && ( baseVaultAmountData.value.uiAmount < 50 )
-      ) { return }
-
-      if( // min liquidity stable usd
-        (
-          Blockchains__default['default'].solana.stables.usd.includes(tokenIn)
-        ) && ( baseVaultAmountData.value.uiAmount < 10000 )
-      ) { return }
-
-      // QUOTE == B
-
-      const quoteVaultAmountData = await request(`solana://${account.data.vaultB.toString()}/getTokenAccountBalance`, {
-        cache: 5000, // 5 seconds in ms
-        cacheKey: ['raydium', 'cp', 'quoteVaultAmount', account.data.vaultB.toString()].join('-')
-      });
-      const quoteReserve = ethers.ethers.BigNumber.from(quoteVaultAmountData.value.amount).sub(
-        ethers.ethers.BigNumber.from(account.data.protocolFeesMintB.toString())
-      ).sub(
-        ethers.ethers.BigNumber.from(account.data.fundFeesMintB.toString())
-      );
-
-      if( // min liquidity SOL
-        (
-          tokenIn === Blockchains__default['default'].solana.currency.address || 
-          tokenIn === Blockchains__default['default'].solana.wrapped.address
-        ) && ( quoteVaultAmountData.value.uiAmount < 50 )
-      ) { return }
-
-      if( // min liquidity stable usd
-        (
-          Blockchains__default['default'].solana.stables.usd.includes(tokenIn)
-        ) && ( quoteVaultAmountData.value.uiAmount < 10000 )
-      ) { return }
-
-      let price = 0;
-
-      if(amountIn || amountInMax) { // uses CurveCalculator.swap: Given an input amount, compute how much comes out.
-
-        const isBaseIn = tokenOut.toString() === account.data.mintB.toString();
-
-        const swapResult = CurveCalculator.swap(
-          new solanaWeb3_js.BN((amountIn || amountInMax).toString()),
-          new solanaWeb3_js.BN((isBaseIn ? baseReserve : quoteReserve).toString()),
-          new solanaWeb3_js.BN((isBaseIn ? quoteReserve : baseReserve).toString()),
-          config.tradeFeeRate,
-        );
-
-        price = swapResult.destinationAmountSwapped.toString();
-
-      } else { // uses CurveCalculator.swapBaseOut: Given a desired output amount, compute how much you need to put in (and some extra info like price impact).
-
-        const swapResult = CurveCalculator.swapBaseOut({
-          poolMintA: { decimals: account.data.mintDecimalA, address: account.data.mintA.toString() },
-          poolMintB: { decimals: account.data.mintDecimalB, address: account.data.mintB.toString() },
-          tradeFeeRate: config.tradeFeeRate,
-          baseReserve: new solanaWeb3_js.BN(baseReserve.toString()),
-          quoteReserve: new solanaWeb3_js.BN(quoteReserve.toString()),
-          outputMint: tokenOut,
-          outputAmount: new solanaWeb3_js.BN((amountOut || amountOutMin).toString())
-        });
-
-        price = swapResult.amountIn.toString();
-
-      }
-
-      if(price === 0) { return }
-
-      return {
-        type: 'cpmm',
-        publicKey: account.pubkey.toString(),
-        mintA: account.data.mintA.toString(),
-        mintB: account.data.mintB.toString(),
-        price,
-        data: account.data
-      }
-    }));
-
-    return pairs.filter(Boolean)
-
-  };
-
-  const BIT_PRECISION = 16;
-  const FEE_RATE_DENOMINATOR = new solanaWeb3_js.BN(10).pow(new solanaWeb3_js.BN(6));
-  const LOG_B_2_X32 = "59543866431248";
-  const LOG_B_P_ERR_MARGIN_LOWER_X64 = "184467440737095516";
-  const LOG_B_P_ERR_MARGIN_UPPER_X64 = "15793534762490258745";
-  const MAX_SQRT_PRICE_X64 = new solanaWeb3_js.BN("79226673521066979257578248091");
-  new solanaWeb3_js.BN("79226673521066979257578248090");
-  const MIN_TICK = -443636;
-  const MAX_TICK = -MIN_TICK;
-  const Q64 = new solanaWeb3_js.BN(1).shln(64);
-  const ONE = new solanaWeb3_js.BN(1);
-  const MaxU64 = Q64.sub(ONE);
-  const Q128 = new solanaWeb3_js.BN(1).shln(128);
-  const MaxUint128 = Q128.subn(1);
-  const MIN_SQRT_PRICE_X64 = new solanaWeb3_js.BN("4295048016");
-  new solanaWeb3_js.BN("4295048017");
-  const NEGATIVE_ONE = new solanaWeb3_js.BN(-1);
-  const POOL_TICK_ARRAY_BITMAP_SEED = solanaWeb3_js.Buffer.from("pool_tick_array_bitmap_extension", "utf8");
-  const PROGRAM_ID = 'CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK';
-  const TICK_ARRAY_BITMAP_SIZE = 512;
-  const TICK_ARRAY_SEED = solanaWeb3_js.Buffer.from("tick_array", "utf8");
-  const TICK_ARRAY_SIZE = 60;
-  const U64Resolution = 64;
-  const ZERO = new solanaWeb3_js.BN(0);
-
-  const TOKEN_PROGRAM_ID = new solanaWeb3_js.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-  const TOKEN_2022_PROGRAM_ID = new solanaWeb3_js.PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
-  const MEMO_PROGRAM_ID = new solanaWeb3_js.PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr');
-
-  function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  class LiquidityMath {
-    
-    static addDelta(x, y) {
-      return x.add(y);
-    }
-
-    static getTokenAmountAFromLiquidity(
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      roundUp,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      if (!sqrtPriceX64A.gt(ZERO)) {
-        throw new Error("sqrtPriceX64A must greater than 0");
-      }
-
-      const numerator1 = liquidity.ushln(U64Resolution);
-      const numerator2 = sqrtPriceX64B.sub(sqrtPriceX64A);
-
-      return roundUp
-        ? MathUtil.mulDivRoundingUp(MathUtil.mulDivCeil(numerator1, numerator2, sqrtPriceX64B), ONE, sqrtPriceX64A)
-        : MathUtil.mulDivFloor(numerator1, numerator2, sqrtPriceX64B).div(sqrtPriceX64A);
-    }
-
-    static getTokenAmountBFromLiquidity(
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      roundUp,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-      if (!sqrtPriceX64A.gt(ZERO)) {
-        throw new Error("sqrtPriceX64A must greater than 0");
-      }
-
-      return roundUp
-        ? MathUtil.mulDivCeil(liquidity, sqrtPriceX64B.sub(sqrtPriceX64A), Q64)
-        : MathUtil.mulDivFloor(liquidity, sqrtPriceX64B.sub(sqrtPriceX64A), Q64);
-    }
-
-    static getLiquidityFromTokenAmountA(sqrtPriceX64A, sqrtPriceX64B, amountA, roundUp) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      const numerator = amountA.mul(sqrtPriceX64A).mul(sqrtPriceX64B);
-      const denominator = sqrtPriceX64B.sub(sqrtPriceX64A);
-      const result = numerator.div(denominator);
-
-      if (roundUp) {
-        return MathUtil.mulDivRoundingUp(result, ONE, MaxU64);
-      } else {
-        return result.shrn(U64Resolution);
-      }
-    }
-
-    static getLiquidityFromTokenAmountB(sqrtPriceX64A, sqrtPriceX64B, amountB) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-      return MathUtil.mulDivFloor(amountB, MaxU64, sqrtPriceX64B.sub(sqrtPriceX64A));
-    }
-
-    static getLiquidityFromTokenAmounts(
-      sqrtPriceCurrentX64,
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      amountA,
-      amountB,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      if (sqrtPriceCurrentX64.lte(sqrtPriceX64A)) {
-        return LiquidityMath.getLiquidityFromTokenAmountA(sqrtPriceX64A, sqrtPriceX64B, amountA, false);
-      } else if (sqrtPriceCurrentX64.lt(sqrtPriceX64B)) {
-        const liquidity0 = LiquidityMath.getLiquidityFromTokenAmountA(sqrtPriceCurrentX64, sqrtPriceX64B, amountA, false);
-        const liquidity1 = LiquidityMath.getLiquidityFromTokenAmountB(sqrtPriceX64A, sqrtPriceCurrentX64, amountB);
-        return liquidity0.lt(liquidity1) ? liquidity0 : liquidity1;
-      } else {
-        return LiquidityMath.getLiquidityFromTokenAmountB(sqrtPriceX64A, sqrtPriceX64B, amountB);
-      }
-    }
-
-    static getAmountsFromLiquidity(
-      sqrtPriceCurrentX64,
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      roundUp,
-    ) {
-      if (sqrtPriceX64A.gt(sqrtPriceX64B)) {
-        [sqrtPriceX64A, sqrtPriceX64B] = [sqrtPriceX64B, sqrtPriceX64A];
-      }
-
-      if (sqrtPriceCurrentX64.lte(sqrtPriceX64A)) {
-        return {
-          amountA: LiquidityMath.getTokenAmountAFromLiquidity(sqrtPriceX64A, sqrtPriceX64B, liquidity, roundUp),
-          amountB: new solanaWeb3_js.BN(0),
-        };
-      } else if (sqrtPriceCurrentX64.lt(sqrtPriceX64B)) {
-        const amountA = LiquidityMath.getTokenAmountAFromLiquidity(
-          sqrtPriceCurrentX64,
-          sqrtPriceX64B,
-          liquidity,
-          roundUp,
-        );
-        const amountB = LiquidityMath.getTokenAmountBFromLiquidity(
-          sqrtPriceX64A,
-          sqrtPriceCurrentX64,
-          liquidity,
-          roundUp,
-        );
-        return { amountA, amountB };
-      } else {
-        return {
-          amountA: new solanaWeb3_js.BN(0),
-          amountB: LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64A, sqrtPriceX64B, liquidity, roundUp),
-        };
-      }
-    }
-
-    static getAmountsFromLiquidityWithSlippage(
-      sqrtPriceCurrentX64,
-      sqrtPriceX64A,
-      sqrtPriceX64B,
-      liquidity,
-      amountMax,
-      roundUp,
-      amountSlippage,
-    ) {
-      const { amountA, amountB } = LiquidityMath.getAmountsFromLiquidity(
-        sqrtPriceCurrentX64,
-        sqrtPriceX64A,
-        sqrtPriceX64B,
-        liquidity,
-        roundUp,
-      );
-      const coefficient = amountMax ? 1 + amountSlippage : 1 - amountSlippage;
-
-      const amount0Slippage = new solanaWeb3_js.BN(new Decimal(amountA.toString()).mul(coefficient).toFixed(0));
-      const amount1Slippage = new solanaWeb3_js.BN(new Decimal(amountB.toString()).mul(coefficient).toFixed(0));
-      return {
-        amountSlippageA: amount0Slippage,
-        amountSlippageB: amount1Slippage,
-      };
-    }
-
-    static getAmountsOutFromLiquidity({
-      poolInfo,
-      tickLower,
-      tickUpper,
-      liquidity,
-      slippage,
-      add,
-      epochInfo,
-      amountAddFee,
-    }) {
-      const sqrtPriceX64 = SqrtPriceMath.priceToSqrtPriceX64(
-        new Decimal(poolInfo.price),
-        poolInfo.mintA.decimals,
-        poolInfo.mintB.decimals,
-      );
-      const sqrtPriceX64A = SqrtPriceMath.getSqrtPriceX64FromTick(tickLower);
-      const sqrtPriceX64B = SqrtPriceMath.getSqrtPriceX64FromTick(tickUpper);
-
-      const coefficientRe = add ? 1 + slippage : 1 - slippage;
-
-      const amounts = LiquidityMath.getAmountsFromLiquidity(sqrtPriceX64, sqrtPriceX64A, sqrtPriceX64B, liquidity, add);
-
-      const [amountA, amountB] = [
-        getTransferAmountFeeV2(amounts.amountA, _optionalChain$7([poolInfo, 'access', _ => _.mintA, 'access', _2 => _2.extensions, 'optionalAccess', _3 => _3.feeConfig]), epochInfo, amountAddFee),
-        getTransferAmountFeeV2(amounts.amountB, _optionalChain$7([poolInfo, 'access', _4 => _4.mintB, 'access', _5 => _5.extensions, 'optionalAccess', _6 => _6.feeConfig]), epochInfo, amountAddFee),
-      ];
-      const [amountSlippageA, amountSlippageB] = [
-        getTransferAmountFeeV2(
-          new solanaWeb3_js.BN(new Decimal(amounts.amountA.toString()).mul(coefficientRe).toFixed(0)),
-          _optionalChain$7([poolInfo, 'access', _7 => _7.mintA, 'access', _8 => _8.extensions, 'optionalAccess', _9 => _9.feeConfig]),
-          epochInfo,
-          amountAddFee,
-        ),
-        getTransferAmountFeeV2(
-          new solanaWeb3_js.BN(new Decimal(amounts.amountB.toString()).mul(coefficientRe).toFixed(0)),
-          _optionalChain$7([poolInfo, 'access', _10 => _10.mintB, 'access', _11 => _11.extensions, 'optionalAccess', _12 => _12.feeConfig]),
-          epochInfo,
-          amountAddFee,
-        ),
-      ];
-
-      return {
-        liquidity,
-        amountA,
-        amountB,
-        amountSlippageA,
-        amountSlippageB,
-        expirationTime: minExpirationTime(amountA.expirationTime, amountB.expirationTime),
-      };
-    }
-  }
-
-  class MathUtil {
-
-    static mulDivRoundingUp(a, b, denominator) {
-      const numerator = a.mul(b);
-      let result = numerator.div(denominator);
-      if (!numerator.mod(denominator).eq(ZERO)) {
-        result = result.add(ONE);
-      }
-      return result;
-    }
-
-    static mulDivFloor(a, b, denominator) {
-      if (denominator.eq(ZERO)) {
-        throw new Error("division by 0");
-      }
-      return a.mul(b).div(denominator);
-    }
-
-    static mulDivCeil(a, b, denominator) {
-      if (denominator.eq(ZERO)) {
-        throw new Error("division by 0");
-      }
-      const numerator = a.mul(b).add(denominator.sub(ONE));
-      return numerator.div(denominator);
-    }
-
-    static x64ToDecimal(num, decimalPlaces) {
-      return new Decimal(num.toString()).div(Decimal.pow(2, 64)).toDecimalPlaces(decimalPlaces);
-    }
-
-    static decimalToX64(num) {
-      return new solanaWeb3_js.BN(num.mul(Decimal.pow(2, 64)).floor().toFixed());
-    }
-
-    static wrappingSubU128(n0, n1) {
-      return n0.add(Q128).sub(n1).mod(Q128);
-    }
-  }
-
-  // sqrt price math
-  function mulRightShift(val, mulBy) {
-    return signedRightShift(val.mul(mulBy), 64, 256);
-  }
-
-  function signedLeftShift(n0, shiftBy, bitWidth) {
-    const twosN0 = n0.toTwos(bitWidth).shln(shiftBy);
-    twosN0.imaskn(bitWidth + 1);
-    return twosN0.fromTwos(bitWidth);
-  }
-
-  function signedRightShift(n0, shiftBy, bitWidth) {
-    const twoN0 = n0.toTwos(bitWidth).shrn(shiftBy);
-    twoN0.imaskn(bitWidth - shiftBy + 1);
-    return twoN0.fromTwos(bitWidth - shiftBy);
-  }
-
-  class SqrtPriceMath {
-    
-    static sqrtPriceX64ToPrice(sqrtPriceX64, decimalsA, decimalsB) {
-      return MathUtil.x64ToDecimal(sqrtPriceX64)
-        .pow(2)
-        .mul(Decimal.pow(10, decimalsA - decimalsB));
-    }
-
-    static priceToSqrtPriceX64(price, decimalsA, decimalsB) {
-      return MathUtil.decimalToX64(price.mul(Decimal.pow(10, decimalsB - decimalsA)).sqrt());
-    }
-
-    static getNextSqrtPriceX64FromInput(sqrtPriceX64, liquidity, amountIn, zeroForOne) {
-      
-      if (!sqrtPriceX64.gt(ZERO)) {
-        throw new Error("sqrtPriceX64 must greater than 0");
-      }
-      if (!liquidity.gt(ZERO)) {
-        throw new Error("liquidity must greater than 0");
-      }
-
-      return zeroForOne
-        ? this.getNextSqrtPriceFromTokenAmountARoundingUp(sqrtPriceX64, liquidity, amountIn, true)
-        : this.getNextSqrtPriceFromTokenAmountBRoundingDown(sqrtPriceX64, liquidity, amountIn, true);
-    }
-
-    static getNextSqrtPriceX64FromOutput(sqrtPriceX64, liquidity, amountOut, zeroForOne) {
-
-      if (!sqrtPriceX64.gt(ZERO)) {
-        throw new Error("sqrtPriceX64 must greater than 0");
-      }
-      if (!liquidity.gt(ZERO)) {
-        throw new Error("liquidity must greater than 0");
-      }
-
-      return zeroForOne
-        ? this.getNextSqrtPriceFromTokenAmountBRoundingDown(sqrtPriceX64, liquidity, amountOut, false)
-        : this.getNextSqrtPriceFromTokenAmountARoundingUp(sqrtPriceX64, liquidity, amountOut, false);
-    }
-
-    static getNextSqrtPriceFromTokenAmountARoundingUp(
-      sqrtPriceX64,
-      liquidity,
-      amount,
-      add,
-    ) {
-
-      if (amount.eq(ZERO)) return sqrtPriceX64;
-      const liquidityLeftShift = liquidity.shln(U64Resolution);
-
-      if (add) {
-        const numerator1 = liquidityLeftShift;
-        const denominator = liquidityLeftShift.add(amount.mul(sqrtPriceX64));
-        if (denominator.gte(numerator1)) {
-          return MathUtil.mulDivCeil(numerator1, sqrtPriceX64, denominator);
-        }
-        return MathUtil.mulDivRoundingUp(numerator1, ONE, numerator1.div(sqrtPriceX64).add(amount));
-      } else {
-        const amountMulSqrtPrice = amount.mul(sqrtPriceX64);
-        if (!liquidityLeftShift.gt(amountMulSqrtPrice)) {
-          throw new Error("getNextSqrtPriceFromTokenAmountARoundingUp,liquidityLeftShift must gt amountMulSqrtPrice");
-        }
-        const denominator = liquidityLeftShift.sub(amountMulSqrtPrice);
-        return MathUtil.mulDivCeil(liquidityLeftShift, sqrtPriceX64, denominator);
-      }
-    }
-
-    static getNextSqrtPriceFromTokenAmountBRoundingDown(
-      sqrtPriceX64,
-      liquidity,
-      amount,
-      add,
-    ) {
-      const deltaY = amount.shln(U64Resolution);
-      if (add) {
-        return sqrtPriceX64.add(deltaY.div(liquidity));
-      } else {
-        const amountDivLiquidity = MathUtil.mulDivRoundingUp(deltaY, ONE, liquidity);
-        if (!sqrtPriceX64.gt(amountDivLiquidity)) {
-          throw new Error("getNextSqrtPriceFromTokenAmountBRoundingDown sqrtPriceX64 must gt amountDivLiquidity");
-        }
-        return sqrtPriceX64.sub(amountDivLiquidity);
-      }
-    }
-
-    static getSqrtPriceX64FromTick(tick) {
-      if (!Number.isInteger(tick)) {
-        throw new Error("tick must be integer");
-      }
-      if (tick < MIN_TICK || tick > MAX_TICK) {
-        throw new Error("tick must be in MIN_TICK and MAX_TICK");
-      }
-      const tickAbs = tick < 0 ? tick * -1 : tick;
-
-      let ratio = (tickAbs & 0x1) != 0 ? new solanaWeb3_js.BN("18445821805675395072") : new solanaWeb3_js.BN("18446744073709551616");
-      if ((tickAbs & 0x2) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18444899583751176192"));
-      if ((tickAbs & 0x4) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18443055278223355904"));
-      if ((tickAbs & 0x8) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18439367220385607680"));
-      if ((tickAbs & 0x10) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18431993317065453568"));
-      if ((tickAbs & 0x20) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18417254355718170624"));
-      if ((tickAbs & 0x40) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18387811781193609216"));
-      if ((tickAbs & 0x80) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18329067761203558400"));
-      if ((tickAbs & 0x100) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("18212142134806163456"));
-      if ((tickAbs & 0x200) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("17980523815641700352"));
-      if ((tickAbs & 0x400) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("17526086738831433728"));
-      if ((tickAbs & 0x800) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("16651378430235570176"));
-      if ((tickAbs & 0x1000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("15030750278694412288"));
-      if ((tickAbs & 0x2000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("12247334978884435968"));
-      if ((tickAbs & 0x4000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("8131365268886854656"));
-      if ((tickAbs & 0x8000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("3584323654725218816"));
-      if ((tickAbs & 0x10000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("696457651848324352"));
-      if ((tickAbs & 0x20000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("26294789957507116"));
-      if ((tickAbs & 0x40000) != 0) ratio = mulRightShift(ratio, new solanaWeb3_js.BN("37481735321082"));
-
-      if (tick > 0) ratio = MaxUint128.div(ratio);
-      return ratio;
-    }
-
-    static getTickFromPrice(price, decimalsA, decimalsB) {
-      return SqrtPriceMath.getTickFromSqrtPriceX64(SqrtPriceMath.priceToSqrtPriceX64(price, decimalsA, decimalsB));
-    }
-
-    static getTickFromSqrtPriceX64(sqrtPriceX64) {
-      if (sqrtPriceX64.gt(MAX_SQRT_PRICE_X64) || sqrtPriceX64.lt(MIN_SQRT_PRICE_X64)) {
-        throw new Error("Provided sqrtPrice is not within the supported sqrtPrice range.");
-      }
-
-      const msb = sqrtPriceX64.bitLength() - 1;
-      const adjustedMsb = new solanaWeb3_js.BN(msb - 64);
-      const log2pIntegerX32 = signedLeftShift(adjustedMsb, 32, 128);
-
-      let bit = new solanaWeb3_js.BN("8000000000000000", "hex");
-      let precision = 0;
-      let log2pFractionX64 = new solanaWeb3_js.BN(0);
-
-      let r = msb >= 64 ? sqrtPriceX64.shrn(msb - 63) : sqrtPriceX64.shln(63 - msb);
-
-      while (bit.gt(new solanaWeb3_js.BN(0)) && precision < BIT_PRECISION) {
-        r = r.mul(r);
-        const rMoreThanTwo = r.shrn(127);
-        r = r.shrn(63 + rMoreThanTwo.toNumber());
-        log2pFractionX64 = log2pFractionX64.add(bit.mul(rMoreThanTwo));
-        bit = bit.shrn(1);
-        precision += 1;
-      }
-
-      const log2pFractionX32 = log2pFractionX64.shrn(32);
-
-      const log2pX32 = log2pIntegerX32.add(log2pFractionX32);
-      const logbpX64 = log2pX32.mul(new solanaWeb3_js.BN(LOG_B_2_X32));
-
-      const tickLow = signedRightShift(logbpX64.sub(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_LOWER_X64)), 64, 128).toNumber();
-      const tickHigh = signedRightShift(logbpX64.add(new solanaWeb3_js.BN(LOG_B_P_ERR_MARGIN_UPPER_X64)), 64, 128).toNumber();
-
-      if (tickLow == tickHigh) {
-        return tickLow;
-      } else {
-        const derivedTickHighSqrtPriceX64 = SqrtPriceMath.getSqrtPriceX64FromTick(tickHigh);
-        return derivedTickHighSqrtPriceX64.lte(sqrtPriceX64) ? tickHigh : tickLow;
-      }
-    }
-  }
-
-  function _optionalChain$6$1(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  const nextInitializedTickArray = (tickIndex, tickSpacing, zeroForOne, tickArrayBitmap, exBitmapInfo) => {
-    const currentOffset = Math.floor(tickIndex / tickCount(tickSpacing));
-    const result = zeroForOne
-      ? searchLowBitFromStart(tickArrayBitmap, exBitmapInfo, currentOffset - 1, 1, tickSpacing)
-      : searchHightBitFromStart(tickArrayBitmap, exBitmapInfo, currentOffset + 1, 1, tickSpacing);
-
-    return result.length > 0 ? { isExist: true, nextStartIndex: result[0] } : { isExist: false, nextStartIndex: 0 };
-  };
-
-  class SwapMath {
-    
-    static swapCompute(
-      programId,
-      poolId,
-      tickArrayCache,
-      tickArrayBitmap,
-      tickarrayBitmapExtension,
-      zeroForOne,
-      fee,
-      liquidity,
-      currentTick,
-      tickSpacing,
-      currentSqrtPriceX64,
-      amountSpecified,
-      lastSavedTickArrayStartIndex,
-      sqrtPriceLimitX64,
-      catchLiquidityInsufficient
-    ) {
-      if (amountSpecified.eq(ZERO)) {
-        throw new Error("amountSpecified must not be 0");
-      }
-      if (!sqrtPriceLimitX64) {
-        sqrtPriceLimitX64 = zeroForOne ? MIN_SQRT_PRICE_X64.add(ONE) : MAX_SQRT_PRICE_X64.sub(ONE);
-      }
-
-      if (zeroForOne) {
-        if (sqrtPriceLimitX64.lt(MIN_SQRT_PRICE_X64)) {
-          throw new Error("sqrtPriceX64 must greater than MIN_SQRT_PRICE_X64");
-        }
-
-        if (sqrtPriceLimitX64.gte(currentSqrtPriceX64)) {
-          throw new Error("sqrtPriceX64 must smaller than current");
-        }
-      } else {
-        if (sqrtPriceLimitX64.gt(MAX_SQRT_PRICE_X64)) {
-          throw new Error("sqrtPriceX64 must smaller than MAX_SQRT_PRICE_X64");
-        }
-
-        if (sqrtPriceLimitX64.lte(currentSqrtPriceX64)) {
-          throw new Error("sqrtPriceX64 must greater than current");
-        }
-      }
-      const baseInput = amountSpecified.gt(ZERO);
-
-      const state = {
-        amountSpecifiedRemaining: amountSpecified,
-        amountCalculated: ZERO,
-        sqrtPriceX64: currentSqrtPriceX64,
-        tick:
-          currentTick > lastSavedTickArrayStartIndex
-            ? Math.min(lastSavedTickArrayStartIndex + tickCount(tickSpacing) - 1, currentTick)
-            : lastSavedTickArrayStartIndex,
-        accounts: [],
-        liquidity,
-        feeAmount: new solanaWeb3_js.BN(0),
-      };
-      let tickAarrayStartIndex = lastSavedTickArrayStartIndex;
-      let tickArrayCurrent = tickArrayCache[lastSavedTickArrayStartIndex];
-      let loopCount = 0;
-      let t = !zeroForOne && tickArrayCurrent.startTickIndex === state.tick;
-      while (
-        !state.amountSpecifiedRemaining.eq(ZERO) &&
-        !state.sqrtPriceX64.eq(sqrtPriceLimitX64)
-      ) {
-        if (loopCount > 1000) {
-          throw Error('liquidity limit')
-        }
-        const step = {};
-        step.sqrtPriceStartX64 = state.sqrtPriceX64;
-
-        const tickState = nextInitTick(tickArrayCurrent, state.tick, tickSpacing, zeroForOne, t);
-
-        let _nextInitTick = tickState ? tickState : null;
-        let tickArrayAddress = null;
-
-        if (!_optionalChain$6$1([_nextInitTick, 'optionalAccess', _ => _.liquidityGross, 'access', _2 => _2.gtn, 'call', _3 => _3(0)])) {
-          const nextInitTickArrayIndex = nextInitializedTickArrayStartIndex(
-            {
-              tickCurrent: state.tick,
-              tickSpacing,
-              tickArrayBitmap,
-              exBitmapInfo: tickarrayBitmapExtension,
-            },
-            tickAarrayStartIndex,
-            zeroForOne,
-          );
-          if (!nextInitTickArrayIndex.isExist) {
-            if (catchLiquidityInsufficient) {
-              return {
-                allTrade: false,
-                amountSpecifiedRemaining: state.amountSpecifiedRemaining,
-                amountCalculated: state.amountCalculated,
-                feeAmount: state.feeAmount,
-                sqrtPriceX64: state.sqrtPriceX64,
-                liquidity: state.liquidity,
-                tickCurrent: state.tick,
-                accounts: state.accounts,
-              };
-            }
-            throw Error("swapCompute LiquidityInsufficient");
-          }
-          tickAarrayStartIndex = nextInitTickArrayIndex.nextStartIndex;
-
-          const expectedNextTickArrayAddress = getPdaTickArrayAddress(
-            programId,
-            poolId,
-            tickAarrayStartIndex,
-          );
-          tickArrayAddress = expectedNextTickArrayAddress;
-          tickArrayCurrent = tickArrayCache[tickAarrayStartIndex];
-
-          try {
-            _nextInitTick = firstInitializedTick(tickArrayCurrent, zeroForOne);
-          } catch (e) {
-            throw Error("not found next tick info");
-          }
-        }
-
-        step.tickNext = _nextInitTick.tick;
-        step.initialized = _nextInitTick.liquidityGross.gtn(0);
-        if (lastSavedTickArrayStartIndex !== tickAarrayStartIndex && tickArrayAddress) {
-          state.accounts.push(tickArrayAddress);
-          lastSavedTickArrayStartIndex = tickAarrayStartIndex;
-        }
-        if (step.tickNext < MIN_TICK) {
-          step.tickNext = MIN_TICK;
-        } else if (step.tickNext > MAX_TICK) {
-          step.tickNext = MAX_TICK;
-        }
-
-        step.sqrtPriceNextX64 = SqrtPriceMath.getSqrtPriceX64FromTick(step.tickNext);
-        let targetPrice;
-        if (
-          (zeroForOne && step.sqrtPriceNextX64.lt(sqrtPriceLimitX64)) ||
-          (!zeroForOne && step.sqrtPriceNextX64.gt(sqrtPriceLimitX64))
-        ) {
-          targetPrice = sqrtPriceLimitX64;
-        } else {
-          targetPrice = step.sqrtPriceNextX64;
-        }
-        [state.sqrtPriceX64, step.amountIn, step.amountOut, step.feeAmount] = SwapMath.swapStepCompute(
-          state.sqrtPriceX64,
-          targetPrice,
-          state.liquidity,
-          state.amountSpecifiedRemaining,
-          fee,
-        );
-
-        state.feeAmount = state.feeAmount.add(step.feeAmount);
-
-        if (baseInput) {
-          state.amountSpecifiedRemaining = state.amountSpecifiedRemaining.sub(step.amountIn.add(step.feeAmount));
-          state.amountCalculated = state.amountCalculated.sub(step.amountOut);
-        } else {
-          state.amountSpecifiedRemaining = state.amountSpecifiedRemaining.add(step.amountOut);
-          state.amountCalculated = state.amountCalculated.add(step.amountIn.add(step.feeAmount));
-        }
-        if (state.sqrtPriceX64.eq(step.sqrtPriceNextX64)) {
-          if (step.initialized) {
-            let liquidityNet = _nextInitTick.liquidityNet;
-            if (zeroForOne) liquidityNet = liquidityNet.mul(NEGATIVE_ONE);
-            state.liquidity = LiquidityMath.addDelta(state.liquidity, liquidityNet);
-          }
-
-          t = step.tickNext != state.tick && !zeroForOne && tickArrayCurrent.startTickIndex === step.tickNext;
-          state.tick = zeroForOne ? step.tickNext - 1 : step.tickNext; //
-        } else if (state.sqrtPriceX64 != step.sqrtPriceStartX64) {
-          const _T = SqrtPriceMath.getTickFromSqrtPriceX64(state.sqrtPriceX64);
-          t = _T != state.tick && !zeroForOne && tickArrayCurrent.startTickIndex === _T;
-          state.tick = _T;
-        }
-        ++loopCount;
-      }
-
-      try {
-        const { nextStartIndex: tickAarrayStartIndex, isExist } = nextInitializedTickArray(
-          state.tick,
-          tickSpacing,
-          zeroForOne,
-          tickArrayBitmap,
-          tickarrayBitmapExtension,
-        );
-        if (isExist && lastSavedTickArrayStartIndex !== tickAarrayStartIndex) {
-          state.accounts.push(getPdaTickArrayAddress(programId, poolId, tickAarrayStartIndex));
-          lastSavedTickArrayStartIndex = tickAarrayStartIndex;
-        }
-      } catch (e) {
-        console.log('ERROR!!!!', e);
-        /* empty */
-      }
-
-      return {
-        allTrade: true,
-        amountSpecifiedRemaining: ZERO,
-        amountCalculated: state.amountCalculated,
-        feeAmount: state.feeAmount,
-        sqrtPriceX64: state.sqrtPriceX64,
-        liquidity: state.liquidity,
-        tickCurrent: state.tick,
-        accounts: state.accounts,
-      };
-    }
-
-    static swapStepCompute(
-      sqrtPriceX64Current,
-      sqrtPriceX64Target,
-      liquidity,
-      amountRemaining,
-      feeRate,
-    ) {
-      const swapStep = {
-        sqrtPriceX64Next: new solanaWeb3_js.BN(0),
-        amountIn: new solanaWeb3_js.BN(0),
-        amountOut: new solanaWeb3_js.BN(0),
-        feeAmount: new solanaWeb3_js.BN(0),
-      };
-
-      const zeroForOne = sqrtPriceX64Current.gte(sqrtPriceX64Target);
-      const baseInput = amountRemaining.gte(ZERO);
-
-      if (baseInput) {
-        const amountRemainingSubtractFee = MathUtil.mulDivFloor(
-          amountRemaining,
-          FEE_RATE_DENOMINATOR.sub(new solanaWeb3_js.BN(feeRate.toString())),
-          FEE_RATE_DENOMINATOR,
-        );
-        swapStep.amountIn = zeroForOne
-          ? LiquidityMath.getTokenAmountAFromLiquidity(sqrtPriceX64Target, sqrtPriceX64Current, liquidity, true)
-          : LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64Current, sqrtPriceX64Target, liquidity, true);
-        if (amountRemainingSubtractFee.gte(swapStep.amountIn)) {
-          swapStep.sqrtPriceX64Next = sqrtPriceX64Target;
-        } else {
-          swapStep.sqrtPriceX64Next = SqrtPriceMath.getNextSqrtPriceX64FromInput(
-            sqrtPriceX64Current,
-            liquidity,
-            amountRemainingSubtractFee,
-            zeroForOne,
-          );
-        }
-      } else {
-        swapStep.amountOut = zeroForOne
-          ? LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64Target, sqrtPriceX64Current, liquidity, false)
-          : LiquidityMath.getTokenAmountAFromLiquidity(sqrtPriceX64Current, sqrtPriceX64Target, liquidity, false);
-        if (amountRemaining.mul(NEGATIVE_ONE).gte(swapStep.amountOut)) {
-          swapStep.sqrtPriceX64Next = sqrtPriceX64Target;
-        } else {
-          swapStep.sqrtPriceX64Next = SqrtPriceMath.getNextSqrtPriceX64FromOutput(
-            sqrtPriceX64Current,
-            liquidity,
-            amountRemaining.mul(NEGATIVE_ONE),
-            zeroForOne,
-          );
-        }
-      }
-
-      const reachTargetPrice = sqrtPriceX64Target.eq(swapStep.sqrtPriceX64Next);
-
-      if (zeroForOne) {
-        if (!(reachTargetPrice && baseInput)) {
-          swapStep.amountIn = LiquidityMath.getTokenAmountAFromLiquidity(
-            swapStep.sqrtPriceX64Next,
-            sqrtPriceX64Current,
-            liquidity,
-            true,
-          );
-        }
-
-        if (!(reachTargetPrice && !baseInput)) {
-          swapStep.amountOut = LiquidityMath.getTokenAmountBFromLiquidity(
-            swapStep.sqrtPriceX64Next,
-            sqrtPriceX64Current,
-            liquidity,
-            false,
-          );
-        }
-      } else {
-        swapStep.amountIn =
-          reachTargetPrice && baseInput
-            ? swapStep.amountIn
-            : LiquidityMath.getTokenAmountBFromLiquidity(sqrtPriceX64Current, swapStep.sqrtPriceX64Next, liquidity, true);
-        swapStep.amountOut =
-          reachTargetPrice && !baseInput
-            ? swapStep.amountOut
-            : LiquidityMath.getTokenAmountAFromLiquidity(
-              sqrtPriceX64Current,
-              swapStep.sqrtPriceX64Next,
-              liquidity,
-              false,
-            );
-      }
-
-      if (!baseInput && swapStep.amountOut.gt(amountRemaining.mul(NEGATIVE_ONE))) {
-        swapStep.amountOut = amountRemaining.mul(NEGATIVE_ONE);
-      }
-      if (baseInput && !swapStep.sqrtPriceX64Next.eq(sqrtPriceX64Target)) {
-        swapStep.feeAmount = amountRemaining.sub(swapStep.amountIn);
-      } else {
-        swapStep.feeAmount = MathUtil.mulDivCeil(
-          swapStep.amountIn,
-          new solanaWeb3_js.BN(feeRate),
-          FEE_RATE_DENOMINATOR.sub(new solanaWeb3_js.BN(feeRate)),
-        );
-      }
-      return [swapStep.sqrtPriceX64Next, swapStep.amountIn, swapStep.amountOut, swapStep.feeAmount];
-    }
-  }
-
-
-  const getPairs = (base, quote)=>{
-    return request(`solana://${PROGRAM_ID}/getProgramAccounts`, {
-      params: { filters: [
-        { dataSize: CLMM_LAYOUT.span },
-        { memcmp: { offset: 73, bytes: base }},
-        { memcmp: { offset: 105, bytes: quote }},
-        { memcmp: { offset: 389, bytes: solanaWeb3_js.bs58.encode(solanaWeb3_js.Buffer.from([0])) }}, // status 0 for active pool: https://github.com/raydium-io/raydium-clmm/blob/master/programs/amm/src/states/pool.rs#L109
-      ]},
-      api: CLMM_LAYOUT,
-      cache: 21600000, // 6 hours in ms
-      cacheKey: ['raydium/clmm/', base.toString(), quote.toString()].join('/')
-    })
-  };
-
-  const firstInitializedTick = (tickArrayCurrent, zeroForOne) => {
-    if (zeroForOne) {
-      let i = TICK_ARRAY_SIZE - 1;
-      while (i >= 0) {
-        if (tickArrayCurrent.ticks[i].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[i];
-        }
-        i = i - 1;
-      }
-    } else {
-      let i = 0;
-      while (i < TICK_ARRAY_SIZE) {
-        if (tickArrayCurrent.ticks[i].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[i];
-        }
-        i = i + 1;
-      }
-    }
-
-    throw Error(`firstInitializedTick check error: ${tickArrayCurrent} - ${zeroForOne}`);
-  };
-
-  const nextInitTick = ( tickArrayCurrent, currentTickIndex, tickSpacing, zeroForOne, t) => {
-    const currentTickArrayStartIndex = getArrayStartIndex(currentTickIndex, tickSpacing);
-    if (currentTickArrayStartIndex != tickArrayCurrent.startTickIndex) {
-      return null;
-    }
-    let offsetInArray = Math.floor((currentTickIndex - tickArrayCurrent.startTickIndex) / tickSpacing);
-
-    if (zeroForOne) {
-      while (offsetInArray >= 0) {
-        if (tickArrayCurrent.ticks[offsetInArray].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[offsetInArray];
-        }
-        offsetInArray = offsetInArray - 1;
-      }
-    } else {
-      if (!t) offsetInArray = offsetInArray + 1;
-      while (offsetInArray < TICK_ARRAY_SIZE) {
-        if (tickArrayCurrent.ticks[offsetInArray].liquidityGross.gtn(0)) {
-          return tickArrayCurrent.ticks[offsetInArray];
-        }
-        offsetInArray = offsetInArray + 1;
-      }
-    }
-    return null;
-  };
-
-  const maxTickInTickarrayBitmap = (tickSpacing) => {
-    return tickSpacing * TICK_ARRAY_SIZE * TICK_ARRAY_BITMAP_SIZE
-  };
-
-  const tickCount = (tickSpacing) => {
-    return TICK_ARRAY_SIZE * tickSpacing
-  };
-
-  const getArrayStartIndex = (tickIndex, tickSpacing) => {
-    const ticksInArray = tickCount(tickSpacing);
-    const start = Math.floor(tickIndex / ticksInArray);
-    return start * ticksInArray
-  };
-
-  const tickRange = (tickSpacing) =>{
-    let maxTickBoundary = maxTickInTickarrayBitmap(tickSpacing);
-    let minTickBoundary = -maxTickBoundary;
-
-    if (maxTickBoundary > MAX_TICK) {
-      maxTickBoundary = getArrayStartIndex(MAX_TICK, tickSpacing) + tickCount(tickSpacing);
-    }
-    if (minTickBoundary < MIN_TICK) {
-      minTickBoundary = getArrayStartIndex(MIN_TICK, tickSpacing);
-    }
-    return { maxTickBoundary, minTickBoundary }
-  };
-
-  const getInitializedTickArrayInRange = (tickArrayBitmap, exTickArrayBitmap, tickSpacing, tickArrayStartIndex, expectedCount) => {
-    const tickArrayOffset = Math.floor(tickArrayStartIndex / (tickSpacing * TICK_ARRAY_SIZE));
-    return [
-      // find right of currenct offset
-      ...searchLowBitFromStart(
-        tickArrayBitmap,
-        exTickArrayBitmap,
-        tickArrayOffset - 1,
-        expectedCount,
-        tickSpacing,
-      ),
-
-      // find left of current offset
-      ...searchHightBitFromStart(
-        tickArrayBitmap,
-        exTickArrayBitmap,
-        tickArrayOffset,
-        expectedCount,
-        tickSpacing,
-      ),
-    ];
-  };
-
-  const getTickArrayBitIndex = (tickIndex, tickSpacing) => {
-    const ticksInArray = tickCount(tickSpacing);
-
-    let startIndex = tickIndex / ticksInArray;
-    if (tickIndex < 0 && tickIndex % ticksInArray != 0) {
-      startIndex = Math.ceil(startIndex) - 1;
-    } else {
-      startIndex = Math.floor(startIndex);
-    }
-    return startIndex
-  };
-
-  const getTickArrayStartIndexByTick = (tickIndex, tickSpacing) => {
-    return getTickArrayBitIndex(tickIndex, tickSpacing) * tickCount(tickSpacing)
-  };
-
-  const isOverflowDefaultTickarrayBitmap = (tickSpacing, tickarrayStartIndexs)=> {
-    const { maxTickBoundary, minTickBoundary } = tickRange(tickSpacing);
-
-    for (const tickIndex of tickarrayStartIndexs) {
-      const tickarrayStartIndex = getTickArrayStartIndexByTick(tickIndex, tickSpacing);
-
-      if (tickarrayStartIndex >= maxTickBoundary || tickarrayStartIndex < minTickBoundary) {
-        return true
-      }
-    }
-
-    return false
-  };
-
-  const checkIsOutOfBoundary = (tick) => {
-    return tick < MIN_TICK || tick > MAX_TICK
-  };
-
-  const checkIsValidStartIndex = (tickIndex, tickSpacing) => {
-    if (checkIsOutOfBoundary(tickIndex)) {
-      if (tickIndex > MAX_TICK) {
-        return false;
-      }
-      const minStartIndex = getTickArrayStartIndexByTick(MIN_TICK, tickSpacing);
-      return tickIndex == minStartIndex;
-    }
-    return tickIndex % tickCount(tickSpacing) == 0;
-  };
-
-  const extensionTickBoundary = (tickSpacing) => {
-    const positiveTickBoundary = maxTickInTickarrayBitmap(tickSpacing);
-
-    const negativeTickBoundary = -positiveTickBoundary;
-
-    if (MAX_TICK <= positiveTickBoundary)
-      throw Error(`extensionTickBoundary check error: ${MAX_TICK}, ${positiveTickBoundary}`);
-    if (negativeTickBoundary <= MIN_TICK)
-      throw Error(`extensionTickBoundary check error: ${negativeTickBoundary}, ${MIN_TICK}`);
-
-    return { positiveTickBoundary, negativeTickBoundary };
-  };
-
-  const checkExtensionBoundary = (tickIndex, tickSpacing) => {
-    const { positiveTickBoundary, negativeTickBoundary } = extensionTickBoundary(tickSpacing);
-
-    if (tickIndex >= negativeTickBoundary && tickIndex < positiveTickBoundary) {
-      throw Error("checkExtensionBoundary -> InvalidTickArrayBoundary");
-    }
-  };
-
-  const getBitmapOffset = (tickIndex, tickSpacing) => {
-    if (!checkIsValidStartIndex(tickIndex, tickSpacing)) {
-      throw new Error("No enough initialized tickArray");
-    }
-    checkExtensionBoundary(tickIndex, tickSpacing);
-
-    const ticksInOneBitmap = maxTickInTickarrayBitmap(tickSpacing);
-    let offset = Math.floor(Math.abs(tickIndex) / ticksInOneBitmap) - 1;
-
-    if (tickIndex < 0 && Math.abs(tickIndex) % ticksInOneBitmap === 0) offset--;
-    return offset;
-  };
-
-  const getBitmap = (tickIndex, tickSpacing, tickArrayBitmapExtension) => {
-    const offset = getBitmapOffset(tickIndex, tickSpacing);
-    if (tickIndex < 0) {
-      return { offset, tickarrayBitmap: tickArrayBitmapExtension.negativeTickArrayBitmap[offset] }
-    } else {
-      return { offset, tickarrayBitmap: tickArrayBitmapExtension.positiveTickArrayBitmap[offset] }
-    }
-  };
-
-  const tickArrayOffsetInBitmap = (tickArrayStartIndex, tickSpacing) => {
-    const m = Math.abs(tickArrayStartIndex) % maxTickInTickarrayBitmap(tickSpacing);
-    let tickArrayOffsetInBitmap = Math.floor(m / tickCount(tickSpacing));
-    if (tickArrayStartIndex < 0 && m != 0) {
-      tickArrayOffsetInBitmap = TICK_ARRAY_BITMAP_SIZE - tickArrayOffsetInBitmap;
-    }
-    return tickArrayOffsetInBitmap;
-  };
-
-  const mergeTickArrayBitmap = (bns) => {
-    let b = new solanaWeb3_js.BN(0);
-    for (let i = 0; i < bns.length; i++) {
-      b = b.add(bns[i].shln(64 * i));
-    }
-    return b;
-  };
-
-  const checkTickArrayIsInit = (tickArrayStartIndex, tickSpacing, tickArrayBitmapExtension) => {
-    const { tickarrayBitmap } = getBitmap(tickArrayStartIndex, tickSpacing, tickArrayBitmapExtension);
-
-    const _tickArrayOffsetInBitmap = tickArrayOffsetInBitmap(tickArrayStartIndex, tickSpacing);
-
-    return {
-      isInitialized: mergeTickArrayBitmap(tickarrayBitmap).testn(_tickArrayOffsetInBitmap),
-      startIndex: tickArrayStartIndex,
-    };
-  };
-
-  const checkTickArrayIsInitialized = (bitmap, tick, tickSpacing) => {
-    const multiplier = tickSpacing * TICK_ARRAY_SIZE;
-    const compressed = Math.floor(tick / multiplier) + 512;
-    const bitPos = Math.abs(compressed);
-    return {
-      isInitialized: bitmap.testn(bitPos),
-      startIndex: (bitPos - 512) * multiplier,
-    };
-  };
-
-  const i32ToBytes = (num) => {
-    const arr = new ArrayBuffer(4);
-    const view = new DataView(arr);
-    view.setInt32(0, num, false);
-    return new Uint8Array(arr)
-  };
-
-  const getPdaTickArrayAddress = (programId, poolId, startIndex) => {
-    const [publicKey, nonce] = solanaWeb3_js.PublicKey.findProgramAddressSync([TICK_ARRAY_SEED, solanaWeb3_js.Buffer.from(poolId.toBuffer()), i32ToBytes(startIndex)], programId);
-    return publicKey
-  };
-
-  const isZero = (bitNum, data) => {
-    for (let i = 0; i < bitNum; i++) {
-      if (data.testn(i)) return false;
-    }
-    return true;
-  };
-
-  const leadingZeros = (bitNum, data) => {
-    let i = 0;
-    for (let j = bitNum - 1; j >= 0; j--) {
-      if (!data.testn(j)) {
-        i++;
-      } else {
-        break;
-      }
-    }
-    return i;
-  };
-
-  const trailingZeros = (bitNum, data) => {
-    let i = 0;
-    for (let j = 0; j < bitNum; j++) {
-      if (!data.testn(j)) {
-        i++;
-      } else {
-        break;
-      }
-    }
-    return i;
-  };
-
-  const mostSignificantBit = (bitNum, data) => {
-    if (isZero(bitNum, data)) return null;
-    else return leadingZeros(bitNum, data);
-  };
-
-  const leastSignificantBit = (bitNum, data) => {
-    if (isZero(bitNum, data)) return null;
-    else return trailingZeros(bitNum, data);
-  };
-
-  const nextInitializedTickArrayBitmapStartIndex = (bitMap, lastTickArrayStartIndex, tickSpacing, zeroForOne) => {
-    if (!checkIsValidStartIndex(lastTickArrayStartIndex, tickSpacing))
-      throw Error("nextInitializedTickArrayStartIndex check error");
-
-    const tickBoundary = maxTickInTickarrayBitmap(tickSpacing);
-    const nextTickArrayStartIndex = zeroForOne
-      ? lastTickArrayStartIndex - tickCount(tickSpacing)
-      : lastTickArrayStartIndex + tickCount(tickSpacing);
-
-    if (nextTickArrayStartIndex < -tickBoundary || nextTickArrayStartIndex >= tickBoundary) {
-      return { isInit: false, tickIndex: lastTickArrayStartIndex };
-    }
-
-    const multiplier = tickSpacing * TICK_ARRAY_SIZE;
-    let compressed = nextTickArrayStartIndex / multiplier + 512;
-
-    if (nextTickArrayStartIndex < 0 && nextTickArrayStartIndex % multiplier != 0) {
-      compressed--;
-    }
-
-    const bitPos = Math.abs(compressed);
-
-    if (zeroForOne) {
-      const offsetBitMap = bitMap.shln(1024 - bitPos - 1);
-      const nextBit = mostSignificantBit(1024, offsetBitMap);
-      if (nextBit !== null) {
-        const nextArrayStartIndex = (bitPos - nextBit - 512) * multiplier;
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        return { isInit: false, tickIndex: -tickBoundary };
-      }
-    } else {
-      const offsetBitMap = bitMap.shrn(bitPos);
-      const nextBit = leastSignificantBit(1024, offsetBitMap);
-      if (nextBit !== null) {
-        const nextArrayStartIndex = (bitPos + nextBit - 512) * multiplier;
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        return { isInit: false, tickIndex: tickBoundary - tickCount(tickSpacing) };
-      }
-    }
-  };
-
-  const getBitmapTickBoundary =(tickarrayStartIndex, tickSpacing) => {
-    const ticksInOneBitmap = maxTickInTickarrayBitmap(tickSpacing);
-    let m = Math.floor(Math.abs(tickarrayStartIndex) / ticksInOneBitmap);
-    if (tickarrayStartIndex < 0 && Math.abs(tickarrayStartIndex) % ticksInOneBitmap != 0) m += 1;
-
-    const minValue = ticksInOneBitmap * m;
-
-    return tickarrayStartIndex < 0
-      ? { minValue: -minValue, maxValue: -minValue + ticksInOneBitmap }
-      : { minValue, maxValue: minValue + ticksInOneBitmap };
-  };
-
-  const nextInitializedTickArrayInBitmap = (tickarrayBitmap, nextTickArrayStartIndex, tickSpacing, zeroForOne) => {
-    const { minValue: bitmapMinTickBoundary, maxValue: bitmapMaxTickBoundary } = getBitmapTickBoundary(
-      nextTickArrayStartIndex,
-      tickSpacing,
-    );
-
-    const _tickArrayOffsetInBitmap = tickArrayOffsetInBitmap(nextTickArrayStartIndex, tickSpacing);
-    if (zeroForOne) {
-      // tick from upper to lower
-      // find from highter bits to lower bits
-      const offsetBitMap = mergeTickArrayBitmap(tickarrayBitmap).shln(
-        TICK_ARRAY_BITMAP_SIZE - 1 - _tickArrayOffsetInBitmap,
-      );
-
-      const nextBit = isZero(512, offsetBitMap) ? null : leadingZeros(512, offsetBitMap);
-
-      if (nextBit !== null) {
-        const nextArrayStartIndex = nextTickArrayStartIndex - nextBit * tickCount(tickSpacing);
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        // not found til to the end
-        return { isInit: false, tickIndex: bitmapMinTickBoundary };
-      }
-    } else {
-      // tick from lower to upper
-      // find from lower bits to highter bits
-      const offsetBitMap = mergeTickArrayBitmap(tickarrayBitmap).shrn(_tickArrayOffsetInBitmap);
-
-      const nextBit = isZero(512, offsetBitMap) ? null : trailingZeros(512, offsetBitMap);
-
-      if (nextBit !== null) {
-        const nextArrayStartIndex = nextTickArrayStartIndex + nextBit * tickCount(tickSpacing);
-        return { isInit: true, tickIndex: nextArrayStartIndex };
-      } else {
-        // not found til to the end
-        return { isInit: false, tickIndex: bitmapMaxTickBoundary - tickCount(tickSpacing) };
-      }
-    }
-  };
-
-  const nextInitializedTickArrayFromOneBitmap = (lastTickArrayStartIndex, tickSpacing, zeroForOne, tickArrayBitmapExtension) => {
-    const multiplier = tickCount(tickSpacing);
-    const nextTickArrayStartIndex = zeroForOne
-      ? lastTickArrayStartIndex - multiplier
-      : lastTickArrayStartIndex + multiplier;
-    const { tickarrayBitmap } = getBitmap(nextTickArrayStartIndex, tickSpacing, tickArrayBitmapExtension);
-
-    return nextInitializedTickArrayInBitmap(tickarrayBitmap, nextTickArrayStartIndex, tickSpacing, zeroForOne);
-  };
-
-  const nextInitializedTickArrayStartIndex = (poolInfo, lastTickArrayStartIndex, zeroForOne) => {
-    lastTickArrayStartIndex = getArrayStartIndex(poolInfo.tickCurrent, poolInfo.tickSpacing);
-
-    while (true) {
-      const { isInit: startIsInit, tickIndex: startIndex } = nextInitializedTickArrayBitmapStartIndex(
-        mergeTickArrayBitmap(poolInfo.tickArrayBitmap),
-        lastTickArrayStartIndex,
-        poolInfo.tickSpacing,
-        zeroForOne,
-      );
-      if (startIsInit) {
-        return { isExist: true, nextStartIndex: startIndex };
-      }
-      lastTickArrayStartIndex = startIndex;
-
-      const { isInit, tickIndex } = nextInitializedTickArrayFromOneBitmap(
-        lastTickArrayStartIndex,
-        poolInfo.tickSpacing,
-        zeroForOne,
-        poolInfo.exBitmapInfo,
-      );
-      if (isInit) return { isExist: true, nextStartIndex: tickIndex };
-
-      lastTickArrayStartIndex = tickIndex;
-
-      if (lastTickArrayStartIndex < MIN_TICK || lastTickArrayStartIndex > MAX_TICK)
-        return { isExist: false, nextStartIndex: 0 };
-    }
-  };
-
-  const getFirstInitializedTickArray = async(
-    poolInfo,
-    zeroForOne,
-  )=> {
-    const { isInitialized, startIndex } = isOverflowDefaultTickarrayBitmap(poolInfo.tickSpacing, [
-      poolInfo.tickCurrent,
-    ])
-      ? checkTickArrayIsInit(
-          getArrayStartIndex(poolInfo.tickCurrent, poolInfo.tickSpacing),
-          poolInfo.tickSpacing,
-          poolInfo.exBitmapInfo,
-        )
-      : checkTickArrayIsInitialized(
-          mergeTickArrayBitmap(poolInfo.tickArrayBitmap),
-          poolInfo.tickCurrent,
-          poolInfo.tickSpacing,
-        );
-
-    if (isInitialized) {
-      const address = getPdaTickArrayAddress(poolInfo.programId, poolInfo.id, startIndex);
-      return {
-        isExist: true,
-        startIndex,
-        nextAccountMeta: address,
-      };
-    }
-    const { isExist, nextStartIndex } = nextInitializedTickArrayStartIndex(
-      poolInfo,
-      getArrayStartIndex(poolInfo.tickCurrent, poolInfo.tickSpacing),
-      zeroForOne,
-    );
-    if (isExist) {
-      const address = getPdaTickArrayAddress(poolInfo.programId, poolInfo.id, nextStartIndex);
-      return {
-        isExist: true,
-        startIndex: nextStartIndex,
-        nextAccountMeta: address,
-      };
-    }
-    return { isExist: false, nextAccountMeta: undefined, startIndex: undefined };
-  };
-
-  const getPdaExBitmapAddress = async(programId, poolId) => {
-    const [publicKey, nonce] = await solanaWeb3_js.PublicKey.findProgramAddress([POOL_TICK_ARRAY_BITMAP_SEED, solanaWeb3_js.Buffer.from(poolId.toBuffer())], programId);
-    return publicKey.toString()
-  };
-
-  const searchLowBitFromStart = (tickArrayBitmap, exTickArrayBitmap, currentTickArrayBitStartIndex, expectedCount, tickSpacing) => {
-    const tickArrayBitmaps = [
-      ...[...exTickArrayBitmap.negativeTickArrayBitmap].reverse(),
-      tickArrayBitmap.slice(0, 8),
-      tickArrayBitmap.slice(8, 16),
-      ...exTickArrayBitmap.positiveTickArrayBitmap,
-    ].map((i) => mergeTickArrayBitmap(i));
-    const result = [];
-    while (currentTickArrayBitStartIndex >= -7680) {
-      const arrayIndex = Math.floor((currentTickArrayBitStartIndex + 7680) / 512);
-      const searchIndex = (currentTickArrayBitStartIndex + 7680) % 512;
-
-      if (tickArrayBitmaps[arrayIndex].testn(searchIndex)) result.push(currentTickArrayBitStartIndex);
-
-      currentTickArrayBitStartIndex--;
-      if (result.length === expectedCount) break;
-    }
-
-    const _tickCount = tickCount(tickSpacing);
-    return result.map((i) => i * _tickCount);
-  };
-
-  const searchHightBitFromStart = (tickArrayBitmap, exTickArrayBitmap, currentTickArrayBitStartIndex, expectedCount, tickSpacing) => {
-    const tickArrayBitmaps = [
-      ...[...exTickArrayBitmap.negativeTickArrayBitmap].reverse(),
-      tickArrayBitmap.slice(0, 8),
-      tickArrayBitmap.slice(8, 16),
-      ...exTickArrayBitmap.positiveTickArrayBitmap,
-    ].map((i) => mergeTickArrayBitmap(i));
-    const result = [];
-    while (currentTickArrayBitStartIndex < 7680) {
-      const arrayIndex = Math.floor((currentTickArrayBitStartIndex + 7680) / 512);
-      const searchIndex = (currentTickArrayBitStartIndex + 7680) % 512;
-
-      if (tickArrayBitmaps[arrayIndex].testn(searchIndex)) result.push(currentTickArrayBitStartIndex);
-
-      currentTickArrayBitStartIndex++;
-      if (result.length === expectedCount) break;
-    }
-
-    const _tickCount = tickCount(tickSpacing);
-    return result.map((i) => i * _tickCount);
-  };
-
-  const fetchPoolTickArrays = async(poolKeys) =>{
-    
-    // const tickArrays: { pubkey: PublicKey }[] = [];
-    const tickArrays = [];
-
-    for (const itemPoolInfo of poolKeys) {
-      const currentTickArrayStartIndex = getTickArrayStartIndexByTick(
-        itemPoolInfo.tickCurrent,
-        itemPoolInfo.tickSpacing,
-      );
-      const startIndexArray = getInitializedTickArrayInRange(
-        itemPoolInfo.tickArrayBitmap,
-        itemPoolInfo.exBitmapInfo,
-        itemPoolInfo.tickSpacing,
-        currentTickArrayStartIndex,
-        25,
-      );
-      for (const itemIndex of startIndexArray) {
-        const tickArrayAddress = getPdaTickArrayAddress(
-          itemPoolInfo.programId,
-          itemPoolInfo.id,
-          itemIndex,
-        );
-        tickArrays.push({ pubkey: tickArrayAddress });
-      }
-    }
-
-    const tickArrayCache = {};
-    
-    await Promise.all(tickArrays.map(
-      async(tickArray) => {
-        const tickData = await request(`solana://${tickArray.pubkey.toString()}`, {
-          api: TICK_ARRAY_LAYOUT,
-          cache: 5000, // 5 seconds in ms
-          cacheKey: ['raydium', 'cl', 'tickarray', tickArray.pubkey.toString()].join('-')
-        });
-        if (tickArrayCache[tickData.poolId.toString()] === undefined) tickArrayCache[tickData.poolId.toString()] = {};
-
-        tickArrayCache[tickData.poolId.toString()][tickData.startTickIndex] = {
-          ...tickData,
-          address: tickArray.pubkey,
-        };
-      }
-    ));
-
-    return tickArrayCache
-  };
-
-  const preInitializedTickArrayStartIndex = (poolInfo, zeroForOne) => {
-    const currentOffset = Math.floor(poolInfo.tickCurrent / tickCount(poolInfo.tickSpacing));
-
-    const result = !zeroForOne
-      ? searchLowBitFromStart(
-          poolInfo.tickArrayBitmap,
-          poolInfo.exBitmapInfo,
-          currentOffset - 1,
-          1,
-          poolInfo.tickSpacing,
-        )
-      : searchHightBitFromStart(
-          poolInfo.tickArrayBitmap,
-          poolInfo.exBitmapInfo,
-          currentOffset + 1,
-          1,
-          poolInfo.tickSpacing,
-        );
-
-    return result.length > 0 ? { isExist: true, nextStartIndex: result[0] } : { isExist: false, nextStartIndex: 0 };
-  };
-
-  const getPairsWithPrice$1 = async({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })=>{
-
-    let accounts;
-    const exBitData = {};
-
-    if(pairsDatum) {
-
-      let exBitDataForAddress;
-
-      [accounts, exBitDataForAddress] = await Promise.all([
-        await request(`solana://${pairsDatum.id}`, { api: CLMM_LAYOUT, cache: 5000 }).then((data)=>{
-          return [{
-            pubkey: new solanaWeb3_js.PublicKey(pairsDatum.id),
-            data
-          }]
-        }),
-        await request(`solana://${pairsDatum.exBitmapAddress}`, { api: TICK_ARRAY_BITMAP_EXTENSION_LAYOUT, cache: 5000 }),
-      ]);
-
-      exBitData[pairsDatum.exBitmapAddress] = exBitDataForAddress;
-
-    } else {
-      accounts = await getPairs(tokenIn, tokenOut);
-
-      if(accounts.length == 0) {
-        accounts = await getPairs(tokenOut, tokenIn);
-      }
-
-      accounts = accounts.filter((account)=>account.data.liquidity.gte(new solanaWeb3_js.BN('1000')));
-      
-      let addresses = await Promise.all(accounts.map(
-        (account) => getPdaExBitmapAddress(new solanaWeb3_js.PublicKey(PROGRAM_ID), account.pubkey)
-      ));
-
-      await Promise.all(addresses.map(
-        async(address) => {
-          exBitData[address] = await request(`solana://${address}`, {
-            api: TICK_ARRAY_BITMAP_EXTENSION_LAYOUT,
-            cache: 5000, // 5 seconds in ms
-          });
-        }
-      ));
-    }
-
-    const poolInfos = await Promise.all(accounts.map(async(account)=>{
-      const ammConfig = await request(`solana://${account.data.ammConfig.toString()}`, {
-        api: CLMM_CONFIG_LAYOUT,
-        cache: 5000
-      });
-      return {
-        ...account.data,
-        ammConfig: {...ammConfig, pubkey: account.data.ammConfig},
-        id: account.pubkey,
-        programId: new solanaWeb3_js.PublicKey(PROGRAM_ID),
-        exBitmapInfo: exBitData[await getPdaExBitmapAddress(new solanaWeb3_js.PublicKey(PROGRAM_ID), account.pubkey)],
-      }
-    }));
-
-    const tickArrayCache = await fetchPoolTickArrays(poolInfos);
-
-    const pairs = await Promise.all(poolInfos.map(async(poolInfo)=>{
-
-      try {
-
-        let price = 0;
-
-        let _return;
-
-        let allNeededAccounts = [];
-
-        if(amountIn || amountInMax) { // compute amountOut
-
-          const zeroForOne = tokenIn.toString() === poolInfo.mintA.toString();
-          
-          const {
-            isExist,
-            startIndex: firstTickArrayStartIndex,
-            nextAccountMeta,
-          } = await getFirstInitializedTickArray(poolInfo, zeroForOne);
-          if (!isExist || firstTickArrayStartIndex === undefined || !nextAccountMeta) throw new Error("Invalid tick array")
-
-          const inputAmount = new solanaWeb3_js.BN((amountIn || amountInMax).toString());
-
-          const {
-            amountCalculated: outputAmount,
-            accounts: remainingAccounts,
-            sqrtPriceX64: executionPrice,
-            feeAmount,
-          } = SwapMath.swapCompute(
-            poolInfo.programId,
-            poolInfo.id,
-            tickArrayCache[poolInfo.id],
-            poolInfo.tickArrayBitmap,
-            poolInfo.exBitmapInfo,
-            zeroForOne,
-            poolInfo.ammConfig.tradeFeeRate,
-            poolInfo.liquidity,
-            poolInfo.tickCurrent,
-            poolInfo.tickSpacing,
-            poolInfo.sqrtPriceX64,
-            inputAmount,
-            firstTickArrayStartIndex,
-            undefined,
-          );
-
-          _return = {
-            type: 'clmm',
-            price: outputAmount.abs().toString(),
-            data: { ...poolInfo },
-          };
-
-        } else { // compute amountIn
-
-          const zeroForOne = tokenOut.toString() === poolInfo.mintA.toString();
-          
-          const {
-            isExist,
-            startIndex: firstTickArrayStartIndex,
-            nextAccountMeta,
-          } = await getFirstInitializedTickArray(poolInfo, zeroForOne);
-          if (!isExist || firstTickArrayStartIndex === undefined || !nextAccountMeta) throw new Error("Invalid tick array")
-
-          try {
-            const preTick = preInitializedTickArrayStartIndex(poolInfo, zeroForOne);
-            if (preTick.isExist) {
-              const address = getPdaTickArrayAddress(poolInfo.programId, poolInfo.id, preTick.nextStartIndex);
-              allNeededAccounts.push(new solanaWeb3_js.PublicKey(address));
-            }
-          } catch (e) {
-            console.log('ERROR', e);
-            /* empty */
-          }
-
-          allNeededAccounts.push(nextAccountMeta);
-          
-          const outputAmount = new solanaWeb3_js.BN((amountOut || amountOutMin).toString());
-
-          const {
-            amountCalculated: inputAmount,
-            accounts: remainingAccounts,
-          } = SwapMath.swapCompute(
-            poolInfo.programId,
-            poolInfo.id,
-            tickArrayCache[poolInfo.id],
-            poolInfo.tickArrayBitmap,
-            poolInfo.exBitmapInfo,
-            zeroForOne,
-            poolInfo.ammConfig.tradeFeeRate,
-            poolInfo.liquidity,
-            poolInfo.tickCurrent,
-            poolInfo.tickSpacing,
-            poolInfo.sqrtPriceX64,
-            outputAmount,
-            firstTickArrayStartIndex,
-            undefined,
-          );
-          allNeededAccounts.push(...remainingAccounts);
-          _return = {
-            type: 'clmm',
-            price: inputAmount.abs().toString(),
-            data: { ...poolInfo, allNeededAccounts },
-          };
-        }
-
-        if(!_return || _return.price === 0) { return }
-
-        return _return
-      
-      } catch (e) { console.log(e); }
-    
-    }));
-
-    return pairs.filter(Boolean)
-
-  };
-
-  function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  const getPairsWithPrice = async({ exchange, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })=>{
-    try {
-      if(_optionalChain$5([exchange, 'optionalAccess', _ => _.name]) == 'raydium_cp') {
-        return getPairsWithPrice$2({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })
-      } else if (_optionalChain$5([exchange, 'optionalAccess', _2 => _2.name]) == 'raydium_cl') {
-        return getPairsWithPrice$1({ tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum })
-      } else {
-        return []
-      }
-    } catch(e) {
-      console.log('ERROR', e);
-      return []
-    }
-  };
-
-  let getHighestPrice = (pairs)=>{
-    return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).gt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
-  };
-
-  let getLowestPrice = (pairs)=>{
-    return pairs.reduce((bestPricePair, currentPair)=> ethers.ethers.BigNumber.from(currentPair.price).lt(ethers.ethers.BigNumber.from(bestPricePair.price)) ? currentPair : bestPricePair)
-  };
-
-  let getBestPair = async({ exchange, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum }) => {
-    const pairs = await getPairsWithPrice({ exchange, tokenIn, tokenOut, amountIn, amountInMax, amountOut, amountOutMin, pairsDatum });
-
-    if(!pairs || pairs.length === 0) { return }
-
-    let bestPair;
-
-    if(amountIn || amountInMax) {
-      bestPair = getHighestPrice(pairs);
-    } else { // amount out
-      bestPair = getLowestPrice(pairs);
-    }
-
-    return bestPair
-  };
-
-  function _optionalChain$4(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-  const blockchain$1 = Blockchains__default['default'].solana;
-
-  // Replaces 11111111111111111111111111111111 with the wrapped token and implies wrapping.
-  //
-  // We keep 11111111111111111111111111111111 internally
-  // to be able to differentiate between SOL<>Token and WSOL<>Token swaps
-  // as they are not the same!
-  //
-  let getExchangePath$4 = ({ path }) => {
-    if(!path) { return }
-    let exchangePath = path.map((token, index) => {
-      if (
-        token === blockchain$1.currency.address && path[index+1] != blockchain$1.wrapped.address &&
-        path[index-1] != blockchain$1.wrapped.address
-      ) {
-        return blockchain$1.wrapped.address
-      } else {
-        return token
-      }
-    });
-
-    if(exchangePath[0] == blockchain$1.currency.address && exchangePath[1] == blockchain$1.wrapped.address) {
-      exchangePath.splice(0, 1);
-    } else if(exchangePath[exchangePath.length-1] == blockchain$1.currency.address && exchangePath[exchangePath.length-2] == blockchain$1.wrapped.address) {
-      exchangePath.splice(exchangePath.length-1, 1);
-    }
-
-    return exchangePath
-  };
-
-  let pathExists$5 = async ({ exchange, path, amountIn, amountInMax, amountOut, amountOutMin }) => {
-    if(path.length == 1) { return false }
-    path = getExchangePath$4({ path });
-    let pairs = (await getPairsWithPrice({ exchange, tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, amountOut, amountOutMin }));
-    if(pairs.length > 0) {
-      return true
-    } else {
-      return false
-    }
-  };
-
-  let findPath$5 = async ({ exchange, tokenIn, tokenOut, amountIn, amountOut, amountInMax, amountOutMin, pairsData }) => {
-    
-    if(pairsData) {
-      let path;
-      if(pairsData.length == 1) {
-        path = [tokenIn, tokenOut];
-      } else if(pairsData.length == 2) {
-        const tokenMiddle = [pairsData[0].mintA, pairsData[0].mintB].includes(pairsData[1].mintA) ? pairsData[1].mintA : pairsData[1].mintB;
-        path = [tokenIn, tokenMiddle, tokenOut];
-      }
-      if(path) {
-        return { path , exchangePath: getExchangePath$4({ path }) }
-      }
-    }
-
-    if(
-      [tokenIn, tokenOut].includes(blockchain$1.currency.address) &&
-      [tokenIn, tokenOut].includes(blockchain$1.wrapped.address)
-    ) { return { path: undefined, exchangePath: undefined } }
-
-    let path, stablesIn, stablesOut, stable;
-
-    if (await pathExists$5({ exchange, path: [tokenIn, tokenOut], amountIn, amountInMax, amountOut, amountOutMin })) {
-      // direct path
-      path = [tokenIn, tokenOut];
-    } else if (
-      tokenIn != blockchain$1.wrapped.address &&
-      tokenIn != blockchain$1.currency.address &&
-      await pathExists$5({ exchange, path: [tokenIn, blockchain$1.wrapped.address], amountIn, amountInMax, amountOut, amountOutMin }) &&
-      tokenOut != blockchain$1.wrapped.address &&
-      tokenOut != blockchain$1.currency.address &&
-      await pathExists$5({ exchange, path: [tokenOut, blockchain$1.wrapped.address], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })
-    ) {
-      // path via blockchain.wrapped.address
-      path = [tokenIn, blockchain$1.wrapped.address, tokenOut];
-    } else if (
-      !blockchain$1.stables.usd.includes(tokenIn) &&
-      (stablesIn = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$5({ exchange, path: [tokenIn, stable], amountIn, amountInMax, amountOut, amountOutMin }) ? stable : undefined))).filter(Boolean)) &&
-      !blockchain$1.stables.usd.includes(tokenOut) &&
-      (stablesOut = (await Promise.all(blockchain$1.stables.usd.map(async(stable)=>await pathExists$5({ exchange, path: [tokenOut, stable], amountIn: (amountOut||amountOutMin), amountInMax: (amountOut||amountOutMin), amountOut: (amountIn||amountInMax), amountOutMin: (amountIn||amountInMax) })  ? stable : undefined))).filter(Boolean)) &&
-      (stable = stablesIn.filter((stable)=> stablesOut.includes(stable))[0])
-    ) {
-      // path via TOKEN_IN <> STABLE <> TOKEN_OUT
-      path = [tokenIn, stable, tokenOut];
-    }
-
-    // Add blockchain.wrapped.address to route path if things start or end with blockchain.currency.address
-    // because that actually reflects how things are routed in reality:
-    if(_optionalChain$4([path, 'optionalAccess', _ => _.length]) && path[0] == blockchain$1.currency.address) {
-      path.splice(1, 0, blockchain$1.wrapped.address);
-    } else if(_optionalChain$4([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == blockchain$1.currency.address) {
-      path.splice(path.length-1, 0, blockchain$1.wrapped.address);
-    }
-    return { path, exchangePath: getExchangePath$4({ path }) }
-  };
-
-  let getAmountsOut = async ({ exchange, path, amountIn, amountInMax, pairsData }) => {
-
-    let pools = [];
-    let amounts = [ethers.ethers.BigNumber.from(amountIn || amountInMax)];
-
-    let bestPair = await getBestPair({ exchange, tokenIn: path[0], tokenOut: path[1], amountIn, amountInMax, pairsDatum: pairsData && pairsData[0] });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
-    
-    if (path.length === 3) {
-      let bestPair = await getBestPair({ exchange, tokenIn: path[1], tokenOut: path[2], amountIn: amountIn ? amounts[1] : undefined, amountInMax: amountInMax ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[1] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
-    }
-
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
-
-    return { amounts, pools }
-  };
-
-  let getAmountsIn = async({ exchange, path, amountOut, amountOutMin, pairsData }) => {
-
-    path = path.slice().reverse();
-    let pools = [];
-    let amounts = [ethers.ethers.BigNumber.from(amountOut || amountOutMin)];
-
-    let bestPair = await getBestPair({ exchange, tokenIn: path[1], tokenOut: path[0], amountOut, amountOutMin, pairsDatum: pairsData && (path.length === 2 ? pairsData[0] : pairsData[1]) });
-    if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-    amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-    pools.push(bestPair);
-    
-    if (path.length === 3) {
-      let bestPair = await getBestPair({ exchange, tokenIn: path[2], tokenOut: path[1], amountOut: amountOut ? amounts[1] : undefined, amountOutMin: amountOutMin ? amounts[1] : undefined, pairsDatum: pairsData && pairsData[0] });
-      if(!bestPair){ return({ amounts: undefined, pools: undefined }) }
-      amounts.push(ethers.ethers.BigNumber.from(bestPair.price));
-      pools.push(bestPair);
-    }
-    
-    if(amounts.length != path.length) { return({ amounts: undefined, pools: undefined }) }
-
-    return { amounts: amounts.slice().reverse(), pools: pools.slice().reverse() }
-  };
-
-  let getAmounts$5 = async ({
-    path,
-    tokenIn,
-    tokenOut,
-    amountOut,
-    amountIn,
-    amountInMax,
-    amountOutMin,
-    exchange,
-    pairsData
-  }) => {
-    path = getExchangePath$4({ path });
-    let amounts;
-    let pools;
-    if (amountOut) {
-  ({ amounts, pools } = await getAmountsIn({ exchange, path, amountOut, tokenIn, tokenOut, pairsData }));
-      amountIn = amounts ? amounts[0] : undefined;
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if (amountIn) {
-  ({ amounts, pools } = await getAmountsOut({ exchange, path, amountIn, tokenIn, tokenOut, pairsData }));
-      amountOut = amounts ? amounts[amounts.length-1] : undefined;
-      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    } else if(amountOutMin) {
-  ({ amounts, pools } = await getAmountsIn({ exchange, path, amountOutMin, tokenIn, tokenOut, pairsData }));
-      amountIn = amounts ? amounts[0] : undefined;
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if(amountInMax) {
-  ({ amounts, pools } = await getAmountsOut({ exchange, path, amountInMax, tokenIn, tokenOut, pairsData }));
-      amountOut = amounts ? amounts[amounts.length-1] : undefined;
-      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    }
-    return {
-      amountOut: (amountOut || amountOutMin),
-      amountIn: (amountIn || amountInMax),
-      amountInMax: (amountInMax || amountIn),
-      amountOutMin: (amountOutMin || amountOut),
-      amounts,
-      pools,
-    }
-  };
-
-  const blockchain = Blockchains__default['default'].solana;
-
-  const CP_PROGRAM_ID = new solanaWeb3_js.PublicKey('CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C');
-  const CL_PROGRAM_ID = new solanaWeb3_js.PublicKey('CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK');
-
-  const swapBaseInputInstruction = [143, 190, 90, 218, 196, 30, 51, 222];
-  const swapBaseOutputInstruction = [55, 217, 98, 86, 163, 74, 180, 173];
-
-  const anchorDataBuf = {
-    swap: [43, 4, 237, 11, 26, 201, 30, 98], // [248, 198, 158, 145, 225, 117, 135, 200],
-  };
-
-  const createTokenAccountIfNotExisting = async ({ instructions, owner, token, account })=>{
-    let outAccountExists;
-    try{ outAccountExists = !!(await request({ blockchain: 'solana', address: account.toString() })); } catch (e2) {}
-    if(!outAccountExists) {
-      instructions.push(
-        await Token.solana.createAssociatedTokenAccountInstruction({
-          token,
-          owner,
-          payer: owner,
-        })
-      );
-    }
-  };
-
-  const getPdaPoolAuthority = async(programId)=> {
-    let [publicKey, nonce] = await solanaWeb3_js.PublicKey.findProgramAddress(
-      [solanaWeb3_js.Buffer.from("vault_and_lp_mint_auth_seed", "utf8")],
-      programId
-    );
-    return publicKey
-  };
-
-  const getPdaObservationId = async(programId, poolId)=> {
-    let [publicKey, nonce] = await solanaWeb3_js.PublicKey.findProgramAddress(
-      [
-        solanaWeb3_js.Buffer.from("observation", "utf8"),
-        solanaWeb3_js.Buffer.from(poolId.toBuffer())
-      ],
-      programId
-    );
-    return publicKey
-  };
-
-  const getCPMMInstruction = async({
-    account,
-    tokenIn,
-    tokenOut,
-    tokenAccountIn,
-    tokenAccountOut,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amountInInput,
-    amountInMaxInput,
-    amountOutInput,
-    amountOutMinInput,
-    pool
-  })=>{
-    const inputMint = tokenIn == pool.mintA ? pool.data.mintA : pool.data.mintB;
-    const outputMint = tokenIn == pool.mintA ? pool.data.mintB : pool.data.mintA;
-    const inputVault = tokenIn == pool.mintA ? pool.data.vaultA : pool.data.vaultB;
-    const outputVault = tokenIn == pool.mintA ? pool.data.vaultB : pool.data.vaultA;
-    const poolId = new solanaWeb3_js.PublicKey(pool.publicKey);
-
-    if(amountInInput || amountOutMinInput) { // fixed amountIn, variable amountOut (amountOutMin)
-
-      const dataLayout = solanaWeb3_js.struct([solanaWeb3_js.u64("amountIn"), solanaWeb3_js.u64("amounOutMin")]);
-
-        const keys = [
-          // 0 payer
-          { pubkey: new solanaWeb3_js.PublicKey(account), isSigner: true, isWritable: false },
-          // 1 authority
-          { pubkey: await getPdaPoolAuthority(CP_PROGRAM_ID), isSigner: false, isWritable: false },
-          // 2 configId
-          { pubkey: pool.data.configId, isSigner: false, isWritable: false },
-          // 3 poolId
-          { pubkey: poolId, isSigner: false, isWritable: true },
-          // 4 userInputAccount
-          { pubkey: tokenAccountIn, isSigner: false, isWritable: true },
-          // 5 userOutputAccount
-          { pubkey: tokenAccountOut, isSigner: false, isWritable: true },
-          // 6 inputVault
-          { pubkey: inputVault, isSigner: false, isWritable: true },
-          // 7 outputVault
-          { pubkey: outputVault, isSigner: false, isWritable: true },
-          // 8 inputTokenProgram
-          { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-          // 9 outputTokenProgram
-          { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-          // 10 inputMint
-          { pubkey: inputMint, isSigner: false, isWritable: false },
-          // 11 outputMint
-          { pubkey: outputMint, isSigner: false, isWritable: false },
-          // 12 observationId
-          { pubkey: await getPdaObservationId(CP_PROGRAM_ID, poolId), isSigner: false, isWritable: true },
-        ];
-
-        const data = solanaWeb3_js.Buffer.alloc(dataLayout.span);
-        dataLayout.encode({ 
-          amountIn: new solanaWeb3_js.BN((amountIn || amountInMax).toString()),
-          amounOutMin: new solanaWeb3_js.BN((amountOut || amountOutMin).toString())
-        }, data);
-
-        return new solanaWeb3_js.TransactionInstruction({
-          programId: CP_PROGRAM_ID,
-          keys,
-          data: solanaWeb3_js.Buffer.from([...swapBaseInputInstruction, ...data]),
-        })
-
-    } else { // fixed amountOut, variable amountIn (amountInMax)
-
-      const dataLayout = solanaWeb3_js.struct([solanaWeb3_js.u64("amountInMax"), solanaWeb3_js.u64("amountOut")]);
-
-      const keys = [
-        // payer
-        { pubkey: new solanaWeb3_js.PublicKey(account), isSigner: true, isWritable: false },
-        // authority
-        { pubkey: await getPdaPoolAuthority(CP_PROGRAM_ID), isSigner: false, isWritable: false },
-        // configId
-        { pubkey: pool.data.configId, isSigner: false, isWritable: false },
-        // poolId
-        { pubkey: poolId, isSigner: false, isWritable: true },
-        // userInputAccount
-        { pubkey: tokenAccountIn, isSigner: false, isWritable: true },
-        // userOutputAccount
-        { pubkey: tokenAccountOut, isSigner: false, isWritable: true },
-        // inputVault
-        { pubkey: inputVault, isSigner: false, isWritable: true },
-        // outputVault
-        { pubkey: outputVault, isSigner: false, isWritable: true },
-        // inputTokenProgram
-        { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-        // outputTokenProgram
-        { pubkey: new solanaWeb3_js.PublicKey(Token.solana.TOKEN_PROGRAM), isSigner: false, isWritable: false },
-        // inputMint
-        { pubkey: inputMint, isSigner: false, isWritable: false },
-        // outputMint
-        { pubkey: outputMint, isSigner: false, isWritable: false },
-        // observationId
-        { pubkey: await getPdaObservationId(CP_PROGRAM_ID, poolId), isSigner: false, isWritable: true },
-      ];
-
-      const data = solanaWeb3_js.Buffer.alloc(dataLayout.span);
-      dataLayout.encode({ 
-        amountInMax: new solanaWeb3_js.BN((amountIn || amountInMax).toString()),
-        amountOut: new solanaWeb3_js.BN((amountOut || amountOutMin).toString())
-      }, data);
-
-      return new solanaWeb3_js.TransactionInstruction({
-        programId: CP_PROGRAM_ID,
-        keys,
-        data: solanaWeb3_js.Buffer.from([...swapBaseOutputInstruction, ...data]),
-      })
-
-    }
-  };
-
-  const getCLMMInstruction = async({
-    account,
-    tokenIn,
-    tokenOut,
-    tokenAccountIn,
-    tokenAccountOut,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amountInInput,
-    amountInMaxInput,
-    amountOutInput,
-    amountOutMinInput,
-    pool
-  })=>{
-    const inputMint = tokenIn == pool.data.mintA.toString() ? pool.data.mintA : pool.data.mintB;
-    const outputMint = tokenIn == pool.data.mintA.toString() ? pool.data.mintB : pool.data.mintA;
-    const poolId = pool.data.id;
-    const exTickArrayBitmapAddress = new solanaWeb3_js.PublicKey(await getPdaExBitmapAddress(new solanaWeb3_js.PublicKey(CL_PROGRAM_ID), poolId));
-
-    if(amountInInput || amountOutMinInput) { // fixed amountIn, variable amountOut (amountOutMin)
-
-      const remainingAccounts = [
-        ...pool.data.allNeededAccounts.map((pubkey) => ({ pubkey, isSigner: false, isWritable: true })),
-      ];
-
-      const keys = [
-        // payer
-        { pubkey: new solanaWeb3_js.PublicKey(account), isSigner: true, isWritable: true },
-        // ammConfigId
-        { pubkey: pool.data.ammConfig.pubkey, isSigner: false, isWritable: true },
-
-        // poolId
-        { pubkey: pool.data.id, isSigner: false, isWritable: true },
-        // inputTokenAccount
-        { pubkey: tokenAccountIn, isSigner: false, isWritable: true },
-        // outputTokenAccount
-        { pubkey: tokenAccountOut, isSigner: false, isWritable: true },
-        // inputVault
-        { pubkey: tokenIn == pool.data.mintA.toString() ? pool.data.vaultA : pool.data.vaultB, isSigner: false, isWritable: true },
-        // outputVault
-        { pubkey: tokenIn == pool.data.mintA.toString() ? pool.data.vaultB : pool.data.vaultA, isSigner: false, isWritable: true },
-
-        // observationId
-        { pubkey: pool.data.observationId, isSigner: false, isWritable: true },
-
-        // TOKEN_PROGRAM_ID
-        { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-        // TOKEN_2022_PROGRAM_ID
-        { pubkey: TOKEN_2022_PROGRAM_ID, isSigner: false, isWritable: false },
-        // MEMO_PROGRAM_ID
-        { pubkey: MEMO_PROGRAM_ID, isSigner: false, isWritable: false },
-
-        // inputMint
-        { pubkey: inputMint, isSigner: false, isWritable: false },
-        // outputMint
-        { pubkey: outputMint, isSigner: false, isWritable: false },
-        
-        // exTickArrayBitmapAddress
-        { pubkey: exTickArrayBitmapAddress, isSigner: false, isWritable: true },
-
-        ...remainingAccounts,
-      ];
-
-      const dataLayout = solanaWeb3_js.struct([
-        solanaWeb3_js.u64("amount"),
-        solanaWeb3_js.u64("otherAmountThreshold"),
-        solanaWeb3_js.u128("sqrtPriceLimitX64"),
-        solanaWeb3_js.bool("isBaseInput"),
-      ]);
-
-      const data = solanaWeb3_js.Buffer.alloc(dataLayout.span);
-      dataLayout.encode(
-        {
-          amount: new solanaWeb3_js.BN(amountIn.toString()),
-          otherAmountThreshold: new solanaWeb3_js.BN(amountOut.toString()),
-          sqrtPriceLimitX64: new solanaWeb3_js.BN('0'),
-          isBaseInput: true, // exact input
-        },
-        data,
-      );
-
-      return new solanaWeb3_js.TransactionInstruction({
-        programId: CL_PROGRAM_ID,
-        keys,
-        data: solanaWeb3_js.Buffer.from([...anchorDataBuf.swap, ...data]),
-      })
-
-    }
-  };
-
-  const getTransaction$5 = async({
-    path,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amounts,
-    amountInInput,
-    amountOutInput,
-    amountInMaxInput,
-    amountOutMinInput,
-    account,
-    exchange,
-    pools
-  })=>{
-    let transaction = { blockchain: 'solana' };
-    let instructions = [];
-
-    const exchangePath = getExchangePath$4({ path });
-    if(exchangePath.length > 3) { throw 'Raydium can only handle fixed paths with a max length of 3 (2 pools)!' }
-    const tokenIn = exchangePath[0];
-    const tokenMiddle = exchangePath.length == 3 ? exchangePath[1] : undefined;
-    const tokenOut = exchangePath[exchangePath.length-1];
-      
-    let pairs;
-    if(pools) {
-      pairs = pools;
-    } else if(exchangePath.length == 2) {
-      pairs = [await getBestPair({ exchange, tokenIn, tokenOut, amountIn: (amountInInput || amountInMaxInput), amountOut: (amountOutInput || amountOutMinInput) })];
-    } else {
-      if(amountInInput || amountInMaxInput) {
-        pairs = [await getBestPair({ exchange, tokenIn, tokenOut: tokenMiddle, amountIn: (amountInInput || amountInMaxInput) })];
-        pairs.push(await getBestPair({ exchange, tokenIn: tokenMiddle, tokenOut, amountIn: pairs[0].price }));
-      } else { // originally amountOut
-        pairs = [await getBestPair({ exchange, tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
-        pairs.unshift(await getBestPair({ exchange, tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
+        pairs = [await getBestPair({ tokenIn: tokenMiddle, tokenOut, amountOut: (amountOutInput || amountOutMinInput) })];
+        pairs.unshift(await getBestPair({ tokenIn, tokenOut: tokenMiddle, amountOut: pairs[0].price }));
       }
     }
 
@@ -19644,138 +17216,79 @@
       );
     }
 
-    const tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
-    const tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
-    if(!endsUnwrapped) {
-      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
-    }
-
-    if(pairs.length == 1) { // single hop swap
-
-      if(pairs[0].type === 'clmm') {
-        instructions.push(
-          await getCLMMInstruction({
-            account,
-            tokenIn,
-            tokenOut,
-            tokenAccountIn,
-            tokenAccountOut,
-            amountIn,
-            amountInMax,
-            amountOut,
-            amountOutMin,
-            amountInInput,
-            amountInMaxInput,
-            amountOutInput,
-            amountOutMinInput,
-            pool: pairs[0],
-          })
-        );
-      } else {
-        instructions.push(
-          await getCPMMInstruction({
-            account,
-            tokenIn,
-            tokenOut,
-            tokenAccountIn,
-            tokenAccountOut,
-            amountIn,
-            amountInMax,
-            amountOut,
-            amountOutMin,
-            amountInInput,
-            amountInMaxInput,
-            amountOutInput,
-            amountOutMinInput,
-            pool: pairs[0],
-          })
-        );
+    if(pairs.length === 1) {
+      // amount is NOT the precise part of the swap (otherAmountThreshold is)
+      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
+      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
+      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
+      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
+      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
+      if(!endsUnwrapped) {
+        await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
       }
-
-    } else if(pairs.length == 2) { // two hop swap
-
-      const tokenMiddleAccount = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
-      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenMiddle, account: tokenMiddleAccount });
-
-      if(pairs[0].type === 'clmm') {
-        instructions.push(
-          await getCLMMInstruction({
+      instructions.push(
+        new solanaWeb3_js.TransactionInstruction({
+          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
+          keys: await getSwapInstructionKeys({
             account,
-            tokenIn,
-            tokenOut: tokenMiddle,
-            tokenAccountIn,
-            tokenAccountOut: tokenMiddleAccount,
-            amountIn: amounts[0],
-            amountInMax: amounts[0],
-            amountOut: amounts[1],
-            amountOutMin: amounts[1],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[1],
-            pool: pairs[0],
-          })
-        );
-      } else {
-        instructions.push(
-          await getCPMMInstruction({
-            account,
-            tokenIn,
-            tokenOut: tokenMiddle,
-            tokenAccountIn,
-            tokenAccountOut: tokenMiddleAccount,
-            amountIn: amounts[0],
-            amountInMax: amounts[0],
-            amountOut: amounts[1],
-            amountOutMin: amounts[1],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[1],
-            pool: pairs[0],
-          })
-        );
+            pool: pairs[0].pubkey,
+            tokenAccountA: pairs[0].aToB ? tokenAccountIn : tokenAccountOut,
+            tokenVaultA: pairs[0].data.tokenVaultA,
+            tokenAccountB: pairs[0].aToB ? tokenAccountOut : tokenAccountIn,
+            tokenVaultB: pairs[0].data.tokenVaultB,
+            tickArrays: pairs[0].tickArrays,
+          }),
+          data: getSwapInstructionData({
+            amount,
+            otherAmountThreshold,
+            sqrtPriceLimit: pairs[0].sqrtPriceLimit,
+            amountSpecifiedIsInput,
+            aToB: pairs[0].aToB
+          }),
+        })
+      );
+    } else if (pairs.length === 2) {
+      // amount is NOT the precise part of the swap (otherAmountThreshold is)
+      let amountSpecifiedIsInput = !!(amountInInput || amountOutMinInput);
+      let amount = amountSpecifiedIsInput ? amountIn : amountOut;
+      let otherAmountThreshold = amountSpecifiedIsInput ? amountOutMin : amountInMax;
+      let tokenAccountIn = startsWrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenIn }));
+      let tokenMiddle = exchangePath[1];
+      let tokenAccountMiddle = new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenMiddle }));
+      await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenMiddle, account: tokenAccountMiddle });
+      let tokenAccountOut = endsUnwrapped ? new solanaWeb3_js.PublicKey(wrappedAccount) : new solanaWeb3_js.PublicKey(await Token.solana.findProgramAddress({ owner: account, token: tokenOut }));
+      if(!endsUnwrapped) {
+        await createTokenAccountIfNotExisting({ instructions, owner: account, token: tokenOut, account: tokenAccountOut });
       }
-
-      if(pairs[1].type === 'clmm') {
-        instructions.push(
-          await getCLMMInstruction({
+      instructions.push(
+        new solanaWeb3_js.TransactionInstruction({
+          programId: new solanaWeb3_js.PublicKey('whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc'),
+          keys: await getTwoHopSwapInstructionKeys({
             account,
-            tokenIn: tokenMiddle,
-            tokenOut,
-            tokenAccountIn: tokenMiddleAccount,
-            tokenAccountOut,
-            amountIn: amounts[1],
-            amountInMax: amounts[1],
-            amountOut: amounts[2],
-            amountOutMin: amounts[2],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[2],
-            pool: pairs[1],
-          })
-        );
-      } else {
-        instructions.push(
-          await getCPMMInstruction({
-            account,
-            tokenIn: tokenMiddle,
-            tokenOut,
-            tokenAccountIn: tokenMiddleAccount,
-            tokenAccountOut,
-            amountIn: amounts[1],
-            amountInMax: amounts[1],
-            amountOut: amounts[2],
-            amountOutMin: amounts[2],
-            amountInInput: undefined,
-            amountInMaxInput: undefined,
-            amountOutInput: undefined,
-            amountOutMinInput: amounts[2],
-            pool: pairs[1],
-          })
-        );
-      }
+            poolOne: pairs[0].pubkey,
+            tickArraysOne: pairs[0].tickArrays,
+            tokenAccountOneA: pairs[0].aToB ? tokenAccountIn : tokenAccountMiddle,
+            tokenVaultOneA: pairs[0].data.tokenVaultA,
+            tokenAccountOneB: pairs[0].aToB ? tokenAccountMiddle : tokenAccountIn,
+            tokenVaultOneB: pairs[0].data.tokenVaultB,
+            poolTwo: pairs[1].pubkey,
+            tickArraysTwo: pairs[1].tickArrays,
+            tokenAccountTwoA: pairs[1].aToB ? tokenAccountMiddle : tokenAccountOut,
+            tokenVaultTwoA: pairs[1].data.tokenVaultA,
+            tokenAccountTwoB: pairs[1].aToB ? tokenAccountOut : tokenAccountMiddle,
+            tokenVaultTwoB: pairs[1].data.tokenVaultB,
+          }),
+          data: getTwoHopSwapInstructionData({
+            amount,
+            otherAmountThreshold,
+            amountSpecifiedIsInput,
+            aToBOne: pairs[0].aToB,
+            aToBTwo: pairs[1].aToB,
+            sqrtPriceLimitOne: pairs[0].sqrtPriceLimit,
+            sqrtPriceLimitTwo: pairs[1].sqrtPriceLimit,
+          }),
+        })
+      );
     }
     
     if(startsWrapped || endsUnwrapped) {
@@ -19793,411 +17306,47 @@
     return transaction
   };
 
-  const LOGO$1 = 'data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjMzIiB2aWV3Qm94PSIwIDAgMjkgMzMiIHdpZHRoPSIyOSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjI4LjMxNjgiIHgyPSItMS43MzMzNiIgeTE9IjguMTkxNjIiIHkyPSIyMC4yMDg2Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjMjAwZmIiLz48c3RvcCBvZmZzZXQ9Ii40ODk2NTgiIHN0b3AtY29sb3I9IiMzNzcyZmYiLz48c3RvcCBvZmZzZXQ9Ii40ODk3NTgiIHN0b3AtY29sb3I9IiMzNzczZmUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YWM0YmUiLz48L2xpbmVhckdyYWRpZW50PjxnIGZpbGw9InVybCgjYSkiPjxwYXRoIGQ9Im0yNi44NjI1IDEyLjI4MXYxMS40MTA0bC0xMi42OTE2IDcuMzI2MS0xMi42OTg1OS03LjMyNjF2LTE0LjY1OTM3bDEyLjY5ODU5LTcuMzMzMjIgOS43NTQxIDUuNjM0NDEgMS40NzIzLS44NDk0MS0xMS4yMjY0LTYuNDgzODEtMTQuMTcwOSA4LjE4MjYydjE2LjM1ODE4bDE0LjE3MDkgOC4xODI2IDE0LjE3MS04LjE4MjZ2LTEzLjEwOTJ6Ii8+PHBhdGggZD0ibTEwLjYxNzYgMjMuNjk4NWgtMi4xMjM1M3YtNy4xMjA5aDcuMDc4NDNjLjY2OTctLjAwNzQgMS4zMDk1LS4yNzgyIDEuNzgxMS0uNzUzOC40NzE2LS40NzU1LjczNy0xLjExNzYuNzM4OC0xLjc4NzQuMDAzOC0uMzMxMS0uMDYwMS0uNjU5Ni0uMTg3OS0uOTY1MS0uMTI3OS0uMzA1Ni0uMzE2OC0uNTgxNy0uNTU1NC0uODExNS0uMjMwOC0uMjM3Mi0uNTA3MS0uNDI1My0uODEyNC0uNTUzLS4zMDUzLS4xMjc4LS42MzMzLS4xOTI1LS45NjQyLS4xOTAzaC03LjA3ODQzdi0yLjE2NTk1aDcuMDg1NDNjMS4yNDA1LjAwNzQzIDIuNDI4MS41MDM1MSAzLjMwNTMgMS4zODA2NS44NzcxLjg3NzIgMS4zNzMyIDIuMDY0OCAxLjM4MDYgMy4zMDUyLjAwNzYuOTQ5Ni0uMjgxOSAxLjg3NzctLjgyODEgMi42NTQ0LS41MDI3Ljc0MzItMS4yMTExIDEuMzIzNy0yLjAzODYgMS42NzA1LS44MTk0LjI1OTktMS42NzQ1LjM4ODktMi41MzQxLjM4MjNoLTQuMjQ3eiIvPjxwYXRoIGQ9Im0yMC4yMTU5IDIzLjUyMTVoLTIuNDc3NWwtMS45MTExLTMuMzMzOWMuNzU2MS0uMDQ2MyAxLjUwMTktLjE5ODggMi4yMTU1LS40NTN6Ii8+PHBhdGggZD0ibTI1LjM4MzEgOS45MDk3NSAxLjQ2NTIuODE0MDUgMS40NjUzLS44MTQwNXYtMS43MjAwNWwtMS40NjUzLS44NDk0MS0xLjQ2NTIuODQ5NDF6Ii8+PC9nPjwvc3ZnPg==';
-
-  var Raydium = {
-    LOGO: LOGO$1,
-    findPath: findPath$5,
-    pathExists: pathExists$5,
-    getAmounts: getAmounts$5,
-    getTransaction: getTransaction$5,
-    CPMM_LAYOUT,
-    CLMM_LAYOUT,
-  };
-
-  const exchange$h = {
-    
-    name: 'raydium_cp',
-    label: 'Raydium',
-    logo: Raydium.LOGO,
-    protocol: 'raydium_cp',
-    
-    slippage: true,
-
-    blockchains: ['solana'],
-
-    solana: {
-      
-      router: {
-        address: 'CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C',
-        api: Raydium.CPMM_LAYOUT
-      },
-    }
-  };
-
-  var raydium_cp = (scope)=>{
-    
-    return new Exchange(
-
-      Object.assign(exchange$h, {
-        scope,
-
-        findPath: (args)=>Raydium.findPath({ ...args, exchange: exchange$h }),
-        pathExists: (args)=>Raydium.pathExists({ ...args, exchange: exchange$h }),
-        getAmounts: (args)=>Raydium.getAmounts({ ...args, exchange: exchange$h }),
-        getPrep: (args)=>{},
-        getTransaction: (args)=>Raydium.getTransaction({ ...args, exchange: exchange$h }),
-        CurveCalculator,
-        LAYOUTS,
-      })
-    )
+  var Orca = {
+    findPath: findPath$4,
+    pathExists: pathExists$4,
+    getAmounts: getAmounts$4,
+    getTransaction: getTransaction$4,
+    WHIRLPOOL_LAYOUT,
   };
 
   const exchange$g = {
     
-    name: 'raydium_cl',
-    label: 'Raydium',
-    logo: Raydium.LOGO,
-    protocol: 'raydium_cl',
+    name: 'orca',
+    label: 'Orca',
+    logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9ImthdG1hbl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgNjAwIDQ1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjAwIDQ1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBmaWxsPSIjRkZEMTVDIiBkPSJNNDg4LjQsMjIyLjljMCwxMDMuOC04NC4xLDE4Ny45LTE4Ny45LDE4Ny45Yy0xMDMuOCwwLTE4Ny45LTg0LjEtMTg3LjktMTg3LjlDMTEyLjYsMTE5LjEsMTk2LjcsMzUsMzAwLjUsMzUKCUM0MDQuMiwzNSw0ODguNCwxMTkuMSw0ODguNCwyMjIuOXoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjE3LjY3NTUiIGQ9Ik0yMDkuNSwyOTkuOGMxLjYtMS4xLDMuMS0yLjgsMy45LTUuMWMwLjgtMi42LDAuMy00LjksMC02LjJjMCwwLDAtMC4xLDAtMC4xbDAuMy0xLjhjMC45LDAuNSwxLjksMS4xLDMsMS45CgljMC4zLDAuMiwwLjcsMC41LDEuMSwwLjdjMC41LDAuNCwxLjEsMC44LDEuNCwxYzAuNiwwLjQsMS41LDEsMi41LDEuNWMyNS4xLDE1LjYsNDUuOCwyMiw2Mi4yLDIxLjJjMTctMC44LDI4LjktOS40LDM1LjEtMjEuOQoJYzUuOS0xMi4xLDYuMi0yNywyLTQwLjljLTQuMi0xMy45LTEzLTI3LjUtMjYuMi0zNi45Yy0yMi4yLTE1LjgtNDIuNS0zOS44LTUyLjctNjAuM2MtNS4yLTEwLjQtNy4zLTE4LjctNi43LTI0LjIKCWMwLjMtMi41LDEtNC4xLDItNS4xYzAuOS0xLDIuNi0yLjEsNS45LTIuNmM2LjktMS4xLDE1LTMuNiwyMy4xLTYuMmMzLjItMSw2LjMtMiw5LjUtMi45YzExLjctMy40LDI0LjItNi4zLDM3LjItNi4zCgljMjUuMywwLDU1LDExLDg2LjMsNTYuOGM0MC4yLDU4LjgsMTguMSwxMjQuNC0yOC4yLDE1OC45Yy0yMy4xLDE3LjItNTEuOSwyNi4zLTgxLjUsMjIuOUMyNjIuOSwzNDEuMywyMzQuOSwzMjcuOSwyMDkuNSwyOTkuOHoKCSBNMjE0LjIsMjg0LjZDMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjcsMjE0LjIsMjg0LjZDMjE0LjEsMjg0LjcsMjE0LjIsMjg0LjYsMjE0LjIsMjg0LjZ6IE0yMTEuNiwyODUuOAoJQzIxMS42LDI4NS44LDIxMS43LDI4NS44LDIxMS42LDI4NS44QzIxMS43LDI4NS44LDIxMS42LDI4NS44LDIxMS42LDI4NS44eiIvPgo8cGF0aCBkPSJNMjMyLjUsMTI0LjNjMCwwLDcxLjgtMTkuMSw4Ny41LTE5LjFjMTUuNywwLDc4LjYsMzAuNSw5Ni45LDg2LjNjMjYsNzktNDQuNywxMzAuOS01Mi43LDEyNS44CgljNzYuMS02Mi45LTQ4LjQtMTc5LjEtMTA5LjYtMTcwLjRjLTcuNiwxLjEtMy40LDcuNi0zLjQsNy42bC0xLjcsMTdsLTEyLjctMjEuMkwyMzIuNSwxMjQuM3oiLz4KPHBhdGggZD0iTTQwNi41LDE2Ny42YzIyLjcsMzkuOSwxOCwxNy4xLDEyLjksNjIuN2M5LjMtMTUuMSwyMy45LTMuOCwyOS45LDJjMS4xLDEsMi45LDAuNCwyLjgtMS4xYy0wLjItNi44LTIuMi0yMS40LTEzLjQtMzcuMQoJQzQyMy40LDE3Mi42LDQwNi41LDE2Ny42LDQwNi41LDE2Ny42eiIvPgo8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC45OTMiIGQ9Ik00MTkuNCwyMzAuM2M1LTQ1LjYsOS43LTIyLjgtMTIuOS02Mi43YzAsMCwxNi45LDUsMzIuMywyNi41YzExLjIsMTUuNywxMy4xLDMwLjMsMTMuNCwzNy4xCgljMC4xLDEuNS0xLjcsMi4xLTIuOCwxLjFDNDQzLjMsMjI2LjUsNDI4LjcsMjE1LjMsNDE5LjQsMjMwLjN6IE00MTkuNCwyMzAuM2MwLjktMi4xLDIuMi01LjUsMi4yLTUuNSIvPgo8cGF0aCBkPSJNMjI0LDIyNC4yYy05LjYsMTYuMi0yOS4yLDE1LTI4LjgsMzQuM2MxNy41LDM5LDE3LjYsMzYuMiwxNy42LDM2LjJjMzIuNS0xOC4yLDE5LjEtNTguNSwxNC4zLTcwLjQKCUMyMjYuNiwyMjMsMjI0LjcsMjIzLDIyNCwyMjQuMnoiLz4KPHBhdGggZD0iTTE1MC40LDI2MC4xYzE4LjcsMi40LDI5LjgtMTMuOCw0NC44LTEuNmMxOS45LDM3LjgsMTcuNiwzNi4yLDE3LjYsMzYuMmMtMzQuNCwxNC40LTU3LjktMjEtNjQuMy0zMi4xCglDMTQ3LjgsMjYxLjMsMTQ5LDI1OS45LDE1MC40LDI2MC4xeiIvPgo8cGF0aCBkPSJNMzA2LjksMjM2YzAsMCwxOC43LDE5LjEsOC45LDIyLjFjLTEyLjItNy41LTM0LTEuNy00NC43LDEuOWMtMi42LDAuOS01LjItMS40LTQuMy00LjFjMy42LTEwLDEyLjYtMjguNiwyOS45LTMxCglDMzA2LjksMjIyLjQsMzA2LjksMjM2LDMwNi45LDIzNnoiLz4KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTMxOC4zLDE0Mi41Yy0yLjEtMy02LjQtMTEsNi44LTExYzEzLjIsMCwzMy4zLDE0LjksMzcuNCwyMC40Yy0xLjMsMy40LTkuOCw0LjEtMTQsMy44Yy00LjItMC4zLTExLjUtMS0xNy0zLjgKCUMzMjYsMTQ5LjIsMzIwLjUsMTQ1LjUsMzE4LjMsMTQyLjV6Ii8+Cjwvc3ZnPgo=',
+    protocol: 'orca',
     
     slippage: true,
 
     blockchains: ['solana'],
 
     solana: {
-      
       router: {
-        address: 'CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK',
-        api: Raydium.CLMM_LAYOUT
+        address: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+        api: Orca.WHIRLPOOL_LAYOUT,
       },
     }
   };
 
-  var raydium_cl = (scope)=>{
+  var orca = (scope)=>{
     
     return new Exchange(
 
       Object.assign(exchange$g, {
         scope,
 
-        findPath: (args)=>Raydium.findPath({ ...args, exchange: exchange$g }),
-        pathExists: (args)=>Raydium.pathExists({ ...args, exchange: exchange$g }),
-        getAmounts: (args)=>Raydium.getAmounts({ ...args, exchange: exchange$g }),
+        findPath: (args)=>Orca.findPath({ ...args, exchange: exchange$g }),
+        pathExists: (args)=>Orca.pathExists({ ...args, exchange: exchange$g }),
+        getAmounts: (args)=>Orca.getAmounts({ ...args, exchange: exchange$g }),
         getPrep: (args)=>{},
-        getTransaction: (args)=>Raydium.getTransaction({ ...args, exchange: exchange$g }),
-        SwapMath,
-        getPdaExBitmapAddress,
-        getFirstInitializedTickArray,
-        fetchPoolTickArrays,
-        LAYOUTS,
+        getTransaction: (args)=>Orca.getTransaction({ ...args, exchange: exchange$g }),
       })
     )
-  };
-
-  function _optionalChain$3(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  // Replaces 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE with the wrapped token and implies wrapping.
-  //
-  // We keep 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE internally
-  // to be able to differentiate between ETH<>Token and WETH<>Token swaps
-  // as they are not the same!
-  //
-  const getExchangePath$3 = ({ blockchain, exchange, path }) => {
-    if(!path) { return }
-    let exchangePath = path.map((token, index) => {
-      if (
-        token === Blockchains__default['default'][blockchain].currency.address && path[index+1] != Blockchains__default['default'][blockchain].wrapped.address &&
-        path[index-1] != Blockchains__default['default'][blockchain].wrapped.address
-      ) {
-        return Blockchains__default['default'][blockchain].wrapped.address
-      } else {
-        return token
-      }
-    });
-
-    if(exchangePath[0] == Blockchains__default['default'][blockchain].currency.address && exchangePath[1] == Blockchains__default['default'][blockchain].wrapped.address) {
-      exchangePath.splice(0, 1);
-    } else if(exchangePath[exchangePath.length-1] == Blockchains__default['default'][blockchain].currency.address && exchangePath[exchangePath.length-2] == Blockchains__default['default'][blockchain].wrapped.address) {
-      exchangePath.splice(exchangePath.length-1, 1);
-    }
-
-    return exchangePath
-  };
-
-  const minReserveRequirements = ({ reserves, min, token, token0, token1, decimals }) => {
-    if(token0.toLowerCase() == token.toLowerCase()) {
-      return reserves[0].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
-    } else if (token1.toLowerCase() == token.toLowerCase()) {
-      return reserves[1].gte(ethers.ethers.utils.parseUnits(min.toString(), decimals))
-    } else {
-      return false
-    }
-  };
-
-  const pathExists$4 = async ({ blockchain, exchange, path }) => {
-    const exchangePath = getExchangePath$3({ blockchain, exchange, path });
-    if(!exchangePath || exchangePath.length === 1) { return false }
-    try {
-      let pair = await request({
-        blockchain,
-        address: exchange[blockchain].factory.address,
-        method: 'getPair',
-        api: exchange[blockchain].factory.api,
-        cache: 3600000, // 1 hour in ms
-        params: getExchangePath$3({ blockchain, exchange, path }),
-      });
-      if(!pair || pair == Blockchains__default['default'][blockchain].zero) { return false }
-      let [reserves, token0, token1] = await Promise.all([
-        request({ blockchain, address: pair, method: 'getReserves', api: exchange[blockchain].pair.api, cache: 3600000 }),
-        request({ blockchain, address: pair, method: 'token0', api: exchange[blockchain].pair.api, cache: 3600000 }),
-        request({ blockchain, address: pair, method: 'token1', api: exchange[blockchain].pair.api, cache: 3600000 })
-      ]);
-      if(exchangePath.includes(Blockchains__default['default'][blockchain].wrapped.address)) {
-        return minReserveRequirements({ min: 1, token: Blockchains__default['default'][blockchain].wrapped.address, decimals: Blockchains__default['default'][blockchain].currency.decimals, reserves, token0, token1 })
-      } else if (path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step))) {
-        let address = path.find((step)=>Blockchains__default['default'][blockchain].stables.usd.includes(step));
-        let token = new Token({ blockchain, address });
-        let decimals = await token.decimals();
-        return minReserveRequirements({ min: 1000, token: address, decimals, reserves, token0, token1 })
-      } else {
-        return true
-      }
-    } catch (e){ console.log('e', e); return false }
-  };
-
-  const findPath$4 = async ({ blockchain, exchange, tokenIn, tokenOut }) => {
-    if(
-      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].currency.address) &&
-      [tokenIn, tokenOut].includes(Blockchains__default['default'][blockchain].wrapped.address)
-    ) { return { path: undefined, exchangePath: undefined } }
-
-    let path;
-    if (await pathExists$4({ blockchain, exchange, path: [tokenIn, tokenOut] })) {
-      // direct path
-      path = [tokenIn, tokenOut];
-    } else if (
-      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
-      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [tokenOut, Blockchains__default['default'][blockchain].wrapped.address] })
-    ) {
-      // path via WRAPPED
-      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
-    } else if (
-      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenIn) &&
-      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$4({ blockchain, exchange, path: [tokenIn, stable] })))).filter(Boolean).length &&
-      tokenOut != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [Blockchains__default['default'][blockchain].wrapped.address, tokenOut] })
-    ) {
-      // path via tokenIn -> USD -> WRAPPED -> tokenOut
-      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$4({ blockchain, exchange, path: [tokenIn, stable] }) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, USD, Blockchains__default['default'][blockchain].wrapped.address, tokenOut];
-    } else if (
-      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
-      await pathExists$4({ blockchain, exchange, path: [tokenIn, Blockchains__default['default'][blockchain].wrapped.address] }) &&
-      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
-      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$4({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
-    ) {
-      // path via tokenIn -> WRAPPED -> USD -> tokenOut
-      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$4({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, Blockchains__default['default'][blockchain].wrapped.address, USD, tokenOut];
-    } else if (
-      tokenIn != Blockchains__default['default'][blockchain].wrapped.address &&
-      tokenIn === Blockchains__default['default'][blockchain].currency.address &&
-      !Blockchains__default['default'][blockchain].stables.usd.includes(tokenOut) &&
-      (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map((stable)=>pathExists$4({ blockchain, exchange, path: [stable, tokenOut] })))).filter(Boolean).length
-    ) {
-      let USD = (await Promise.all(Blockchains__default['default'][blockchain].stables.usd.map(async (stable)=>{ return(await pathExists$4({ blockchain, exchange, path: [stable, tokenOut] }) ? stable : undefined) }))).find(Boolean);
-      path = [tokenIn, USD, tokenOut];
-    }
-
-    // Add WRAPPED to route path if things start or end with NATIVE
-    // because that actually reflects how things are routed in reality:
-    if(_optionalChain$3([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
-      path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    } else if(_optionalChain$3([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
-      path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    }
-
-    return { path, exchangePath: getExchangePath$3({ blockchain, exchange, path }) }
-  };
-
-  let getAmountOut$3 = ({ blockchain, exchange, path, amountIn, tokenIn, tokenOut }) => {
-    return new Promise((resolve) => {
-      request({
-        blockchain,
-        address: exchange[blockchain].router.address,
-        method: 'getAmountsOut',
-        api: exchange[blockchain].router.api,
-        params: {
-          amountIn: amountIn,
-          path: getExchangePath$3({ blockchain, exchange, path }),
-        },
-      })
-      .then((amountsOut)=>{
-        resolve(amountsOut[amountsOut.length - 1]);
-      })
-      .catch(()=>resolve());
-    })
-  };
-
-  let getAmountIn$3 = ({ blockchain, exchange, path, amountOut, block }) => {
-    return new Promise((resolve) => {
-      request({
-        blockchain,
-        address: exchange[blockchain].router.address,
-        method: 'getAmountsIn',
-        api: exchange[blockchain].router.api,
-        params: {
-          amountOut: amountOut,
-          path: getExchangePath$3({ blockchain, exchange, path }),
-        },
-        block
-      })
-      .then((amountsIn)=>resolve(amountsIn[0]))
-      .catch(()=>resolve());
-    })
-  };
-
-  let getAmounts$4 = async ({
-    blockchain,
-    exchange,
-    path,
-    block,
-    tokenIn,
-    tokenOut,
-    amountOut,
-    amountIn,
-    amountInMax,
-    amountOutMin
-  }) => {
-    if (amountOut) {
-      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut, tokenIn, tokenOut });
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if (amountIn) {
-      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn, tokenIn, tokenOut });
-      if (amountOut == undefined || amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    } else if(amountOutMin) {
-      amountIn = await getAmountIn$3({ blockchain, exchange, block, path, amountOut: amountOutMin, tokenIn, tokenOut });
-      if (amountIn == undefined || amountInMax && amountIn.gt(amountInMax)) {
-        return {}
-      } else if (amountInMax === undefined) {
-        amountInMax = amountIn;
-      }
-    } else if(amountInMax) {
-      amountOut = await getAmountOut$3({ blockchain, exchange, path, amountIn: amountInMax, tokenIn, tokenOut });
-      if (amountOut == undefined ||amountOutMin && amountOut.lt(amountOutMin)) {
-        return {}
-      } else if (amountOutMin === undefined) {
-        amountOutMin = amountOut;
-      }
-    }
-    return { amountOut, amountIn, amountInMax, amountOutMin }
-  };
-
-  let getPrep$3 = async({
-    exchange,
-    blockchain,
-    tokenIn,
-    amountIn,
-    account
-  })=> {
-
-    if(tokenIn === Blockchains__default['default'][blockchain].currency.address) { return } // NATIVE
-
-    const allowance = await request({
-      blockchain,
-      address: tokenIn,
-      method: 'allowance',
-      api: Token[blockchain]['20'],
-      params: [account, exchange[blockchain].router.address]
-    });
-
-    if(allowance.gte(amountIn)) { return }
-
-    let transaction = {
-      blockchain,
-      from: account,
-      to: tokenIn,
-      api: Token[blockchain]['20'],
-      method: 'approve',
-      params: [exchange[blockchain].router.address, amountIn.sub(allowance)]
-    };
-    
-    return { transaction }
-
-  };
-
-  let getTransaction$4 = ({
-    exchange,
-    blockchain,
-    path,
-    amountIn,
-    amountInMax,
-    amountOut,
-    amountOutMin,
-    amountInInput,
-    amountOutInput,
-    amountInMaxInput,
-    amountOutMinInput,
-    account
-  }) => {
-
-    let transaction = {
-      blockchain,
-      from: account,
-      to: exchange[blockchain].router.address,
-      api: exchange[blockchain].router.api,
-    };
-
-    if (path[0] === Blockchains__default['default'][blockchain].currency.address) {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactETHForTokens';
-        transaction.value = amountIn.toString();
-        transaction.params = { amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapETHForExactTokens';
-        transaction.value = amountInMax.toString();
-        transaction.params = { amountOut: amountOut.toString() };
-      }
-    } else if (path[path.length - 1] === Blockchains__default['default'][blockchain].currency.address) {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactTokensForETH';
-        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapTokensForExactETH';
-        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
-      }
-    } else {
-      if (amountInInput || amountOutMinInput) {
-        transaction.method = 'swapExactTokensForTokens';
-        transaction.params = { amountIn: amountIn.toString(), amountOutMin: amountOutMin.toString() };
-      } else if (amountOutInput || amountInMaxInput) {
-        transaction.method = 'swapTokensForExactTokens';
-        transaction.params = { amountInMax: amountInMax.toString(), amountOut: amountOut.toString() };
-      }
-    }
-
-    transaction.params = Object.assign({}, transaction.params, {
-      path: getExchangePath$3({ blockchain, exchange, path }),
-      to: account,
-      deadline: Math.round(Date.now() / 1000) + 60 * 60 * 24, // 24 hours
-    });
-
-    return transaction
-  };
-
-  const ROUTER$3 = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
-  const FACTORY$3 = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-  const PAIR$1 = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount0In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1In","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount0Out","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amount1Out","type":"uint256"},{"indexed":true,"internalType":"address","name":"to","type":"address"}],"name":"Swap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint112","name":"reserve0","type":"uint112"},{"indexed":false,"internalType":"uint112","name":"reserve1","type":"uint112"}],"name":"Sync","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"DOMAIN_SEPARATOR","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"MINIMUM_LIQUIDITY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"PERMIT_TYPEHASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"burn","outputs":[{"internalType":"uint256","name":"amount0","type":"uint256"},{"internalType":"uint256","name":"amount1","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getReserves","outputs":[{"internalType":"uint112","name":"_reserve0","type":"uint112"},{"internalType":"uint112","name":"_reserve1","type":"uint112"},{"internalType":"uint32","name":"_blockTimestampLast","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_token0","type":"address"},{"internalType":"address","name":"_token1","type":"address"}],"name":"initialize","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"kLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"mint","outputs":[{"internalType":"uint256","name":"liquidity","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"nonces","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"permit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"price0CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"price1CumulativeLast","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"skim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount0Out","type":"uint256"},{"internalType":"uint256","name":"amount1Out","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"swap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"sync","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"token0","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token1","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-
-  var UniswapV2 = {
-    findPath: findPath$4,
-    pathExists: pathExists$4,
-    getAmounts: getAmounts$4,
-    getPrep: getPrep$3,
-    getTransaction: getTransaction$4,
-    ROUTER: ROUTER$3,
-    FACTORY: FACTORY$3,
-    PAIR: PAIR$1,
   };
 
   const exchange$f = {
@@ -20284,7 +17433,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[1], pool.fee, pool.path[0]]),
         amountOut: outputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountIn
@@ -20301,7 +17450,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[0], pool.fee, pool.path[1]]),
         amountIn: inputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountOut
@@ -20319,7 +17468,7 @@
           address: exchange[blockchain].factory.address,
           method: 'getPool',
           api: exchange[blockchain].factory.api,
-          cache: 3600000, // 1 hour in ms
+          cache: 3600,
           params: [path[0], path[1], fee],
         }).then((address)=>{
           return {
@@ -20526,7 +17675,7 @@
         amountOutMin = amountOut;
       }
     }
-    return { amountOut, amountIn, amountInMax, amountOutMin, pools }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
   let getPrep$2 = async({
@@ -20944,7 +18093,7 @@
         address: exchange[blockchain].quoter.address,
         method: 'findBestPathFromAmountIn',
         api: exchange[blockchain].quoter.api,
-        cache: 5000, // 5 seconds in ms
+        cache: 5,
         block,
         params: {
           route: path,
@@ -20959,7 +18108,7 @@
         address: exchange[blockchain].quoter.address,
         method: 'findBestPathFromAmountOut',
         api: exchange[blockchain].quoter.api,
-        cache: 5000, // 5 seconds in ms
+        cache: 5,
         block,
         params: {
           route: path,
@@ -21068,7 +18217,7 @@
       address: exchange[blockchain].quoter.address,
       method: 'findBestPathFromAmountIn',
       api: exchange[blockchain].quoter.api,
-      cache: 5000, // 5 seconds in ms
+      cache: 5,
       params: {
         route: getExchangePath$1({ blockchain, path }),
         amountIn,
@@ -21085,7 +18234,7 @@
       address: exchange[blockchain].quoter.address,
       method: 'findBestPathFromAmountOut',
       api: exchange[blockchain].quoter.api,
-      cache: 5000, // 5 seconds in ms
+      cache: 5,
       block,
       params: {
         route: getExchangePath$1({ blockchain, path }),
@@ -21139,7 +18288,7 @@
         amountOutMin = amountOut;
       }
     }
-    return { amountOut, amountIn, amountInMax, amountOutMin, pools }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
   let getPrep$1 = async({
@@ -21388,7 +18537,7 @@
     )
   };
 
-  function _optionalChain$a(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$7(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   const SENDER_AS_RECIPIENT = '0x0000000000000000000000000000000000000001';
   const ROUTER_AS_RECIPIENT = '0x0000000000000000000000000000000000000002';
@@ -21432,7 +18581,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[1], pool.fee, pool.path[0]]),
         amountOut: outputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountIn
@@ -21449,7 +18598,7 @@
         path: ethers.ethers.utils.solidityPack(["address","uint24","address"],[pool.path[0], pool.fee, pool.path[1]]),
         amountIn: inputAmount
       },
-      cache: 5000 // 5 seconds in ms
+      cache: 5
     });
 
     return data.amountOut
@@ -21467,7 +18616,7 @@
           address: exchange[blockchain].factory.address,
           method: 'getPool',
           api: exchange[blockchain].factory.api,
-          cache: 3600000, // 1 hour in ms
+          cache: 3600,
           params: [path[0], path[1], fee],
         }).then((address)=>{
           return {
@@ -21493,14 +18642,14 @@
             const amountScaled = await getOutputAmount({ exchange, pool, inputAmount: ethers.ethers.BigNumber.from(amountIn).mul(ethers.ethers.BigNumber.from(10)).toString() });
             const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
             const difference = amountScaledDown.sub(amount).abs();
-            const enoughLiquidity = !difference.gt(amount.mul(ethers.ethers.BigNumber.from(5)).div(ethers.ethers.BigNumber.from(100))); // up to 5% diff allowed
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)).mul(ethers.ethers.BigNumber.from(5))); // up to 5% diff allowed
             if(!enoughLiquidity) { return }
           } else {
             amount = await getInputAmount({ exchange, pool, outputAmount: amountOut });
             const amountScaled = await getInputAmount({ exchange, pool, outputAmount: ethers.ethers.BigNumber.from(amountOut).mul(ethers.ethers.BigNumber.from(10)).toString() });
             const amountScaledDown = amountScaled.div(ethers.ethers.BigNumber.from(10));
             const difference = amountScaledDown.sub(amount).abs();
-            const enoughLiquidity = !difference.gt(amount.mul(ethers.ethers.BigNumber.from(5)).div(ethers.ethers.BigNumber.from(100))); // up to 5% diff allowed
+            const enoughLiquidity = !difference.gt(amount.div(ethers.ethers.BigNumber.from(100)).mul(ethers.ethers.BigNumber.from(5))); // up to 5% diff allowed
             if(!enoughLiquidity) { return }
           }
 
@@ -21599,9 +18748,9 @@
 
     // Add WRAPPED to route path if things start or end with NATIVE
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$a([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+    if(_optionalChain$7([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
       path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    } else if(_optionalChain$a([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+    } else if(_optionalChain$7([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
       path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
     }
 
@@ -21684,7 +18833,7 @@
         amountOutMin = amountOut;
       }
     }
-    return { amountOut, amountIn, amountInMax, amountOutMin, pools }
+    return { amountOut, amountIn, amountInMax, amountOutMin }
   };
 
   let getPrep = async({
@@ -21850,7 +18999,7 @@
     slippage: true,
     fees: [100, 500, 3000, 10000],
     
-    blockchains: ['ethereum', 'bsc', 'polygon', 'optimism', 'arbitrum', 'base', 'avalanche', 'worldchain', 'gnosis'],
+    blockchains: ['ethereum', 'bsc', 'polygon', 'optimism', 'arbitrum', 'base', 'avalanche', 'worldchain'],
     
     ethereum: {
       router: {
@@ -22020,28 +19169,6 @@
       },
       quoter: {
         address: '0x10158D43e6cc414deE1Bd1eB0EfC6a5cBCfF244c',
-        api: UniswapV3.QUOTER
-      },
-      permit: {
-        address: '0x000000000022d473030f116ddee9f6b43ac78ba3',
-        api: UniswapV3.PERMIT2
-      }
-    },
-
-    gnosis: {
-      router: {
-        address: '0xc6D25285D5C5b62b7ca26D6092751A145D50e9Be',
-        api: UniswapV3.ROUTER
-      },
-      factory: {
-        address: '0xe32F7dD7e3f098D518ff19A22d5f028e076489B1',
-        api: UniswapV3.FACTORY
-      },
-      pool: {
-        api: UniswapV3.POOL
-      },
-      quoter: {
-        address: '0x7E9cB3499A6cee3baBe5c8a3D328EA7FD36578f4',
         api: UniswapV3.QUOTER
       },
       permit: {
@@ -22461,8 +19588,6 @@
 
   const exchanges = [
     orca(),
-    raydium_cp(),
-    raydium_cl(),
     uniswap_v3(),
     pancakeswap_v3(),
     uniswap_v2(),
@@ -22470,6 +19595,7 @@
     trader_joe_v2_1(),
     quickswap(),
     spookyswap(),
+    honeyswap(),
     weth(),
     weth_optimism(),
     weth_base(),
@@ -22508,8 +19634,6 @@
 
   exchanges.solana = [
     orca('solana'),
-    raydium_cp('solana'),
-    raydium_cl('solana'),
   ];
   exchanges.solana.forEach((exchange)=>{ exchanges.solana[exchange.name] = exchange; });
 
@@ -22546,7 +19670,7 @@
   exchanges.avalanche.forEach((exchange)=>{ exchanges.avalanche[exchange.name] = exchange; });
 
   exchanges.gnosis = [
-    uniswap_v3('gnosis'),
+    honeyswap('gnosis'),
     wxdai('gnosis'),
   ];
   exchanges.gnosis.forEach((exchange)=>{ exchanges.gnosis[exchange.name] = exchange; });
@@ -22807,16 +19931,18 @@
     }
   }
 
-  var svmRouters = {
+  var solanaRouters = {
     solana: {
-      address: 'DePayR1gQfDmViCPKctnZXNtUgqRwnEqMax8LX9ho1Zg',
-      exchanges: {
-        orca: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
-        raydiumCP: 'CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C',
-        raydiumCL: 'CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK',
-      },
-      alt: '8bYq3tcwX1NM2K2JYMjrEqAPtCXFPCjzPazFothc618e',
+      address: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
+      ammProgram: 'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+      alt: 'EYGgx5fYCZtLN2pvnR4Bhn5KpMffKwyHCms4VhjSvF2K',
       api: {
+        createPaymentsAccount: {
+          anchorDiscriminator: new solanaWeb3_js.BN("8445995362644372894"),
+          layout: solanaWeb3_js.struct([
+            solanaWeb3_js.u64("anchorDiscriminator"),
+          ])
+        },
         createEscrowSolAccount: {
           anchorDiscriminator: new solanaWeb3_js.BN("2482112285991870004"),
           layout: solanaWeb3_js.struct([
@@ -22833,10 +19959,9 @@
           anchorDiscriminator: new solanaWeb3_js.BN("6497164560834983274"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -22844,10 +19969,9 @@
           anchorDiscriminator: new solanaWeb3_js.BN("13483873682232752277"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -22855,12 +19979,13 @@
           anchorDiscriminator: new solanaWeb3_js.BN("9797248061404332986"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.u128("sqrtPriceLimit"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToB"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -22868,25 +19993,13 @@
           anchorDiscriminator: new solanaWeb3_js.BN("13662217913752830165"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
+            solanaWeb3_js.u64("nonce"),
             solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.u128("sqrtPriceLimit"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToB"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeOrcaSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("16115018480206947614"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.bool("aToB"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -22894,14 +20007,15 @@
           anchorDiscriminator: new solanaWeb3_js.BN("15695720599845325801"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
+            solanaWeb3_js.u64("nonce"),
+            solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToBOne"),
             solanaWeb3_js.bool("aToBTwo"),
+            solanaWeb3_js.u128("sqrtPriceLimitOne"),
+            solanaWeb3_js.u128("sqrtPriceLimitTwo"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         },
@@ -22909,182 +20023,15 @@
           anchorDiscriminator: new solanaWeb3_js.BN("15074061855608091530"),
           layout: solanaWeb3_js.struct([
             solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
+            solanaWeb3_js.u64("nonce"),
+            solanaWeb3_js.u64("amountIn"),
+            solanaWeb3_js.bool("amountSpecifiedIsInput"),
             solanaWeb3_js.bool("aToBOne"),
             solanaWeb3_js.bool("aToBTwo"),
+            solanaWeb3_js.u128("sqrtPriceLimitOne"),
+            solanaWeb3_js.u128("sqrtPriceLimitTwo"),
             solanaWeb3_js.u64("paymentAmount"),
             solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeOrcaTwoHopSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("2678451299937372540"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.bool("aToBOne"),
-            solanaWeb3_js.bool("aToBTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("2954182973248174268"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("18389700643710627390"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("564150378912976829"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumClTwoHopSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("3828760301615328551"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-            solanaWeb3_js.u8("remainingAccountsSplit"),
-          ])
-        },
-        routeRaydiumClTwoHopSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("11373220799455718953"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-            solanaWeb3_js.u8("remainingAccountsSplit"),
-          ])
-        },
-        routeRaydiumClTwoHopSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("1635173573630140652"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-            solanaWeb3_js.u8("remainingAccountsSplit"),
-          ])
-        },
-        routeRaydiumCpSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("7437765211943645137"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("9045257739866411286"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("432305509198797158"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountIn"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpTwoHopSwap: {
-          anchorDiscriminator: new solanaWeb3_js.BN("3384279312781294015"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpTwoHopSwapSolOut: {
-          anchorDiscriminator: new solanaWeb3_js.BN("18428464202744806632"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
-            solanaWeb3_js.i64("deadline"),
-          ])
-        },
-        routeRaydiumCpTwoHopSwapSolIn: {
-          anchorDiscriminator: new solanaWeb3_js.BN("16266677464406446072"),
-          layout: solanaWeb3_js.struct([
-            solanaWeb3_js.u64("anchorDiscriminator"),
-            solanaWeb3_js.u64("amountInOne"),
-            solanaWeb3_js.u64("amountInTwo"),
-            solanaWeb3_js.u64("paymentAmount"),
-            solanaWeb3_js.u64("feeAmount"),
-            solanaWeb3_js.u64("feeAmount2"),
-            solanaWeb3_js.u64("protocolAmount"),
             solanaWeb3_js.i64("deadline"),
           ])
         }
@@ -23111,7 +20058,7 @@
     return getWindow()._Web3ClientConfiguration
   };
 
-  function _optionalChain$6(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$5(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   const BATCH_INTERVAL$1 = 10;
   const CHUNK_SIZE$1 = 50;
   const MAX_RETRY$1 = 5;
@@ -23155,13 +20102,13 @@
             method: 'POST',
             body: JSON.stringify(batch),
             headers: { 'Content-Type': 'application/json' },
-            signal: _optionalChain$6([AbortSignal, 'optionalAccess', _ => _.timeout]) ? AbortSignal.timeout(10000) : undefined  // 10-second timeout
+            signal: AbortSignal.timeout(10000)  // 10-second timeout
           }
         ).then((response)=>{
           if(response.ok) {
             response.json().then((parsedJson)=>{
               if(parsedJson.find((entry)=>{
-                return _optionalChain$6([entry, 'optionalAccess', _2 => _2.error]) && [-32062,-32016].includes(_optionalChain$6([entry, 'optionalAccess', _3 => _3.error, 'optionalAccess', _4 => _4.code]))
+                return _optionalChain$5([entry, 'optionalAccess', _ => _.error]) && [-32062,-32016].includes(_optionalChain$5([entry, 'optionalAccess', _2 => _2.error, 'optionalAccess', _3 => _3.code]))
               })) {
                 if(attempt < MAX_RETRY$1) {
                   reject('Error in batch found!');
@@ -23190,12 +20137,12 @@
             // on whether it was a success or error
             chunk.forEach((inflightRequest, index) => {
               const payload = result[index];
-              if (_optionalChain$6([payload, 'optionalAccess', _5 => _5.error])) {
+              if (_optionalChain$5([payload, 'optionalAccess', _4 => _4.error])) {
                 const error = new Error(payload.error.message);
                 error.code = payload.error.code;
                 error.data = payload.error.data;
                 inflightRequest.reject(error);
-              } else if(_optionalChain$6([payload, 'optionalAccess', _6 => _6.result])) {
+              } else if(_optionalChain$5([payload, 'optionalAccess', _5 => _5.result])) {
                 inflightRequest.resolve(payload.result);
               } else {
                 inflightRequest.reject();
@@ -23252,78 +20199,91 @@
     }
 
   }
-  let getCacheStore = () => {
-    if (getWindow()._Web3ClientCacheStore == undefined) {
-      getWindow()._Web3ClientCacheStore = {};
-    }
-    return getWindow()._Web3ClientCacheStore
-  };
 
-  // Periodically clean up expired cache entries (every 5 minutes), to prevent memory leaks
-  if (typeof process == 'undefined' || process.env && "production" === 'test') {
-    setInterval(() => {
-      const store = getCacheStore();
-      const now = Date.now();
-      for (const key in store) {
-        if (store[key].expiresAt < now) {
-          delete store[key];
-        }
-      }
-    }, 10 * 60 * 1000); // 10 minutes in milliseconds
-  }
-
-  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientProtocolAmount","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"deadline","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amountIn","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"feeAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"slippageInAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"slippageOutAmount","type":"uint256"},{"indexed":false,"internalType":"address","name":"tokenInAddress","type":"address"},{"indexed":false,"internalType":"address","name":"tokenOutAddress","type":"address"},{"indexed":false,"internalType":"address","name":"feeReceiverAddress","type":"address"},{"indexed":false,"internalType":"address","name":"feeReceiverAddress2","type":"address"}],"name":"Payment","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress2","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"struct IDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct IPermit2.TokenPermissions","name":"permitted","type":"tuple"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IPermit2.PermitTransferFrom","name":"permitTransferFrom","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"internalType":"struct IDePayRouterV3.PermitTransferFromAndSignature","name":"permitTransferFromAndSignature","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress2","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"struct IDePayRouterV3.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount2","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress2","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"struct IDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
+  const API = [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"InternalTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"struct IDePayRouterV2.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"struct IPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"struct IPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}];
 
   var routers$1 = {
 
     ethereum: {
-      address: '0x365f7B56D2fB16C8Af89D7d33b420E4e013461e8',
+      address: '0x6466F27B169C908Ba8174d80aEfa7173CbC3D0c7',
       api: API
     },
 
     bsc: {
-      address: '0x5F565EDfB9C446976a9F9910631cfeDb6A87220c',
+      address: '0x7ea09401db4692a8AEF4111b75bD32AE758f552A',
       api: API
     },
 
     polygon: {
-      address: '0xe04b08Dfc6CaA0F4Ec523a3Ae283Ece7efE00019',
+      address: '0x50CFAB577623B1359602E11514a9482B061A941e',
+      api: API
+    },
+
+    fantom: {
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     avalanche: {
-      address: '0x39E7C98BF4ac3E4C394dD600397f5f7Ee3779BE8',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     gnosis: {
-      address: '0x328FE8bbd30487BB7b5A8eEb909f892E9E229271',
+      address: '0xFee05C41195985909DDfc9127Db1f94559c46db3',
       api: API
     },
 
     arbitrum: {
-      address: '0x328FE8bbd30487BB7b5A8eEb909f892E9E229271',
+      address: '0xA1cfbeeF344A52e18f748fd6a126f9426A40fbc7',
       api: API
     },
 
     optimism: {
-      address: '0x558302715e3011Be6695605c11A65526D2ba2245',
+      address: '0x8698E529E9867eEbcC68b4792daC627cd8870736',
       api: API
     },
 
     base: {
-      address: '0x48825133EF08327535D0b24d73779E82BE6Ea4d9',
+      address: '0x8B127D169D232D5F3ebE1C3D06CE343FD7C1AA11',
       api: API
     },
 
     worldchain: {
-      address: '0x886eb82a7e5E7310F66A0E83748662A17E391eb0',
-      api: API
+      address: '0xC9850b32475f4fdE5c972EA6f967982a3c435D10',
+      api: [{"inputs":[{"internalType":"address","name":"_PERMIT2","type":"address"},{"internalType":"address","name":"_FORWARDER","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ExchangeCallFailed","type":"error"},{"inputs":[],"name":"ExchangeCallMissing","type":"error"},{"inputs":[],"name":"ExchangeNotApproved","type":"error"},{"inputs":[],"name":"ForwardingPaymentFailed","type":"error"},{"inputs":[],"name":"InsufficientBalanceInAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientBalanceOutAfterPayment","type":"error"},{"inputs":[],"name":"InsufficientProtocolAmount","type":"error"},{"inputs":[],"name":"NativeFeePaymentFailed","type":"error"},{"inputs":[],"name":"NativePaymentFailed","type":"error"},{"inputs":[],"name":"PaymentDeadlineReached","type":"error"},{"inputs":[],"name":"PaymentToZeroAddressNotAllowed","type":"error"},{"inputs":[],"name":"WrongAmountPaidIn","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Disabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"exchange","type":"address"}],"name":"Enabled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"deadline","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"amountIn","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"feeAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"slippageAmount","type":"uint256"},{"indexed":false,"internalType":"address","name":"tokenInAddress","type":"address"},{"indexed":false,"internalType":"address","name":"tokenOutAddress","type":"address"},{"indexed":false,"internalType":"address","name":"feeReceiverAddress","type":"address"}],"name":"Payment","type":"event"},{"inputs":[],"name":"FORWARDER","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PERMIT2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"exchange","type":"address"},{"internalType":"bool","name":"enabled","type":"bool"}],"name":"enable","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"exchanges","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"structIDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"structIPermit2.TokenPermissions","name":"permitted","type":"tuple"},{"internalType":"uint256","name":"nonce","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"internalType":"structIPermit2.PermitTransferFrom","name":"permitTransferFrom","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"internalType":"structIDePayRouterV3.PermitTransferFromAndSignature","name":"permitTransferFromAndSignature","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"structIDePayRouterV3.Payment","name":"payment","type":"tuple"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"paymentAmount","type":"uint256"},{"internalType":"uint256","name":"feeAmount","type":"uint256"},{"internalType":"uint256","name":"protocolAmount","type":"uint256"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"address","name":"tokenInAddress","type":"address"},{"internalType":"address","name":"exchangeAddress","type":"address"},{"internalType":"address","name":"tokenOutAddress","type":"address"},{"internalType":"address","name":"paymentReceiverAddress","type":"address"},{"internalType":"address","name":"feeReceiverAddress","type":"address"},{"internalType":"uint8","name":"exchangeType","type":"uint8"},{"internalType":"uint8","name":"receiverType","type":"uint8"},{"internalType":"bool","name":"permit2","type":"bool"},{"internalType":"bytes","name":"exchangeCallData","type":"bytes"},{"internalType":"bytes","name":"receiverCallData","type":"bytes"}],"internalType":"structIDePayRouterV3.Payment","name":"payment","type":"tuple"},{"components":[{"components":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint160","name":"amount","type":"uint160"},{"internalType":"uint48","name":"expiration","type":"uint48"},{"internalType":"uint48","name":"nonce","type":"uint48"}],"internalType":"structIPermit2.PermitDetails","name":"details","type":"tuple"},{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"sigDeadline","type":"uint256"}],"internalType":"structIPermit2.PermitSingle","name":"permitSingle","type":"tuple"},{"internalType":"bytes","name":"signature","type":"bytes"}],"name":"pay","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"pendingOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdraw","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
     },
 
   };
 
-  var routers = {... routers$1, ...svmRouters};
+  var routers = {... routers$1, ...solanaRouters};
+
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  /** Detect free variable `global` from Node.js. */
+
+  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+  var _freeGlobal = freeGlobal;
+
+  /** Detect free variable `self`. */
+  var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+  /** Used as a reference to the global object. */
+  var root = _freeGlobal || freeSelf || Function('return this')();
+
+  var _root = root;
+
+  /** Built-in value references. */
+  var Symbol$1 = _root.Symbol;
+
+  var _Symbol = Symbol$1;
+
+  /** Built-in value references. */
+  _Symbol ? _Symbol.toStringTag : undefined;
+
+  /** Built-in value references. */
+  _Symbol ? _Symbol.toStringTag : undefined;
 
   ({
     'arbitrum': {
@@ -23413,7 +20373,7 @@
 
   let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
   supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported.svm = ['solana'];
+  supported.solana = ['solana'];
 
   const _jsxFileName = "/Users/sebastian/Work/DePay/react-token-image/src/index.js"; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
