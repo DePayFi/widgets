@@ -7791,8 +7791,12 @@ var ErrorProvider = (function (props) {
       open = _useState4[0],
       setOpen = _useState4[1];
 
+  useEffect(function () {
+    window._depayWidgetError = undefined;
+  }, []);
+
   var setErrorFromChildren = function setErrorFromChildren(error) {
-    console.log(error);
+    window._depayWidgetError = error;
 
     if (error.error) {
       error = error.error;
@@ -7855,7 +7859,8 @@ var ErrorProvider = (function (props) {
     return /*#__PURE__*/React.createElement(ErrorContext.Provider, {
       value: {
         setError: setErrorFromChildren,
-        errorCallback: props.errorCallback
+        errorCallback: props.errorCallback,
+        error: error
       }
     }, /*#__PURE__*/React.createElement(ErrorBoundary, {
       setError: setErrorFromChildren
@@ -8359,14 +8364,14 @@ var ConfigurationProvider = (function (props) {
       }) : undefined
     })["catch"](retry).then( /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
-        var _JSON$parse, configurationId, _configuration, verified, _configuration$accept, localConfigurationWithValues;
+        var _JSON$parse, configurationId, _configuration, verified, _configuration$accept, localConfigurationWithValues, _msg, _msg2, _msg3;
 
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(response.status == 200)) {
-                  _context.next = 23;
+                  _context.next = 29;
                   break;
                 }
 
@@ -8390,7 +8395,7 @@ var ConfigurationProvider = (function (props) {
                 verified = _context.sent;
 
                 if (!verified) {
-                  _context.next = 20;
+                  _context.next = 24;
                   break;
                 }
 
@@ -8407,41 +8412,47 @@ var ConfigurationProvider = (function (props) {
                 }, {});
 
                 if (!(!(_configuration !== null && _configuration !== void 0 && _configuration.accept) || !(_configuration !== null && _configuration !== void 0 && (_configuration$accept = _configuration.accept) !== null && _configuration$accept !== void 0 && _configuration$accept.length) > 0)) {
-                  _context.next = 15;
-                  break;
-                }
-
-                throw 'Configuration is missing token acceptance!';
-
-              case 15:
-                if (!_configuration.accept.some(function (configuration) {
-                  return !configuration.protocolFee;
-                })) {
                   _context.next = 17;
                   break;
                 }
 
-                throw 'Configuration is missing protocol fee!';
+                _msg = 'Configuration is missing token acceptance!';
+                setError(_msg);
+                throw _msg;
 
               case 17:
+                if (!_configuration.accept.some(function (configuration) {
+                  return !configuration.protocolFee;
+                })) {
+                  _context.next = 21;
+                  break;
+                }
+
+                _msg2 = 'Configuration is missing protocol fee!';
+                setError(_msg2);
+                throw _msg2;
+
+              case 21:
                 setConfiguration(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, _configuration), localConfigurationWithValues), {}, {
                   id: configurationId,
                   currencyCode: currencyCode
                 }));
-                _context.next = 21;
+                _context.next = 27;
                 break;
-
-              case 20:
-                throw 'Configuration response not verified!';
-
-              case 21:
-                _context.next = 24;
-                break;
-
-              case 23:
-                retry();
 
               case 24:
+                _msg3 = 'Configuration response not verified!';
+                setError(_msg3);
+                throw _msg3;
+
+              case 27:
+                _context.next = 30;
+                break;
+
+              case 29:
+                retry();
+
+              case 30:
               case "end":
                 return _context.stop();
             }
@@ -10122,7 +10133,16 @@ var PaymentProvider = (function (props) {
                     switch (_context.prev = _context.next) {
                       case 0:
                         setClosable(false);
-                        _context.next = 3;
+
+                        if (!window._depayWidgetError) {
+                          _context.next = 3;
+                          break;
+                        }
+
+                        return _context.abrupt("return");
+
+                      case 3:
+                        _context.next = 5;
                         return wallet.sendTransaction(Object.assign({}, transaction, {
                           accepted: function accepted() {
                             setPaymentState('sending');
@@ -10161,7 +10181,7 @@ var PaymentProvider = (function (props) {
                           }
                         });
 
-                      case 3:
+                      case 5:
                       case "end":
                         return _context.stop();
                     }
@@ -10193,6 +10213,11 @@ var PaymentProvider = (function (props) {
     setUpdatable(false);
     var resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction));
     resetApprovalTransaction.params[1] = '0'; // reset first
+
+    if (window._depayWidgetError) {
+      return;
+    } // do not perform any transaction if there was an error in the widget!
+
 
     wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
       sent: function sent(sentTransaction) {
@@ -10269,60 +10294,80 @@ var PaymentProvider = (function (props) {
               approvalTransaction = _context3.sent;
 
             case 19:
-              if (approvalSignatureData) {
-                wallet.sign(approvalSignatureData).then(function (signature) {
-                  setApprovalSignature(signature);
-                  setPaymentState('approved');
-                  setClosable(true);
-
-                  if (!isMobile()) {
-                    pay(approvalSignatureData, signature);
-                  }
-                })["catch"](function (e) {
-                  console.log('ERROR', e);
-                  setPaymentState('initialized');
-                  setClosable(true);
-                });
-              } else if (approvalTransaction) {
-                wallet.sendTransaction(Object.assign({}, approvalTransaction, {
-                  accepted: function accepted() {
-                    setPaymentState('approving');
-                  },
-                  sent: function sent(sentTransaction) {
-                    setPaymentState('approving');
-                    setApprovalTransaction(sentTransaction);
-                  },
-                  succeeded: function succeeded() {
-                    setUpdatable(true);
-                    setClosable(true);
-
-                    if (approvalType == 'signature') {
-                      setPaymentState('approve'); // signature still requires signature approval
-
-                      if (!isMobile()) {
-                        approve(true);
-                      }
-                    } else {
-                      setPaymentState('approved'); // transaction made it fully approved
-
-                      if (!isMobile()) {
-                        pay();
-                      }
-                    }
-                  }
-                }))["catch"](function (error) {
-                  console.log('error', error);
-
-                  if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
-                    navigate('WrongNetwork');
-                  }
-
-                  setPaymentState('initialized');
-                  setClosable(true);
-                });
+              if (!approvalSignatureData) {
+                _context3.next = 23;
+                break;
               }
 
-            case 20:
+              wallet.sign(approvalSignatureData).then(function (signature) {
+                setApprovalSignature(signature);
+                setPaymentState('approved');
+                setClosable(true);
+
+                if (!isMobile()) {
+                  pay(approvalSignatureData, signature);
+                }
+              })["catch"](function (e) {
+                console.log('ERROR', e);
+                setPaymentState('initialized');
+                setClosable(true);
+              });
+              _context3.next = 27;
+              break;
+
+            case 23:
+              if (!approvalTransaction) {
+                _context3.next = 27;
+                break;
+              }
+
+              if (!window._depayWidgetError) {
+                _context3.next = 26;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 26:
+              // do not perform any transaction if there was an error in the widget!
+              wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+                accepted: function accepted() {
+                  setPaymentState('approving');
+                },
+                sent: function sent(sentTransaction) {
+                  setPaymentState('approving');
+                  setApprovalTransaction(sentTransaction);
+                },
+                succeeded: function succeeded() {
+                  setUpdatable(true);
+                  setClosable(true);
+
+                  if (approvalType == 'signature') {
+                    setPaymentState('approve'); // signature still requires signature approval
+
+                    if (!isMobile()) {
+                      approve(true);
+                    }
+                  } else {
+                    setPaymentState('approved'); // transaction made it fully approved
+
+                    if (!isMobile()) {
+                      pay();
+                    }
+                  }
+                }
+              }))["catch"](function (error) {
+                console.log('error', error);
+
+                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                  navigate('WrongNetwork');
+                }
+
+                setPaymentState('initialized');
+                setClosable(true);
+              });
+
+            case 27:
             case "end":
               return _context3.stop();
           }
@@ -10890,21 +10935,8 @@ var ChangePaymentDialog = (function (props) {
       }));
       var allPaymentOptions = allPaymentRoutesWithDisplayData;
       setAllPaymentOptions(allPaymentOptions);
-
-      if (selectedPaymentOptions === undefined) {
-        if (allPaymentOptions.length <= 4) {
-          setSelectedPaymentOptions(allPaymentOptions);
-        } else if (bestPaymentOptions.length) {
-          setSelectedTab('best');
-          setSelectedPaymentOptions(bestPaymentOptions);
-        } else if (majorPaymentOptions.length) {
-          setSelectedTab('major');
-          setSelectedPaymentOptions(majorPaymentOptions);
-        } else {
-          setSelectedTab('all');
-          setSelectedPaymentOptions(allPaymentOptions);
-        }
-      }
+      setSelectedTab('all');
+      setSelectedPaymentOptions(allPaymentOptions);
     })["catch"](setError);
   }, [allRoutes, allRoutesLoaded]);
   var displayedPaymentOptions = selectedPaymentOptions === null || selectedPaymentOptions === void 0 ? void 0 : selectedPaymentOptions.map(function (payment, index) {
@@ -11339,22 +11371,22 @@ var Footer = (function () {
   };
 
   var steps = function steps() {
-    if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'success') {
+    if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
       // --- Permit2 signature approval block ---
-      var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
+      var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
       var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
       var permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature; // --- Spending approval block ---
 
       var approvalRequired = Boolean(payment.route.approvalRequired);
       var needsToApproveSpending = approvalRequired;
-      var justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount);
+      var justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount);
       var spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || approvalType === 'signature' && Boolean((approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) || justNeedsPermit2Signature));
       var spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature);
       var spendingDone = approvalType === 'signature' && Boolean(approvalSignature) || (approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) && !['approve', 'approving'].includes(paymentState); // --- Perform payment block ---
 
       var paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying';
-      var paymentProcessing = paymentState === 'paying' || paymentState === 'sending';
-      var paymentDone = paymentState === 'success'; // --- Validation block ---
+      var paymentProcessing = paymentState === 'sending';
+      var paymentDone = paymentState === 'validating' || paymentState === 'success'; // --- Validation block ---
 
       var showAsyncInit = asynchronousTracking && trackingInitialized === false;
       var showSyncWaiting = synchronousTracking && !release;
@@ -11428,6 +11460,7 @@ var Footer = (function () {
           wallet: wallet
         }) : undefined,
         target: "_blank",
+        rel: "noopener noreferrer",
         className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
@@ -11723,10 +11756,10 @@ var PaymentOverviewDialog = (function (props) {
       action: function action() {
         window.open("mailto:support@depay.com?subject=Need help with payment", '_blank');
       }
-    }, {
+    }, paymentState == 'initialized' ? {
       label: "Disconnect wallet",
       action: disconnect
-    }]
+    } : undefined].filter(Boolean)
   }));
 
   if (payment == undefined) {

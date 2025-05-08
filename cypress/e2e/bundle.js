@@ -147,12 +147,12 @@ describe('bundle', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Performing payment').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'target').should('eq', '_blank')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
@@ -161,7 +161,7 @@ describe('bundle', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Transaction confirmed')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Perform payment')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Close')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

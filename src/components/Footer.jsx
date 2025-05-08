@@ -242,6 +242,7 @@ export default ()=>{
                   : undefined
               }
               target="_blank"
+              rel="noopener noreferrer"
               className={
                 'Step Card small transparent' +
                 ((paymentReady && !paymentDone) || paymentProcessing ? ' active' : '') +
