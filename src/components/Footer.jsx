@@ -114,26 +114,27 @@ export default ()=>{
       paymentState == 'approved' ||
       paymentState == 'paying' ||
       paymentState == 'sending' ||
+      paymentState == 'validating' ||
       paymentState == 'success'
     ) {
 
       // --- Permit2 signature approval block ---
-      const needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount)
+      const needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount)
       const permit2Done = Boolean(approvalTransaction?.url)
       const permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature
 
       // --- Spending approval block ---
       const approvalRequired = Boolean(payment.route.approvalRequired)
       const needsToApproveSpending = approvalRequired
-      const justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)
+      const justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)
       const spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || (approvalType === 'signature' && (Boolean(approvalTransaction?.url || justNeedsPermit2Signature))))
       const spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature)
       const spendingDone = (approvalType === 'signature' && Boolean(approvalSignature)) || (approvalTransaction?.url && !['approve', 'approving'].includes(paymentState))
 
       // --- Perform payment block ---
       const paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying'
-      const paymentProcessing = paymentState === 'paying' || paymentState === 'sending'
-      const paymentDone = paymentState === 'success'
+      const paymentProcessing = paymentState === 'sending'
+      const paymentDone = paymentState === 'validating' || paymentState === 'success'
 
       // --- Validation block ---
       const showAsyncInit = asynchronousTracking && trackingInitialized === false

@@ -61,14 +61,20 @@ export default (props)=>{
             return acc
           }, {})
           if(!configuration?.accept || !configuration?.accept?.length > 0) {
-            throw('Configuration is missing token acceptance!')
+            const msg = 'Configuration is missing token acceptance!'
+            setError(msg)
+            throw(msg)
           }
           if(configuration.accept.some((configuration)=>!configuration.protocolFee)) {
-            throw('Configuration is missing protocol fee!')
+            const msg = 'Configuration is missing protocol fee!'
+            setError(msg)
+            throw(msg)
           }
           setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId, currencyCode })
         } else {
-          throw('Configuration response not verified!')
+          const msg = 'Configuration response not verified!'
+          setError(msg)
+          throw(msg)
         }
       } else { retry() }
     })

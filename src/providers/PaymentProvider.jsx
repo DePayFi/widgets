@@ -94,6 +94,7 @@ export default (props)=>{
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline
     await trace(currentBlock, payment.route, transaction, deadline).then(async()=>{
       setClosable(false)
+      if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
       await wallet.sendTransaction(Object.assign({}, transaction, {
         accepted: ()=>{ 
           setPaymentState('sending')
@@ -139,6 +140,7 @@ export default (props)=>{
     setUpdatable(false)
     const resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction))
     resetApprovalTransaction.params[1] = '0' // reset first
+    if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
     wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
       sent: (sentTransaction)=>{
         setResetApprovalTransaction(sentTransaction)
@@ -193,6 +195,7 @@ export default (props)=>{
         setClosable(true)
       })
     } else if(approvalTransaction) {
+      if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
       wallet.sendTransaction(Object.assign({}, approvalTransaction, {
         accepted: ()=>{
           setPaymentState('approving')

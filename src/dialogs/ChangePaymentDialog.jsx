@@ -136,21 +136,9 @@ export default (props)=>{
 
       const allPaymentOptions = allPaymentRoutesWithDisplayData
       setAllPaymentOptions(allPaymentOptions)
-
-      if(selectedPaymentOptions === undefined) {
-        if(allPaymentOptions.length <= 4) {
-          setSelectedPaymentOptions(allPaymentOptions)
-        } else if(bestPaymentOptions.length) {
-          setSelectedTab('best')
-          setSelectedPaymentOptions(bestPaymentOptions)
-        } else if (majorPaymentOptions.length) {
-          setSelectedTab('major')
-          setSelectedPaymentOptions(majorPaymentOptions)
-        } else {
-          setSelectedTab('all')
-          setSelectedPaymentOptions(allPaymentOptions)
-        }
-      }
+      setSelectedTab('all')
+      setSelectedPaymentOptions(allPaymentOptions)
+      
     }).catch(setError)
   }, [allRoutes, allRoutesLoaded])
 

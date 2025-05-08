@@ -46,8 +46,8 @@ export default (props)=>{
       { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
         items={[
           { label: "Contact support", action: ()=>{ window.open(`mailto:support@depay.com?subject=Need help with payment`, '_blank') } },
-          { label: "Disconnect wallet", action: disconnect },
-        ]}
+          paymentState == 'initialized' ? { label: "Disconnect wallet", action: disconnect } : undefined,
+        ].filter(Boolean)}
       /> }
     </span>
   )
