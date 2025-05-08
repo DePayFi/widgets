@@ -71,7 +71,7 @@ export default (props)=> {
         <div className="TextCenter">
           { walletLogo &&
             <div className="GraphicWrapper">
-              <LoginIcon className="Graphic" width="120px" height="120px"/>
+              <LoginIcon className="Graphic" width="100px" height="100px"/>
             </div>
           }
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

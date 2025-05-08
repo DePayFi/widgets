@@ -116,7 +116,7 @@ describe('Select Widget: token', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input.Search').type('DEPAY', { force: true }).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'DEPAY').click().then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Confirm Selection')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Please review this information')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Review this information')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://etherscan.io/token/0xa0bed124a09ac2bd941b10349d8d224fe3c955eb"]', '0xa0bed124a09ac2bd941b10349d8d224fe3c955eb')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('td', 'Ethereum')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('td', 'DEPAY')
@@ -212,7 +212,7 @@ describe('Select Widget: token', () => {
 
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.Row .CardTokenSymbol .CardText', 'DEPAY').click().then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Confirm Selection')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Please review this information')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Review this information')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://etherscan.io/token/0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"]', '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('td', 'Ethereum')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('td', 'DEPAY')
