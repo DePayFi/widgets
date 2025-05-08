@@ -17,7 +17,8 @@ export default (style)=>{
     .InputField {
       border-radius: 13px;
       border: 1px solid rgba(0,0,0,0.2);
-      background-color: color-mix(in srgb, ${style.colors.cardBackground} 80%, ${style.colors.mixPassive} 20%);
+      background: ${style.colors.cardBackground};
+      background: color-mix(in srgb, ${style.colors.cardBackground} 80%, ${style.colors.mixPassive} 20%);
       outline: none !important;
       color: ${style.colors.text};
       font-size: 19px;
