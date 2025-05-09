@@ -1,16 +1,13 @@
 /*#if _EVM
 
-import Exchanges from '@depay/web3-exchanges-evm'
 import { request } from '@depay/web3-client-evm'
 
 /*#elif _SVM
 
-import Exchanges from '@depay/web3-exchanges-svm'
 import { request } from '@depay/web3-client-svm'
 
 //#else */
 
-import Exchanges from '@depay/web3-exchanges'
 import { request } from '@depay/web3-client'
 
 //#endif
@@ -19,7 +16,6 @@ import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import debounce from '../helpers/debounce'
-import findMaxRoute from '../helpers/findMaxRoute'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import React, { useState, useContext, useEffect, useCallback } from 'react'
 import round from '../helpers/round'
@@ -121,7 +117,6 @@ export default (props)=>{
     if(updatedRoutes === undefined){ return }
     if(updatedRoutes.length == 0) {
       setAllRoutes(updatedRoutes)
-      if(props.setMaxRoute) { props.setMaxRoute(null) }
     } else {
       roundAmounts(updatedRoutes).then((roundedRoutes)=>{
         if(typeof selectedRoute == 'undefined') {
@@ -145,34 +140,8 @@ export default (props)=>{
           }
         }
         roundedRoutes.assets = updatedRoutes.assets
-        if(amountsMissing && props.setMaxRoute) {
-          Promise.all(roundedRoutes.map((route)=>{
-            return new Promise((resolve, reject)=>{
-              if(Blockchains[route.blockchain].tokens.findIndex((token)=>token.address.toLowerCase()===route.fromToken.address.toLowerCase()) === -1) {
-                // Major tokens only
-                return resolve()
-              }
-              Exchanges.route({
-                blockchain: route.blockchain,
-                tokenIn: route.fromToken.address,
-                amountIn: route.fromBalance,
-                tokenOut: Blockchains[route.blockchain].stables.usd[0].toLowerCase() !== route.fromToken.address.toLowerCase() ? Blockchains[route.blockchain].stables.usd[0] : Blockchains[route.blockchain].stables.usd[1],
-                fromAddress: route.fromAddress,
-                toAddress: route.toAddress
-              }).then((usdRoute)=>resolve({ route, usdRoute })).catch(reject)
-            })
-          })).then((routes)=>{
-            props.setMaxRoute(findMaxRoute(routes.filter(Boolean))?.route)
-            setAllRoutes(roundedRoutes)
-            setAllRoutesLoaded(true)
-          }).catch((e)=>{
-            console.log('ERROR', e)
-            props.setMaxRoute(null)
-          })
-        } else {
-          setAllRoutes(roundedRoutes)
-          setAllRoutesLoaded(true)
-        }
+        setAllRoutes(roundedRoutes)
+        setAllRoutesLoaded(true)
       })
     }
   }, 500), [])

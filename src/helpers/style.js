@@ -12,7 +12,6 @@ import GridStyle from '../styles/GridStyle'
 import HeightStyle from '../styles/HeightStyle'
 import HorizontalRuleStyle from '../styles/HorizontalRuleStyle'
 import IconStyle from '../styles/IconStyle'
-import ImageStyle from '../styles/ImageStyle'
 import InputStyle from '../styles/InputStyle'
 import isDarkMode from '../helpers/isDarkMode'
 import LinkStyle from '../styles/LinkStyle'
@@ -108,7 +107,6 @@ export default (style)=>{
       RangeSliderStyle(style),
       InputStyle(style),
       TextButtonStyle(style),
-      ImageStyle(style),
       LogoStyle(style),
       SearchStyle(style),
       TokenImageStyle(style),

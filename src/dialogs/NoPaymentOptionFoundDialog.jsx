@@ -37,7 +37,7 @@ export default ()=> {
 
           <div className="PaddingTopXS PaddingBottomXS">
 
-            <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Not Enough Funds</h1>
+            <h1 className="LineHeightL Text FontSizeL PaddingTopXS FontWeightBold">Not Enough Funds</h1>
             
             <div className="Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM">
               <strong className="FontSizeM">

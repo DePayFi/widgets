@@ -1172,7 +1172,7 @@ DePayWidgets.Sale({
 
 #### currency
 
-Allows you to enforce displayed local currency (instead of automatically detecting it):
+Allows you to set the displayed currency (instead of automatically displaying user's local currency):
 
 ```javascript
 DePayWidgets.Sale({
@@ -1181,6 +1181,8 @@ DePayWidgets.Sale({
 
 });
 ```
+
+Set to `false` if you want to hide currency conversion rate.
 
 #### blacklist
 
@@ -1627,5 +1629,5 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/payment-value-loss-safeguard.js"
+yarn test:cypress:debug --spec "cypress/e2e/bundle.js"
 ```

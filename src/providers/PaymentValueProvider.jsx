@@ -1,16 +1,13 @@
 /*#if _EVM
 
-import Exchanges from '@depay/web3-exchanges-evm'
 import Token from '@depay/web3-tokens-evm'
 
 /*#elif _SVM
 
-import Exchanges from '@depay/web3-exchanges-svm'
 import Token from '@depay/web3-tokens-svm'
 
 //#else */
 
-import Exchanges from '@depay/web3-exchanges'
 import Token from '@depay/web3-tokens'
 
 //#endif
@@ -51,7 +48,7 @@ export default (props)=>{
   }
 
   useEffect(()=>{
-    if(paymentValue && amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
+    if(paymentValue && amount && configuredAmount && configuredAmount.fix) {
       setDisplayedPaymentValue(paymentValue.toString())
     } else if(amount && (configuredAmount == undefined || configuredAmount?.token != true)) {
       setDisplayedPaymentValue(new Currency({ amount: amount.toFixed(2), code: currencyCode }).toString())

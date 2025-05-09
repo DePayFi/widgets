@@ -61,9 +61,8 @@ export default (props)=>{
             return acc
           }, {})
           if(!configuration?.accept || !configuration?.accept?.length > 0) {
-            const msg = 'Configuration is missing token acceptance!'
-            setError(msg)
-            throw(msg)
+            // Configuration is missing token acceptance!
+            loadConfiguration(id, attempt+1)
           }
           if(configuration.accept.some((configuration)=>!configuration.protocolFee)) {
             const msg = 'Configuration is missing protocol fee!'

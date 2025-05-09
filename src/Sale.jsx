@@ -50,6 +50,7 @@ let Sale = async ({
     Object.keys(sell).forEach((key)=>{
       if(!blacklist[key]) { blacklist[key] = [] }
       blacklist[key].push(sell[key])
+      blacklist[key] = [...new Set(blacklist[key])]
     })
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>

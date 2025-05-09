@@ -10,10 +10,9 @@ import ReactDOM from 'react-dom';
 import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { setProviderEndpoints, request as request$1 } from '@depay/web3-client-svm';
 import { Currency } from '@depay/local-currency';
-import Exchanges from '@depay/web3-exchanges-svm';
 import Token$1 from '@depay/web3-tokens-svm';
-import Decimal$1, { Decimal } from 'decimal.js';
 import { ethers } from 'ethers';
+import Decimal$1, { Decimal } from 'decimal.js';
 import { route as route$2 } from '@depay/web3-payments-svm';
 import { TokenImage as TokenImage$1 } from '@depay/react-token-image-svm';
 import { ACCOUNT_LAYOUT, PublicKey, Connection, struct, u32, publicKey, u64 as u64$1, u8, bool, rustEnum, str, u16, option, vec, Buffer, BN, TransactionInstruction, SystemProgram, u128, seq, i32, i128, Keypair, i64 } from '@depay/solana-web3.js';
@@ -7924,12 +7923,8 @@ var IconStyle = (function (style) {
   return "\n\n    .Icon {\n      fill: ".concat(style.colors.text, ";\n      stroke: ").concat(style.colors.text, ";\n    }\n\n    .ChevronLeft, .ChevronRight {\n      position: relative;\n      top: 1px;\n    }\n\n    .ChevronLeft.small, .ChevronRight.small {\n      height: 12px;\n      width: 12px;\n    }\n\n    .Checkmark {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .AlertIcon {\n      height: 20px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 20px;\n      fill: #e42626;\n      stroke: transparent;\n    }\n\n    .Checkmark.small {\n      height: 16px;\n      width: 16px;\n    }\n\n    .DigitalWalletIcon {\n      height: 24px;\n      position: relative;\n      top: -1px;\n      vertical-align: middle;\n      width: 24px;\n    }\n\n    .ButtonPrimary .Icon {\n      fill : ").concat(style.colors.buttonText, ";\n      stroke : ").concat(style.colors.buttonText, ";\n    }\n\n    .Loading {\n      animation: spin 1.5s linear infinite;\n      border-radius: 100%;\n      border: 3px solid ").concat(style.colors.primary, ";\n      border-top: 3px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 18px;\n      left: -1px;\n      position: relative;\n      width: 18px;\n    }\n\n    .Loading.medium {\n      border: 4px solid ").concat(style.colors.primary, ";\n      border-top: 4px solid rgba(0,0,0,0.1);\n      display: inline-block;\n      height: 22px;\n      position: relative;\n      top: 0;\n      width: 22px; \n    }\n\n    @keyframes spin {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    }\n  ");
 });
 
-var ImageStyle = (function (style) {
-  return "\n\n    .MaxAmountImage {\n      display: inline-block;\n      padding-right: 6px;\n    }\n    \n    .MaxAmountImage img {\n      height: 16px;\n      width: 16px;\n      position: relative;\n      top: 3px;\n    }\n  ";
-});
-
 var InputStyle = (function (style) {
-  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n\n    .InputField {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background-color: color-mix(in srgb, ".concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixPassive, " 20%);\n      outline: none !important;\n      color: ").concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .InputField.small {\n      border-radius: 8px;\n      font-size: 15px;\n    }\n\n    .InputField::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .InputField:focus, .InputField:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n    \n  ");
+  return "\n\n    .Input {\n      background: none;\n      border: 1px solid transparent;\n      margin: 0;\n      outline: none !important;\n      padding: 0 0 0 14px;\n      width: 100%;\n    }\n\n    .Input::placeholder {\n      color: rgb(210,210,210);\n    }\n\n    .InputField {\n      border-radius: 13px;\n      border: 1px solid rgba(0,0,0,0.2);\n      background: ".concat(style.colors.cardBackground, ";\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixPassive, " 20%);\n      outline: none !important;\n      color: ").concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 13px;\n      width: 100%;\n    }\n\n    .InputField.small {\n      border-radius: 8px;\n      font-size: 15px;\n    }\n\n    .InputField::placeholder {\n      color: rgb(180,180,180);\n    } \n\n    .InputField:focus, .InputField:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n    \n  ");
 });
 
 var LinkStyle = (function (style) {
@@ -8055,7 +8050,7 @@ var styleRenderer = (function (style) {
     colors: Object.assign(defaultColors, configuredColors || {}),
     fontFamily: ((_style4 = style) === null || _style4 === void 0 ? void 0 : _style4.fontFamily) || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
   };
-  return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), ImageStyle(), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
+  return [ResetStyle(), ActionIndicatorStyle(style), DialogStyle(style), ButtonCircularStyle(style), ButtonPrimaryStyle(style), CardStyle(style), PoweredByStyle(), StepStyle(style), QRCodeStyle(), GraphicStyle(style), GridStyle(), SkeletonStyle(style), TokenAmountStyle(), TextStyle(style), FontStyle(style), IconStyle(style), OpacityStyle(), PaddingStyle(), MarginStyle(), HeightStyle(), HorizontalRuleStyle(style), TabBarStyle(), TabStyle(style), LoadingTextStyle(), RadioStyle(style), RangeSliderStyle(style), InputStyle(style), TextButtonStyle(style), LogoStyle(), SearchStyle(style), TokenImageStyle(), AlertStyle(style), InfoStyle(style), TableStyle(), LinkStyle(style), TooltipStyle(style), WalletStyle(), DropDownStyle(style)].join('');
 });
 
 var mount = (function (_ref, content) {
@@ -8195,6 +8190,18 @@ var Connect = function Connect(options) {
 
 var NavigateContext = /*#__PURE__*/React.createContext();
 
+var LoadingText = (function (props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "LoadingText"
+  }, props.children, /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }, "."), /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }, "."), /*#__PURE__*/React.createElement("span", {
+    className: "dot"
+  }, "."));
+});
+
 var LoadingDialog = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     closable: false,
@@ -8202,7 +8209,7 @@ var LoadingDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL FontSizeL"
-    }, "Loading")),
+    }, /*#__PURE__*/React.createElement(LoadingText, null, "Loading"))),
     body: /*#__PURE__*/React.createElement("div", {
       className: "PaddingLeftM PaddingRightM PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("div", {
@@ -8668,8 +8675,8 @@ var SignLoginDialog = (function (props) {
       className: "GraphicWrapper"
     }, /*#__PURE__*/React.createElement(LoginIcon, {
       className: "Graphic",
-      width: "120px",
-      height: "120px"
+      width: "100px",
+      height: "100px"
     })), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React.createElement("p", {
@@ -9106,6 +9113,55 @@ var round = (function (input) {
   }
 });
 
+var tokenAmountForUSD = /*#__PURE__*/(function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var blockchain, token, amount, response;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            blockchain = _ref.blockchain, token = _ref.token, amount = _ref.amount;
+
+            if (!Blockchains[blockchain].stables.usd.includes(token)) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return", amount);
+
+          case 3:
+            _context.next = 5;
+            return fetch("https://public.depay.com/conversions/".concat(blockchain, "/").concat(token, "/USD?amount=").concat(amount));
+
+          case 5:
+            response = _context.sent;
+
+            if (!(response.status == 200)) {
+              _context.next = 12;
+              break;
+            }
+
+            _context.t0 = parseFloat;
+            _context.next = 10;
+            return response.text();
+
+          case 10:
+            _context.t1 = _context.sent;
+            return _context.abrupt("return", (0, _context.t0)(_context.t1));
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
 function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -9169,16 +9225,6 @@ var ChangableAmountProvider = (function (props) {
       amount = _useState10[0],
       setAmount = _useState10[1];
 
-  var _useState11 = useState(),
-      _useState12 = _slicedToArray(_useState11, 2),
-      maxRoute = _useState12[0],
-      setMaxRoute = _useState12[1];
-
-  var _useState13 = useState(),
-      _useState14 = _slicedToArray(_useState13, 2),
-      maxAmount = _useState14[0],
-      setMaxAmount = _useState14[1];
-
   useEffect(function () {
     if (recover) {
       return;
@@ -9189,61 +9235,22 @@ var ChangableAmountProvider = (function (props) {
 
   var getAmounts = function getAmounts(_ref) {
     var amount = _ref.amount,
-        conversionRate = _ref.conversionRate,
-        fixedCurrencyConversionRate = _ref.fixedCurrencyConversionRate;
-    return new Promise(function (resolve, reject) {
-      if (configuredAmount && configuredAmount.token) {
-        resolve(accept.map(function () {
-          return amount;
-        }));
-      } else {
-        Promise.all(accept.map(function (configuration) {
-          if (fixedAmount) {
-            if (Blockchains[configuration.blockchain].stables.usd[0] == configuration.token) {
-              return 1.00 / fixedCurrencyConversionRate * fixedAmount;
-            } else {
-              return Exchanges.route({
-                blockchain: configuration.blockchain,
-                tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
-                amountIn: 1.00 / fixedCurrencyConversionRate * fixedAmount,
-                tokenOut: configuration.token,
-                fromAddress: account,
-                toAddress: account
-              });
-            }
-          } else {
-            if (Blockchains[configuration.blockchain].stables.usd.find(function (stable) {
-              return stable.toLowerCase() === configuration.token.toLowerCase();
-            })) {
-              return 1.00 / conversionRate * amount;
-            } else {
-              return Exchanges.route({
-                blockchain: configuration.blockchain,
-                tokenIn: Blockchains[configuration.blockchain].stables.usd[0],
-                amountIn: 1.00 / conversionRate * amount,
-                tokenOut: configuration.token,
-                fromAddress: account,
-                toAddress: account
-              });
-            }
-          }
-        })).then(function (results) {
-          Promise.all(results.map(function (result, index) {
-            if (typeof result == 'number') {
-              return result;
-            } else if (result[0] == undefined) {
-              return;
-            } else {
-              return Token$1.readable({
-                blockchain: accept[index].blockchain,
-                amount: result[0].amountOut,
-                address: result[0].tokenOut
-              });
-            }
-          })).then(resolve)["catch"](setError);
-        })["catch"](setError);
-      }
-    });
+        conversionRate = _ref.conversionRate;
+        _ref.fixedCurrencyConversionRate;
+
+    if (configuredAmount && configuredAmount.token) {
+      return Promise.resolve(accept.map(function () {
+        return amount;
+      }));
+    } else {
+      return Promise.all(accept.map(function (accept) {
+        return tokenAmountForUSD({
+          blockchain: accept.blockchain,
+          token: accept.token,
+          amount: amount * conversionRate
+        });
+      }));
+    }
   };
 
   var updateAmounts = useCallback(debounce(function (_ref2) {
@@ -9284,70 +9291,6 @@ var ChangableAmountProvider = (function (props) {
       });
     }
   }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
-  useEffect(function () {
-    if (amountsMissing && maxRoute) {
-      maxRoute.fromToken.readable(maxRoute.fromBalance).then(function (readableMaxAmount) {
-        if (configuredAmount && configuredAmount.token) {
-          Exchanges.route({
-            blockchain: maxRoute.blockchain,
-            tokenIn: maxRoute.fromToken.address,
-            tokenOut: maxRoute.toToken.address,
-            amountIn: parseFloat(readableMaxAmount),
-            fromAddress: account,
-            toAddress: account
-          }).then(function (routes) {
-            if (routes[0] == undefined) {
-              Token$1.readable({
-                amount: maxRoute.fromBalance,
-                blockchain: maxRoute.blockchain,
-                address: maxRoute.fromToken.address
-              }).then(setMaxAmount);
-              return;
-            }
-
-            Token$1.readable({
-              amount: routes[0].amountOut,
-              blockchain: maxRoute.blockchain,
-              address: maxRoute.toToken.address
-            }).then(function (readableMaxAmount) {
-              var slippage = 1.01;
-              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
-            })["catch"](setError);
-          })["catch"](setError);
-        } else if (maxRoute.fromToken.address == Blockchains[maxRoute.blockchain].stables.usd[0]) {
-          var _maxAmount = parseFloat(new Decimal(readableMaxAmount).mul(conversionRate).toString());
-
-          setMaxAmount(_maxAmount > 10 ? Math.round(_maxAmount - 1) : _maxAmount - 1);
-        } else {
-          Exchanges.route({
-            blockchain: maxRoute.blockchain,
-            tokenIn: maxRoute.fromToken.address,
-            tokenOut: Blockchains[maxRoute.blockchain].stables.usd[0],
-            amountIn: parseFloat(readableMaxAmount),
-            fromAddress: account,
-            toAddress: account
-          }).then(function (routes) {
-            if (routes[0] == undefined) {
-              return;
-            }
-
-            Token$1.readable({
-              amount: routes[0].amountOut,
-              blockchain: maxRoute.blockchain,
-              address: Blockchains[maxRoute.blockchain].stables.usd[0]
-            }).then(function (readableMaxAmount) {
-              var slippage = 1.01;
-              var maxAmount = parseFloat(new Decimal(readableMaxAmount).div(slippage).mul(conversionRate).toString());
-              setMaxAmount(maxAmount > 10 ? Math.round(maxAmount - 1) : round(maxAmount - 1));
-            })["catch"](setError);
-          })["catch"](setError);
-        }
-      })["catch"](setError);
-    } else {
-      setMaxAmount(100);
-    }
-  }, [account, maxRoute]);
   return /*#__PURE__*/React.createElement(ChangableAmountContext.Provider, {
     value: {
       amountsMissing: amountsMissing,
@@ -9355,10 +9298,7 @@ var ChangableAmountProvider = (function (props) {
       fixedCurrency: fixedCurrency,
       acceptWithAmount: acceptWithAmount,
       amount: amount,
-      setAmount: setAmount,
-      setMaxRoute: setMaxRoute,
-      maxRoute: maxRoute,
-      maxAmount: maxAmount
+      setAmount: setAmount
     }
   }, props.children);
 });
@@ -9407,43 +9347,6 @@ var ConversionRateProvider = (function (props) {
 });
 
 var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
-
-var findMaxRoute = (function (routes) {
-  var sortedLowToHigh = _toConsumableArray(routes).sort(function (a, b) {
-    var _a$usdRoute, _a$usdRoute2, _b$usdRoute, _b$usdRoute2;
-
-    if ((a === null || a === void 0 ? void 0 : (_a$usdRoute = a.usdRoute) === null || _a$usdRoute === void 0 ? void 0 : _a$usdRoute.length) === undefined || (a === null || a === void 0 ? void 0 : (_a$usdRoute2 = a.usdRoute) === null || _a$usdRoute2 === void 0 ? void 0 : _a$usdRoute2.length) == 0) {
-      return -1; //b
-    }
-
-    if ((b === null || b === void 0 ? void 0 : (_b$usdRoute = b.usdRoute) === null || _b$usdRoute === void 0 ? void 0 : _b$usdRoute.length) === undefined || (b === null || b === void 0 ? void 0 : (_b$usdRoute2 = b.usdRoute) === null || _b$usdRoute2 === void 0 ? void 0 : _b$usdRoute2.length) == 0) {
-      return 1; //a
-    }
-
-    if (a.usdRoute[0].amountOut == '0') {
-      return -1; // b
-    }
-
-    if (b.usdRoute[0].amountOut == '0') {
-      return 1; // a
-    }
-
-    var aMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(a.usdRoute[0].amountOut, a.usdRoute[0].decimalsOut));
-    var bMaxUsdAmountAsDecimal = new Decimal(ethers.utils.formatUnits(b.usdRoute[0].amountOut, b.usdRoute[0].decimalsOut));
-
-    if (aMaxUsdAmountAsDecimal.lt(bMaxUsdAmountAsDecimal)) {
-      return -1; // b
-    }
-
-    if (bMaxUsdAmountAsDecimal.lt(aMaxUsdAmountAsDecimal)) {
-      return 1; // a
-    }
-
-    return 0; // equal
-  });
-
-  return sortedLowToHigh[sortedLowToHigh.length - 1];
-});
 
 var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
@@ -9547,8 +9450,8 @@ var PaymentRoutingProvider = (function (props) {
 
   var configuration = useContext(ConfigurationContext);
 
-  var _useContext4 = useContext(ChangableAmountContext),
-      amountsMissing = _useContext4.amountsMissing;
+  var _useContext4 = useContext(ChangableAmountContext);
+      _useContext4.amountsMissing;
 
   var getPaymentRoutes = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -9737,10 +9640,6 @@ var PaymentRoutingProvider = (function (props) {
 
     if (updatedRoutes.length == 0) {
       setAllRoutes(updatedRoutes);
-
-      if (props.setMaxRoute) {
-        props.setMaxRoute(null);
-      }
     } else {
       roundAmounts(updatedRoutes).then(function (roundedRoutes) {
         if (typeof selectedRoute == 'undefined') {
@@ -9761,45 +9660,8 @@ var PaymentRoutingProvider = (function (props) {
         }
 
         roundedRoutes.assets = updatedRoutes.assets;
-
-        if (amountsMissing && props.setMaxRoute) {
-          Promise.all(roundedRoutes.map(function (route) {
-            return new Promise(function (resolve, reject) {
-              if (Blockchains[route.blockchain].tokens.findIndex(function (token) {
-                return token.address.toLowerCase() === route.fromToken.address.toLowerCase();
-              }) === -1) {
-                // Major tokens only
-                return resolve();
-              }
-
-              Exchanges.route({
-                blockchain: route.blockchain,
-                tokenIn: route.fromToken.address,
-                amountIn: route.fromBalance,
-                tokenOut: Blockchains[route.blockchain].stables.usd[0].toLowerCase() !== route.fromToken.address.toLowerCase() ? Blockchains[route.blockchain].stables.usd[0] : Blockchains[route.blockchain].stables.usd[1],
-                fromAddress: route.fromAddress,
-                toAddress: route.toAddress
-              }).then(function (usdRoute) {
-                return resolve({
-                  route: route,
-                  usdRoute: usdRoute
-                });
-              })["catch"](reject);
-            });
-          })).then(function (routes) {
-            var _findMaxRoute;
-
-            props.setMaxRoute((_findMaxRoute = findMaxRoute(routes.filter(Boolean))) === null || _findMaxRoute === void 0 ? void 0 : _findMaxRoute.route);
-            setAllRoutes(roundedRoutes);
-            setAllRoutesLoaded(true);
-          })["catch"](function (e) {
-            console.log('ERROR', e);
-            props.setMaxRoute(null);
-          });
-        } else {
-          setAllRoutes(roundedRoutes);
-          setAllRoutesLoaded(true);
-        }
+        setAllRoutes(roundedRoutes);
+        setAllRoutesLoaded(true);
       });
     }
   }, 500), []);
@@ -9823,8 +9685,7 @@ var PaymentRoutingProvider = (function (props) {
 var PaymentAmountRoutingProvider = (function (props) {
   var _useContext = useContext(ChangableAmountContext),
       amountsMissing = _useContext.amountsMissing,
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
+      acceptWithAmount = _useContext.acceptWithAmount;
 
   var _useContext2 = useContext(ConfigurationContext),
       configuredAccept = _useContext2.accept;
@@ -9845,7 +9706,6 @@ var PaymentAmountRoutingProvider = (function (props) {
     value: {}
   }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
     accept: accept,
-    setMaxRoute: setMaxRoute,
     container: props.container,
     document: props.document
   }, props.children));
@@ -9900,7 +9760,7 @@ var NoPaymentOptionFoundDialog = (function () {
     }, /*#__PURE__*/React.createElement(QuestionsGraphic, null)), /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingBottomXS"
     }, /*#__PURE__*/React.createElement("h1", {
-      className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      className: "LineHeightL Text FontSizeL PaddingTopXS FontWeightBold"
     }, "Not Enough Funds"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("strong", {
@@ -11231,18 +11091,6 @@ var blockTimes = {
 };
 var etaForConfirmations = (function (blockchain, confirmationsRequired, confirmationsPassed) {
   return (confirmationsRequired - confirmationsPassed) * blockTimes[blockchain];
-});
-
-var LoadingText = (function (props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "LoadingText"
-  }, props.children, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }, "."), /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }, "."), /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }, "."));
 });
 
 var REQUIRES_APPROVAL_RESET = {
@@ -12612,6 +12460,163 @@ var PaymentTrackingProvider = (function (props) {
     }
   }, props.children);
 });
+
+var usdAmountForToken = /*#__PURE__*/(function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+    var blockchain, token, amount, decimals, _decimals, amountDecimal, response;
+
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            blockchain = _ref.blockchain, token = _ref.token, amount = _ref.amount, decimals = _ref.decimals;
+
+            if (!Blockchains[blockchain].stables.usd.includes(token)) {
+              _context.next = 4;
+              break;
+            }
+
+            // is stable
+            _decimals = Blockchains[blockchain].tokens.find(function (tokenData) {
+              return tokenData.address === token;
+            }).decimals;
+            return _context.abrupt("return", ethers.utils.formatUnits(amount.toString(), _decimals));
+
+          case 4:
+            amountDecimal = ethers.utils.formatUnits(amount, decimals);
+            _context.next = 7;
+            return fetch("https://public.depay.com/conversions/USD/".concat(blockchain, "/").concat(token, "?amount=").concat(amountDecimal));
+
+          case 7:
+            response = _context.sent;
+
+            if (!(response.status == 200)) {
+              _context.next = 14;
+              break;
+            }
+
+            _context.t0 = parseFloat;
+            _context.next = 12;
+            return response.text();
+
+          case 12:
+            _context.t1 = _context.sent;
+            return _context.abrupt("return", (0, _context.t0)(_context.t1));
+
+          case 14:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+var PaymentValueProvider = (function (props) {
+  var _useContext = useContext(UpdatableContext),
+      updatable = _useContext.updatable;
+
+  var _useContext2 = useContext(ConfigurationContext),
+      configuredAmount = _useContext2.amount,
+      currencyCode = _useContext2.currencyCode;
+
+  var _useContext3 = useContext(ChangableAmountContext),
+      amount = _useContext3.amount;
+
+  var _useContext4 = useContext(PaymentContext),
+      payment = _useContext4.payment;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      paymentValue = _useState2[0],
+      setPaymentValue = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      displayedPaymentValue = _useState4[0],
+      setDisplayedPaymentValue = _useState4[1];
+
+  var _useContext5 = useContext(ConfigurationContext),
+      currency = _useContext5.currency;
+
+  var updatePaymentValue = function updatePaymentValue(_ref) {
+    var updatable = _ref.updatable,
+        payment = _ref.payment;
+
+    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+      return;
+    }
+
+    setPaymentValue(null);
+    usdAmountForToken({
+      blockchain: payment.route.blockchain,
+      token: payment.route.fromToken.address,
+      amount: payment.route.fromAmount,
+      decimals: payment.route.fromDecimals
+    }).then(function (usdAmount) {
+      if (usdAmount != undefined && usdAmount != null) {
+        Currency.fromUSD({
+          amount: usdAmount,
+          code: currency
+        }).then(setPaymentValue);
+      }
+    });
+  };
+
+  useEffect(function () {
+    if (paymentValue && amount && configuredAmount && configuredAmount.fix) {
+      setDisplayedPaymentValue(paymentValue.toString());
+    } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
+      setDisplayedPaymentValue(new Currency({
+        amount: amount.toFixed(2),
+        code: currencyCode
+      }).toString());
+    } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
+      setDisplayedPaymentValue(paymentValue.toString());
+    } else if (payment) {
+      setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
+    }
+  }, [paymentValue, payment, amount, configuredAmount]);
+  useEffect(function () {
+    if (payment) {
+      updatePaymentValue({
+        updatable: updatable,
+        payment: payment
+      });
+    }
+  }, [updatable, payment]);
+  return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
+    value: {
+      paymentValue: paymentValue,
+      displayedPaymentValue: displayedPaymentValue
+    }
+  }, props.children);
+});
+
+function getFavicon () {
+  var favicon;
+  var nodeList = document.getElementsByTagName("link");
+
+  for (var i = 0; i < nodeList.length; i++) {
+    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
+      favicon = nodeList[i].getAttribute("href");
+    }
+  }
+
+  if (!favicon) {
+    return;
+  }
+
+  if (favicon.match(':')) {
+    return favicon;
+  } else {
+    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
+  }
+}
 
 let _window$1;
 
@@ -19751,221 +19756,6 @@ let route = ({
 
 exchanges.route = route;
 
-var usdAmountForToken = /*#__PURE__*/(function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var blockchain, token, amount, decimals, _decimals, amountDecimal, response, routes, amounts, average, diff, filteredAmounts;
-
-    return regenerator.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            blockchain = _ref.blockchain, token = _ref.token, amount = _ref.amount, decimals = _ref.decimals;
-
-            if (!Blockchains[blockchain].stables.usd.includes(token)) {
-              _context.next = 4;
-              break;
-            }
-
-            // is stable
-            _decimals = Blockchains[blockchain].tokens.find(function (tokenData) {
-              return tokenData.address === token;
-            }).decimals;
-            return _context.abrupt("return", ethers.utils.formatUnits(amount.toString(), _decimals));
-
-          case 4:
-            if (!(blockchain == 'solana')) {
-              _context.next = 17;
-              break;
-            }
-
-            amountDecimal = ethers.utils.formatUnits(amount, decimals);
-            _context.next = 8;
-            return fetch("https://api.depay.com/v2/conversions/USD/solana/".concat(token, "?amount=").concat(amountDecimal));
-
-          case 8:
-            response = _context.sent;
-
-            if (!(response.status == 200)) {
-              _context.next = 15;
-              break;
-            }
-
-            _context.t0 = parseFloat;
-            _context.next = 13;
-            return response.text();
-
-          case 13:
-            _context.t1 = _context.sent;
-            return _context.abrupt("return", (0, _context.t0)(_context.t1));
-
-          case 15:
-            _context.next = 30;
-            break;
-
-          case 17:
-            _context.next = 19;
-            return Promise.all(Blockchains[blockchain].stables.usd.map(function (stable) {
-              return exchanges.route({
-                blockchain: blockchain,
-                tokenIn: token,
-                tokenOut: stable,
-                amountIn: amount
-              });
-            }));
-
-          case 19:
-            routes = _context.sent.filter(Boolean).flat();
-
-            if (!(routes.length > 0)) {
-              _context.next = 30;
-              break;
-            }
-
-            amounts = routes.map(function (route) {
-              var decimals = Blockchains[blockchain].tokens.find(function (token) {
-                return token.address === route.tokenOut;
-              }).decimals;
-              return parseFloat(ethers.utils.formatUnits(route.amountOut, decimals));
-            }); // remove outliers
-
-            average = amounts.reduce(function (a, b) {
-              return a + b;
-            }) / amounts.length;
-            diff = 0.1; // 10%
-
-            filteredAmounts = amounts.filter(function (amount) {
-              return amount < average + average * diff && amount > average - average * diff;
-            });
-
-            if (!filteredAmounts.length) {
-              _context.next = 29;
-              break;
-            }
-
-            return _context.abrupt("return", filteredAmounts.reduce(function (a, b) {
-              return a + b;
-            }) / filteredAmounts.length);
-
-          case 29:
-            return _context.abrupt("return", amounts.reduce(function (a, b) {
-              return a + b;
-            }) / amounts.length);
-
-          case 30:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x) {
-    return _ref2.apply(this, arguments);
-  };
-})();
-
-var PaymentValueProvider = (function (props) {
-  var _useContext = useContext(UpdatableContext),
-      updatable = _useContext.updatable;
-
-  var _useContext2 = useContext(ConfigurationContext),
-      configuredAmount = _useContext2.amount,
-      currencyCode = _useContext2.currencyCode;
-
-  var _useContext3 = useContext(ChangableAmountContext),
-      amount = _useContext3.amount;
-
-  var _useContext4 = useContext(PaymentContext),
-      payment = _useContext4.payment;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      paymentValue = _useState2[0],
-      setPaymentValue = _useState2[1];
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      displayedPaymentValue = _useState4[0],
-      setDisplayedPaymentValue = _useState4[1];
-
-  var _useContext5 = useContext(ConfigurationContext),
-      currency = _useContext5.currency;
-
-  var updatePaymentValue = function updatePaymentValue(_ref) {
-    var updatable = _ref.updatable,
-        payment = _ref.payment;
-
-    if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
-      return;
-    }
-
-    setPaymentValue(null);
-    usdAmountForToken({
-      blockchain: payment.route.blockchain,
-      token: payment.route.fromToken.address,
-      amount: payment.route.fromAmount,
-      decimals: payment.route.fromDecimals
-    }).then(function (usdAmount) {
-      if (usdAmount != undefined && usdAmount != null) {
-        Currency.fromUSD({
-          amount: usdAmount,
-          code: currency
-        }).then(setPaymentValue);
-      }
-    });
-  };
-
-  useEffect(function () {
-    if (paymentValue && amount && configuredAmount && configuredAmount.currency && configuredAmount.fix) {
-      setDisplayedPaymentValue(paymentValue.toString());
-    } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
-      setDisplayedPaymentValue(new Currency({
-        amount: amount.toFixed(2),
-        code: currencyCode
-      }).toString());
-    } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
-      setDisplayedPaymentValue(paymentValue.toString());
-    } else if (payment) {
-      setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
-    }
-  }, [paymentValue, payment, amount, configuredAmount]);
-  useEffect(function () {
-    if (payment) {
-      updatePaymentValue({
-        updatable: updatable,
-        payment: payment
-      });
-    }
-  }, [updatable, payment]);
-  return /*#__PURE__*/React.createElement(PaymentValueContext.Provider, {
-    value: {
-      paymentValue: paymentValue,
-      displayedPaymentValue: displayedPaymentValue
-    }
-  }, props.children);
-});
-
-function getFavicon () {
-  var favicon;
-  var nodeList = document.getElementsByTagName("link");
-
-  for (var i = 0; i < nodeList.length; i++) {
-    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
-      favicon = nodeList[i].getAttribute("href");
-    }
-  }
-
-  if (!favicon) {
-    return;
-  }
-
-  if (favicon.match(':')) {
-    return favicon;
-  } else {
-    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
-  }
-}
-
 var solanaRouters = {
   solana: {
     address: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
@@ -22187,17 +21977,16 @@ function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if 
 function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SaleRoutingProvider = (function (props) {
   var _useContext = useContext(ChangableAmountContext),
-      acceptWithAmount = _useContext.acceptWithAmount,
-      setMaxRoute = _useContext.setMaxRoute;
+      acceptWithAmount = _useContext.acceptWithAmount;
 
-  var _useContext2 = useContext(ConfigurationContext),
-      sell = _useContext2.sell;
+  var _useContext2 = useContext(ConfigurationContext);
+      _useContext2.sell;
 
   var _useContext3 = useContext(WalletContext),
       account = _useContext3.account;
 
-  var _useContext4 = useContext(ConfigurationContext),
-      blacklist = _useContext4.blacklist;
+  var _useContext4 = useContext(ConfigurationContext);
+      _useContext4.blacklist;
 
   var _useState = useState(acceptWithAmount ? acceptWithAmount.map(function (accept) {
     return _objectSpread$1(_objectSpread$1({}, accept), {}, {
@@ -22207,20 +21996,6 @@ var SaleRoutingProvider = (function (props) {
       _useState2 = _slicedToArray(_useState, 2),
       acceptWithAmountAndReceiver = _useState2[0],
       setAcceptWithAmountAndReceiver = _useState2[1];
-
-  if (blacklist == undefined) {
-    blacklist = {};
-  }
-
-  for (var blockchain in sell) {
-    var token = sell[blockchain];
-
-    if (blacklist[blockchain] instanceof Array) {
-      blacklist[blockchain].push(token);
-    } else {
-      blacklist[blockchain] = [token];
-    }
-  }
 
   useEffect(function () {
     if (acceptWithAmount) {
@@ -22236,8 +22011,7 @@ var SaleRoutingProvider = (function (props) {
   return /*#__PURE__*/React.createElement(SaleRoutingContext.Provider, {
     value: {}
   }, /*#__PURE__*/React.createElement(PaymentRoutingProvider, {
-    accept: acceptWithAmountAndReceiver,
-    setMaxRoute: setMaxRoute
+    accept: acceptWithAmountAndReceiver
   }, /*#__PURE__*/React.createElement(PaymentProvider, {
     container: props.container,
     document: props.document
@@ -22538,6 +22312,7 @@ var Sale = /*#__PURE__*/function () {
               }
 
               blacklist[key].push(sell[key]);
+              blacklist[key] = _toConsumableArray(new Set(blacklist[key]));
             });
             unmount = mount({
               style: style,
