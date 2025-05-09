@@ -10156,23 +10156,21 @@
                 approvalTransaction = _context3.sent;
 
               case 14:
-                _context3.next = 20;
+                _context3.next = 19;
                 break;
 
               case 16:
-                // transaction
-                console.log('payment.route', payment.route);
-                _context3.next = 19;
+                _context3.next = 18;
                 return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
                   amount: payment.route.fromAmount
                 } : undefined);
 
-              case 19:
+              case 18:
                 approvalTransaction = _context3.sent;
 
-              case 20:
+              case 19:
                 if (!approvalSignatureData) {
-                  _context3.next = 24;
+                  _context3.next = 23;
                   break;
                 }
 
@@ -10189,23 +10187,23 @@
                   setPaymentState('initialized');
                   setClosable(true);
                 });
-                _context3.next = 28;
+                _context3.next = 27;
                 break;
 
-              case 24:
+              case 23:
                 if (!approvalTransaction) {
-                  _context3.next = 28;
+                  _context3.next = 27;
                   break;
                 }
 
                 if (!window._depayWidgetError) {
-                  _context3.next = 27;
+                  _context3.next = 26;
                   break;
                 }
 
                 return _context3.abrupt("return");
 
-              case 27:
+              case 26:
                 // do not perform any transaction if there was an error in the widget!
                 wallet.sendTransaction(Object.assign({}, approvalTransaction, {
                   accepted: function accepted() {
@@ -10244,7 +10242,7 @@
                   setClosable(true);
                 });
 
-              case 28:
+              case 27:
               case "end":
                 return _context3.stop();
             }
@@ -26252,20 +26250,6 @@
     });
   });
 
-  var ChevronRightICon = (function (props) {
-    return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: ["ChevronRight Icon", props.className].filter(Boolean).join(' '),
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "16",
-      height: "16",
-      viewBox: "0 0 16 16"
-    }, /*#__PURE__*/React__default['default'].createElement("path", {
-      strokeWidth: "1",
-      fillRule: "evenodd",
-      d: "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-    }));
-  });
-
   var SelectTokenDialog = (function (props) {
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext.navigate;
@@ -26725,7 +26709,7 @@
         className: "CardBody FontSizeM"
       }, blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardAction"
-      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightICon, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement(ChevronRightIcon, null)))), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomXS"
