@@ -22,6 +22,7 @@ import round from '../helpers/round'
 import routePayments from '../helpers/routePayments'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
+import ErrorContext from '../contexts/ErrorContext'
 import { ethers } from 'ethers'
 
 const RELOAD_PERIOD = 15_000;
@@ -39,6 +40,7 @@ export default (props)=>{
   const { recover } = useContext(ConfigurationContext)
   const configuration = useContext(ConfigurationContext)
   const { amountsMissing } = useContext(ChangableAmountContext)
+  const { setError } = useContext(ErrorContext)
 
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{
     if(updatable == false || !props.accept || !account) { return }
@@ -61,7 +63,10 @@ export default (props)=>{
         setUpdatedRoutes(routes)
         clearInterval(slowRoutingTimeout)
         resolve()
-      }).catch(reject)
+      }).catch((error)=>{
+        setError(error)
+        reject(error)
+      })
     })
   }
 

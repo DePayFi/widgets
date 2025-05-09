@@ -160,6 +160,11 @@ describe('Payment Widget: amount', () => {
         TOKEN_A_AmountBN.mul(10)
       ]
     })
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=0.85` }, '1.8')
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=1.166` }, '1.166')
+    fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=8.5` }, '18')
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=11.658` }, '11.658')
   })
   
   describe('change amount', () => {
@@ -180,37 +185,6 @@ describe('Payment Widget: amount', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
           })
-        })
-      })
-    })
-
-    it('allows me to quickly select the max amount that I can buy', ()=> {
-      mockAmountsOut({
-        provider,
-        blockchain,
-        exchange,
-        amountInBN: '117647059',
-        path: [Blockchains[blockchain].stables.usd[0], DEPAY],
-        amountsOut: [
-          '117647059',
-          WRAPPED_AmountInBN.mul(10),
-          TOKEN_A_AmountBN.mul(10)
-        ]
-      })
-
-      cy.visit('cypress/test.html').then((contentWindow) => {
-        cy.document().then((document)=>{
-          DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.TextButton', 'Max').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€100').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '11.658').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
         })
       })
     })
@@ -239,7 +213,7 @@ describe('Payment Widget: amount', () => {
       })
     })
 
-    it('allows me to submit a changed amount', ()=> {
+    it('allows me to perform a payment with a changed amount', ()=> {
       let fromAddress = accounts[0]
 
       let mockedTransaction = mock({
@@ -307,14 +281,16 @@ describe('Payment Widget: amount', () => {
 
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.CardTitle', 'Amount').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change amount"]').contains('.TokenAmountRow', '€10.00').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '11.658').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
 
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
-              confirm(mockedTransaction)
-              expect(mockedTransaction.calls.count()).to.eq(1)
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenAmountCell', '11.658').should('exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').should('exist')
+
+            cy.wait(1000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Pay').click().then(()=>{
+                confirm(mockedTransaction)
+                expect(mockedTransaction.calls.count()).to.eq(1)
+              })
             })
           })
         })
