@@ -8302,6 +8302,22 @@
 
   var internalVerify = async ({ signature, publicKey, data, saltLength = 64, crypto, atob })=>{
 
+    if(typeof data === 'object') {
+      data = JSON.stringify(data);
+    }
+
+    if(typeof signature !== 'string' || signature === undefined) {
+      throw('signature missing!')
+    }
+
+    if(data === undefined || data.length === 0) {
+      throw('data missing!')
+    }
+
+    if(publicKey === undefined || typeof publicKey !== 'string' || publicKey.length === 0) {
+      throw('publicKey missing!')
+    }
+
     let innerPublicKey = publicKey.replace(/^.*?-----BEGIN PUBLIC KEY-----\n/, '').replace(/-----END PUBLIC KEY-----(\n)*$/, '').replace(/(\n)*/g, '');
     while (innerPublicKey.length % 4) { // add proper padding
       innerPublicKey += '=';
@@ -8368,14 +8384,14 @@
         }) : undefined
       })["catch"](retry).then( /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(response) {
-          var _JSON$parse, configurationId, _configuration, verified, _configuration$accept, localConfigurationWithValues, _msg, _msg2, _msg3;
+          var _JSON$parse, configurationId, _configuration, verified, _configuration$accept, localConfigurationWithValues, _msg, _msg2;
 
           return regenerator.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
                   if (!(response.status == 200)) {
-                    _context.next = 29;
+                    _context.next = 26;
                     break;
                   }
 
@@ -8399,7 +8415,7 @@
                   verified = _context.sent;
 
                   if (!verified) {
-                    _context.next = 24;
+                    _context.next = 21;
                     break;
                   }
 
@@ -8415,48 +8431,43 @@
                     return acc;
                   }, {});
 
-                  if (!(!(_configuration !== null && _configuration !== void 0 && _configuration.accept) || !(_configuration !== null && _configuration !== void 0 && (_configuration$accept = _configuration.accept) !== null && _configuration$accept !== void 0 && _configuration$accept.length) > 0)) {
-                    _context.next = 17;
-                    break;
+                  if (!(_configuration !== null && _configuration !== void 0 && _configuration.accept) || !(_configuration !== null && _configuration !== void 0 && (_configuration$accept = _configuration.accept) !== null && _configuration$accept !== void 0 && _configuration$accept.length) > 0) {
+                    // Configuration is missing token acceptance!
+                    loadConfiguration(id, attempt + 1);
                   }
 
-                  _msg = 'Configuration is missing token acceptance!';
-                  setError(_msg);
-                  throw _msg;
-
-                case 17:
                   if (!_configuration.accept.some(function (configuration) {
                     return !configuration.protocolFee;
                   })) {
-                    _context.next = 21;
+                    _context.next = 18;
                     break;
                   }
 
-                  _msg2 = 'Configuration is missing protocol fee!';
-                  setError(_msg2);
-                  throw _msg2;
+                  _msg = 'Configuration is missing protocol fee!';
+                  setError(_msg);
+                  throw _msg;
 
-                case 21:
+                case 18:
                   setConfiguration(_objectSpread$5(_objectSpread$5(_objectSpread$5({}, _configuration), localConfigurationWithValues), {}, {
                     id: configurationId,
                     currencyCode: currencyCode
                   }));
+                  _context.next = 24;
+                  break;
+
+                case 21:
+                  _msg2 = 'Configuration response not verified!';
+                  setError(_msg2);
+                  throw _msg2;
+
+                case 24:
                   _context.next = 27;
                   break;
 
-                case 24:
-                  _msg3 = 'Configuration response not verified!';
-                  setError(_msg3);
-                  throw _msg3;
-
-                case 27:
-                  _context.next = 30;
-                  break;
-
-                case 29:
+                case 26:
                   retry();
 
-                case 30:
+                case 27:
                 case "end":
                   return _context.stop();
               }
@@ -9450,6 +9461,9 @@
     var _useContext4 = React.useContext(ChangableAmountContext);
         _useContext4.amountsMissing;
 
+    var _useContext5 = React.useContext(ErrorContext),
+        setError = _useContext5.setError;
+
     var getPaymentRoutes = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
         var selectedRoute, updatable, slowRoutingTimeout;
@@ -9486,7 +9500,10 @@
                     setUpdatedRoutes(routes);
                     clearInterval(slowRoutingTimeout);
                     resolve();
-                  })["catch"](reject);
+                  })["catch"](function (error) {
+                    setError(error);
+                    reject(error);
+                  });
                 }));
 
               case 6:
@@ -10138,21 +10155,23 @@
                 approvalTransaction = _context3.sent;
 
               case 14:
-                _context3.next = 19;
+                _context3.next = 20;
                 break;
 
               case 16:
-                _context3.next = 18;
+                // transaction
+                console.log('payment.route', payment.route);
+                _context3.next = 19;
                 return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
                   amount: payment.route.fromAmount
                 } : undefined);
 
-              case 18:
+              case 19:
                 approvalTransaction = _context3.sent;
 
-              case 19:
+              case 20:
                 if (!approvalSignatureData) {
-                  _context3.next = 23;
+                  _context3.next = 24;
                   break;
                 }
 
@@ -10169,23 +10188,23 @@
                   setPaymentState('initialized');
                   setClosable(true);
                 });
-                _context3.next = 27;
+                _context3.next = 28;
                 break;
 
-              case 23:
+              case 24:
                 if (!approvalTransaction) {
-                  _context3.next = 27;
+                  _context3.next = 28;
                   break;
                 }
 
                 if (!window._depayWidgetError) {
-                  _context3.next = 26;
+                  _context3.next = 27;
                   break;
                 }
 
                 return _context3.abrupt("return");
 
-              case 26:
+              case 27:
                 // do not perform any transaction if there was an error in the widget!
                 wallet.sendTransaction(Object.assign({}, approvalTransaction, {
                   accepted: function accepted() {
@@ -10224,7 +10243,7 @@
                   setClosable(true);
                 });
 
-              case 27:
+              case 28:
               case "end":
                 return _context3.stop();
             }

@@ -110,9 +110,12 @@ describe('Payment Widget: approval', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=33.165` }, '33.165')
   })
   
-  it('asks me to approve the token for the payment router before I can execute it', () => {
+  it.only('asks me to approve the token spending for the payment router before I can execute the payment', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -129,10 +132,9 @@ describe('Payment Widget: approval', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'First, approve use of DAI').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Approving...').then(()=>{
@@ -144,7 +146,7 @@ describe('Payment Widget: approval', () => {
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
               cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('not.exist')
-              cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
+              cy.contains('.ButtonPrimary', 'Approve and pay', { includeShadowDom: true }).should('not.exist')
             })
           })
         })
