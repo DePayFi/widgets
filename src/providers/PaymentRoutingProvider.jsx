@@ -60,6 +60,7 @@ export default (props)=>{
         }
       }))
       .then((routes)=>{
+        console.log('routes', routes)
         setUpdatedRoutes(routes)
         clearInterval(slowRoutingTimeout)
         resolve()

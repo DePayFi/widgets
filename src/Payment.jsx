@@ -14,7 +14,6 @@ import PaymentValueProvider from './providers/PaymentValueProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
-import routePayments from './helpers/routePayments'
 import SolanaPayProvider from './providers/SolanaPayProvider'
 import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
 import UpdatableProvider from './providers/UpdatableProvider'
@@ -110,7 +109,5 @@ let Payment = async ({
     }
   }
 }
-
-Payment.preload = ({ account, accept, whitelist, blacklist, event }) => { routePayments({ account, accept, whitelist, blacklist }) }
 
 export default Payment

@@ -217,7 +217,8 @@ export default ()=>{
                 {!spendingProcessing && spendingDone && <CheckmarkIcon className="small" />}
               </div>
               <div className="StepText">
-                {!spendingProcessing && <span>Approve spending {payment.symbol}</span>}
+                {!spendingProcessing && !spendingDone && <span>Approve {payment.symbol} for spending</span>}
+                {!spendingProcessing && spendingDone && <span>Approved {payment.symbol} for spending</span>}
                 {spendingProcessing && <LoadingText>Approving {payment.symbol} for spending</LoadingText>}
               </div>
               <div className="StepConnector" />
