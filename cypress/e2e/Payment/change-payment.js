@@ -128,7 +128,6 @@ describe('Payment Widget: change payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://depay.com/favicon.png')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.TokenAmountCell', '20').should('exist')
@@ -154,7 +153,6 @@ describe('Payment Widget: change payment', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]')
@@ -257,7 +255,6 @@ describe('Payment Widget: change payment', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()

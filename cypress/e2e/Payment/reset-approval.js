@@ -131,7 +131,6 @@ describe('Payment Widget: reset approval', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select USDT as payment"]').click()
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reset USDT approval').click()
@@ -183,7 +182,6 @@ describe('Payment Widget: reset approval', () => {
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
       cy.wait(500).then(()=>{ // wait for dialog
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select USDT as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reset USDT approval').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Resetting...').then(()=>{
@@ -216,7 +214,6 @@ describe('Payment Widget: reset approval', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select USDT as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reset USDT approval').click()
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')

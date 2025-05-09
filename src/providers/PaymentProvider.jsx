@@ -153,6 +153,10 @@ export default (props)=>{
             setPaymentState('initialized')
           }, 1000)
         })
+      },
+      failed: (transaction, error)=>{
+        setPaymentState('initialized')
+        setClosable(true)
       }
     }))
       .catch((error)=>{
