@@ -42,7 +42,7 @@ npm install ethers react react-dom --save
 
 In case you want to use and package only specific platforms, use the platform-specific package:
 
-### EVM platform specific packaging
+### EVM (Ethereum Virtual Machine) platform specific packaging
 
 ```
 yarn add @depay/widgets-evm
@@ -52,14 +52,14 @@ yarn add @depay/widgets-evm
 import DePayWidgets from '@depay/widgets-evm'
 ```
 
-### Solana platform specific packaging
+### SVM (Solana Virtual Machine) platform specific packaging
 
 ```
-yarn add @depay/widgets-solana
+yarn add @depay/widgets-svm
 ```
 
 ```javascript
-import DePayWidgets from '@depay/widgets-solana'
+import DePayWidgets from '@depay/widgets-svm'
 ```
 
 ## Server-side rendering
@@ -293,6 +293,25 @@ DePayWidgets.Payment({
       fee: {
         amount: '3%',
         receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+      }
+    }
+  ],
+});
+```
+
+##### fee2
+
+You can configure up to 2 fees that will be paid out as part of the payment:
+
+```javascript
+DePayWidgets.Payment({
+  accept: [
+    {...
+
+      fee: {...},
+      fee2: {,
+        amount: '5%',
+        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
       }
     }
   ],
@@ -802,7 +821,6 @@ DePayWidgets.Payment({
       primary: '#ffd265',
       text: '#e1b64a',
       buttonText: '#000000',
-      icons: '#ffd265'
     },
     fontFamily: '"Cardo", serif !important',
     css: `
@@ -831,6 +849,24 @@ DePayWidgets.Payment({
       text: '#ffd265',
       buttonText: '#000000',
       icons: '#ffd265'
+    }
+  }
+})
+```
+
+##### colorsDarkMode
+
+You can pass colors applicable to dark mode:
+
+```javascript
+DePayWidgets.Payment({
+  
+  style: {
+    colorsDarkMode: {
+      primary: '#000265',
+      text: '#000265',
+      buttonText: '#FFFFFF',
+      icons: '#000265'
     }
   }
 })
@@ -871,6 +907,26 @@ DePayWidgets.Payment({
   }
 })
 ```
+
+###### cssDarkMode
+
+Allows you to inject css to adjust darkMode:
+
+```javascript
+DePayWidgets.Payment({
+  
+  style: {
+    cssDarkMode: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  }
+})
+```
+
 
 #### unmount
 
@@ -1116,7 +1172,7 @@ DePayWidgets.Sale({
 
 #### currency
 
-Allows you to enforce displayed local currency (instead of automatically detecting it):
+Allows you to set the displayed currency (instead of automatically displaying user's local currency):
 
 ```javascript
 DePayWidgets.Sale({
@@ -1125,6 +1181,8 @@ DePayWidgets.Sale({
 
 });
 ```
+
+Set to `false` if you want to hide currency conversion rate.
 
 #### blacklist
 
@@ -1571,5 +1629,5 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/payment-value-loss-safeguard.js"
+yarn test:cypress:debug --spec "cypress/e2e/bundle.js"
 ```

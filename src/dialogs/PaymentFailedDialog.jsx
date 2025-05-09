@@ -1,7 +1,7 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
-import ErrorGraphic from '../graphics/error'
+import ErrorGraphic from '../graphics/wallets/error'
 import link from '../helpers/link'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useContext } from 'react'
@@ -23,7 +23,7 @@ export default ()=> {
       body={
         <div className="TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ ErrorGraphic }/>
+            <ErrorGraphic/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

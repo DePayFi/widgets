@@ -7,12 +7,12 @@ import PaymentValueProvider from '../providers/PaymentValueProvider'
 import React, { useContext } from 'react'
 
 export default (props)=>{
-  const { acceptWithAmount, setMaxRoute } = useContext(ChangableAmountContext)
+  const { acceptWithAmount } = useContext(ChangableAmountContext)
   const { blacklist, whitelist, fee } = useContext(ConfigurationContext)
 
   return(
     <DonationRoutingContext.Provider value={{}}>
-      <PaymentRoutingProvider accept={ acceptWithAmount } whitelist={ whitelist } blacklist={ blacklist } setMaxRoute={ setMaxRoute } fee={ fee }>
+      <PaymentRoutingProvider accept={ acceptWithAmount } whitelist={ whitelist } blacklist={ blacklist } fee={ fee }>
         <PaymentProvider container={ props.container } document={ props.document } >
           <PaymentValueProvider>
             { props.children }

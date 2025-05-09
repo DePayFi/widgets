@@ -2,7 +2,7 @@ import { routers } from '@depay/web3-payments'
 
 export default (confirmedTransaction)=>{
   if(!confirmedTransaction || !confirmedTransaction?.meta?.logMessages || !confirmedTransaction?.transaction?.message?.compiledInstructions) { return }
-  if(!confirmedTransaction.meta.logMessages.some((log)=>log.match('Program DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7 invoke'))) { return }
+  if(!confirmedTransaction.meta.logMessages.some((log)=>log.match(`Program ${routers.solana.address} invoke`))) { return }
 
   let foundInstruction
   confirmedTransaction.transaction.message.compiledInstructions.forEach((instruction)=>{

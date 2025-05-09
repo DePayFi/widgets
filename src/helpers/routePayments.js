@@ -2,9 +2,9 @@
 
 import { route } from '@depay/web3-payments-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
-import { route } from '@depay/web3-payments-solana'
+import { route } from '@depay/web3-payments-svm'
 
 //#else */
 
@@ -35,14 +35,13 @@ const mergeFromAccounts = (accept, account)=>{
   return from
 }
 
-export default ({ accept, account, receiver, whitelist, blacklist, fee, update, drip })=>{
+export default ({ accept, account, receiver, whitelist, blacklist, fee, best })=>{
   return route({
     accept: accept.map((accept)=>prepareAcceptedPayments(accept, receiver)),
     from: mergeFromAccounts(accept, account),
     whitelist,
     blacklist,
     fee,
-    update,
-    drip
+    best,
   })
 }

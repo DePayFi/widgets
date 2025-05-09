@@ -17,7 +17,6 @@ import requireReactVersion from './helpers/requireReactVersion'
 import routePayments from './helpers/routePayments'
 import SolanaPayProvider from './providers/SolanaPayProvider'
 import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
-import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 import { supported } from './blockchains'
@@ -81,19 +80,17 @@ let Payment = async ({
                       <ConversionRateProvider>
                         <ChangableAmountProvider>
                           <PaymentAmountRoutingProvider container={ container } document={ document }>
-                            <TransactionTrackingProvider>
-                              <PaymentTrackingProvider document={ ensureDocument(document) }>
-                                <PaymentProvider container={ container } document={ document }>
-                                  <PaymentValueProvider>
-                                      <PaymentStack
-                                        document={ document }
-                                        container={ container }
-                                      />
-                                      <PoweredBy/>
-                                  </PaymentValueProvider>
-                                </PaymentProvider>
-                              </PaymentTrackingProvider>
-                            </TransactionTrackingProvider>
+                            <PaymentTrackingProvider document={ ensureDocument(document) }>
+                              <PaymentProvider container={ container } document={ document }>
+                                <PaymentValueProvider>
+                                    <PaymentStack
+                                      document={ document }
+                                      container={ container }
+                                    />
+                                    <PoweredBy/>
+                                </PaymentValueProvider>
+                              </PaymentProvider>
+                            </PaymentTrackingProvider>
                           </PaymentAmountRoutingProvider>
                         </ChangableAmountProvider>
                       </ConversionRateProvider>

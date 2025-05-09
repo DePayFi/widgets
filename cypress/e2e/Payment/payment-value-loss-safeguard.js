@@ -301,7 +301,7 @@ describe('Payment Widget: value loss safeguard', () => {
         cy.wait(3000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', "Payment would lose 58% of its value!").should('exist')
           cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).contains('Pay').should('exist')
-          cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).contains('Approve use of DAI').should('exist')
+          cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).contains('First, approve use of DAI').should('exist')
         })
       })
     })

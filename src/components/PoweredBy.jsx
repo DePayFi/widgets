@@ -8,7 +8,7 @@ export default ()=>{
 
   return(
     <div className="PoweredByWrapper">
-      <a href={ link({ url: 'https://depay.com', target: '_blank', wallet }) } rel="noopener noreferrer" target="_blank" className="PoweredByLink">by DePay</a>
+      <a href={ link({ url: 'https://depay.com', target: '_blank', wallet }) } rel="noopener noreferrer" target="_blank" className="PoweredByLink" title="powered by DePay">DePay</a>
     </div>
   )
 }

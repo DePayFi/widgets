@@ -12,7 +12,6 @@ import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
 import SaleRoutingProvider from './providers/SaleRoutingProvider'
 import SaleStack from './stacks/SaleStack'
-import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 
@@ -51,6 +50,7 @@ let Sale = async ({
     Object.keys(sell).forEach((key)=>{
       if(!blacklist[key]) { blacklist[key] = [] }
       blacklist[key].push(sell[key])
+      blacklist[key] = [...new Set(blacklist[key])]
     })
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
@@ -62,17 +62,15 @@ let Sale = async ({
                   <NavigateProvider>
                     <ConversionRateProvider>
                       <ChangableAmountProvider>
-                        <TransactionTrackingProvider>
-                          <PaymentTrackingProvider document={ ensureDocument(document) }>
-                            <SaleRoutingProvider container={ container } document={ document }>
-                              <SaleStack
-                                document={ document }
-                                container={ container }
-                              />
-                              <PoweredBy/>
-                            </SaleRoutingProvider>
-                          </PaymentTrackingProvider>
-                        </TransactionTrackingProvider>
+                        <PaymentTrackingProvider document={ ensureDocument(document) }>
+                          <SaleRoutingProvider container={ container } document={ document }>
+                            <SaleStack
+                              document={ document }
+                              container={ container }
+                            />
+                            <PoweredBy/>
+                          </SaleRoutingProvider>
+                        </PaymentTrackingProvider>
                       </ChangableAmountProvider>
                     </ConversionRateProvider>
                   </NavigateProvider>

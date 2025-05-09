@@ -1,10 +1,7 @@
 import Dialog from '../components/Dialog'
-import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext } from 'react'
 
 export default (props)=>{
-
-  const { paymentValue } = useContext(PaymentValueContext)
 
   return(
     <Dialog
@@ -12,9 +9,6 @@ export default (props)=>{
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM PaddingBottomS">
           <h1 className="LineHeightL FontSizeL TextCenter">Payment options</h1>
-          { paymentValue != undefined &&
-            <div className="FontSizeL TextCenter FontWeightBold"><strong>{ paymentValue.toString() }</strong></div>
-          }
         </div>
       }
       body={
