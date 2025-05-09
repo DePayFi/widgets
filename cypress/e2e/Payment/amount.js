@@ -23,10 +23,10 @@ describe('Payment Widget: amount', () => {
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 1.8
   const defaultArguments = {
-    accept:[{
+    accept: [{
       blockchain,
+      receiver: toAddress,
       token: DEPAY,
-      receiver: toAddress
     }]
   }
 
@@ -165,6 +165,76 @@ describe('Payment Widget: amount', () => {
     fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=1.166` }, '1.166')
     fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=8.5` }, '18')
     fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=11.658` }, '11.658')
+
+    fetchMock.post('https://public.depay.com/routes/best',
+      (url, opts) => {
+        const req = JSON.parse(opts.body)
+        if(req.accept[0].amount == 1.8) {
+          return {
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          }
+        } else if(req.accept[0].amount == 18) {
+          return {
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.mul(ethers.BigNumber.from('10')).toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          }
+        }
+      }
+    )
+
+    fetchMock.post('https://public.depay.com/routes/all',
+      (url, opts) => {
+        const req = JSON.parse(opts.body)
+        if(req.accept[0].amount == 1.8) {
+          return [{
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          }]
+        } else if(req.accept[0].amount == 18) {
+          return [{
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.mul(ethers.BigNumber.from('10')).toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          }]
+        }
+      }
+    )
   })
   
   describe('change amount', () => {
