@@ -9,7 +9,7 @@ import { resetCache, getProvider } from '@depay/web3-client'
 import { routers } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
 
-describe('Payment Widget: fee', () => {
+describe('Payment Widget: fee, fee2 & protocolFee', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -19,7 +19,8 @@ describe('Payment Widget: fee', () => {
   const WETH = Blockchains[blockchain].wrapped.address
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-  const feeReceiver = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+  const feeReceiver = '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb'
+  const fee2Receiver = '0xb87D81203FD2E881FBe0Bae6C01E1a5a3d98C456'
   const amount = 20
   const defaultArguments = {
     accept: [{
@@ -30,7 +31,12 @@ describe('Payment Widget: fee', () => {
       fee: {
         amount: '5%',
         receiver: feeReceiver
-      }
+      },
+      fee2: {
+        amount: '3%',
+        receiver: fee2Receiver
+      },
+      protocolFee: '1.5%'
     }],
   }
   
@@ -98,9 +104,74 @@ describe('Payment Widget: fee', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept: [{
+          blockchain,
+          amount,
+          token: DEPAY,
+          receiver: toAddress,
+        }],
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept: [{
+          blockchain,
+          amount,
+          token: DEPAY,
+          receiver: toAddress,
+        }],
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+      {
+        blockchain,
+        fromToken: DAI,
+        fromDecimals: 18,
+        fromName: "Dai",
+        fromSymbol: "DAI",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
   
-  it('pays a fee to the fee receiver once payment has been performed', () => {
+  it('pays a fee to feeReceiver, fee2 to fee2Receiver and a protocolFee remains with the protocol', () => {
 
     let mockedTransaction = mock({
       blockchain,
@@ -111,16 +182,19 @@ describe('Payment Widget: fee', () => {
         method: 'pay',
         params: {
           payment: {
-            amountIn: "10100000000000000",
+            amountIn: "20000000000000000000",
             permit2: false,
-            paymentAmount: "19000000000000000000",
+            paymentAmount: "18100000000000000000",
             feeAmount: "1000000000000000000",
-            tokenInAddress: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-            exchangeAddress: exchange.router.address,
+            feeAmount2: "600000000000000000",
+            protocolAmount: "300000000000000000",
+            tokenInAddress: "0xa0bed124a09ac2bd941b10349d8d224fe3c955eb",
+            exchangeAddress: Blockchains[blockchain].zero,
             tokenOutAddress: "0xa0bed124a09ac2bd941b10349d8d224fe3c955eb",
             paymentReceiverAddress: toAddress,
             feeReceiverAddress: feeReceiver,
-            exchangeType: 1,
+            feeReceiverAddress2: fee2Receiver,
+            exchangeType: 0,
             receiverType: 0,
             exchangeCallData: anything,
             receiverCallData: Blockchains[blockchain].zero,
@@ -163,10 +237,7 @@ describe('Payment Widget: fee', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(2000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
             expect(mockedTransaction.calls.count()).to.equal(1)
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')

@@ -318,6 +318,18 @@ DePayWidgets.Payment({
 });
 ```
 
+##### protocolFee
+
+The fee paid to the protocol:
+
+```javascript
+DePayWidgets.Payment({
+  
+  protocolFee: '1.5%',
+  
+});
+```
+
 #### title
 
 `title`

@@ -62,7 +62,8 @@ let Payment = async ({
   title,
   action,
   document,
-  wallets
+  wallets,
+  protocolFee,
 }) => {
   requireReactVersion()
   if(currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) { currency = false }
@@ -72,7 +73,7 @@ let Payment = async ({
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, allow, deny, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action, wallets } }>
+          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, allow, deny, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action, wallets, protocolFee } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <NavigateProvider>

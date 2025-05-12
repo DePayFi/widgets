@@ -702,7 +702,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-fail:
+  payment-widget-failed-transaction:
     
     runs-on: ubuntu-latest
 
@@ -729,9 +729,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/fail.js
+      - name: Run Cypress Tests cypress/e2e/Payment/failed-transaction.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/fail.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/failed-transaction.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
@@ -743,7 +743,7 @@ jobs:
           name: cypress-videos
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-fee:
+  payment-widget-fees:
     
     runs-on: ubuntu-latest
 
@@ -770,9 +770,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/fee.js
+      - name: Run Cypress Tests cypress/e2e/Payment/fees.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/fee.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/fees.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
