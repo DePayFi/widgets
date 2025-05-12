@@ -5,7 +5,8 @@ import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Token from '@depay/web3-tokens'
-import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
+import { ethers } from 'ethers'
+import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import { Server } from 'mock-socket'
@@ -30,12 +31,19 @@ describe('Payment Widget: integration', () => {
       some: 'information'
     }
   }
-  const remoteConfiguration = {
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const remoteConfiguration = { 
     accept: [{
       blockchain,
       amount,
       token: DEPAY,
-      receiver: toAddress
+      receiver: toAddress,
+      protocolFee: '1.5%'
     }]
   }
   const mockedWebsocketServer = new Server('wss://integrate.depay.com/cable')
@@ -114,6 +122,61 @@ describe('Payment Widget: integration', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+      {
+        blockchain,
+        fromToken: DAI,
+        fromDecimals: 18,
+        fromName: "Dai",
+        fromSymbol: "DAI",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
   
   it('loads the configuration from the managed integration backend and allows to track, execute and validate a payment through a managed integration', () => {
@@ -121,15 +184,34 @@ describe('Payment Widget: integration', () => {
       blockchain,
       transaction: {
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "19700000000000000000",
+            feeAmount: 0,
+            protocolAmount: "300000000000000000",
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
     fetchMock.post({
-      url: `https://public.depay.com/configurations/${integrationId}`,
+      url: `https://public.depay.com/configurations/${integrationId}?v=3`,
       body: {
         payload: {
           some: 'information'
@@ -137,7 +219,7 @@ describe('Payment Widget: integration', () => {
       }
     }, {
       body: { id: configurationId, configuration: remoteConfiguration },
-      headers: { 'X-Signature': "gXtOM5DfbJyIRJvAmauWixiwckRFReaPiWukOHna2-tyASwaKhv1TR8uT9xyTrMywcLATE7TMYzR3C2k6IuCdhMXa5phUvKrqNwhuYU-fULXcYXT5hbbBLLpjLD4XwFf3n30u8UD1zOzRav7NPJgySV2kX1QP-clHACgKy6s9mijEY2Hrc1wkNjbc7KIrQ6Ho50KAlNqCj-zmI04QzhA-DgVX8r-d2-U6iYxLFUSPRXtZkMDn9cccqrLKf2VocwJQO7G6ttXiwP6g7svDRYinpe88PXJPyQojE3nkmoTCiMLEhVqOaSpKnlirvPDblUw5e8OAKYuoZwuVTXvEdrmmQ==" },
+      headers: { 'X-Signature': "r-JfAbj7OlPDgk1T9I4SXbVo3O90aCdzstmTZhicqYw0KnjuGFM0mKp_T5BKKGDHb1Jv0Jfb7f8bTUQBTYrVAcmlW-sMvuSUJuwHfKDqAxKHouE6CZkMep4iwJaj3m073kl-c-qXUbASe5K1beXxFVRRNY49oVBB-UXidi9Hn0eUA4dJNKmcj_C9Klxz3F7rCwtFvRSePX8v085yi0sZktWSCEOY4KNy_x1LEHBunK6BGlXFY9wQvQHoiW9oGL9CUrY3YJ0cUv3AsGXBDPtOayd_uiWgjJ-nPCXnG_Oxj9_L3p3T-uZuhGAoaTbk6velJdBEHoKGtciBivI-a0vPsw==" },
       status: 200
     })
 
@@ -150,9 +232,9 @@ describe('Payment Widget: integration', () => {
         from_amount: "20000000000000000000",
         from_decimals: 18,
         from_token: "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
-        nonce: "0",
+        protocol_fee_amount: "300000000000000000",
         sender: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-        to_amount: "20000000000000000000",
+        to_amount: "19700000000000000000",
         to_decimals: 18,
         to_token: "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
@@ -210,32 +292,25 @@ describe('Payment Widget: integration', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
-              mockedWebsocket.send(JSON.stringify({
-                message: {
-                  release: true,
-                  status: 'success'
-                }
-              }))
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
-                  cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-                })
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            mockedWebsocket.send(JSON.stringify({
+              message: {
+                release: true,
+                status: 'success'
+              }
+            }))
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
               })
             })
           })
@@ -249,15 +324,34 @@ describe('Payment Widget: integration', () => {
       blockchain,
       transaction: {
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "19700000000000000000",
+            feeAmount: 0,
+            protocolAmount: "300000000000000000",
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
     fetchMock.post({
-      url: `https://public.depay.com/configurations/${integrationId}`,
+      url: `https://public.depay.com/configurations/${integrationId}?v=3`,
       body: {
         payload: {
           some: 'information'
@@ -265,7 +359,7 @@ describe('Payment Widget: integration', () => {
       }
     }, {
       body: { id: configurationId, configuration: remoteConfiguration },
-      headers: { 'X-Signature': "gXtOM5DfbJyIRJvAmauWixiwckRFReaPiWukOHna2-tyASwaKhv1TR8uT9xyTrMywcLATE7TMYzR3C2k6IuCdhMXa5phUvKrqNwhuYU-fULXcYXT5hbbBLLpjLD4XwFf3n30u8UD1zOzRav7NPJgySV2kX1QP-clHACgKy6s9mijEY2Hrc1wkNjbc7KIrQ6Ho50KAlNqCj-zmI04QzhA-DgVX8r-d2-U6iYxLFUSPRXtZkMDn9cccqrLKf2VocwJQO7G6ttXiwP6g7svDRYinpe88PXJPyQojE3nkmoTCiMLEhVqOaSpKnlirvPDblUw5e8OAKYuoZwuVTXvEdrmmQ==" },
+      headers: { 'X-Signature': "r-JfAbj7OlPDgk1T9I4SXbVo3O90aCdzstmTZhicqYw0KnjuGFM0mKp_T5BKKGDHb1Jv0Jfb7f8bTUQBTYrVAcmlW-sMvuSUJuwHfKDqAxKHouE6CZkMep4iwJaj3m073kl-c-qXUbASe5K1beXxFVRRNY49oVBB-UXidi9Hn0eUA4dJNKmcj_C9Klxz3F7rCwtFvRSePX8v085yi0sZktWSCEOY4KNy_x1LEHBunK6BGlXFY9wQvQHoiW9oGL9CUrY3YJ0cUv3AsGXBDPtOayd_uiWgjJ-nPCXnG_Oxj9_L3p3T-uZuhGAoaTbk6velJdBEHoKGtciBivI-a0vPsw==" },
       status: 200
     })
 
@@ -278,9 +372,9 @@ describe('Payment Widget: integration', () => {
         from_amount: "20000000000000000000",
         from_decimals: 18,
         from_token: "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
-        nonce: "0",
+        protocol_fee_amount: "300000000000000000",
         sender: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-        to_amount: "20000000000000000000",
+        to_amount: "19700000000000000000",
         to_decimals: 18,
         to_token: "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
       },
@@ -336,27 +430,19 @@ describe('Payment Widget: integration', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary.disabled', 'Continue').should('exist').then(()=>{
-              cy.wait(5000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').then(()=>{
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment validated').find('.Checkmark')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
-                    cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
-                  })
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.wait(5000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+                  cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
                 })
               })
             })
