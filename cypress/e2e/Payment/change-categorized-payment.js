@@ -130,7 +130,7 @@ describe('Payment Widget: change categorized payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then(async(document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
 
           // Best

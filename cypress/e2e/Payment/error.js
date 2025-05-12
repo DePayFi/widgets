@@ -146,7 +146,7 @@ describe('Payment Widget: errors', () => {
             passedError = error
           }
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /something failed/)
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')

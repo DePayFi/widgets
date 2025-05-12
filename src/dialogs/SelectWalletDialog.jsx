@@ -38,8 +38,9 @@ export default (props)=>{
   const listElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
+  let allowList = walletsConfiguration?.allow || walletsConfiguration?.whitelist
   let allWallets
-  if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+  if(walletsConfiguration?.sort || allowList) {
     allWallets = useMemo(()=>{
       let adjustedWallets = [...allWalletsOriginal]
 
@@ -52,8 +53,8 @@ export default (props)=>{
         })
       }
 
-      if(walletsConfiguration?.whitelist) {
-        adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet.name) > -1)
+      if(allowList) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>allowList.indexOf(wallet.name) > -1)
       }
 
       return adjustedWallets
@@ -169,7 +170,7 @@ export default (props)=>{
       drip: (wallet)=>{
         wallets = wallets.concat(wallet)
         
-        if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+        if(walletsConfiguration?.sort || allowList) {
           let adjustedWallets = [...wallets]
 
           if(walletsConfiguration?.sort) {
@@ -181,8 +182,8 @@ export default (props)=>{
             })
           }
 
-          if(walletsConfiguration?.whitelist) {
-            adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet?.info?.name) > -1)
+          if(allowList) {
+            adjustedWallets = adjustedWallets.filter((wallet)=>allowList.indexOf(wallet?.info?.name) > -1)
           }
 
           setDetectedWallets(adjustedWallets)
@@ -248,7 +249,7 @@ export default (props)=>{
                             <div className="CardText FontWeightMedium">
                               { walletMetaData.name }
                             </div>
-                            <div className="TextColorSuccess"><span className="TextColorSuccess" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> { capitalizeFirstChar(isMobile() && connectionType == 'extension' ? 'app' : connectionType) } detected</div>
+                            <div className="TextColorSuccess"><span className="TextColorSuccess" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Detected</div>
                           </div>
                         </div>
                       </button>

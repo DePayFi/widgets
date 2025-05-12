@@ -102,7 +102,7 @@ describe('Payment Widget: wallet', () => {
         DePayWidgets.Connect({ ...defaultArguments, document }).then(({ wallet })=>{
           connectedWallet = wallet
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click().then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click().then(()=>{
           cy.wait(1000).then(()=>{
             DePayWidgets.Payment({ ...defaultArguments, wallet: connectedWallet, document })
             cy.wait(1000).then(()=>{

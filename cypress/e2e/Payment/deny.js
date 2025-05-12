@@ -6,10 +6,10 @@ import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
-import { routers } from '@depay/web3-payments'
+import { routers, plugins } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
 
-describe('Payment Widget: whitelist', () => {
+describe('Payment Widget: blacklist', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -27,7 +27,7 @@ describe('Payment Widget: whitelist', () => {
       receiver: toAddress
     }]
   }
-  
+
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let provider
@@ -103,32 +103,26 @@ describe('Payment Widget: whitelist', () => {
     }))
   })
   
-  describe('whitelist fromTokens', () => {
+  describe('blacklist fromTokens', () => {
 
-    it('allows to whitelist fromTokens to only route those for payments', ()=> {
+    it('allows to blacklist fromTokens to only route those for payments', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document,
-            whitelist: {
+            blacklist: {
               ethereum: [
-                ETH,
                 DAI
               ]
             }
           })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          
-          cy.get('.Card[title="Select DEPAY as payment"]', { includeShadowDom: true }).should('not.exist')
 
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').should('not.exist')
+          
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.TokenAmountCell', '0.01').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.CardText small', '1').should('exist')
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.TokenAmountCell', '33').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').contains('.CardText small', '50').should('exist')
         })
       })
     })

@@ -88,7 +88,10 @@ export default (props)=>{
     )
     if(before) {
       let stop = await before(transaction, account)
-      if(stop === false){ return }
+      if(stop === false){
+        setPaymentState('initialized')
+        return
+      }
     }
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline

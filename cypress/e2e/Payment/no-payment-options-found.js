@@ -75,7 +75,7 @@ describe('Payment Widget: no payment options found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No enough funds!')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Please make sure you have enough funds')
       })
@@ -88,7 +88,7 @@ describe('Payment Widget: no payment options found', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No enough funds!')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()

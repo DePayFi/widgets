@@ -30,6 +30,7 @@ let Sale = async ({
   error,
   critical,
   style,
+  deny,
   blacklist,
   before,
   providers,
@@ -46,16 +47,16 @@ let Sale = async ({
   try {
     await preflight({ sell })
     const accept = Object.keys(sell).map((key)=>({ blockchain: key, token: sell[key] }))
-    blacklist = Object.assign(blacklist || {})
+    deny = Object.assign(deny || {})
     Object.keys(sell).forEach((key)=>{
-      if(!blacklist[key]) { blacklist[key] = [] }
-      blacklist[key].push(sell[key])
-      blacklist[key] = [...new Set(blacklist[key])]
+      if(!deny[key]) { deny[key] = [] }
+      deny[key].push(sell[key])
+      deny[key] = [...new Set(deny[key])]
     })
     let unmount = mount({ style, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ type: 'sale', accept, before, tokenImage, amount, sell, currency, sent, succeeded, failed, blacklist, providers, integration, wallet }}>
+          <ConfigurationProvider configuration={{ type: 'sale', accept, before, tokenImage, amount, sell, currency, sent, succeeded, failed, deny, blacklist, providers, integration, wallet }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <WalletProvider container={ container } connected={ connected } unmount={ unmount }>

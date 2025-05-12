@@ -207,7 +207,7 @@ The address receiving the payment. Always double check that you've set the right
 
 #### wallets
 
-You can sort and whitelist wallets displayed during the initial wallet selection step as follows:
+You can sort and allow (list) wallets displayed during the initial wallet selection step as follows:
 
 ##### wallets.sort
 
@@ -224,12 +224,12 @@ You can sort and whitelist wallets displayed during the initial wallet selection
 
 This configuration would display Uniswap and Coinbase first, then would list all the others.
 
-##### wallets.whitelist
+##### wallets.allow
 
 ```
 {
   wallets: {
-    whitelist: [
+    allow: [
       'Uniswap',
       'Coinbase',
       'Rainbow'
@@ -711,14 +711,14 @@ DePayWidgets.Payment({
 
 ```
 
-#### whitelist
+#### allow (list)
 
-Allows only the configured tokens to be eligible as means of payment (from the sender):
+Allows only the configured tokens to be eligible as means of payment:
 
 ```javacript
 DePayWidgets.Payment({
   
-  whitelist: {
+  allow: {
     ethereum: [
       '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // ETH
       '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
@@ -739,14 +739,14 @@ DePayWidgets.Payment({
 
 ```
 
-#### blacklist
+#### deny
 
-Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
+Allows to deny tokens so that they will not be suggested as means of payment:
 
 ```javacript
 DePayWidgets.Payment({
   
-  blacklist: {
+  deny: {
     ethereum: [
       '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
       '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e
@@ -1184,14 +1184,14 @@ DePayWidgets.Sale({
 
 Set to `false` if you want to hide currency conversion rate.
 
-#### blacklist
+#### deny (list)
 
-Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
+Allows to deny tokens so that they will not be suggested as means of payment:
 
 ```javacript
 DePayWidgets.Sale({
   
-  blacklist: {
+  deny: {
     ethereum: [
       '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
       '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e

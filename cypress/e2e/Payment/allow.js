@@ -6,10 +6,10 @@ import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
 import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
-import { routers, plugins } from '@depay/web3-payments'
+import { routers } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
 
-describe('Payment Widget: blacklist', () => {
+describe('Payment Widget: allow (list)', () => {
 
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -19,15 +19,14 @@ describe('Payment Widget: blacklist', () => {
   const WETH = Blockchains[blockchain].wrapped.address
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
-
+  const accept = [{
+    amount,
+    blockchain,
+    receiver: toAddress,
+    token: DEPAY,
+  }]
+  const defaultArguments = { accept }
+  
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
   let provider
@@ -101,25 +100,71 @@ describe('Payment Widget: blacklist', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${ETH}?amount=0.0101` }, '25.25')
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+        allow: { ethereum: [ ETH ] }
+      },
+    }, {
+        blockchain,
+        fromToken: ETH,
+        fromDecimals: 18,
+        fromName: "Ether",
+        fromSymbol: "ETH",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+        allow: { ethereum: [ ETH ] },
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: ETH,
+        fromDecimals: 18,
+        fromName: "Ether",
+        fromSymbol: "ETH",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      }
+    ])
   })
   
-  describe('blacklist fromTokens', () => {
+  describe('allow list fromTokens', () => {
 
-    it('allows to blacklist fromTokens to only route those for payments', ()=> {
+    it('allows only listed tokens to be used as fromTokens for payments', ()=> {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document,
-            blacklist: {
+            allow: {
               ethereum: [
-                DAI
+                ETH
               ]
             }
           })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').should('not.exist')
           
+          cy.get('.Card[title="Select DEPAY as payment"]', { includeShadowDom: true }).should('not.exist')
+
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.TokenAmountCell', '0.01').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.TokenSymbolCell', 'ETH').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').contains('.CardText small', '1').should('exist')

@@ -75,7 +75,7 @@ describe('Payment Widget: wallet misses blockchain support dialog', () => {
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Wallet Misses Blockchain Support')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'The connected wallet does not support the blockchains required by this payment. Try to connect another wallet that does support one of the available blockchains.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Check available blockchains').click()

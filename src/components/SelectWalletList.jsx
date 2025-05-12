@@ -8,8 +8,9 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 export default (props)=>{
 
   const { wallets: walletsConfiguration } = useContext(ConfigurationContext)
+  let allowList = walletsConfiguration?.allow || walletsConfiguration?.whitelist 
   let allWallets
-  if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+  if(walletsConfiguration?.sort || allowList) {
     allWallets = useMemo(()=>{
       let adjustedWallets = [...allWalletsOriginal]
 
@@ -22,8 +23,8 @@ export default (props)=>{
         })
       }
 
-      if(walletsConfiguration?.whitelist) {
-        adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet.name) > -1)
+      if(allowList) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>allowList.indexOf(wallet.name) > -1)
       }
 
       return adjustedWallets

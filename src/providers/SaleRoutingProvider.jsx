@@ -12,7 +12,6 @@ export default (props)=>{
   const { acceptWithAmount } = useContext(ChangableAmountContext)
   const { sell } = useContext(ConfigurationContext)
   const { account } = useContext(WalletContext)
-  let { blacklist } = useContext(ConfigurationContext)
   const [ acceptWithAmountAndReceiver, setAcceptWithAmountAndReceiver ] = useState(acceptWithAmount ? acceptWithAmount.map((accept)=>({ ...accept, receiver: account })) : undefined)
 
   useEffect(()=>{
