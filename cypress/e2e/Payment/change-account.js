@@ -23,13 +23,14 @@ describe('Payment Widget: change account', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
   const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
+    accept
   }
 
   let provider
@@ -114,6 +115,77 @@ describe('Payment Widget: change account', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post('https://public.depay.com/routes/best',
+      (url, opts) => {
+        const req = JSON.parse(opts.body)
+        if(req.accounts[blockchain] == '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045') {
+          return {
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 18,
+            fromName: "DePay",
+            fromSymbol: "DePay",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+          }
+        } else if(req.accounts[blockchain] == '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb') {
+          return {
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          }
+        }
+      }
+    )
+
+    fetchMock.post('https://public.depay.com/routes/all',
+      (url, opts) => {
+        const req = JSON.parse(opts.body)
+        if(req.accounts[blockchain] == '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045') {
+          return [{
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 18,
+            fromName: "DePay",
+            fromSymbol: "DePay",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+          }]
+        } else if(req.accounts[blockchain] == '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb') {
+          return [{
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          }]
+        }
+      }
+    )
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=33.165` }, '33.165')
   })
 
   it('reloads the widget for the new account if account changed', () => {
@@ -122,6 +194,7 @@ describe('Payment Widget: change account', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DEPAY').should('exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.wait(1000).then(()=>{
 
@@ -177,6 +250,7 @@ describe('Payment Widget: change account', () => {
             })
 
             const newAccount = '0x8a4aDA571ab235BF7d586d02E534D08552B3dedb'
+            mock({ provider, blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [newAccount, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
             mock({ blockchain, accounts: { return: [newAccount] }, wallet: 'metamask' })
             trigger('accountsChanged', [newAccount])
             cy.wait(2000).then(()=>{
@@ -184,10 +258,28 @@ describe('Payment Widget: change account', () => {
                 blockchain,
                 transaction: {
                   from: newAccount,
-                  to: DEPAY,
-                  api: Token[blockchain].DEFAULT,
-                  method: 'transfer',
-                  params: [toAddress, TOKEN_A_AmountBN]
+                  to: routers[blockchain].address,
+                  api: routers[blockchain].api,
+                  method: 'pay',
+                  params: {
+                    payment: {
+                      amountIn: ethers.utils.parseUnits('33.165', 18),
+                      permit2: false,
+                      paymentAmount: ethers.utils.parseUnits('20', 18),
+                      feeAmount: 0,
+                      tokenInAddress: DAI,
+                      exchangeAddress: exchange.router.address,
+                      tokenOutAddress: DEPAY,
+                      paymentReceiverAddress: toAddress,
+                      feeReceiverAddress: Blockchains[blockchain].zero,
+                      exchangeType: 1,
+                      receiverType: 0,
+                      exchangeCallData: anything,
+                      receiverCallData: Blockchains[blockchain].zero,
+                      deadline: anything,
+                    }
+                  },
+                  value: 0
                 }
               })
 
@@ -216,6 +308,7 @@ describe('Payment Widget: change account', () => {
                 matchPartialBody: true
               }, 201)
 
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'DAI').should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               confirm(mockedTransaction)
               cy.wait(1000).then(()=>{

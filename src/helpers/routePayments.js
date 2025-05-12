@@ -29,14 +29,6 @@ const mergeFromAccounts = (accept, account)=>{
 }
 
 export default ({ accept, account, receiver, allow, deny, whitelist, blacklist, fee, best })=>{
-  console.log('ROUTE', {
-    accept: accept.map((accept)=>prepareAcceptedPayments(accept, receiver)),
-    from: mergeFromAccounts(accept, account),
-    allow: allow || whitelist,
-    deny: deny || blacklist,
-    fee,
-    best,
-  })
   return route({
     accept: accept.map((accept)=>prepareAcceptedPayments(accept, receiver)),
     from: mergeFromAccounts(accept, account),
