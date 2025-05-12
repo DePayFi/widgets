@@ -19,14 +19,13 @@ describe('Payment Widget: errors', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let TOKEN_A_AmountBN
   let provider
@@ -100,6 +99,48 @@ describe('Payment Widget: errors', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      }
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
 
   it('calls error callback with a critical error if widgets fails initialization', () => {
@@ -129,7 +170,14 @@ describe('Payment Widget: errors', () => {
     let errorCalled
     let passedError
     
-    mock({ provider, blockchain, request: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'symbol', return: Error('something failed') } })
+    fetchMock.post({
+      overwriteRoutes: true,
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, 500)
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -148,12 +196,12 @@ describe('Payment Widget: errors', () => {
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /something failed/)
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /Best route could not be loaded!/)
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
-          expect(passedError.toString()).to.match(/something failed/)
+          expect(passedError.toString()).to.match(/Best route could not be loaded!/)
         })
       })
     })

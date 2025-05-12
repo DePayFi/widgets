@@ -65,7 +65,7 @@ export default (props)=>{
         resolve()
       }).catch((error)=>{
         setError(error)
-        reject(error)
+        resolve()
       })
     })
   }

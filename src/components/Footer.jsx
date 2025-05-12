@@ -401,7 +401,7 @@ export default ()=>{
       if(approvalRequired) {
         if(paymentState == 'initialized') {
           return(
-            <div className="PaddingBottomXS">
+            <div className="PaddingBottomXS PaddingTopXS">
 
               <div className="PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS">
                 <div className="PaddingTopXS">

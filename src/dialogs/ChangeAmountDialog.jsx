@@ -16,7 +16,7 @@ export default (props)=>{
   const { navigate } = useContext(NavigateStackContext)
   const { setError } = useContext(ErrorContext)
   const { account } = useContext(WalletContext)
-  const { amount, setAmount, maxAmount } = useContext(ChangableAmountContext)
+  const { amount, setAmount } = useContext(ChangableAmountContext)
   const { displayedPaymentValue } = useContext(PaymentValueContext)
   const [ inputAmount, setInputAmount ] = useState(amount)
   const { currencyCode, amount: amountConfiguration } = useContext(ConfigurationContext)
@@ -54,12 +54,10 @@ export default (props)=>{
 
   const toValidValue = (value)=> {
     value = toValidStep(value)
-    if(maxAmount) {
-      value = Math.max(
-        min,
-        Math.min(value, maxAmount)
-      )
-    }
+    value = Math.max(
+      min,
+      value
+    )
     value = toValidStep(value)
     return value
   }
@@ -86,7 +84,6 @@ export default (props)=>{
               
               <div className="PaddingBottomM">
                 <input
-                  max={ maxAmount ? parseFloat(maxAmount) : null }
                   min={ min }
                   step={ step }
                   className='Input FontSizeXXL TextAlignCenter'
@@ -98,21 +95,6 @@ export default (props)=>{
                 />
               </div>
 
-              { maxAmount && 
-                <div style={{ height: '40px' }}>
-                  <div className='FontSizeS'>
-                    { format(toValidStep(maxAmount)) }
-                    <div>
-                      <button 
-                        className="TextButton"
-                        onClick={()=>{ changeAmount(toValidValue(maxAmount)) }}
-                      >
-                        (Max)
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              }
             </div>
           </div>
         </div>
