@@ -71,17 +71,6 @@ export default (props)=>{
   const searchElement = useRef()
 
   useEffect(()=>{
-    setTimeout(()=>{
-      if(!isMobile()) {
-        if(searchElement.current){
-          searchElement.current.click()
-          searchElement.current.focus()
-        }
-      }
-    }, 200)
-  }, [])
-
-  useEffect(()=>{
     if(allRoutes == undefined) { return }
     if(allRoutesLoaded !== true) { return }
     Promise.all(
@@ -138,6 +127,15 @@ export default (props)=>{
       setAllPaymentOptions(allPaymentOptions)
       setSelectedTab('all')
       setSelectedPaymentOptions(allPaymentOptions)
+
+      setTimeout(()=>{
+        if(!isMobile()) {
+          if(searchElement.current){
+            searchElement.current.click()
+            searchElement.current.focus()
+          }
+        }
+      }, 200)
       
     }).catch(setError)
   }, [allRoutes, allRoutesLoaded])
