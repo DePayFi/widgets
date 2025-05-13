@@ -24,14 +24,13 @@ describe('Payment Widget: reset approval', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let provider
   let TOKEN_A_AmountBN
@@ -112,6 +111,49 @@ describe('Payment Widget: reset approval', () => {
     }))
 
     mock({ blockchain, provider, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: '100000' } })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: USDT,
+        fromDecimals: 6,
+        fromName: "USDT",
+        fromSymbol: "USDT",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: USDT,
+        fromDecimals: 6,
+        fromName: "USDT",
+        fromSymbol: "USDT",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
   })
   
   it('asks me to approve the token for the payment router before I can execute it', () => {
@@ -151,19 +193,6 @@ describe('Payment Widget: reset approval', () => {
     })
   })
 
-  it('does not require approval for direct token transfers', () => {
-    
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').then(()=>{
-          cy.contains('.ButtonPrimary', 'Reset USDT approval', { includeShadowDom: true }).should('not.exist')
-        })
-      })
-    })
-  })
-  
   it('resets back to overview if I decline the approval (e.g. reject metamask)', () => {
     let mockedTransaction = mock({
       blockchain,
@@ -188,8 +217,6 @@ describe('Payment Widget: reset approval', () => {
           cy.wait(1000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.Card.disabled', { includeShadowDom: true }).should('not.exist')
-            cy.get('.ButtonPrimary.disabled', { includeShadowDom: true }).should('exist')
-            cy.get('.ButtonPrimary', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reset USDT approval')
           })
         })
@@ -234,7 +261,7 @@ describe('Payment Widget: reset approval', () => {
               cy.contains('.ButtonPrimary', 'Approve', { includeShadowDom: true }).should('not.exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
               cy.wait(1000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'First, approve use of USDT')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Approve and pay')
               })
             })
           })

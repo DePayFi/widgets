@@ -68,9 +68,9 @@ export default ()=>{
       payment?.route?.approvalRequired &&
       REQUIRES_APPROVAL_RESET[payment.route.blockchain] &&
       REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) &&
-      payment?.route?.currentAllowance &&
-      payment?.route?.currentAllowance.toString() != '0' &&
-      payment?.route?.currentAllowance.lt(ethers.BigNumber.from(payment.route.fromAmount))
+      payment?.route?.currentRouterAllowance &&
+      payment?.route?.currentRouterAllowance.toString() != '0' &&
+      payment?.route?.currentRouterAllowance.lt(ethers.BigNumber.from(payment.route.fromAmount))
     ) {
       setRequiresApprovalReset(true)
     } else {
@@ -142,7 +142,7 @@ export default ()=>{
       const showSyncDone = synchronousTracking && release
 
       return (
-        <div className="PaddingBottomS">
+        <div className="PaddingBottomS StepsWrapper">
           {/* Enable signature approval (Permit2) */}
           {needsPermit2Transaction && (
             <>

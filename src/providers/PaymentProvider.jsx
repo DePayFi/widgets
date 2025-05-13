@@ -137,11 +137,11 @@ export default (props)=>{
     })
   })
 
-  const resetApproval = useEvent(()=> {
+  const resetApproval = useEvent(async()=> {
     setPaymentState('resetting')
     setClosable(false)
     setUpdatable(false)
-    const resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction))
+    const resetApprovalTransaction = JSON.parse(JSON.stringify(await payment.route.getRouterApprovalTransaction()))
     resetApprovalTransaction.params[1] = '0' // reset first
     if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
     wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {

@@ -1,6 +1,10 @@
 export default (style)=>{
   return(`
 
+    .StepsWrapper {
+      position: relative;
+    }
+
     .Step {
       display: flex !important;
       align-items: center;
@@ -49,15 +53,16 @@ export default (style)=>{
 
     .StepConnector {
       width: 2px;
-      height: 50%;
+      height: 22px;
       position: absolute;
-      bottom: -25%;
-      left: 19px;
+      left: 20px;
       background: ${style.colors.text};
+      opacity: 0.5;
       z-index: 999;
+      margin-top: -11px;
     }
 
-    .Step:last-child .StepConnector {
+    .StepConnector:last-child {
       display: none;
     }
 
