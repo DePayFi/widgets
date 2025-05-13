@@ -11,8 +11,8 @@ import { ReactShadowDOM } from '@depay/react-shadow-dom';
 import { setProviderEndpoints, request as request$1 } from '@depay/web3-client-svm';
 import { Currency } from '@depay/local-currency';
 import Token$1 from '@depay/web3-tokens-svm';
-import { ethers } from 'ethers';
 import Decimal$1$1, { Decimal as Decimal$1 } from 'decimal.js';
+import { ethers } from 'ethers';
 import { route as route$2 } from '@depay/web3-payments-svm';
 import { TokenImage as TokenImage$1 } from '@depay/react-token-image-svm';
 import { ACCOUNT_LAYOUT, PublicKey, Connection, struct, u32, publicKey, u64 as u64$1, u8, bool, rustEnum, str, u16, option, vec, Buffer, BN, TransactionInstruction, SystemProgram, u128, seq, i32, i128, blob, Keypair, bs58, i64 } from '@depay/solana-web3.js';
@@ -5877,11 +5877,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function capitalizeFirstChar(str) {
-  if (!str) return '';
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
 var DropDown = (function (props) {
   var _useState = useState(0),
       _useState2 = _slicedToArray(_useState, 2),
@@ -5966,16 +5961,17 @@ var throttle = (function (fn, wait) {
   };
 });
 
-function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$8(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletList = (function (props) {
   var _useContext = useContext(ConfigurationContext),
       walletsConfiguration = _useContext.wallets;
 
+  var allowList = (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.allow) || (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.whitelist);
   var allWallets$1;
 
-  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || allowList) {
     allWallets$1 = useMemo(function () {
       var adjustedWallets = _toConsumableArray(allWallets);
 
@@ -5991,9 +5987,9 @@ var SelectWalletList = (function (props) {
         });
       }
 
-      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+      if (allowList) {
         adjustedWallets = adjustedWallets.filter(function (wallet) {
-          return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
+          return allowList.indexOf(wallet.name) > -1;
         });
       }
 
@@ -6098,7 +6094,7 @@ var SelectWalletList = (function (props) {
       className: "Card small",
       title: "Connect ".concat(resultList[virtualItem.key].name),
       onClick: function onClick() {
-        props.onClickWallet(_objectSpread$8({}, resultList[virtualItem.key]));
+        props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardImage"
@@ -6115,9 +6111,9 @@ var SelectWalletList = (function (props) {
   })));
 });
 
-function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var SelectWalletDialog = (function (props) {
   var _useState = useState(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -6153,9 +6149,10 @@ var SelectWalletDialog = (function (props) {
   var _useContext2 = useContext(NavigateStackContext),
       navigate = _useContext2.navigate;
 
+  var allowList = (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.allow) || (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.whitelist);
   var allWallets$1;
 
-  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+  if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || allowList) {
     allWallets$1 = useMemo(function () {
       var adjustedWallets = _toConsumableArray(allWallets);
 
@@ -6171,9 +6168,9 @@ var SelectWalletDialog = (function (props) {
         });
       }
 
-      if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+      if (allowList) {
         adjustedWallets = adjustedWallets.filter(function (wallet) {
-          return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
+          return allowList.indexOf(wallet.name) > -1;
         });
       }
 
@@ -6345,7 +6342,7 @@ var SelectWalletDialog = (function (props) {
       drip: function drip(wallet) {
         wallets = wallets.concat(wallet);
 
-        if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+        if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || allowList) {
           var adjustedWallets = _toConsumableArray(wallets);
 
           if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
@@ -6362,11 +6359,11 @@ var SelectWalletDialog = (function (props) {
             });
           }
 
-          if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+          if (allowList) {
             adjustedWallets = adjustedWallets.filter(function (wallet) {
               var _wallet$info;
 
-              return walletsConfiguration.whitelist.indexOf(wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name) > -1;
+              return allowList.indexOf(wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name) > -1;
             });
           }
 
@@ -6435,7 +6432,7 @@ var SelectWalletDialog = (function (props) {
         className: "Card small",
         title: "Connect ".concat(walletMetaData.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$7(_objectSpread$7({}, walletMetaData), {}, {
+          onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
             via: 'detected',
             connectionType: connectionType
           }), wallet);
@@ -6460,7 +6457,7 @@ var SelectWalletDialog = (function (props) {
           top: '-1px',
           position: 'relative'
         }
-      }, "\u25CF"), " ", capitalizeFirstChar(isMobile() && connectionType == 'extension' ? 'app' : connectionType), " detected")))));
+      }, "\u25CF"), " Detected")))));
     }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
       return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
     }) && /*#__PURE__*/React.createElement("div", {
@@ -6470,7 +6467,7 @@ var SelectWalletDialog = (function (props) {
       className: "Card small",
       title: "Connect ".concat(previouslyConnectedWallet.name),
       onClick: function onClick() {
-        onClickWallet(_objectSpread$7(_objectSpread$7({}, previouslyConnectedWallet), {}, {
+        onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
           via: 'previouslyConnected',
           connectionType: 'app'
         }));
@@ -7868,27 +7865,27 @@ var ErrorProvider = (function (props) {
 });
 
 var ActionIndicatorStyle = (function (style) {
-  return "\n\n    .ActionIndicator {\n      height: 64px;\n      width: 64px;\n      text-align: center;\n      margin: 0 auto;\n    }\n\n    .ActionIndicator img {\n      height: 41px;\n      width: 41px;\n      position: absolute;\n      margin: 11px;\n    }\n\n    .ActionIndicatorSpinner {\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n    }\n\n    .ActionIndicatorSpinner {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n      animation: ActionIndicatorSpinnerRotation 1s linear infinite;\n    }\n\n    @keyframes ActionIndicatorSpinnerRotation {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    } \n  ");
+  return "\n\n    .ActionIndicator {\n      height: 64px;\n      width: 64px;\n      text-align: center;\n      margin: 0 auto;\n    }\n\n    .ActionIndicator img {\n      height: 41px;\n      width: 41px;\n      position: absolute;\n      margin: 11px;\n    }\n\n    .ActionIndicatorSpinner {\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n    }\n\n    .ActionIndicatorSpinner {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ".concat(style.colors.primary, ";\n      border-bottom-color: ").concat(style.colors.background, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n      animation: ActionIndicatorSpinnerRotation 1s linear infinite;\n    }\n\n    @keyframes ActionIndicatorSpinnerRotation {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    } \n  ");
 });
 
 var AlertStyle = (function (style) {
-  return "\n\n    .Alert {\n      background: color-mix(in srgb, ".concat(style.colors.warning, " 20%, ").concat(style.colors.background, " 80%);\n      border: 1px solid ").concat(style.colors.warning, ";\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n\n    .Alert, .Alert * {\n      color: ").concat(style.colors.text, ";\n    }\n  ");
+  return "\n\n    .Alert {\n      background: ".concat(style.colors.warning, ";\n      background: color-mix(in srgb, ").concat(style.colors.warning, " 20%, ").concat(style.colors.background, " 80%);\n      border: 1px solid ").concat(style.colors.warning, ";\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n\n    .Alert, .Alert * {\n      color: ").concat(style.colors.text, ";\n    }\n  ");
 });
 
 var InfoStyle = (function (style) {
-  return "\n\n    .Info {\n      background: color-mix(in srgb, ".concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border: 1px solid color-mix(in srgb, ").concat(style.colors.cardBackground, " 70%, ").concat(style.colors.mixActive, " 30%);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ");
+  return "\n\n    .Info {\n      background: ".concat(style.colors.cardBackground, ";\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border: 1px ").concat(style.colors.mixActive, ";\n      border: 1px solid color-mix(in srgb, ").concat(style.colors.cardBackground, " 70%, ").concat(style.colors.mixActive, " 30%);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ");
 });
 
 var ButtonCircularStyle = (function (style) {
-  return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      opacity: 1;\n    }\n  ");
+  return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      opacity: 1;\n    }\n  ");
 });
 
 var ButtonPrimaryStyle = (function (style) {
-  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 75%, ").concat(style.colors.mixActive, " 15%) !important;\n      color: color-mix(in srgb, ").concat(style.colors.buttonText, " 70%, ").concat(style.colors.mixActive, " 30%) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+  return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background-color: ").concat(style.colors.background, " !important;\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 75%, ").concat(style.colors.mixActive, " 15%) !important;\n      color: ").concat(style.colors.buttonText, " !important;\n      color: color-mix(in srgb, ").concat(style.colors.buttonText, " 70%, ").concat(style.colors.mixActive, " 30%) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
 });
 
 var CardStyle = (function (style) {
-  return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card.secondary {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n\n    .Card.secondary:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n\n    .Card.secondary:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixActive, " 20%);\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+  return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ");\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card.secondary {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n\n    .Card.secondary:hover:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n\n    .Card.secondary:active:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixActive, " 20%);\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
 });
 
 var DialogStyle = (function (style) {
@@ -7896,7 +7893,7 @@ var DialogStyle = (function (style) {
 });
 
 var DropDownStyle = (function (style) {
-  return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: ".concat(style.colors.background, ";\n      border-radius: 8px;\n      box-shadow: 0 0 12px color-mix(in srgb, ").concat(style.colors.background, " 80%, black 20%);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n      width: 100%;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n    \n    .DropDownItem:active {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n    \n  ");
+  return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: ".concat(style.colors.background, ";\n      border-radius: 8px;\n      box-shadow: 0 0 12px ").concat(style.colors.background, ";\n      box-shadow: 0 0 12px color-mix(in srgb, ").concat(style.colors.background, " 80%, black 20%);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n      width: 100%;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n    \n    .DropDownItem:active {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n    \n  ");
 });
 
 var FontStyle = (function (style) {
@@ -7936,7 +7933,7 @@ var LoadingTextStyle = (function (style) {
 });
 
 var LogoStyle = (function (style) {
-  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
+  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n    \n    .SolanaPayLogo path {\n      fill: ".concat(isDarkMode() ? '#FFFFFF' : '#000000', ";\n    }\n  ");
 });
 
 var MarginStyle = (function () {
@@ -7956,7 +7953,7 @@ var PoweredByStyle = (function (style) {
 });
 
 var StepStyle = (function (style) {
-  return "\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 50%;\n      position: absolute;\n      bottom: -25%;\n      left: 19px;\n      background: ").concat(style.colors.text, ";\n      z-index: 999;\n    }\n\n    .Step:last-child .StepConnector {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
+  return "\n\n    .StepsWrapper {\n      position: relative;\n    }\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: ").concat(style.colors.background, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 22px;\n      position: absolute;\n      left: 20px;\n      background: ").concat(style.colors.text, ";\n      opacity: 0.5;\n      z-index: 999;\n      margin-top: -11px;\n    }\n\n    .StepConnector:last-child {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
 });
 
 var QRCodeStyle = (function () {
@@ -7976,11 +7973,11 @@ var ResetStyle = (function () {
 });
 
 var SearchStyle = (function (style) {
-  return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid transparent;\n      background: none;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 8px 12px;\n      width: 100%;\n      position: relative !important; // fixes LastPass extension problem\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: color-mix(in srgb, ").concat(style.colors.text, " 55%, ").concat(style.colors.mixPassive, " 50%);\n    } \n\n    .Search:focus::placeholder, .Search:focus-visible::placeholder {\n      color: color-mix(in srgb, ").concat(style.colors.text, " 65%, ").concat(style.colors.mixPassive, " 35%);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n      background: none;\n    }\n\n  ");
+  return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid transparent;\n      background: none;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 8px 12px;\n      width: 100%;\n      position: relative !important; // fixes LastPass extension problem\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: ").concat(style.colors.text, ";\n      color: color-mix(in srgb, ").concat(style.colors.text, " 55%, ").concat(style.colors.mixPassive, " 50%);\n    } \n\n    .Search:focus::placeholder, .Search:focus-visible::placeholder {\n      color: ").concat(style.colors.text, ";\n      color: color-mix(in srgb, ").concat(style.colors.text, " 65%, ").concat(style.colors.mixPassive, " 35%);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n      background: none;\n    }\n\n  ");
 });
 
 var SkeletonStyle = (function (style) {
-  return "\n        \n    .Skeleton {\n      background: color-mix(in srgb, ".concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    .Card .Skeleton {\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n    }\n\n    .Card .Skeleton .SkeletonBackground {\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%) 50%, transparent 100%);\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.background, " 80%, ").concat(style.colors.mixActive, " 20%) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ");
+  return "\n        \n    .Skeleton {\n      background: ".concat(style.colors.background, " !important;\n      background: color-mix(in srgb, ").concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    .Card .Skeleton {\n      background: ").concat(style.colors.cardBackground, " !important;\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n    }\n\n    .Card .Skeleton .SkeletonBackground {\n      background: linear-gradient(to right, transparent 0%, ").concat(style.colors.cardBackground, " 50%, transparent 100%);\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%) 50%, transparent 100%);\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, ").concat(style.colors.background, " 50%, transparent 100%);\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.background, " 80%, ").concat(style.colors.mixActive, " 20%) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ");
 });
 
 var TabBarStyle = (function (style) {
@@ -7992,7 +7989,7 @@ var TableStyle = (function (style) {
 });
 
 var TabStyle = (function (style) {
-  return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background-color: color-mix(in srgb, ".concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n\n    .Tab.search {\n      display: flex;\n    }\n  ");
+  return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background-color: ".concat(style.colors.background, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background-color: ").concat(style.colors.background, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background-color: ").concat(style.colors.background, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n\n    .Tab.search {\n      display: flex;\n    }\n  ");
 });
 
 var TextButtonStyle = (function (style) {
@@ -8339,9 +8336,9 @@ const verify = ({ signature, publicKey, data, saltLength = 64 })=>{
   return internalVerify({ signature, publicKey, data, saltLength, crypto, atob: atob$1 })
 };
 
-function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
 var ConfigurationProvider = (function (props) {
   var _props$configuration, _props$configuration5;
@@ -8355,7 +8352,7 @@ var ConfigurationProvider = (function (props) {
   var _useContext = useContext(ErrorContext),
       setError = _useContext.setError;
 
-  var _useState = useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$6(_objectSpread$6({}, props.configuration), {}, {
+  var _useState = useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$5(_objectSpread$5({}, props.configuration), {}, {
     currencyCode: currencyCode
   }) : undefined),
       _useState2 = _slicedToArray(_useState, 2),
@@ -8451,7 +8448,7 @@ var ConfigurationProvider = (function (props) {
                 throw _msg;
 
               case 18:
-                setConfiguration(_objectSpread$6(_objectSpread$6(_objectSpread$6({}, _configuration), localConfigurationWithValues), {}, {
+                setConfiguration(_objectSpread$5(_objectSpread$5(_objectSpread$5({}, _configuration), localConfigurationWithValues), {}, {
                   id: configurationId,
                   currencyCode: currencyCode
                 }));
@@ -8812,7 +8809,6 @@ var WalletProvider = (function (props) {
 
   var _useContext2 = useContext(ConfigurationContext),
       accept = _useContext2.accept,
-      recover = _useContext2.recover,
       passedWallet = _useContext2.wallet;
 
   var solanaPayContext = useContext(SolanaPayContext);
@@ -8972,7 +8968,7 @@ var WalletProvider = (function (props) {
         })
       }
     }));
-  } else if (walletState == 'connected' || recover != undefined) {
+  } else if (walletState == 'connected') {
     return /*#__PURE__*/React.createElement(WalletContext.Provider, {
       value: {
         account: account,
@@ -8995,7 +8991,7 @@ var WalletProvider = (function (props) {
 
 var Login = function Login(options) {
   requireReactVersion();
-  var style, error, document, message, endpoint, recover, wallet;
+  var style, error, document, message, endpoint, wallet;
 
   if (_typeof(options) == 'object') {
     style = options.style;
@@ -9003,7 +8999,6 @@ var Login = function Login(options) {
     document = options.document;
     message = options.message;
     endpoint = options.endpoint;
-    recover = options.recover;
     wallet = options.wallet;
   }
 
@@ -9076,52 +9071,69 @@ var ChangableAmountContext = /*#__PURE__*/React.createContext();
 var ConversionRateContext = /*#__PURE__*/React.createContext();
 
 var round = (function (input) {
-  var _digitsAfterDecimal;
-
   var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
-  var inputAsFloat = parseFloat(input);
-  var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{4})/);
+  var decimalInput = new Decimal$1(input);
+  var origDp = decimalInput.decimalPlaces(); // fixed representation of the input
 
-  if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
-    digitsAfterDecimal = digitsAfterDecimal[0];
-    var focus = digitsAfterDecimal.match(/\d{4}$/)[0];
+  var inputStr = decimalInput.toFixed(origDp); // split into integer and fractional parts
 
-    var _float;
+  var _inputStr$split = inputStr.split('.'),
+      _inputStr$split2 = _slicedToArray(_inputStr$split, 2);
+      _inputStr$split2[0];
+      var _inputStr$split2$ = _inputStr$split2[1],
+      frac = _inputStr$split2$ === void 0 ? '' : _inputStr$split2$; // count leading zeros in fractional part when <1
 
-    var focusToFixed;
 
-    if (focus.match(/^0/)) {
-      if (direction == 'up') {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
-      } else {
-        _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
-      }
+  var zerosCount = decimalInput.gte(1) ? 0 : frac.match(/^0*/)[0].length; // threshold DP: 3 for >=1, zerosCount+3 for <1
 
-      focusToFixed = parseFloat(_float).toFixed(2);
-      focusToFixed = "0".concat(focusToFixed).replace('.', '');
-    } else {
-      if (direction == 'up') {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "9"));
-      } else {
-        _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "1"));
-      }
+  var thresholdDp = decimalInput.gte(1) ? 3 : zerosCount + 3; // if no rounding needed, return original (pad integers to two decimals)
 
-      focusToFixed = parseFloat(_float).toFixed(2).replace('.', '');
+  if (origDp <= thresholdDp) {
+    if (origDp === 0) {
+      return decimalInput.toFixed(2);
     }
 
-    if (focusToFixed == '0999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      focusToFixed = direction == 'up' ? '1000' : '0999';
-      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
-    } else if (focusToFixed == '1000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
-    } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 3) {
-      return parseInt(inputAsFloat.toFixed(0));
+    return inputStr;
+  } // perform rounding
+
+
+  var mode = direction === 'down' ? Decimal$1.ROUND_FLOOR : Decimal$1.ROUND_CEIL;
+  var result = decimalInput.toDecimalPlaces(thresholdDp, mode);
+  var resStr = result.toFixed(thresholdDp); // if rounding yields zero, fall back to original
+
+  if (new Decimal$1(resStr).eq(0)) {
+    return inputStr;
+  } // trim or pad trailing zeros
+
+
+  if (resStr.includes('.')) {
+    var _resStr$split = resStr.split('.'),
+        _resStr$split2 = _slicedToArray(_resStr$split, 2),
+        iPart = _resStr$split2[0],
+        fPart = _resStr$split2[1];
+
+    if (/^0*$/.test(fPart)) {
+      // fractional all zeros => decide padding on magnitude
+      if (decimalInput.lt(1)) {
+        fPart = '00';
+      } else if (decimalInput.lt(10)) {
+        fPart = '0';
+      } else if (decimalInput.lt(100)) {
+        fPart = '';
+      } else if (decimalInput.lt(1000)) {
+        fPart = '00';
+      } else {
+        fPart = ''.padEnd(thresholdDp, '0');
+      }
     } else {
-      return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
+      // remove only trailing zeros
+      fPart = fPart.replace(/0+$/, '');
     }
-  } else {
-    return parseFloat(inputAsFloat.toFixed(3));
+
+    resStr = fPart ? "".concat(iPart, ".").concat(fPart) : iPart;
   }
+
+  return resStr;
 });
 
 var tokenAmountForUSD = /*#__PURE__*/(function () {
@@ -9173,9 +9185,9 @@ var tokenAmountForUSD = /*#__PURE__*/(function () {
   };
 })();
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var ChangableAmountProvider = (function (props) {
   var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
     return !configurations.every(function (configuration) {
@@ -9186,12 +9198,11 @@ var ChangableAmountProvider = (function (props) {
   var _useContext = useContext(ConfigurationContext),
       configuredAmount = _useContext.amount;
       _useContext.toAmount;
-      var recover = _useContext.recover,
-      accept = _useContext.accept;
+      var accept = _useContext.accept;
 
   useContext(ConfigurationContext);
 
-  var _useState = useState(recover == undefined ? configurationsMissAmounts(accept) : false),
+  var _useState = useState(configurationsMissAmounts(accept)),
       _useState2 = _slicedToArray(_useState, 2),
       amountsMissing = _useState2[0],
       setAmountsMissing = _useState2[1];
@@ -9237,12 +9248,8 @@ var ChangableAmountProvider = (function (props) {
       setAmount = _useState10[1];
 
   useEffect(function () {
-    if (recover) {
-      return;
-    }
-
     setAmountsMissing(configurationsMissAmounts(accept));
-  }, [accept, recover]);
+  }, [accept]);
 
   var getAmounts = function getAmounts(_ref) {
     var amount = _ref.amount,
@@ -9279,7 +9286,7 @@ var ChangableAmountProvider = (function (props) {
           return;
         }
 
-        return _objectSpread$5(_objectSpread$5({}, configuration), {}, {
+        return _objectSpread$4(_objectSpread$4({}, configuration), {}, {
           amount: round(amounts[index])
         });
       }).filter(function (configuration) {
@@ -9288,10 +9295,6 @@ var ChangableAmountProvider = (function (props) {
     })["catch"](setError);
   }, 500), []);
   useEffect(function () {
-    if (recover) {
-      return;
-    }
-
     if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
       setAcceptWithAmount();
       updateAmounts({
@@ -9301,7 +9304,7 @@ var ChangableAmountProvider = (function (props) {
         fixedCurrencyConversionRate: fixedCurrencyConversionRate
       });
     }
-  }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
+  }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount]);
   return /*#__PURE__*/React.createElement(ChangableAmountContext.Provider, {
     value: {
       amountsMissing: amountsMissing,
@@ -9361,23 +9364,14 @@ var PaymentAmountRoutingContext = /*#__PURE__*/React.createContext();
 
 var PaymentRoutingContext = /*#__PURE__*/React.createContext();
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
-  var toAddress;
-
-  if (receiver) {
-    toAddress = receiver;
-  } else {
-    toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
-  }
-
-  var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
-  return _objectSpread$4(_objectSpread$4({}, accept), {}, {
-    toAddress: toAddress,
-    toContract: toContract
+  var toAddress = receiver ? receiver : undefined;
+  return _objectSpread$3(_objectSpread$3({}, accept), {}, {
+    toAddress: toAddress
   });
 };
 
@@ -9393,6 +9387,8 @@ var routePayments = (function (_ref) {
   var accept = _ref.accept,
       account = _ref.account,
       receiver = _ref.receiver,
+      allow = _ref.allow,
+      deny = _ref.deny,
       whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
       fee = _ref.fee,
@@ -9402,16 +9398,16 @@ var routePayments = (function (_ref) {
       return prepareAcceptedPayments(accept, receiver);
     }),
     from: mergeFromAccounts(accept, account),
-    whitelist: whitelist,
-    blacklist: blacklist,
+    allow: allow || whitelist,
+    deny: deny || blacklist,
     fee: fee,
     best: best
   });
 });
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var RELOAD_PERIOD = 15000;
 var PaymentRoutingProvider = (function (props) {
   var _useState = useState(),
@@ -9456,16 +9452,13 @@ var PaymentRoutingProvider = (function (props) {
   var _useContext2 = useContext(UpdatableContext),
       updatable = _useContext2.updatable;
 
-  var _useContext3 = useContext(ConfigurationContext),
-      recover = _useContext3.recover;
-
   var configuration = useContext(ConfigurationContext);
 
-  var _useContext4 = useContext(ChangableAmountContext);
-      _useContext4.amountsMissing;
+  var _useContext3 = useContext(ChangableAmountContext);
+      _useContext3.amountsMissing;
 
-  var _useContext5 = useContext(ErrorContext),
-      setError = _useContext5.setError;
+  var _useContext4 = useContext(ErrorContext),
+      setError = _useContext4.setError;
 
   var getPaymentRoutes = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -9505,7 +9498,7 @@ var PaymentRoutingProvider = (function (props) {
                   resolve();
                 })["catch"](function (error) {
                   setError(error);
-                  reject(error);
+                  resolve();
                 });
               }));
 
@@ -9546,15 +9539,24 @@ var PaymentRoutingProvider = (function (props) {
 
             case 4:
               readableAmount = _context2.sent;
-              _context2.next = 7;
-              return route.fromToken.BigNumber(round(readableAmount));
+
+              if (!(round(readableAmount) === 0)) {
+                _context2.next = 7;
+                break;
+              }
+
+              return _context2.abrupt("return", route);
 
             case 7:
+              _context2.next = 9;
+              return route.fromToken.BigNumber(round(readableAmount));
+
+            case 9:
               roundedAmountBN = _context2.sent;
               updateRouteAmount(route, roundedAmountBN);
               return _context2.abrupt("return", route);
 
-            case 10:
+            case 12:
             case "end":
               return _context2.stop();
           }
@@ -9596,7 +9598,7 @@ var PaymentRoutingProvider = (function (props) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              setSelectedRoute(_objectSpread$3({}, updatedRouteWithNewPrice));
+              setSelectedRoute(_objectSpread$2({}, updatedRouteWithNewPrice));
               setUpdatedRouteWithNewPrice(null);
 
             case 2:
@@ -9637,10 +9639,6 @@ var PaymentRoutingProvider = (function (props) {
     };
   }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable]);
   useEffect(function () {
-    if (recover) {
-      return;
-    }
-
     if (account && props.accept) {
       refreshPaymentRoutes();
     } else if (props.accept === undefined) {
@@ -9839,7 +9837,6 @@ var PaymentProvider = (function (props) {
       _sent = _useContext2.sent,
       succeeded = _useContext2.succeeded,
       failed = _useContext2.failed,
-      recover = _useContext2.recover,
       before = _useContext2.before;
       _useContext2.accept;
 
@@ -9976,7 +9973,7 @@ var PaymentProvider = (function (props) {
               transaction = _context2.sent;
 
               if (!before) {
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
               }
 
@@ -9987,23 +9984,24 @@ var PaymentProvider = (function (props) {
               stop = _context2.sent;
 
               if (!(stop === false)) {
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
               }
 
+              setPaymentState('initialized');
               return _context2.abrupt("return");
 
-            case 14:
-              _context2.next = 16;
+            case 15:
+              _context2.next = 17;
               return request$1({
                 blockchain: transaction.blockchain,
                 method: 'latestBlockNumber'
               });
 
-            case 16:
+            case 17:
               currentBlock = _context2.sent;
               deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
-              _context2.next = 20;
+              _context2.next = 21;
               return trace(currentBlock, payment.route, transaction, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                 return regenerator.wrap(function _callee$(_context) {
                   while (1) {
@@ -10072,7 +10070,7 @@ var PaymentProvider = (function (props) {
                 navigate('TracingFailed');
               });
 
-            case 20:
+            case 21:
             case "end":
               return _context2.stop();
           }
@@ -10084,95 +10082,123 @@ var PaymentProvider = (function (props) {
       return _ref.apply(this, arguments);
     };
   }());
-  var resetApproval = useEvent(function () {
-    setPaymentState('resetting');
-    setClosable(false);
-    setUpdatable(false);
-    var resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction));
-    resetApprovalTransaction.params[1] = '0'; // reset first
+  var resetApproval = useEvent( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
+    var resetApprovalTransaction;
+    return regenerator.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            setPaymentState('resetting');
+            setClosable(false);
+            setUpdatable(false);
+            _context3.t0 = JSON;
+            _context3.t1 = JSON;
+            _context3.next = 7;
+            return payment.route.getRouterApprovalTransaction();
 
-    if (window._depayWidgetError) {
-      return;
-    } // do not perform any transaction if there was an error in the widget!
+          case 7:
+            _context3.t2 = _context3.sent;
+            _context3.t3 = _context3.t1.stringify.call(_context3.t1, _context3.t2);
+            resetApprovalTransaction = _context3.t0.parse.call(_context3.t0, _context3.t3);
+            resetApprovalTransaction.params[1] = '0'; // reset first
 
+            if (!window._depayWidgetError) {
+              _context3.next = 13;
+              break;
+            }
 
-    wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
-      sent: function sent(sentTransaction) {
-        setResetApprovalTransaction(sentTransaction);
-      },
-      succeeded: function succeeded() {
-        setUpdatable(true);
-        setClosable(true);
-        refreshPaymentRoutes().then(function () {
-          setTimeout(function () {
-            setPaymentState('initialized');
-          }, 1000);
-        });
+            return _context3.abrupt("return");
+
+          case 13:
+            // do not perform any transaction if there was an error in the widget!
+            wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
+              sent: function sent(sentTransaction) {
+                setResetApprovalTransaction(sentTransaction);
+              },
+              succeeded: function succeeded() {
+                setUpdatable(true);
+                setClosable(true);
+                refreshPaymentRoutes().then(function () {
+                  setTimeout(function () {
+                    setPaymentState('initialized');
+                  }, 1000);
+                });
+              },
+              failed: function failed(transaction, error) {
+                setPaymentState('initialized');
+                setClosable(true);
+              }
+            }))["catch"](function (error) {
+              console.log('error', error);
+
+              if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                navigate('WrongNetwork');
+              }
+
+              setPaymentState('initialized');
+              setClosable(true);
+            });
+
+          case 14:
+          case "end":
+            return _context3.stop();
+        }
       }
-    }))["catch"](function (error) {
-      console.log('error', error);
-
-      if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
-        navigate('WrongNetwork');
-      }
-
-      setPaymentState('initialized');
-      setClosable(true);
-    });
-  });
+    }, _callee3);
+  })));
   var approve = useEvent( /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(performSignature) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(performSignature) {
       var approvalTransaction, approvalSignatureData;
-      return regenerator.wrap(function _callee3$(_context3) {
+      return regenerator.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               setPaymentState('approve');
               setClosable(false);
               setUpdatable(false);
 
               if (!(approvalType == 'signature')) {
-                _context3.next = 16;
+                _context4.next = 16;
                 break;
               }
 
               if (!(performSignature || payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-                _context3.next = 11;
+                _context4.next = 11;
                 break;
               }
 
-              _context3.next = 7;
+              _context4.next = 7;
               return payment.route.getPermit2ApprovalSignature();
 
             case 7:
-              approvalSignatureData = _context3.sent;
+              approvalSignatureData = _context4.sent;
               setApprovalSignatureData(approvalSignatureData);
-              _context3.next = 14;
+              _context4.next = 14;
               break;
 
             case 11:
-              _context3.next = 13;
+              _context4.next = 13;
               return payment.route.getPermit2ApprovalTransaction();
 
             case 13:
-              approvalTransaction = _context3.sent;
+              approvalTransaction = _context4.sent;
 
             case 14:
-              _context3.next = 19;
+              _context4.next = 19;
               break;
 
             case 16:
-              _context3.next = 18;
+              _context4.next = 18;
               return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
                 amount: payment.route.fromAmount
               } : undefined);
 
             case 18:
-              approvalTransaction = _context3.sent;
+              approvalTransaction = _context4.sent;
 
             case 19:
               if (!approvalSignatureData) {
-                _context3.next = 23;
+                _context4.next = 23;
                 break;
               }
 
@@ -10189,21 +10215,21 @@ var PaymentProvider = (function (props) {
                 setPaymentState('initialized');
                 setClosable(true);
               });
-              _context3.next = 27;
+              _context4.next = 27;
               break;
 
             case 23:
               if (!approvalTransaction) {
-                _context3.next = 27;
+                _context4.next = 27;
                 break;
               }
 
               if (!window._depayWidgetError) {
-                _context3.next = 26;
+                _context4.next = 26;
                 break;
               }
 
-              return _context3.abrupt("return");
+              return _context4.abrupt("return");
 
             case 26:
               // do not perform any transaction if there was an error in the widget!
@@ -10246,14 +10272,14 @@ var PaymentProvider = (function (props) {
 
             case 27:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
 
     return function (_x3) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }());
   useEffect(function () {
@@ -10273,39 +10299,6 @@ var PaymentProvider = (function (props) {
       setClosable(true);
     }
   }, [trackingInitialized, paymentState]);
-  useEffect(function () {
-    if (recover) {
-      setClosable(false);
-      setUpdatable(false);
-      setPaymentState('paying');
-      setTransaction({
-        blockchain: recover.blockchain,
-        id: recover.transaction,
-        url: Blockchains.findByName(recover.blockchain).explorerUrlFor({
-          transaction: {
-            id: recover.transaction
-          }
-        })
-      });
-      var paymentToken = new Token$1({
-        blockchain: recover.blockchain,
-        address: recover.token
-      });
-      Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref4) {
-        var _ref5 = _slicedToArray(_ref4, 2),
-            name = _ref5[0],
-            symbol = _ref5[1];
-
-        setPayment({
-          blockchain: Blockchains[recover.blockchain],
-          token: recover.token,
-          name: name,
-          symbol: symbol.toUpperCase(),
-          amount: recover.amount
-        });
-      })["catch"](setError);
-    }
-  }, [recover]);
   var debouncedSetPayment = useCallback(debounce(function (selectedRoute) {
     if (selectedRoute) {
       // reset approval status if selectedRoute has been changed
@@ -10313,11 +10306,11 @@ var PaymentProvider = (function (props) {
       setApprovalSignature();
       setApprovalSignatureData();
       var fromToken = selectedRoute.fromToken;
-      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref6) {
-        var _ref7 = _slicedToArray(_ref6, 3),
-            name = _ref7[0],
-            symbol = _ref7[1],
-            amount = _ref7[2];
+      Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
+        var _ref6 = _slicedToArray(_ref5, 3),
+            name = _ref6[0],
+            symbol = _ref6[1],
+            amount = _ref6[2];
 
         setPayment({
           blockchain: Blockchains[selectedRoute.blockchain],
@@ -10328,8 +10321,6 @@ var PaymentProvider = (function (props) {
           amount: amount
         });
       })["catch"](setError);
-    } else if (recover === undefined) {
-      setPayment();
     }
   }, 100), []);
   useEffect(function () {
@@ -10375,18 +10366,55 @@ var PaymentProvider = (function (props) {
   }
 });
 
-var format = (function (input) {
-  var _float = round(input);
+function toNonExponential(num) {
+  var str = num.toString();
 
-  var floatToString = _float.toString();
+  if (str.includes('e')) {
+    var _str$split = str.split('e'),
+        _str$split2 = _slicedToArray(_str$split, 2),
+        base = _str$split2[0],
+        expStr = _str$split2[1];
 
-  if (new RegExp(/\./).test(floatToString)) {
-    var exploded = floatToString.split('.');
-    return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
-  } else {
-    return new Intl.NumberFormat().format(_float);
+    var exponent = Number(expStr);
+
+    var _base$split = base.split('.'),
+        _base$split2 = _slicedToArray(_base$split, 2);
+        _base$split2[0];
+        var _base$split2$ = _base$split2[1],
+        fracPart = _base$split2$ === void 0 ? '' : _base$split2$;
+
+    var decimals = exponent < 0 ? fracPart.length + Math.abs(exponent) : Math.max(0, fracPart.length - exponent);
+    str = num.toFixed(decimals);
   }
-});
+
+  return str;
+}
+
+function format(input) {
+  var num = Number(input);
+
+  if (isNaN(num)) {
+    // non-numeric input: return as-is
+    return String(input);
+  }
+
+  var s = toNonExponential(num); // split integer and fractional parts
+
+  var _s$split = s.split('.'),
+      _s$split2 = _slicedToArray(_s$split, 2);
+      _s$split2[0];
+      var fracPart = _s$split2[1]; // don't add separators for numbers below 1 (including negatives between -1 and 1)
+
+
+  if (Math.abs(num) < 1) {
+    return s;
+  } // format integer part with grouping
+
+
+  var formattedInt = new Intl.NumberFormat().format(Math.trunc(num)); // reattach fractional part if present
+
+  return fracPart !== undefined && fracPart.length > 0 ? "".concat(formattedInt, ".").concat(fracPart) : formattedInt;
+}
 
 var PaymentValueContext = /*#__PURE__*/React.createContext();
 
@@ -10402,8 +10430,7 @@ var ChangeAmountDialog = (function (props) {
 
   var _useContext4 = useContext(ChangableAmountContext),
       amount = _useContext4.amount,
-      setAmount = _useContext4.setAmount,
-      maxAmount = _useContext4.maxAmount;
+      setAmount = _useContext4.setAmount;
 
   var _useContext5 = useContext(PaymentValueContext);
       _useContext5.displayedPaymentValue;
@@ -10454,11 +10481,7 @@ var ChangeAmountDialog = (function (props) {
 
   var toValidValue = function toValidValue(value) {
     value = toValidStep(value);
-
-    if (maxAmount) {
-      value = Math.max(min, Math.min(value, maxAmount));
-    }
-
+    value = Math.max(min, value);
     value = toValidStep(value);
     return value;
   };
@@ -10485,7 +10508,6 @@ var ChangeAmountDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomM"
     }, /*#__PURE__*/React.createElement("input", {
-      max: maxAmount ? parseFloat(maxAmount) : null,
       min: min,
       step: step,
       className: "Input FontSizeXXL TextAlignCenter",
@@ -10498,18 +10520,7 @@ var ChangeAmountDialog = (function (props) {
       onBlur: function onBlur(event) {
         setValidValue(event.target.value);
       }
-    })), maxAmount && /*#__PURE__*/React.createElement("div", {
-      style: {
-        height: '40px'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "FontSizeS"
-    }, format(toValidStep(maxAmount)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-      className: "TextButton",
-      onClick: function onClick() {
-        changeAmount(toValidValue(maxAmount));
-      }
-    }, "(Max)"))))))),
+    }))))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, /*#__PURE__*/React.createElement("button", {
@@ -10754,16 +10765,6 @@ var ChangePaymentDialog = (function (props) {
   var listElement = useRef();
   var searchElement = useRef();
   useEffect(function () {
-    setTimeout(function () {
-      if (!isMobile()) {
-        if (searchElement.current) {
-          searchElement.current.click();
-          searchElement.current.focus();
-        }
-      }
-    }, 200);
-  }, []);
-  useEffect(function () {
     if (allRoutes == undefined) {
       return;
     }
@@ -10814,6 +10815,14 @@ var ChangePaymentDialog = (function (props) {
       setAllPaymentOptions(allPaymentOptions);
       setSelectedTab('all');
       setSelectedPaymentOptions(allPaymentOptions);
+      setTimeout(function () {
+        if (!isMobile()) {
+          if (searchElement.current) {
+            searchElement.current.click();
+            searchElement.current.focus();
+          }
+        }
+      }, 200);
     })["catch"](setError);
   }, [allRoutes, allRoutesLoaded]);
   var displayedPaymentOptions = selectedPaymentOptions === null || selectedPaymentOptions === void 0 ? void 0 : selectedPaymentOptions.map(function (payment, index) {
@@ -10854,7 +10863,7 @@ var ChangePaymentDialog = (function (props) {
       className: "TokenAmountCell"
     }, format(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
       className: "CardText small"
-    }, /*#__PURE__*/React.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
+    }, /*#__PURE__*/React.createElement("small", null, format(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals)))))));
   });
 
   if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
@@ -11202,7 +11211,7 @@ var Footer = (function () {
   useEffect(function () {
     var _payment$route, _payment$route2, _payment$route3, _payment$route4;
 
-    if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers.BigNumber.from(payment.route.fromAmount))) {
+    if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentRouterAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentRouterAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentRouterAllowance.lt(ethers.BigNumber.from(payment.route.fromAmount))) {
       setRequiresApprovalReset(true);
     } else {
       setRequiresApprovalReset(false);
@@ -11257,8 +11266,8 @@ var Footer = (function () {
       var showSyncWaiting = synchronousTracking && !release;
       var showSyncDone = synchronousTracking && release;
       return /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, needsPermit2Transaction && /*#__PURE__*/React.createElement("a", {
+        className: "PaddingBottomS StepsWrapper"
+      }, needsPermit2Transaction && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("a", {
         href: approvalTransaction ? link({
           url: approvalTransaction.url,
           target: '_blank',
@@ -11276,9 +11285,9 @@ var Footer = (function () {
         className: "small"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, !permit2Done && !permit2Processing && /*#__PURE__*/React.createElement("span", null, "Enable signature approval for ", payment.symbol), permit2Processing && /*#__PURE__*/React.createElement(LoadingText, null, "Enabling signature approval for ", payment.symbol), permit2Done && !permit2Processing && /*#__PURE__*/React.createElement("span", null, "Signature approval for ", payment.symbol, " enabled")), /*#__PURE__*/React.createElement("div", {
+      }, !permit2Done && !permit2Processing && /*#__PURE__*/React.createElement("span", null, "Enable signature approval for ", payment.symbol), permit2Processing && /*#__PURE__*/React.createElement(LoadingText, null, "Enabling signature approval for ", payment.symbol), permit2Done && !permit2Processing && /*#__PURE__*/React.createElement("span", null, "Signature approval for ", payment.symbol, " enabled"))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
-      })), needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && /*#__PURE__*/React.createElement("div", {
+      })), needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: 'Step Card disabled small transparent' + (spendingActive || spendingProcessing ? ' active' : '')
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
@@ -11286,9 +11295,9 @@ var Footer = (function () {
         className: "StepCircle"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, "Approve spending ", payment.symbol), /*#__PURE__*/React.createElement("div", {
+      }, "Approve spending ", payment.symbol)), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
-      })), approvalType === 'transaction' && approvalRequired && /*#__PURE__*/React.createElement("a", {
+      })), approvalType === 'transaction' && approvalRequired && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("a", {
         href: approvalType === 'transaction' && approvalTransaction ? link({
           url: approvalTransaction.url,
           target: '_blank',
@@ -11306,9 +11315,9 @@ var Footer = (function () {
         className: "small"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, !spendingProcessing && /*#__PURE__*/React.createElement("span", null, "Approve spending ", payment.symbol), spendingProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Approving ", payment.symbol, " for spending")), /*#__PURE__*/React.createElement("div", {
+      }, !spendingProcessing && !spendingDone && /*#__PURE__*/React.createElement("span", null, "Approve ", payment.symbol, " for spending"), !spendingProcessing && spendingDone && /*#__PURE__*/React.createElement("span", null, "Approved ", payment.symbol, " for spending"), spendingProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Approving ", payment.symbol, " for spending"))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
-      })), approvalType === 'signature' && spendingDone && /*#__PURE__*/React.createElement("div", {
+      })), approvalType === 'signature' && spendingDone && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: "Step done Card disabled small transparent"
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
@@ -11316,9 +11325,9 @@ var Footer = (function () {
         className: "small"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, "Spending ", payment.symbol, " approved"), /*#__PURE__*/React.createElement("div", {
+      }, "Spending ", payment.symbol, " approved")), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
-      })), transaction || paymentProcessing ? /*#__PURE__*/React.createElement("a", {
+      })), transaction || paymentProcessing ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("a", {
         href: transaction ? link({
           url: transaction.url,
           target: '_blank',
@@ -11335,9 +11344,9 @@ var Footer = (function () {
         className: "ActionIndicatorSpinner"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, paymentProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React.createElement("span", null, "Perform payment")), /*#__PURE__*/React.createElement("div", {
+      }, paymentProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React.createElement("span", null, "Perform payment"))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
-      })) : /*#__PURE__*/React.createElement("div", {
+      })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: 'Step Card disabled small transparent' + (paymentReady ? ' active' : '')
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
@@ -11351,9 +11360,9 @@ var Footer = (function () {
         className: "StepStatus"
       }, paymentDone && /*#__PURE__*/React.createElement(CheckmarkIcon, {
         className: "small"
-      })), /*#__PURE__*/React.createElement("div", {
+      }))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
-      })), showAsyncInit && /*#__PURE__*/React.createElement("div", {
+      })), showAsyncInit && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: "Step Card disabled small transparent active"
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
@@ -11361,7 +11370,7 @@ var Footer = (function () {
         className: "ActionIndicatorSpinner"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Initializing tracking")), /*#__PURE__*/React.createElement("div", {
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Initializing tracking"))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
       })), showSyncWaiting && /*#__PURE__*/React.createElement("a", {
         href: transaction ? link({
@@ -11445,7 +11454,7 @@ var Footer = (function () {
       if (approvalRequired) {
         if (paymentState == 'initialized') {
           return /*#__PURE__*/React.createElement("div", {
-            className: "PaddingBottomXS"
+            className: "PaddingBottomXS PaddingTopXS"
           }, /*#__PURE__*/React.createElement("div", {
             className: "PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS"
           }, /*#__PURE__*/React.createElement("div", {
@@ -11571,9 +11580,8 @@ var PaymentOverviewSkeleton = (function (props) {
 
 var PaymentOverviewDialog = (function (props) {
   var _useContext = useContext(ConfigurationContext),
-      currencyCode = _useContext.currencyCode;
-      _useContext.recover;
-      var amountConfiguration = _useContext.amount,
+      currencyCode = _useContext.currencyCode,
+      amountConfiguration = _useContext.amount,
       currency = _useContext.currency,
       title = _useContext.title;
 
@@ -19884,10 +19892,10 @@ const getTransaction$5 = async({
   return transaction
 };
 
-const LOGO$1 = 'data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjMzIiB2aWV3Qm94PSIwIDAgMjkgMzMiIHdpZHRoPSIyOSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjI4LjMxNjgiIHgyPSItMS43MzMzNiIgeTE9IjguMTkxNjIiIHkyPSIyMC4yMDg2Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjMjAwZmIiLz48c3RvcCBvZmZzZXQ9Ii40ODk2NTgiIHN0b3AtY29sb3I9IiMzNzcyZmYiLz48c3RvcCBvZmZzZXQ9Ii40ODk3NTgiIHN0b3AtY29sb3I9IiMzNzczZmUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YWM0YmUiLz48L2xpbmVhckdyYWRpZW50PjxnIGZpbGw9InVybCgjYSkiPjxwYXRoIGQ9Im0yNi44NjI1IDEyLjI4MXYxMS40MTA0bC0xMi42OTE2IDcuMzI2MS0xMi42OTg1OS03LjMyNjF2LTE0LjY1OTM3bDEyLjY5ODU5LTcuMzMzMjIgOS43NTQxIDUuNjM0NDEgMS40NzIzLS44NDk0MS0xMS4yMjY0LTYuNDgzODEtMTQuMTcwOSA4LjE4MjYydjE2LjM1ODE4bDE0LjE3MDkgOC4xODI2IDE0LjE3MS04LjE4MjZ2LTEzLjEwOTJ6Ii8+PHBhdGggZD0ibTEwLjYxNzYgMjMuNjk4NWgtMi4xMjM1M3YtNy4xMjA5aDcuMDc4NDNjLjY2OTctLjAwNzQgMS4zMDk1LS4yNzgyIDEuNzgxMS0uNzUzOC40NzE2LS40NzU1LjczNy0xLjExNzYuNzM4OC0xLjc4NzQuMDAzOC0uMzMxMS0uMDYwMS0uNjU5Ni0uMTg3OS0uOTY1MS0uMTI3OS0uMzA1Ni0uMzE2OC0uNTgxNy0uNTU1NC0uODExNS0uMjMwOC0uMjM3Mi0uNTA3MS0uNDI1My0uODEyNC0uNTUzLS4zMDUzLS4xMjc4LS42MzMzLS4xOTI1LS45NjQyLS4xOTAzaC03LjA3ODQzdi0yLjE2NTk1aDcuMDg1NDNjMS4yNDA1LjAwNzQzIDIuNDI4MS41MDM1MSAzLjMwNTMgMS4zODA2NS44NzcxLjg3NzIgMS4zNzMyIDIuMDY0OCAxLjM4MDYgMy4zMDUyLjAwNzYuOTQ5Ni0uMjgxOSAxLjg3NzctLjgyODEgMi42NTQ0LS41MDI3Ljc0MzItMS4yMTExIDEuMzIzNy0yLjAzODYgMS42NzA1LS44MTk0LjI1OTktMS42NzQ1LjM4ODktMi41MzQxLjM4MjNoLTQuMjQ3eiIvPjxwYXRoIGQ9Im0yMC4yMTU5IDIzLjUyMTVoLTIuNDc3NWwtMS45MTExLTMuMzMzOWMuNzU2MS0uMDQ2MyAxLjUwMTktLjE5ODggMi4yMTU1LS40NTN6Ii8+PHBhdGggZD0ibTI1LjM4MzEgOS45MDk3NSAxLjQ2NTIuODE0MDUgMS40NjUzLS44MTQwNXYtMS43MjAwNWwtMS40NjUzLS44NDk0MS0xLjQ2NTIuODQ5NDF6Ii8+PC9nPjwvc3ZnPg==';
+const LOGO = 'data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjMzIiB2aWV3Qm94PSIwIDAgMjkgMzMiIHdpZHRoPSIyOSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjI4LjMxNjgiIHgyPSItMS43MzMzNiIgeTE9IjguMTkxNjIiIHkyPSIyMC4yMDg2Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjMjAwZmIiLz48c3RvcCBvZmZzZXQ9Ii40ODk2NTgiIHN0b3AtY29sb3I9IiMzNzcyZmYiLz48c3RvcCBvZmZzZXQ9Ii40ODk3NTgiIHN0b3AtY29sb3I9IiMzNzczZmUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YWM0YmUiLz48L2xpbmVhckdyYWRpZW50PjxnIGZpbGw9InVybCgjYSkiPjxwYXRoIGQ9Im0yNi44NjI1IDEyLjI4MXYxMS40MTA0bC0xMi42OTE2IDcuMzI2MS0xMi42OTg1OS03LjMyNjF2LTE0LjY1OTM3bDEyLjY5ODU5LTcuMzMzMjIgOS43NTQxIDUuNjM0NDEgMS40NzIzLS44NDk0MS0xMS4yMjY0LTYuNDgzODEtMTQuMTcwOSA4LjE4MjYydjE2LjM1ODE4bDE0LjE3MDkgOC4xODI2IDE0LjE3MS04LjE4MjZ2LTEzLjEwOTJ6Ii8+PHBhdGggZD0ibTEwLjYxNzYgMjMuNjk4NWgtMi4xMjM1M3YtNy4xMjA5aDcuMDc4NDNjLjY2OTctLjAwNzQgMS4zMDk1LS4yNzgyIDEuNzgxMS0uNzUzOC40NzE2LS40NzU1LjczNy0xLjExNzYuNzM4OC0xLjc4NzQuMDAzOC0uMzMxMS0uMDYwMS0uNjU5Ni0uMTg3OS0uOTY1MS0uMTI3OS0uMzA1Ni0uMzE2OC0uNTgxNy0uNTU1NC0uODExNS0uMjMwOC0uMjM3Mi0uNTA3MS0uNDI1My0uODEyNC0uNTUzLS4zMDUzLS4xMjc4LS42MzMzLS4xOTI1LS45NjQyLS4xOTAzaC03LjA3ODQzdi0yLjE2NTk1aDcuMDg1NDNjMS4yNDA1LjAwNzQzIDIuNDI4MS41MDM1MSAzLjMwNTMgMS4zODA2NS44NzcxLjg3NzIgMS4zNzMyIDIuMDY0OCAxLjM4MDYgMy4zMDUyLjAwNzYuOTQ5Ni0uMjgxOSAxLjg3NzctLjgyODEgMi42NTQ0LS41MDI3Ljc0MzItMS4yMTExIDEuMzIzNy0yLjAzODYgMS42NzA1LS44MTk0LjI1OTktMS42NzQ1LjM4ODktMi41MzQxLjM4MjNoLTQuMjQ3eiIvPjxwYXRoIGQ9Im0yMC4yMTU5IDIzLjUyMTVoLTIuNDc3NWwtMS45MTExLTMuMzMzOWMuNzU2MS0uMDQ2MyAxLjUwMTktLjE5ODggMi4yMTU1LS40NTN6Ii8+PHBhdGggZD0ibTI1LjM4MzEgOS45MDk3NSAxLjQ2NTIuODE0MDUgMS40NjUzLS44MTQwNXYtMS43MjAwNWwtMS40NjUzLS44NDk0MS0xLjQ2NTIuODQ5NDF6Ii8+PC9nPjwvc3ZnPg==';
 
 var Raydium = {
-  LOGO: LOGO$1,
+  LOGO,
   findPath: findPath$5,
   pathExists: pathExists$5,
   getAmounts: getAmounts$5,
@@ -23495,10 +23503,6 @@ let TokenImage = function(props){
   )
 };
 
-function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$2(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var LOGO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODYiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA4NiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTc3LjExMjggMjIuMDA2NUw3Mi4xNDc5IDExLjE1ODNINjguMDI3TDc1LjExOTcgMjUuNzk1Nkw3NC45OTIxIDI2LjIzNjRDNzQuODE0NCAyNi44MjIzIDc0LjQzOTUgMjcuMzI4MiA3My45MzExIDI3LjY2NzlDNzMuNDIyOCAyOC4wMDc2IDcyLjgxMjUgMjguMTU5OSA3Mi4yMDQ2IDI4LjA5ODlDNzEuNDkzIDI4LjA5MjMgNzAuNzk0OCAyNy45MDM5IDcwLjE3NjEgMjcuNTUxNUw2OS41MTY1IDMwLjY4NjVDNzAuNDY4NCAzMS4wNzk3IDcxLjQ4NzEgMzEuMjg0OSA3Mi41MTY3IDMxLjI5MDhDNzUuMzUzOCAzMS4yOTA4IDc3LjA3MDIgMzAuMjQ1OCA3OC40ODg4IDI3LjE2NzZMODYgMTEuMTU4M0g4Mi4wMjFMNzcuMTEyOCAyMi4wMDY1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTQyLjAyMzUgNS45OTAxMUgzMC4xMjE5VjI1LjkzMDZIMzQuMDIyOVYxOC42MDEzSDQyLjAyMzVDNDYuMzcxMyAxOC42MDEzIDQ5LjIyOTcgMTYuNDA0NyA0OS4yMjk3IDEyLjI5NTdDNDkuMjI5NyA4LjE4Njc3IDQ2LjM3MTMgNS45OTAxMSA0Mi4wMjM1IDUuOTkwMTFaTTQxLjgxMDcgMTUuMTEwOUgzNC4wMDg3VjkuNDIzNzJINDEuODEwN0M0NC4wNjYyIDkuNDIzNzIgNDUuMzU3IDEwLjQ1NDUgNDUuMzU3IDEyLjI2NzNDNDUuMzU3IDE0LjA4MDEgNDQuMDY2MiAxNS4xMTA5IDQxLjgxMDcgMTUuMTEwOVoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGQ9Ik02NS41MzkgMjIuMTQ4N1YxNi4xNDE2QzY1LjUzOSAxMi41ODcyIDYyLjk5MjggMTAuNzQ2IDU4LjYyMzYgMTAuNzQ2QzU1LjA3NzMgMTAuNzQ2IDUxLjk3MDYgMTIuNDAyNCA1MS4wOTgyIDE0Ljk0NzNMNTQuMzA0MiAxNi4wODQ4QzU0Ljc3OTQgMTQuODEyMyA1Ni40MzIgMTMuODczOSA1OC40ODg5IDEzLjg3MzlDNjAuOTI4OCAxMy44NzM5IDYxLjk1NzIgMTQuODY5MSA2MS45NTcyIDE2LjA4NDhWMTYuNDc1OEw1Ni4xNTU0IDE3LjExNTZDNTIuODE0NyAxNy40NzEgNTAuNjE1OSAxOC45NzEgNTAuNjE1OSAyMS42NTExQzUwLjYxNTkgMjQuNTg3IDUzLjEzMzkgMjYuMTY1MiA1Ni40NzQ1IDI2LjE2NTJDNTguNjI3OCAyNi4yMzI1IDYwLjcyNDggMjUuNDY5MSA2Mi4zMzMxIDI0LjAzMjVDNjIuOTE0NyAyNS40NTQzIDYzLjUxMDUgMjYuNDA2OSA2Ny40NzU0IDI1LjkwMjJWMjIuOTMwN0M2NS44ODY2IDIzLjMxNDUgNjUuNTM5IDIyLjkzMDcgNjUuNTM5IDIyLjE0ODdaTTYxLjk5MjcgMjAuMjQzNUM2MS45OTI3IDIyLjE3NzEgNTkuMjkwMyAyMy4yMDA4IDU3LjAyNzggMjMuMjAwOEM1NS4zMDQyIDIzLjIwMDggNTQuMjY4NyAyMi42NDYzIDU0LjI2ODcgMjEuNTQ0NEM1NC4yNjg3IDIwLjQ0MjUgNTUuMTE5OCAyMC4wNDQ0IDU2Ljc2NTMgMTkuODUyNUw2Mi4wMDY5IDE5LjI0MTFMNjEuOTkyNyAyMC4yNDM1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTIyLjc0MzkgMjEuMjUzQzIyLjc3MTQgMjEuMzM2MSAyMi43NzE0IDIxLjQyNTkgMjIuNzQzOSAyMS41MDg5QzIyLjcyNzkgMjEuNTkxOCAyMi42ODg1IDIxLjY2ODMgMjIuNjMwNCAyMS43MjkzTDE4Ljg3ODMgMjUuNjc0OEMxOC43OTU2IDI1Ljc1OTkgMTguNjk2OCAyNS44Mjc2IDE4LjU4NzUgMjUuODczOEMxOC40NzggMjUuOTIxOSAxOC4zNTk1IDI1Ljk0NjIgMTguMjQgMjUuOTQ0OUgwLjQ0NDMwOEMwLjM2MTg5NCAyNS45NDU2IDAuMjgwODg4IDI1LjkyMzUgMC4yMTAyNDggMjUuODgwOUMwLjEzOTY1NSAyNS44MzI4IDAuMDgzMzAyOCAyNS43NjY1IDAuMDQ3MTE1NiAyNS42ODlDMC4wMjIxMjM2IDI1LjYxMDQgMC4wMjIxMjM2IDI1LjUyNTkgMC4wNDcxMTU2IDI1LjQ0NzNDMC4wNjE4MjM3IDI1LjM2NTUgMC4wOTg2MTkzIDI1LjI4OTIgMC4xNTM1MDYgMjUuMjI2OUwzLjkxMjY1IDIxLjI4MTVDMy45OTUzMyAyMS4xOTYzIDQuMDk0MjIgMjEuMTI4NiA0LjIwMzQ2IDIxLjA4MjRDNC4zMTI3NyAyMS4wMzM3IDQuNDMxMzcgMjEuMDA5NCA0LjU1MSAyMS4wMTEzSDIyLjMxODNDMjIuNDA0IDIxLjAwOTcgMjIuNDg4MiAyMS4wMzQ1IDIyLjU1OTQgMjEuMDgyNEMyMi42MzkzIDIxLjExNTQgMjIuNzA0NyAyMS4xNzU5IDIyLjc0MzkgMjEuMjUzWk0xOC44ODU0IDEzLjc2MDJDMTguODAwOSAxMy42NzczIDE4LjcwMjUgMTMuNjA5OSAxOC41OTQ2IDEzLjU2MTJDMTguNDg0IDEzLjUxNjQgMTguMzY2MyAxMy40OTI0IDE4LjI0NzEgMTMuNDkwMUgwLjQ0NDMwOEMwLjM2MDg2NCAxMy40OTEzIDAuMjc5NDMgMTMuNTE1OSAwLjIwOTIzMSAxMy41NjEyQzAuMTM5MDMyIDEzLjYwNjQgMC4wODI4NzI0IDEzLjY3MDQgMC4wNDcxMTU2IDEzLjc0NkMwLjAyMjU4MzEgMTMuODI0NyAwLjAyMjU4MzEgMTMuOTA5IDAuMDQ3MTE1NiAxMy45ODc3QzAuMDU5MDYwNyAxNC4wNzA0IDAuMDk2MjIwNiAxNC4xNDc0IDAuMTUzNTA2IDE0LjIwODFMMy45MTI2NSAxOC4xNjA2QzMuOTk3MTcgMTguMjQzNiA0LjA5NTYxIDE4LjMxMSA0LjIwMzQ2IDE4LjM1OTdDNC4zMTM4MyAxOC40MDUgNC40MzE3MyAxOC40MjkxIDQuNTUxIDE4LjQzMDhIMjIuMzE4M0MyMi40MDQgMTguNDMyNCAyMi40ODgyIDE4LjQwNzYgMjIuNTU5NCAxOC4zNTk3QzIyLjYzMTEgMTguMzE3OCAyMi42ODYxIDE4LjI1MjYgMjIuNzE1NSAxOC4xNzQ5QzIyLjc1MTggMTguMDk5MiAyMi43NjM5IDE4LjAxNDEgMjIuNzQ5OSAxNy45MzE0QzIyLjczNTkgMTcuODQ4NiAyMi42OTY2IDE3Ljc3MjIgMjIuNjM3NSAxNy43MTI4TDE4Ljg4NTQgMTMuNzYwMlpNMC4yMTAyNDggMTAuODQ1NUMwLjI4MDg4OCAxMC44ODgxIDAuMzYxODk0IDEwLjkxMDIgMC40NDQzMDggMTAuOTA5NUgxOC4yNDcxQzE4LjM2NjYgMTAuOTEwOCAxOC40ODUxIDEwLjg4NjUgMTguNTk0NiAxMC44Mzg0QzE4LjcwMzggMTAuNzkyMiAxOC44MDI3IDEwLjcyNDYgMTguODg1NCAxMC42Mzk0TDIyLjYzNzUgNi42OTM5NEMyMi42OTU2IDYuNjMyODggMjIuNzM0OSA2LjU1NjM5IDIyLjc1MDkgNi40NzM1NkMyMi43NzU1IDYuMzk0ODcgMjIuNzc1NSA2LjMxMDU1IDIyLjc1MDkgNi4yMzE4NkMyMi43MjE2IDYuMTU0MTQgMjIuNjY2NSA2LjA4ODg5IDIyLjU5NDkgNi4wNDcwMkMyMi41MjM3IDUuOTk5MTIgMjIuNDM5NSA1Ljk3NDMgMjIuMzUzOCA1Ljk3NTkzSDQuNTIyNjNDNC40MDMgNS45NzQwMiA0LjI4NDQgNS45OTgyOCA0LjE3NTA5IDYuMDQ3MDJDNC4wNjU4NSA2LjA5MzIyIDMuOTY2OTYgNi4xNjA5IDMuODg0MjggNi4yNDYwN0wwLjEzMjIyOSAxMC4yMDU3QzAuMDcyNzMzNyAxMC4yNjU4IDAuMDMzMTExOSAxMC4zNDI3IDAuMDE4NzQ0MSAxMC40MjYxQy0wLjAwNjI0ODAyIDEwLjUwNDcgLTAuMDA2MjQ4MDIgMTAuNTg5MiAwLjAxODc0NDEgMTAuNjY3OEMwLjA2NDc3ODkgMTAuNzQzOCAwLjEzMTExNiAxMC44MDU0IDAuMjEwMjQ4IDEwLjg0NTVWMTAuODQ1NVoiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=';
 var SolanaPayDialog = (function (props) {
   var _useContext = useContext(ConfigurationContext),
       accept = _useContext.accept,
@@ -23527,8 +23531,8 @@ var SolanaPayDialog = (function (props) {
 
   var _useState3 = useState(),
       _useState4 = _slicedToArray(_useState3, 2),
-      paymentOptions = _useState4[0],
-      setPaymentOptions = _useState4[1];
+      paymentOptions = _useState4[0];
+      _useState4[1];
 
   var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -23617,59 +23621,56 @@ var SolanaPayDialog = (function (props) {
 
   var selectPaymentOption = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(selectedPaymentOption) {
-      var secretId;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              secretId = UUIDv4();
-              setSecretId(secretId);
-              _context.next = 4;
+              _context.next = 2;
               return Token.BigNumber({
                 amount: selectedPaymentOption.amount,
                 blockchain: 'solana',
                 address: selectedPaymentOption.token
               });
 
-            case 4:
+            case 2:
               selectedPaymentOption.fromAmountBN = _context.sent;
 
               if (!selectedPaymentOption.fee) {
-                _context.next = 17;
+                _context.next = 15;
                 break;
               }
 
               if (!selectedPaymentOption.fee.amount.match("%")) {
-                _context.next = 10;
+                _context.next = 8;
                 break;
               }
 
               selectedPaymentOption.feeAmountBN = selectedPaymentOption.fromAmountBN.mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10).div(1000);
-              _context.next = 17;
+              _context.next = 15;
               break;
 
-            case 10:
+            case 8:
               if (!(typeof selectedPaymentOption.fee.amount === 'string')) {
-                _context.next = 14;
+                _context.next = 12;
                 break;
               }
 
               selectedPaymentOption.feeAmountBN = selectedPaymentOption.fee.amount;
-              _context.next = 17;
+              _context.next = 15;
               break;
 
-            case 14:
-              _context.next = 16;
+            case 12:
+              _context.next = 14;
               return Token.BigNumber({
                 amount: selectedPaymentOption.fee.amount,
                 blockchain: 'solana',
                 address: selectedPaymentOption.token
               });
 
-            case 16:
+            case 14:
               selectedPaymentOption.feeAmountBN = _context.sent;
 
-            case 17:
+            case 15:
               if (selectedPaymentOption.fee) {
                 selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN);
               } else {
@@ -23678,9 +23679,9 @@ var SolanaPayDialog = (function (props) {
 
               setSelectedPaymantOption(selectedPaymentOption);
               setState('wait');
-              openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
+              openSolanaPayTransactionSocket(secretId);
 
-            case 21:
+            case 19:
             case "end":
               return _context.stop();
           }
@@ -23699,7 +23700,8 @@ var SolanaPayDialog = (function (props) {
       height: 340,
       type: "svg",
       dotsOptions: {
-        type: "extra-rounded"
+        type: "extra-rounded",
+        color: isDarkMode() ? "#FFFFFF" : "#000000"
       },
       cornersSquareOptions: {
         type: 'rounded'
@@ -23771,7 +23773,6 @@ var SolanaPayDialog = (function (props) {
                 payment = {
                   blockchain: 'solana',
                   sender: "solana:".concat(secretId),
-                  nonce: 0,
                   after_block: afterBlock.toString(),
                   from_token: selectedPaymentOption.token,
                   from_amount: selectedPaymentOption.fromAmountBN.toString(),
@@ -23837,7 +23838,7 @@ var SolanaPayDialog = (function (props) {
     });
   };
 
-  var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId, selectedPaymentOption) {
+  var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId) {
     if (solanaPayTransactionSocket) {
       solanaPayTransactionSocket.close();
     }
@@ -23856,6 +23857,7 @@ var SolanaPayDialog = (function (props) {
                   command: 'subscribe',
                   identifier: JSON.stringify({
                     secret_id: secretId,
+                    version: 3,
                     channel: 'SolanaPayChannel'
                   })
                 }));
@@ -23878,11 +23880,7 @@ var SolanaPayDialog = (function (props) {
                     secret_id: secretId,
                     label: document.title || 'DePay',
                     icon: getFavicon() || 'https://depay.com/favicon.png',
-                    token: selectedPaymentOption.token,
-                    payment_receiver: selectedPaymentOption.receiver,
-                    payment_amount: selectedPaymentOption.fromAmountBN.toString(),
-                    fee_receiver: selectedPaymentOption.fee ? selectedPaymentOption.fee.receiver : undefined,
-                    fee_amount: selectedPaymentOption.fee ? selectedPaymentOption.feeAmountBN.toString() : undefined
+                    accept: accept
                   })
                 }));
 
@@ -23902,7 +23900,7 @@ var SolanaPayDialog = (function (props) {
     socket.onclose = function (event) {
       if (!event || event.code != 1000) {
         setTimeout(function () {
-          return openSolanaPayTransactionSocket(secretId, selectedPaymentOption);
+          return openSolanaPayTransactionSocket(secretId);
         }, 1000);
       }
     };
@@ -23915,7 +23913,7 @@ var SolanaPayDialog = (function (props) {
       }
 
       if (item.message.created === true) {
-        traceAndContinue(secretId, selectedPaymentOption, "solana:https://public.depay.com/solana/".concat(secretId));
+        traceAndContinue(secretId, "solana:https://public.depay.com/solana/".concat(secretId));
       } else if (item.message.scanned) {
         setClosable("Are you sure you want to abort this payment?");
         setState('pay');
@@ -24311,14 +24309,14 @@ var SolanaPayDialog = (function (props) {
   };
 
   var traceAndContinue = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, selectedPaymentOption, QRCodeURI) {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, QRCodeURI) {
       return regenerator.wrap(function _callee9$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
               sendTrace({
                 secretId: secretId,
-                selectedPaymentOption: selectedPaymentOption
+                accept: accept
               }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
                 var newQRCode;
                 return regenerator.wrap(function _callee8$(_context8) {
@@ -24354,40 +24352,20 @@ var SolanaPayDialog = (function (props) {
       }, _callee9);
     }));
 
-    return function traceAndContinue(_x8, _x9, _x10) {
+    return function traceAndContinue(_x8, _x9) {
       return _ref14.apply(this, arguments);
     };
   }();
 
   useEffect(function () {
+    var secretId = UUIDv4();
+    setSecretId(secretId);
+    openSolanaPayTransactionSocket(secretId);
     request({
       blockchain: 'solana',
       method: 'latestBlockNumber'
     }).then(setAfterBlock);
   }, []);
-  useEffect(function () {
-    if (afterBlock) {
-      Promise.all(accept.filter(function (configuration) {
-        return configuration.blockchain === 'solana';
-      }).map(function (configuration) {
-        var token = new Token({
-          blockchain: configuration.blockchain,
-          address: configuration.token
-        });
-        return Promise.all([Promise.resolve(configuration), token.symbol(), token.name(), token.decimals()]);
-      })).then(function (options) {
-        return options.map(function (option) {
-          return _objectSpread$2(_objectSpread$2({}, option[0]), {}, {
-            symbol: option[1],
-            name: option[2],
-            decimals: option[3]
-          });
-        });
-      }).then(function (paymentOptions) {
-        setPaymentOptions(paymentOptions);
-      });
-    }
-  }, [afterBlock]);
   useEffect(function () {
     return function () {
       if (solanaPayTransactionSocket) {
@@ -24519,7 +24497,7 @@ var SolanaPayDialog = (function (props) {
         className: "ButtonPrimary",
         onClick: function onClick() {
           setState('wait');
-          traceAndContinue(secretId, selectedPaymentOption, "solana:https://public.depay.com/solana/".concat(secretId));
+          traceAndContinue(secretId, "solana:https://public.depay.com/solanapay/".concat(secretId));
         }
       }, "Try again"))
     });
@@ -24570,12 +24548,21 @@ var SolanaPayDialog = (function (props) {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
         className: "LineHeightL FontSizeL TextLeft"
-      }, /*#__PURE__*/React.createElement("img", {
-        src: LOGO,
+      }, /*#__PURE__*/React.createElement("svg", {
         className: "SolanaPayLogo",
-        alt: "Solana Pay",
-        title: "Solana Pay"
-      })))),
+        width: "86",
+        height: "32",
+        viewBox: "0 0 86 32",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
+      }))))),
       body: /*#__PURE__*/React.createElement("div", {
         className: "MaxHeight"
       }, /*#__PURE__*/React.createElement("div", {
@@ -24597,12 +24584,21 @@ var SolanaPayDialog = (function (props) {
         className: "PaddingTopS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
         className: "LineHeightL FontSizeL TextLeft"
-      }, /*#__PURE__*/React.createElement("img", {
-        src: LOGO,
+      }, /*#__PURE__*/React.createElement("svg", {
         className: "SolanaPayLogo",
-        alt: "Solana Pay",
-        title: "Solana Pay"
-      })))),
+        width: "86",
+        height: "32",
+        viewBox: "0 0 86 32",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
+      }), /*#__PURE__*/React.createElement("path", {
+        d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
+      }))))),
       body: /*#__PURE__*/React.createElement("div", {
         className: "".concat(['select'].includes(state) ? 'MaxHeight' : '')
       }, /*#__PURE__*/React.createElement("div", {
@@ -24835,12 +24831,12 @@ var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cu
 
 var preflight$1 = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-    var accept, recover, integration;
+    var accept, integration;
     return regenerator.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            accept = _ref.accept, recover = _ref.recover, integration = _ref.integration;
+            accept = _ref.accept, integration = _ref.integration;
 
             if (!(typeof integration !== 'undefined' && typeof accept !== 'undefined')) {
               _context.next = 3;
@@ -24850,7 +24846,7 @@ var preflight$1 = /*#__PURE__*/function () {
             throw 'You can either use `integration` or `accept`, but not both!';
 
           case 3:
-            if (!(integration || recover)) {
+            if (!integration) {
               _context.next = 5;
               break;
             }
@@ -24895,12 +24891,12 @@ var preflight$1 = /*#__PURE__*/function () {
 
 var Payment = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, wallets, unmount;
+    var accept, amount, sent, succeeded, validated, failed, error, critical, style, allow, deny, whitelist, blacklist, providers, currency, connected, closed, track, closable, integration, payload, link, container, before, wallet, title, action, document, wallets, protocolFee, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document, wallets = _ref3.wallets;
+            accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, allow = _ref3.allow, deny = _ref3.deny, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document, wallets = _ref3.wallets, protocolFee = _ref3.protocolFee;
             requireReactVersion();
 
             if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -24911,8 +24907,7 @@ var Payment = /*#__PURE__*/function () {
             _context2.next = 6;
             return preflight$1({
               accept: accept,
-              integration: integration,
-              recover: recover
+              integration: integration
             });
 
           case 6:
@@ -24947,17 +24942,19 @@ var Payment = /*#__PURE__*/function () {
                     succeeded: succeeded,
                     validated: validated,
                     failed: failed,
+                    allow: allow,
+                    deny: deny,
                     whitelist: whitelist,
                     blacklist: blacklist,
                     providers: providers,
                     track: track,
-                    recover: recover,
                     integration: integration,
                     link: link,
                     wallet: wallet,
                     title: title,
                     action: action,
-                    wallets: wallets
+                    wallets: wallets,
+                    protocolFee: protocolFee
                   }
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
@@ -25010,20 +25007,6 @@ var Payment = /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }();
-
-Payment.preload = function (_ref5) {
-  var account = _ref5.account,
-      accept = _ref5.accept,
-      whitelist = _ref5.whitelist,
-      blacklist = _ref5.blacklist;
-      _ref5.event;
-  routePayments({
-    account: account,
-    accept: accept,
-    whitelist: whitelist,
-    blacklist: blacklist
-  });
-};
 
 var SaleRoutingContext = /*#__PURE__*/React.createContext();
 
@@ -25078,9 +25061,6 @@ var SaleRoutingProvider = (function (props) {
 
   var _useContext3 = useContext(WalletContext),
       account = _useContext3.account;
-
-  var _useContext4 = useContext(ConfigurationContext);
-      _useContext4.blacklist;
 
   var _useState = useState(acceptWithAmount ? acceptWithAmount.map(function (accept) {
     return _objectSpread$1(_objectSpread$1({}, accept), {}, {
@@ -25379,12 +25359,12 @@ var preflight = /*#__PURE__*/function () {
 
 var Sale = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-    var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, before, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
+    var amount, sell, sent, succeeded, failed, error, critical, style, deny, blacklist, before, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
     return regenerator.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, before = _ref3.before, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
+            amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, deny = _ref3.deny, blacklist = _ref3.blacklist, before = _ref3.before, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
             requireReactVersion();
             _context2.prev = 2;
             _context2.next = 5;
@@ -25399,14 +25379,14 @@ var Sale = /*#__PURE__*/function () {
                 token: sell[key]
               };
             });
-            blacklist = Object.assign(blacklist || {});
+            deny = Object.assign(deny || {});
             Object.keys(sell).forEach(function (key) {
-              if (!blacklist[key]) {
-                blacklist[key] = [];
+              if (!deny[key]) {
+                deny[key] = [];
               }
 
-              blacklist[key].push(sell[key]);
-              blacklist[key] = _toConsumableArray(new Set(blacklist[key]));
+              deny[key].push(sell[key]);
+              deny[key] = _toConsumableArray(new Set(deny[key]));
             });
             unmount = mount({
               style: style,
@@ -25430,6 +25410,7 @@ var Sale = /*#__PURE__*/function () {
                     sent: sent,
                     succeeded: succeeded,
                     failed: failed,
+                    deny: deny,
                     blacklist: blacklist,
                     providers: providers,
                     integration: integration,

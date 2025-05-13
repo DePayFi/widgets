@@ -76,6 +76,7 @@ export default (props)=>{
   const roundAmount = async (route, amountBN)=> {
     if(route.directTransfer){ return route }
     let readableAmount = await route.fromToken.readable(amountBN || route.fromAmount)
+    if(round(readableAmount) === 0) { return route }
     let roundedAmountBN = await route.fromToken.BigNumber(round(readableAmount))
     updateRouteAmount(route, roundedAmountBN)
     return route

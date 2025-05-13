@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-evm'), require('@depay/web3-blockchains'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-evm'), require('@depay/local-currency'), require('@depay/web3-tokens-evm'), require('ethers'), require('decimal.js'), require('@depay/web3-payments-evm'), require('@depay/react-token-image-evm')) :
-  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-evm', '@depay/web3-blockchains', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-evm', '@depay/local-currency', '@depay/web3-tokens-evm', 'ethers', 'decimal.js', '@depay/web3-payments-evm', '@depay/react-token-image-evm'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Tokens, global.ethers, global.Decimal, global.Web3Payments, global.ReactTokenImage));
-}(this, (function (web3WalletsEvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, Token, ethers, decimal_js, web3PaymentsEvm, reactTokenImageEvm) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@depay/web3-wallets-evm'), require('@depay/web3-blockchains'), require('react'), require('@uiw/copy-to-clipboard'), require('@depay/react-dialog-stack'), require('qr-code-styling'), require('fuse.js'), require('@tanstack/react-virtual'), require('react-dom'), require('@depay/react-shadow-dom'), require('@depay/web3-client-evm'), require('@depay/local-currency'), require('@depay/web3-tokens-evm'), require('decimal.js'), require('ethers'), require('@depay/web3-payments-evm'), require('@depay/react-token-image-evm')) :
+  typeof define === 'function' && define.amd ? define(['@depay/web3-wallets-evm', '@depay/web3-blockchains', 'react', '@uiw/copy-to-clipboard', '@depay/react-dialog-stack', 'qr-code-styling', 'fuse.js', '@tanstack/react-virtual', 'react-dom', '@depay/react-shadow-dom', '@depay/web3-client-evm', '@depay/local-currency', '@depay/web3-tokens-evm', 'decimal.js', 'ethers', '@depay/web3-payments-evm', '@depay/react-token-image-evm'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DePayWidgets = factory(global.Web3Wallets, global.Web3Blockchains, global.React, global.copyTextToClipboard, global.ReactDialogStack, global.QRCodeStyling, global.Fuse, global.ReactVirtual, global.ReactDOM, global.ReactShadowDOM, global.Web3Client, global.LocalCurrency, global.Web3Tokens, global.Decimal, global.ethers, global.Web3Payments, global.ReactTokenImage));
+}(this, (function (web3WalletsEvm, Blockchains, React, copy, reactDialogStack, QRCodeStyling, Fuse, reactVirtual, ReactDOM, reactShadowDom, web3ClientEvm, localCurrency, Token, decimal_js, ethers, web3PaymentsEvm, reactTokenImageEvm) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -5874,11 +5874,6 @@
     return obj;
   }
 
-  function capitalizeFirstChar(str) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
   var DropDown = (function (props) {
     var _useState = React.useState(0),
         _useState2 = _slicedToArray(_useState, 2),
@@ -5970,9 +5965,10 @@
     var _useContext = React.useContext(ConfigurationContext),
         walletsConfiguration = _useContext.wallets;
 
+    var allowList = (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.allow) || (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.whitelist);
     var allWallets$1;
 
-    if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+    if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || allowList) {
       allWallets$1 = React.useMemo(function () {
         var adjustedWallets = _toConsumableArray(allWallets);
 
@@ -5988,9 +5984,9 @@
           });
         }
 
-        if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+        if (allowList) {
           adjustedWallets = adjustedWallets.filter(function (wallet) {
-            return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
+            return allowList.indexOf(wallet.name) > -1;
           });
         }
 
@@ -6150,9 +6146,10 @@
     var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
         navigate = _useContext2.navigate;
 
+    var allowList = (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.allow) || (walletsConfiguration === null || walletsConfiguration === void 0 ? void 0 : walletsConfiguration.whitelist);
     var allWallets$1;
 
-    if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+    if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || allowList) {
       allWallets$1 = React.useMemo(function () {
         var adjustedWallets = _toConsumableArray(allWallets);
 
@@ -6168,9 +6165,9 @@
           });
         }
 
-        if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+        if (allowList) {
           adjustedWallets = adjustedWallets.filter(function (wallet) {
-            return walletsConfiguration.whitelist.indexOf(wallet.name) > -1;
+            return allowList.indexOf(wallet.name) > -1;
           });
         }
 
@@ -6342,7 +6339,7 @@
         drip: function drip(wallet) {
           wallets = wallets.concat(wallet);
 
-          if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+          if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort || allowList) {
             var adjustedWallets = _toConsumableArray(wallets);
 
             if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.sort) {
@@ -6359,11 +6356,11 @@
               });
             }
 
-            if (walletsConfiguration !== null && walletsConfiguration !== void 0 && walletsConfiguration.whitelist) {
+            if (allowList) {
               adjustedWallets = adjustedWallets.filter(function (wallet) {
                 var _wallet$info;
 
-                return walletsConfiguration.whitelist.indexOf(wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name) > -1;
+                return allowList.indexOf(wallet === null || wallet === void 0 ? void 0 : (_wallet$info = wallet.info) === null || _wallet$info === void 0 ? void 0 : _wallet$info.name) > -1;
               });
             }
 
@@ -6457,7 +6454,7 @@
             top: '-1px',
             position: 'relative'
           }
-        }, "\u25CF"), " ", capitalizeFirstChar(isMobile() && connectionType == 'extension' ? 'app' : connectionType), " detected")))));
+        }, "\u25CF"), " Detected")))));
       }), previouslyConnectedWallet && !detectedWallets.find(function (wallet) {
         return previouslyConnectedWallet.name === (wallet.info ? wallet.info.name : wallet.name);
       }) && /*#__PURE__*/React__default['default'].createElement("div", {
@@ -7865,27 +7862,27 @@
   });
 
   var ActionIndicatorStyle = (function (style) {
-    return "\n\n    .ActionIndicator {\n      height: 64px;\n      width: 64px;\n      text-align: center;\n      margin: 0 auto;\n    }\n\n    .ActionIndicator img {\n      height: 41px;\n      width: 41px;\n      position: absolute;\n      margin: 11px;\n    }\n\n    .ActionIndicatorSpinner {\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n    }\n\n    .ActionIndicatorSpinner {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n      animation: ActionIndicatorSpinnerRotation 1s linear infinite;\n    }\n\n    @keyframes ActionIndicatorSpinnerRotation {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    } \n  ");
+    return "\n\n    .ActionIndicator {\n      height: 64px;\n      width: 64px;\n      text-align: center;\n      margin: 0 auto;\n    }\n\n    .ActionIndicator img {\n      height: 41px;\n      width: 41px;\n      position: absolute;\n      margin: 11px;\n    }\n\n    .ActionIndicatorSpinner {\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n    }\n\n    .ActionIndicatorSpinner {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ".concat(style.colors.primary, ";\n      border-bottom-color: ").concat(style.colors.background, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n      animation: ActionIndicatorSpinnerRotation 1s linear infinite;\n    }\n\n    @keyframes ActionIndicatorSpinnerRotation {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    } \n  ");
   });
 
   var AlertStyle = (function (style) {
-    return "\n\n    .Alert {\n      background: color-mix(in srgb, ".concat(style.colors.warning, " 20%, ").concat(style.colors.background, " 80%);\n      border: 1px solid ").concat(style.colors.warning, ";\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n\n    .Alert, .Alert * {\n      color: ").concat(style.colors.text, ";\n    }\n  ");
+    return "\n\n    .Alert {\n      background: ".concat(style.colors.warning, ";\n      background: color-mix(in srgb, ").concat(style.colors.warning, " 20%, ").concat(style.colors.background, " 80%);\n      border: 1px solid ").concat(style.colors.warning, ";\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n\n    .Alert, .Alert * {\n      color: ").concat(style.colors.text, ";\n    }\n  ");
   });
 
   var InfoStyle = (function (style) {
-    return "\n\n    .Info {\n      background: color-mix(in srgb, ".concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border: 1px solid color-mix(in srgb, ").concat(style.colors.cardBackground, " 70%, ").concat(style.colors.mixActive, " 30%);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ");
+    return "\n\n    .Info {\n      background: ".concat(style.colors.cardBackground, ";\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border: 1px ").concat(style.colors.mixActive, ";\n      border: 1px solid color-mix(in srgb, ").concat(style.colors.cardBackground, " 70%, ").concat(style.colors.mixActive, " 30%);\n      border-radius: 7px;\n      font-weight: 500;\n      padding: 8px;\n    }\n  ");
   });
 
   var ButtonCircularStyle = (function (style) {
-    return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      opacity: 1;\n    }\n  ");
+    return "\n\n    .ButtonCircular {\n      border-radius: 9999px;\n      border: 1px solid transparent;\n      cursor: pointer;\n      height: 34px;\n      opacity: 0.5;\n      padding: 5px 4px 4px 4px;\n      width: 34px;\n    }\n\n    .ButtonCircular:focus {\n      border: 1px solid ".concat(style.colors.primary, ";\n    }\n\n    .ButtonCircular:hover {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      opacity: 1;\n    }\n\n    .ButtonCircular:active {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      opacity: 1;\n    }\n  ");
   });
 
   var ButtonPrimaryStyle = (function (style) {
-    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 75%, ").concat(style.colors.mixActive, " 15%) !important;\n      color: color-mix(in srgb, ").concat(style.colors.buttonText, " 70%, ").concat(style.colors.mixActive, " 30%) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
+    return "\n\n    .ButtonPrimary {\n      align-items: center;\n      align-self: center;\n      background: ".concat(style.colors.primary, ";\n      border-radius: 13px;\n      border: 1px solid transparent;\n      box-shadow: 0 0 16px rgba(0,0,0,0.1);\n      font-size: 22px;\n      font-weight: 400;\n      line-height: 40px;\n      height: 58px;\n      justify-content: center;\n      width: 100%;\n      overflow: hidden;\n      padding: 7px 0;\n      position: relative;\n      text-align: center;\n      text-decoration: none;\n      text-overflow: ellipsis;\n      transition: background 0.1s;\n      vertical-align: middle;\n      display: inline-block;\n    }\n\n    .ButtonPrimary, .ButtonPrimary * {\n      color: ").concat(style.colors.buttonText, ";\n    }\n\n    .ButtonPrimary.disabled {\n      background-color: ").concat(style.colors.background, " !important;\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 75%, ").concat(style.colors.mixActive, " 15%) !important;\n      color: ").concat(style.colors.buttonText, " !important;\n      color: color-mix(in srgb, ").concat(style.colors.buttonText, " 70%, ").concat(style.colors.mixActive, " 30%) !important;\n      box-shadow: 0 !important;\n    }\n    \n    .ButtonPrimary.disabled * {\n      opacity: 0.7;\n    }\n\n    .ButtonPrimary:not(.disabled){\n      cursor: pointer;\n    }\n    .ButtonPrimary:not(.disabled):hover {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.1);\n    }\n    .ButtonPrimary:not(.disabled):active {\n      box-shadow: inset 0 0 300px rgba(0,0,0,0.2);\n    }\n  ");
   });
 
   var CardStyle = (function (style) {
-    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card.secondary {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n\n    .Card.secondary:hover:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n\n    .Card.secondary:active:not(.disabled) {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixActive, " 20%);\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
+    return "\n\n    .Card {\n      align-items: center;\n      background: ".concat(style.colors.cardBackground, ";\n      border: 1px solid transparent;\n      border-radius: 13px;\n      box-shadow: 0 0 8px rgba(0,0,0,0.03);\n      cursor: pointer;\n      display: flex;\n      flex-direction: row;\n      margin-bottom: 8px;\n      min-height: 74px;\n      padding: 14px 8px;\n      width: 100%;\n    }\n\n    .Card.transparent {\n      background: none;\n    }\n\n    .Card:focus:not(.disabled) {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .Card.center {\n      justify-content: center;\n    }\n\n    .Card.Row {\n      border-radius: 0;\n      margin-bottom: 0;\n      box-shadow: none;\n      min-height: 69px;\n      padding: 7px 21px;\n      border-top: 1px solid rgba(0,0,0,0.05);\n    }\n\n    .Card.Row .CardText {\n      font-size: 19px;\n      line-height: 40px;\n    }\n\n    .CardTokenSymbol {\n      width: 40%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenFullName {\n      width: 100%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n\n    .CardTokenName {\n      text-align: right;\n      opacity: 0.5;\n      width: 60%;\n      min-width: 0;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n    }\n    \n    .Card.Row .CardTokenName .CardText {\n      font-size: 17px;\n    }\n\n    .Card.Row .CardImage {\n      width: 40px;\n    }\n\n    .Card.Row .CardImage img {\n      height: 30px;\n      width: 30px;\n    }\n\n    a.Card, a.Card * {\n      color: inherit;\n      text-decoration: none;\n    }\n\n    .Card.transparent {\n      background: none;\n      box-shadow: none;\n    }\n\n    .Card.tiny {\n      border-radius: 4px;\n      min-height: auto;\n      padding: 0 3px;\n    }\n    \n    .Card.tiny img {\n      width: 18px;\n      height: 18px;\n      position: relative;\n      top: 3px;\n      marginRight: 2px;\n    }\n\n    .Card.small {\n      min-height: auto;\n      padding: 8px 12px;\n      margin: 0;\n    }\n\n    .CardImage.small {\n      width: 33px;\n    }\n\n    .CardImage.small img {\n      height: 27px;\n      width: 27px;\n    }\n\n    .CardImage.large {\n      width: 58px;\n    }\n\n    .CardImage.large img {\n      height: 58px;\n      width: 58px;\n    }\n\n    .Card.disabled {\n      cursor: default;\n    }\n\n    .Card:hover:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Card:active:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ");\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n      box-shadow: inset 0 0 6px rgba(0,0,0,0.02);\n      color: inherit;\n    }\n\n    .Card.secondary {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n\n    .Card.secondary:hover:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n\n    .Card.secondary:active:not(.disabled) {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 80%, ").concat(style.colors.mixActive, " 20%);\n    }\n\n    .Card:hover:not(.disabled) .CardAction {\n      opacity: 0.4;\n    }\n\n    .CardImage, .CardBody, .CardAction, .CardInfo {\n      align-items: center;\n      display: flex;\n      min-width: 0;\n      padding: 0 7px;\n    }\n\n    .CardImage {\n      display: inline-flex;\n      flex-basis: auto;\n      flex-grow: 0;\n      flex-shrink: 0;\n      justify-content: center;\n      position: relative;\n      width: 52px;\n    }\n\n    .CardBody {\n      flex-basis: auto;\n      flex-grow: 1;\n      flex-shrink: 1;\n      line-height: 27px;\n      padding-left: 10px;\n      text-align: left;\n    }\n\n    .CardBodyWrapper {\n      min-width: 0;\n    }\n\n    .CardAction {\n      flex-basis: auto;\n      flex-shrink: 0;\n      flex-grow: 0;\n      padding-right: 0;\n      margin-left: auto;\n    }\n\n    .Card.disabled .CardAction {\n      opacity: 0;  \n    }\n\n    .CardInfo {\n      display: flex;\n      flex-basis: auto;\n      flex-direction: column;\n      flex-grow: 0;\n      flex-shrink: 1;\n      justify-content: center;\n      margin-left: auto; \n      padding-right: 0;\n    }\n\n    .CardImage img {\n      background: ").concat(style.colors.background, ";\n      border-radius: 9999px;\n      border: 1px solid ").concat(style.colors.cardBackground, ";\n      height: 42px;\n      position: relative;\n      vertical-align: middle;\n      width: 42px;\n    }\n\n    .CardImage.rounded img {\n      border-radius: 8px !important;\n    }\n\n    .CardImage.square img {\n      border-radius: 0;\n    }\n\n    .CardImage img.transparent {\n      border: none;\n      background: none;\n      box-shadow: none;\n    }\n    \n    .CardTitle {\n      font-size: 15px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardText.small .CardTitle {\n      line-height: 14px;\n    }\n    \n    .CardText, a .CardText {\n      color: ").concat(style.colors.text, ";\n      flex: 1;\n      font-size: 21px;\n      line-height: 26px;\n    }\n\n    .CardText strong {\n      font-weight: 500;\n    }\n\n    .CardText.small, .CardText.small small {\n      font-size: 17px;\n      color: rgb(150,150,150);\n      line-height: 20px;\n    }\n\n    .CardAction {\n      opacity: 0.2;\n    }\n\n    .Card.inlineBlock {\n      display: inline-block;\n      width: auto;\n    }\n    \n    .Card.More {\n      display: inline-block;\n      text-align: center;\n    }\n  ");
   });
 
   var DialogStyle = (function (style) {
@@ -7893,7 +7890,7 @@
   });
 
   var DropDownStyle = (function (style) {
-    return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: ".concat(style.colors.background, ";\n      border-radius: 8px;\n      box-shadow: 0 0 12px color-mix(in srgb, ").concat(style.colors.background, " 80%, black 20%);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n      width: 100%;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n    \n    .DropDownItem:active {\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n    \n  ");
+    return "\n\n    .DropDownWrapper {\n      position: relative;\n    }\n\n    .DropDown {\n      background: ".concat(style.colors.background, ";\n      border-radius: 8px;\n      box-shadow: 0 0 12px ").concat(style.colors.background, ";\n      box-shadow: 0 0 12px color-mix(in srgb, ").concat(style.colors.background, " 80%, black 20%);\n      display: block;\n      padding: 8px 6px;\n      position: absolute;\n      right: 0;\n      z-index: 1000;\n    }\n\n    .DropDownItem {\n      border: 1px solid transparent;\n      border-radius: 6px;\n      cursor: pointer;\n      font-size: 17px;\n      min-width: 160px;\n      padding: 6px 10px;\n      text-align: left;\n      white-space: nowrap;\n      width: 100%;\n    }\n\n    .DropDownItem:focus {\n      border: 1px solid ").concat(style.colors.primary, ";\n    }\n\n    .DropDownItem:hover {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%);\n    }\n    \n    .DropDownItem:active {\n      background-color: ").concat(style.colors.cardBackground, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.cardBackground, " 85%, ").concat(style.colors.mixActive, " 15%);\n    }\n    \n  ");
   });
 
   var FontStyle = (function (style) {
@@ -7933,7 +7930,7 @@
   });
 
   var LogoStyle = (function (style) {
-    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n  ";
+    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n    \n    .SolanaPayLogo path {\n      fill: ".concat(isDarkMode() ? '#FFFFFF' : '#000000', ";\n    }\n  ");
   });
 
   var MarginStyle = (function () {
@@ -7953,7 +7950,7 @@
   });
 
   var StepStyle = (function (style) {
-    return "\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 50%;\n      position: absolute;\n      bottom: -25%;\n      left: 19px;\n      background: ").concat(style.colors.text, ";\n      z-index: 999;\n    }\n\n    .Step:last-child .StepConnector {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
+    return "\n\n    .StepsWrapper {\n      position: relative;\n    }\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: ").concat(style.colors.background, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 22px;\n      position: absolute;\n      left: 20px;\n      background: ").concat(style.colors.text, ";\n      opacity: 0.5;\n      z-index: 999;\n      margin-top: -11px;\n    }\n\n    .StepConnector:last-child {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
   });
 
   var QRCodeStyle = (function () {
@@ -7973,11 +7970,11 @@
   });
 
   var SearchStyle = (function (style) {
-    return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid transparent;\n      background: none;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 8px 12px;\n      width: 100%;\n      position: relative !important; // fixes LastPass extension problem\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: color-mix(in srgb, ").concat(style.colors.text, " 55%, ").concat(style.colors.mixPassive, " 50%);\n    } \n\n    .Search:focus::placeholder, .Search:focus-visible::placeholder {\n      color: color-mix(in srgb, ").concat(style.colors.text, " 65%, ").concat(style.colors.mixPassive, " 35%);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n      background: none;\n    }\n\n  ");
+    return "\n\n    .Search {\n      border-radius: 13px;\n      border: 1px solid transparent;\n      background: none;\n      outline: none !important;\n      color: ".concat(style.colors.text, ";\n      font-size: 19px;\n      padding: 8px 12px;\n      width: 100%;\n      position: relative !important; // fixes LastPass extension problem\n    }\n\n    .Search.small {\n      padding: 4px 8px;\n      font-size: 16px;\n      border-radius: 6px;\n    }\n\n    .Search::placeholder {\n      color: ").concat(style.colors.text, ";\n      color: color-mix(in srgb, ").concat(style.colors.text, " 55%, ").concat(style.colors.mixPassive, " 50%);\n    } \n\n    .Search:focus::placeholder, .Search:focus-visible::placeholder {\n      color: ").concat(style.colors.text, ";\n      color: color-mix(in srgb, ").concat(style.colors.text, " 65%, ").concat(style.colors.mixPassive, " 35%);\n    } \n\n    .Search:focus, .Search:focus-visible {\n      border: 1px solid ").concat(style.colors.primary, ";\n      background: none;\n    }\n\n  ");
   });
 
   var SkeletonStyle = (function (style) {
-    return "\n        \n    .Skeleton {\n      background: color-mix(in srgb, ".concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    .Card .Skeleton {\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n    }\n\n    .Card .Skeleton .SkeletonBackground {\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%) 50%, transparent 100%);\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.background, " 80%, ").concat(style.colors.mixActive, " 20%) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ");
+    return "\n        \n    .Skeleton {\n      background: ".concat(style.colors.background, " !important;\n      background: color-mix(in srgb, ").concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n      border: 0px solid transparent !important;\n      box-shadow: none !important;\n      cursor: inherit !important;\n      line-height: 0;\n      overflow: hidden;\n      position: relative;\n    }\n\n    .Card .Skeleton {\n      background: ").concat(style.colors.cardBackground, " !important;\n      background: color-mix(in srgb, ").concat(style.colors.cardBackground, " 95%, ").concat(style.colors.mixActive, " 5%) !important;\n    }\n\n    .Card .Skeleton .SkeletonBackground {\n      background: linear-gradient(to right, transparent 0%, ").concat(style.colors.cardBackground, " 50%, transparent 100%);\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.cardBackground, " 90%, ").concat(style.colors.mixActive, " 10%) 50%, transparent 100%);\n    }\n\n    @keyframes SkeletonBackgroundAnimation {\n      from {\n        left: -500px;\n      }\n      to   {\n        left: +120%;\n      }\n    }\n\n    .SkeletonBackground {\n      animation: 2s SkeletonBackgroundAnimation 0.2s ease infinite;\n      background: linear-gradient(to right, transparent 0%, ").concat(style.colors.background, " 50%, transparent 100%);\n      background: linear-gradient(to right, transparent 0%, color-mix(in srgb, ").concat(style.colors.background, " 80%, ").concat(style.colors.mixActive, " 20%) 50%, transparent 100%);\n      height: 100%;\n      left: -140%;\n      position: absolute;\n      top: 0;\n      width: 400px;\n    }\n\n    .SkeletonWrapper {\n      line-height: 0;\n    }\n  ");
   });
 
   var TabBarStyle = (function (style) {
@@ -7989,7 +7986,7 @@
   });
 
   var TabStyle = (function (style) {
-    return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background-color: color-mix(in srgb, ".concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n\n    .Tab.search {\n      display: flex;\n    }\n  ");
+    return "\n\n    .Tab {\n      padding: 3px 7px;\n      margin-right: 3px;\n      font-size: 17px;\n      border-radius: 4px;\n      cursor: pointer;\n    }\n\n    .Tab.active {\n      background-color: ".concat(style.colors.background, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 4px rgba(0,0,0,0.03);\n    }\n\n    .Tab:hover:not(.active) {\n      background-color: ").concat(style.colors.background, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      box-shadow: 0 0 0 rgba(0,0,0,0); \n    }\n\n    .Tab:active:not(.active) {\n      background-color: ").concat(style.colors.background, ";\n      background-color: color-mix(in srgb, ").concat(style.colors.background, " 95%, ").concat(style.colors.mixActive, " 5%);\n      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);\n    }\n\n    .Tab.search {\n      display: flex;\n    }\n  ");
   });
 
   var TextButtonStyle = (function (style) {
@@ -8809,7 +8806,6 @@
 
     var _useContext2 = React.useContext(ConfigurationContext),
         accept = _useContext2.accept,
-        recover = _useContext2.recover,
         passedWallet = _useContext2.wallet;
 
     var solanaPayContext = React.useContext(SolanaPayContext);
@@ -8969,7 +8965,7 @@
           })
         }
       }));
-    } else if (walletState == 'connected' || recover != undefined) {
+    } else if (walletState == 'connected') {
       return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
         value: {
           account: account,
@@ -8992,7 +8988,7 @@
 
   var Login = function Login(options) {
     requireReactVersion();
-    var style, error, document, message, endpoint, recover, wallet;
+    var style, error, document, message, endpoint, wallet;
 
     if (_typeof(options) == 'object') {
       style = options.style;
@@ -9000,7 +8996,6 @@
       document = options.document;
       message = options.message;
       endpoint = options.endpoint;
-      recover = options.recover;
       wallet = options.wallet;
     }
 
@@ -9073,52 +9068,69 @@
   var ConversionRateContext = /*#__PURE__*/React__default['default'].createContext();
 
   var round = (function (input) {
-    var _digitsAfterDecimal;
-
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'up';
-    var inputAsFloat = parseFloat(input);
-    var digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{4})/);
+    var decimalInput = new decimal_js.Decimal(input);
+    var origDp = decimalInput.decimalPlaces(); // fixed representation of the input
 
-    if ((_digitsAfterDecimal = digitsAfterDecimal) !== null && _digitsAfterDecimal !== void 0 && _digitsAfterDecimal.length) {
-      digitsAfterDecimal = digitsAfterDecimal[0];
-      var focus = digitsAfterDecimal.match(/\d{4}$/)[0];
+    var inputStr = decimalInput.toFixed(origDp); // split into integer and fractional parts
 
-      var _float;
+    var _inputStr$split = inputStr.split('.'),
+        _inputStr$split2 = _slicedToArray(_inputStr$split, 2);
+        _inputStr$split2[0];
+        var _inputStr$split2$ = _inputStr$split2[1],
+        frac = _inputStr$split2$ === void 0 ? '' : _inputStr$split2$; // count leading zeros in fractional part when <1
 
-      var focusToFixed;
 
-      if (focus.match(/^0/)) {
-        if (direction == 'up') {
-          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
-        } else {
-          _float = parseFloat("".concat(focus[1], ".").concat(focus[2]).concat(focus[3]));
-        }
+    var zerosCount = decimalInput.gte(1) ? 0 : frac.match(/^0*/)[0].length; // threshold DP: 3 for >=1, zerosCount+3 for <1
 
-        focusToFixed = parseFloat(_float).toFixed(2);
-        focusToFixed = "0".concat(focusToFixed).replace('.', '');
-      } else {
-        if (direction == 'up') {
-          _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "9"));
-        } else {
-          _float = parseFloat("".concat(focus[0], ".").concat(focus[1]).concat(focus[2], "1"));
-        }
+    var thresholdDp = decimalInput.gte(1) ? 3 : zerosCount + 3; // if no rounding needed, return original (pad integers to two decimals)
 
-        focusToFixed = parseFloat(_float).toFixed(2).replace('.', '');
+    if (origDp <= thresholdDp) {
+      if (origDp === 0) {
+        return decimalInput.toFixed(2);
       }
 
-      if (focusToFixed == '0999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-        focusToFixed = direction == 'up' ? '1000' : '0999';
-        return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
-      } else if (focusToFixed == '1000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-        return parseFloat(digitsAfterDecimal.replace(/\d{5}$/, focusToFixed));
-      } else if (focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 3) {
-        return parseInt(inputAsFloat.toFixed(0));
+      return inputStr;
+    } // perform rounding
+
+
+    var mode = direction === 'down' ? decimal_js.Decimal.ROUND_FLOOR : decimal_js.Decimal.ROUND_CEIL;
+    var result = decimalInput.toDecimalPlaces(thresholdDp, mode);
+    var resStr = result.toFixed(thresholdDp); // if rounding yields zero, fall back to original
+
+    if (new decimal_js.Decimal(resStr).eq(0)) {
+      return inputStr;
+    } // trim or pad trailing zeros
+
+
+    if (resStr.includes('.')) {
+      var _resStr$split = resStr.split('.'),
+          _resStr$split2 = _slicedToArray(_resStr$split, 2),
+          iPart = _resStr$split2[0],
+          fPart = _resStr$split2[1];
+
+      if (/^0*$/.test(fPart)) {
+        // fractional all zeros => decide padding on magnitude
+        if (decimalInput.lt(1)) {
+          fPart = '00';
+        } else if (decimalInput.lt(10)) {
+          fPart = '0';
+        } else if (decimalInput.lt(100)) {
+          fPart = '';
+        } else if (decimalInput.lt(1000)) {
+          fPart = '00';
+        } else {
+          fPart = ''.padEnd(thresholdDp, '0');
+        }
       } else {
-        return parseFloat(digitsAfterDecimal.replace(/\d{4}$/, focusToFixed));
+        // remove only trailing zeros
+        fPart = fPart.replace(/0+$/, '');
       }
-    } else {
-      return parseFloat(inputAsFloat.toFixed(3));
+
+      resStr = fPart ? "".concat(iPart, ".").concat(fPart) : iPart;
     }
+
+    return resStr;
   });
 
   var tokenAmountForUSD = /*#__PURE__*/(function () {
@@ -9183,12 +9195,11 @@
     var _useContext = React.useContext(ConfigurationContext),
         configuredAmount = _useContext.amount;
         _useContext.toAmount;
-        var recover = _useContext.recover,
-        accept = _useContext.accept;
+        var accept = _useContext.accept;
 
     React.useContext(ConfigurationContext);
 
-    var _useState = React.useState(recover == undefined ? configurationsMissAmounts(accept) : false),
+    var _useState = React.useState(configurationsMissAmounts(accept)),
         _useState2 = _slicedToArray(_useState, 2),
         amountsMissing = _useState2[0],
         setAmountsMissing = _useState2[1];
@@ -9234,12 +9245,8 @@
         setAmount = _useState10[1];
 
     React.useEffect(function () {
-      if (recover) {
-        return;
-      }
-
       setAmountsMissing(configurationsMissAmounts(accept));
-    }, [accept, recover]);
+    }, [accept]);
 
     var getAmounts = function getAmounts(_ref) {
       var amount = _ref.amount,
@@ -9285,10 +9292,6 @@
       })["catch"](setError);
     }, 500), []);
     React.useEffect(function () {
-      if (recover) {
-        return;
-      }
-
       if (amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
         setAcceptWithAmount();
         updateAmounts({
@@ -9298,7 +9301,7 @@
           fixedCurrencyConversionRate: fixedCurrencyConversionRate
         });
       }
-    }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover]);
+    }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount]);
     return /*#__PURE__*/React__default['default'].createElement(ChangableAmountContext.Provider, {
       value: {
         amountsMissing: amountsMissing,
@@ -9363,18 +9366,9 @@
   function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$3(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
-    var toAddress;
-
-    if (receiver) {
-      toAddress = receiver;
-    } else {
-      toAddress = _typeof(accept.receiver) == 'object' ? accept.receiver.address : accept.receiver;
-    }
-
-    var toContract = _typeof(accept.receiver) == 'object' ? accept.receiver : undefined;
+    var toAddress = receiver ? receiver : undefined;
     return _objectSpread$3(_objectSpread$3({}, accept), {}, {
-      toAddress: toAddress,
-      toContract: toContract
+      toAddress: toAddress
     });
   };
 
@@ -9390,6 +9384,8 @@
     var accept = _ref.accept,
         account = _ref.account,
         receiver = _ref.receiver,
+        allow = _ref.allow,
+        deny = _ref.deny,
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         fee = _ref.fee,
@@ -9399,8 +9395,8 @@
         return prepareAcceptedPayments(accept, receiver);
       }),
       from: mergeFromAccounts(accept, account),
-      whitelist: whitelist,
-      blacklist: blacklist,
+      allow: allow || whitelist,
+      deny: deny || blacklist,
       fee: fee,
       best: best
     });
@@ -9453,16 +9449,13 @@
     var _useContext2 = React.useContext(UpdatableContext),
         updatable = _useContext2.updatable;
 
-    var _useContext3 = React.useContext(ConfigurationContext),
-        recover = _useContext3.recover;
-
     var configuration = React.useContext(ConfigurationContext);
 
-    var _useContext4 = React.useContext(ChangableAmountContext);
-        _useContext4.amountsMissing;
+    var _useContext3 = React.useContext(ChangableAmountContext);
+        _useContext3.amountsMissing;
 
-    var _useContext5 = React.useContext(ErrorContext),
-        setError = _useContext5.setError;
+    var _useContext4 = React.useContext(ErrorContext),
+        setError = _useContext4.setError;
 
     var getPaymentRoutes = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
@@ -9502,7 +9495,7 @@
                     resolve();
                   })["catch"](function (error) {
                     setError(error);
-                    reject(error);
+                    resolve();
                   });
                 }));
 
@@ -9543,15 +9536,24 @@
 
               case 4:
                 readableAmount = _context2.sent;
-                _context2.next = 7;
-                return route.fromToken.BigNumber(round(readableAmount));
+
+                if (!(round(readableAmount) === 0)) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                return _context2.abrupt("return", route);
 
               case 7:
+                _context2.next = 9;
+                return route.fromToken.BigNumber(round(readableAmount));
+
+              case 9:
                 roundedAmountBN = _context2.sent;
                 updateRouteAmount(route, roundedAmountBN);
                 return _context2.abrupt("return", route);
 
-              case 10:
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -9634,10 +9636,6 @@
       };
     }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable]);
     React.useEffect(function () {
-      if (recover) {
-        return;
-      }
-
       if (account && props.accept) {
         refreshPaymentRoutes();
       } else if (props.accept === undefined) {
@@ -9836,7 +9834,6 @@
         _sent = _useContext2.sent,
         succeeded = _useContext2.succeeded,
         failed = _useContext2.failed,
-        recover = _useContext2.recover,
         before = _useContext2.before;
         _useContext2.accept;
 
@@ -9973,7 +9970,7 @@
                 transaction = _context2.sent;
 
                 if (!before) {
-                  _context2.next = 14;
+                  _context2.next = 15;
                   break;
                 }
 
@@ -9984,23 +9981,24 @@
                 stop = _context2.sent;
 
                 if (!(stop === false)) {
-                  _context2.next = 14;
+                  _context2.next = 15;
                   break;
                 }
 
+                setPaymentState('initialized');
                 return _context2.abrupt("return");
 
-              case 14:
-                _context2.next = 16;
+              case 15:
+                _context2.next = 17;
                 return web3ClientEvm.request({
                   blockchain: transaction.blockchain,
                   method: 'latestBlockNumber'
                 });
 
-              case 16:
+              case 17:
                 currentBlock = _context2.sent;
                 deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
-                _context2.next = 20;
+                _context2.next = 21;
                 return trace(currentBlock, payment.route, transaction, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                   return regenerator.wrap(function _callee$(_context) {
                     while (1) {
@@ -10069,7 +10067,7 @@
                   navigate('TracingFailed');
                 });
 
-              case 20:
+              case 21:
               case "end":
                 return _context2.stop();
             }
@@ -10081,95 +10079,123 @@
         return _ref.apply(this, arguments);
       };
     }());
-    var resetApproval = useEvent(function () {
-      setPaymentState('resetting');
-      setClosable(false);
-      setUpdatable(false);
-      var resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction));
-      resetApprovalTransaction.params[1] = '0'; // reset first
+    var resetApproval = useEvent( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
+      var resetApprovalTransaction;
+      return regenerator.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              setPaymentState('resetting');
+              setClosable(false);
+              setUpdatable(false);
+              _context3.t0 = JSON;
+              _context3.t1 = JSON;
+              _context3.next = 7;
+              return payment.route.getRouterApprovalTransaction();
 
-      if (window._depayWidgetError) {
-        return;
-      } // do not perform any transaction if there was an error in the widget!
+            case 7:
+              _context3.t2 = _context3.sent;
+              _context3.t3 = _context3.t1.stringify.call(_context3.t1, _context3.t2);
+              resetApprovalTransaction = _context3.t0.parse.call(_context3.t0, _context3.t3);
+              resetApprovalTransaction.params[1] = '0'; // reset first
 
+              if (!window._depayWidgetError) {
+                _context3.next = 13;
+                break;
+              }
 
-      wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
-        sent: function sent(sentTransaction) {
-          setResetApprovalTransaction(sentTransaction);
-        },
-        succeeded: function succeeded() {
-          setUpdatable(true);
-          setClosable(true);
-          refreshPaymentRoutes().then(function () {
-            setTimeout(function () {
-              setPaymentState('initialized');
-            }, 1000);
-          });
+              return _context3.abrupt("return");
+
+            case 13:
+              // do not perform any transaction if there was an error in the widget!
+              wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
+                sent: function sent(sentTransaction) {
+                  setResetApprovalTransaction(sentTransaction);
+                },
+                succeeded: function succeeded() {
+                  setUpdatable(true);
+                  setClosable(true);
+                  refreshPaymentRoutes().then(function () {
+                    setTimeout(function () {
+                      setPaymentState('initialized');
+                    }, 1000);
+                  });
+                },
+                failed: function failed(transaction, error) {
+                  setPaymentState('initialized');
+                  setClosable(true);
+                }
+              }))["catch"](function (error) {
+                console.log('error', error);
+
+                if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
+                  navigate('WrongNetwork');
+                }
+
+                setPaymentState('initialized');
+                setClosable(true);
+              });
+
+            case 14:
+            case "end":
+              return _context3.stop();
+          }
         }
-      }))["catch"](function (error) {
-        console.log('error', error);
-
-        if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
-          navigate('WrongNetwork');
-        }
-
-        setPaymentState('initialized');
-        setClosable(true);
-      });
-    });
+      }, _callee3);
+    })));
     var approve = useEvent( /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(performSignature) {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(performSignature) {
         var approvalTransaction, approvalSignatureData;
-        return regenerator.wrap(function _callee3$(_context3) {
+        return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 setPaymentState('approve');
                 setClosable(false);
                 setUpdatable(false);
 
                 if (!(approvalType == 'signature')) {
-                  _context3.next = 16;
+                  _context4.next = 16;
                   break;
                 }
 
                 if (!(performSignature || payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-                  _context3.next = 11;
+                  _context4.next = 11;
                   break;
                 }
 
-                _context3.next = 7;
+                _context4.next = 7;
                 return payment.route.getPermit2ApprovalSignature();
 
               case 7:
-                approvalSignatureData = _context3.sent;
+                approvalSignatureData = _context4.sent;
                 setApprovalSignatureData(approvalSignatureData);
-                _context3.next = 14;
+                _context4.next = 14;
                 break;
 
               case 11:
-                _context3.next = 13;
+                _context4.next = 13;
                 return payment.route.getPermit2ApprovalTransaction();
 
               case 13:
-                approvalTransaction = _context3.sent;
+                approvalTransaction = _context4.sent;
 
               case 14:
-                _context3.next = 19;
+                _context4.next = 19;
                 break;
 
               case 16:
-                _context3.next = 18;
+                _context4.next = 18;
                 return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
                   amount: payment.route.fromAmount
                 } : undefined);
 
               case 18:
-                approvalTransaction = _context3.sent;
+                approvalTransaction = _context4.sent;
 
               case 19:
                 if (!approvalSignatureData) {
-                  _context3.next = 23;
+                  _context4.next = 23;
                   break;
                 }
 
@@ -10186,21 +10212,21 @@
                   setPaymentState('initialized');
                   setClosable(true);
                 });
-                _context3.next = 27;
+                _context4.next = 27;
                 break;
 
               case 23:
                 if (!approvalTransaction) {
-                  _context3.next = 27;
+                  _context4.next = 27;
                   break;
                 }
 
                 if (!window._depayWidgetError) {
-                  _context3.next = 26;
+                  _context4.next = 26;
                   break;
                 }
 
-                return _context3.abrupt("return");
+                return _context4.abrupt("return");
 
               case 26:
                 // do not perform any transaction if there was an error in the widget!
@@ -10243,14 +10269,14 @@
 
               case 27:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }));
 
       return function (_x3) {
-        return _ref3.apply(this, arguments);
+        return _ref4.apply(this, arguments);
       };
     }());
     React.useEffect(function () {
@@ -10270,39 +10296,6 @@
         setClosable(true);
       }
     }, [trackingInitialized, paymentState]);
-    React.useEffect(function () {
-      if (recover) {
-        setClosable(false);
-        setUpdatable(false);
-        setPaymentState('paying');
-        setTransaction({
-          blockchain: recover.blockchain,
-          id: recover.transaction,
-          url: Blockchains__default['default'].findByName(recover.blockchain).explorerUrlFor({
-            transaction: {
-              id: recover.transaction
-            }
-          })
-        });
-        var paymentToken = new Token__default['default']({
-          blockchain: recover.blockchain,
-          address: recover.token
-        });
-        Promise.all([paymentToken.name(), paymentToken.symbol()]).then(function (_ref4) {
-          var _ref5 = _slicedToArray(_ref4, 2),
-              name = _ref5[0],
-              symbol = _ref5[1];
-
-          setPayment({
-            blockchain: Blockchains__default['default'][recover.blockchain],
-            token: recover.token,
-            name: name,
-            symbol: symbol.toUpperCase(),
-            amount: recover.amount
-          });
-        })["catch"](setError);
-      }
-    }, [recover]);
     var debouncedSetPayment = React.useCallback(debounce(function (selectedRoute) {
       if (selectedRoute) {
         // reset approval status if selectedRoute has been changed
@@ -10310,11 +10303,11 @@
         setApprovalSignature();
         setApprovalSignatureData();
         var fromToken = selectedRoute.fromToken;
-        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref6) {
-          var _ref7 = _slicedToArray(_ref6, 3),
-              name = _ref7[0],
-              symbol = _ref7[1],
-              amount = _ref7[2];
+        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
+          var _ref6 = _slicedToArray(_ref5, 3),
+              name = _ref6[0],
+              symbol = _ref6[1],
+              amount = _ref6[2];
 
           setPayment({
             blockchain: Blockchains__default['default'][selectedRoute.blockchain],
@@ -10325,8 +10318,6 @@
             amount: amount
           });
         })["catch"](setError);
-      } else if (recover === undefined) {
-        setPayment();
       }
     }, 100), []);
     React.useEffect(function () {
@@ -10372,18 +10363,55 @@
     }
   });
 
-  var format = (function (input) {
-    var _float = round(input);
+  function toNonExponential(num) {
+    var str = num.toString();
 
-    var floatToString = _float.toString();
+    if (str.includes('e')) {
+      var _str$split = str.split('e'),
+          _str$split2 = _slicedToArray(_str$split, 2),
+          base = _str$split2[0],
+          expStr = _str$split2[1];
 
-    if (new RegExp(/\./).test(floatToString)) {
-      var exploded = floatToString.split('.');
-      return new Intl.NumberFormat().format(parseInt(exploded[0])) + '.' + exploded[1];
-    } else {
-      return new Intl.NumberFormat().format(_float);
+      var exponent = Number(expStr);
+
+      var _base$split = base.split('.'),
+          _base$split2 = _slicedToArray(_base$split, 2);
+          _base$split2[0];
+          var _base$split2$ = _base$split2[1],
+          fracPart = _base$split2$ === void 0 ? '' : _base$split2$;
+
+      var decimals = exponent < 0 ? fracPart.length + Math.abs(exponent) : Math.max(0, fracPart.length - exponent);
+      str = num.toFixed(decimals);
     }
-  });
+
+    return str;
+  }
+
+  function format(input) {
+    var num = Number(input);
+
+    if (isNaN(num)) {
+      // non-numeric input: return as-is
+      return String(input);
+    }
+
+    var s = toNonExponential(num); // split integer and fractional parts
+
+    var _s$split = s.split('.'),
+        _s$split2 = _slicedToArray(_s$split, 2);
+        _s$split2[0];
+        var fracPart = _s$split2[1]; // don't add separators for numbers below 1 (including negatives between -1 and 1)
+
+
+    if (Math.abs(num) < 1) {
+      return s;
+    } // format integer part with grouping
+
+
+    var formattedInt = new Intl.NumberFormat().format(Math.trunc(num)); // reattach fractional part if present
+
+    return fracPart !== undefined && fracPart.length > 0 ? "".concat(formattedInt, ".").concat(fracPart) : formattedInt;
+  }
 
   var PaymentValueContext = /*#__PURE__*/React__default['default'].createContext();
 
@@ -10399,8 +10427,7 @@
 
     var _useContext4 = React.useContext(ChangableAmountContext),
         amount = _useContext4.amount,
-        setAmount = _useContext4.setAmount,
-        maxAmount = _useContext4.maxAmount;
+        setAmount = _useContext4.setAmount;
 
     var _useContext5 = React.useContext(PaymentValueContext);
         _useContext5.displayedPaymentValue;
@@ -10451,11 +10478,7 @@
 
     var toValidValue = function toValidValue(value) {
       value = toValidStep(value);
-
-      if (maxAmount) {
-        value = Math.max(min, Math.min(value, maxAmount));
-      }
-
+      value = Math.max(min, value);
       value = toValidStep(value);
       return value;
     };
@@ -10482,7 +10505,6 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
-        max: maxAmount ? parseFloat(maxAmount) : null,
         min: min,
         step: step,
         className: "Input FontSizeXXL TextAlignCenter",
@@ -10495,18 +10517,7 @@
         onBlur: function onBlur(event) {
           setValidValue(event.target.value);
         }
-      })), maxAmount && /*#__PURE__*/React__default['default'].createElement("div", {
-        style: {
-          height: '40px'
-        }
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "FontSizeS"
-      }, format(toValidStep(maxAmount)), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("button", {
-        className: "TextButton",
-        onClick: function onClick() {
-          changeAmount(toValidValue(maxAmount));
-        }
-      }, "(Max)"))))))),
+      }))))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("button", {
@@ -10751,16 +10762,6 @@
     var listElement = React.useRef();
     var searchElement = React.useRef();
     React.useEffect(function () {
-      setTimeout(function () {
-        if (!isMobile()) {
-          if (searchElement.current) {
-            searchElement.current.click();
-            searchElement.current.focus();
-          }
-        }
-      }, 200);
-    }, []);
-    React.useEffect(function () {
       if (allRoutes == undefined) {
         return;
       }
@@ -10811,6 +10812,14 @@
         setAllPaymentOptions(allPaymentOptions);
         setSelectedTab('all');
         setSelectedPaymentOptions(allPaymentOptions);
+        setTimeout(function () {
+          if (!isMobile()) {
+            if (searchElement.current) {
+              searchElement.current.click();
+              searchElement.current.focus();
+            }
+          }
+        }, 200);
       })["catch"](setError);
     }, [allRoutes, allRoutesLoaded]);
     var displayedPaymentOptions = selectedPaymentOptions === null || selectedPaymentOptions === void 0 ? void 0 : selectedPaymentOptions.map(function (payment, index) {
@@ -10851,7 +10860,7 @@
         className: "TokenAmountCell"
       }, format(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
         className: "CardText small"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals), 'down')))))));
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, format(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals)))))));
     });
 
     if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
@@ -11158,7 +11167,7 @@
     React.useEffect(function () {
       var _payment$route, _payment$route2, _payment$route3, _payment$route4;
 
-      if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentAllowance.lt(ethers.ethers.BigNumber.from(payment.route.fromAmount))) {
+      if (payment !== null && payment !== void 0 && (_payment$route = payment.route) !== null && _payment$route !== void 0 && _payment$route.approvalRequired && REQUIRES_APPROVAL_RESET[payment.route.blockchain] && REQUIRES_APPROVAL_RESET[payment.route.blockchain].includes(payment.token) && payment !== null && payment !== void 0 && (_payment$route2 = payment.route) !== null && _payment$route2 !== void 0 && _payment$route2.currentRouterAllowance && (payment === null || payment === void 0 ? void 0 : (_payment$route3 = payment.route) === null || _payment$route3 === void 0 ? void 0 : _payment$route3.currentRouterAllowance.toString()) != '0' && payment !== null && payment !== void 0 && (_payment$route4 = payment.route) !== null && _payment$route4 !== void 0 && _payment$route4.currentRouterAllowance.lt(ethers.ethers.BigNumber.from(payment.route.fromAmount))) {
         setRequiresApprovalReset(true);
       } else {
         setRequiresApprovalReset(false);
@@ -11213,8 +11222,8 @@
         var showSyncWaiting = synchronousTracking && !release;
         var showSyncDone = synchronousTracking && release;
         return /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingBottomS"
-        }, needsPermit2Transaction && /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "PaddingBottomS StepsWrapper"
+        }, needsPermit2Transaction && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("a", {
           href: approvalTransaction ? link({
             url: approvalTransaction.url,
             target: '_blank',
@@ -11232,9 +11241,9 @@
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, !permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Enable signature approval for ", payment.symbol), permit2Processing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Enabling signature approval for ", payment.symbol), permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Signature approval for ", payment.symbol, " enabled")), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, !permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Enable signature approval for ", payment.symbol), permit2Processing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Enabling signature approval for ", payment.symbol), permit2Done && !permit2Processing && /*#__PURE__*/React__default['default'].createElement("span", null, "Signature approval for ", payment.symbol, " enabled"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && /*#__PURE__*/React__default['default'].createElement("div", {
+        })), needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: 'Step Card disabled small transparent' + (spendingActive || spendingProcessing ? ' active' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
@@ -11242,9 +11251,9 @@
           className: "StepCircle"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, "Approve spending ", payment.symbol), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, "Approve spending ", payment.symbol)), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), approvalType === 'transaction' && approvalRequired && /*#__PURE__*/React__default['default'].createElement("a", {
+        })), approvalType === 'transaction' && approvalRequired && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("a", {
           href: approvalType === 'transaction' && approvalTransaction ? link({
             url: approvalTransaction.url,
             target: '_blank',
@@ -11262,9 +11271,9 @@
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, !spendingProcessing && /*#__PURE__*/React__default['default'].createElement("span", null, "Approve spending ", payment.symbol), spendingProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving ", payment.symbol, " for spending")), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, !spendingProcessing && !spendingDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Approve ", payment.symbol, " for spending"), !spendingProcessing && spendingDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Approved ", payment.symbol, " for spending"), spendingProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Approving ", payment.symbol, " for spending"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), approvalType === 'signature' && spendingDone && /*#__PURE__*/React__default['default'].createElement("div", {
+        })), approvalType === 'signature' && spendingDone && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Step done Card disabled small transparent"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
@@ -11272,9 +11281,9 @@
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, "Spending ", payment.symbol, " approved"), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, "Spending ", payment.symbol, " approved")), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), transaction || paymentProcessing ? /*#__PURE__*/React__default['default'].createElement("a", {
+        })), transaction || paymentProcessing ? /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
             url: transaction.url,
             target: '_blank',
@@ -11291,9 +11300,9 @@
           className: "ActionIndicatorSpinner"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment")), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })) : /*#__PURE__*/React__default['default'].createElement("div", {
+        })) : /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: 'Step Card disabled small transparent' + (paymentReady ? ' active' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
@@ -11307,9 +11316,9 @@
           className: "StepStatus"
         }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
           className: "small"
-        })), /*#__PURE__*/React__default['default'].createElement("div", {
+        }))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
-        })), showAsyncInit && /*#__PURE__*/React__default['default'].createElement("div", {
+        })), showAsyncInit && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "Step Card disabled small transparent active"
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
@@ -11317,7 +11326,7 @@
           className: "ActionIndicatorSpinner"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Initializing tracking")), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Initializing tracking"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
         })), showSyncWaiting && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
@@ -11401,7 +11410,7 @@
         if (approvalRequired) {
           if (paymentState == 'initialized') {
             return /*#__PURE__*/React__default['default'].createElement("div", {
-              className: "PaddingBottomXS"
+              className: "PaddingBottomXS PaddingTopXS"
             }, /*#__PURE__*/React__default['default'].createElement("div", {
               className: "PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS"
             }, /*#__PURE__*/React__default['default'].createElement("div", {
@@ -11527,9 +11536,8 @@
 
   var PaymentOverviewDialog = (function (props) {
     var _useContext = React.useContext(ConfigurationContext),
-        currencyCode = _useContext.currencyCode;
-        _useContext.recover;
-        var amountConfiguration = _useContext.amount,
+        currencyCode = _useContext.currencyCode,
+        amountConfiguration = _useContext.amount,
         currency = _useContext.currency,
         title = _useContext.title;
 
@@ -12628,12 +12636,12 @@
 
   var preflight$1 = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var accept, recover, integration;
+      var accept, integration;
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              accept = _ref.accept, recover = _ref.recover, integration = _ref.integration;
+              accept = _ref.accept, integration = _ref.integration;
 
               if (!(typeof integration !== 'undefined' && typeof accept !== 'undefined')) {
                 _context.next = 3;
@@ -12643,7 +12651,7 @@
               throw 'You can either use `integration` or `accept`, but not both!';
 
             case 3:
-              if (!(integration || recover)) {
+              if (!integration) {
                 _context.next = 5;
                 break;
               }
@@ -12688,12 +12696,12 @@
 
   var Payment = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var accept, amount, sent, succeeded, validated, failed, error, critical, style, whitelist, blacklist, providers, currency, connected, closed, track, recover, closable, integration, payload, link, container, before, wallet, title, action, document, wallets, unmount;
+      var accept, amount, sent, succeeded, validated, failed, error, critical, style, allow, deny, whitelist, blacklist, providers, currency, connected, closed, track, closable, integration, payload, link, container, before, wallet, title, action, document, wallets, protocolFee, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, recover = _ref3.recover, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document, wallets = _ref3.wallets;
+              accept = _ref3.accept, amount = _ref3.amount, sent = _ref3.sent, succeeded = _ref3.succeeded, validated = _ref3.validated, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, allow = _ref3.allow, deny = _ref3.deny, whitelist = _ref3.whitelist, blacklist = _ref3.blacklist, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, track = _ref3.track, closable = _ref3.closable, integration = _ref3.integration, payload = _ref3.payload, link = _ref3.link, container = _ref3.container, before = _ref3.before, wallet = _ref3.wallet, title = _ref3.title, action = _ref3.action, document = _ref3.document, wallets = _ref3.wallets, protocolFee = _ref3.protocolFee;
               requireReactVersion();
 
               if (currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
@@ -12704,8 +12712,7 @@
               _context2.next = 6;
               return preflight$1({
                 accept: accept,
-                integration: integration,
-                recover: recover
+                integration: integration
               });
 
             case 6:
@@ -12740,17 +12747,19 @@
                       succeeded: succeeded,
                       validated: validated,
                       failed: failed,
+                      allow: allow,
+                      deny: deny,
                       whitelist: whitelist,
                       blacklist: blacklist,
                       providers: providers,
                       track: track,
-                      recover: recover,
                       integration: integration,
                       link: link,
                       wallet: wallet,
                       title: title,
                       action: action,
-                      wallets: wallets
+                      wallets: wallets,
+                      protocolFee: protocolFee
                     }
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
@@ -12803,20 +12812,6 @@
       return _ref4.apply(this, arguments);
     };
   }();
-
-  Payment.preload = function (_ref5) {
-    var account = _ref5.account,
-        accept = _ref5.accept,
-        whitelist = _ref5.whitelist,
-        blacklist = _ref5.blacklist;
-        _ref5.event;
-    routePayments({
-      account: account,
-      accept: accept,
-      whitelist: whitelist,
-      blacklist: blacklist
-    });
-  };
 
   var SaleRoutingContext = /*#__PURE__*/React__default['default'].createContext();
 
@@ -12871,9 +12866,6 @@
 
     var _useContext3 = React.useContext(WalletContext),
         account = _useContext3.account;
-
-    var _useContext4 = React.useContext(ConfigurationContext);
-        _useContext4.blacklist;
 
     var _useState = React.useState(acceptWithAmount ? acceptWithAmount.map(function (accept) {
       return _objectSpread$1(_objectSpread$1({}, accept), {}, {
@@ -13172,12 +13164,12 @@
 
   var Sale = /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(_ref3) {
-      var amount, sell, sent, succeeded, failed, error, critical, style, blacklist, before, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
+      var amount, sell, sent, succeeded, failed, error, critical, style, deny, blacklist, before, providers, currency, connected, closed, tokenImage, closable, integration, wallet, document, accept, unmount;
       return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, blacklist = _ref3.blacklist, before = _ref3.before, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
+              amount = _ref3.amount, sell = _ref3.sell, sent = _ref3.sent, succeeded = _ref3.succeeded, failed = _ref3.failed, error = _ref3.error, critical = _ref3.critical, style = _ref3.style, deny = _ref3.deny, blacklist = _ref3.blacklist, before = _ref3.before, providers = _ref3.providers, currency = _ref3.currency, connected = _ref3.connected, closed = _ref3.closed, tokenImage = _ref3.tokenImage, closable = _ref3.closable, integration = _ref3.integration, wallet = _ref3.wallet, document = _ref3.document;
               requireReactVersion();
               _context2.prev = 2;
               _context2.next = 5;
@@ -13192,14 +13184,14 @@
                   token: sell[key]
                 };
               });
-              blacklist = Object.assign(blacklist || {});
+              deny = Object.assign(deny || {});
               Object.keys(sell).forEach(function (key) {
-                if (!blacklist[key]) {
-                  blacklist[key] = [];
+                if (!deny[key]) {
+                  deny[key] = [];
                 }
 
-                blacklist[key].push(sell[key]);
-                blacklist[key] = _toConsumableArray(new Set(blacklist[key]));
+                deny[key].push(sell[key]);
+                deny[key] = _toConsumableArray(new Set(deny[key]));
               });
               unmount = mount({
                 style: style,
@@ -13223,6 +13215,7 @@
                       sent: sent,
                       succeeded: succeeded,
                       failed: failed,
+                      deny: deny,
                       blacklist: blacklist,
                       providers: providers,
                       integration: integration,
