@@ -5,7 +5,7 @@ import mockBasics from '../../../tests/mocks/solana/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { mock, anything, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
-import { mockPaymentsAccount, mockTokenAccount } from '../../../tests/mocks/solana/transaction'
+import { mockTokenAccount, mockEscrowAccount, mockALT } from '../../../tests/mocks/solana/transaction'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
@@ -21,14 +21,13 @@ describe('Payment Widget: main functionality for Solana', () => {
   const fromAddress = accounts[0]
   const toAddress = '5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let TOKEN_A_AmountBN
   let provider
@@ -99,6 +98,48 @@ describe('Payment Widget: main functionality for Solana', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 9,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 9,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 9,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 9,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
   
   it('executes', async()=> {
@@ -109,13 +150,14 @@ describe('Payment Widget: main functionality for Solana', () => {
         from: fromAddress,
         instructions: [
           {
-            to: 'DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7',
+            to: 'DePayR1gQfDmViCPKctnZXNtUgqRwnEqMax8LX9ho1Zg',
             api: routers.solana.api.routeToken.layout,
             params: {
               anchorDiscriminator: '13483873682232752277',
-              nonce: '0',
               paymentAmount: '20000000000',
               feeAmount: anything,
+              feeAmount2: anything,
+              protocolAmount: anything,
               deadline: anything
             }
           }
@@ -132,7 +174,6 @@ describe('Payment Widget: main functionality for Solana', () => {
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -148,8 +189,9 @@ describe('Payment Widget: main functionality for Solana', () => {
       matchPartialBody: true
     }, 201)
 
-    await mockPaymentsAccount({ provider, fromAddress, nonce: '0' })
     await mockTokenAccount({ provider, tokenAddress: DEPAY, ownerAddress: toAddress, exists: true, balance: 0 })
+    await mockEscrowAccount({ provider, tokenAddress: DEPAY, ownerAddress: 'J58teB5YLrHFhN5Ww2tYWSZQSM8WJZgDQJ4uMZJVgjjd', exists: true, balance: 0 })
+    await mockALT({ provider, address: '8bYq3tcwX1NM2K2JYMjrEqAPtCXFPCjzPazFothc618e' })
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -158,18 +200,12 @@ describe('Payment Widget: main functionality for Solana', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://solscan.io/tx/')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
             expect(mockedTransaction.calls.count()).to.equal(1)
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
             confirm(mockedTransaction)
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://solscan.io/tx/')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://solscan.io/tx/').then(()=>{
                 cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                 cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

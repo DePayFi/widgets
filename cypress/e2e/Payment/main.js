@@ -1,13 +1,14 @@
+import Blockchains from '@depay/web3-blockchains'
 import DePayWidgets from '../../../src'
 import fetchMock from 'fetch-mock'
 import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Blockchains from '@depay/web3-blockchains'
-import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
+import Token from '@depay/web3-tokens'
+import { ethers } from 'ethers'
+import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: main functionality', () => {
 
@@ -20,14 +21,13 @@ describe('Payment Widget: main functionality', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let TOKEN_A_AmountBN
   let provider
@@ -102,9 +102,60 @@ describe('Payment Widget: main functionality', () => {
       currencyToUSD: '0.85'
     }))
 
-    fetchMock.get({
-      url: `https://public.depay.com/transactions/${blockchain}/${fromAddress}/1`,
-    }, { status: 404 })
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+      {
+        blockchain,
+        fromToken: DAI,
+        fromDecimals: 18,
+        fromName: "Dai",
+        fromSymbol: "DAI",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
   
   it('executes', () => {
@@ -112,10 +163,28 @@ describe('Payment Widget: main functionality', () => {
       blockchain,
       transaction: {
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "20000000000000000000",
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
@@ -128,7 +197,6 @@ describe('Payment Widget: main functionality', () => {
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -149,20 +217,15 @@ describe('Payment Widget: main functionality', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -178,10 +241,28 @@ describe('Payment Widget: main functionality', () => {
       blockchain,
       transaction: {
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "20000000000000000000",
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
@@ -194,7 +275,6 @@ describe('Payment Widget: main functionality', () => {
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -216,20 +296,14 @@ describe('Payment Widget: main functionality', () => {
         DePayWidgets.Payment({ ...defaultArguments, link: '456', document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Transaction confirmed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -240,49 +314,33 @@ describe('Payment Widget: main functionality', () => {
     })
   })
 
-  it('asks to confirm transaction in your wallet after handing over to the wallet', () => {
-    let mockedTransaction = mock({
-      blockchain,
-      transaction: {
-        delay: 2000,
-        from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
-      }
-    })
-
-    fetchMock.post({
-      url: "https://public.depay.com/payments",
-      matchPartialBody: true
-    }, 201)
-
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.wait(2000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirm in your wallet')
-          cy.wait(2000).then(()=>{
-            confirm(mockedTransaction)
-          })
-        })
-      })
-    })
-  })
-
   it('resets the payment if anything goes wrong during submission (like user denying signature)', () => {
     let mockedTransaction = mock({
-      blockchain,
+     blockchain,
       transaction: {
-        delay: 1000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "20000000000000000000",
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0,
         return: Error('MetaMask Tx Signature: User denied transaction signature.')
       }
     })
@@ -317,12 +375,9 @@ describe('Payment Widget: main functionality', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('not.exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...')
-        // sent fails:
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]')
         cy.get('.Card[title="Change payment"]', { includeShadowDom: true }).should('exist')
       })
@@ -333,12 +388,29 @@ describe('Payment Widget: main functionality', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
-        delay: 1000,
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN],
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "20000000000000000000",
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
@@ -354,7 +426,6 @@ describe('Payment Widget: main functionality', () => {
         confirmations: 1,
         fee_amount: null,
         fee_receiver: null,
-        nonce: "0",
         payload: {
           sender_amount: "20.0",
           sender_id: fromAddress,
@@ -375,9 +446,9 @@ describe('Payment Widget: main functionality', () => {
           succeeded: (transaction)=>{ succeededCalledWith = transaction },
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
           cy.wait(3000).then(()=>{
             expect(sentCalledWith.from).to.equal(accounts[0])
             expect(sentCalledWith.id).to.equal(mockedTransaction.transaction._id)
