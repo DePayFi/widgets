@@ -2,7 +2,6 @@ export default (style)=>{
   return(`
 
     .LoadingText {
-      color: ${style.colors.buttonText};
       display: inline-block;
       text-decoration: none;
     }

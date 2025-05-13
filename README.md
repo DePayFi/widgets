@@ -42,7 +42,7 @@ npm install ethers react react-dom --save
 
 In case you want to use and package only specific platforms, use the platform-specific package:
 
-### EVM platform specific packaging
+### EVM (Ethereum Virtual Machine) platform specific packaging
 
 ```
 yarn add @depay/widgets-evm
@@ -52,14 +52,14 @@ yarn add @depay/widgets-evm
 import DePayWidgets from '@depay/widgets-evm'
 ```
 
-### Solana platform specific packaging
+### SVM (Solana Virtual Machine) platform specific packaging
 
 ```
-yarn add @depay/widgets-solana
+yarn add @depay/widgets-svm
 ```
 
 ```javascript
-import DePayWidgets from '@depay/widgets-solana'
+import DePayWidgets from '@depay/widgets-svm'
 ```
 
 ## Server-side rendering
@@ -207,7 +207,7 @@ The address receiving the payment. Always double check that you've set the right
 
 #### wallets
 
-You can sort and whitelist wallets displayed during the initial wallet selection step as follows:
+You can sort and allow (list) wallets displayed during the initial wallet selection step as follows:
 
 ##### wallets.sort
 
@@ -224,12 +224,12 @@ You can sort and whitelist wallets displayed during the initial wallet selection
 
 This configuration would display Uniswap and Coinbase first, then would list all the others.
 
-##### wallets.whitelist
+##### wallets.allow
 
 ```
 {
   wallets: {
-    whitelist: [
+    allow: [
       'Uniswap',
       'Coinbase',
       'Rainbow'
@@ -296,6 +296,37 @@ DePayWidgets.Payment({
       }
     }
   ],
+});
+```
+
+##### fee2
+
+You can configure up to 2 fees that will be paid out as part of the payment:
+
+```javascript
+DePayWidgets.Payment({
+  accept: [
+    {...
+
+      fee: {...},
+      fee2: {,
+        amount: '5%',
+        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
+      }
+    }
+  ],
+});
+```
+
+##### protocolFee
+
+The fee paid to the protocol:
+
+```javascript
+DePayWidgets.Payment({
+  
+  protocolFee: '1.5%',
+  
 });
 ```
 
@@ -692,14 +723,14 @@ DePayWidgets.Payment({
 
 ```
 
-#### whitelist
+#### allow (list)
 
-Allows only the configured tokens to be eligible as means of payment (from the sender):
+Allows only the configured tokens to be eligible as means of payment:
 
 ```javacript
 DePayWidgets.Payment({
   
-  whitelist: {
+  allow: {
     ethereum: [
       '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // ETH
       '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
@@ -720,14 +751,14 @@ DePayWidgets.Payment({
 
 ```
 
-#### blacklist
+#### deny
 
-Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
+Allows to deny tokens so that they will not be suggested as means of payment:
 
 ```javacript
 DePayWidgets.Payment({
   
-  blacklist: {
+  deny: {
     ethereum: [
       '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
       '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e
@@ -802,7 +833,6 @@ DePayWidgets.Payment({
       primary: '#ffd265',
       text: '#e1b64a',
       buttonText: '#000000',
-      icons: '#ffd265'
     },
     fontFamily: '"Cardo", serif !important',
     css: `
@@ -831,6 +861,24 @@ DePayWidgets.Payment({
       text: '#ffd265',
       buttonText: '#000000',
       icons: '#ffd265'
+    }
+  }
+})
+```
+
+##### colorsDarkMode
+
+You can pass colors applicable to dark mode:
+
+```javascript
+DePayWidgets.Payment({
+  
+  style: {
+    colorsDarkMode: {
+      primary: '#000265',
+      text: '#000265',
+      buttonText: '#FFFFFF',
+      icons: '#000265'
     }
   }
 })
@@ -872,6 +920,26 @@ DePayWidgets.Payment({
 })
 ```
 
+###### cssDarkMode
+
+Allows you to inject css to adjust darkMode:
+
+```javascript
+DePayWidgets.Payment({
+  
+  style: {
+    cssDarkMode: `
+      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
+
+      .ReactDialogBackground {
+        background: rgba(0,0,0,0.8);
+      }
+    `
+  }
+})
+```
+
+
 #### unmount
 
 `unmount`
@@ -882,29 +950,6 @@ Allows you to unmount (the React safe way) the entire widget from the outside:
 let { unmount } = await DePayWidgets.Payment({})
 
 unmount()
-```
-
-#### recover
-
-`recover`
-
-Allows you to recover a previously made payment. E.g. useful if you need to continue to show a pending payment progress if user rearrives or reloads a payment page:
-
-```javascript
-DePayWidgets.Payment({
-  recover: {
-    blockchain: 'ethereum',
-    transaction: '0x081ae81229b2c7df586835e9e4c16aa89f8a15dc118fac31b7521477c53ed2a9',
-    sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
-    nonce: 2865,
-    afterBlock: 14088130,
-    token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-    amount: 0.0001
-  }
-})
-
-A recovered payment still results in a confirmed or failed payment, and also calls one of those callbacks also when created with recover.
-
 ```
 
 #### closable
@@ -1116,7 +1161,7 @@ DePayWidgets.Sale({
 
 #### currency
 
-Allows you to enforce displayed local currency (instead of automatically detecting it):
+Allows you to set the displayed currency (instead of automatically displaying user's local currency):
 
 ```javascript
 DePayWidgets.Sale({
@@ -1126,14 +1171,16 @@ DePayWidgets.Sale({
 });
 ```
 
-#### blacklist
+Set to `false` if you want to hide currency conversion rate.
 
-Allows to blacklist tokens so that they will not be suggested as means of payment (from the sender):
+#### deny (list)
+
+Allows to deny tokens so that they will not be suggested as means of payment:
 
 ```javacript
 DePayWidgets.Sale({
   
-  blacklist: {
+  deny: {
     ethereum: [
       '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
       '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e
@@ -1571,5 +1618,5 @@ test:cypress:debug
 Test and debug single cypress file:
 
 ```
-yarn test:cypress:debug --spec "cypress/e2e/Payment/payment-value-loss-safeguard.js"
+yarn test:cypress:debug --spec "cypress/e2e/bundle.js"
 ```

@@ -1,6 +1,6 @@
-import ChevronLeft from './ChevronLeft'
+import ChevronLeftIcon from '../icons/ChevronLeftIcon'
 import ClosableContext from '../contexts/ClosableContext'
-import CloseIcon from './CloseIcon'
+import CloseIcon from '../icons/CloseIcon'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
@@ -16,7 +16,7 @@ export default (props)=>{
         { props.stacked &&
           <div className="DialogHeaderActionLeft PaddingTopS PaddingLeftS PaddingRightS">
             <button type="button" onClick={ ()=>navigate('back') } className="ButtonCircular" title="Go back">
-              <ChevronLeft/>
+              <ChevronLeftIcon/>
             </button>
           </div>
         }

@@ -39,7 +39,7 @@ describe('Wallet Login', () => {
         accountLoggedIn = account
         walletLoggedIn = wallet
       })
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
@@ -75,7 +75,7 @@ describe('Wallet Login', () => {
       DePayWidgets.Login({ document, message, endpoint: 'https://example.com/login' }).then(({ account })=>{
         accountLoggedIn = account
       })
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
@@ -110,7 +110,7 @@ describe('Wallet Login', () => {
       DePayWidgets.Login({ document, message: (account)=>(`Sign to login ${account}`), endpoint: 'https://example.com/login' }).then(({ account })=>{
         accountLoggedIn = account
       })
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
@@ -163,7 +163,7 @@ describe('Wallet Login', () => {
       }}).then(({ account })=>{
         accountLoggedIn = account
       })
-      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
@@ -200,7 +200,7 @@ describe('Wallet Login', () => {
         DePayWidgets.Login({ document, message}).then(({ account })=>{
           accountLoggedIn = account
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
           cy.wait(1000).then(()=>{

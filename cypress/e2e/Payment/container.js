@@ -12,7 +12,7 @@ import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
 
-describe('Payment Widget: overview', () => {
+describe('Payment Widget: render into container', () => {
   
   const blockchain = 'ethereum'
   const accounts = ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045']
@@ -23,14 +23,13 @@ describe('Payment Widget: overview', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let provider
   let exchange
@@ -112,6 +111,61 @@ describe('Payment Widget: overview', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+      {
+        blockchain,
+        fromToken: DAI,
+        fromDecimals: 18,
+        fromName: "Dai",
+        fromSymbol: "DAI",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
 
   it('renders the widget into a container', () => {

@@ -20,14 +20,13 @@ describe('Payment Widget: change payment', () => {
   const WETH = Blockchains[blockchain].wrapped.address
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let WRAPPED_AmountInBN
   let TOKEN_A_AmountBN
@@ -103,6 +102,75 @@ describe('Payment Widget: change payment', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+      {
+        blockchain,
+        fromToken: DAI,
+        fromDecimals: 18,
+        fromName: "Dai",
+        fromSymbol: "DAI",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+      {
+        blockchain,
+        fromToken: ETH,
+        fromDecimals: 18,
+        fromName: "Ether",
+        fromSymbol: "ETH",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${ETH}?amount=0.0101` }, '25.25')
   })
   
   describe('change payment', () => {
@@ -114,7 +182,7 @@ describe('Payment Widget: change payment', () => {
           cy.document().then((document)=>{
             mock({ blockchain, request: { delay: 3000, to: DAI, api: Token[blockchain].DEFAULT, method: 'name', return: 'Dai Stablecoin' } })
             DePayWidgets.Payment({ ...defaultArguments, document })
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Skeleton')
           })
@@ -126,9 +194,8 @@ describe('Payment Widget: change payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').find('.CardImage img').invoke('attr', 'src').should('eq', 'https://depay.com/favicon.png')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]').contains('.TokenAmountCell', '20').should('exist')
@@ -152,9 +219,8 @@ describe('Payment Widget: change payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DEPAY as payment"]')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Go back"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]')
@@ -166,7 +232,7 @@ describe('Payment Widget: change payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]:visible').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -254,14 +320,13 @@ describe('Payment Widget: change payment', () => {
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Tab').contains('All').click()
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select ETH as payment"]').click()
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
                 confirm(mockedTransaction)
                 cy.wait(2000).then(()=>{
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{

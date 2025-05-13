@@ -51,7 +51,7 @@ describe('Connect wallet', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('input').type('tr', { force: true })
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Trust Wallet')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Trust')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'StrikeX Wallet')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Nitrogen Wallet')
             })

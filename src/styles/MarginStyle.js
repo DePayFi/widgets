@@ -17,6 +17,10 @@ export default ()=>{
       margin-left: 3px; 
     }
 
+    .MarginTopNegativeS {
+      margin-top: -13px;
+    }
+
     .MarginTopS {
       margin-top: 13px;
     }

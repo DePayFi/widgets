@@ -2,7 +2,7 @@
 
 import { request } from '@depay/web3-client-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { request } from '@depay/web3-client-svm'
 
@@ -15,7 +15,6 @@ import { request } from '@depay/web3-client'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
-import getNonce from '../helpers/getNonce'
 import NavigateContext from '../contexts/NavigateContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState, useRef } from 'react'
@@ -55,15 +54,16 @@ export default (props)=>{
   const { setClosable } = useContext(ClosableContext)
   const { navigate, set } = useContext(NavigateContext)
 
-  const openSocket = (transaction)=>{
+  const openSocket = (paymentRoute, deadline)=>{
     let socket = new WebSocket('wss://integrate.depay.com/cable')
     socket.onopen = async function(event) {
       const msg = {
         command: 'subscribe',
         identifier: JSON.stringify({
-          blockchain: transaction.blockchain,
-          sender: transaction.from || account,
-          nonce: await getNonce({ transaction, account, wallet }),
+          blockchain: paymentRoute.blockchain,
+          sender: paymentRoute.fromAddress,
+          receiver: paymentRoute.toAddress,
+          deadline,
           channel: 'PaymentChannel'
         }),
       }
@@ -72,7 +72,7 @@ export default (props)=>{
     
     socket.onclose = function(event) {
       if(!event || event.code != 1000) {
-        setTimeout(()=>openSocket(transaction), 1000)
+        setTimeout(()=>openSocket(paymentRoute, deadline), 1000)
       }
     }
 
@@ -155,7 +155,6 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: await getNonce({ transaction, account, wallet }),
       after_block: afterBlock.toString(),
       from_token: paymentRoute.fromToken.address,
       from_amount: paymentRoute.fromAmount.toString(),
@@ -163,7 +162,11 @@ export default (props)=>{
       to_token: paymentRoute.toToken.address,
       to_amount: paymentRoute.toAmount.toString(),
       to_decimals: paymentRoute.toDecimals,
+      protocol_fee_amount: paymentRoute?.protocolFeeAmount?.toString(),
       fee_amount: paymentRoute?.feeAmount?.toString(),
+      fee_receiver: paymentRoute?.fee?.receiver,
+      fee2_amount: paymentRoute?.feeAmount2?.toString(),
+      fee2_receiver: paymentRoute?.fee2?.receiver,
       trace_attempt_id: attemptIdRef.current,
       deadline,
       selected_wallet: wallet?.name
@@ -176,7 +179,7 @@ export default (props)=>{
       })
   }
 
-  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId)=>{
+  const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline)=>{
     if(
       !polling ||
       transaction == undefined ||
@@ -204,7 +207,8 @@ export default (props)=>{
       blockchain: transaction.blockchain,
       transaction: transaction.id,
       sender: transaction.from,
-      nonce: await getNonce({ transaction, account, wallet }),
+      receiver: paymentRoute.toAddress,
+      deadline,
       after_block: afterBlock.toString(),
       to_token: paymentRoute.toToken.address
     }
@@ -248,55 +252,11 @@ export default (props)=>{
   useEffect(()=>{
     if(!polling) { return }
     if(!synchronousTracking){ return }
-    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId), 5000)
+    let pollingInterval = setInterval(()=>pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline), 5000)
     return ()=>{ clearInterval(pollingInterval) }
   }, [polling, transaction, afterBlock, attemptId, paymentRoute])
 
-  const storePayment = async(transaction, afterBlock, paymentRoute, deadline)=>{
-    fetch('https://public.depay.com/payments', {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      body: JSON.stringify({
-        blockchain: transaction.blockchain,
-        transaction: transaction.id,
-        sender: transaction.from,
-        nonce: await getNonce({ transaction, account, wallet }),
-        receiver: paymentRoute.toAddress,
-        token: paymentRoute.toToken.address,
-        amount: ethers.utils.formatUnits(paymentRoute.toAmount, paymentRoute.toDecimals),
-        confirmations: 1,
-        after_block: afterBlock.toString(),
-        uuid: transaction.id,
-        payload: {
-          sender_id: transaction.from,
-          sender_token_id: paymentRoute.fromToken.address,
-          sender_amount: ethers.utils.formatUnits(paymentRoute.fromAmount, paymentRoute.fromDecimals),
-          integration,
-          link,
-          type
-        },
-        fee_amount: paymentRoute.fee ? ethers.utils.formatUnits(paymentRoute.feeAmount, paymentRoute.toDecimals) : null,
-        fee_receiver: paymentRoute.fee ? paymentRoute.fee.receiver : null,
-        deadline,
-        selected_wallet: wallet?.name
-      })
-    })
-    .then((response)=>{
-      if(response.status == 200 || response.status == 201) {
-      } else {
-        setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, deadline) }, 3000)
-      }
-    })
-    .catch((error)=>{
-      setTimeout(()=>{ storePayment(transaction, afterBlock, paymentRoute, deadline) }, 3000)
-    })
-  }
-
   const initializeTracking = async(transaction, afterBlock, paymentRoute, deadline)=>{
-    if(transaction.blockchain === 'solana') { // ensure solana transaction tracking uses only a single nonce for further processing
-      transaction.nonce = await getNonce({ transaction, account, wallet })
-    }
-    storePayment(transaction, afterBlock, paymentRoute, deadline)
     if(synchronousTracking || (track && track.async == true)) {
       startTracking(transaction, afterBlock, paymentRoute, deadline)
     }
@@ -305,7 +265,7 @@ export default (props)=>{
     setTransaction(transaction)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
-    openSocket(transaction)
+    openSocket(paymentRoute, deadline)
   }
 
   const trace = (afterBlock, paymentRoute, transaction, deadline)=>{
@@ -314,12 +274,11 @@ export default (props)=>{
     setDeadline(deadline)
     setAfterBlock(afterBlock)
     setPaymentRoute(paymentRoute)
-    openSocket(transaction)
+    openSocket(paymentRoute, deadline)
     return new Promise(async(resolve, reject)=>{
       let performedPayment = {
         blockchain: paymentRoute.blockchain,
         sender: account,
-        nonce: await getNonce({ blockchain: paymentRoute.blockchain, transaction, account, wallet }),
         after_block: afterBlock.toString(),
         from_token: paymentRoute.fromToken.address,
         from_amount: paymentRoute.fromAmount.toString(),
@@ -327,7 +286,11 @@ export default (props)=>{
         to_token: paymentRoute.toToken.address,
         to_amount: paymentRoute.toAmount.toString(),
         to_decimals: paymentRoute.toDecimals,
+        protocol_fee_amount: paymentRoute?.protocolFeeAmount?.toString(),
         fee_amount: paymentRoute?.feeAmount?.toString(),
+        fee_receiver: paymentRoute?.fee?.receiver,
+        fee2_amount: paymentRoute?.feeAmount2?.toString(),
+        fee2_receiver: paymentRoute?.fee2?.receiver,
         deadline,
         selected_wallet: wallet?.name
       }

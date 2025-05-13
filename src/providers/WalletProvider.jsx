@@ -1,21 +1,20 @@
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectStack from '../stacks/ConnectStack'
+import debounce from '../helpers/debounce'
 import ErrorContext from '../contexts/ErrorContext'
-import PaymentBlockchainsDialog from '../dialogs/PaymentBlockchainsDialog'
 import React, { useState, useEffect, useContext, useCallback } from 'react'
 import SolanaPayContext from '../contexts/SolanaPayContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import WalletMissesBlockchainSupportDialog from '../dialogs/WalletMissesBlockchainSupportDialog'
-import { debounce } from 'lodash'
 import { ReactDialog } from '@depay/react-dialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const { accept, recover, wallet: passedWallet } = useContext(ConfigurationContext)
+  const { accept, wallet: passedWallet } = useContext(ConfigurationContext)
   const solanaPayContext = useContext(SolanaPayContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { setError } = useContext(ErrorContext)
@@ -70,7 +69,8 @@ export default (props)=>{
       if(account) {
         setAccount(account)
       } else {
-        connect()
+        setAccount()
+        setWalletState()
       }
     }
 
@@ -94,21 +94,26 @@ export default (props)=>{
 
   if(walletMissesBlockchainSupport) {
     return(
-      <ReactDialogStack
-        open={ open }
-        close={ close }
-        start='WalletMissesBlockchainSupport'
-        container={ props.container }
-        document={ props.document }
-        stacked={ true }
-        dialogs={{
-          WalletMissesBlockchainSupport: <WalletMissesBlockchainSupportDialog disconnect={disconnect}/>,
-          PaymentBlockchains: <PaymentBlockchainsDialog/>,
-        }}
-      />
+      <WalletContext.Provider value={{
+        account,
+        wallet,
+        disconnect,
+      }}>
+        <ReactDialogStack
+          open={ open }
+          close={ close }
+          start='WalletMissesBlockchainSupport'
+          container={ props.container }
+          document={ props.document }
+          stacked={ true }
+          dialogs={{
+            WalletMissesBlockchainSupport: <WalletMissesBlockchainSupportDialog disconnect={disconnect}/>,
+          }}
+        />
+      </WalletContext.Provider>
     )
 
-  } else if(walletState == 'connected' || recover != undefined) {
+  } else if(walletState == 'connected') {
 
     return(
       <WalletContext.Provider value={{

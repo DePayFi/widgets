@@ -1,5 +1,5 @@
 import Dialog from '../components/Dialog'
-import ErrorGraphic from '../graphics/error'
+import ErrorGraphic from '../graphics/wallets/error'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -19,12 +19,15 @@ export default ()=> {
       stacked={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracking Failed Error`, '_blank') }} type="button" className="Card secondary small inlineBlock">
+            Contact support
+          </button>
         </div>
       }
       body={
         <div className="TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ ErrorGraphic }/>
+            <ErrorGraphic/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

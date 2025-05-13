@@ -1,5 +1,4 @@
 import Blockchains from '@depay/web3-blockchains'
-import ConnectGraphic from '../graphics/connect'
 import Dialog from '../components/Dialog'
 import PaymentContext from '../contexts/PaymentContext'
 import React, { useState, useContext } from 'react'

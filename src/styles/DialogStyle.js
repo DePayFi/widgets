@@ -1,6 +1,10 @@
 export default (style)=>{
   return(`
 
+    .ReactDialog {
+      user-select: none;
+    }
+
     .ReactDialogBackground {
       z-index: -2;
       backdrop-filter: blur(5px);
@@ -29,18 +33,24 @@ export default (style)=>{
       width: 420px;
       box-shadow: 0 0 22px rgba(0,0,0,0.3);
       border-radius: 13px;
-      background: rgb(248,248,248);
+      background: ${style.colors.background};
     }
 
     @media (max-width: 450px) {
 
       .Dialog {
         border-radius: 0;
+        border-top-radius: 0;
         width: 100%;
+      }
+
+      .DialogHeader {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
       }
     }
 
-    @media (orientation: portrait) and (max-width: 800px) {
+    @media (orientation: portrait) and (max-width: 600px) {
 
       .ReactDialogAnimation {
         width: 100%;
@@ -57,12 +67,13 @@ export default (style)=>{
 
       .Dialog {
         align-content: stretch;
-        border-radius: 13px;
-        border-top-radius: 13px;
+        border-radius: 0px;
+        border-top-radius: 0px;
         display: flex;
         flex-direction: column;
         border-bottom-left-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
+        width: 100%;
       }
 
       .DialogBody {
@@ -100,6 +111,10 @@ export default (style)=>{
       overflow-y: auto;
     }
 
+    .ScrollHeightAnimation {
+      transition: height 0.4s ease, max-height 0.4s ease;
+    }
+
     .ScrollHeight {
       height: 30vh !important;
       max-height: 30vh !important;
@@ -111,8 +126,18 @@ export default (style)=>{
     }
 
     .ScrollHeightM {
-      height: 194px !important;
-      max-height: 194px !important;
+      height: 210px !important;
+      max-height: 210px !important;
+    }
+
+    .ScrollHeightL {
+      height: 250px !important;
+      max-height: 250px !important;
+    }
+
+    .ScrollHeightMax {
+      height: 60vh !important;
+      max-height: 60vh !important;
     }
 
     .DialogBody.MinHeight {
@@ -123,7 +148,7 @@ export default (style)=>{
     .DialogHeader {
       border-top-left-radius: 13px;
       border-top-right-radius: 13px;
-      min-height: 54px;
+      min-height: 58px;
       position: relative;
       width: 100%;
     }
