@@ -20,15 +20,13 @@ describe('Payment Widget: no payment options found', () => {
   const amount = 20
   const decimals = 18
   const amountBN = ethers.utils.parseUnits(amount.toString(), decimals)
-  const defaultArguments = {
-    currency: 'USD',
-    accept: [{
-      blockchain,
-      amount,
-      token: TOKEN,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: TOKEN,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
 
   let USDValueMock
   let TOKENRouteMock
@@ -66,9 +64,25 @@ describe('Payment Widget: no payment options found', () => {
     }, [])
 
     fetchMock.get({
-      url: `https://public.depay.com/currencies/USD`,
+      url: `https://public.depay.com/currencies/CHF`,
       overwriteRoutes: true
     }, "0.85")
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, 404)
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [])
   })
 
   it('shows a dialog explaining that no payment option could be found and allows to see available payment options', () => {
@@ -76,8 +90,8 @@ describe('Payment Widget: no payment options found', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No enough funds!')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Please make sure you have enough funds')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Not Enough Funds')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Text', 'Please check that you have sufficient funds on one of these blockchains:')
       })
     })
   })
@@ -89,7 +103,7 @@ describe('Payment Widget: no payment options found', () => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'No enough funds!')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Not Enough Funds')
         cy.wait(2000).then(()=>{
           USDValueMock_count = USDValueMock.calls.count()
           TOKENRouteMock_count = TOKENRouteMock.calls.count()
