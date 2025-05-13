@@ -10,16 +10,19 @@ export default (style)=>{
     }
 
     .Tab.active {
+      background-color: ${style.colors.background};
       background-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
       box-shadow: 0 0 4px rgba(0,0,0,0.03);
     }
 
     .Tab:hover:not(.active) {
+      background-color: ${style.colors.background};
       background-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
       box-shadow: 0 0 0 rgba(0,0,0,0); 
     }
 
     .Tab:active:not(.active) {
+      background-color: ${style.colors.background};
       background-color: color-mix(in srgb, ${style.colors.background} 95%, ${style.colors.mixActive} 5%);
       box-shadow: inset 0 0 4px rgba(0,0,0,0.02);
     }

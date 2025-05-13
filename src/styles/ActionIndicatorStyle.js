@@ -27,6 +27,7 @@ export default (style)=>{
       height: 64px;
       width: 64px;
       border: 4px solid ${style.colors.primary};
+      border-bottom-color: ${style.colors.background};
       border-bottom-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
       border-radius: 50%;
       display: inline-block;

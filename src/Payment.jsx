@@ -20,9 +20,9 @@ import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 import { supported } from './blockchains'
 
-let preflight = async({ accept, recover, integration }) => {
+let preflight = async({ accept, integration }) => {
   if(typeof integration !== 'undefined' && typeof accept !== 'undefined') { throw('You can either use `integration` or `accept`, but not both!') }
-  if(integration || recover){ return }
+  if(integration){ return }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain you want to receive the payment on!') }
     if(!supported.includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
@@ -51,7 +51,6 @@ let Payment = async ({
   connected,
   closed,
   track,
-  recover,
   closable,
   integration,
   payload,
@@ -68,12 +67,12 @@ let Payment = async ({
   requireReactVersion()
   if(currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) { currency = false }
   try {
-    await preflight({ accept, integration, recover })
+    await preflight({ accept, integration })
     if(typeof window._depayUnmountLoading == 'function') { window._depayUnmountLoading() }
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, allow, deny, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action, wallets, protocolFee } }>
+          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, allow, deny, whitelist, blacklist, providers, track, integration, link, wallet, title, action, wallets, protocolFee } }>
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <NavigateProvider>

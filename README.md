@@ -952,29 +952,6 @@ let { unmount } = await DePayWidgets.Payment({})
 unmount()
 ```
 
-#### recover
-
-`recover`
-
-Allows you to recover a previously made payment. E.g. useful if you need to continue to show a pending payment progress if user rearrives or reloads a payment page:
-
-```javascript
-DePayWidgets.Payment({
-  recover: {
-    blockchain: 'ethereum',
-    transaction: '0x081ae81229b2c7df586835e9e4c16aa89f8a15dc118fac31b7521477c53ed2a9',
-    sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
-    nonce: 2865,
-    afterBlock: 14088130,
-    token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-    amount: 0.0001
-  }
-})
-
-A recovered payment still results in a confirmed or failed payment, and also calls one of those callbacks also when created with recover.
-
-```
-
 #### closable
 
 `closable`

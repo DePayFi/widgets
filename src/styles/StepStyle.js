@@ -12,6 +12,7 @@ export default (style)=>{
 
     .Step .ActionIndicatorSpinner {
       border: 2px solid ${style.colors.primary};
+      border-bottom-color: ${style.colors.background};
       border-bottom-color: color-mix(in srgb, ${style.colors.background} 90%, ${style.colors.mixActive} 10%);
       height: 14px;
       width: 14px;

@@ -14,7 +14,7 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const { accept, recover, wallet: passedWallet } = useContext(ConfigurationContext)
+  const { accept, wallet: passedWallet } = useContext(ConfigurationContext)
   const solanaPayContext = useContext(SolanaPayContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { setError } = useContext(ErrorContext)
@@ -113,7 +113,7 @@ export default (props)=>{
       </WalletContext.Provider>
     )
 
-  } else if(walletState == 'connected' || recover != undefined) {
+  } else if(walletState == 'connected') {
 
     return(
       <WalletContext.Provider value={{

@@ -134,25 +134,30 @@ export default (style)=>{
     }
 
     .Card:hover:not(.disabled) {
+      background-color: ${style.colors.cardBackground};
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
       box-shadow: 0 0 0 rgba(0,0,0,0); 
     }
 
     .Card:active:not(.disabled) {
+      background-color: ${style.colors.cardBackground});
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.02);
       color: inherit;
     }
 
     .Card.secondary {
+      background-color: ${style.colors.cardBackground};
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
     }
 
     .Card.secondary:hover:not(.disabled) {
+      background-color: ${style.colors.cardBackground};
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
     }
 
     .Card.secondary:active:not(.disabled) {
+      background-color: ${style.colors.cardBackground};
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 80%, ${style.colors.mixActive} 20%);
     }
 

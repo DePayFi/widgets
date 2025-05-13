@@ -35,7 +35,7 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, succeeded, failed, recover, before, accept } = useContext(ConfigurationContext)
+  const { sent, succeeded, failed, before, accept } = useContext(ConfigurationContext)
   const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { setUpdatable } = useContext(UpdatableContext)
@@ -257,32 +257,6 @@ export default (props)=>{
     }
   }, [trackingInitialized, paymentState])
 
-  useEffect(()=>{
-    if(recover){
-      setClosable(false)
-      setUpdatable(false)
-      setPaymentState('paying')
-      setTransaction({
-        blockchain: recover.blockchain,
-        id: recover.transaction,
-        url: Blockchains.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
-      })
-      let paymentToken = new Token({ blockchain: recover.blockchain, address: recover.token })
-      Promise.all([
-        paymentToken.name(),
-        paymentToken.symbol()
-      ]).then(([name, symbol])=>{
-        setPayment({
-          blockchain: Blockchains[recover.blockchain],
-          token: recover.token,
-          name,
-          symbol: symbol.toUpperCase(),
-          amount: recover.amount
-        })
-      }).catch(setError)
-    }
-  }, [recover])
-
   const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {
       // reset approval status if selectedRoute has been changed
@@ -304,8 +278,6 @@ export default (props)=>{
           amount
         })
       }).catch(setError)
-    } else if(recover === undefined) {
-      setPayment()
     }
   }, 100), [])
 

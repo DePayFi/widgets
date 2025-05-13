@@ -16,11 +16,13 @@ export default (style)=>{
     }
 
     .ButtonCircular:hover {
+      background-color: ${style.colors.cardBackground};
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
       opacity: 1;
     }
 
     .ButtonCircular:active {
+      background-color: ${style.colors.cardBackground};
       background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
       opacity: 1;
     }

@@ -32,9 +32,9 @@ export default (props)=>{
       )
     })
   }
-  const { amount: configuredAmount, toAmount, recover, accept } = useContext(ConfigurationContext)
+  const { amount: configuredAmount, toAmount, accept } = useContext(ConfigurationContext)
   const configuration = useContext(ConfigurationContext)
-  const [ amountsMissing, setAmountsMissing ] = useState(recover == undefined ? configurationsMissAmounts(accept) : false)
+  const [ amountsMissing, setAmountsMissing ] = useState(configurationsMissAmounts(accept))
   let { account } = useContext(WalletContext)
   const { conversionRate, fixedCurrencyConversionRate } = useContext(ConversionRateContext)
   const { setError } = useContext(ErrorContext)
@@ -54,9 +54,8 @@ export default (props)=>{
   const [ amount, setAmount ] = useState(startAmount)
 
   useEffect(()=>{
-    if(recover) { return }
     setAmountsMissing(configurationsMissAmounts(accept))
-  }, [accept, recover])
+  }, [accept])
 
   const getAmounts = ({ amount, conversionRate, fixedCurrencyConversionRate })=>{
     if(configuredAmount && configuredAmount.token) {
@@ -86,12 +85,11 @@ export default (props)=>{
   }, 500), [])
 
   useEffect(()=>{
-    if(recover) { return }
     if(amountsMissing && account && conversionRate && (fixedAmount ? fixedCurrencyConversionRate : true)) {
       setAcceptWithAmount()
       updateAmounts({ account, amount, conversionRate, fixedCurrencyConversionRate })
     }
-  }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount, recover])
+  }, [amountsMissing, account, conversionRate, fixedAmount, fixedCurrencyConversionRate, amount])
 
   return(
     <ChangableAmountContext.Provider value={{

@@ -37,7 +37,6 @@ export default (props)=>{
   const [ allRoutesLoaded, setAllRoutesLoaded ] = useState(false)
   const { account, wallet } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
-  const { recover } = useContext(ConfigurationContext)
   const configuration = useContext(ConfigurationContext)
   const { amountsMissing } = useContext(ChangableAmountContext)
   const { setError } = useContext(ErrorContext)
@@ -107,7 +106,6 @@ export default (props)=>{
   }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable])
 
   useEffect(() => {
-    if(recover) { return }
     if(account && props.accept) {
       refreshPaymentRoutes()
     } else if (props.accept === undefined) {

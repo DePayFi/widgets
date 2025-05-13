@@ -30,7 +30,7 @@ import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
-  const { currencyCode, recover, amount: amountConfiguration, currency, title } = useContext(ConfigurationContext)
+  const { currencyCode, amount: amountConfiguration, currency, title } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
   const { disconnect } = useContext(WalletContext)

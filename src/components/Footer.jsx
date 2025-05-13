@@ -145,155 +145,169 @@ export default ()=>{
         <div className="PaddingBottomS">
           {/* Enable signature approval (Permit2) */}
           {needsPermit2Transaction && (
-            <a
-              href={
-                approvalTransaction
-                  ? link({ url: approvalTransaction.url, target: '_blank', wallet })
-                  : undefined
-              }
-              target="_blank"
-              className={
-                'Step Card small transparent' +
-                (!permit2Done || permit2Processing ? ' active' : '') +
-                (permit2Done ? ' done' : '') +
-                (!approvalTransaction?.url ? ' disabled' : '')
-              }
-            >
-              <div className="StepIcon">
-                {!permit2Done && !permit2Processing && <div className="StepCircle" />}
-                {permit2Processing && <div className="ActionIndicatorSpinner" />}
-                {permit2Done && !permit2Processing && <CheckmarkIcon className="small" />}
-              </div>
-              <div className="StepText">
-                {!permit2Done && !permit2Processing && (
-                  <span>Enable signature approval for {payment.symbol}</span>
-                )}
-                {permit2Processing &&
-                  <LoadingText>
-                    Enabling signature approval for {payment.symbol}
-                  </LoadingText>
+            <>
+              <a
+                href={
+                  approvalTransaction
+                    ? link({ url: approvalTransaction.url, target: '_blank', wallet })
+                    : undefined
                 }
-                {permit2Done && !permit2Processing && (
-                  <span>Signature approval for {payment.symbol} enabled</span>
-                )}
-              </div>
+                target="_blank"
+                className={
+                  'Step Card small transparent' +
+                  (!permit2Done || permit2Processing ? ' active' : '') +
+                  (permit2Done ? ' done' : '') +
+                  (!approvalTransaction?.url ? ' disabled' : '')
+                }
+              >
+                <div className="StepIcon">
+                  {!permit2Done && !permit2Processing && <div className="StepCircle" />}
+                  {permit2Processing && <div className="ActionIndicatorSpinner" />}
+                  {permit2Done && !permit2Processing && <CheckmarkIcon className="small" />}
+                </div>
+                <div className="StepText">
+                  {!permit2Done && !permit2Processing && (
+                    <span>Enable signature approval for {payment.symbol}</span>
+                  )}
+                  {permit2Processing &&
+                    <LoadingText>
+                      Enabling signature approval for {payment.symbol}
+                    </LoadingText>
+                  }
+                  {permit2Done && !permit2Processing && (
+                    <span>Signature approval for {payment.symbol} enabled</span>
+                  )}
+                </div>
+              </a>
               <div className="StepConnector" />
-            </a>
+            </>
           )}
 
           {/* Approve spending of TOKEN */}
           {needsToApproveSpending && !spendingDone && approvalType !== 'transaction' && (
-            <div
-              className={
-                'Step Card disabled small transparent' +
-                (spendingActive || spendingProcessing ? ' active' : '')
-              }
-            >
-              <div className="StepIcon">
-                <div className="StepCircle" />
+            <>
+              <div
+                className={
+                  'Step Card disabled small transparent' +
+                  (spendingActive || spendingProcessing ? ' active' : '')
+                }
+              >
+                <div className="StepIcon">
+                  <div className="StepCircle" />
+                </div>
+                <div className="StepText">Approve spending {payment.symbol}</div>
               </div>
-              <div className="StepText">Approve spending {payment.symbol}</div>
               <div className="StepConnector" />
-            </div>
+            </>
           )}
           {approvalType === 'transaction' && approvalRequired && (
-            <a
-              href={
-                (approvalType === 'transaction' && approvalTransaction)
-                  ? link({ url: approvalTransaction.url, target: '_blank', wallet })
-                  : undefined
-              }
-              target="_blank"
-              className={
-                'Step Card small transparent' +
-                (!approvalTransaction?.url ? ' disabled' : '') +
-                (spendingActive || spendingProcessing  ? ' active' : '') +
-                (spendingDone ? ' done' : '')
-              }
-            >
-              <div className="StepIcon">
-                {!spendingProcessing && !spendingDone && <div className="StepCircle" />}
-                {spendingProcessing && !spendingDone && <div className="ActionIndicatorSpinner" />}
-                {!spendingProcessing && spendingDone && <CheckmarkIcon className="small" />}
-              </div>
-              <div className="StepText">
-                {!spendingProcessing && !spendingDone && <span>Approve {payment.symbol} for spending</span>}
-                {!spendingProcessing && spendingDone && <span>Approved {payment.symbol} for spending</span>}
-                {spendingProcessing && <LoadingText>Approving {payment.symbol} for spending</LoadingText>}
-              </div>
+            <>
+              <a
+                href={
+                  (approvalType === 'transaction' && approvalTransaction)
+                    ? link({ url: approvalTransaction.url, target: '_blank', wallet })
+                    : undefined
+                }
+                target="_blank"
+                className={
+                  'Step Card small transparent' +
+                  (!approvalTransaction?.url ? ' disabled' : '') +
+                  (spendingActive || spendingProcessing  ? ' active' : '') +
+                  (spendingDone ? ' done' : '')
+                }
+              >
+                <div className="StepIcon">
+                  {!spendingProcessing && !spendingDone && <div className="StepCircle" />}
+                  {spendingProcessing && !spendingDone && <div className="ActionIndicatorSpinner" />}
+                  {!spendingProcessing && spendingDone && <CheckmarkIcon className="small" />}
+                </div>
+                <div className="StepText">
+                  {!spendingProcessing && !spendingDone && <span>Approve {payment.symbol} for spending</span>}
+                  {!spendingProcessing && spendingDone && <span>Approved {payment.symbol} for spending</span>}
+                  {spendingProcessing && <LoadingText>Approving {payment.symbol} for spending</LoadingText>}
+                </div>
+              </a>
               <div className="StepConnector" />
-            </a>
+            </>
           )}
           {approvalType === 'signature' && spendingDone && (
-            <div className="Step done Card disabled small transparent">
-              <div className="StepIcon">
-                <CheckmarkIcon className="small" />
+            <>
+              <div className="Step done Card disabled small transparent">
+                <div className="StepIcon">
+                  <CheckmarkIcon className="small" />
+                </div>
+                <div className="StepText">Spending {payment.symbol} approved</div>
               </div>
-              <div className="StepText">Spending {payment.symbol} approved</div>
               <div className="StepConnector" />
-            </div>
+            </>
           )}
 
           {/* Perform payment */}
           {(transaction || paymentProcessing) ? (
-            <a
-              href={
-                transaction
-                  ? link({ url: transaction.url, target: '_blank', wallet })
-                  : undefined
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className={
-                'Step Card small transparent' +
-                ((paymentReady && !paymentDone) || paymentProcessing ? ' active' : '') +
-                (paymentDone ? ' done' : '') +
-                (!transaction?.url ? ' disabled' : '')
-              }
-            >
-              <div className="StepIcon">
-                {paymentDone && <CheckmarkIcon className="small" />}
-                {paymentProcessing && <div className="ActionIndicatorSpinner" />}
-              </div>
-              <div className="StepText">
-                {paymentProcessing && <LoadingText>Performing payment</LoadingText>}
-                {paymentDone && <span>Perform payment</span>}
-              </div>
+            <>
+              <a
+                href={
+                  transaction
+                    ? link({ url: transaction.url, target: '_blank', wallet })
+                    : undefined
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className={
+                  'Step Card small transparent' +
+                  ((paymentReady && !paymentDone) || paymentProcessing ? ' active' : '') +
+                  (paymentDone ? ' done' : '') +
+                  (!transaction?.url ? ' disabled' : '')
+                }
+              >
+                <div className="StepIcon">
+                  {paymentDone && <CheckmarkIcon className="small" />}
+                  {paymentProcessing && <div className="ActionIndicatorSpinner" />}
+                </div>
+                <div className="StepText">
+                  {paymentProcessing && <LoadingText>Performing payment</LoadingText>}
+                  {paymentDone && <span>Perform payment</span>}
+                </div>
+              </a>
               <div className="StepConnector" />
-            </a>
+            </>
           ) : (
-            <div
-              className={
-                'Step Card disabled small transparent' +
-                (paymentReady ? ' active' : '')
-              }
-            >
-              <div className="StepIcon">
-                {paymentDone ? (
-                  <CheckmarkIcon className="small" />
-                ) : (
-                  <div className="StepCircle" />
-                )}
-              </div>
-              <div className="StepText">Perform payment</div>
-              <div className="StepStatus">
-                {paymentDone && <CheckmarkIcon className="small" />}
+            <>
+              <div
+                className={
+                  'Step Card disabled small transparent' +
+                  (paymentReady ? ' active' : '')
+                }
+              >
+                <div className="StepIcon">
+                  {paymentDone ? (
+                    <CheckmarkIcon className="small" />
+                  ) : (
+                    <div className="StepCircle" />
+                  )}
+                </div>
+                <div className="StepText">Perform payment</div>
+                <div className="StepStatus">
+                  {paymentDone && <CheckmarkIcon className="small" />}
+                </div>
               </div>
               <div className="StepConnector" />
-            </div>
+            </>
           )}
 
           {/* Validation */}
           {showAsyncInit && (
-            <div className="Step Card disabled small transparent active">
-              <div className="StepIcon">
-                <div className="ActionIndicatorSpinner" />
-              </div>
-              <div className="StepText">
-                <LoadingText>Initializing tracking</LoadingText>
+            <>
+              <div className="Step Card disabled small transparent active">
+                <div className="StepIcon">
+                  <div className="ActionIndicatorSpinner" />
+                </div>
+                <div className="StepText">
+                  <LoadingText>Initializing tracking</LoadingText>
+                </div>
               </div>
               <div className="StepConnector" />
-            </div>
+            </>
           )}
           {showSyncWaiting && (
             <a

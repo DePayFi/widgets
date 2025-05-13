@@ -23,14 +23,13 @@ describe('Payment Widget: overview', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
 
   let provider
   let exchange
@@ -114,6 +113,62 @@ describe('Payment Widget: overview', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+      },
+      {
+        blockchain,
+        fromToken: DAI,
+        fromDecimals: 18,
+        fromName: "Dai",
+        fromSymbol: "DAI",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      },
+    ])
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=33.165` }, '33.165')
   })
 
   it('calls the closed callback if user closes the dialog', () => {
@@ -163,11 +218,63 @@ describe('Payment Widget: overview', () => {
     describe("loading", ()=>{
 
       beforeEach(()=>{
-        fetchMock.get({
-          url: 'https://public.depay.com/accounts/ethereum/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/assets',
+
+        fetchMock.post({
+          delay: 5000,
           overwriteRoutes: true,
-          delay: 10000
-        }, [])
+          url: "https://public.depay.com/routes/best",
+          body: {
+            accounts: { [blockchain]: accounts[0] },
+            accept,
+          },
+        }, {
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 18,
+            fromName: "DePay",
+            fromSymbol: "DEPAY",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY"
+        })
+
+        fetchMock.post({
+          delay: 5000,
+          overwriteRoutes: true,
+          url: "https://public.depay.com/routes/all",
+          body: {
+            accounts: { [blockchain]: accounts[0] },
+            accept,
+          },
+        }, [
+          {
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 18,
+            fromName: "DePay",
+            fromSymbol: "DEPAY",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY"
+          },
+          {
+            blockchain,
+            fromToken: DAI,
+            fromDecimals: 18,
+            fromName: "Dai",
+            fromSymbol: "DAI",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+            pairsData: [{ exchange: 'uniswap_v2' }]
+          },
+        ])
       })
 
       it('shows an animated skeleton while loading data and a sentence after 4s that balances are still loading', ()=> {
@@ -203,7 +310,7 @@ describe('Payment Widget: overview', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '20')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DEPAY')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€3.40').should('contain', '€3.40')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.CardImage img[src="https://depay.com/favicon.png"]')
         })
@@ -215,7 +322,7 @@ describe('Payment Widget: overview', () => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€3.40').should('contain', '€3.40')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button[title="Close dialog"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -237,12 +344,11 @@ describe('Payment Widget: overview', () => {
   describe('updating', () => {
 
     it('updates payment routes every 15s as prices can change', () => {
-      mock({ provider, blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€28.05').should('contain', '€28.05')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€3.40').should('contain', '€3.40')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
@@ -262,13 +368,15 @@ describe('Payment Widget: overview', () => {
               ]
             })
             mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: [TOKEN_A_AmountBN, [DAI, Blockchains[blockchain].wrapped.address, DEPAY]], return: [NEW_TOKEN_B_AmountBN, WRAPPED_AmountInBN, TOKEN_A_AmountBN] }})
+            fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=35.175` }, '35.175')
           })
           cy.wait(16000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Alert').should('contain', 'Exchange rate updated!')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Info').should('contain', 'Exchange rate updated!')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Reload').click()
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '35.175')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell', '€29.90').should('contain', '€29.90')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Approve and pay')
             })
           })
         })
@@ -377,17 +485,7 @@ describe('Payment Widget: overview', () => {
   describe('couldnt load toToken USD route for localValue', ()=> {
 
     beforeEach(()=> {
-      mock({
-        provider,
-        blockchain, 
-        request: {
-          to: exchange.router.address,
-          api: exchange.router.api,
-          method: 'getAmountsOut',
-          params: [TOKEN_A_AmountBN, [DEPAY, WETH, Blockchains[blockchain].stables.usd[0]]],
-          return: []
-        }
-      })
+      fetchMock.get({ overwriteRoutes: true, url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=33.165` }, 500)
     })
 
     it('falls back to display the token amount and symbol', ()=> {
@@ -396,35 +494,6 @@ describe('Payment Widget: overview', () => {
           DePayWidgets.Payment({ ...defaultArguments, document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
           cy.get('h3.CardText', { includeShadowDom: true }).should('not.exist')
-        })
-      })
-    })
-  })
-
-  describe('toToken is USD and hence cant route localValue to USD itself', ()=>{
-
-    it('takes the amount for toToken USD instead of trying to route to USD token itself (which is not routable)', ()=> {
-      cy.visit('cypress/test.html').then((contentWindow) => {
-        cy.document().then((document)=>{
-          let USD = Blockchains[blockchain].stables.usd[0]
-          mock({ provider, blockchain, request: { to: exchange.factory.address, api: exchange.factory.api, method: 'getPair', params: [WETH, USD], return: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11' }})
-          mock({ provider, blockchain, request: { to: exchange.router.address, api: exchange.router.api, method: 'getAmountsIn', params: ["20000000", [DEPAY, USD]], return: [TOKEN_A_AmountBN, "20000000"] }})
-          let USD_TOKEN = Blockchains[blockchain].tokens.find((token)=>token.address===USD)
-          mock({ provider, blockchain, request: { to: USD, api: Token[blockchain].DEFAULT, method: 'decimals', return: USD_TOKEN.decimals } })
-          mock({ provider, blockchain, request: { to: USD, api: Token[blockchain].DEFAULT, method: 'symbol', return: USD_TOKEN.symbol } })
-          mock({ provider, blockchain, request: { to: USD, api: Token[blockchain].DEFAULT, method: 'name', return: USD_TOKEN.name } })
-          DePayWidgets.Payment({ 
-            accept: [{
-              blockchain,
-              amount,
-              token: USD,
-              receiver: toAddress
-            }]
-          , document })
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenAmountCell').should('contain', '20.1')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .TokenSymbolCell').should('contain', 'DEPAY')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain', 'Pay')
         })
       })
     })

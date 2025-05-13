@@ -92,15 +92,6 @@ declare namespace DePayWidgets {
         method?: (payment: any) => void;
       };
     };
-    recover?: {
-      blockchain: string;
-      transaction: string;
-      sender: string;
-      nonce: number;
-      afterBlock: number;
-      token: string;
-      amount: number;
-    };
     closable?: boolean;
     integration?: string;
     payload?: any;
@@ -135,7 +126,6 @@ declare namespace DePayWidgets {
   interface LoginOptions {
     message: string;
     endpoint?: string;
-    recover?: (message: string, signature: string) => void;
     wallet?: any;
     style?: StyleOptions;
     error?: (error: any) => void;
