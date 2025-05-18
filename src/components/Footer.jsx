@@ -112,7 +112,7 @@ export default ()=>{
       paymentState == 'approve' ||
       paymentState == 'approving' ||
       paymentState == 'approved' ||
-      paymentState == 'paying' ||
+      (paymentState == 'paying' && (approvalTransaction?.url || approvalSignature)) ||
       paymentState == 'sending' ||
       paymentState == 'validating' ||
       paymentState == 'success'
@@ -255,7 +255,7 @@ export default ()=>{
                 rel="noopener noreferrer"
                 className={
                   'Step Card small transparent' +
-                  ((paymentReady && !paymentDone) || paymentProcessing ? ' active' : '') +
+                  ((paymentReady && !paymentDone) || paymentProcessing || (paymentDone && !showSyncDone) ? ' active' : '') +
                   (paymentDone ? ' done' : '') +
                   (!transaction?.url ? ' disabled' : '')
                 }
@@ -276,7 +276,7 @@ export default ()=>{
               <div
                 className={
                   'Step Card disabled small transparent' +
-                  (paymentReady ? ' active' : '')
+                  ((paymentReady || (paymentDone && !showSyncDone)) ? ' active' : '')
                 }
               >
                 <div className="StepIcon">
@@ -314,7 +314,7 @@ export default ()=>{
               href={
                 transaction
                   ? link({
-                      url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`,
+                      url: `https://scan.depay.com/tx/${transaction.blockchain}/${transaction.id}?sender=${payment.route.fromAddress}&receiver=${payment.route.toAddress}&deadline=${transaction.deadline}`,
                       target: '_blank',
                       wallet,
                     })
@@ -353,7 +353,7 @@ export default ()=>{
               href={
                 transaction
                   ? link({
-                      url: `https://status.depay.com/tx/${transaction.blockchain}/${transaction.id}`,
+                      url: `https://scan.depay.com/tx/${transaction.blockchain}/${transaction.id}?sender=${payment.route.fromAddress}&receiver=${payment.route.toAddress}&deadline=${transaction.deadline}`,
                       target: '_blank',
                       wallet,
                     })

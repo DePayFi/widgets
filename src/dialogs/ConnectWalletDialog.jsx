@@ -122,7 +122,8 @@ export default (props)=> {
 
   const connectViaQRCode = useCallback(debounce(()=>{
     if(props.platform?.solanaPay && ( ( accept && accept.every((accept)=>accept.amount)) )) {
-      return props.continueWithSolanaPay()
+      props.setSolanaPayWallet(props.wallet)
+      return 
     }
     if(typeof props.platform.qr === 'function') {
       let newQRCode = getNewQRCode()

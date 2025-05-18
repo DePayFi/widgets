@@ -41,7 +41,7 @@ export default (props)=>{
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet, account } = useContext(WalletContext)
-  const { setPayment: setTrackingPayment, release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
+  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, track, trace } = useContext(PaymentTrackingContext)
   const [ payment, setPayment ] = useState()
   const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
@@ -95,7 +95,7 @@ export default (props)=>{
     }
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline
-    await trace(currentBlock, payment.route, transaction, deadline).then(async()=>{
+    await trace(currentBlock, payment.route, deadline).then(async()=>{
       setClosable(false)
       if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
       await wallet.sendTransaction(Object.assign({}, transaction, {
@@ -113,7 +113,7 @@ export default (props)=>{
       }))
         .then((sentTransaction)=>{
           setTransaction(sentTransaction)
-          initializePaymentTracking(sentTransaction, currentBlock, payment.route, deadline)
+          track(sentTransaction, currentBlock, payment.route, deadline)
         })
         .catch((error)=>{
           console.log('error', error)
@@ -239,7 +239,6 @@ export default (props)=>{
   })
 
   useEffect(()=>{
-    setTrackingPayment(payment)
     if(payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.BigNumber.from('0'))) {
       setApprovalType('signature')
     }
@@ -263,7 +262,7 @@ export default (props)=>{
       setApprovalTransaction()
       setApprovalSignature()
       setApprovalSignatureData()
-      let fromToken = selectedRoute.fromToken
+      let fromToken = new Token({ blockchain: selectedRoute.blockchain, address: selectedRoute.fromToken.address })
       Promise.all([
         fromToken.name(),
         fromToken.symbol(),

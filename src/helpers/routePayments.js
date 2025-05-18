@@ -28,13 +28,12 @@ const mergeFromAccounts = (accept, account)=>{
   return from
 }
 
-export default ({ accept, account, receiver, allow, deny, whitelist, blacklist, fee, best })=>{
+export default ({ accept, account, receiver, allow, deny, whitelist, blacklist, best })=>{
   return route({
     accept: accept.map((accept)=>prepareAcceptedPayments(accept, receiver)),
     from: mergeFromAccounts(accept, account),
     allow: allow || whitelist,
     deny: deny || blacklist,
-    fee,
     best,
   })
 }

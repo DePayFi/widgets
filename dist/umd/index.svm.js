@@ -50,9 +50,9 @@
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
-  var supported$4 = ['solana'];
-  supported$4.evm = [];
-  supported$4.svm = ['solana'];
+  var supported$3 = ['solana'];
+  supported$3.evm = [];
+  supported$3.svm = ['solana'];
 
   var _wallets$CoinbaseEVM, _wallets$CoinbaseEVM$, _wallets$MetaMask, _wallets$MetaMask$inf, _wallets$PhantomSVM, _wallets$PhantomSVM$i, _wallets$TrustEVM, _wallets$TrustEVM$inf, _wallets$Binance, _wallets$Binance$info, _wallets$CryptoCom, _wallets$CryptoCom$in, _wallets$WorldApp, _wallets$WorldApp$inf, _wallets$Coin98EVM, _wallets$Coin98EVM$in, _wallets$BraveEVM, _wallets$BraveEVM$inf, _wallets$MagicEdenEVM, _wallets$MagicEdenEVM2, _wallets$Rabby, _wallets$Rabby$info, _wallets$Backpack, _wallets$Backpack$inf, _wallets$Glow, _wallets$Glow$info, _wallets$Solflare, _wallets$Solflare$inf, _wallets$OKXEVM, _wallets$OKXEVM$info, _wallets$HyperPay, _wallets$HyperPay$inf, _wallets$WindowEthere, _wallets$WindowEthere2, _Blockchains$solana, _wallets$WindowSolana, _wallets$WindowSolana2;
   var allWallets = [{
@@ -78,7 +78,7 @@
       }
     },
     "logo": (_wallets$CoinbaseEVM = web3WalletsSvm.wallets.CoinbaseEVM) === null || _wallets$CoinbaseEVM === void 0 ? void 0 : (_wallets$CoinbaseEVM$ = _wallets$CoinbaseEVM.info) === null || _wallets$CoinbaseEVM$ === void 0 ? void 0 : _wallets$CoinbaseEVM$.logo,
-    "blockchains": _toConsumableArray(supported$4),
+    "blockchains": _toConsumableArray(supported$3),
     "colors": {
       "primary": "#0153ff",
       "secondary": "#ffffff"
@@ -104,7 +104,7 @@
       }
     },
     "logo": (_wallets$MetaMask = web3WalletsSvm.wallets.MetaMask) === null || _wallets$MetaMask === void 0 ? void 0 : (_wallets$MetaMask$inf = _wallets$MetaMask.info) === null || _wallets$MetaMask$inf === void 0 ? void 0 : _wallets$MetaMask$inf.logo,
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#ff8d5d",
       "secondary": "#661800"
@@ -139,7 +139,7 @@
       }
     },
     "logo": (_wallets$PhantomSVM = web3WalletsSvm.wallets.PhantomSVM) === null || _wallets$PhantomSVM === void 0 ? void 0 : (_wallets$PhantomSVM$i = _wallets$PhantomSVM.info) === null || _wallets$PhantomSVM$i === void 0 ? void 0 : _wallets$PhantomSVM$i.logo,
-    "blockchains": _toConsumableArray(supported$4),
+    "blockchains": _toConsumableArray(supported$3),
     "colors": {
       "primary": "#ab9ef2",
       "secondary": "#252525",
@@ -166,7 +166,7 @@
       }
     },
     "logo": (_wallets$TrustEVM = web3WalletsSvm.wallets.TrustEVM) === null || _wallets$TrustEVM === void 0 ? void 0 : (_wallets$TrustEVM$inf = _wallets$TrustEVM.info) === null || _wallets$TrustEVM$inf === void 0 ? void 0 : _wallets$TrustEVM$inf.logo,
-    "blockchains": _toConsumableArray(supported$4),
+    "blockchains": _toConsumableArray(supported$3),
     "colors": {
       "primary": "#0700ff",
       "secondary": "#48ff91",
@@ -193,7 +193,7 @@
       }
     },
     "logo": (_wallets$Binance = web3WalletsSvm.wallets.Binance) === null || _wallets$Binance === void 0 ? void 0 : (_wallets$Binance$info = _wallets$Binance.info) === null || _wallets$Binance$info === void 0 ? void 0 : _wallets$Binance$info.logo,
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#1e2024",
       "secondary": "#f3ba2f"
@@ -219,7 +219,7 @@
       }
     },
     "logo": (_wallets$CryptoCom = web3WalletsSvm.wallets.CryptoCom) === null || _wallets$CryptoCom === void 0 ? void 0 : (_wallets$CryptoCom$in = _wallets$CryptoCom.info) === null || _wallets$CryptoCom$in === void 0 ? void 0 : _wallets$CryptoCom$in.logo,
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#03316c",
       "secondary": "#ffffff",
@@ -257,7 +257,7 @@
       }
     },
     "logo": (_wallets$Coin98EVM = web3WalletsSvm.wallets.Coin98EVM) === null || _wallets$Coin98EVM === void 0 ? void 0 : (_wallets$Coin98EVM$in = _wallets$Coin98EVM.info) === null || _wallets$Coin98EVM$in === void 0 ? void 0 : _wallets$Coin98EVM$in.logo,
-    "blockchains": _toConsumableArray(supported$4),
+    "blockchains": _toConsumableArray(supported$3),
     "colors": {
       "primary": "#252525",
       "secondary": "#d9b432"
@@ -266,7 +266,7 @@
     "name": "Brave",
     "extensions": ["BraveEVM", "BraveSVM"],
     "logo": (_wallets$BraveEVM = web3WalletsSvm.wallets.BraveEVM) === null || _wallets$BraveEVM === void 0 ? void 0 : (_wallets$BraveEVM$inf = _wallets$BraveEVM.info) === null || _wallets$BraveEVM$inf === void 0 ? void 0 : _wallets$BraveEVM$inf.logo,
-    "blockchains": _toConsumableArray(supported$4),
+    "blockchains": _toConsumableArray(supported$3),
     "colors": {
       "primary": "#ffffff",
       "secondary": "#f05a22"
@@ -275,7 +275,7 @@
     "name": "Magic Eden",
     "extensions": ["MagicEdenEVM", "MagicEdenSVM"],
     "logo": (_wallets$MagicEdenEVM = web3WalletsSvm.wallets.MagicEdenEVM) === null || _wallets$MagicEdenEVM === void 0 ? void 0 : (_wallets$MagicEdenEVM2 = _wallets$MagicEdenEVM.info) === null || _wallets$MagicEdenEVM2 === void 0 ? void 0 : _wallets$MagicEdenEVM2.logo,
-    "blockchains": _toConsumableArray(supported$4),
+    "blockchains": _toConsumableArray(supported$3),
     "colors": {
       "primary": "#070c34",
       "secondary": "#ff8c00"
@@ -301,7 +301,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/rainbow.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#092b70",
       "secondary": "#ffde01"
@@ -327,7 +327,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/uniswap_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#fffbfe",
       "secondary": "#f43ddf"
@@ -353,7 +353,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safe.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#10ff80",
       "secondary": "#121312"
@@ -365,7 +365,7 @@
       "qr": "WalletConnectV2"
     },
     "logo": (_wallets$Rabby = web3WalletsSvm.wallets.Rabby) === null || _wallets$Rabby === void 0 ? void 0 : (_wallets$Rabby$info = _wallets$Rabby.info) === null || _wallets$Rabby$info === void 0 ? void 0 : _wallets$Rabby$info.logo,
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#5c48ed",
       "secondary": "#a6a6ff"
@@ -388,7 +388,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/kraken.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#7a3ef5",
       "secondary": "#f3cefc"
@@ -410,7 +410,7 @@
       }
     },
     "logo": (_wallets$Backpack = web3WalletsSvm.wallets.Backpack) === null || _wallets$Backpack === void 0 ? void 0 : (_wallets$Backpack$inf = _wallets$Backpack.info) === null || _wallets$Backpack$inf === void 0 ? void 0 : _wallets$Backpack$inf.logo,
-    "blockchains": _toConsumableArray(supported$4.svm),
+    "blockchains": _toConsumableArray(supported$3.svm),
     "colors": {
       "primary": "#e23e3f",
       "secondary": "#252525",
@@ -441,7 +441,7 @@
       }
     },
     "logo": (_wallets$Glow = web3WalletsSvm.wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
-    "blockchains": _toConsumableArray(supported$4.svm),
+    "blockchains": _toConsumableArray(supported$3.svm),
     "colors": {
       "primary": "#aa35d8",
       "secondary": "#f5e4fb"
@@ -469,7 +469,7 @@
       }
     },
     "logo": (_wallets$Solflare = web3WalletsSvm.wallets.Solflare) === null || _wallets$Solflare === void 0 ? void 0 : (_wallets$Solflare$inf = _wallets$Solflare.info) === null || _wallets$Solflare$inf === void 0 ? void 0 : _wallets$Solflare$inf.logo,
-    "blockchains": _toConsumableArray(supported$4.svm),
+    "blockchains": _toConsumableArray(supported$3.svm),
     "colors": {
       "primary": "#fef046",
       "secondary": "#03050b"
@@ -492,7 +492,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/family.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#12bec1",
       "secondary": "#d7f3ff"
@@ -515,7 +515,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/imtoken.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm),
+    "blockchains": _toConsumableArray(supported$3.evm),
     "colors": {
       "primary": "#037ab6",
       "secondary": "#ffffff"
@@ -540,7 +540,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/mew_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ONTO",
     "desktop": {
@@ -559,7 +559,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/onto.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Zerion",
     "desktop": {
@@ -582,7 +582,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zerion.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Spot",
     "desktop": {
@@ -603,7 +603,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/spot.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "BitGet (BitKeep)",
     "desktop": {
@@ -624,7 +624,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitget.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Unstoppable Domains",
     "desktop": {
@@ -643,7 +643,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/unstoppable_domains.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Omni",
     "desktop": {
@@ -664,7 +664,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/omni.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "KEYRING PRO",
     "desktop": {
@@ -685,7 +685,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/keyring_pro.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "TP Wallet (TokenPocket)",
     "extension": "TokenPocket",
@@ -705,7 +705,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/token_pocket.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "BitPay",
     "desktop": {
@@ -726,7 +726,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitpay.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "MathWallet",
     "desktop": {
@@ -747,7 +747,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/math_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Ledger Live",
     "desktop": {
@@ -769,7 +769,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ledger_live.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "1inch Wallet",
     "desktop": {
@@ -790,7 +790,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/1inch_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "iToken Wallet",
     "desktop": {
@@ -809,7 +809,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/i_token_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Huddln",
     "desktop": {
@@ -828,7 +828,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/huddln.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Eidoo",
     "desktop": {
@@ -849,7 +849,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/eidoo.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Timeless Wallet",
     "desktop": {
@@ -870,7 +870,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/timeless.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "CoolWallet",
     "desktop": {
@@ -889,7 +889,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/cool_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Unstoppable Wallet",
     "desktop": {
@@ -908,7 +908,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/unstoppable.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "AlphaWallet",
     "desktop": {
@@ -929,7 +929,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/alpha_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Pillar",
     "desktop": {
@@ -948,7 +948,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pillar.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "D'CENT Wallet",
     "desktop": {
@@ -969,7 +969,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/dcent.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ZelCore",
     "desktop": {
@@ -990,7 +990,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zel_core.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Nash",
     "desktop": {
@@ -1011,7 +1011,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nash.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Coinomi",
     "desktop": {
@@ -1030,7 +1030,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coinomi.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "CYBAVO Wallet",
     "desktop": {
@@ -1051,7 +1051,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/cybavo.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Tokenary",
     "desktop": {
@@ -1060,14 +1060,14 @@
       "connect": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/tokenary.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Torus",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/torus.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "SafePal",
     "desktop": {
@@ -1088,7 +1088,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safepal.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Infinity Wallet",
     "desktop": {
@@ -1097,7 +1097,7 @@
       "connect": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/infinity_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bridge Wallet",
     "desktop": {
@@ -1118,7 +1118,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/mtperlin.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "SparkPoint",
     "desktop": {
@@ -1139,7 +1139,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/sparkpoint.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "PEAKDEFI Wallet",
     "desktop": {
@@ -1160,7 +1160,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/peakdefi.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "AT.Wallet",
     "desktop": {
@@ -1181,7 +1181,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/atwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Ellipal",
     "desktop": {
@@ -1202,7 +1202,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ellipal.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Aktionariat",
     "desktop": {
@@ -1223,7 +1223,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/aktionariat.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Talken Wallet",
     "desktop": {
@@ -1244,7 +1244,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/talken.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "KyberSwap",
     "desktop": {
@@ -1265,7 +1265,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/kyberswap.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Tongue Wallet",
     "desktop": {
@@ -1286,7 +1286,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/tongue.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "RWallet",
     "desktop": {
@@ -1307,7 +1307,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/rwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "O3Wallet",
     "desktop": {
@@ -1328,7 +1328,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/o3wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "HashKey Me",
     "desktop": {
@@ -1349,14 +1349,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/hashkeyme.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Guarda Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/guarda.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Defiant",
     "desktop": {
@@ -1377,7 +1377,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/defiant.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Valora",
     "desktop": {
@@ -1398,7 +1398,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/valora.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Celo Wallet",
     "desktop": {
@@ -1417,7 +1417,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/celo.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Elastos Essentials",
     "desktop": {
@@ -1438,7 +1438,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/elastos_essentials.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Stasis",
     "desktop": {
@@ -1459,7 +1459,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/stasis.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "JulWallet",
     "desktop": {
@@ -1480,7 +1480,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/julwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bitpie",
     "desktop": {
@@ -1499,7 +1499,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitpie.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Minerva Wallet",
     "desktop": {
@@ -1520,7 +1520,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/minerva.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Tangem",
     "desktop": {
@@ -1541,7 +1541,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/tangem.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ioPay",
     "desktop": {
@@ -1560,21 +1560,21 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/io_pay.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Coinhub",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/coinhub.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Go Pocket",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/gopocket.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Wallet 3",
     "desktop": {
@@ -1594,7 +1594,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/wallet3.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "yiToken",
     "desktop": {
@@ -1613,7 +1613,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/yitoken.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "DID Wallet",
     "desktop": {
@@ -1632,7 +1632,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/didwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Shinobi Wallet",
     "desktop": {
@@ -1651,7 +1651,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/shinobi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "AirGap Wallet",
     "desktop": {
@@ -1670,7 +1670,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/air_gap_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "SecuX",
     "desktop": {
@@ -1691,7 +1691,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/secux.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Orange",
     "desktop": {
@@ -1712,7 +1712,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/orange.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Krystal",
     "desktop": {
@@ -1731,7 +1731,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/krystal.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Kriptomat",
     "desktop": {
@@ -1750,7 +1750,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/kriptomat.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Ambire Wallet",
     "desktop": {
@@ -1771,7 +1771,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ambire_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "PayBolt",
     "desktop": {
@@ -1790,7 +1790,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pay_bolt.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "OKX",
     "extensions": ["OKXEVM", "OKXSVM"],
@@ -1816,21 +1816,21 @@
       }
     },
     "logo": (_wallets$OKXEVM = web3WalletsSvm.wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Mask Network",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/mask_network.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Uniblow",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/uniblow.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Autonomy: Digital Art Wallet",
     "desktop": {
@@ -1851,7 +1851,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/autonomy.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Lilico",
     "desktop": {
@@ -1872,7 +1872,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/lilico.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Fireblocks",
     "desktop": {
@@ -1893,7 +1893,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/fireblocks.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "WATT ME",
     "desktop": {
@@ -1912,7 +1912,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/wattme.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Coingrig",
     "desktop": {
@@ -1933,14 +1933,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coingrig.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Cryptnox Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/cryptnox_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "bobablocks",
     "desktop": {
@@ -1963,7 +1963,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bobablocks.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Plasma Wallet",
     "desktop": {
@@ -1984,7 +1984,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/plasma_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "HUMBL WALLET",
     "desktop": {
@@ -2005,7 +2005,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/humbl_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Zelus",
     "desktop": {
@@ -2024,7 +2024,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zelus.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Earth Wallet",
     "desktop": {
@@ -2043,14 +2043,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/earth_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Boba Multisig",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/boba_multisig.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "EASY",
     "desktop": {
@@ -2071,7 +2071,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/easy.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ISLAMIwallet",
     "desktop": {
@@ -2092,7 +2092,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/islam_iwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Card Wallet",
     "desktop": {
@@ -2113,21 +2113,21 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/card_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "GameStop Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/game_stop_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "RealT Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/real_t_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "PLTwallet",
     "desktop": {
@@ -2148,7 +2148,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pl_twallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Avacus",
     "desktop": {
@@ -2169,7 +2169,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/avacus.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "StrikeX Wallet",
     "desktop": {
@@ -2188,14 +2188,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/strike_x_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "BCERTin wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/bcer_tin_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Edge Wallet",
     "desktop": {
@@ -2216,7 +2216,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/edge_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Freedom Wallet",
     "desktop": {
@@ -2235,7 +2235,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/freedom_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Assure",
     "desktop": {
@@ -2256,7 +2256,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/assure.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Cosmostation",
     "desktop": {
@@ -2275,7 +2275,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/cosmostation.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "THORWallet",
     "desktop": {
@@ -2294,14 +2294,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/thor_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Gryfyn",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/gryfyn.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "CoinStats",
     "desktop": {
@@ -2322,7 +2322,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coin_stats.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Abra Wallet",
     "desktop": {
@@ -2341,7 +2341,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/abra_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Opera Crypto Browser",
     "desktop": {
@@ -2360,7 +2360,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/opera_crypto_browser.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Keywallet Touch",
     "desktop": {
@@ -2379,7 +2379,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/keywallet_touch.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Enno Wallet",
     "desktop": {
@@ -2398,14 +2398,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/enno_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "A4 Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/a4_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bitcoin.com Wallet",
     "desktop": {
@@ -2426,7 +2426,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitcoincom.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Defiant",
     "desktop": {
@@ -2447,14 +2447,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/defiant.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Chain",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/chain.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Verso",
     "desktop": {
@@ -2475,7 +2475,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/verso.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "LOBSTR Wallet",
     "desktop": {
@@ -2496,7 +2496,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/lobstr_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bifrost Wallet",
     "desktop": {
@@ -2517,7 +2517,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bifrost_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Okse Wallet",
     "desktop": {
@@ -2536,14 +2536,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/okse_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "BRISE Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/brise_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "HyperPay",
     "extension": "HyperPay",
@@ -2551,14 +2551,14 @@
       "qr": "WalletConnectV2"
     },
     "logo": (_wallets$HyperPay = web3WalletsSvm.wallets.HyperPay) === null || _wallets$HyperPay === void 0 ? void 0 : (_wallets$HyperPay$inf = _wallets$HyperPay.info) === null || _wallets$HyperPay$inf === void 0 ? void 0 : _wallets$HyperPay$inf.logo,
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ATON",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/aton.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Frontier",
     "desktop": {
@@ -2577,7 +2577,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/frontier.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "MDAO Wallet",
     "desktop": {
@@ -2596,7 +2596,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/mdao_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "TTM Wallet",
     "desktop": {
@@ -2615,7 +2615,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ttm_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Opto Wallet",
     "desktop": {
@@ -2634,7 +2634,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/opto_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "XFUN Wallet",
     "desktop": {
@@ -2655,7 +2655,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/xfun_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Exodus",
     "extensions": ["ExodusEVM", "ExodusSVM"],
@@ -2676,7 +2676,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/exodus.jpg",
-    "blockchains": _toConsumableArray(supported$4)
+    "blockchains": _toConsumableArray(supported$3)
   }, {
     "name": "Uvtoken",
     "desktop": {
@@ -2695,7 +2695,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/uv_token.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "PREMA Wallet",
     "desktop": {
@@ -2718,7 +2718,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/prema_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Shinobi-Wallet",
     "desktop": {
@@ -2737,7 +2737,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/shinobi.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ByteBank",
     "desktop": {
@@ -2756,7 +2756,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/byte_bank.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Ancrypto Wallet",
     "desktop": {
@@ -2775,7 +2775,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/ancrypto_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bee Wallet",
     "desktop": {
@@ -2796,7 +2796,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bee_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "LATOKEN Multichain DeFi Wallet",
     "desktop": {
@@ -2815,7 +2815,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/latoken_multichain_de_fi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "TK Finance",
     "desktop": {
@@ -2836,7 +2836,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/tk_finance.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Oxalus Wallet",
     "desktop": {
@@ -2857,7 +2857,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/oxalus_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "3S Wallet",
     "desktop": {
@@ -2876,7 +2876,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/3_s_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Klever Wallet",
     "desktop": {
@@ -2897,7 +2897,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/klever_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "OneKey",
     "desktop": {
@@ -2920,7 +2920,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/one_key.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "helix id",
     "desktop": {
@@ -2939,7 +2939,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/helix_id.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ABC Wallet",
     "desktop": {
@@ -2960,7 +2960,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/abcwallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "HaHa",
     "desktop": {
@@ -2981,7 +2981,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/haha.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Volt: DeFi",
     "desktop": {
@@ -3002,7 +3002,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/volt.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Robinhood Wallet",
     "desktop": {
@@ -3021,7 +3021,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/robinhood_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "RiceWallet",
     "desktop": {
@@ -3042,7 +3042,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/rice_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "SafeMoon",
     "desktop": {
@@ -3063,7 +3063,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safemoon.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "SimpleHold",
     "desktop": {
@@ -3084,7 +3084,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/simple_hold.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "GoldBit",
     "desktop": {
@@ -3103,7 +3103,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/gold_bit.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ioPay",
     "desktop": {
@@ -3122,7 +3122,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/iopay.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bitizen",
     "desktop": {
@@ -3143,7 +3143,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitizen.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Slavi Wallet",
     "desktop": {
@@ -3164,7 +3164,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/slavi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Nufinetes",
     "desktop": {
@@ -3187,7 +3187,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nufinetes.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Arianee Wallet",
     "desktop": {
@@ -3208,7 +3208,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/arianee_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "NOW Wallet",
     "desktop": {
@@ -3229,7 +3229,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/now_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Arculus Wallet",
     "desktop": {
@@ -3250,7 +3250,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/arculus_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Linen",
     "desktop": {
@@ -3271,7 +3271,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/linen.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Nitrogen Wallet",
     "desktop": {
@@ -3290,7 +3290,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nitrogen_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ApolloX",
     "desktop": {
@@ -3309,14 +3309,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/apollo_x.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ID Pocket",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/id_pocket.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "CoinCircle",
     "desktop": {
@@ -3335,21 +3335,21 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/coin_circle.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "SahalWallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/sahal_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "UPBOND Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/upbond_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Sequence Wallet",
     "desktop": {
@@ -3368,7 +3368,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/sequence_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "LocalTrade Wallet",
     "desktop": {
@@ -3387,14 +3387,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/local_trade_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Loopring Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/loopring_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Vision: Crypto Wallet",
     "desktop": {
@@ -3413,14 +3413,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/vision.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Ballet Crypto",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/ballet_crypto.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Pitaka",
     "desktop": {
@@ -3441,49 +3441,49 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pitaka.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "AbsoluteWallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/absolute_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "The Parallel",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/the_parallel.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "CypherD Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/cypher_d_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Keplr",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/keplr.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "MyWalliD",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/my_walli_d.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Status",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/status.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Monarch Wallet",
     "desktop": {
@@ -3502,7 +3502,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/monarch_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Marble",
     "desktop": {
@@ -3521,7 +3521,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/marble.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Flooz",
     "desktop": {
@@ -3540,7 +3540,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/flooz.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Blockchain.com",
     "desktop": {
@@ -3559,14 +3559,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/blockchaincom.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Dohrnii Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/dohrnii_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "UniPass",
     "desktop": {
@@ -3585,7 +3585,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/uni_pass.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ZenGo",
     "desktop": {
@@ -3606,14 +3606,14 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/zengo2.png",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Locker Token",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/locker_token.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Keeper",
     "desktop": {
@@ -3632,28 +3632,28 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/keeper.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "XDEFI Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/xdefi_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Numio",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/numio.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Neon Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/neon_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Nabox",
     "desktop": {
@@ -3672,7 +3672,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/nabox.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Snowball",
     "desktop": {
@@ -3691,7 +3691,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/snowball.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "KryptoGO Wallet",
     "desktop": {
@@ -3710,28 +3710,28 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/krypto_go_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Payperless",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/payperless.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Brave Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/brave_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Crossmint",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/crossmint.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Safematrix",
     "desktop": {
@@ -3750,7 +3750,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/safematrix.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "pier",
     "desktop": {
@@ -3769,7 +3769,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/pier.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "FILWallet",
     "desktop": {
@@ -3788,7 +3788,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/fil_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "ParaSwap Wallet",
     "desktop": {
@@ -3807,7 +3807,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/para_swap_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Bitski",
     "desktop": {
@@ -3828,7 +3828,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/bitski.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Hippo Wallet",
     "desktop": {
@@ -3849,7 +3849,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/hippo_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Core",
     "desktop": {
@@ -3868,7 +3868,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/core.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Xcapit",
     "desktop": {
@@ -3887,7 +3887,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/xcapit.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Paper",
     "desktop": {
@@ -3906,7 +3906,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/paper_wallet.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "MetaOne",
     "desktop": {
@@ -3925,7 +3925,7 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/metaone.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Enjin Wallet",
     "desktop": {
@@ -3946,19 +3946,19 @@
       }
     },
     "logo": "https://img1.depay.com/wallets/enjin.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "BC Vault",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "https://img1.depay.com/wallets/bc_vault.jpg",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Ethereum Wallet",
     "extension": "WindowEthereum",
     "logo": (_wallets$WindowEthere = web3WalletsSvm.wallets.WindowEthereum) === null || _wallets$WindowEthere === void 0 ? void 0 : (_wallets$WindowEthere2 = _wallets$WindowEthere.info) === null || _wallets$WindowEthere2 === void 0 ? void 0 : _wallets$WindowEthere2.logo,
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }, {
     "name": "Solana Pay",
     "desktop": {
@@ -3973,7 +3973,7 @@
       }
     },
     "logo": (_Blockchains$solana = Blockchains__default['default'].solana) === null || _Blockchains$solana === void 0 ? void 0 : _Blockchains$solana.logo,
-    "blockchains": _toConsumableArray(supported$4.svm)
+    "blockchains": _toConsumableArray(supported$3.svm)
   }, {
     "name": "Solana Wallet",
     "extension": "WindowSolana",
@@ -3989,14 +3989,14 @@
       }
     },
     "logo": (_wallets$WindowSolana = web3WalletsSvm.wallets.WindowSolana) === null || _wallets$WindowSolana === void 0 ? void 0 : (_wallets$WindowSolana2 = _wallets$WindowSolana.info) === null || _wallets$WindowSolana2 === void 0 ? void 0 : _wallets$WindowSolana2.logo,
-    "blockchains": _toConsumableArray(supported$4.svm)
+    "blockchains": _toConsumableArray(supported$3.svm)
   }, {
     "name": "WalletConnect",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "logo": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0ndXRmLTgnPz48IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMjUuNC4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAtLT48c3ZnIHZlcnNpb249JzEuMScgaWQ9J0xheWVyXzEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB2aWV3Qm94PScwIDAgNTAwIDUwMCcgc3R5bGU9J2VuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAwIDUwMDsnIHhtbDpzcGFjZT0ncHJlc2VydmUnPjxzdHlsZSB0eXBlPSd0ZXh0L2Nzcyc+IC5zdDB7ZmlsbDojNTk5MUNEO30KPC9zdHlsZT48ZyBpZD0nUGFnZS0xJz48ZyBpZD0nd2FsbGV0Y29ubmVjdC1sb2dvLWFsdCc+PHBhdGggaWQ9J1dhbGxldENvbm5lY3QnIGNsYXNzPSdzdDAnIGQ9J00xMDIuNywxNjJjODEuNS03OS44LDIxMy42LTc5LjgsMjk1LjEsMGw5LjgsOS42YzQuMSw0LDQuMSwxMC41LDAsMTQuNEwzNzQsMjE4LjkgYy0yLDItNS4zLDItNy40LDBsLTEzLjUtMTMuMmMtNTYuOC01NS43LTE0OS01NS43LTIwNS44LDBsLTE0LjUsMTQuMWMtMiwyLTUuMywyLTcuNCwwTDkxLjksMTg3Yy00LjEtNC00LjEtMTAuNSwwLTE0LjQgTDEwMi43LDE2MnogTTQ2Ny4xLDIyOS45bDI5LjksMjkuMmM0LjEsNCw0LjEsMTAuNSwwLDE0LjRMMzYyLjMsNDA1LjRjLTQuMSw0LTEwLjcsNC0xNC44LDBjMCwwLDAsMCwwLDBMMjUyLDMxMS45IGMtMS0xLTIuNy0xLTMuNywwaDBsLTk1LjUsOTMuNWMtNC4xLDQtMTAuNyw0LTE0LjgsMGMwLDAsMCwwLDAsMEwzLjQsMjczLjZjLTQuMS00LTQuMS0xMC41LDAtMTQuNGwyOS45LTI5LjIgYzQuMS00LDEwLjctNCwxNC44LDBsOTUuNSw5My41YzEsMSwyLjcsMSwzLjcsMGMwLDAsMCwwLDAsMGw5NS41LTkzLjVjNC4xLTQsMTAuNy00LDE0LjgsMGMwLDAsMCwwLDAsMGw5NS41LDkzLjUgYzEsMSwyLjcsMSwzLjcsMGw5NS41LTkzLjVDNDU2LjQsMjI1LjksNDYzLDIyNS45LDQ2Ny4xLDIyOS45eicvPjwvZz48L2c+PC9zdmc+Cg==",
-    "blockchains": _toConsumableArray(supported$4.evm)
+    "blockchains": _toConsumableArray(supported$3.evm)
   }].filter(function (wallet) {
     return wallet.blockchains.filter(Boolean).length > 0;
   });
@@ -5260,7 +5260,8 @@
       if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && accept && accept.every(function (accept) {
         return accept.amount;
       })) {
-        return props.continueWithSolanaPay();
+        props.setSolanaPayWallet(props.wallet);
+        return;
       }
 
       if (typeof props.platform.qr === 'function') {
@@ -6916,17 +6917,15 @@
         setShowConnectExtensionWarning = _useState18[1];
 
     var resolve = function resolve(account, wallet) {
-      if (account && wallet) {
-        var walletMeta = allWallets.find(function (walletMeta) {
-          return walletMeta.name == wallet.name;
-        });
-        set$1(walletMeta.name);
-        if (props.autoClose) close();
-        if (props.resolve) props.resolve({
-          account: account,
-          wallet: wallet
-        });
-      }
+      var walletMeta = allWallets.find(function (walletMeta) {
+        return walletMeta.name == wallet.name;
+      });
+      set$1(walletMeta.name);
+      if (props.autoClose) close();
+      if (props.resolve) props.resolve({
+        account: account,
+        wallet: wallet
+      });
     };
 
     var connectExtension = function connectExtension(wallet, extension) {
@@ -7189,8 +7188,8 @@
           connectingExtension: connectingExtension,
           connectingApp: connectingApp,
           showConnectExtensionWarning: showConnectExtensionWarning,
-          continueWithSolanaPay: props.continueWithSolanaPay,
-          connectionError: connectionError
+          connectionError: connectionError,
+          setSolanaPayWallet: props.setSolanaPayWallet
         })
       }
     }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null));
@@ -7277,7 +7276,7 @@
 
   var ErrorContext = /*#__PURE__*/React__default['default'].createContext();
 
-  var ErrorGraphic$1 = (function (props) {
+  var ErrorGraphic = (function (props) {
     var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta47$colors, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta51$colors, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors, _walletMeta54, _walletMeta54$colors, _walletMeta55, _walletMeta55$colors, _walletMeta56, _walletMeta56$colors, _walletMeta57, _walletMeta57$colors, _walletMeta58, _walletMeta58$colors, _walletMeta59, _walletMeta59$colors, _walletMeta60, _walletMeta60$colors, _walletMeta61, _walletMeta61$colors, _walletMeta62, _walletMeta62$colors, _walletMeta63, _walletMeta63$colors, _walletMeta64, _walletMeta65, _walletMeta65$colors, _walletMeta66, _walletMeta66$colors, _walletMeta67;
 
     var walletctx = React.useContext(WalletContext);
@@ -7697,7 +7696,7 @@
     }
   }
 
-  const _jsxFileName$2 = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
+  const _jsxFileName = "/Users/sebastian/Work/DePay/react-dialog/src/index.jsx";
   class ReactDialog extends React__default['default'].Component {
     constructor(props) {
       super(props);
@@ -7727,7 +7726,7 @@
             close: this.props.close,
             document: _document,
             open: this.props.open,
-            animate: this.props.animate, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 29}}
+            animate: this.props.animate, __self: this, __source: {fileName: _jsxFileName, lineNumber: 29}}
           
             , this.props.children
           ),
@@ -7829,7 +7828,7 @@
         className: "DialogBody TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "GraphicWrapper PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic$1, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
+      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Oops, Something Went Wrong"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
@@ -7931,7 +7930,7 @@
   });
 
   var LogoStyle = (function (style) {
-    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n    \n    .SolanaPayLogo path {\n      fill: ".concat(isDarkMode() ? '#FFFFFF' : '#000000', ";\n    }\n  ");
+    return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 34px;\n      position: relative;\n      top: 4px;\n      left: 4px;\n    }\n    \n    .SolanaPayLogo path {\n      fill: ".concat(isDarkMode() ? '#FFFFFF' : '#000000', ";\n    }\n  ");
   });
 
   var MarginStyle = (function () {
@@ -8732,8 +8731,6 @@
     });
   });
 
-  var SolanaPayContext = /*#__PURE__*/React__default['default'].createContext();
-
   var WalletMissesBlockchainSupportDialog = (function (props) {
     var _useContext = React.useContext(reactDialogStack.NavigateStackContext);
         _useContext.navigate;
@@ -8809,8 +8806,6 @@
         accept = _useContext2.accept,
         passedWallet = _useContext2.wallet;
 
-    var solanaPayContext = React.useContext(SolanaPayContext);
-
     var _useContext3 = React.useContext(UpdatableContext),
         setUpdatable = _useContext3.setUpdatable;
 
@@ -8822,30 +8817,35 @@
         wallet = _useState2[0],
         setWallet = _useState2[1];
 
-    var _useState3 = React.useState(),
+    var _useState3 = React.useState(false),
         _useState4 = _slicedToArray(_useState3, 2),
-        navigator = _useState4[0],
-        setNavigator = _useState4[1];
+        solanaPayWallet = _useState4[0],
+        _setSolanaPayWallet = _useState4[1];
 
-    var _useState5 = React.useState(false),
+    var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        walletMissesBlockchainSupport = _useState6[0],
-        setWalletMissesBlockchainSupport = _useState6[1];
+        navigator = _useState6[0],
+        setNavigator = _useState6[1];
 
-    var _useState7 = React.useState(),
+    var _useState7 = React.useState(false),
         _useState8 = _slicedToArray(_useState7, 2),
-        account = _useState8[0],
-        setAccount = _useState8[1];
+        walletMissesBlockchainSupport = _useState8[0],
+        setWalletMissesBlockchainSupport = _useState8[1];
 
-    var _useState9 = React.useState(false),
+    var _useState9 = React.useState(),
         _useState10 = _slicedToArray(_useState9, 2),
-        navigationReturnsToConnect = _useState10[0],
-        setNavigationReturnsToConnect = _useState10[1];
+        account = _useState10[0],
+        setAccount = _useState10[1];
 
-    var _useState11 = React.useState(passedWallet ? 'connected' : undefined),
+    var _useState11 = React.useState(false),
         _useState12 = _slicedToArray(_useState11, 2),
-        walletState = _useState12[0],
-        setWalletState = _useState12[1];
+        navigationReturnsToConnect = _useState12[0],
+        setNavigationReturnsToConnect = _useState12[1];
+
+    var _useState13 = React.useState(passedWallet ? 'connected' : undefined),
+        _useState14 = _slicedToArray(_useState13, 2),
+        walletState = _useState14[0],
+        setWalletState = _useState14[1];
 
     React.useCallback(debounce(function () {
       wallet.connect().then(setAccount);
@@ -8877,11 +8877,6 @@
       setWalletMissesBlockchainSupport(false);
     };
 
-    var continueWithSolanaPay = !accept || !accept.some(function (configuration) {
-      return configuration.blockchain === 'solana';
-    }) ? undefined : function () {
-      solanaPayContext.start();
-    };
     React.useEffect(function () {
       if (!wallet) {
         return;
@@ -8945,6 +8940,11 @@
         }, _callee);
       }))();
     }, []);
+    React.useEffect(function () {
+      if (solanaPayWallet) {
+        setWalletState('connected');
+      }
+    }, [solanaPayWallet]);
 
     if (walletMissesBlockchainSupport) {
       return /*#__PURE__*/React__default['default'].createElement(WalletContext.Provider, {
@@ -8971,7 +8971,8 @@
         value: {
           account: account,
           wallet: wallet,
-          disconnect: disconnect
+          disconnect: disconnect,
+          solanaPayWallet: solanaPayWallet
         }
       }, props.children);
     } else {
@@ -8981,7 +8982,9 @@
         container: props.container,
         resolve: connected,
         accept: accept,
-        continueWithSolanaPay: continueWithSolanaPay,
+        setSolanaPayWallet: function setSolanaPayWallet(value) {
+          return _setSolanaPayWallet(value);
+        },
         stacked: navigationReturnsToConnect ? 'backward' : undefined
       });
     }
@@ -9389,7 +9392,6 @@
         deny = _ref.deny,
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
-        fee = _ref.fee,
         best = _ref.best;
     return web3PaymentsSvm.route({
       accept: accept.map(function (accept) {
@@ -9398,7 +9400,6 @@
       from: mergeFromAccounts(accept, account),
       allow: allow || whitelist,
       deny: deny || blacklist,
-      fee: fee,
       best: best
     });
   });
@@ -9861,12 +9862,11 @@
         _useContext7.account;
 
     var _useContext8 = React.useContext(PaymentTrackingContext),
-        setTrackingPayment = _useContext8.setPayment,
         release = _useContext8.release,
         synchronousTracking = _useContext8.synchronousTracking,
         asynchronousTracking = _useContext8.asynchronousTracking,
         trackingInitialized = _useContext8.trackingInitialized,
-        initializePaymentTracking = _useContext8.initializeTracking,
+        track = _useContext8.track,
         trace = _useContext8.trace;
 
     var _useState = React.useState(),
@@ -10000,7 +10000,7 @@
                 currentBlock = _context2.sent;
                 deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
                 _context2.next = 21;
-                return trace(currentBlock, payment.route, transaction, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+                return trace(currentBlock, payment.route, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                   return regenerator.wrap(function _callee$(_context) {
                     while (1) {
                       switch (_context.prev = _context.next) {
@@ -10037,7 +10037,7 @@
                             }
                           })).then(function (sentTransaction) {
                             setTransaction(sentTransaction);
-                            initializePaymentTracking(sentTransaction, currentBlock, payment.route, deadline);
+                            track(sentTransaction, currentBlock, payment.route, deadline);
                           })["catch"](function (error) {
                             console.log('error', error);
                             setClosable(true);
@@ -10281,8 +10281,6 @@
       };
     }());
     React.useEffect(function () {
-      setTrackingPayment(payment);
-
       if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.ethers.BigNumber.from('0'))) {
         setApprovalType('signature');
       }
@@ -10303,7 +10301,10 @@
         setApprovalTransaction();
         setApprovalSignature();
         setApprovalSignatureData();
-        var fromToken = selectedRoute.fromToken;
+        var fromToken = new Token__default['default']({
+          blockchain: selectedRoute.blockchain,
+          address: selectedRoute.fromToken.address
+        });
         Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
           var _ref6 = _slicedToArray(_ref5, 3),
               name = _ref6[0],
@@ -10851,7 +10852,7 @@
         className: "CardBody"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardBodyWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement("h2", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow"
@@ -10861,7 +10862,7 @@
         className: "TokenAmountCell"
       }, format(payment.amount)))), /*#__PURE__*/React__default['default'].createElement("h3", {
         className: "CardText small"
-      }, /*#__PURE__*/React__default['default'].createElement("small", null, format(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals)))))));
+      }, /*#__PURE__*/React__default['default'].createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals))))))));
     });
 
     if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
@@ -11002,7 +11003,7 @@
         className: "TextCenter"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic$1, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
+      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
         className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
       }, "Payment Failed"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
@@ -11056,47 +11057,6 @@
       viewBox: "0 0 24 24"
     }, /*#__PURE__*/React__default['default'].createElement("path", {
       d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
-    }));
-  });
-
-  var DigitalWalletIcon = (function (props) {
-    return /*#__PURE__*/React__default['default'].createElement("svg", {
-      className: "DigitalWalletIcon Icon " + props.className,
-      version: "1.1",
-      xmlns: "http://www.w3.org/2000/svg",
-      height: "24",
-      width: "24",
-      viewBox: "0 0 24 24"
-    }, /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M8.51,4.84l-.39-.53,4-2.89a2.2,2.2,0,0,1,3.06.48l.4.56-.53.39-.4-.56A1.54,1.54,0,0,0,12.5,2Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M9.77,4.89l-.21-.62,6.31-2.13h0a2.18,2.18,0,0,1,.67-.1h0a2.21,2.21,0,0,1,2.08,1.49l.32.95-.63.21L18,3.73a1.53,1.53,0,0,0-1.45-1h0a1.61,1.61,0,0,0-.48.08h0Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M19.72,16.2H18.27a3.28,3.28,0,1,1,0-6.56h1.45a3.21,3.21,0,0,1,1.33.28h0a3.28,3.28,0,0,1,0,6A3.21,3.21,0,0,1,19.72,16.2Zm-1.45-5.9a2.63,2.63,0,0,0,0,5.25h1.45a2.56,2.56,0,0,0,1.06-.23,2.62,2.62,0,0,0,0-4.8,2.55,2.55,0,0,0-1.06-.22ZM19,14.53a1.61,1.61,0,1,1,1.61-1.61A1.62,1.62,0,0,1,19,14.53ZM19,12a1,1,0,1,0,.95.95A1,1,0,0,0,19,12Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M10.49,19.69a1.58,1.58,0,1,1,1.58-1.57A1.57,1.57,0,0,1,10.49,19.69Zm0-2.49a.92.92,0,1,0,.92.92A.92.92,0,0,0,10.49,17.2Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M19.09,22.14H2.79a2,2,0,0,1-2-2V6.25a2.1,2.1,0,0,1,0-.43,2,2,0,0,1,.48-.92,2,2,0,0,1,1.48-.65H19.09a2,2,0,0,1,.64.1,2,2,0,0,1,1.36,1.79v0a.28.28,0,0,1,0,.09v3.91h-.66v-4a1.49,1.49,0,0,0-.23-.69A1.35,1.35,0,0,0,19.52,5a1.26,1.26,0,0,0-.43-.08H2.82a1.34,1.34,0,0,0-1,.44A1.49,1.49,0,0,0,1.5,6a1.5,1.5,0,0,0,0,.29V20.13a1.36,1.36,0,0,0,1.34,1.35H19.09a1.35,1.35,0,0,0,1.35-1.35V15.68h.66v4.45A2,2,0,0,1,19.09,22.14Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M9.27,9.31a1.58,1.58,0,1,1,0-3.15,1.58,1.58,0,0,1,0,3.15Zm0-2.5a.92.92,0,1,0,.92.92A.92.92,0,0,0,9.27,6.81Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("path", {
-      d: "M7.11,14.67A1.58,1.58,0,1,1,8.69,13.1,1.57,1.57,0,0,1,7.11,14.67Zm0-2.49A.92.92,0,1,0,8,13.1.92.92,0,0,0,7.11,12.18Z",
-      transform: "translate(-0.81 -1)"
-    }), /*#__PURE__*/React__default['default'].createElement("rect", {
-      x: "0.33",
-      y: "11.77",
-      width: "4.72",
-      height: "0.66"
-    }), /*#__PURE__*/React__default['default'].createElement("polygon", {
-      points: "2.08 9.53 0.33 9.53 0.33 8.87 1.8 8.87 4.28 6.39 7.21 6.39 7.21 7.05 4.55 7.05 2.08 9.53"
-    }), /*#__PURE__*/React__default['default'].createElement("polygon", {
-      points: "8.43 17.45 4.53 17.45 2.63 15.55 0.33 15.55 0.33 14.89 2.9 14.89 4.8 16.79 8.43 16.79 8.43 17.45"
     }));
   });
 
@@ -11243,7 +11203,7 @@
     };
 
     var steps = function steps() {
-      if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
+      if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' && (approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url || approvalSignature) || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
         // --- Permit2 signature approval block ---
         var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
         var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
@@ -11333,7 +11293,7 @@
           }) : undefined,
           target: "_blank",
           rel: "noopener noreferrer",
-          className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
+          className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing || paymentDone && !showSyncDone ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
@@ -11345,7 +11305,7 @@
         }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
         })) : /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: 'Step Card disabled small transparent' + (paymentReady ? ' active' : '')
+          className: 'Step Card disabled small transparent' + (paymentReady || paymentDone && !showSyncDone ? ' active' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, paymentDone ? /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
@@ -11372,7 +11332,7 @@
           className: "StepConnector"
         })), showSyncWaiting && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
-            url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+            url: "https://scan.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id, "?sender=").concat(payment.route.fromAddress, "&receiver=").concat(payment.route.toAddress, "&deadline=").concat(transaction.deadline),
             target: '_blank',
             wallet: wallet
           }) : undefined,
@@ -11390,7 +11350,7 @@
           title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
         }, secondsLeft, "s")))), showSyncDone && /*#__PURE__*/React__default['default'].createElement("a", {
           href: transaction ? link({
-            url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+            url: "https://scan.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id, "?sender=").concat(payment.route.fromAddress, "&receiver=").concat(payment.route.toAddress, "&deadline=").concat(transaction.deadline),
             target: '_blank',
             wallet: wallet
           }) : undefined,
@@ -11616,8 +11576,7 @@
       onClick: function onClick() {
         return setShowDropDown(!showDropDown);
       },
-      className: "ButtonCircular",
-      title: "Disconnect connected wallet"
+      className: "ButtonCircular"
     }, /*#__PURE__*/React__default['default'].createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React__default['default'].createElement(DropDown, {
       hide: function hide() {
         return setShowDropDown(false);
@@ -11665,7 +11624,7 @@
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React__default['default'].createElement("h4", {
         className: "CardTitle"
-      }, "Amount"), /*#__PURE__*/React__default['default'].createElement("h2", {
+      }, "Amount"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText"
       }, displayedCurrencyCode && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow"
@@ -11707,7 +11666,7 @@
         className: "CardBodyWrapper"
       }, amountsMissing && !fixedCurrency && /*#__PURE__*/React__default['default'].createElement("h4", {
         className: "CardTitle"
-      }, "Payment"), /*#__PURE__*/React__default['default'].createElement("h2", {
+      }, "Payment"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow"
@@ -11741,883 +11700,6 @@
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement(Footer, null))
     });
-  });
-
-  var TracingFailedDialog = (function (props) {
-    var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext.navigate;
-
-    var tryAgain = function tryAgain() {
-      if (props.tryAgain) {
-        props.tryAgain();
-      }
-
-      navigate('back');
-    };
-
-    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        onClick: function onClick() {
-          window.open("mailto:support@depay.com?subject=Tracing Failed Error", '_blank');
-        },
-        type: "button",
-        className: "Card secondary small inlineBlock"
-      }, "Contact support"))),
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic$1, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", {
-        className: "FontSizeM"
-      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        className: "ButtonPrimary",
-        onClick: tryAgain
-      }, "Try again"))
-    });
-  });
-
-  var TrackingFailedDialog = (function () {
-    var _useContext = React.useContext(PaymentTrackingContext),
-        continueTryTracking = _useContext.continueTryTracking;
-
-    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext2.navigate;
-
-    var tryAgain = function tryAgain() {
-      continueTryTracking();
-      navigate('back');
-    };
-
-    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        onClick: function onClick() {
-          window.open("mailto:support@depay.com?subject=Tracking Failed Error", '_blank');
-        },
-        type: "button",
-        className: "Card secondary small inlineBlock"
-      }, "Contact support")),
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic$1, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", {
-        className: "FontSizeM"
-      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        className: "ButtonPrimary",
-        onClick: tryAgain
-      }, "Try again"))
-    });
-  });
-
-  var WrongNetworkDialog = (function (props) {
-    var _useContext = React.useContext(PaymentContext),
-        payment = _useContext.payment;
-
-    var _useContext2 = React.useContext(WalletContext),
-        wallet = _useContext2.wallet;
-
-    var _useContext3 = React.useContext(reactDialogStack.NavigateStackContext),
-        navigate = _useContext3.navigate;
-
-    var _useState = React.useState(false),
-        _useState2 = _slicedToArray(_useState, 2);
-        _useState2[0];
-        _useState2[1];
-
-    var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
-
-    var switchNetwork = function switchNetwork() {
-      wallet.switchTo(payment.blockchain);
-      navigate('back');
-    };
-
-    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-      stacked: true,
-      header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL FontSizeL"
-      }, "Wrong Network")),
-      body: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter"
-      }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React__default['default'].createElement("img", {
-        className: "Graphic",
-        src: blockchain.logoWhiteBackground
-      })), /*#__PURE__*/React__default['default'].createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Connect to ", blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React__default['default'].createElement("strong", {
-        className: "FontSizeM"
-      }, "Please make sure you connect your wallet to the correct network before you try again!"))),
-      footer: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React__default['default'].createElement("button", {
-        type: "button",
-        className: "ButtonPrimary",
-        onClick: switchNetwork
-      }, "Switch Network"))
-    });
-  });
-
-  var PaymentStack = (function (props) {
-    var _useContext = React.useContext(ClosableContext),
-        open = _useContext.open,
-        close = _useContext.close;
-
-    var _useContext2 = React.useContext(NavigateContext),
-        _setNavigator = _useContext2.setNavigator;
-
-    var _useContext3 = React.useContext(WalletContext),
-        account = _useContext3.account;
-
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        navigator = _useState2[0],
-        setLocalNavigator = _useState2[1];
-
-    React.useEffect(function () {
-      if (navigator) {
-        navigator.set(['PaymentOverview']);
-      }
-    }, [account]);
-    return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
-      setNavigator: function setNavigator(navigator) {
-        setLocalNavigator(navigator);
-
-        _setNavigator(navigator);
-      },
-      open: open,
-      close: close,
-      start: "PaymentOverview",
-      container: props.container,
-      document: props.document,
-      stacked: true,
-      dialogs: {
-        PaymentOverview: /*#__PURE__*/React__default['default'].createElement(PaymentOverviewDialog, null),
-        ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
-        ChangeApproval: /*#__PURE__*/React__default['default'].createElement(ChangeApprovalDialog, null),
-        ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
-        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
-        WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null),
-        TrackingFailed: /*#__PURE__*/React__default['default'].createElement(TrackingFailedDialog, null),
-        TracingFailed: /*#__PURE__*/React__default['default'].createElement(TracingFailedDialog, null)
-      }
-    });
-  });
-
-  var PaymentTrackingProvider = (function (props) {
-    var _useContext = React.useContext(ErrorContext);
-        _useContext.errorCallback;
-
-    var _useContext2 = React.useContext(ConfigurationContext),
-        configurationId = _useContext2.id,
-        track = _useContext2.track,
-        validated = _useContext2.validated;
-        _useContext2.failed;
-        _useContext2.integration;
-        _useContext2.link;
-        _useContext2.type;
-
-    var _useContext3 = React.useContext(WalletContext),
-        account = _useContext3.account,
-        wallet = _useContext3.wallet;
-
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        deadline = _useState2[0],
-        setDeadline = _useState2[1];
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        transaction = _useState4[0],
-        setTransaction = _useState4[1];
-
-    var _useState5 = React.useState(),
-        _useState6 = _slicedToArray(_useState5, 2),
-        confirmationsRequired = _useState6[0],
-        setConfirmationsRequired = _useState6[1];
-
-    var _useState7 = React.useState(),
-        _useState8 = _slicedToArray(_useState7, 2),
-        confirmationsPassed = _useState8[0],
-        setConfirmationsPassed = _useState8[1];
-
-    var _useState9 = React.useState(),
-        _useState10 = _slicedToArray(_useState9, 2),
-        afterBlock = _useState10[0],
-        setAfterBlock = _useState10[1];
-
-    var _useState11 = React.useState(),
-        _useState12 = _slicedToArray(_useState11, 2);
-        _useState12[0];
-        _useState12[1];
-
-    var _useState13 = React.useState(),
-        _useState14 = _slicedToArray(_useState13, 2),
-        payment = _useState14[0],
-        setPayment = _useState14[1];
-
-    var _useState15 = React.useState(),
-        _useState16 = _slicedToArray(_useState15, 2),
-        paymentRoute = _useState16[0],
-        setPaymentRoute = _useState16[1];
-
-    var _useState17 = React.useState(),
-        _useState18 = _slicedToArray(_useState17, 2),
-        attemptId = _useState18[0],
-        setAttemptId = _useState18[1];
-
-    var attemptIdRef = React.useRef(attemptId);
-    attemptIdRef.current = attemptId;
-
-    var _useState19 = React.useState(false),
-        _useState20 = _slicedToArray(_useState19, 2),
-        trackingInitialized = _useState20[0],
-        setTrackingInitialized = _useState20[1];
-
-    var _useState21 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState22 = _slicedToArray(_useState21, 1),
-        synchronousTracking = _useState22[0];
-
-    var _useState23 = React.useState(!configurationId && !!(track && track.async == true)),
-        _useState24 = _slicedToArray(_useState23, 1),
-        asynchronousTracking = _useState24[0];
-
-    var _useState25 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-        _useState26 = _slicedToArray(_useState25, 1),
-        polling = _useState26[0];
-
-    var _useState27 = React.useState(false),
-        _useState28 = _slicedToArray(_useState27, 2),
-        release = _useState28[0],
-        setRelease = _useState28[1];
-
-    var _useState29 = React.useState(),
-        _useState30 = _slicedToArray(_useState29, 2),
-        forwardTo = _useState30[0],
-        setForwardTo = _useState30[1];
-
-    var _useContext4 = React.useContext(ClosableContext),
-        setClosable = _useContext4.setClosable;
-
-    var _useContext5 = React.useContext(NavigateContext),
-        navigate = _useContext5.navigate,
-        set = _useContext5.set;
-
-    var openSocket = function openSocket(paymentRoute, deadline) {
-      var socket = new WebSocket('wss://integrate.depay.com/cable');
-
-      socket.onopen = /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(event) {
-          var msg;
-          return regenerator.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  msg = {
-                    command: 'subscribe',
-                    identifier: JSON.stringify({
-                      blockchain: paymentRoute.blockchain,
-                      sender: paymentRoute.fromAddress,
-                      receiver: paymentRoute.toAddress,
-                      deadline: deadline,
-                      channel: 'PaymentChannel'
-                    })
-                  };
-                  socket.send(JSON.stringify(msg));
-
-                case 2:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        return function (_x) {
-          return _ref.apply(this, arguments);
-        };
-      }();
-
-      socket.onclose = function (event) {
-        if (!event || event.code != 1000) {
-          setTimeout(function () {
-            return openSocket(paymentRoute, deadline);
-          }, 1000);
-        }
-      };
-
-      socket.onmessage = function (event) {
-        var item = JSON.parse(event.data);
-
-        if (item.type === "ping" || !item.message) {
-          return;
-        }
-
-        var success = item.message.status == 'success';
-
-        if (validated) {
-          setTimeout(function () {
-            return validated(success, transaction, payment);
-          }, 200);
-        }
-
-        if (item.message.release) {
-          socket.close();
-
-          if (success) {
-            setRelease(true);
-            setClosable(true);
-            setForwardTo(item.message.forward_to);
-          } else if (success == false) {
-            setClosable(true);
-            set(['PaymentFailed']);
-          }
-        } else if (item.message.confirmations) {
-          setConfirmationsRequired(item.message.confirmations.required);
-          setConfirmationsPassed(item.message.confirmations.passed);
-        }
-      };
-
-      socket.onerror = function (error) {
-        console.log('WebSocket Error: ', error);
-      };
-    };
-
-    var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt) {
-      attempt = parseInt(attempt || 1, 10);
-
-      if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
-        setTimeout(function () {
-          startTracking(transaction, afterBlock, paymentRoute, deadline, attempt + 1);
-        }, 3000);
-      } else {
-        navigate('TrackingFailed');
-      }
-    };
-
-    var continueTryTracking = function continueTryTracking() {
-      retryStartTracking(transaction, afterBlock, paymentRoute, deadline, 1);
-    };
-
-    var callTracking = function callTracking(payment) {
-      if (configurationId) {
-        return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payment)
-        }).then(function (response) {
-          if (response.status == 200 || response.status == 201) {
-            response.json().then(function (attempt) {
-              return setAttemptId(attempt.id);
-            });
-            return response;
-          } else {
-            return reject('TRACKING REQUEST FAILED');
-          }
-        });
-      } else if (track.endpoint) {
-        return fetch(track.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payment)
-        }).then(function (response) {
-          if (response.status == 200 || response.status == 201) {
-            return response;
-          } else {
-            throw response;
-          }
-        });
-      } else if (track.method) {
-        return track.method(payment);
-      } else {
-        throw 'No tracking defined!';
-      }
-    };
-
-    var startTracking = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(transaction, afterBlock, paymentRoute, deadline, attempt) {
-        var _paymentRoute$protoco, _paymentRoute$feeAmou, _paymentRoute$fee, _paymentRoute$feeAmou2, _paymentRoute$fee2;
-
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                callTracking({
-                  blockchain: transaction.blockchain,
-                  transaction: transaction.id,
-                  sender: transaction.from,
-                  after_block: afterBlock.toString(),
-                  from_token: paymentRoute.fromToken.address,
-                  from_amount: paymentRoute.fromAmount.toString(),
-                  from_decimals: paymentRoute.fromDecimals,
-                  to_token: paymentRoute.toToken.address,
-                  to_amount: paymentRoute.toAmount.toString(),
-                  to_decimals: paymentRoute.toDecimals,
-                  protocol_fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$protoco = paymentRoute.protocolFeeAmount) === null || _paymentRoute$protoco === void 0 ? void 0 : _paymentRoute$protoco.toString(),
-                  fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString(),
-                  fee_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee = paymentRoute.fee) === null || _paymentRoute$fee === void 0 ? void 0 : _paymentRoute$fee.receiver,
-                  fee2_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount2) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString(),
-                  fee2_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee2 = paymentRoute.fee2) === null || _paymentRoute$fee2 === void 0 ? void 0 : _paymentRoute$fee2.receiver,
-                  trace_attempt_id: attemptIdRef.current,
-                  deadline: deadline,
-                  selected_wallet: wallet === null || wallet === void 0 ? void 0 : wallet.name
-                }).then(function (response) {
-                  setTrackingInitialized(true);
-                })["catch"](function (error) {
-                  retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt);
-                });
-
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function startTracking(_x2, _x3, _x4, _x5, _x6) {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-
-    var pollStatus = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline) {
-        var handlePollingResponse, performedPayment;
-        return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                if (!(!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined)) {
-                  _context3.next = 2;
-                  break;
-                }
-
-                return _context3.abrupt("return");
-
-              case 2:
-                handlePollingResponse = function handlePollingResponse(data) {
-                  if (data) {
-                    if (data && data.forward_to) {
-                      setClosable(true);
-                      setForwardTo(data.forward_to);
-                    } else {
-                      setClosable(true);
-                    }
-
-                    clearInterval(pollingInterval);
-
-                    if (validated) {
-                      validated(data.status ? data.status == 'success' : true, transaction, payment);
-                    }
-
-                    setRelease(true);
-                  }
-                };
-
-                performedPayment = {
-                  blockchain: transaction.blockchain,
-                  transaction: transaction.id,
-                  sender: transaction.from,
-                  receiver: paymentRoute.toAddress,
-                  deadline: deadline,
-                  after_block: afterBlock.toString(),
-                  to_token: paymentRoute.toToken.address
-                };
-
-                if (configurationId) {
-                  if (attemptId) {
-                    fetch("https://public.depay.com/attempts/".concat(attemptId), {
-                      method: 'GET',
-                      headers: {
-                        'Content-Type': 'application/json'
-                      }
-                    }).then(function (response) {
-                      if (response.status == 200 || response.status == 201) {
-                        return response.json();
-                      } else {
-                        return undefined;
-                      }
-                    }).then(handlePollingResponse);
-                  }
-                } else if (track.poll.endpoint) {
-                  fetch(track.poll.endpoint, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(performedPayment)
-                  }).then(function (response) {
-                    if (response.status == 200 || response.status == 201) {
-                      return response.json()["catch"](function () {
-                        setClosable(true);
-                      });
-                    } else {
-                      return undefined;
-                    }
-                  }).then(handlePollingResponse);
-                } else if (track.poll.method) {
-                  track.poll.method(performedPayment).then(handlePollingResponse);
-                }
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function pollStatus(_x7, _x8, _x9, _x10, _x11, _x12, _x13) {
-        return _ref3.apply(this, arguments);
-      };
-    }();
-
-    React.useEffect(function () {
-      if (forwardTo) {
-        props.document.location.href = forwardTo;
-      }
-    }, [forwardTo]);
-    React.useEffect(function () {
-      if (!polling) {
-        return;
-      }
-
-      if (!synchronousTracking) {
-        return;
-      }
-
-      var pollingInterval = setInterval(function () {
-        return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline);
-      }, 5000);
-      return function () {
-        clearInterval(pollingInterval);
-      };
-    }, [polling, transaction, afterBlock, attemptId, paymentRoute]);
-
-    var initializeTracking = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction, afterBlock, paymentRoute, deadline) {
-        return regenerator.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                if (synchronousTracking || track && track.async == true) {
-                  startTracking(transaction, afterBlock, paymentRoute, deadline);
-                }
-
-                if (!(synchronousTracking == false)) {
-                  _context4.next = 3;
-                  break;
-                }
-
-                return _context4.abrupt("return");
-
-              case 3:
-                setDeadline(deadline);
-                setTransaction(transaction);
-                setAfterBlock(afterBlock);
-                setPaymentRoute(paymentRoute);
-                openSocket(paymentRoute, deadline);
-
-              case 8:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      return function initializeTracking(_x14, _x15, _x16, _x17) {
-        return _ref4.apply(this, arguments);
-      };
-    }();
-
-    var trace = function trace(afterBlock, paymentRoute, transaction, deadline) {
-      setAttemptId(); // reset attemptId in case payment is retried
-
-      if (!synchronousTracking && !asynchronousTracking) {
-        return Promise.resolve();
-      }
-
-      setDeadline(deadline);
-      setAfterBlock(afterBlock);
-      setPaymentRoute(paymentRoute);
-      openSocket(paymentRoute, deadline);
-      return new Promise( /*#__PURE__*/function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(resolve, reject) {
-          var _paymentRoute$protoco2, _paymentRoute$feeAmou3, _paymentRoute$fee3, _paymentRoute$feeAmou4, _paymentRoute$fee4;
-
-          var performedPayment;
-          return regenerator.wrap(function _callee5$(_context5) {
-            while (1) {
-              switch (_context5.prev = _context5.next) {
-                case 0:
-                  performedPayment = {
-                    blockchain: paymentRoute.blockchain,
-                    sender: account,
-                    after_block: afterBlock.toString(),
-                    from_token: paymentRoute.fromToken.address,
-                    from_amount: paymentRoute.fromAmount.toString(),
-                    from_decimals: paymentRoute.fromDecimals,
-                    to_token: paymentRoute.toToken.address,
-                    to_amount: paymentRoute.toAmount.toString(),
-                    to_decimals: paymentRoute.toDecimals,
-                    protocol_fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$protoco2 = paymentRoute.protocolFeeAmount) === null || _paymentRoute$protoco2 === void 0 ? void 0 : _paymentRoute$protoco2.toString(),
-                    fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou3 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou3 === void 0 ? void 0 : _paymentRoute$feeAmou3.toString(),
-                    fee_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee3 = paymentRoute.fee) === null || _paymentRoute$fee3 === void 0 ? void 0 : _paymentRoute$fee3.receiver,
-                    fee2_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou4 = paymentRoute.feeAmount2) === null || _paymentRoute$feeAmou4 === void 0 ? void 0 : _paymentRoute$feeAmou4.toString(),
-                    fee2_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee4 = paymentRoute.fee2) === null || _paymentRoute$fee4 === void 0 ? void 0 : _paymentRoute$fee4.receiver,
-                    deadline: deadline,
-                    selected_wallet: wallet === null || wallet === void 0 ? void 0 : wallet.name
-                  };
-
-                  if (!configurationId) {
-                    _context5.next = 5;
-                    break;
-                  }
-
-                  return _context5.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(performedPayment)
-                  }).then(function (response) {
-                    if (response.status == 200 || response.status == 201) {
-                      response.json().then(function (attempt) {
-                        return setAttemptId(attempt.id);
-                      });
-                      return resolve();
-                    } else {
-                      return reject('TRACING REQUEST FAILED');
-                    }
-                  }));
-
-                case 5:
-                  if (!track.endpoint) {
-                    _context5.next = 9;
-                    break;
-                  }
-
-                  return _context5.abrupt("return", fetch(track.endpoint, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(performedPayment)
-                  }).then(function (response) {
-                    if (response.status == 200 || response.status == 201) {
-                      return resolve();
-                    } else {
-                      return reject('TRACING REQUEST FAILED');
-                    }
-                  }));
-
-                case 9:
-                  if (track.method) {
-                    track.method(performedPayment).then(resolve)["catch"](reject);
-                  } else {
-                    reject('No tracking defined!');
-                  }
-
-                case 10:
-                case "end":
-                  return _context5.stop();
-              }
-            }
-          }, _callee5);
-        }));
-
-        return function (_x18, _x19) {
-          return _ref5.apply(this, arguments);
-        };
-      }());
-    };
-
-    return /*#__PURE__*/React__default['default'].createElement(PaymentTrackingContext.Provider, {
-      value: {
-        synchronousTracking: synchronousTracking,
-        asynchronousTracking: asynchronousTracking,
-        initializeTracking: initializeTracking,
-        trace: trace,
-        trackingInitialized: trackingInitialized,
-        continueTryTracking: continueTryTracking,
-        release: release,
-        forwardTo: forwardTo,
-        confirmationsRequired: confirmationsRequired,
-        confirmationsPassed: confirmationsPassed,
-        setPayment: setPayment
-      }
-    }, props.children);
-  });
-
-  var usdAmountForToken = /*#__PURE__*/(function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
-      var blockchain, token, amount, decimals, _decimals, amountDecimal, response;
-
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              blockchain = _ref.blockchain, token = _ref.token, amount = _ref.amount, decimals = _ref.decimals;
-
-              if (!Blockchains__default['default'][blockchain].stables.usd.includes(token)) {
-                _context.next = 4;
-                break;
-              }
-
-              // is stable
-              _decimals = Blockchains__default['default'][blockchain].tokens.find(function (tokenData) {
-                return tokenData.address === token;
-              }).decimals;
-              return _context.abrupt("return", ethers.ethers.utils.formatUnits(amount.toString(), _decimals));
-
-            case 4:
-              amountDecimal = ethers.ethers.utils.formatUnits(amount, decimals);
-              _context.next = 7;
-              return fetch("https://public.depay.com/conversions/USD/".concat(blockchain, "/").concat(token, "?amount=").concat(amountDecimal));
-
-            case 7:
-              response = _context.sent;
-
-              if (!(response.status == 200)) {
-                _context.next = 14;
-                break;
-              }
-
-              _context.t0 = parseFloat;
-              _context.next = 12;
-              return response.text();
-
-            case 12:
-              _context.t1 = _context.sent;
-              return _context.abrupt("return", (0, _context.t0)(_context.t1));
-
-            case 14:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref2.apply(this, arguments);
-    };
-  })();
-
-  var PaymentValueProvider = (function (props) {
-    var _useContext = React.useContext(UpdatableContext),
-        updatable = _useContext.updatable;
-
-    var _useContext2 = React.useContext(ConfigurationContext),
-        configuredAmount = _useContext2.amount,
-        currencyCode = _useContext2.currencyCode;
-
-    var _useContext3 = React.useContext(ChangableAmountContext),
-        amount = _useContext3.amount;
-
-    var _useContext4 = React.useContext(PaymentContext),
-        payment = _useContext4.payment;
-
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        paymentValue = _useState2[0],
-        setPaymentValue = _useState2[1];
-
-    var _useState3 = React.useState(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        displayedPaymentValue = _useState4[0],
-        setDisplayedPaymentValue = _useState4[1];
-
-    var _useContext5 = React.useContext(ConfigurationContext),
-        currency = _useContext5.currency;
-
-    var updatePaymentValue = function updatePaymentValue(_ref) {
-      var updatable = _ref.updatable,
-          payment = _ref.payment;
-
-      if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
-        return;
-      }
-
-      setPaymentValue(null);
-      usdAmountForToken({
-        blockchain: payment.route.blockchain,
-        token: payment.route.fromToken.address,
-        amount: payment.route.fromAmount,
-        decimals: payment.route.fromDecimals
-      }).then(function (usdAmount) {
-        if (usdAmount != undefined && usdAmount != null) {
-          localCurrency.Currency.fromUSD({
-            amount: usdAmount,
-            code: currency
-          }).then(setPaymentValue);
-        }
-      });
-    };
-
-    React.useEffect(function () {
-      if (paymentValue && amount && configuredAmount && configuredAmount.fix) {
-        setDisplayedPaymentValue(paymentValue.toString());
-      } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
-        setDisplayedPaymentValue(new localCurrency.Currency({
-          amount: amount.toFixed(2),
-          code: currencyCode
-        }).toString());
-      } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
-        setDisplayedPaymentValue(paymentValue.toString());
-      } else if (payment) {
-        setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
-      }
-    }, [paymentValue, payment, amount, configuredAmount]);
-    React.useEffect(function () {
-      if (payment) {
-        updatePaymentValue({
-          updatable: updatable,
-          payment: payment
-        });
-      }
-    }, [updatable, payment]);
-    return /*#__PURE__*/React__default['default'].createElement(PaymentValueContext.Provider, {
-      value: {
-        paymentValue: paymentValue,
-        displayedPaymentValue: displayedPaymentValue
-      }
-    }, props.children);
   });
 
   function getFavicon () {
@@ -13167,9 +12249,9 @@
     setProvider: setProvider$1,
   };
 
-  let supported$3 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$3.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$3.svm = ['solana'];
+  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported$2.svm = ['solana'];
 
   function _optionalChain$2$2(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
   let getCacheStore$1 = () => {
@@ -13284,13 +12366,13 @@
 
   const getProvider = async (blockchain)=>{
 
-    if(supported$3.evm.includes(blockchain)) {
+    if(supported$2.evm.includes(blockchain)) {
 
 
       return await EVM.getProvider(blockchain)
 
 
-    } else if(supported$3.svm.includes(blockchain)) {
+    } else if(supported$2.svm.includes(blockchain)) {
 
 
       return await Solana.getProvider(blockchain)
@@ -13517,13 +12599,13 @@
       expires: cache$1 || 0,
       key: cacheKey || [blockchain, address, method, params, block],
       call: async()=>{
-        if(supported$3.evm.includes(blockchain)) {
+        if(supported$2.evm.includes(blockchain)) {
 
 
           return await requestEVM({ blockchain, address, api, method, params, block, strategy, timeout })
 
 
-        } else if(supported$3.svm.includes(blockchain)) {
+        } else if(supported$2.svm.includes(blockchain)) {
 
 
           return await requestSolana({ blockchain, address, api, method, params, block, strategy, timeout })
@@ -14294,7 +13376,7 @@
     }
   ];
 
-  const uriAPI$1 = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
+  const uriAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
 
   const uriToName = (tokenURI)=>{
     return new Promise((resolve)=>{
@@ -14322,7 +13404,7 @@
 
     if(id) {
       return new Promise((resolve)=>{
-        request({ blockchain, address, api: uriAPI$1, method: 'uri', params: [id] }).then((uri)=>{
+        request({ blockchain, address, api: uriAPI, method: 'uri', params: [id] }).then((uri)=>{
           uri = uri.match('0x{id}') ? uri.replace('0x{id}', id) : uri;
           uriToName(uri).then(resolve);
         }).catch((error)=>{
@@ -14621,19 +13703,19 @@
     return _optionalChain$1$1([metaData, 'optionalAccess', _ => _.symbol])
   };
 
-  let supported$2 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$2.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$2.svm = ['solana'];
+  let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported$1.svm = ['solana'];
 
-  function _optionalChain$b(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain$a(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   class Token {
     
     constructor({ blockchain, address, name, decimals, symbol }) {
       this.blockchain = blockchain;
-      if(supported$2.evm.includes(this.blockchain)) {
+      if(supported$1.evm.includes(this.blockchain)) {
         this.address = ethers.ethers.utils.getAddress(address);
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$1.svm.includes(this.blockchain)) {
         this.address = address;
       }
       this._name = name;
@@ -14649,11 +13731,11 @@
       }
       let decimals;
       try {
-        if(supported$2.evm.includes(this.blockchain)) {
+        if(supported$1.evm.includes(this.blockchain)) {
 
           decimals = await decimalsOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
 
-        } else if(supported$2.svm.includes(this.blockchain)) {
+        } else if(supported$1.svm.includes(this.blockchain)) {
 
           decimals = await decimalsOnSolana({ blockchain: this.blockchain, address: this.address });
 
@@ -14671,11 +13753,11 @@
         return this._symbol
       }
       let symbol;
-      if(supported$2.evm.includes(this.blockchain)) {
+      if(supported$1.evm.includes(this.blockchain)) {
 
         symbol = await symbolOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT });
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$1.svm.includes(this.blockchain)) {
 
         symbol = await symbolOnSolana({ blockchain: this.blockchain, address: this.address });
 
@@ -14691,11 +13773,11 @@
         return this._name
       }
       let name;
-      if(supported$2.evm.includes(this.blockchain)) {
+      if(supported$1.evm.includes(this.blockchain)) {
 
-        name = await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$b([args, 'optionalAccess', _ => _.id]) });
+        name = await nameOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, id: _optionalChain$a([args, 'optionalAccess', _ => _.id]) });
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$1.svm.includes(this.blockchain)) {
 
         name = await nameOnSolana({ blockchain: this.blockchain, address: this.address });
 
@@ -14705,11 +13787,11 @@
     }
 
     async balance(account, id) {
-      if(supported$2.evm.includes(this.blockchain)) {
+      if(supported$1.evm.includes(this.blockchain)) {
 
         return await balanceOnEVM({ blockchain: this.blockchain, account, address: this.address, api: id ? Token[this.blockchain][1155] : Token[this.blockchain].DEFAULT, id })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$1.svm.includes(this.blockchain)) {
 
         return await balanceOnSolana({ blockchain: this.blockchain, account, address: this.address, api: Token[this.blockchain].DEFAULT })
 
@@ -14720,11 +13802,11 @@
       if (this.address == Blockchains__default['default'].findByName(this.blockchain).currency.address) {
         return ethers.ethers.BigNumber.from(Blockchains__default['default'].findByName(this.blockchain).maxInt)
       }
-      if(supported$2.evm.includes(this.blockchain)) {
+      if(supported$1.evm.includes(this.blockchain)) {
 
         return await allowanceOnEVM({ blockchain: this.blockchain, address: this.address, api: Token[this.blockchain].DEFAULT, owner, spender })
 
-      } else if(supported$2.svm.includes(this.blockchain)) {
+      } else if(supported$1.svm.includes(this.blockchain)) {
         return ethers.ethers.BigNumber.from(Blockchains__default['default'].findByName(this.blockchain).maxInt)
       } 
     }
@@ -14900,9 +13982,9 @@
     }
   }
 
-  let supported$1 = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$1.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported$1.svm = ['solana'];
+  let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
+  supported.svm = ['solana'];
 
   const DEFAULT_SLIPPAGE = '0.5'; // percent
 
@@ -14916,7 +13998,7 @@
 
     let newAmountInWithDefaultSlippageBN = amountIn.add(amountIn.mul(parseFloat(defaultSlippage)*100).div(10000));
 
-    if(!supported$1.evm.includes(exchange.blockchain || blockchain)) { 
+    if(!supported.evm.includes(exchange.blockchain || blockchain)) { 
       return newAmountInWithDefaultSlippageBN
     }
 
@@ -15016,9 +14098,9 @@
     amountInInput, amountOutInput, amountInMaxInput, amountOutMinInput,
   })=>{
     if(amountOutMinInput || amountOutInput) {
-      if(supported$1.evm.includes(exchange.blockchain || blockchain)) {
+      if(supported.evm.includes(exchange.blockchain || blockchain)) {
         amountIn = amountInMax = await calculateAmountInWithSlippage({ exchange, blockchain, pools, exchangePath, amountIn, amountOut: (amountOutMinInput || amountOut) });
-      } else if(supported$1.svm.includes(exchange.blockchain || blockchain)){
+      } else if(supported.svm.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
         await Promise.all(exchangePath.map((step, index)=>{
           if(index != 0) {
@@ -15038,7 +14120,7 @@
         amountIn = amountInMax = amounts[0];
       }
     } else if(amountInMaxInput || amountInInput) {
-      if(supported$1.svm.includes(exchange.blockchain || blockchain)){
+      if(supported.svm.includes(exchange.blockchain || blockchain)){
         let amountsWithSlippage = [];
         await Promise.all(exchangePath.map((step, index)=>{
           if(index !== 0 && index < exchangePath.length-1) {
@@ -21485,7 +20567,7 @@
     )
   };
 
-  function _optionalChain$a(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
+  function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 
   const SENDER_AS_RECIPIENT = '0x0000000000000000000000000000000000000001';
   const ROUTER_AS_RECIPIENT = '0x0000000000000000000000000000000000000002';
@@ -21696,9 +20778,9 @@
 
     // Add WRAPPED to route path if things start or end with NATIVE
     // because that actually reflects how things are routed in reality:
-    if(_optionalChain$a([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
+    if(_optionalChain([path, 'optionalAccess', _ => _.length]) && path[0] == Blockchains__default['default'][blockchain].currency.address) {
       path.splice(1, 0, Blockchains__default['default'][blockchain].wrapped.address);
-    } else if(_optionalChain$a([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
+    } else if(_optionalChain([path, 'optionalAccess', _2 => _2.length]) && path[path.length-1] == Blockchains__default['default'][blockchain].currency.address) {
       path.splice(path.length-1, 0, Blockchains__default['default'][blockchain].wrapped.address);
     }
 
@@ -23278,6 +22360,183 @@
     return foundInstruction;
   });
 
+  var sockets = {};
+  var socketsPingIntervals = {};
+  var keepAliveIntervals = {};
+  var retryCounts = {};
+  var endpointIndices = {};
+
+  var openManagedSocket = function openManagedSocket(_ref) {
+    var identifier = _ref.identifier,
+        onopen = _ref.onopen,
+        onmessage = _ref.onmessage,
+        keepAlive = _ref.keepAlive,
+        endpoint = _ref.endpoint,
+        endpoints = _ref.endpoints;
+    var endpointsList = Array.isArray(endpoints) ? endpoints : [endpoint || 'wss://integrate.depay.com/cable'];
+
+    if (retryCounts[identifier] === undefined) {
+      retryCounts[identifier] = 0;
+    }
+
+    if (endpointIndices[identifier] === undefined) {
+      endpointIndices[identifier] = 0;
+    }
+
+    if (socketsPingIntervals[identifier]) {
+      clearInterval(socketsPingIntervals[identifier]);
+    }
+
+    if (keepAliveIntervals[identifier]) {
+      clearInterval(keepAliveIntervals[identifier]);
+    }
+
+    if (sockets[identifier]) {
+      sockets[identifier].close();
+    }
+
+    if (endpoints) {
+      endpoint = endpoints[0];
+    }
+
+    var currentEndpoint = endpointsList[endpointIndices[identifier]];
+    var socket = new WebSocket(currentEndpoint);
+    sockets[identifier] = socket;
+    var keepAliveInterval;
+
+    if (keepAlive) {
+      keepAliveInterval = setInterval(function () {
+        if ([WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)) {
+          clearInterval(keepAliveInterval);
+        }
+
+        socket.send(JSON.stringify(keepAlive.callback()));
+      }, keepAlive.interval);
+      keepAliveIntervals[identifier] = keepAliveInterval;
+    }
+
+    var lastPing;
+    var pingInterval = setInterval(function () {
+      if (lastPing && lastPing < Date.now() - 10 * 1000) {
+        clearInterval(pingInterval);
+
+        if (keepAliveInterval) {
+          clearInterval(keepAliveInterval);
+        }
+
+        if ([WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)) {
+          clearInterval(pingInterval);
+        } else {
+          socket.close(3000); // force reopen
+        }
+      }
+    }, 5000);
+    socketsPingIntervals[identifier] = pingInterval;
+    socket.onopen = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+      var message;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(typeof onopen == 'function')) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 3;
+              return onopen();
+
+            case 3:
+              message = _context.sent;
+
+              if (!message) {
+                _context.next = 7;
+                break;
+              }
+
+              _context.next = 7;
+              return socket.send(JSON.stringify(message), socket);
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    socket.onclose = function (event) {
+      if (!event || event.code != 1000) {
+        retryCounts[identifier]++;
+        var delay = Math.min(10000, 1000 * Math.pow(2, retryCounts[identifier] - 1));
+        endpointIndices[identifier] = (endpointIndices[identifier] + 1) % endpointsList.length;
+
+        if (pingInterval) {
+          clearInterval(pingInterval);
+        }
+
+        if (keepAliveInterval) {
+          clearInterval(keepAliveInterval);
+        }
+
+        console.log("Reconnecting socket \"".concat(identifier, "\" in ").concat(delay, "ms (attempt #").concat(retryCounts[identifier], ")"));
+        setTimeout(function () {
+          openManagedSocket({
+            identifier: identifier,
+            onopen: onopen,
+            onmessage: onmessage,
+            keepAlive: keepAlive,
+            endpoint: endpoint,
+            endpoints: endpoints
+          });
+        }, delay);
+      }
+    };
+
+    socket.onmessage = function (event) {
+      lastPing = Date.now();
+      var eventData = JSON.parse(event.data);
+
+      if (eventData.error) {
+        if (pingInterval) {
+          clearInterval(pingInterval);
+        }
+
+        if (keepAliveInterval) {
+          clearInterval(keepAliveInterval);
+        }
+
+        socket.close(3000); // force reopen
+      } else if (typeof onmessage == 'function') {
+        onmessage(eventData, socket);
+      }
+    };
+
+    socket.onerror = function (error) {
+      console.log('WebSocket Error: ', identifier, error);
+    };
+
+    return socket;
+  };
+
+  var SolanaPayLogo = (function (props) {
+    return /*#__PURE__*/React__default['default'].createElement("svg", {
+      className: "SolanaPayLogo",
+      width: "86",
+      height: "32",
+      viewBox: "0 0 86 32",
+      xmlns: "http://www.w3.org/2000/svg"
+    }, /*#__PURE__*/React__default['default'].createElement("path", {
+      d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
+    }), /*#__PURE__*/React__default['default'].createElement("path", {
+      d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
+    }), /*#__PURE__*/React__default['default'].createElement("path", {
+      d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
+    }), /*#__PURE__*/React__default['default'].createElement("path", {
+      d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
+    }));
+  });
+
   var UUIDv4 = (function () {
     var d = new Date().getTime();
     var d2 = performance && performance.now && performance.now() * 1000 || 0;
@@ -23296,401 +22555,98 @@
     });
   });
 
-  let supported = ['ethereum', 'bsc', 'polygon', 'solana', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported.evm = ['ethereum', 'bsc', 'polygon', 'fantom', 'arbitrum', 'avalanche', 'gnosis', 'optimism', 'base', 'worldchain'];
-  supported.svm = ['solana'];
-
-  const _jsxFileName = "/Users/sebastian/Work/DePay/react-token-image/src/index.js"; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
-
-  const tokenURIAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
-  const uriAPI = [{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"uri","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
-  const UNKNOWN_IMAGE = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjgzLjUgMjgzLjUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI4My41IDI4My41OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxjaXJjbGUgZmlsbD0iI0YwRUZFRiIgY3g9IjE0MS43IiBjeT0iMTQxLjciIHI9IjE0MS43Ii8+CjxnPgoJPHBhdGggZmlsbD0iI0FCQUJBQiIgZD0iTTEyNywxNzUuMXYtNC40YzAtOC40LDEuMS0xNS4zLDMuNC0yMC43YzIuMy01LjQsNS4xLTEwLDguNC0xMy44YzMuMy0zLjcsNi42LTcsMTAuMS05LjdzNi4zLTUuNiw4LjYtOC41CgkJYzIuMy0yLjksMy40LTYuNCwzLjQtMTAuNWMwLTUtMS4xLTguNy0zLjMtMTEuMWMtMi4yLTIuNC01LTQtOC40LTQuOGMtMy40LTAuOC02LjktMS4zLTEwLjUtMS4zYy01LjgsMC0xMS44LDEtMTcuOSwyLjkKCQljLTYuMSwxLjktMTEuNSw0LjctMTYsOC40Vjc0YzIuMy0xLjcsNS40LTMuMyw5LjQtNC45YzQtMS42LDguNC0yLjksMTMuNC00YzUtMS4xLDEwLjEtMS42LDE1LjUtMS42YzguMSwwLDE1LjEsMS4xLDIxLjEsMy40CgkJYzYsMi4zLDEwLjgsNS41LDE0LjcsOS41YzMuOCw0LDYuNyw4LjcsOC42LDE0LjFjMS45LDUuMywyLjksMTEuMSwyLjksMTcuMmMwLDYuNi0xLjEsMTItMy40LDE2LjNjLTIuMyw0LjMtNS4xLDgtOC41LDExLjIKCQljLTMuNCwzLjItNi44LDYuNC0xMC4yLDkuNWMtMy40LDMuMS02LjMsNi44LTguNiwxMWMtMi4zLDQuMi0zLjQsOS41LTMuNCwxNS45djMuNEgxMjd6IE0xMjUuMiwyMTguMnYtMjcuN2gzM3YyNy43SDEyNS4yeiIvPgo8L2c+Cjwvc3ZnPgo=';
-
-  let TokenImage = function(props){
-
-    const [src, setSrc] = React.useState();
-    const [source, _setSource] = React.useState();
-
-    const blockchain = props.blockchain.toLowerCase();
-    const address = props.address;
-    const id = props.id;
-    const getLocalStorageKey = (blockchain, address)=>{
-      return [
-        'react-token-image',
-        'v5.0.2',
-        blockchain,
-        address,
-      ].join('-')
-    };
-
-    const setSource = (src, source)=>{
-      setSrc(src);
-      _setSource(source);
-      if(source != 'unknown') {
-        localStorage.setItem(getLocalStorageKey(blockchain, address), JSON.stringify({ src, expiresAt: Date.now() + (24 * 60 * 60 * 1000) })); // 24 hours
-      }
-    };
-
-    React.useEffect(()=>{
-      let storedImage = localStorage.getItem(getLocalStorageKey(blockchain, address));
-      if(storedImage && storedImage.length) {
-        try { 
-          storedImage = JSON.parse(storedImage);
-        } catch (e) {}
-      }
-      if(storedImage && storedImage.src && storedImage.expiresAt > Date.now() && storedImage.src != UNKNOWN_IMAGE) {
-        return setSource(storedImage.src, 'stored')
-      }
-      const foundMajorToken = Blockchains__default['default'][blockchain].tokens.find((token)=> token.address.toLowerCase() === _optionalChain([address, 'optionalAccess', _ => _.toLowerCase, 'call', _2 => _2()]));
-      if(foundMajorToken) {
-        setSource(foundMajorToken.logo, 'web3-blockchains');
-      } else {
-        if(supported.evm.includes(blockchain)) {
-          setSource(logoFromRepository({ blockchain, address }), 'repository');
-        } else if(blockchain === 'solana') {
-          logoFromMetaplex({ blockchain, address }).then((image)=>{
-            setSource(image, 'metaplex');
-          }).catch((error)=>{
-            setSource(logoFromRepository({ blockchain, address }), 'repository');
-          });
-        }
-      }
-    }, [blockchain, address]);
-
-    const logoFromMetaplex = ({ blockchain, address }) => {
-      return new Promise(async(resolve, reject)=>{
-        try {
-
-          let mintPublicKey = new solanaWeb3_js.PublicKey(address);
-          let metaDataPublicKey = new solanaWeb3_js.PublicKey(Token.solana.METADATA_ACCOUNT);
-
-          let seed = [
-            solanaWeb3_js.Buffer.from('metadata'),
-            metaDataPublicKey.toBuffer(),
-            mintPublicKey.toBuffer()  
-          ];
-
-          let tokenMetaDataPublicKey = (await solanaWeb3_js.PublicKey.findProgramAddress(seed, metaDataPublicKey))[0];
-
-          let metaData = await request({
-            blockchain, 
-            address: tokenMetaDataPublicKey.toString(),
-            api: Token.solana.METADATA_LAYOUT,
-            cache: 86400000, // 1 day
-          });
-
-          
-          if(_optionalChain([metaData, 'optionalAccess', _3 => _3.data, 'optionalAccess', _4 => _4.uri])) {
-
-            const uri = metaData.data.uri.replace(new RegExp('\u0000', 'g'), '');
-            if(uri && uri.length) {
-              await fetch(uri)
-                .then((response) => response.json())
-                .then((json)=>{
-                  if(json && json.image) {
-                    resolve(json.image);
-                  } else {
-                    reject('image not found on metaplex');
-                  }
-                }).catch(()=>reject('image not found on metaplex'));
-            } else {
-              reject('image not found on metaplex');
-            }
-          } else {
-            reject('image not found on metaplex');
-          }
-
-        } catch (e2) { reject('image not found on metaplex'); }
-      })
-    };
-    
-    const logoFromRepository = ({ blockchain, address })=> {
-      return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${mapBlockchainNameToTrustWalletAssets(blockchain)}/assets/${address}/logo.png`
-    };
-
-    const mapBlockchainNameToTrustWalletAssets = (blockchain)=>{
-      switch (blockchain) {
-        case 'ethereum':
-          return 'ethereum'
-        case 'bsc':
-          return 'smartchain'
-        case 'polygon':
-          return 'polygon'
-        case 'solana':
-          return 'solana'
-        case 'fantom':
-          return 'fantom'
-        case 'arbitrum':
-          return 'arbitrum'
-        case 'avalanche':
-          return 'avalanchec'
-        case 'gnosis':
-          return 'xdai'
-        case 'optimism':
-          return 'optimism'
-        case 'base':
-          return 'base'
-        case 'worldchain':
-          return 'optimism'
-        default:
-          throw('DePayReactTokenImage: Unknown blockchain')
-      }
-    };
-
-    const setUnknown = ()=>{
-      setSource(UNKNOWN_IMAGE, 'unknown');
-    };
-
-    const uriToImage = (tokenURI)=>{
-      if(tokenURI.match(/^ipfs/)) {
-        tokenURI = `https://ipfs.io/ipfs/${tokenURI.split('://')[1]}`;
-      }
-      fetch(tokenURI).then((response) => {
-        if (response.ok) { return response.json() }
-        setUnknown();
-      })
-      .then((responseJson) => {
-        if(responseJson) {
-          let image = responseJson.image;
-          if(image){
-            if(image.match(/^ipfs/)) {
-              image = `https://ipfs.io/ipfs/${image.split('://')[1]}`;
-            } 
-            setSource(image, 'meta');
-          } else {
-            setUnknown();
-          }
-        }
-      }).catch(setUnknown);
-    };
-
-    const handleLoadError = (error)=> {
-      delete localStorage[getLocalStorageKey(blockchain, address)];
-      if(source == 'metaplex') {
-        setSource(logoFromRepository({ blockchain, address }), 'repository');
-      } else if(source == 'web3-blockchains') {
-        setSource(logoFromRepository({ blockchain, address }), 'repository');
-      } else if(source == 'repository') {
-        setSource(`https://integrate.depay.com/tokens/${blockchain}/${address}/image`, 'depay');
-      } else if (source == 'depay' && supported.evm.includes(blockchain)) {
-        if(id) {
-          request({ blockchain, address, api: uriAPI, method: 'uri', params: [id] }).then((uri)=>{
-            uri = uri.match('0x{id}') ? uri.replace('0x{id}', id) : uri;
-            uriToImage(uri);
-          }).catch(setUnknown);
-        } else {
-          request({ blockchain, address, api: tokenURIAPI, method: 'tokenURI', params: [1] }).then(uriToImage).catch(setUnknown);
-        }
-      } else {
-        setUnknown();
-      }
-    };
-
-    if(src == undefined) {
-      return(
-        React__default['default'].createElement('div', { className:  props.className , __self: this, __source: {fileName: _jsxFileName, lineNumber: 209}} )
-      )
-    }
-
-    return(
-      React__default['default'].createElement('img', {
-        className:  props.className ,
-        src:  src ,
-        onError:  handleLoadError , __self: this, __source: {fileName: _jsxFileName, lineNumber: 214}}
-      )
-    )
-  };
-
   var SolanaPayDialog = (function (props) {
     var _useContext = React.useContext(ConfigurationContext),
         accept = _useContext.accept,
-        track = _useContext.track,
-        validated = _useContext.validated;
-        _useContext.integration;
-        _useContext.link;
-        _useContext.type;
-        var configurationId = _useContext.id;
+        allow = _useContext.allow,
+        deny = _useContext.deny,
+        sent = _useContext.sent,
+        succeeded = _useContext.succeeded,
+        failed = _useContext.failed;
 
-    var _useState = React.useState(),
-        _useState2 = _slicedToArray(_useState, 2),
-        attemptId = _useState2[0],
-        setAttemptId = _useState2[1];
-
-    var attemptIdRef = React.useRef(attemptId);
-    attemptIdRef.current = attemptId;
-
-    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext);
-        _useContext2.set;
-        _useContext2.navigate;
+    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
 
     var _useContext3 = React.useContext(ClosableContext),
         close = _useContext3.close,
         setClosable = _useContext3.setClosable;
 
+    var _useContext4 = React.useContext(WalletContext),
+        solanaPayWallet = _useContext4.solanaPayWallet;
+
+    var _useContext5 = React.useContext(PaymentTrackingContext),
+        synchronousTracking = _useContext5.synchronousTracking,
+        track = _useContext5.track,
+        trace = _useContext5.trace,
+        release = _useContext5.release,
+        validationState = _useContext5.validationState,
+        forwardTo = _useContext5.forwardTo;
+
+    var _useContext6 = React.useContext(PaymentRoutingContext),
+        setSelectedRoute = _useContext6.setSelectedRoute;
+
+    var _useContext7 = React.useContext(PaymentValueContext),
+        paymentValue = _useContext7.paymentValue,
+        displayedPaymentValue = _useContext7.displayedPaymentValue;
+
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        selectedPaymentOption = _useState2[0],
+        setSelectedPaymentOption = _useState2[1];
+
     var _useState3 = React.useState(),
         _useState4 = _slicedToArray(_useState3, 2),
-        paymentOptions = _useState4[0];
-        _useState4[1];
+        QRCodeURI = _useState4[0],
+        setQRCodeURI = _useState4[1];
 
     var _useState5 = React.useState(),
         _useState6 = _slicedToArray(_useState5, 2),
-        forwardTo = _useState6[0],
-        setForwardTo = _useState6[1];
+        QRCode = _useState6[0],
+        setQRCode = _useState6[1];
 
-    var _useState7 = React.useState(),
+    var _useState7 = React.useState('initializing'),
         _useState8 = _slicedToArray(_useState7, 2),
-        pollingPaymentStatusInterval = _useState8[0],
-        setPollingPaymentStatusInterval = _useState8[1];
+        state = _useState8[0],
+        setState = _useState8[1];
 
-    var _useState9 = React.useState(),
+    var _useState9 = React.useState(false),
         _useState10 = _slicedToArray(_useState9, 2),
-        transactionTrackingInterval = _useState10[0],
-        setTransactionTrackingInterval = _useState10[1];
+        showDropDown = _useState10[0],
+        setShowDropDown = _useState10[1];
 
-    var _useState11 = React.useState(),
-        _useState12 = _slicedToArray(_useState11, 2),
-        selectedPaymentOption = _useState12[0],
-        setSelectedPaymantOption = _useState12[1];
+    var QRCodeElement = React.useRef();
+    var solanaPayTransactionPollingInterval = React.useRef();
+    var solanaPayTransactionSocket = React.useRef();
+    var transactionTrackingSocket = React.useRef();
+    var afterBlock = React.useRef();
+    var secretId = React.useRef();
+    var transactionPollingInterval = React.useRef();
+    var solanPayPayment = React.useRef();
+    var transaction = React.useRef();
+    var sentCallbackCalled = React.useRef();
+    var succeededCallbackCalled = React.useRef();
+    var failedCallbackCalled = React.useRef();
 
-    var _useState13 = React.useState(),
-        _useState14 = _slicedToArray(_useState13, 2),
-        transaction = _useState14[0],
-        setTransaction = _useState14[1];
+    var sentCallback = function sentCallback() {
+      if (typeof sent == 'function' && sentCallbackCalled.current !== true) {
+        sentCallbackCalled.current = true;
+        sent(transaction.current);
+      }
+    };
 
-    var _useState15 = React.useState(),
-        _useState16 = _slicedToArray(_useState15, 2),
-        secretId = _useState16[0],
-        setSecretId = _useState16[1];
+    var succeededCallback = function succeededCallback() {
+      if (typeof succeeded == 'function' && succeededCallbackCalled.current !== true) {
+        succeededCallbackCalled.current = true;
+        succeeded(transaction.current, solanPayPayment.current);
+      }
+    };
 
-    var _useState17 = React.useState(),
-        _useState18 = _slicedToArray(_useState17, 2),
-        solanaPayTransactionSocket = _useState18[0],
-        setSolanaPayTransactionSocket = _useState18[1];
-
-    var _useState19 = React.useState(),
-        _useState20 = _slicedToArray(_useState19, 2),
-        transactionTrackingSocket = _useState20[0],
-        setTransactionTrackingSocket = _useState20[1];
-
-    var _useState21 = React.useState(),
-        _useState22 = _slicedToArray(_useState21, 2),
-        paymentValidationSocket = _useState22[0],
-        setPaymentValidationSocket = _useState22[1];
-
-    var _useState23 = React.useState(),
-        _useState24 = _slicedToArray(_useState23, 2),
-        QRCodeURI = _useState24[0],
-        setQRCodeURI = _useState24[1];
-
-    var _useState25 = React.useState(),
-        _useState26 = _slicedToArray(_useState25, 2),
-        release = _useState26[0],
-        setRelease = _useState26[1];
-
-    var _useState27 = React.useState(),
-        _useState28 = _slicedToArray(_useState27, 2),
-        afterBlock = _useState28[0],
-        setAfterBlock = _useState28[1];
-
-    var _useState29 = React.useState(),
-        _useState30 = _slicedToArray(_useState29, 2),
-        QRCode = _useState30[0],
-        setQRCode = _useState30[1];
-
-    var _useState31 = React.useState('select'),
-        _useState32 = _slicedToArray(_useState31, 2),
-        state = _useState32[0],
-        setState = _useState32[1];
-
-    var _useState33 = React.useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-        _useState34 = _slicedToArray(_useState33, 1),
-        synchronousTracking = _useState34[0];
-
-    var _useState35 = React.useState(!configurationId && !!(track && track.async == true)),
-        _useState36 = _slicedToArray(_useState35, 1),
-        asynchronousTracking = _useState36[0];
-
-    var _useState37 = React.useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-        _useState38 = _slicedToArray(_useState37, 1),
-        polling = _useState38[0];
-
-    var isTracking = synchronousTracking || asynchronousTracking;
-    var QRCodeElement = React__default['default'].useRef();
-
-    var selectPaymentOption = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(selectedPaymentOption) {
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return Token.BigNumber({
-                  amount: selectedPaymentOption.amount,
-                  blockchain: 'solana',
-                  address: selectedPaymentOption.token
-                });
-
-              case 2:
-                selectedPaymentOption.fromAmountBN = _context.sent;
-
-                if (!selectedPaymentOption.fee) {
-                  _context.next = 15;
-                  break;
-                }
-
-                if (!selectedPaymentOption.fee.amount.match("%")) {
-                  _context.next = 8;
-                  break;
-                }
-
-                selectedPaymentOption.feeAmountBN = selectedPaymentOption.fromAmountBN.mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10).div(1000);
-                _context.next = 15;
-                break;
-
-              case 8:
-                if (!(typeof selectedPaymentOption.fee.amount === 'string')) {
-                  _context.next = 12;
-                  break;
-                }
-
-                selectedPaymentOption.feeAmountBN = selectedPaymentOption.fee.amount;
-                _context.next = 15;
-                break;
-
-              case 12:
-                _context.next = 14;
-                return Token.BigNumber({
-                  amount: selectedPaymentOption.fee.amount,
-                  blockchain: 'solana',
-                  address: selectedPaymentOption.token
-                });
-
-              case 14:
-                selectedPaymentOption.feeAmountBN = _context.sent;
-
-              case 15:
-                if (selectedPaymentOption.fee) {
-                  selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN);
-                } else {
-                  selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN;
-                }
-
-                setSelectedPaymantOption(selectedPaymentOption);
-                setState('wait');
-                openSolanaPayTransactionSocket(secretId);
-
-              case 19:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function selectPaymentOption(_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
+    var failedCallback = function failedCallback(error) {
+      if (typeof failed == 'function' && failedCallbackCalled.current !== true) {
+        failedCallbackCalled.current = true;
+        failed(transaction.current, error, solanPayPayment.current);
+      }
+    };
 
     var getNewQRCode = function getNewQRCode() {
       return new QRCodeStyling__default['default']({
@@ -23710,11 +22666,1020 @@
       });
     };
 
-    var sendTrackingAsConfigured = function sendTrackingAsConfigured(_ref2) {
-      var payment = _ref2.payment,
-          resolve = _ref2.resolve,
-          reject = _ref2.reject;
+    var startSolanaPayTransactionPolling = function startSolanaPayTransactionPolling() {
+      if (solanaPayTransactionPollingInterval.current) {
+        clearInterval(solanaPayTransactionPollingInterval.current);
+      }
 
+      solanaPayTransactionPollingInterval.current = setInterval(function () {
+        fetch("https://public.depay.com/solanapay/".concat(secretId.current, "/status"), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(function (response) {
+          if (response.status == 200) {
+            return response.json();
+          } else {
+            return undefined;
+          }
+        }).then(function (data) {
+          if (data && data.sender) {
+            clearInterval(solanaPayTransactionPollingInterval.current);
+            transactionLoaded(data);
+          }
+        });
+      }, 2000);
+    };
+
+    var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket() {
+      if (solanaPayTransactionSocket.current) {
+        solanaPayTransactionSocket.current.close(1000);
+      }
+
+      var identifier = JSON.stringify({
+        secret_id: secretId.current,
+        channel: 'SolanaPayChannel'
+      });
+      solanaPayTransactionSocket.current = openManagedSocket({
+        identifier: identifier,
+        onopen: function onopen() {
+          return {
+            command: 'subscribe',
+            identifier: identifier
+          };
+        },
+        onmessage: function onmessage(eventData, socket) {
+          var _eventData$message, _eventData$message2, _eventData$message3;
+
+          if ((eventData === null || eventData === void 0 ? void 0 : eventData.type) == 'confirm_subscription') {
+            socket.send(JSON.stringify({
+              command: 'message',
+              identifier: identifier,
+              data: JSON.stringify({
+                event: 'create',
+                secret_id: secretId.current,
+                label: document.title || 'DePay',
+                icon: getFavicon() || 'https://depay.com/favicon.png',
+                accept: accept,
+                allow: allow,
+                deny: deny
+              })
+            }));
+          } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message = eventData.message) === null || _eventData$message === void 0 ? void 0 : _eventData$message.event) === 'created') {
+            startSolanaPayTransactionPolling();
+            setQRCodeURI("solana:https://public.depay.com/solanapay/".concat(secretId.current));
+          } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message2 = eventData.message) === null || _eventData$message2 === void 0 ? void 0 : _eventData$message2.event) === 'scanned') {
+            if (!solanPayPayment.current) {
+              setClosable("Are you sure you want to abort this payment?");
+              setState('pay');
+            }
+          } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message3 = eventData.message) === null || _eventData$message3 === void 0 ? void 0 : _eventData$message3.event) === 'loaded') {
+            if (!solanPayPayment.current) {
+              transactionLoaded(eventData.message);
+              setClosable("Are you sure you want to abort this payment?");
+              setState('pay');
+            }
+          }
+        },
+        keepAlive: {
+          interval: 3000,
+          callback: function callback() {
+            return {
+              type: "ping",
+              message: Math.floor(Date.now() / 1000)
+            };
+          }
+        }
+      });
+    };
+
+    var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref) {
+      var sender = _ref.sender,
+          receiver = _ref.receiver,
+          deadline = _ref.deadline;
+
+      if (transactionTrackingSocket.current) {
+        transactionTrackingSocket.current.close(1000);
+      }
+
+      var id = 1;
+      transactionTrackingSocket.current = openManagedSocket({
+        identifier: JSON.stringify({
+          type: 'SolanaTransactionLogSubscription',
+          sender: sender,
+          receiver: receiver,
+          deadline: deadline
+        }),
+        endpoints: Blockchains__default['default'].solana.sockets,
+        onopen: function onopen() {
+          return {
+            "jsonrpc": "2.0",
+            "id": id,
+            "method": "logsSubscribe",
+            "params": [{
+              "mentions": [sender]
+            }]
+          };
+        },
+        onmessage: function onmessage(eventData, socket) {
+          if (eventData) {
+            var _eventData$params, _eventData$params$res, _eventData$params$res2, _ref2, _eventData$params2, _eventData$params2$re, _eventData$params2$re2;
+
+            if (eventData && eventData !== null && eventData !== void 0 && (_eventData$params = eventData.params) !== null && _eventData$params !== void 0 && (_eventData$params$res = _eventData$params.result) !== null && _eventData$params$res !== void 0 && (_eventData$params$res2 = _eventData$params$res.value) !== null && _eventData$params$res2 !== void 0 && _eventData$params$res2.logs && (_ref2 = (eventData === null || eventData === void 0 ? void 0 : (_eventData$params2 = eventData.params) === null || _eventData$params2 === void 0 ? void 0 : (_eventData$params2$re = _eventData$params2.result) === null || _eventData$params2$re === void 0 ? void 0 : (_eventData$params2$re2 = _eventData$params2$re.value) === null || _eventData$params2$re2 === void 0 ? void 0 : _eventData$params2$re2.logs) || []) !== null && _ref2 !== void 0 && _ref2.find(function (log) {
+              return log.match("Program ".concat(web3PaymentsSvm.routers.solana.address));
+            })) {
+              var _eventData$params3, _eventData$params3$re;
+
+              var result = eventData === null || eventData === void 0 ? void 0 : (_eventData$params3 = eventData.params) === null || _eventData$params3 === void 0 ? void 0 : (_eventData$params3$re = _eventData$params3.result) === null || _eventData$params3$re === void 0 ? void 0 : _eventData$params3$re.value;
+
+              if (result && result.err === null) {
+                transactionFound(result.signature);
+                setState('succeeded');
+                succeededCallback();
+                socket.close(1000);
+              } else if (result) {
+                transactionFound(result.signature);
+                setState('failed');
+                failedCallback('transaction failed');
+                socket.close(1000);
+              }
+            }
+          }
+        },
+        keepAlive: {
+          interval: 3000,
+          callback: function callback() {
+            return {
+              jsonrpc: "2.0",
+              id: id++,
+              method: "getVersion",
+              params: []
+            };
+          }
+        }
+      });
+    };
+
+    var startTransactionPolling = function startTransactionPolling(_ref3) {
+      var sender = _ref3.sender;
+          _ref3.receiver;
+          var deadline = _ref3.deadline;
+
+      if (transactionPollingInterval.current) {
+        clearInterval(transactionPollingInterval.current);
+      }
+
+      transactionPollingInterval.current = setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+        var provider, signatures, relevantTransactions;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return web3ClientSvm.getProvider('solana');
+
+              case 2:
+                provider = _context2.sent;
+                _context2.next = 5;
+                return provider.getSignaturesForAddress(new solanaWeb3_js.PublicKey(sender));
+
+              case 5:
+                signatures = _context2.sent;
+
+                if (signatures && signatures.length && signatures[0].slot > afterBlock.current) {
+                  relevantTransactions = signatures.filter(function (signature) {
+                    return signature.slot > afterBlock.current;
+                  });
+                  relevantTransactions.forEach( /*#__PURE__*/function () {
+                    var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(relevantTransaction) {
+                      var fullTransactionData, foundRouterInstruction;
+                      return regenerator.wrap(function _callee$(_context) {
+                        while (1) {
+                          switch (_context.prev = _context.next) {
+                            case 0:
+                              _context.next = 2;
+                              return provider.getTransaction(relevantTransaction.signature, {
+                                commitment: 'confirmed',
+                                maxSupportedTransactionVersion: 0
+                              });
+
+                            case 2:
+                              fullTransactionData = _context.sent;
+                              foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
+
+                              if (foundRouterInstruction && foundRouterInstruction.deadline.toString() === deadline.toString()) {
+                                transactionFound(fullTransactionData.transaction.signatures[0]);
+
+                                if (fullTransactionData.meta.err === null) {
+                                  setState('succeeded');
+                                  succeededCallback();
+                                } else {
+                                  setState('failed');
+                                  failedCallback('transaction failed');
+                                }
+
+                                if (transactionPollingInterval.current) {
+                                  clearInterval(transactionPollingInterval.current);
+                                }
+                              }
+
+                            case 5:
+                            case "end":
+                              return _context.stop();
+                          }
+                        }
+                      }, _callee);
+                    }));
+
+                    return function (_x) {
+                      return _ref5.apply(this, arguments);
+                    };
+                  }());
+                }
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      })), 1000);
+    };
+
+    var transactionFound = function transactionFound(transactionId) {
+      transaction.current = {
+        blockchain: 'solana',
+        status: 'succeeded',
+        id: transactionId,
+        url: Blockchains__default['default'].solana.explorerUrlFor({
+          transaction: {
+            id: transactionId
+          }
+        })
+      };
+      sentCallback();
+
+      if (release || !synchronousTracking) {
+        setClosable(true);
+      }
+
+      track({
+        blockchain: 'solana',
+        id: transactionId,
+        from: solanPayPayment.current.fromAddress
+      }, afterBlock.current, solanPayPayment.current, solanPayPayment.current.deadline);
+    };
+
+    var transactionLoaded = /*#__PURE__*/function () {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(_ref6) {
+        var sender, from_token, from_amount, from_decimals, to_token, to_amount, to_decimals, fee_amount, fee_receiver, fee2_amount, fee2_receiver, protocol_fee_amount, receiver, deadline;
+        return regenerator.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                sender = _ref6.sender, from_token = _ref6.from_token, from_amount = _ref6.from_amount, from_decimals = _ref6.from_decimals, to_token = _ref6.to_token, to_amount = _ref6.to_amount, to_decimals = _ref6.to_decimals, fee_amount = _ref6.fee_amount, fee_receiver = _ref6.fee_receiver, fee2_amount = _ref6.fee2_amount, fee2_receiver = _ref6.fee2_receiver, protocol_fee_amount = _ref6.protocol_fee_amount, receiver = _ref6.receiver, deadline = _ref6.deadline;
+
+                if (!solanPayPayment.current) {
+                  _context4.next = 3;
+                  break;
+                }
+
+                return _context4.abrupt("return");
+
+              case 3:
+                solanPayPayment.current = {
+                  blockchain: 'solana',
+                  fromAddress: sender,
+                  fromToken: {
+                    address: from_token
+                  },
+                  fromAmount: from_amount,
+                  fromDecimals: from_decimals,
+                  toToken: {
+                    address: to_token
+                  },
+                  toAmount: to_amount,
+                  toDecimals: to_decimals,
+                  toAddress: receiver,
+                  fee: {
+                    receiver: fee_receiver
+                  },
+                  feeAmount: fee_amount,
+                  fee2: {
+                    receiver: fee2_receiver
+                  },
+                  feeAmount2: fee2_amount,
+                  protocolFeeAmount: protocol_fee_amount,
+                  deadline: deadline
+                };
+                setSelectedRoute(solanPayPayment.current);
+                trace(afterBlock.current, solanPayPayment.current, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
+                  var token;
+                  return regenerator.wrap(function _callee3$(_context3) {
+                    while (1) {
+                      switch (_context3.prev = _context3.next) {
+                        case 0:
+                          openTransactionTrackingSocket({
+                            sender: sender,
+                            receiver: receiver,
+                            deadline: deadline
+                          });
+                          startTransactionPolling({
+                            sender: sender,
+                            receiver: receiver,
+                            deadline: deadline
+                          });
+                          token = new Token({
+                            blockchain: 'solana',
+                            address: from_token
+                          });
+                          _context3.t0 = setSelectedPaymentOption;
+                          _context3.t1 = from_token;
+                          _context3.next = 7;
+                          return token.readable(from_amount);
+
+                        case 7:
+                          _context3.t2 = _context3.sent;
+                          _context3.next = 10;
+                          return token.symbol();
+
+                        case 10:
+                          _context3.t3 = _context3.sent;
+                          _context3.t4 = {
+                            token: _context3.t1,
+                            amount: _context3.t2,
+                            symbol: _context3.t3
+                          };
+                          (0, _context3.t0)(_context3.t4);
+
+                        case 13:
+                        case "end":
+                          return _context3.stop();
+                      }
+                    }
+                  }, _callee3);
+                })))["catch"](function (e) {
+                  console.log(e);
+                  navigate('TracingFailed');
+                });
+
+              case 6:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      return function transactionLoaded(_x2) {
+        return _ref7.apply(this, arguments);
+      };
+    }();
+
+    var reset = function reset() {
+      if (solanaPayTransactionPollingInterval.current) {
+        clearInterval(solanaPayTransactionPollingInterval.current);
+      }
+
+      if (transactionPollingInterval.current) {
+        clearInterval(transactionPollingInterval.current);
+      }
+
+      if (solanaPayTransactionSocket.current) {
+        solanaPayTransactionSocket.current.close(1000);
+      }
+
+      if (transactionTrackingSocket.current) {
+        transactionTrackingSocket.current.close(1000);
+      }
+
+      if (afterBlock.current) {
+        afterBlock.current = undefined;
+      }
+
+      if (secretId.current) {
+        secretId.current = undefined;
+      }
+
+      if (solanPayPayment.current) {
+        solanPayPayment.current = undefined;
+      }
+
+      setSelectedPaymentOption();
+    };
+
+    var initializeSolanaPay = function initializeSolanaPay() {
+      reset();
+      web3ClientSvm.request({
+        blockchain: 'solana',
+        method: 'latestBlockNumber'
+      }).then(function (latestBlock) {
+        if (latestBlock) {
+          afterBlock.current = latestBlock;
+          secretId.current = UUIDv4();
+          openSolanaPayTransactionSocket();
+        }
+      });
+    };
+
+    var alternativeHeaderActionElement = /*#__PURE__*/React__default['default'].createElement("span", {
+      className: "DropDownWrapper"
+    }, /*#__PURE__*/React__default['default'].createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        return setShowDropDown(!showDropDown);
+      },
+      className: "ButtonCircular"
+    }, /*#__PURE__*/React__default['default'].createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React__default['default'].createElement(DropDown, {
+      hide: function hide() {
+        return setShowDropDown(false);
+      },
+      items: [{
+        label: "Contact support",
+        action: function action() {
+          window.open("mailto:support@depay.com?subject=Need help with Solana Pay payment", '_blank');
+        }
+      }].filter(Boolean)
+    }));
+    React.useEffect(function () {
+      initializeSolanaPay();
+      return reset;
+    }, []);
+    React.useEffect(function () {
+      var newQRCode = getNewQRCode();
+      newQRCode.update({
+        data: QRCodeURI
+      });
+      setQRCode(newQRCode);
+    }, [QRCodeURI]);
+    React.useEffect(function () {
+      if (afterBlock.current && QRCode) {
+        setTimeout(function () {
+          return setState('scan');
+        }, 400);
+      }
+    }, [afterBlock && QRCode]);
+    React.useEffect(function () {
+      if (state === 'scan' && QRCode && QRCodeElement && QRCodeElement.current) {
+        QRCodeElement.current.innerHTML = "";
+        QRCode.append(QRCodeElement.current);
+      }
+    }, [state, QRCode]);
+
+    if (state === 'initializing') {
+      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+        alternativeHeaderAction: alternativeHeaderActionElement,
+        header: /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingTopS PaddingLeftM PaddingRightM"
+        }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
+          className: "LineHeightL FontSizeL TextLeft"
+        }, /*#__PURE__*/React__default['default'].createElement(SolanaPayLogo, null)))),
+        body: /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "MaxHeight"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingLeftL PaddingRightL PaddingTopS TextCenter"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Card Skeleton",
+          style: {
+            width: '100%',
+            height: '300px'
+          }
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "SkeletonBackground"
+        }))))
+      });
+    } else {
+      var _transaction$current;
+
+      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+        alternativeHeaderAction: alternativeHeaderActionElement,
+        header: /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingTopS PaddingLeftM PaddingRightM"
+        }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
+          className: "LineHeightL FontSizeL TextLeft"
+        }, /*#__PURE__*/React__default['default'].createElement(SolanaPayLogo, null)))),
+        body: /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingLeftM PaddingRightM"
+        }, state === 'scan' && /*#__PURE__*/React__default['default'].createElement("div", {
+          ref: QRCodeElement,
+          className: "QRCode"
+        }), ['pay', 'succeeded', 'failed'].includes(state) && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingTopS"
+        }, !selectedPaymentOption && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Card Skeleton"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "SkeletonBackground"
+        })), selectedPaymentOption && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Card disabled"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardImage"
+        }, /*#__PURE__*/React__default['default'].createElement(reactTokenImageSvm.TokenImage, {
+          blockchain: 'solana',
+          address: selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.token
+        }), /*#__PURE__*/React__default['default'].createElement("img", {
+          className: "BlockchainLogo small bottomRight " + Blockchains__default['default']['solana'].name,
+          style: {
+            backgroundColor: Blockchains__default['default']['solana'].logoBackgroundColor
+          },
+          src: Blockchains__default['default']['solana'].logo,
+          alt: Blockchains__default['default']['solana'].label,
+          title: Blockchains__default['default']['solana'].label
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBody"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardBodyWrapper"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "CardText"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "TokenAmountRow"
+        }, (selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.amount) && /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "TokenAmountCell"
+        }, format(selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.amount)), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), (selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.symbol) && /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "TokenSymbolCell"
+        }, selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.symbol))), paymentValue && displayedPaymentValue != "".concat(selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.symbol, " ").concat(format(selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.amount)) && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "TokenAmountRow small Opacity05"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "TokenAmountCell"
+        }, displayedPaymentValue)), !paymentValue && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "TokenAmountRow small"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "TokenAmountCell"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Skeleton",
+          style: {
+            position: 'relative',
+            marginTop: '2px',
+            borderRadius: '10px',
+            width: '82px',
+            height: '15px'
+          }
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "SkeletonBackground"
+        })))))))))),
+        footer: /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingRightM PaddingLeftM PaddingBottomM"
+        }, state === 'scan' && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Opacity05 PaddingBottomXS PaddingTopS"
+        }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet")), state === 'pay' && validationState !== true && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingTopXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomS PaddingTopXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingTopXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicator MarginBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("img", {
+          src: solanaPayWallet === null || solanaPayWallet === void 0 ? void 0 : solanaPayWallet.logo
+        }), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicatorSpinner"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "TextCenter PaddingTopXS"
+        }, /*#__PURE__*/React__default['default'].createElement("span", {
+          className: "FontSizeL"
+        }, "Confirm in your wallet"))))), (state === 'succeeded' || validationState === true) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingTopXS"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomS StepsWrapper"
+        }, /*#__PURE__*/React__default['default'].createElement("a", {
+          href: transaction === null || transaction === void 0 ? void 0 : (_transaction$current = transaction.current) === null || _transaction$current === void 0 ? void 0 : _transaction$current.url,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          className: "Step Card small transparent done ".concat(!synchronousTracking ? "active" : "")
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, "Perform payment"))), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepConnector"
+        }), synchronousTracking && !release && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Step Card small transparent active disabled"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "ActionIndicatorSpinner"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Confirming payment")))), synchronousTracking && release && /*#__PURE__*/React__default['default'].createElement("a", {
+          href: transaction ? link({
+            url: "https://scan.depay.com/tx/solana/".concat(transaction.current.id, "?sender=").concat(solanPayPayment.current.fromAddress, "&receiver=").concat(solanPayPayment.current.toAddress, "&deadline=").concat(solanPayPayment.current.deadline),
+            target: '_blank',
+            wallet: solanaPayWallet
+          }) : undefined,
+          target: "_blank",
+          className: "Step Card small transparent active"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
+          className: "small"
+        })), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, "Payment confirmed")))), synchronousTracking && !release && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          className: "ButtonPrimary disabled"
+        }, "Continue")), (release || !synchronousTracking) && forwardTo && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("a", {
+          className: "ButtonPrimary",
+          href: forwardTo,
+          rel: "noopener noreferrer"
+        }, "Continue")), (release || !synchronousTracking) && !forwardTo && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "PaddingBottomXS"
+        }, /*#__PURE__*/React__default['default'].createElement("button", {
+          className: "ButtonPrimary",
+          onClick: close
+        }, "Close")))))
+      });
+    }
+  });
+
+  var TracingFailedDialog = (function (props) {
+    var _useContext = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext.navigate;
+
+    var tryAgain = function tryAgain() {
+      if (props.tryAgain) {
+        props.tryAgain();
+      }
+
+      navigate('back');
+    };
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      stacked: false,
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: function onClick() {
+          window.open("mailto:support@depay.com?subject=Tracing Failed Error", '_blank');
+        },
+        type: "button",
+        className: "Card secondary small inlineBlock"
+      }, "Contact support"))),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: tryAgain
+      }, "Try again"))
+    });
+  });
+
+  var TrackingFailedDialog = (function () {
+    var _useContext = React.useContext(PaymentTrackingContext),
+        continueTryTracking = _useContext.continueTryTracking;
+
+    var _useContext2 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext2.navigate;
+
+    var tryAgain = function tryAgain() {
+      continueTryTracking();
+      navigate('back');
+    };
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      stacked: false,
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        onClick: function onClick() {
+          window.open("mailto:support@depay.com?subject=Tracking Failed Error", '_blank');
+        },
+        type: "button",
+        className: "Card secondary small inlineBlock"
+      }, "Contact support")),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "TextCenter"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS"
+      }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        className: "ButtonPrimary",
+        onClick: tryAgain
+      }, "Try again"))
+    });
+  });
+
+  var WrongNetworkDialog = (function (props) {
+    var _useContext = React.useContext(PaymentContext),
+        payment = _useContext.payment;
+
+    var _useContext2 = React.useContext(WalletContext),
+        wallet = _useContext2.wallet;
+
+    var _useContext3 = React.useContext(reactDialogStack.NavigateStackContext),
+        navigate = _useContext3.navigate;
+
+    var _useState = React.useState(false),
+        _useState2 = _slicedToArray(_useState, 2);
+        _useState2[0];
+        _useState2[1];
+
+    var blockchain = Blockchains__default['default'].findByName(payment.route.blockchain);
+
+    var switchNetwork = function switchNetwork() {
+      wallet.switchTo(payment.blockchain);
+      navigate('back');
+    };
+
+    return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
+      stacked: true,
+      header: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL FontSizeL"
+      }, "Wrong Network")),
+      body: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM PaddingBottomXS TextCenter"
+      }, /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "GraphicWrapper"
+      }, /*#__PURE__*/React__default['default'].createElement("img", {
+        className: "Graphic",
+        src: blockchain.logoWhiteBackground
+      })), /*#__PURE__*/React__default['default'].createElement("h1", {
+        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
+      }, "Connect to ", blockchain.label), /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
+      }, /*#__PURE__*/React__default['default'].createElement("strong", {
+        className: "FontSizeM"
+      }, "Please make sure you connect your wallet to the correct network before you try again!"))),
+      footer: /*#__PURE__*/React__default['default'].createElement("div", {
+        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
+      }, /*#__PURE__*/React__default['default'].createElement("button", {
+        type: "button",
+        className: "ButtonPrimary",
+        onClick: switchNetwork
+      }, "Switch Network"))
+    });
+  });
+
+  var PaymentStack = (function (props) {
+    var _useContext = React.useContext(ClosableContext),
+        open = _useContext.open,
+        close = _useContext.close;
+
+    var _useContext2 = React.useContext(NavigateContext),
+        _setNavigator = _useContext2.setNavigator;
+
+    var _useContext3 = React.useContext(WalletContext),
+        account = _useContext3.account,
+        solanaPayWallet = _useContext3.solanaPayWallet;
+
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        navigator = _useState2[0],
+        setLocalNavigator = _useState2[1];
+
+    React.useEffect(function () {
+      if (navigator && !solanaPayWallet) {
+        navigator.set(['PaymentOverview']);
+      }
+    }, [account, solanaPayWallet]);
+    return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
+      setNavigator: function setNavigator(navigator) {
+        setLocalNavigator(navigator);
+
+        _setNavigator(navigator);
+      },
+      open: open,
+      close: close,
+      start: solanaPayWallet ? 'SolanaPay' : 'PaymentOverview',
+      container: props.container,
+      document: props.document,
+      stacked: true,
+      dialogs: {
+        PaymentOverview: /*#__PURE__*/React__default['default'].createElement(PaymentOverviewDialog, null),
+        SolanaPay: /*#__PURE__*/React__default['default'].createElement(SolanaPayDialog, null),
+        ChangeAmount: /*#__PURE__*/React__default['default'].createElement(ChangeAmountDialog, null),
+        ChangeApproval: /*#__PURE__*/React__default['default'].createElement(ChangeApprovalDialog, null),
+        ChangePayment: /*#__PURE__*/React__default['default'].createElement(ChangePaymentDialog, null),
+        PaymentFailed: /*#__PURE__*/React__default['default'].createElement(PaymentFailedDialog, null),
+        WrongNetwork: /*#__PURE__*/React__default['default'].createElement(WrongNetworkDialog, null),
+        TrackingFailed: /*#__PURE__*/React__default['default'].createElement(TrackingFailedDialog, null),
+        TracingFailed: /*#__PURE__*/React__default['default'].createElement(TracingFailedDialog, null)
+      }
+    });
+  });
+
+  var PaymentTrackingProvider = (function (props) {
+    var _useContext = React.useContext(ErrorContext);
+        _useContext.errorCallback;
+
+    var _useContext2 = React.useContext(ConfigurationContext),
+        configurationId = _useContext2.id,
+        trackConfiguration = _useContext2.track,
+        validated = _useContext2.validated;
+        _useContext2.failed;
+        _useContext2.integration;
+        _useContext2.link;
+        _useContext2.type;
+
+    var _useContext3 = React.useContext(WalletContext);
+        _useContext3.account;
+        var wallet = _useContext3.wallet,
+        solanaPayWallet = _useContext3.solanaPayWallet;
+
+    var _useState = React.useState(),
+        _useState2 = _slicedToArray(_useState, 2),
+        deadline = _useState2[0],
+        setDeadline = _useState2[1];
+
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        transaction = _useState4[0],
+        setTransaction = _useState4[1];
+
+    var _useState5 = React.useState(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        confirmationsRequired = _useState6[0],
+        setConfirmationsRequired = _useState6[1];
+
+    var _useState7 = React.useState(),
+        _useState8 = _slicedToArray(_useState7, 2),
+        confirmationsPassed = _useState8[0],
+        setConfirmationsPassed = _useState8[1];
+
+    var _useState9 = React.useState(),
+        _useState10 = _slicedToArray(_useState9, 2),
+        afterBlock = _useState10[0],
+        setAfterBlock = _useState10[1];
+
+    var _useState11 = React.useState(),
+        _useState12 = _slicedToArray(_useState11, 2);
+        _useState12[0];
+        _useState12[1];
+
+    var _useState13 = React.useState(),
+        _useState14 = _slicedToArray(_useState13, 2),
+        paymentRoute = _useState14[0],
+        setPaymentRoute = _useState14[1];
+
+    var _useState15 = React.useState(),
+        _useState16 = _slicedToArray(_useState15, 2),
+        attemptId = _useState16[0],
+        setAttemptId = _useState16[1];
+
+    var attemptIdRef = React.useRef(attemptId);
+    attemptIdRef.current = attemptId;
+
+    var _useState17 = React.useState(false),
+        _useState18 = _slicedToArray(_useState17, 2),
+        trackingInitialized = _useState18[0],
+        setTrackingInitialized = _useState18[1];
+
+    var _useState19 = React.useState(!!configurationId || !!(trackConfiguration && (trackConfiguration.endpoint || typeof trackConfiguration.method == 'function') && trackConfiguration.async != true)),
+        _useState20 = _slicedToArray(_useState19, 1),
+        synchronousTracking = _useState20[0];
+
+    var _useState21 = React.useState(!configurationId && !!(trackConfiguration && trackConfiguration.async == true)),
+        _useState22 = _slicedToArray(_useState21, 1),
+        asynchronousTracking = _useState22[0];
+
+    var _useState23 = React.useState(!!configurationId || !!(trackConfiguration && trackConfiguration.poll && (trackConfiguration.poll.endpoint || typeof trackConfiguration.poll.method == 'function') && trackConfiguration.async != true)),
+        _useState24 = _slicedToArray(_useState23, 1),
+        polling = _useState24[0];
+
+    var _useState25 = React.useState(false),
+        _useState26 = _slicedToArray(_useState25, 2),
+        release = _useState26[0],
+        setRelease = _useState26[1];
+
+    var _useState27 = React.useState(),
+        _useState28 = _slicedToArray(_useState27, 2),
+        validationState = _useState28[0];
+        _useState28[1];
+
+    var _useState29 = React.useState(),
+        _useState30 = _slicedToArray(_useState29, 2),
+        forwardTo = _useState30[0],
+        setForwardTo = _useState30[1];
+
+    var _useContext4 = React.useContext(ClosableContext),
+        setClosable = _useContext4.setClosable;
+
+    var _useContext5 = React.useContext(NavigateContext),
+        navigate = _useContext5.navigate,
+        set = _useContext5.set;
+
+    var validationSocket = React.useRef();
+    var validatedCallbackCalled = React.useRef();
+
+    var callValidatedCallback = function callValidatedCallback(success, transaction, paymentRoute) {
+      if (validated && validatedCallbackCalled.current !== true) {
+        validatedCallbackCalled.current = true;
+        setTimeout(function () {
+          return validated(success, transaction, paymentRoute);
+        }, 200);
+      }
+    };
+
+    var openValidationSocket = function openValidationSocket(paymentRoute, deadline) {
+      if (validationSocket.current) {
+        return;
+      }
+
+      var identifier = JSON.stringify({
+        blockchain: paymentRoute.blockchain,
+        sender: paymentRoute.fromAddress,
+        receiver: paymentRoute.toAddress,
+        deadline: deadline,
+        channel: 'PaymentChannel'
+      });
+      validationSocket.current = openManagedSocket({
+        identifier: identifier,
+        onopen: function onopen() {
+          return {
+            command: 'subscribe',
+            identifier: identifier
+          };
+        },
+        onmessage: function onmessage(eventData, socket) {
+          if (eventData !== null && eventData !== void 0 && eventData.message) {
+            if (eventData.message.status) {
+              var success = eventData.message.status == 'success';
+              callValidatedCallback(success, transaction, paymentRoute);
+
+              if (eventData.message.release) {
+                socket.close(1000);
+
+                if (success) {
+                  setRelease(true);
+                  setClosable(true);
+                  setForwardTo(eventData.message.forward_to);
+                } else if (success == false) {
+                  setClosable(true);
+                  set(['PaymentFailed']);
+                }
+              } else if (eventData.message.confirmations) {
+                setConfirmationsRequired(eventData.message.confirmations.required);
+                setConfirmationsPassed(eventData.message.confirmations.passed);
+              }
+            }
+          }
+        },
+        keepAlive: {
+          interval: 3000,
+          callback: function callback() {
+            return {
+              type: "ping",
+              message: Math.floor(Date.now() / 1000)
+            };
+          }
+        }
+      });
+    };
+
+    var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt) {
+      attempt = parseInt(attempt || 1, 10);
+
+      if (attempt < ((trackConfiguration === null || trackConfiguration === void 0 ? void 0 : trackConfiguration.attempts) || 40)) {
+        setTimeout(function () {
+          startTracking(transaction, afterBlock, paymentRoute, deadline, attempt + 1);
+        }, 3000);
+      } else {
+        navigate('TrackingFailed');
+      }
+    };
+
+    var continueTryTracking = function continueTryTracking() {
+      retryStartTracking(transaction, afterBlock, paymentRoute, deadline, 1);
+    };
+
+    var callTracking = function callTracking(payment) {
       if (configurationId) {
         return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
           method: 'POST',
@@ -23727,13 +23692,13 @@
             response.json().then(function (attempt) {
               return setAttemptId(attempt.id);
             });
-            return resolve();
+            return response;
           } else {
-            return reject('TRACING REQUEST FAILED');
+            return reject('TRACKING REQUEST FAILED');
           }
         });
-      } else if (track.endpoint) {
-        return fetch(track.endpoint, {
+      } else if (trackConfiguration.endpoint) {
+        return fetch(trackConfiguration.endpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -23741,222 +23706,300 @@
           body: JSON.stringify(payment)
         }).then(function (response) {
           if (response.status == 200 || response.status == 201) {
-            return resolve();
+            return response;
           } else {
-            return reject('TRACING REQUEST FAILED');
+            throw response;
           }
         });
-      } else if (track.method) {
-        track.method(payment).then(resolve)["catch"](reject);
+      } else if (trackConfiguration.method) {
+        return trackConfiguration.method(payment);
       } else {
-        reject('No tracking defined!');
+        throw 'No tracking defined!';
       }
     };
 
-    var sendTrace = function sendTrace(_ref3) {
-      var secretId = _ref3.secretId,
-          selectedPaymentOption = _ref3.selectedPaymentOption;
+    var startTracking = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(transaction, afterBlock, paymentRoute, deadline, attempt) {
+        var _paymentRoute$protoco, _paymentRoute$feeAmou, _paymentRoute$fee, _paymentRoute$feeAmou2, _paymentRoute$fee2;
 
-      if (!isTracking) {
-        return Promise.resolve();
-      }
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                callTracking({
+                  blockchain: transaction.blockchain,
+                  transaction: transaction.id,
+                  sender: paymentRoute.fromAddress,
+                  after_block: afterBlock.toString(),
+                  from_token: paymentRoute.fromToken.address,
+                  from_amount: paymentRoute.fromAmount.toString(),
+                  from_decimals: paymentRoute.fromDecimals,
+                  to_token: paymentRoute.toToken.address,
+                  to_amount: paymentRoute.toAmount.toString(),
+                  to_decimals: paymentRoute.toDecimals,
+                  protocol_fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$protoco = paymentRoute.protocolFeeAmount) === null || _paymentRoute$protoco === void 0 ? void 0 : _paymentRoute$protoco.toString(),
+                  fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou === void 0 ? void 0 : _paymentRoute$feeAmou.toString(),
+                  fee_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee = paymentRoute.fee) === null || _paymentRoute$fee === void 0 ? void 0 : _paymentRoute$fee.receiver,
+                  fee2_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou2 = paymentRoute.feeAmount2) === null || _paymentRoute$feeAmou2 === void 0 ? void 0 : _paymentRoute$feeAmou2.toString(),
+                  fee2_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee2 = paymentRoute.fee2) === null || _paymentRoute$fee2 === void 0 ? void 0 : _paymentRoute$fee2.receiver,
+                  trace_attempt_id: attemptIdRef.current,
+                  deadline: deadline,
+                  selected_wallet: (wallet === null || wallet === void 0 ? void 0 : wallet.name) || (solanaPayWallet === null || solanaPayWallet === void 0 ? void 0 : solanaPayWallet.name)
+                }).then(function (response) {
+                  setTrackingInitialized(true);
+                })["catch"](function (error) {
+                  retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt);
+                });
 
-      return new Promise( /*#__PURE__*/function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(resolve, reject) {
-          var payment;
-          return regenerator.wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  payment = {
-                    blockchain: 'solana',
-                    sender: "solana:".concat(secretId),
-                    after_block: afterBlock.toString(),
-                    from_token: selectedPaymentOption.token,
-                    from_amount: selectedPaymentOption.fromAmountBN.toString(),
-                    from_decimals: selectedPaymentOption.decimals,
-                    to_token: selectedPaymentOption.token,
-                    to_amount: selectedPaymentOption.toAmountBN.toString(),
-                    to_decimals: selectedPaymentOption.decimals,
-                    fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-                    deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 6000 // 1h
-
-                  };
-                  sendTrackingAsConfigured({
-                    payment: payment,
-                    resolve: resolve,
-                    reject: reject
-                  });
-
-                case 2:
-                case "end":
-                  return _context2.stop();
-              }
+              case 1:
+              case "end":
+                return _context.stop();
             }
-          }, _callee2);
-        }));
+          }
+        }, _callee);
+      }));
 
-        return function (_x2, _x3) {
-          return _ref4.apply(this, arguments);
-        };
-      }());
-    };
+      return function startTracking(_x, _x2, _x3, _x4, _x5) {
+        return _ref.apply(this, arguments);
+      };
+    }();
 
-    var sendTrack = function sendTrack(_ref5) {
-      var transaction = _ref5.transaction;
+    var pollStatus = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline) {
+        var handlePollingResponse, performedPayment;
+        return regenerator.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined)) {
+                  _context2.next = 2;
+                  break;
+                }
 
-      if (!isTracking) {
+                return _context2.abrupt("return");
+
+              case 2:
+                handlePollingResponse = function handlePollingResponse(data) {
+                  if (data) {
+                    if (data && data.forward_to) {
+                      setClosable(true);
+                      setForwardTo(data.forward_to);
+                    } else {
+                      setClosable(true);
+                    }
+
+                    clearInterval(pollingInterval);
+                    callValidatedCallback(data.status ? data.status == 'success' : true, transaction, paymentRoute);
+                    setRelease(true);
+                  }
+                };
+
+                performedPayment = {
+                  blockchain: transaction.blockchain,
+                  transaction: transaction.id,
+                  sender: transaction.from,
+                  receiver: paymentRoute.toAddress,
+                  deadline: deadline,
+                  after_block: afterBlock.toString(),
+                  to_token: paymentRoute.toToken.address
+                };
+
+                if (configurationId) {
+                  if (attemptId) {
+                    fetch("https://public.depay.com/attempts/".concat(attemptId), {
+                      method: 'GET',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    }).then(function (response) {
+                      if (response.status == 200 || response.status == 201) {
+                        return response.json();
+                      } else {
+                        return undefined;
+                      }
+                    }).then(handlePollingResponse);
+                  }
+                } else if (trackConfiguration.poll.endpoint) {
+                  fetch(trackConfiguration.poll.endpoint, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(performedPayment)
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      return response.json()["catch"](function () {
+                        setClosable(true);
+                      });
+                    } else {
+                      return undefined;
+                    }
+                  }).then(handlePollingResponse);
+                } else if (trackConfiguration.poll.method) {
+                  trackConfiguration.poll.method(performedPayment).then(handlePollingResponse);
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function pollStatus(_x6, _x7, _x8, _x9, _x10, _x11, _x12) {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    React.useEffect(function () {
+      if (forwardTo) {
+        props.document.location.href = forwardTo;
+      }
+    }, [forwardTo]);
+    React.useEffect(function () {
+      if (!polling) {
         return;
       }
 
-      var payment = {
-        blockchain: 'solana',
-        sender: transaction.from,
-        transaction: transaction.id,
-        nonce: transaction.nonce,
-        after_block: afterBlock.toString(),
-        from_token: selectedPaymentOption.token,
-        from_amount: selectedPaymentOption.fromAmountBN.toString(),
-        from_decimals: selectedPaymentOption.decimals,
-        to_token: selectedPaymentOption.token,
-        to_amount: selectedPaymentOption.toAmountBN.toString(),
-        to_decimals: selectedPaymentOption.decimals,
-        fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-        deadline: transaction.deadline
-      };
-      sendTrackingAsConfigured({
-        payment: payment,
-        resolve: function resolve() {
-          setClosable(!synchronousTracking);
-          setRelease(!synchronousTracking);
-        },
-        reject: function reject() {
-          setState('trackingFailed');
-        }
-      });
-    };
-
-    var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId) {
-      if (solanaPayTransactionSocket) {
-        solanaPayTransactionSocket.close();
+      if (!synchronousTracking) {
+        return;
       }
 
-      var socket = new WebSocket('wss://integrate.depay.com/cable');
-      setSolanaPayTransactionSocket(socket);
+      var pollingInterval = setInterval(function () {
+        return pollStatus(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline);
+      }, 5000);
+      return function () {
+        clearInterval(pollingInterval);
+      };
+    }, [polling, transaction, afterBlock, attemptId, paymentRoute]);
 
-      socket.onopen = /*#__PURE__*/function () {
-        var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(event) {
-          return regenerator.wrap(function _callee3$(_context3) {
-            while (1) {
-              switch (_context3.prev = _context3.next) {
-                case 0:
-                  _context3.next = 2;
-                  return socket.send(JSON.stringify({
-                    command: 'subscribe',
-                    identifier: JSON.stringify({
-                      secret_id: secretId,
-                      version: 3,
-                      channel: 'SolanaPayChannel'
-                    })
-                  }));
+    var track = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(transaction, afterBlock, paymentRoute, deadline) {
+        return regenerator.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (synchronousTracking || trackConfiguration && trackConfiguration.async == true) {
+                  startTracking(transaction, afterBlock, paymentRoute, deadline);
+                }
 
-                case 2:
-                  if (!(QRCodeURI === undefined)) {
-                    _context3.next = 5;
-                    break;
-                  }
+                if (!(synchronousTracking == false)) {
+                  _context3.next = 3;
+                  break;
+                }
 
-                  _context3.next = 5;
-                  return socket.send(JSON.stringify({
-                    command: 'message',
-                    identifier: JSON.stringify({
-                      secret_id: secretId,
-                      channel: 'SolanaPayChannel'
-                    }),
-                    data: JSON.stringify({
-                      type: 'create',
-                      secret_id: secretId,
-                      label: document.title || 'DePay',
-                      icon: getFavicon() || 'https://depay.com/favicon.png',
-                      accept: accept
-                    })
-                  }));
+                return _context3.abrupt("return");
 
-                case 5:
-                case "end":
-                  return _context3.stop();
-              }
+              case 3:
+                setDeadline(deadline);
+                setTransaction(transaction);
+                setAfterBlock(afterBlock);
+                setPaymentRoute(paymentRoute);
+                openValidationSocket(paymentRoute, deadline);
+
+              case 8:
+              case "end":
+                return _context3.stop();
             }
-          }, _callee3);
-        }));
+          }
+        }, _callee3);
+      }));
 
-        return function (_x4) {
-          return _ref6.apply(this, arguments);
-        };
-      }();
-
-      socket.onclose = function (event) {
-        if (!event || event.code != 1000) {
-          setTimeout(function () {
-            return openSolanaPayTransactionSocket(secretId);
-          }, 1000);
-        }
+      return function track(_x13, _x14, _x15, _x16) {
+        return _ref3.apply(this, arguments);
       };
+    }();
 
-      socket.onmessage = function (event) {
-        var item = JSON.parse(event.data);
+    var trace = function trace(afterBlock, paymentRoute, deadline) {
+      setAttemptId(); // reset attemptId in case payment is retried
 
-        if (item.type === "ping" || !item.message) {
-          return;
-        }
-
-        if (item.message.created === true) {
-          traceAndContinue(secretId, "solana:https://public.depay.com/solana/".concat(secretId));
-        } else if (item.message.scanned) {
-          setClosable("Are you sure you want to abort this payment?");
-          setState('pay');
-        } else if (item.message.account) {
-          trackTransaction(item.message);
-          setClosable("Are you sure you want to abort this payment?");
-          setState('pay');
-        }
-      };
-
-      socket.onerror = function (error) {
-        console.log('WebSocket Error: ', error);
-      };
-    };
-
-    var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref7) {
-      var account = _ref7.account,
-          nonce = _ref7.nonce;
-
-      if (transactionTrackingSocket) {
-        transactionTrackingSocket.close();
+      if (!synchronousTracking && !asynchronousTracking) {
+        return Promise.resolve();
       }
 
-      var socket = new WebSocket(Blockchains__default['default'].solana.sockets[Math.floor(Math.random() * Blockchains__default['default'].solana.sockets.length)]);
-      setTransactionTrackingSocket(socket);
+      setDeadline(deadline);
+      setAfterBlock(afterBlock);
+      setPaymentRoute(paymentRoute);
+      openValidationSocket(paymentRoute, deadline);
+      return new Promise( /*#__PURE__*/function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(resolve, reject) {
+          var _paymentRoute$protoco2, _paymentRoute$feeAmou3, _paymentRoute$fee3, _paymentRoute$feeAmou4, _paymentRoute$fee4;
 
-      socket.onopen = /*#__PURE__*/function () {
-        var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(event) {
+          var performedPayment;
           return regenerator.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
                 case 0:
-                  _context4.next = 2;
-                  return socket.send(JSON.stringify({
-                    "jsonrpc": "2.0",
-                    "id": 1,
-                    "method": "logsSubscribe",
-                    "params": [{
-                      "mentions": [account]
-                    }, {
-                      "commitment": "processed"
-                    }]
+                  performedPayment = {
+                    blockchain: paymentRoute.blockchain,
+                    sender: paymentRoute.fromAddress,
+                    after_block: afterBlock.toString(),
+                    from_token: paymentRoute.fromToken.address,
+                    from_amount: paymentRoute.fromAmount.toString(),
+                    from_decimals: paymentRoute.fromDecimals,
+                    to_token: paymentRoute.toToken.address,
+                    to_amount: paymentRoute.toAmount.toString(),
+                    to_decimals: paymentRoute.toDecimals,
+                    protocol_fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$protoco2 = paymentRoute.protocolFeeAmount) === null || _paymentRoute$protoco2 === void 0 ? void 0 : _paymentRoute$protoco2.toString(),
+                    fee_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou3 = paymentRoute.feeAmount) === null || _paymentRoute$feeAmou3 === void 0 ? void 0 : _paymentRoute$feeAmou3.toString(),
+                    fee_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee3 = paymentRoute.fee) === null || _paymentRoute$fee3 === void 0 ? void 0 : _paymentRoute$fee3.receiver,
+                    fee2_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou4 = paymentRoute.feeAmount2) === null || _paymentRoute$feeAmou4 === void 0 ? void 0 : _paymentRoute$feeAmou4.toString(),
+                    fee2_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee4 = paymentRoute.fee2) === null || _paymentRoute$fee4 === void 0 ? void 0 : _paymentRoute$fee4.receiver,
+                    deadline: deadline,
+                    selected_wallet: (wallet === null || wallet === void 0 ? void 0 : wallet.name) || (solanaPayWallet === null || solanaPayWallet === void 0 ? void 0 : solanaPayWallet.name)
+                  };
+
+                  if (!configurationId) {
+                    _context4.next = 5;
+                    break;
+                  }
+
+                  return _context4.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(performedPayment)
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      response.json().then(function (attempt) {
+                        return setAttemptId(attempt.id);
+                      });
+                      return resolve();
+                    } else {
+                      return reject('TRACING REQUEST FAILED');
+                    }
                   }));
 
-                case 2:
+                case 5:
+                  if (!trackConfiguration.endpoint) {
+                    _context4.next = 9;
+                    break;
+                  }
+
+                  return _context4.abrupt("return", fetch(trackConfiguration.endpoint, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(performedPayment)
+                  }).then(function (response) {
+                    if (response.status == 200 || response.status == 201) {
+                      return resolve();
+                    } else {
+                      return reject('TRACING REQUEST FAILED');
+                    }
+                  }));
+
+                case 9:
+                  if (trackConfiguration.method) {
+                    trackConfiguration.method(performedPayment).then(resolve)["catch"](reject);
+                  } else {
+                    reject('No tracking defined!');
+                  }
+
+                case 10:
                 case "end":
                   return _context4.stop();
               }
@@ -23964,865 +24007,163 @@
           }, _callee4);
         }));
 
-        return function (_x5) {
-          return _ref8.apply(this, arguments);
+        return function (_x17, _x18) {
+          return _ref4.apply(this, arguments);
         };
-      }();
-
-      socket.onclose = function (event) {
-        if (!event || event.code != 1000) {
-          setTimeout(function () {
-            return openTransactionTrackingSocket({
-              account: account,
-              nonce: nonce
-            });
-          }, 1000);
-        }
-      };
-
-      socket.onmessage = function (event) {
-        if (event && event.data) {
-          var _data$params, _data$params$result, _data$params$result$v, _ref9, _data$params2, _data$params2$result, _data$params2$result$;
-
-          var data = JSON.parse(event.data);
-
-          if (data && data !== null && data !== void 0 && (_data$params = data.params) !== null && _data$params !== void 0 && (_data$params$result = _data$params.result) !== null && _data$params$result !== void 0 && (_data$params$result$v = _data$params$result.value) !== null && _data$params$result$v !== void 0 && _data$params$result$v.logs && (_ref9 = (data === null || data === void 0 ? void 0 : (_data$params2 = data.params) === null || _data$params2 === void 0 ? void 0 : (_data$params2$result = _data$params2.result) === null || _data$params2$result === void 0 ? void 0 : (_data$params2$result$ = _data$params2$result.value) === null || _data$params2$result$ === void 0 ? void 0 : _data$params2$result$.logs) || []) !== null && _ref9 !== void 0 && _ref9.find(function (log) {
-            return log.match("Program ".concat(routers.solana.address));
-          })) {
-            var _data$params3, _data$params3$result;
-
-            var result = data === null || data === void 0 ? void 0 : (_data$params3 = data.params) === null || _data$params3 === void 0 ? void 0 : (_data$params3$result = _data$params3.result) === null || _data$params3$result === void 0 ? void 0 : _data$params3$result.value;
-
-            if (result && result.err === null) {
-              setState('succeeded');
-              setTransaction({
-                status: 'succeeded',
-                id: result.signature,
-                url: Blockchains__default['default'].solana.explorerUrlFor({
-                  transaction: {
-                    id: result.signature
-                  }
-                }),
-                from: account,
-                nonce: nonce,
-                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-              });
-            } else if (result) {
-              setState('failed');
-              setTransaction({
-                status: 'failed',
-                id: result.signature,
-                url: Blockchains__default['default'].solana.explorerUrlFor({
-                  transaction: {
-                    id: result.signature
-                  }
-                }),
-                from: account,
-                nonce: nonce,
-                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-              });
-            }
-          }
-        }
-      };
-
-      socket.onerror = function (error) {
-        console.log('WebSocket Error: ', error);
-      };
+      }());
     };
 
-    var openPaymentValidationSocket = function openPaymentValidationSocket(transaction) {
-      if (paymentValidationSocket) {
-        paymentValidationSocket.close();
+    return /*#__PURE__*/React__default['default'].createElement(PaymentTrackingContext.Provider, {
+      value: {
+        synchronousTracking: synchronousTracking,
+        asynchronousTracking: asynchronousTracking,
+        track: track,
+        trace: trace,
+        trackingInitialized: trackingInitialized,
+        continueTryTracking: continueTryTracking,
+        release: release,
+        validationState: validationState,
+        forwardTo: forwardTo,
+        confirmationsRequired: confirmationsRequired,
+        confirmationsPassed: confirmationsPassed
       }
+    }, props.children);
+  });
 
-      var socket = new WebSocket('wss://integrate.depay.com/cable');
-      setPaymentValidationSocket(socket);
+  var usdAmountForToken = /*#__PURE__*/(function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(_ref) {
+      var blockchain, token, amount, decimals, _decimals, amountDecimal, response;
 
-      socket.onopen = /*#__PURE__*/function () {
-        var _ref10 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
-          var msg;
-          return regenerator.wrap(function _callee5$(_context5) {
-            while (1) {
-              switch (_context5.prev = _context5.next) {
-                case 0:
-                  msg = {
-                    command: 'subscribe',
-                    identifier: JSON.stringify({
-                      blockchain: 'solana',
-                      sender: transaction.from,
-                      nonce: transaction.nonce,
-                      channel: 'PaymentChannel'
-                    })
-                  };
-                  socket.send(JSON.stringify(msg));
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              blockchain = _ref.blockchain, token = _ref.token, amount = _ref.amount, decimals = _ref.decimals;
 
-                case 2:
-                case "end":
-                  return _context5.stop();
+              if (!Blockchains__default['default'][blockchain].stables.usd.includes(token)) {
+                _context.next = 4;
+                break;
               }
-            }
-          }, _callee5);
-        }));
 
-        return function (_x6) {
-          return _ref10.apply(this, arguments);
-        };
-      }();
+              // is stable
+              _decimals = Blockchains__default['default'][blockchain].tokens.find(function (tokenData) {
+                return tokenData.address === token;
+              }).decimals;
+              return _context.abrupt("return", ethers.ethers.utils.formatUnits(amount.toString(), _decimals));
 
-      socket.onclose = function (event) {
-        if (!event || event.code != 1000) {
-          setTimeout(function () {
-            return openPaymentValidationSocket(transaction);
-          }, 1000);
-        }
-      };
+            case 4:
+              amountDecimal = ethers.ethers.utils.formatUnits(amount, decimals);
+              _context.next = 7;
+              return fetch("https://public.depay.com/conversions/USD/".concat(blockchain, "/").concat(token, "?amount=").concat(amountDecimal));
 
-      socket.onmessage = function (event) {
-        var item = JSON.parse(event.data);
+            case 7:
+              response = _context.sent;
 
-        if (item.type === "ping" || !item.message) {
-          return;
-        }
+              if (!(response.status == 200)) {
+                _context.next = 14;
+                break;
+              }
 
-        var success = item.message.status === 'success';
+              _context.t0 = parseFloat;
+              _context.next = 12;
+              return response.text();
 
-        if (validated) {
-          setTimeout(function () {
-            return validated(success, transaction);
-          }, 200);
-        }
+            case 12:
+              _context.t1 = _context.sent;
+              return _context.abrupt("return", (0, _context.t0)(_context.t1));
 
-        if (item.message.release) {
-          socket.close();
-
-          if (success) {
-            setRelease(true);
-            setClosable(true);
-            setForwardTo(item.message.forward_to);
-
-            if (!!item.message.forward_to) {
-              setTimeout(function () {
-                (props.document || window.document).location.href = item.message.forward_to;
-              }, 200);
-            }
-          } else if (success == false) {
-            setClosable(true);
-            setState('failed');
+            case 14:
+            case "end":
+              return _context.stop();
           }
         }
-      };
+      }, _callee);
+    }));
 
-      socket.onerror = function (error) {
-        console.log('WebSocket Error: ', error);
-      };
+    return function (_x) {
+      return _ref2.apply(this, arguments);
     };
+  })();
 
-    var pollStatus = function pollStatus(transaction) {
-      var _track$poll, _track$poll2;
+  var PaymentValueProvider = (function (props) {
+    var _useContext = React.useContext(UpdatableContext),
+        updatable = _useContext.updatable;
 
-      var payment = {
-        blockchain: 'solana',
-        transaction: transaction.id,
-        sender: transaction.from,
-        nonce: transaction.nonce,
-        after_block: afterBlock.toString(),
-        to_token: selectedPaymentOption.token
-      };
+    var _useContext2 = React.useContext(ConfigurationContext),
+        configuredAmount = _useContext2.amount,
+        currencyCode = _useContext2.currencyCode;
 
-      var handlePollingResponse = function handlePollingResponse(data) {
-        if (data) {
-          if (data && data.forward_to) {
-            setClosable(true);
-            setForwardTo(data.forward_to);
-            setTimeout(function () {
-              (props.document || window.document).location.href = data.forward_to;
-            }, 200);
-          } else {
-            setClosable(true);
-          }
+    var _useContext3 = React.useContext(ChangableAmountContext),
+        amount = _useContext3.amount;
 
-          clearInterval(pollingInterval);
+    var _useContext4 = React.useContext(PaymentContext),
+        payment = _useContext4.payment;
 
-          if (validated) {
-            validated(true, transaction);
-          }
-
-          setRelease(true);
-        }
-      };
-
-      if (configurationId) {
-        if (attemptId) {
-          fetch("https://public.depay.com/attempts/".concat(attemptId), {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then(function (response) {
-            if (response.status == 200 || response.status == 201) {
-              return response.json();
-            } else {
-              return undefined;
-            }
-          }).then(handlePollingResponse);
-        }
-      } else if (track !== null && track !== void 0 && (_track$poll = track.poll) !== null && _track$poll !== void 0 && _track$poll.endpoint) {
-        fetch(track.poll.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payment)
-        }).then(function (response) {
-          if (response.status == 200 || response.status == 201) {
-            return response.json()["catch"](function () {
-              setClosable(true);
-            });
-          } else {
-            return undefined;
-          }
-        }).then(handlePollingResponse);
-      } else if (track !== null && track !== void 0 && (_track$poll2 = track.poll) !== null && _track$poll2 !== void 0 && _track$poll2.method) {
-        track.poll.method(payment).then(handlePollingResponse);
-      }
-    };
-
-    var startPollingPaymentStatus = function startPollingPaymentStatus(transaction) {
-      if (polling) {
-        setPollingPaymentStatusInterval(setInterval(function () {
-          pollStatus(transaction);
-        }, 5000));
-      }
-    };
-
-    var trackTransaction = function trackTransaction(_ref11) {
-      var account = _ref11.account,
-          nonce = _ref11.nonce;
-      openTransactionTrackingSocket({
-        account: account,
-        nonce: nonce
-      });
-      setTransactionTrackingInterval(setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7() {
-        var provider, signatures, relevantTransactions;
-        return regenerator.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                _context7.next = 2;
-                return getProvider('solana');
-
-              case 2:
-                provider = _context7.sent;
-                _context7.next = 5;
-                return provider.getSignaturesForAddress(new solanaWeb3_js.PublicKey(account));
-
-              case 5:
-                signatures = _context7.sent;
-
-                if (!(signatures && signatures.length && signatures[0].slot > afterBlock)) {
-                  _context7.next = 11;
-                  break;
-                }
-
-                relevantTransactions = signatures.filter(function (signature) {
-                  return signature.slot > afterBlock;
-                });
-                _context7.next = 10;
-                return Promise.all(relevantTransactions.map( /*#__PURE__*/function () {
-                  var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(relevantTransaction) {
-                    var fullTransactionData, foundRouterInstruction;
-                    return regenerator.wrap(function _callee6$(_context6) {
-                      while (1) {
-                        switch (_context6.prev = _context6.next) {
-                          case 0:
-                            _context6.next = 2;
-                            return provider.getTransaction(relevantTransaction.signature, {
-                              commitment: 'confirmed',
-                              maxSupportedTransactionVersion: 0
-                            });
-
-                          case 2:
-                            fullTransactionData = _context6.sent;
-                            foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
-
-                            if (foundRouterInstruction && foundRouterInstruction.nonce.toString() === nonce.toString()) {
-                              if (fullTransactionData.meta.err === null) {
-                                setState('succeeded');
-                                setTransaction({
-                                  status: 'succeeded',
-                                  id: fullTransactionData.transaction.signatures[0],
-                                  url: Blockchains__default['default'].solana.explorerUrlFor({
-                                    transaction: {
-                                      id: fullTransactionData.transaction.signatures[0]
-                                    }
-                                  }),
-                                  from: account,
-                                  nonce: nonce,
-                                  deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-                                });
-                              } else {
-                                setState('failed');
-                                setTransaction({
-                                  status: 'failed',
-                                  id: fullTransactionData.transaction.signatures[0],
-                                  url: Blockchains__default['default'].solana.explorerUrlFor({
-                                    transaction: {
-                                      id: fullTransactionData.transaction.signatures[0]
-                                    }
-                                  }),
-                                  from: account,
-                                  nonce: nonce,
-                                  deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-                                });
-                              }
-                            }
-
-                          case 5:
-                          case "end":
-                            return _context6.stop();
-                        }
-                      }
-                    }, _callee6);
-                  }));
-
-                  return function (_x7) {
-                    return _ref13.apply(this, arguments);
-                  };
-                }()));
-
-              case 10:
-
-              case 11:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
-      })), 1000));
-    };
-
-    var traceAndContinue = /*#__PURE__*/function () {
-      var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, QRCodeURI) {
-        return regenerator.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                sendTrace({
-                  secretId: secretId,
-                  accept: accept
-                }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
-                  var newQRCode;
-                  return regenerator.wrap(function _callee8$(_context8) {
-                    while (1) {
-                      switch (_context8.prev = _context8.next) {
-                        case 0:
-                          setQRCodeURI(QRCodeURI);
-                          newQRCode = getNewQRCode();
-                          newQRCode.update({
-                            data: QRCodeURI
-                          });
-                          setQRCode(newQRCode);
-
-                        case 4:
-                        case "end":
-                          return _context8.stop();
-                      }
-                    }
-                  }, _callee8);
-                })))["catch"](function (error) {
-                  console.log('Tracing error:', error);
-                  setState('tracingFailed');
-                });
-                return _context9.abrupt("return", {
-                  afterBlock: afterBlock
-                });
-
-              case 2:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9);
-      }));
-
-      return function traceAndContinue(_x8, _x9) {
-        return _ref14.apply(this, arguments);
-      };
-    }();
-
-    React.useEffect(function () {
-      var secretId = UUIDv4();
-      setSecretId(secretId);
-      openSolanaPayTransactionSocket(secretId);
-      request({
-        blockchain: 'solana',
-        method: 'latestBlockNumber'
-      }).then(setAfterBlock);
-    }, []);
-    React.useEffect(function () {
-      return function () {
-        if (solanaPayTransactionSocket) {
-          solanaPayTransactionSocket.close();
-        }
-      };
-    }, [solanaPayTransactionSocket]);
-    React.useEffect(function () {
-      return function () {
-        if (transactionTrackingSocket) {
-          transactionTrackingSocket.close();
-        }
-      };
-    }, [transactionTrackingSocket]);
-    React.useEffect(function () {
-      return function () {
-        if (paymentValidationSocket) {
-          paymentValidationSocket.close();
-        }
-      };
-    }, [paymentValidationSocket]);
-    React.useEffect(function () {
-      return function () {
-        if (transactionTrackingInterval) {
-          clearInterval(transactionTrackingInterval);
-        }
-      };
-    }, [transactionTrackingInterval]);
-    React.useEffect(function () {
-      return function () {
-        if (pollingPaymentStatusInterval) {
-          clearInterval(pollingPaymentStatusInterval);
-        }
-      };
-    }, [pollingPaymentStatusInterval]);
-    React.useEffect(function () {
-      if (afterBlock && QRCode) {
-        setState('scan');
-      }
-    }, [afterBlock && QRCode]);
-    React.useEffect(function () {
-      if (state === 'scan' && QRCode && QRCodeElement && QRCodeElement.current) {
-        QRCodeElement.current.innerHTML = "";
-        QRCode.append(QRCodeElement.current);
-      }
-    }, [state, QRCode]);
-    React.useEffect(function () {
-      if (transaction && ['succeeded', 'failed'].includes(state) && paymentValidationSocket === undefined) {
-        setClosable(!isTracking);
-        setRelease(!isTracking);
-
-        if (transactionTrackingSocket) {
-          transactionTrackingSocket.close();
-        }
-
-        if (transactionTrackingInterval) {
-          clearInterval(transactionTrackingInterval);
-        }
-
-        if (synchronousTracking) {
-          openPaymentValidationSocket(transaction);
-          startPollingPaymentStatus(transaction);
-        }
-
-        sendTrack({
-          transaction: transaction
-        });
-      }
-    }, [transaction, state, paymentValidationSocket]);
-
-    if (state === 'trackingFailed') {
-      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-        stacked: false,
-        header: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS PaddingLeftM PaddingRightM"
-        }),
-        body: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "GraphicWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement(ErrorGraphic, null)), /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-        }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-        }, /*#__PURE__*/React__default['default'].createElement("strong", {
-          className: "FontSizeM"
-        }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
-        footer: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-        }, /*#__PURE__*/React__default['default'].createElement("button", {
-          className: "ButtonPrimary",
-          onClick: function onClick() {
-            setState(transaction.status);
-            sendTrack({
-              transaction: transaction
-            });
-          }
-        }, "Try again"))
-      });
-    }
-
-    if (state === 'tracingFailed') {
-      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-        stacked: false,
-        header: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS PaddingLeftM PaddingRightM"
-        }),
-        body: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "GraphicWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "Graphic",
-          src: ErrorGraphic
-        })), /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-        }, "Tracking payment failed"), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-        }, /*#__PURE__*/React__default['default'].createElement("strong", {
-          className: "FontSizeM"
-        }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("span", null, "If this keeps happening, please report it.")))),
-        footer: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-        }, /*#__PURE__*/React__default['default'].createElement("button", {
-          className: "ButtonPrimary",
-          onClick: function onClick() {
-            setState('wait');
-            traceAndContinue(secretId, "solana:https://public.depay.com/solanapay/".concat(secretId));
-          }
-        }, "Try again"))
-      });
-    }
-
-    if (state === 'failed') {
-      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-        stacked: false,
-        header: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS PaddingLeftM PaddingRightM"
-        }),
-        body: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "GraphicWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "Graphic",
-          src: ErrorGraphic
-        })), /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-        }, "Payment Failed"), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-        }, /*#__PURE__*/React__default['default'].createElement("strong", {
-          className: "FontSizeM"
-        }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("a", {
-          className: "Link",
-          title: "Check your transaction on a block explorer",
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, "View details")))),
-        footer: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-        }, /*#__PURE__*/React__default['default'].createElement("button", {
-          className: "ButtonPrimary",
-          onClick: function onClick() {
-            return close();
-          }
-        }, "Try again"))
-      });
-    }
-
-    if (!paymentOptions) {
-      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-        header: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS PaddingLeftM PaddingRightM"
-        }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL FontSizeL TextLeft"
-        }, /*#__PURE__*/React__default['default'].createElement("svg", {
-          className: "SolanaPayLogo",
-          width: "86",
-          height: "32",
-          viewBox: "0 0 86 32",
-          xmlns: "http://www.w3.org/2000/svg"
-        }, /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
-        }), /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
-        }), /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
-        }), /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
-        }))))),
-        body: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "MaxHeight"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingLeftM PaddingRightM"
-        }, accept.filter(function (configuration) {
-          return configuration.blockchain === 'solana';
-        }).map(function (configuration, index) {
-          return /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "Card Skeleton",
-            key: index
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "SkeletonBackground"
-          }));
-        })))
-      });
-    } else {
-      return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
-        header: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopS PaddingLeftM PaddingRightM"
-        }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("h1", {
-          className: "LineHeightL FontSizeL TextLeft"
-        }, /*#__PURE__*/React__default['default'].createElement("svg", {
-          className: "SolanaPayLogo",
-          width: "86",
-          height: "32",
-          viewBox: "0 0 86 32",
-          xmlns: "http://www.w3.org/2000/svg"
-        }, /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
-        }), /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
-        }), /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
-        }), /*#__PURE__*/React__default['default'].createElement("path", {
-          d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
-        }))))),
-        body: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "".concat(['select'].includes(state) ? 'MaxHeight' : '')
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingLeftM PaddingRightM"
-        }, state === 'select' && paymentOptions && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopXS"
-        }, paymentOptions.map(function (paymentOption, index) {
-          return /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "Card",
-            key: index,
-            onClick: function onClick() {
-              return selectPaymentOption(paymentOption);
-            }
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardImage"
-          }, /*#__PURE__*/React__default['default'].createElement(TokenImage, {
-            blockchain: paymentOption.blockchain,
-            address: paymentOption.token
-          }), /*#__PURE__*/React__default['default'].createElement("img", {
-            className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][paymentOption.blockchain].name,
-            style: {
-              backgroundColor: Blockchains__default['default'][paymentOption.blockchain].logoBackgroundColor
-            },
-            src: Blockchains__default['default'][paymentOption.blockchain].logo,
-            alt: Blockchains__default['default'][paymentOption.blockchain].label,
-            title: Blockchains__default['default'][paymentOption.blockchain].label
-          })), /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardBody"
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "CardBodyWrapper"
-          }, /*#__PURE__*/React__default['default'].createElement("h2", {
-            className: "CardText"
-          }, /*#__PURE__*/React__default['default'].createElement("div", {
-            className: "TokenAmountRow"
-          }, /*#__PURE__*/React__default['default'].createElement("span", {
-            className: "TokenAmountCell"
-          }, format(paymentOption.amount)), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
-            className: "TokenSymbolCell"
-          }, paymentOption.symbol))))));
-        })), state === 'wait' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Skeleton",
-          style: {
-            display: "inline-block",
-            borderRadius: "18px",
-            width: "305px",
-            height: "305px"
-          }
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "SkeletonBackground"
-        }))), state === 'scan' && /*#__PURE__*/React__default['default'].createElement("div", {
-          ref: QRCodeElement,
-          className: "QRCode"
-        }), ['pay', 'succeeded', 'failed'].includes(state) && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card disabled"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement(TokenImage, {
-          blockchain: selectedPaymentOption.blockchain,
-          address: selectedPaymentOption.token
-        }), /*#__PURE__*/React__default['default'].createElement("img", {
-          className: "BlockchainLogo small bottomRight " + Blockchains__default['default'][selectedPaymentOption.blockchain].name,
-          style: {
-            backgroundColor: Blockchains__default['default'][selectedPaymentOption.blockchain].logoBackgroundColor
-          },
-          src: Blockchains__default['default'][selectedPaymentOption.blockchain].logo,
-          alt: Blockchains__default['default'][selectedPaymentOption.blockchain].label,
-          title: Blockchains__default['default'][selectedPaymentOption.blockchain].label
-        })), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("h2", {
-          className: "CardText"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TokenAmountRow"
-        }, /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "TokenAmountCell"
-        }, format(selectedPaymentOption.amount)), /*#__PURE__*/React__default['default'].createElement("span", null, "\xA0"), /*#__PURE__*/React__default['default'].createElement("span", {
-          className: "TokenSymbolCell"
-        }, selectedPaymentOption.symbol)))))))),
-        footer: /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingRightM PaddingLeftM PaddingBottomM"
-        }, state === 'select' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05 PaddingBottomXS PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("small", null, "Select a payment option to continue")), state === 'wait' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05 PaddingBottomXS PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("small", null, "Loading QR code...")), state === 'scan' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05 PaddingBottomXS PaddingTopS"
-        }, /*#__PURE__*/React__default['default'].createElement("small", null, "Scan QR code with your wallet")), state === 'pay' && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopXS"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingBottomS"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent disabled small"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter Opacity05"
-        }, /*#__PURE__*/React__default['default'].createElement(DigitalWalletIcon, {
-          className: "small"
-        }))), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05"
-        }, "Confirm payment in your wallet"))))), /*#__PURE__*/React__default['default'].createElement("a", {
-          className: "ButtonPrimary ".concat(transaction !== null && transaction !== void 0 && transaction.url ? '' : 'disabled'),
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Paying"))), state === 'succeeded' && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingTopXS"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "PaddingBottomS"
-        }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("a", {
-          className: "Card transparent small",
-          title: "Transaction has been confirmed by the network",
-          href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter Opacity05"
-        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
-          className: "small"
-        }))), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05"
-        }, "Transaction confirmed"))))), synchronousTracking && !release && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Loading Icon"
-        }))), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05"
-        }, "Validating payment")))), synchronousTracking && release && /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Card transparent small disabled"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "TextCenter Opacity05"
-        }, /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
-          className: "small"
-        }))), /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: "Opacity05"
-        }, "Payment validated"))))), !release && /*#__PURE__*/React__default['default'].createElement("button", {
-          className: "ButtonPrimary disabled"
-        }, "Continue"), release && forwardTo && /*#__PURE__*/React__default['default'].createElement("a", {
-          className: "ButtonPrimary",
-          href: forwardTo,
-          rel: "noopener noreferrer"
-        }, "Continue"), release && !forwardTo && /*#__PURE__*/React__default['default'].createElement("button", {
-          className: "ButtonPrimary",
-          onClick: close
-        }, "Close"))))
-      });
-    }
-  });
-
-  var SolanaPayStack = (function (props) {
-    var _useContext = React.useContext(ClosableContext),
-        open = _useContext.open,
-        close = _useContext.close;
-
-    var _useContext2 = React.useContext(NavigateContext),
-        setNavigator = _useContext2.setNavigator;
-
-    return /*#__PURE__*/React__default['default'].createElement(reactDialogStack.ReactDialogStack, {
-      setNavigator: setNavigator,
-      open: open,
-      close: close,
-      start: "SolanaPay",
-      container: props.container,
-      document: props.document,
-      stacked: true,
-      dialogs: {
-        SolanaPay: /*#__PURE__*/React__default['default'].createElement(SolanaPayDialog, {
-          unmount: props.unmount,
-          document: props.document
-        })
-      }
-    });
-  });
-
-  var SolanaPayProvider = (function (props) {
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
-        showSolanaPayStack = _useState2[0],
-        setShowSolanaPayStack = _useState2[1];
+        paymentValue = _useState2[0],
+        setPaymentValue = _useState2[1];
 
-    var start = function start() {
-      setShowSolanaPayStack(true);
+    var _useState3 = React.useState(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        displayedPaymentValue = _useState4[0],
+        setDisplayedPaymentValue = _useState4[1];
+
+    var _useContext5 = React.useContext(ConfigurationContext),
+        currency = _useContext5.currency;
+
+    var updatePaymentValue = function updatePaymentValue(_ref) {
+      var updatable = _ref.updatable,
+          payment = _ref.payment;
+
+      if (updatable == false || (payment === null || payment === void 0 ? void 0 : payment.route) == undefined) {
+        return;
+      }
+
+      setPaymentValue(null);
+      usdAmountForToken({
+        blockchain: payment.route.blockchain,
+        token: payment.route.fromToken.address,
+        amount: payment.route.fromAmount,
+        decimals: payment.route.fromDecimals
+      }).then(function (usdAmount) {
+        if (usdAmount != undefined && usdAmount != null) {
+          localCurrency.Currency.fromUSD({
+            amount: usdAmount,
+            code: currency
+          }).then(setPaymentValue);
+        }
+      });
     };
 
-    if (showSolanaPayStack) {
-      return /*#__PURE__*/React__default['default'].createElement(SolanaPayStack, {
-        setShowSolanaPayStack: setShowSolanaPayStack,
-        document: props.document,
-        container: props.container,
-        unmount: props.unmount
-      });
-    } else {
-      return /*#__PURE__*/React__default['default'].createElement(SolanaPayContext.Provider, {
-        value: {
-          start: start
-        }
-      }, props.children);
-    }
+    React.useEffect(function () {
+      if (paymentValue && amount && configuredAmount && configuredAmount.fix) {
+        setDisplayedPaymentValue(paymentValue.toString());
+      } else if (amount && (configuredAmount == undefined || (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true)) {
+        setDisplayedPaymentValue(new localCurrency.Currency({
+          amount: amount.toFixed(2),
+          code: currencyCode
+        }).toString());
+      } else if (paymentValue && paymentValue.toString().length && (configuredAmount === null || configuredAmount === void 0 ? void 0 : configuredAmount.token) != true) {
+        setDisplayedPaymentValue(paymentValue.toString());
+      } else if (payment) {
+        setDisplayedPaymentValue("".concat(payment.symbol, " ").concat(payment.amount));
+      }
+    }, [paymentValue, payment, amount, configuredAmount]);
+    React.useEffect(function () {
+      if (payment) {
+        updatePaymentValue({
+          updatable: updatable,
+          payment: payment
+        });
+      }
+    }, [updatable, payment]);
+    return /*#__PURE__*/React__default['default'].createElement(PaymentValueContext.Provider, {
+      value: {
+        paymentValue: paymentValue,
+        displayedPaymentValue: displayedPaymentValue
+      }
+    }, props.children);
   });
 
   var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
@@ -24857,7 +24198,7 @@
                   throw 'You need to set the blockchain you want to receive the payment on!';
                 }
 
-                if (!supported$4.includes(configuration.blockchain)) {
+                if (!supported$3.includes(configuration.blockchain)) {
                   throw 'You need to set a supported blockchain!';
                 }
 
@@ -24957,11 +24298,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
                     closable: closable
-                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(SolanaPayProvider, {
-                    unmount: unmount,
-                    document: document,
-                    container: container
-                  }, /*#__PURE__*/React__default['default'].createElement(WalletProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(NavigateProvider, null, /*#__PURE__*/React__default['default'].createElement(WalletProvider, {
                     document: document,
                     container: container,
                     connected: connected,
@@ -24977,7 +24314,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(PaymentValueProvider, null, /*#__PURE__*/React__default['default'].createElement(PaymentStack, {
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))))));
                 };
               });
               return _context2.abrupt("return", {
@@ -25225,7 +24562,7 @@
         className: "CardBodyWrapper"
       }, /*#__PURE__*/React__default['default'].createElement("h4", {
         className: "CardTitle"
-      }, "Amount"), /*#__PURE__*/React__default['default'].createElement("h2", {
+      }, "Amount"), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardText"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "TokenAmountRow"
@@ -25640,7 +24977,7 @@
           image: image,
           name: name,
           link: link,
-          type: supported$4.svm.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
+          type: supported$3.svm.includes(blockchain) ? 'metaplex' : idRequired ? '1155' : '721'
         }
       }));
       navigate('ConfirmNFTSelection');
@@ -25725,7 +25062,7 @@
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  if (!(blockchain && !supported$4.svm.includes(blockchain))) {
+                  if (!(blockchain && !supported$3.svm.includes(blockchain))) {
                     _context2.next = 10;
                     break;
                   }
@@ -25795,7 +25132,7 @@
       bodyClassName: "ScrollHeight",
       body: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported$4.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, /*#__PURE__*/React__default['default'].createElement("div", null, supported$3.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain6 = selection.blockchain) === null || _selection$blockchain6 === void 0 ? void 0 : _selection$blockchain6.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddresses"
@@ -25820,7 +25157,7 @@
         }
       }), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "FontSizeXS PaddingLeftXS PaddingRightXS Opacity03 LineHeightXS"
-      }, "Separate each one with a new line break."))), !supported$4.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Separate each one with a new line break."))), !supported$3.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain7 = selection.blockchain) === null || _selection$blockchain7 === void 0 ? void 0 : _selection$blockchain7.name) && /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("label", {
         htmlFor: "DePayWidgetsEnterNFTTokenAddress"
@@ -25872,7 +25209,7 @@
         onChange: function onChange(event) {
           return setName(event.target.value);
         },
-        placeholder: supported$4.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
+        placeholder: supported$3.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain8 = selection.blockchain) === null || _selection$blockchain8 === void 0 ? void 0 : _selection$blockchain8.name) ? 'SMB' : 'CryptoPunks',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -25889,7 +25226,7 @@
         onChange: function onChange(event) {
           return setImage(event.target.value);
         },
-        placeholder: supported$4.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
+        placeholder: supported$3.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain9 = selection.blockchain) === null || _selection$blockchain9 === void 0 ? void 0 : _selection$blockchain9.name) ? 'https://img-cdn.magiceden.dev/rs:fill:128:128:0:0/plain/https://creator-hub-prod.s3.us-east-2.amazonaws.com/smb_gen3_pfp_1688353503184.png' : 'https://i.seadn.io/gae/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE?auto=format&w=128',
         className: "InputField small"
       }))), /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS TextLeft"
@@ -25906,7 +25243,7 @@
         onChange: function onChange(event) {
           return setLink(event.target.value);
         },
-        placeholder: supported$4.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
+        placeholder: supported$3.svm.includes(selection === null || selection === void 0 ? void 0 : (_selection$blockchain10 = selection.blockchain) === null || _selection$blockchain10 === void 0 ? void 0 : _selection$blockchain10.name) ? "https://magiceden.io/marketplace/smb_gen3" : "https://opensea.io/collection/cryptopunks",
         className: "InputField small"
       })))),
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -25937,7 +25274,7 @@
         navigate = _useContext2.navigate;
 
     var stacked = props.stacked || Object.keys(props.selection).length > 1;
-    var allBlockchains = supported$4.map(function (blockchainName) {
+    var allBlockchains = supported$3.map(function (blockchainName) {
       return Blockchains__default['default'][blockchainName];
     });
 

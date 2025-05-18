@@ -40,7 +40,7 @@ export default (props)=>{
   const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
   const alternativeHeaderActionElement = (
     <span className="DropDownWrapper">
-      <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="Disconnect connected wallet">
+      <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular">
         <MenuIcon/>
       </button>
       { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
@@ -79,7 +79,7 @@ export default (props)=>{
                   <h4 className="CardTitle">
                     Amount
                   </h4>
-                  <h2 className="CardText">
+                  <div className="CardText">
                     {
                       displayedCurrencyCode &&
                       <div className="TokenAmountRow">
@@ -92,7 +92,7 @@ export default (props)=>{
                         { amount }
                       </div>
                     }
-                  </h2>
+                  </div>
                 </div>
               </div>
               <div className="CardAction">
@@ -123,7 +123,7 @@ export default (props)=>{
                     Payment
                   </h4>
                 }
-                <h2 className="CardText">
+                <div className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
                       { payment.symbol }
@@ -158,7 +158,7 @@ export default (props)=>{
                       }
                     </>
                   }
-                </h2>
+                </div>
               </div>
             </div>
             <div className="CardAction">

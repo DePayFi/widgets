@@ -95,7 +95,7 @@ export default (props)=>{
                 <h4 className="CardTitle">
                   Amount
                 </h4>
-                <h2 className="CardText">
+                <div className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
                       { toToken.symbol }
@@ -110,7 +110,7 @@ export default (props)=>{
                       <span className="TokenAmountCell">{ salePerTokenValue } per token</span>
                     </div>
                   }
-                </h2>
+                </div>
               </div>
             </div>
             <div className="CardAction">

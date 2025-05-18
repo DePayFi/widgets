@@ -42,12 +42,10 @@ export default (props)=>{
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
-    if(account && wallet) {
-      let walletMeta = allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
-      setPreviouslyConnectedWallet(walletMeta.name)
-      if(props.autoClose) close()
-      if(props.resolve) props.resolve({ account, wallet })
-    }
+    let walletMeta = allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
+    setPreviouslyConnectedWallet(walletMeta.name)
+    if(props.autoClose) close()
+    if(props.resolve) props.resolve({ account, wallet })
   }
 
   const connectExtension = (wallet, extension)=>{
@@ -241,8 +239,8 @@ export default (props)=>{
             connectingExtension={connectingExtension}
             connectingApp={connectingApp}
             showConnectExtensionWarning={showConnectExtensionWarning}
-            continueWithSolanaPay={props.continueWithSolanaPay}
             connectionError={connectionError}
+            setSolanaPayWallet={props.setSolanaPayWallet}
           />
         }}
       />

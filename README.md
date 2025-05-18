@@ -600,11 +600,11 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Payment({
 
-  succeeded: (transaction, payment)=> {
+  succeeded: (transaction, paymentRoute)=> {
     // called when payment transaction has been confirmed once by the network
     // might be called multiple times
 
-    // "payment" contains information about what the user selected as payment
+    // "paymentRoute" contains more information about what the user selected as payment option and what it was routed to
   }
 })
 ```
@@ -613,15 +613,15 @@ DePayWidgets.Payment({
 
 `validated`
 
-A function that will be called once the payment has been validated by DePay.
+A function that will be called once the payment has been validated by DePay (server-side, onchain).
 
 ```javascript
 DePayWidgets.Payment({
 
-  validated: (successful, transaction, payment)=> {
+  validated: (successful, transaction, paymentRoute)=> {
     // successful (true or false)
 
-    // "payment" contains information about what the user selected as payment
+    // "paymentRoute" contains more information about what the user selected as payment option and what it was routed to
   }
 })
 ```
@@ -637,12 +637,12 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Payment({
 
-  failed: (transaction, error, payment)=> {
+  failed: (transaction, error, paymentRoute)=> {
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
     // might be called multiple times
 
-    // "payment" contains information about what the user selected as payment
+    // "paymentRoute" contains information about what the user selected as payment
   }
 })
 ```

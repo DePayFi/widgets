@@ -23,6 +23,7 @@ import isMobile from '../helpers/isMobile'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useEffect, useState, useCallback, useRef } from 'react'
+import round from '../helpers/round'
 import throttle from '../helpers/throttle'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
@@ -155,7 +156,7 @@ export default (props)=>{
         </div>
         <div className="CardBody">
           <div className="CardBodyWrapper">
-            <h2 className="CardText">
+            <div className="CardText">
               <div className="TokenAmountRow">
                 <span className="TokenSymbolCell">
                   { payment.symbol }
@@ -165,9 +166,9 @@ export default (props)=>{
                   { format(payment.amount) }
                 </span>
               </div>
-            </h2>
+            </div>
             <h3 className="CardText small">
-              <small>{ format(parseFloat(payment.route.fromBalance.toString())/10**payment.decimals) }</small>
+              <small>{ format(round(parseFloat(payment.route.fromBalance.toString())/10**payment.decimals)) }</small>
             </h3>
           </div>
         </div>

@@ -17,7 +17,7 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature-web@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.8.2"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.8.4"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@11.1.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@11.1.0"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@6"></script>
@@ -172,6 +172,10 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       integration: '461cb57d-6063-40b8-8326-a124c4a40e6f',
+                      sent: (transaction)=>{
+                        console.log('Sent')
+                        console.log('transaction', transaction)
+                      },
                       succeeded: (transaction, payment)=>{
                         console.log('Success')
                         console.log('transaction', transaction)

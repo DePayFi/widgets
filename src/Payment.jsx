@@ -14,7 +14,6 @@ import PaymentValueProvider from './providers/PaymentValueProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
-import SolanaPayProvider from './providers/SolanaPayProvider'
 import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
@@ -76,27 +75,25 @@ let Payment = async ({
             <UpdatableProvider>
               <ClosableProvider unmount={ unmount } closable={ closable }>
                 <NavigateProvider>
-                  <SolanaPayProvider unmount={ unmount } document={ document } container={ container }>
-                    <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
-                      <ConversionRateProvider>
-                        <ChangableAmountProvider>
-                          <PaymentAmountRoutingProvider container={ container } document={ document }>
-                            <PaymentTrackingProvider document={ ensureDocument(document) }>
-                              <PaymentProvider container={ container } document={ document }>
-                                <PaymentValueProvider>
-                                    <PaymentStack
-                                      document={ document }
-                                      container={ container }
-                                    />
-                                    <PoweredBy/>
-                                </PaymentValueProvider>
-                              </PaymentProvider>
-                            </PaymentTrackingProvider>
-                          </PaymentAmountRoutingProvider>
-                        </ChangableAmountProvider>
-                      </ConversionRateProvider>
-                    </WalletProvider>
-                  </SolanaPayProvider>
+                  <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
+                    <ConversionRateProvider>
+                      <ChangableAmountProvider>
+                        <PaymentAmountRoutingProvider container={ container } document={ document }>
+                          <PaymentTrackingProvider document={ ensureDocument(document) }>
+                            <PaymentProvider container={ container } document={ document }>
+                              <PaymentValueProvider>
+                                <PaymentStack
+                                  document={ document }
+                                  container={ container }
+                                />
+                                <PoweredBy/>
+                              </PaymentValueProvider>
+                            </PaymentProvider>
+                          </PaymentTrackingProvider>
+                        </PaymentAmountRoutingProvider>
+                      </ChangableAmountProvider>
+                    </ConversionRateProvider>
+                  </WalletProvider>
                 </NavigateProvider>
               </ClosableProvider>
             </UpdatableProvider>

@@ -4,7 +4,6 @@ import ConnectStack from '../stacks/ConnectStack'
 import debounce from '../helpers/debounce'
 import ErrorContext from '../contexts/ErrorContext'
 import React, { useState, useEffect, useContext, useCallback } from 'react'
-import SolanaPayContext from '../contexts/SolanaPayContext'
 import UpdatableContext from '../contexts/UpdatableContext'
 import WalletContext from '../contexts/WalletContext'
 import WalletMissesBlockchainSupportDialog from '../dialogs/WalletMissesBlockchainSupportDialog'
@@ -15,14 +14,14 @@ export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
   const { accept, wallet: passedWallet } = useContext(ConfigurationContext)
-  const solanaPayContext = useContext(SolanaPayContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { setError } = useContext(ErrorContext)
   const [wallet, setWallet] = useState(passedWallet)
+  const [solanaPayWallet, setSolanaPayWallet] = useState(false)
   const [navigator, setNavigator] = useState()
   const [ walletMissesBlockchainSupport, setWalletMissesBlockchainSupport ] = useState(false)
-  let [account, setAccount] = useState()
-  let [navigationReturnsToConnect, setNavigationReturnsToConnect] = useState(false)
+  const [account, setAccount] = useState()
+  const [navigationReturnsToConnect, setNavigationReturnsToConnect] = useState(false)
   const [walletState, setWalletState] = useState(passedWallet ? 'connected' : undefined)
 
   const connect = useCallback(debounce(()=>{
@@ -49,10 +48,6 @@ export default (props)=>{
     setWallet()
     setWalletState()
     setWalletMissesBlockchainSupport(false)
-  }
-
-  const continueWithSolanaPay = (!accept || !accept.some((configuration)=>configuration.blockchain === 'solana')) ? undefined : ()=>{
-    solanaPayContext.start()
   }
 
   useEffect(()=>{
@@ -92,6 +87,12 @@ export default (props)=>{
     })()
   }, [])
 
+  useEffect(()=>{
+    if(solanaPayWallet) {
+      setWalletState('connected')
+    }
+  }, [solanaPayWallet])
+
   if(walletMissesBlockchainSupport) {
     return(
       <WalletContext.Provider value={{
@@ -120,6 +121,7 @@ export default (props)=>{
         account,
         wallet,
         disconnect,
+        solanaPayWallet,
       }}>
         { props.children }
       </WalletContext.Provider>
@@ -134,7 +136,7 @@ export default (props)=>{
         container={ props.container }
         resolve={ connected }
         accept={ accept }
-        continueWithSolanaPay={ continueWithSolanaPay }
+        setSolanaPayWallet = { (value)=>setSolanaPayWallet(value) }
         stacked={ navigationReturnsToConnect ? 'backward' : undefined }
       />
     )

@@ -5263,7 +5263,8 @@ var ConnectWalletDialog = (function (props) {
     if ((_props$platform4 = props.platform) !== null && _props$platform4 !== void 0 && _props$platform4.solanaPay && accept && accept.every(function (accept) {
       return accept.amount;
     })) {
-      return props.continueWithSolanaPay();
+      props.setSolanaPayWallet(props.wallet);
+      return;
     }
 
     if (typeof props.platform.qr === 'function') {
@@ -6919,17 +6920,15 @@ var ConnectStack = (function (props) {
       setShowConnectExtensionWarning = _useState18[1];
 
   var resolve = function resolve(account, wallet) {
-    if (account && wallet) {
-      var walletMeta = allWallets.find(function (walletMeta) {
-        return walletMeta.name == wallet.name;
-      });
-      set(walletMeta.name);
-      if (props.autoClose) close();
-      if (props.resolve) props.resolve({
-        account: account,
-        wallet: wallet
-      });
-    }
+    var walletMeta = allWallets.find(function (walletMeta) {
+      return walletMeta.name == wallet.name;
+    });
+    set(walletMeta.name);
+    if (props.autoClose) close();
+    if (props.resolve) props.resolve({
+      account: account,
+      wallet: wallet
+    });
   };
 
   var connectExtension = function connectExtension(wallet, extension) {
@@ -7192,8 +7191,8 @@ var ConnectStack = (function (props) {
         connectingExtension: connectingExtension,
         connectingApp: connectingApp,
         showConnectExtensionWarning: showConnectExtensionWarning,
-        continueWithSolanaPay: props.continueWithSolanaPay,
-        connectionError: connectionError
+        connectionError: connectionError,
+        setSolanaPayWallet: props.setSolanaPayWallet
       })
     }
   }), /*#__PURE__*/React.createElement(PoweredBy, null));
@@ -7280,7 +7279,7 @@ function _getPrototypeOf(o) {
 
 var ErrorContext = /*#__PURE__*/React.createContext();
 
-var ErrorGraphic$1 = (function (props) {
+var ErrorGraphic = (function (props) {
   var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta47$colors, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta51$colors, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors, _walletMeta54, _walletMeta54$colors, _walletMeta55, _walletMeta55$colors, _walletMeta56, _walletMeta56$colors, _walletMeta57, _walletMeta57$colors, _walletMeta58, _walletMeta58$colors, _walletMeta59, _walletMeta59$colors, _walletMeta60, _walletMeta60$colors, _walletMeta61, _walletMeta61$colors, _walletMeta62, _walletMeta62$colors, _walletMeta63, _walletMeta63$colors, _walletMeta64, _walletMeta65, _walletMeta65$colors, _walletMeta66, _walletMeta66$colors, _walletMeta67;
 
   var walletctx = useContext(WalletContext);
@@ -7832,7 +7831,7 @@ var ErrorProvider = (function (props) {
       className: "DialogBody TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper PaddingTopS"
-    }, /*#__PURE__*/React.createElement(ErrorGraphic$1, null)), /*#__PURE__*/React.createElement("h1", {
+    }, /*#__PURE__*/React.createElement(ErrorGraphic, null)), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Oops, Something Went Wrong"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
@@ -7934,7 +7933,7 @@ var LoadingTextStyle = (function (style) {
 });
 
 var LogoStyle = (function (style) {
-  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 26px;\n      position: relative;\n      top: 4px;\n    }\n    \n    .SolanaPayLogo path {\n      fill: ".concat(isDarkMode() ? '#FFFFFF' : '#000000', ";\n    }\n  ");
+  return "\n\n    .BlockchainLogo {\n      border-radius: 6px !important;\n    }\n\n    .BlockchainLogo.small {\n      border-radius: 4px !important;\n      height: 20px;\n      width: 20px;\n    }\n\n    .BlockchainLogo.bottomRight {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n    }\n\n    .SolanaPayLogo {\n      height: 34px;\n      position: relative;\n      top: 4px;\n      left: 4px;\n    }\n    \n    .SolanaPayLogo path {\n      fill: ".concat(isDarkMode() ? '#FFFFFF' : '#000000', ";\n    }\n  ");
 });
 
 var MarginStyle = (function () {
@@ -8680,8 +8679,6 @@ var LoginStack = (function (props) {
   });
 });
 
-var SolanaPayContext = /*#__PURE__*/React.createContext();
-
 var WalletMissesBlockchainSupportDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext);
       _useContext.navigate;
@@ -8757,8 +8754,6 @@ var WalletProvider = (function (props) {
       accept = _useContext2.accept,
       passedWallet = _useContext2.wallet;
 
-  var solanaPayContext = useContext(SolanaPayContext);
-
   var _useContext3 = useContext(UpdatableContext),
       setUpdatable = _useContext3.setUpdatable;
 
@@ -8770,30 +8765,35 @@ var WalletProvider = (function (props) {
       wallet = _useState2[0],
       setWallet = _useState2[1];
 
-  var _useState3 = useState(),
+  var _useState3 = useState(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      navigator = _useState4[0],
-      setNavigator = _useState4[1];
+      solanaPayWallet = _useState4[0],
+      _setSolanaPayWallet = _useState4[1];
 
-  var _useState5 = useState(false),
+  var _useState5 = useState(),
       _useState6 = _slicedToArray(_useState5, 2),
-      walletMissesBlockchainSupport = _useState6[0],
-      setWalletMissesBlockchainSupport = _useState6[1];
+      navigator = _useState6[0],
+      setNavigator = _useState6[1];
 
-  var _useState7 = useState(),
+  var _useState7 = useState(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      account = _useState8[0],
-      setAccount = _useState8[1];
+      walletMissesBlockchainSupport = _useState8[0],
+      setWalletMissesBlockchainSupport = _useState8[1];
 
-  var _useState9 = useState(false),
+  var _useState9 = useState(),
       _useState10 = _slicedToArray(_useState9, 2),
-      navigationReturnsToConnect = _useState10[0],
-      setNavigationReturnsToConnect = _useState10[1];
+      account = _useState10[0],
+      setAccount = _useState10[1];
 
-  var _useState11 = useState(passedWallet ? 'connected' : undefined),
+  var _useState11 = useState(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      walletState = _useState12[0],
-      setWalletState = _useState12[1];
+      navigationReturnsToConnect = _useState12[0],
+      setNavigationReturnsToConnect = _useState12[1];
+
+  var _useState13 = useState(passedWallet ? 'connected' : undefined),
+      _useState14 = _slicedToArray(_useState13, 2),
+      walletState = _useState14[0],
+      setWalletState = _useState14[1];
 
   useCallback(debounce(function () {
     wallet.connect().then(setAccount);
@@ -8825,11 +8825,6 @@ var WalletProvider = (function (props) {
     setWalletMissesBlockchainSupport(false);
   };
 
-  var continueWithSolanaPay = !accept || !accept.some(function (configuration) {
-    return configuration.blockchain === 'solana';
-  }) ? undefined : function () {
-    solanaPayContext.start();
-  };
   useEffect(function () {
     if (!wallet) {
       return;
@@ -8893,6 +8888,11 @@ var WalletProvider = (function (props) {
       }, _callee);
     }))();
   }, []);
+  useEffect(function () {
+    if (solanaPayWallet) {
+      setWalletState('connected');
+    }
+  }, [solanaPayWallet]);
 
   if (walletMissesBlockchainSupport) {
     return /*#__PURE__*/React.createElement(WalletContext.Provider, {
@@ -8919,7 +8919,8 @@ var WalletProvider = (function (props) {
       value: {
         account: account,
         wallet: wallet,
-        disconnect: disconnect
+        disconnect: disconnect,
+        solanaPayWallet: solanaPayWallet
       }
     }, props.children);
   } else {
@@ -8929,7 +8930,9 @@ var WalletProvider = (function (props) {
       container: props.container,
       resolve: connected,
       accept: accept,
-      continueWithSolanaPay: continueWithSolanaPay,
+      setSolanaPayWallet: function setSolanaPayWallet(value) {
+        return _setSolanaPayWallet(value);
+      },
       stacked: navigationReturnsToConnect ? 'backward' : undefined
     });
   }
@@ -9337,7 +9340,6 @@ var routePayments = (function (_ref) {
       deny = _ref.deny,
       whitelist = _ref.whitelist,
       blacklist = _ref.blacklist,
-      fee = _ref.fee,
       best = _ref.best;
   return route({
     accept: accept.map(function (accept) {
@@ -9346,7 +9348,6 @@ var routePayments = (function (_ref) {
     from: mergeFromAccounts(accept, account),
     allow: allow || whitelist,
     deny: deny || blacklist,
-    fee: fee,
     best: best
   });
 });
@@ -9809,12 +9810,11 @@ var PaymentProvider = (function (props) {
       _useContext7.account;
 
   var _useContext8 = useContext(PaymentTrackingContext),
-      setTrackingPayment = _useContext8.setPayment,
       release = _useContext8.release,
       synchronousTracking = _useContext8.synchronousTracking,
       asynchronousTracking = _useContext8.asynchronousTracking,
       trackingInitialized = _useContext8.trackingInitialized,
-      initializePaymentTracking = _useContext8.initializeTracking,
+      track = _useContext8.track,
       trace = _useContext8.trace;
 
   var _useState = useState(),
@@ -9948,7 +9948,7 @@ var PaymentProvider = (function (props) {
               currentBlock = _context2.sent;
               deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
               _context2.next = 21;
-              return trace(currentBlock, payment.route, transaction, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+              return trace(currentBlock, payment.route, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
                 return regenerator.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
@@ -9985,7 +9985,7 @@ var PaymentProvider = (function (props) {
                           }
                         })).then(function (sentTransaction) {
                           setTransaction(sentTransaction);
-                          initializePaymentTracking(sentTransaction, currentBlock, payment.route, deadline);
+                          track(sentTransaction, currentBlock, payment.route, deadline);
                         })["catch"](function (error) {
                           console.log('error', error);
                           setClosable(true);
@@ -10229,8 +10229,6 @@ var PaymentProvider = (function (props) {
     };
   }());
   useEffect(function () {
-    setTrackingPayment(payment);
-
     if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.BigNumber.from('0'))) {
       setApprovalType('signature');
     }
@@ -10251,7 +10249,10 @@ var PaymentProvider = (function (props) {
       setApprovalTransaction();
       setApprovalSignature();
       setApprovalSignatureData();
-      var fromToken = selectedRoute.fromToken;
+      var fromToken = new Token({
+        blockchain: selectedRoute.blockchain,
+        address: selectedRoute.fromToken.address
+      });
       Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
         var _ref6 = _slicedToArray(_ref5, 3),
             name = _ref6[0],
@@ -10799,7 +10800,7 @@ var ChangePaymentDialog = (function (props) {
       className: "CardBody"
     }, /*#__PURE__*/React.createElement("div", {
       className: "CardBodyWrapper"
-    }, /*#__PURE__*/React.createElement("h2", {
+    }, /*#__PURE__*/React.createElement("div", {
       className: "CardText"
     }, /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
@@ -10809,7 +10810,7 @@ var ChangePaymentDialog = (function (props) {
       className: "TokenAmountCell"
     }, format(payment.amount)))), /*#__PURE__*/React.createElement("h3", {
       className: "CardText small"
-    }, /*#__PURE__*/React.createElement("small", null, format(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals)))))));
+    }, /*#__PURE__*/React.createElement("small", null, format(round(parseFloat(payment.route.fromBalance.toString()) / Math.pow(10, payment.decimals))))))));
   });
 
   if (!allRoutesLoaded || displayedPaymentOptions === undefined) {
@@ -10950,7 +10951,7 @@ var PaymentFailedDialog = (function () {
       className: "TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement(ErrorGraphic$1, null)), /*#__PURE__*/React.createElement("h1", {
+    }, /*#__PURE__*/React.createElement(ErrorGraphic, null)), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
@@ -11004,47 +11005,6 @@ var CheckmarkIcon = (function (props) {
     viewBox: "0 0 24 24"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M20,4.9L9.2,16l-5.4-3.9c-0.7-0.5-1.6-0.3-2.1,0.3c-0.5,0.7-0.3,1.6,0.3,2.1l6.4,4.7c0.3,0.2,0.6,0.3,0.9,0.3 c0.4,0,0.8-0.2,1.1-0.5l11.7-12c0.6-0.6,0.6-1.6,0-2.2C21.6,4.3,20.6,4.3,20,4.9z"
-  }));
-});
-
-var DigitalWalletIcon = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: "DigitalWalletIcon Icon " + props.className,
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    height: "24",
-    width: "24",
-    viewBox: "0 0 24 24"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M8.51,4.84l-.39-.53,4-2.89a2.2,2.2,0,0,1,3.06.48l.4.56-.53.39-.4-.56A1.54,1.54,0,0,0,12.5,2Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M9.77,4.89l-.21-.62,6.31-2.13h0a2.18,2.18,0,0,1,.67-.1h0a2.21,2.21,0,0,1,2.08,1.49l.32.95-.63.21L18,3.73a1.53,1.53,0,0,0-1.45-1h0a1.61,1.61,0,0,0-.48.08h0Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M19.72,16.2H18.27a3.28,3.28,0,1,1,0-6.56h1.45a3.21,3.21,0,0,1,1.33.28h0a3.28,3.28,0,0,1,0,6A3.21,3.21,0,0,1,19.72,16.2Zm-1.45-5.9a2.63,2.63,0,0,0,0,5.25h1.45a2.56,2.56,0,0,0,1.06-.23,2.62,2.62,0,0,0,0-4.8,2.55,2.55,0,0,0-1.06-.22ZM19,14.53a1.61,1.61,0,1,1,1.61-1.61A1.62,1.62,0,0,1,19,14.53ZM19,12a1,1,0,1,0,.95.95A1,1,0,0,0,19,12Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M10.49,19.69a1.58,1.58,0,1,1,1.58-1.57A1.57,1.57,0,0,1,10.49,19.69Zm0-2.49a.92.92,0,1,0,.92.92A.92.92,0,0,0,10.49,17.2Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M19.09,22.14H2.79a2,2,0,0,1-2-2V6.25a2.1,2.1,0,0,1,0-.43,2,2,0,0,1,.48-.92,2,2,0,0,1,1.48-.65H19.09a2,2,0,0,1,.64.1,2,2,0,0,1,1.36,1.79v0a.28.28,0,0,1,0,.09v3.91h-.66v-4a1.49,1.49,0,0,0-.23-.69A1.35,1.35,0,0,0,19.52,5a1.26,1.26,0,0,0-.43-.08H2.82a1.34,1.34,0,0,0-1,.44A1.49,1.49,0,0,0,1.5,6a1.5,1.5,0,0,0,0,.29V20.13a1.36,1.36,0,0,0,1.34,1.35H19.09a1.35,1.35,0,0,0,1.35-1.35V15.68h.66v4.45A2,2,0,0,1,19.09,22.14Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M9.27,9.31a1.58,1.58,0,1,1,0-3.15,1.58,1.58,0,0,1,0,3.15Zm0-2.5a.92.92,0,1,0,.92.92A.92.92,0,0,0,9.27,6.81Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M7.11,14.67A1.58,1.58,0,1,1,8.69,13.1,1.57,1.57,0,0,1,7.11,14.67Zm0-2.49A.92.92,0,1,0,8,13.1.92.92,0,0,0,7.11,12.18Z",
-    transform: "translate(-0.81 -1)"
-  }), /*#__PURE__*/React.createElement("rect", {
-    x: "0.33",
-    y: "11.77",
-    width: "4.72",
-    height: "0.66"
-  }), /*#__PURE__*/React.createElement("polygon", {
-    points: "2.08 9.53 0.33 9.53 0.33 8.87 1.8 8.87 4.28 6.39 7.21 6.39 7.21 7.05 4.55 7.05 2.08 9.53"
-  }), /*#__PURE__*/React.createElement("polygon", {
-    points: "8.43 17.45 4.53 17.45 2.63 15.55 0.33 15.55 0.33 14.89 2.9 14.89 4.8 16.79 8.43 16.79 8.43 17.45"
   }));
 });
 
@@ -11191,7 +11151,7 @@ var Footer = (function () {
   };
 
   var steps = function steps() {
-    if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
+    if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' && (approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url || approvalSignature) || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
       // --- Permit2 signature approval block ---
       var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
       var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
@@ -11281,7 +11241,7 @@ var Footer = (function () {
         }) : undefined,
         target: "_blank",
         rel: "noopener noreferrer",
-        className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
+        className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing || paymentDone && !showSyncDone ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
       }, paymentDone && /*#__PURE__*/React.createElement(CheckmarkIcon, {
@@ -11293,7 +11253,7 @@ var Footer = (function () {
       }, paymentProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React.createElement("span", null, "Perform payment"))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
       })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-        className: 'Step Card disabled small transparent' + (paymentReady ? ' active' : '')
+        className: 'Step Card disabled small transparent' + (paymentReady || paymentDone && !showSyncDone ? ' active' : '')
       }, /*#__PURE__*/React.createElement("div", {
         className: "StepIcon"
       }, paymentDone ? /*#__PURE__*/React.createElement(CheckmarkIcon, {
@@ -11320,7 +11280,7 @@ var Footer = (function () {
         className: "StepConnector"
       })), showSyncWaiting && /*#__PURE__*/React.createElement("a", {
         href: transaction ? link({
-          url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+          url: "https://scan.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id, "?sender=").concat(payment.route.fromAddress, "&receiver=").concat(payment.route.toAddress, "&deadline=").concat(transaction.deadline),
           target: '_blank',
           wallet: wallet
         }) : undefined,
@@ -11338,7 +11298,7 @@ var Footer = (function () {
         title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
       }, secondsLeft, "s")))), showSyncDone && /*#__PURE__*/React.createElement("a", {
         href: transaction ? link({
-          url: "https://status.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id),
+          url: "https://scan.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id, "?sender=").concat(payment.route.fromAddress, "&receiver=").concat(payment.route.toAddress, "&deadline=").concat(transaction.deadline),
           target: '_blank',
           wallet: wallet
         }) : undefined,
@@ -11564,8 +11524,7 @@ var PaymentOverviewDialog = (function (props) {
     onClick: function onClick() {
       return setShowDropDown(!showDropDown);
     },
-    className: "ButtonCircular",
-    title: "Disconnect connected wallet"
+    className: "ButtonCircular"
   }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
     hide: function hide() {
       return setShowDropDown(false);
@@ -11613,7 +11572,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardBodyWrapper"
     }, /*#__PURE__*/React.createElement("h4", {
       className: "CardTitle"
-    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
+    }, "Amount"), /*#__PURE__*/React.createElement("div", {
       className: "CardText"
     }, displayedCurrencyCode && /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
@@ -11655,7 +11614,7 @@ var PaymentOverviewDialog = (function (props) {
       className: "CardBodyWrapper"
     }, amountsMissing && !fixedCurrency && /*#__PURE__*/React.createElement("h4", {
       className: "CardTitle"
-    }, "Payment"), /*#__PURE__*/React.createElement("h2", {
+    }, "Payment"), /*#__PURE__*/React.createElement("div", {
       className: "CardText"
     }, /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
@@ -11691,6 +11650,1003 @@ var PaymentOverviewDialog = (function (props) {
   });
 });
 
+function getFavicon () {
+  var favicon;
+  var nodeList = document.getElementsByTagName("link");
+
+  for (var i = 0; i < nodeList.length; i++) {
+    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
+      favicon = nodeList[i].getAttribute("href");
+    }
+  }
+
+  if (!favicon) {
+    return;
+  }
+
+  if (favicon.match(':')) {
+    return favicon;
+  } else {
+    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
+  }
+}
+
+var getPaymentRouterInstruction = (function (confirmedTransaction) {
+  var _confirmedTransaction, _confirmedTransaction2, _confirmedTransaction3;
+
+  if (!confirmedTransaction || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction = confirmedTransaction.meta) !== null && _confirmedTransaction !== void 0 && _confirmedTransaction.logMessages) || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction2 = confirmedTransaction.transaction) !== null && _confirmedTransaction2 !== void 0 && (_confirmedTransaction3 = _confirmedTransaction2.message) !== null && _confirmedTransaction3 !== void 0 && _confirmedTransaction3.compiledInstructions)) {
+    return;
+  }
+
+  if (!confirmedTransaction.meta.logMessages.some(function (log) {
+    return log.match("Program ".concat(routers.solana.address, " invoke"));
+  })) {
+    return;
+  }
+
+  var foundInstruction;
+  confirmedTransaction.transaction.message.compiledInstructions.forEach(function (instruction) {
+    Object.keys(routers.solana.api).forEach(function (key) {
+      if (foundInstruction) {
+        return;
+      }
+
+      try {
+        if (key.match(/^route/)) {
+          var data = routers.solana.api[key].layout.decode(instruction.data);
+
+          if (data.anchorDiscriminator.toString() === routers.solana.api[key].anchorDiscriminator.toString()) {
+            foundInstruction = data;
+          }
+        }
+      } catch (_unused) {}
+    });
+  });
+  return foundInstruction;
+});
+
+var sockets = {};
+var socketsPingIntervals = {};
+var keepAliveIntervals = {};
+var retryCounts = {};
+var endpointIndices = {};
+
+var openManagedSocket = function openManagedSocket(_ref) {
+  var identifier = _ref.identifier,
+      onopen = _ref.onopen,
+      onmessage = _ref.onmessage,
+      keepAlive = _ref.keepAlive,
+      endpoint = _ref.endpoint,
+      endpoints = _ref.endpoints;
+  var endpointsList = Array.isArray(endpoints) ? endpoints : [endpoint || 'wss://integrate.depay.com/cable'];
+
+  if (retryCounts[identifier] === undefined) {
+    retryCounts[identifier] = 0;
+  }
+
+  if (endpointIndices[identifier] === undefined) {
+    endpointIndices[identifier] = 0;
+  }
+
+  if (socketsPingIntervals[identifier]) {
+    clearInterval(socketsPingIntervals[identifier]);
+  }
+
+  if (keepAliveIntervals[identifier]) {
+    clearInterval(keepAliveIntervals[identifier]);
+  }
+
+  if (sockets[identifier]) {
+    sockets[identifier].close();
+  }
+
+  if (endpoints) {
+    endpoint = endpoints[0];
+  }
+
+  var currentEndpoint = endpointsList[endpointIndices[identifier]];
+  var socket = new WebSocket(currentEndpoint);
+  sockets[identifier] = socket;
+  var keepAliveInterval;
+
+  if (keepAlive) {
+    keepAliveInterval = setInterval(function () {
+      if ([WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)) {
+        clearInterval(keepAliveInterval);
+      }
+
+      socket.send(JSON.stringify(keepAlive.callback()));
+    }, keepAlive.interval);
+    keepAliveIntervals[identifier] = keepAliveInterval;
+  }
+
+  var lastPing;
+  var pingInterval = setInterval(function () {
+    if (lastPing && lastPing < Date.now() - 10 * 1000) {
+      clearInterval(pingInterval);
+
+      if (keepAliveInterval) {
+        clearInterval(keepAliveInterval);
+      }
+
+      if ([WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)) {
+        clearInterval(pingInterval);
+      } else {
+        socket.close(3000); // force reopen
+      }
+    }
+  }, 5000);
+  socketsPingIntervals[identifier] = pingInterval;
+  socket.onopen = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+    var message;
+    return regenerator.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(typeof onopen == 'function')) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 3;
+            return onopen();
+
+          case 3:
+            message = _context.sent;
+
+            if (!message) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 7;
+            return socket.send(JSON.stringify(message), socket);
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  socket.onclose = function (event) {
+    if (!event || event.code != 1000) {
+      retryCounts[identifier]++;
+      var delay = Math.min(10000, 1000 * Math.pow(2, retryCounts[identifier] - 1));
+      endpointIndices[identifier] = (endpointIndices[identifier] + 1) % endpointsList.length;
+
+      if (pingInterval) {
+        clearInterval(pingInterval);
+      }
+
+      if (keepAliveInterval) {
+        clearInterval(keepAliveInterval);
+      }
+
+      console.log("Reconnecting socket \"".concat(identifier, "\" in ").concat(delay, "ms (attempt #").concat(retryCounts[identifier], ")"));
+      setTimeout(function () {
+        openManagedSocket({
+          identifier: identifier,
+          onopen: onopen,
+          onmessage: onmessage,
+          keepAlive: keepAlive,
+          endpoint: endpoint,
+          endpoints: endpoints
+        });
+      }, delay);
+    }
+  };
+
+  socket.onmessage = function (event) {
+    lastPing = Date.now();
+    var eventData = JSON.parse(event.data);
+
+    if (eventData.error) {
+      if (pingInterval) {
+        clearInterval(pingInterval);
+      }
+
+      if (keepAliveInterval) {
+        clearInterval(keepAliveInterval);
+      }
+
+      socket.close(3000); // force reopen
+    } else if (typeof onmessage == 'function') {
+      onmessage(eventData, socket);
+    }
+  };
+
+  socket.onerror = function (error) {
+    console.log('WebSocket Error: ', identifier, error);
+  };
+
+  return socket;
+};
+
+var SolanaPayLogo = (function (props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "SolanaPayLogo",
+    width: "86",
+    height: "32",
+    viewBox: "0 0 86 32",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
+  }));
+});
+
+var UUIDv4 = (function () {
+  var d = new Date().getTime();
+  var d2 = performance && performance.now && performance.now() * 1000 || 0;
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16;
+
+    if (d > 0) {
+      r = (d + r) % 16 | 0;
+      d = Math.floor(d / 16);
+    } else {
+      r = (d2 + r) % 16 | 0;
+      d2 = Math.floor(d2 / 16);
+    }
+
+    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+  });
+});
+
+var SolanaPayDialog = (function (props) {
+  var _useContext = useContext(ConfigurationContext),
+      accept = _useContext.accept,
+      allow = _useContext.allow,
+      deny = _useContext.deny,
+      sent = _useContext.sent,
+      succeeded = _useContext.succeeded,
+      failed = _useContext.failed;
+
+  var _useContext2 = useContext(NavigateStackContext),
+      navigate = _useContext2.navigate;
+
+  var _useContext3 = useContext(ClosableContext),
+      close = _useContext3.close,
+      setClosable = _useContext3.setClosable;
+
+  var _useContext4 = useContext(WalletContext),
+      solanaPayWallet = _useContext4.solanaPayWallet;
+
+  var _useContext5 = useContext(PaymentTrackingContext),
+      synchronousTracking = _useContext5.synchronousTracking,
+      track = _useContext5.track,
+      trace = _useContext5.trace,
+      release = _useContext5.release,
+      validationState = _useContext5.validationState,
+      forwardTo = _useContext5.forwardTo;
+
+  var _useContext6 = useContext(PaymentRoutingContext),
+      setSelectedRoute = _useContext6.setSelectedRoute;
+
+  var _useContext7 = useContext(PaymentValueContext),
+      paymentValue = _useContext7.paymentValue,
+      displayedPaymentValue = _useContext7.displayedPaymentValue;
+
+  var _useState = useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectedPaymentOption = _useState2[0],
+      setSelectedPaymentOption = _useState2[1];
+
+  var _useState3 = useState(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      QRCodeURI = _useState4[0],
+      setQRCodeURI = _useState4[1];
+
+  var _useState5 = useState(),
+      _useState6 = _slicedToArray(_useState5, 2),
+      QRCode = _useState6[0],
+      setQRCode = _useState6[1];
+
+  var _useState7 = useState('initializing'),
+      _useState8 = _slicedToArray(_useState7, 2),
+      state = _useState8[0],
+      setState = _useState8[1];
+
+  var _useState9 = useState(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      showDropDown = _useState10[0],
+      setShowDropDown = _useState10[1];
+
+  var QRCodeElement = useRef();
+  var solanaPayTransactionPollingInterval = useRef();
+  var solanaPayTransactionSocket = useRef();
+  var transactionTrackingSocket = useRef();
+  var afterBlock = useRef();
+  var secretId = useRef();
+  var transactionPollingInterval = useRef();
+  var solanPayPayment = useRef();
+  var transaction = useRef();
+  var sentCallbackCalled = useRef();
+  var succeededCallbackCalled = useRef();
+  var failedCallbackCalled = useRef();
+
+  var sentCallback = function sentCallback() {
+    if (typeof sent == 'function' && sentCallbackCalled.current !== true) {
+      sentCallbackCalled.current = true;
+      sent(transaction.current);
+    }
+  };
+
+  var succeededCallback = function succeededCallback() {
+    if (typeof succeeded == 'function' && succeededCallbackCalled.current !== true) {
+      succeededCallbackCalled.current = true;
+      succeeded(transaction.current, solanPayPayment.current);
+    }
+  };
+
+  var failedCallback = function failedCallback(error) {
+    if (typeof failed == 'function' && failedCallbackCalled.current !== true) {
+      failedCallbackCalled.current = true;
+      failed(transaction.current, error, solanPayPayment.current);
+    }
+  };
+
+  var getNewQRCode = function getNewQRCode() {
+    return new QRCodeStyling({
+      width: 340,
+      height: 340,
+      type: "svg",
+      dotsOptions: {
+        type: "extra-rounded",
+        color: isDarkMode() ? "#FFFFFF" : "#000000"
+      },
+      cornersSquareOptions: {
+        type: 'rounded'
+      },
+      backgroundOptions: {
+        color: "transparent"
+      }
+    });
+  };
+
+  var startSolanaPayTransactionPolling = function startSolanaPayTransactionPolling() {
+    if (solanaPayTransactionPollingInterval.current) {
+      clearInterval(solanaPayTransactionPollingInterval.current);
+    }
+
+    solanaPayTransactionPollingInterval.current = setInterval(function () {
+      fetch("https://public.depay.com/solanapay/".concat(secretId.current, "/status"), {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
+        if (response.status == 200) {
+          return response.json();
+        } else {
+          return undefined;
+        }
+      }).then(function (data) {
+        if (data && data.sender) {
+          clearInterval(solanaPayTransactionPollingInterval.current);
+          transactionLoaded(data);
+        }
+      });
+    }, 2000);
+  };
+
+  var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket() {
+    if (solanaPayTransactionSocket.current) {
+      solanaPayTransactionSocket.current.close(1000);
+    }
+
+    var identifier = JSON.stringify({
+      secret_id: secretId.current,
+      channel: 'SolanaPayChannel'
+    });
+    solanaPayTransactionSocket.current = openManagedSocket({
+      identifier: identifier,
+      onopen: function onopen() {
+        return {
+          command: 'subscribe',
+          identifier: identifier
+        };
+      },
+      onmessage: function onmessage(eventData, socket) {
+        var _eventData$message, _eventData$message2, _eventData$message3;
+
+        if ((eventData === null || eventData === void 0 ? void 0 : eventData.type) == 'confirm_subscription') {
+          socket.send(JSON.stringify({
+            command: 'message',
+            identifier: identifier,
+            data: JSON.stringify({
+              event: 'create',
+              secret_id: secretId.current,
+              label: document.title || 'DePay',
+              icon: getFavicon() || 'https://depay.com/favicon.png',
+              accept: accept,
+              allow: allow,
+              deny: deny
+            })
+          }));
+        } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message = eventData.message) === null || _eventData$message === void 0 ? void 0 : _eventData$message.event) === 'created') {
+          startSolanaPayTransactionPolling();
+          setQRCodeURI("solana:https://public.depay.com/solanapay/".concat(secretId.current));
+        } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message2 = eventData.message) === null || _eventData$message2 === void 0 ? void 0 : _eventData$message2.event) === 'scanned') {
+          if (!solanPayPayment.current) {
+            setClosable("Are you sure you want to abort this payment?");
+            setState('pay');
+          }
+        } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message3 = eventData.message) === null || _eventData$message3 === void 0 ? void 0 : _eventData$message3.event) === 'loaded') {
+          if (!solanPayPayment.current) {
+            transactionLoaded(eventData.message);
+            setClosable("Are you sure you want to abort this payment?");
+            setState('pay');
+          }
+        }
+      },
+      keepAlive: {
+        interval: 3000,
+        callback: function callback() {
+          return {
+            type: "ping",
+            message: Math.floor(Date.now() / 1000)
+          };
+        }
+      }
+    });
+  };
+
+  var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref) {
+    var sender = _ref.sender,
+        receiver = _ref.receiver,
+        deadline = _ref.deadline;
+
+    if (transactionTrackingSocket.current) {
+      transactionTrackingSocket.current.close(1000);
+    }
+
+    var id = 1;
+    transactionTrackingSocket.current = openManagedSocket({
+      identifier: JSON.stringify({
+        type: 'SolanaTransactionLogSubscription',
+        sender: sender,
+        receiver: receiver,
+        deadline: deadline
+      }),
+      endpoints: Blockchains.solana.sockets,
+      onopen: function onopen() {
+        return {
+          "jsonrpc": "2.0",
+          "id": id,
+          "method": "logsSubscribe",
+          "params": [{
+            "mentions": [sender]
+          }]
+        };
+      },
+      onmessage: function onmessage(eventData, socket) {
+        if (eventData) {
+          var _eventData$params, _eventData$params$res, _eventData$params$res2, _ref2, _eventData$params2, _eventData$params2$re, _eventData$params2$re2;
+
+          if (eventData && eventData !== null && eventData !== void 0 && (_eventData$params = eventData.params) !== null && _eventData$params !== void 0 && (_eventData$params$res = _eventData$params.result) !== null && _eventData$params$res !== void 0 && (_eventData$params$res2 = _eventData$params$res.value) !== null && _eventData$params$res2 !== void 0 && _eventData$params$res2.logs && (_ref2 = (eventData === null || eventData === void 0 ? void 0 : (_eventData$params2 = eventData.params) === null || _eventData$params2 === void 0 ? void 0 : (_eventData$params2$re = _eventData$params2.result) === null || _eventData$params2$re === void 0 ? void 0 : (_eventData$params2$re2 = _eventData$params2$re.value) === null || _eventData$params2$re2 === void 0 ? void 0 : _eventData$params2$re2.logs) || []) !== null && _ref2 !== void 0 && _ref2.find(function (log) {
+            return log.match("Program ".concat(routers.solana.address));
+          })) {
+            var _eventData$params3, _eventData$params3$re;
+
+            var result = eventData === null || eventData === void 0 ? void 0 : (_eventData$params3 = eventData.params) === null || _eventData$params3 === void 0 ? void 0 : (_eventData$params3$re = _eventData$params3.result) === null || _eventData$params3$re === void 0 ? void 0 : _eventData$params3$re.value;
+
+            if (result && result.err === null) {
+              transactionFound(result.signature);
+              setState('succeeded');
+              succeededCallback();
+              socket.close(1000);
+            } else if (result) {
+              transactionFound(result.signature);
+              setState('failed');
+              failedCallback('transaction failed');
+              socket.close(1000);
+            }
+          }
+        }
+      },
+      keepAlive: {
+        interval: 3000,
+        callback: function callback() {
+          return {
+            jsonrpc: "2.0",
+            id: id++,
+            method: "getVersion",
+            params: []
+          };
+        }
+      }
+    });
+  };
+
+  var startTransactionPolling = function startTransactionPolling(_ref3) {
+    var sender = _ref3.sender;
+        _ref3.receiver;
+        var deadline = _ref3.deadline;
+
+    if (transactionPollingInterval.current) {
+      clearInterval(transactionPollingInterval.current);
+    }
+
+    transactionPollingInterval.current = setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+      var provider, signatures, relevantTransactions;
+      return regenerator.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return getProvider('solana');
+
+            case 2:
+              provider = _context2.sent;
+              _context2.next = 5;
+              return provider.getSignaturesForAddress(new PublicKey(sender));
+
+            case 5:
+              signatures = _context2.sent;
+
+              if (signatures && signatures.length && signatures[0].slot > afterBlock.current) {
+                relevantTransactions = signatures.filter(function (signature) {
+                  return signature.slot > afterBlock.current;
+                });
+                relevantTransactions.forEach( /*#__PURE__*/function () {
+                  var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(relevantTransaction) {
+                    var fullTransactionData, foundRouterInstruction;
+                    return regenerator.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _context.next = 2;
+                            return provider.getTransaction(relevantTransaction.signature, {
+                              commitment: 'confirmed',
+                              maxSupportedTransactionVersion: 0
+                            });
+
+                          case 2:
+                            fullTransactionData = _context.sent;
+                            foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
+
+                            if (foundRouterInstruction && foundRouterInstruction.deadline.toString() === deadline.toString()) {
+                              transactionFound(fullTransactionData.transaction.signatures[0]);
+
+                              if (fullTransactionData.meta.err === null) {
+                                setState('succeeded');
+                                succeededCallback();
+                              } else {
+                                setState('failed');
+                                failedCallback('transaction failed');
+                              }
+
+                              if (transactionPollingInterval.current) {
+                                clearInterval(transactionPollingInterval.current);
+                              }
+                            }
+
+                          case 5:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref5.apply(this, arguments);
+                  };
+                }());
+              }
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    })), 1000);
+  };
+
+  var transactionFound = function transactionFound(transactionId) {
+    transaction.current = {
+      blockchain: 'solana',
+      status: 'succeeded',
+      id: transactionId,
+      url: Blockchains.solana.explorerUrlFor({
+        transaction: {
+          id: transactionId
+        }
+      })
+    };
+    sentCallback();
+
+    if (release || !synchronousTracking) {
+      setClosable(true);
+    }
+
+    track({
+      blockchain: 'solana',
+      id: transactionId,
+      from: solanPayPayment.current.fromAddress
+    }, afterBlock.current, solanPayPayment.current, solanPayPayment.current.deadline);
+  };
+
+  var transactionLoaded = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(_ref6) {
+      var sender, from_token, from_amount, from_decimals, to_token, to_amount, to_decimals, fee_amount, fee_receiver, fee2_amount, fee2_receiver, protocol_fee_amount, receiver, deadline;
+      return regenerator.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              sender = _ref6.sender, from_token = _ref6.from_token, from_amount = _ref6.from_amount, from_decimals = _ref6.from_decimals, to_token = _ref6.to_token, to_amount = _ref6.to_amount, to_decimals = _ref6.to_decimals, fee_amount = _ref6.fee_amount, fee_receiver = _ref6.fee_receiver, fee2_amount = _ref6.fee2_amount, fee2_receiver = _ref6.fee2_receiver, protocol_fee_amount = _ref6.protocol_fee_amount, receiver = _ref6.receiver, deadline = _ref6.deadline;
+
+              if (!solanPayPayment.current) {
+                _context4.next = 3;
+                break;
+              }
+
+              return _context4.abrupt("return");
+
+            case 3:
+              solanPayPayment.current = {
+                blockchain: 'solana',
+                fromAddress: sender,
+                fromToken: {
+                  address: from_token
+                },
+                fromAmount: from_amount,
+                fromDecimals: from_decimals,
+                toToken: {
+                  address: to_token
+                },
+                toAmount: to_amount,
+                toDecimals: to_decimals,
+                toAddress: receiver,
+                fee: {
+                  receiver: fee_receiver
+                },
+                feeAmount: fee_amount,
+                fee2: {
+                  receiver: fee2_receiver
+                },
+                feeAmount2: fee2_amount,
+                protocolFeeAmount: protocol_fee_amount,
+                deadline: deadline
+              };
+              setSelectedRoute(solanPayPayment.current);
+              trace(afterBlock.current, solanPayPayment.current, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
+                var token;
+                return regenerator.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        openTransactionTrackingSocket({
+                          sender: sender,
+                          receiver: receiver,
+                          deadline: deadline
+                        });
+                        startTransactionPolling({
+                          sender: sender,
+                          receiver: receiver,
+                          deadline: deadline
+                        });
+                        token = new Token({
+                          blockchain: 'solana',
+                          address: from_token
+                        });
+                        _context3.t0 = setSelectedPaymentOption;
+                        _context3.t1 = from_token;
+                        _context3.next = 7;
+                        return token.readable(from_amount);
+
+                      case 7:
+                        _context3.t2 = _context3.sent;
+                        _context3.next = 10;
+                        return token.symbol();
+
+                      case 10:
+                        _context3.t3 = _context3.sent;
+                        _context3.t4 = {
+                          token: _context3.t1,
+                          amount: _context3.t2,
+                          symbol: _context3.t3
+                        };
+                        (0, _context3.t0)(_context3.t4);
+
+                      case 13:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3);
+              })))["catch"](function (e) {
+                console.log(e);
+                navigate('TracingFailed');
+              });
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function transactionLoaded(_x2) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
+  var reset = function reset() {
+    if (solanaPayTransactionPollingInterval.current) {
+      clearInterval(solanaPayTransactionPollingInterval.current);
+    }
+
+    if (transactionPollingInterval.current) {
+      clearInterval(transactionPollingInterval.current);
+    }
+
+    if (solanaPayTransactionSocket.current) {
+      solanaPayTransactionSocket.current.close(1000);
+    }
+
+    if (transactionTrackingSocket.current) {
+      transactionTrackingSocket.current.close(1000);
+    }
+
+    if (afterBlock.current) {
+      afterBlock.current = undefined;
+    }
+
+    if (secretId.current) {
+      secretId.current = undefined;
+    }
+
+    if (solanPayPayment.current) {
+      solanPayPayment.current = undefined;
+    }
+
+    setSelectedPaymentOption();
+  };
+
+  var initializeSolanaPay = function initializeSolanaPay() {
+    reset();
+    request({
+      blockchain: 'solana',
+      method: 'latestBlockNumber'
+    }).then(function (latestBlock) {
+      if (latestBlock) {
+        afterBlock.current = latestBlock;
+        secretId.current = UUIDv4();
+        openSolanaPayTransactionSocket();
+      }
+    });
+  };
+
+  var alternativeHeaderActionElement = /*#__PURE__*/React.createElement("span", {
+    className: "DropDownWrapper"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: function onClick() {
+      return setShowDropDown(!showDropDown);
+    },
+    className: "ButtonCircular"
+  }, /*#__PURE__*/React.createElement(MenuIcon, null)), showDropDown && /*#__PURE__*/React.createElement(DropDown, {
+    hide: function hide() {
+      return setShowDropDown(false);
+    },
+    items: [{
+      label: "Contact support",
+      action: function action() {
+        window.open("mailto:support@depay.com?subject=Need help with Solana Pay payment", '_blank');
+      }
+    }].filter(Boolean)
+  }));
+  useEffect(function () {
+    initializeSolanaPay();
+    return reset;
+  }, []);
+  useEffect(function () {
+    var newQRCode = getNewQRCode();
+    newQRCode.update({
+      data: QRCodeURI
+    });
+    setQRCode(newQRCode);
+  }, [QRCodeURI]);
+  useEffect(function () {
+    if (afterBlock.current && QRCode) {
+      setTimeout(function () {
+        return setState('scan');
+      }, 400);
+    }
+  }, [afterBlock && QRCode]);
+  useEffect(function () {
+    if (state === 'scan' && QRCode && QRCodeElement && QRCodeElement.current) {
+      QRCodeElement.current.innerHTML = "";
+      QRCode.append(QRCodeElement.current);
+    }
+  }, [state, QRCode]);
+
+  if (state === 'initializing') {
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      alternativeHeaderAction: alternativeHeaderActionElement,
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL FontSizeL TextLeft"
+      }, /*#__PURE__*/React.createElement(SolanaPayLogo, null)))),
+      body: /*#__PURE__*/React.createElement("div", {
+        className: "MaxHeight"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingLeftL PaddingRightL PaddingTopS TextCenter"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Card Skeleton",
+        style: {
+          width: '100%',
+          height: '300px'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "SkeletonBackground"
+      }))))
+    });
+  } else {
+    var _transaction$current;
+
+    return /*#__PURE__*/React.createElement(Dialog$1, {
+      alternativeHeaderAction: alternativeHeaderActionElement,
+      header: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS PaddingLeftM PaddingRightM"
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+        className: "LineHeightL FontSizeL TextLeft"
+      }, /*#__PURE__*/React.createElement(SolanaPayLogo, null)))),
+      body: /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingLeftM PaddingRightM"
+      }, state === 'scan' && /*#__PURE__*/React.createElement("div", {
+        ref: QRCodeElement,
+        className: "QRCode"
+      }), ['pay', 'succeeded', 'failed'].includes(state) && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopS"
+      }, !selectedPaymentOption && /*#__PURE__*/React.createElement("div", {
+        className: "Card Skeleton"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "SkeletonBackground"
+      })), selectedPaymentOption && /*#__PURE__*/React.createElement("div", {
+        className: "Card disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardImage"
+      }, /*#__PURE__*/React.createElement(TokenImage, {
+        blockchain: 'solana',
+        address: selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.token
+      }), /*#__PURE__*/React.createElement("img", {
+        className: "BlockchainLogo small bottomRight " + Blockchains['solana'].name,
+        style: {
+          backgroundColor: Blockchains['solana'].logoBackgroundColor
+        },
+        src: Blockchains['solana'].logo,
+        alt: Blockchains['solana'].label,
+        title: Blockchains['solana'].label
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "CardBody"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardBodyWrapper"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "CardText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "TokenAmountRow"
+      }, (selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.amount) && /*#__PURE__*/React.createElement("span", {
+        className: "TokenAmountCell"
+      }, format(selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), (selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.symbol) && /*#__PURE__*/React.createElement("span", {
+        className: "TokenSymbolCell"
+      }, selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.symbol))), paymentValue && displayedPaymentValue != "".concat(selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.symbol, " ").concat(format(selectedPaymentOption === null || selectedPaymentOption === void 0 ? void 0 : selectedPaymentOption.amount)) && /*#__PURE__*/React.createElement("div", {
+        className: "TokenAmountRow small Opacity05"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "TokenAmountCell"
+      }, displayedPaymentValue)), !paymentValue && /*#__PURE__*/React.createElement("div", {
+        className: "TokenAmountRow small"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "TokenAmountCell"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "Skeleton",
+        style: {
+          position: 'relative',
+          marginTop: '2px',
+          borderRadius: '10px',
+          width: '82px',
+          height: '15px'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "SkeletonBackground"
+      })))))))))),
+      footer: /*#__PURE__*/React.createElement("div", {
+        className: "PaddingRightM PaddingLeftM PaddingBottomM"
+      }, state === 'scan' && /*#__PURE__*/React.createElement("div", {
+        className: "Opacity05 PaddingBottomXS PaddingTopS"
+      }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet")), state === 'pay' && validationState !== true && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "ActionIndicator MarginBottomXS"
+      }, /*#__PURE__*/React.createElement("img", {
+        src: solanaPayWallet === null || solanaPayWallet === void 0 ? void 0 : solanaPayWallet.logo
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "ActionIndicatorSpinner"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "TextCenter PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "FontSizeL"
+      }, "Confirm in your wallet"))))), (state === 'succeeded' || validationState === true) && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingTopXS"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomS StepsWrapper"
+      }, /*#__PURE__*/React.createElement("a", {
+        href: transaction === null || transaction === void 0 ? void 0 : (_transaction$current = transaction.current) === null || _transaction$current === void 0 ? void 0 : _transaction$current.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "Step Card small transparent done ".concat(!synchronousTracking ? "active" : "")
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "StepIcon"
+      }, /*#__PURE__*/React.createElement(CheckmarkIcon, {
+        className: "small"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "StepText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "StepText"
+      }, "Perform payment"))), /*#__PURE__*/React.createElement("div", {
+        className: "StepConnector"
+      }), synchronousTracking && !release && /*#__PURE__*/React.createElement("div", {
+        className: "Step Card small transparent active disabled"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "StepIcon"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "ActionIndicatorSpinner"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "StepText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "StepText"
+      }, /*#__PURE__*/React.createElement(LoadingText, null, "Confirming payment")))), synchronousTracking && release && /*#__PURE__*/React.createElement("a", {
+        href: transaction ? link({
+          url: "https://scan.depay.com/tx/solana/".concat(transaction.current.id, "?sender=").concat(solanPayPayment.current.fromAddress, "&receiver=").concat(solanPayPayment.current.toAddress, "&deadline=").concat(solanPayPayment.current.deadline),
+          target: '_blank',
+          wallet: solanaPayWallet
+        }) : undefined,
+        target: "_blank",
+        className: "Step Card small transparent active"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "StepIcon"
+      }, /*#__PURE__*/React.createElement(CheckmarkIcon, {
+        className: "small"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "StepText"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "StepText"
+      }, "Payment confirmed")))), synchronousTracking && !release && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary disabled"
+      }, "Continue")), (release || !synchronousTracking) && forwardTo && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("a", {
+        className: "ButtonPrimary",
+        href: forwardTo,
+        rel: "noopener noreferrer"
+      }, "Continue")), (release || !synchronousTracking) && !forwardTo && /*#__PURE__*/React.createElement("div", {
+        className: "PaddingBottomXS"
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "ButtonPrimary",
+        onClick: close
+      }, "Close")))))
+    });
+  }
+});
+
 var TracingFailedDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext),
       navigate = _useContext.navigate;
@@ -11720,7 +12676,7 @@ var TracingFailedDialog = (function (props) {
       className: "TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement(ErrorGraphic$1, null)), /*#__PURE__*/React.createElement("h1", {
+    }, /*#__PURE__*/React.createElement(ErrorGraphic, null)), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
@@ -11765,7 +12721,7 @@ var TrackingFailedDialog = (function () {
       className: "TextCenter"
     }, /*#__PURE__*/React.createElement("div", {
       className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement(ErrorGraphic$1, null)), /*#__PURE__*/React.createElement("h1", {
+    }, /*#__PURE__*/React.createElement(ErrorGraphic, null)), /*#__PURE__*/React.createElement("h1", {
       className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
     }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
       className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
@@ -11845,7 +12801,8 @@ var PaymentStack = (function (props) {
       _setNavigator = _useContext2.setNavigator;
 
   var _useContext3 = useContext(WalletContext),
-      account = _useContext3.account;
+      account = _useContext3.account,
+      solanaPayWallet = _useContext3.solanaPayWallet;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -11853,10 +12810,10 @@ var PaymentStack = (function (props) {
       setLocalNavigator = _useState2[1];
 
   useEffect(function () {
-    if (navigator) {
+    if (navigator && !solanaPayWallet) {
       navigator.set(['PaymentOverview']);
     }
-  }, [account]);
+  }, [account, solanaPayWallet]);
   return /*#__PURE__*/React.createElement(ReactDialogStack, {
     setNavigator: function setNavigator(navigator) {
       setLocalNavigator(navigator);
@@ -11865,12 +12822,13 @@ var PaymentStack = (function (props) {
     },
     open: open,
     close: close,
-    start: "PaymentOverview",
+    start: solanaPayWallet ? 'SolanaPay' : 'PaymentOverview',
     container: props.container,
     document: props.document,
     stacked: true,
     dialogs: {
       PaymentOverview: /*#__PURE__*/React.createElement(PaymentOverviewDialog, null),
+      SolanaPay: /*#__PURE__*/React.createElement(SolanaPayDialog, null),
       ChangeAmount: /*#__PURE__*/React.createElement(ChangeAmountDialog, null),
       ChangeApproval: /*#__PURE__*/React.createElement(ChangeApprovalDialog, null),
       ChangePayment: /*#__PURE__*/React.createElement(ChangePaymentDialog, null),
@@ -11888,16 +12846,17 @@ var PaymentTrackingProvider = (function (props) {
 
   var _useContext2 = useContext(ConfigurationContext),
       configurationId = _useContext2.id,
-      track = _useContext2.track,
+      trackConfiguration = _useContext2.track,
       validated = _useContext2.validated;
       _useContext2.failed;
       _useContext2.integration;
       _useContext2.link;
       _useContext2.type;
 
-  var _useContext3 = useContext(WalletContext),
-      account = _useContext3.account,
-      wallet = _useContext3.wallet;
+  var _useContext3 = useContext(WalletContext);
+      _useContext3.account;
+      var wallet = _useContext3.wallet,
+      solanaPayWallet = _useContext3.solanaPayWallet;
 
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -11931,43 +12890,43 @@ var PaymentTrackingProvider = (function (props) {
 
   var _useState13 = useState(),
       _useState14 = _slicedToArray(_useState13, 2),
-      payment = _useState14[0],
-      setPayment = _useState14[1];
+      paymentRoute = _useState14[0],
+      setPaymentRoute = _useState14[1];
 
   var _useState15 = useState(),
       _useState16 = _slicedToArray(_useState15, 2),
-      paymentRoute = _useState16[0],
-      setPaymentRoute = _useState16[1];
-
-  var _useState17 = useState(),
-      _useState18 = _slicedToArray(_useState17, 2),
-      attemptId = _useState18[0],
-      setAttemptId = _useState18[1];
+      attemptId = _useState16[0],
+      setAttemptId = _useState16[1];
 
   var attemptIdRef = useRef(attemptId);
   attemptIdRef.current = attemptId;
 
-  var _useState19 = useState(false),
-      _useState20 = _slicedToArray(_useState19, 2),
-      trackingInitialized = _useState20[0],
-      setTrackingInitialized = _useState20[1];
+  var _useState17 = useState(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      trackingInitialized = _useState18[0],
+      setTrackingInitialized = _useState18[1];
 
-  var _useState21 = useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
+  var _useState19 = useState(!!configurationId || !!(trackConfiguration && (trackConfiguration.endpoint || typeof trackConfiguration.method == 'function') && trackConfiguration.async != true)),
+      _useState20 = _slicedToArray(_useState19, 1),
+      synchronousTracking = _useState20[0];
+
+  var _useState21 = useState(!configurationId && !!(trackConfiguration && trackConfiguration.async == true)),
       _useState22 = _slicedToArray(_useState21, 1),
-      synchronousTracking = _useState22[0];
+      asynchronousTracking = _useState22[0];
 
-  var _useState23 = useState(!configurationId && !!(track && track.async == true)),
+  var _useState23 = useState(!!configurationId || !!(trackConfiguration && trackConfiguration.poll && (trackConfiguration.poll.endpoint || typeof trackConfiguration.poll.method == 'function') && trackConfiguration.async != true)),
       _useState24 = _slicedToArray(_useState23, 1),
-      asynchronousTracking = _useState24[0];
+      polling = _useState24[0];
 
-  var _useState25 = useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-      _useState26 = _slicedToArray(_useState25, 1),
-      polling = _useState26[0];
+  var _useState25 = useState(false),
+      _useState26 = _slicedToArray(_useState25, 2),
+      release = _useState26[0],
+      setRelease = _useState26[1];
 
-  var _useState27 = useState(false),
+  var _useState27 = useState(),
       _useState28 = _slicedToArray(_useState27, 2),
-      release = _useState28[0],
-      setRelease = _useState28[1];
+      validationState = _useState28[0];
+      _useState28[1];
 
   var _useState29 = useState(),
       _useState30 = _slicedToArray(_useState29, 2),
@@ -11981,90 +12940,78 @@ var PaymentTrackingProvider = (function (props) {
       navigate = _useContext5.navigate,
       set = _useContext5.set;
 
-  var openSocket = function openSocket(paymentRoute, deadline) {
-    var socket = new WebSocket('wss://integrate.depay.com/cable');
+  var validationSocket = useRef();
+  var validatedCallbackCalled = useRef();
 
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(event) {
-        var msg;
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                msg = {
-                  command: 'subscribe',
-                  identifier: JSON.stringify({
-                    blockchain: paymentRoute.blockchain,
-                    sender: paymentRoute.fromAddress,
-                    receiver: paymentRoute.toAddress,
-                    deadline: deadline,
-                    channel: 'PaymentChannel'
-                  })
-                };
-                socket.send(JSON.stringify(msg));
+  var callValidatedCallback = function callValidatedCallback(success, transaction, paymentRoute) {
+    if (validated && validatedCallbackCalled.current !== true) {
+      validatedCallbackCalled.current = true;
+      setTimeout(function () {
+        return validated(success, transaction, paymentRoute);
+      }, 200);
+    }
+  };
 
-              case 2:
-              case "end":
-                return _context.stop();
+  var openValidationSocket = function openValidationSocket(paymentRoute, deadline) {
+    if (validationSocket.current) {
+      return;
+    }
+
+    var identifier = JSON.stringify({
+      blockchain: paymentRoute.blockchain,
+      sender: paymentRoute.fromAddress,
+      receiver: paymentRoute.toAddress,
+      deadline: deadline,
+      channel: 'PaymentChannel'
+    });
+    validationSocket.current = openManagedSocket({
+      identifier: identifier,
+      onopen: function onopen() {
+        return {
+          command: 'subscribe',
+          identifier: identifier
+        };
+      },
+      onmessage: function onmessage(eventData, socket) {
+        if (eventData !== null && eventData !== void 0 && eventData.message) {
+          if (eventData.message.status) {
+            var success = eventData.message.status == 'success';
+            callValidatedCallback(success, transaction, paymentRoute);
+
+            if (eventData.message.release) {
+              socket.close(1000);
+
+              if (success) {
+                setRelease(true);
+                setClosable(true);
+                setForwardTo(eventData.message.forward_to);
+              } else if (success == false) {
+                setClosable(true);
+                set(['PaymentFailed']);
+              }
+            } else if (eventData.message.confirmations) {
+              setConfirmationsRequired(eventData.message.confirmations.required);
+              setConfirmationsPassed(eventData.message.confirmations.passed);
             }
           }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openSocket(paymentRoute, deadline);
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping" || !item.message) {
-        return;
-      }
-
-      var success = item.message.status == 'success';
-
-      if (validated) {
-        setTimeout(function () {
-          return validated(success, transaction, payment);
-        }, 200);
-      }
-
-      if (item.message.release) {
-        socket.close();
-
-        if (success) {
-          setRelease(true);
-          setClosable(true);
-          setForwardTo(item.message.forward_to);
-        } else if (success == false) {
-          setClosable(true);
-          set(['PaymentFailed']);
         }
-      } else if (item.message.confirmations) {
-        setConfirmationsRequired(item.message.confirmations.required);
-        setConfirmationsPassed(item.message.confirmations.passed);
+      },
+      keepAlive: {
+        interval: 3000,
+        callback: function callback() {
+          return {
+            type: "ping",
+            message: Math.floor(Date.now() / 1000)
+          };
+        }
       }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
+    });
   };
 
   var retryStartTracking = function retryStartTracking(transaction, afterBlock, paymentRoute, deadline, attempt) {
     attempt = parseInt(attempt || 1, 10);
 
-    if (attempt < ((track === null || track === void 0 ? void 0 : track.attempts) || 40)) {
+    if (attempt < ((trackConfiguration === null || trackConfiguration === void 0 ? void 0 : trackConfiguration.attempts) || 40)) {
       setTimeout(function () {
         startTracking(transaction, afterBlock, paymentRoute, deadline, attempt + 1);
       }, 3000);
@@ -12095,8 +13042,8 @@ var PaymentTrackingProvider = (function (props) {
           return reject('TRACKING REQUEST FAILED');
         }
       });
-    } else if (track.endpoint) {
-      return fetch(track.endpoint, {
+    } else if (trackConfiguration.endpoint) {
+      return fetch(trackConfiguration.endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -12109,25 +13056,25 @@ var PaymentTrackingProvider = (function (props) {
           throw response;
         }
       });
-    } else if (track.method) {
-      return track.method(payment);
+    } else if (trackConfiguration.method) {
+      return trackConfiguration.method(payment);
     } else {
       throw 'No tracking defined!';
     }
   };
 
   var startTracking = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(transaction, afterBlock, paymentRoute, deadline, attempt) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(transaction, afterBlock, paymentRoute, deadline, attempt) {
       var _paymentRoute$protoco, _paymentRoute$feeAmou, _paymentRoute$fee, _paymentRoute$feeAmou2, _paymentRoute$fee2;
 
-      return regenerator.wrap(function _callee2$(_context2) {
+      return regenerator.wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               callTracking({
                 blockchain: transaction.blockchain,
                 transaction: transaction.id,
-                sender: transaction.from,
+                sender: paymentRoute.fromAddress,
                 after_block: afterBlock.toString(),
                 from_token: paymentRoute.fromToken.address,
                 from_amount: paymentRoute.fromAmount.toString(),
@@ -12142,7 +13089,7 @@ var PaymentTrackingProvider = (function (props) {
                 fee2_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee2 = paymentRoute.fee2) === null || _paymentRoute$fee2 === void 0 ? void 0 : _paymentRoute$fee2.receiver,
                 trace_attempt_id: attemptIdRef.current,
                 deadline: deadline,
-                selected_wallet: wallet === null || wallet === void 0 ? void 0 : wallet.name
+                selected_wallet: (wallet === null || wallet === void 0 ? void 0 : wallet.name) || (solanaPayWallet === null || solanaPayWallet === void 0 ? void 0 : solanaPayWallet.name)
               }).then(function (response) {
                 setTrackingInitialized(true);
               })["catch"](function (error) {
@@ -12151,30 +13098,30 @@ var PaymentTrackingProvider = (function (props) {
 
             case 1:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2);
+      }, _callee);
     }));
 
-    return function startTracking(_x2, _x3, _x4, _x5, _x6) {
-      return _ref2.apply(this, arguments);
+    return function startTracking(_x, _x2, _x3, _x4, _x5) {
+      return _ref.apply(this, arguments);
     };
   }();
 
   var pollStatus = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline) {
       var handlePollingResponse, performedPayment;
-      return regenerator.wrap(function _callee3$(_context3) {
+      return regenerator.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (!(!polling || transaction == undefined || afterBlock == undefined || paymentRoute == undefined)) {
-                _context3.next = 2;
+                _context2.next = 2;
                 break;
               }
 
-              return _context3.abrupt("return");
+              return _context2.abrupt("return");
 
             case 2:
               handlePollingResponse = function handlePollingResponse(data) {
@@ -12187,11 +13134,7 @@ var PaymentTrackingProvider = (function (props) {
                   }
 
                   clearInterval(pollingInterval);
-
-                  if (validated) {
-                    validated(data.status ? data.status == 'success' : true, transaction, payment);
-                  }
-
+                  callValidatedCallback(data.status ? data.status == 'success' : true, transaction, paymentRoute);
                   setRelease(true);
                 }
               };
@@ -12221,8 +13164,8 @@ var PaymentTrackingProvider = (function (props) {
                     }
                   }).then(handlePollingResponse);
                 }
-              } else if (track.poll.endpoint) {
-                fetch(track.poll.endpoint, {
+              } else if (trackConfiguration.poll.endpoint) {
+                fetch(trackConfiguration.poll.endpoint, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -12237,20 +13180,20 @@ var PaymentTrackingProvider = (function (props) {
                     return undefined;
                   }
                 }).then(handlePollingResponse);
-              } else if (track.poll.method) {
-                track.poll.method(performedPayment).then(handlePollingResponse);
+              } else if (trackConfiguration.poll.method) {
+                trackConfiguration.poll.method(performedPayment).then(handlePollingResponse);
               }
 
             case 5:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3);
+      }, _callee2);
     }));
 
-    return function pollStatus(_x7, _x8, _x9, _x10, _x11, _x12, _x13) {
-      return _ref3.apply(this, arguments);
+    return function pollStatus(_x6, _x7, _x8, _x9, _x10, _x11, _x12) {
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -12276,44 +13219,44 @@ var PaymentTrackingProvider = (function (props) {
     };
   }, [polling, transaction, afterBlock, attemptId, paymentRoute]);
 
-  var initializeTracking = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(transaction, afterBlock, paymentRoute, deadline) {
-      return regenerator.wrap(function _callee4$(_context4) {
+  var track = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(transaction, afterBlock, paymentRoute, deadline) {
+      return regenerator.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              if (synchronousTracking || track && track.async == true) {
+              if (synchronousTracking || trackConfiguration && trackConfiguration.async == true) {
                 startTracking(transaction, afterBlock, paymentRoute, deadline);
               }
 
               if (!(synchronousTracking == false)) {
-                _context4.next = 3;
+                _context3.next = 3;
                 break;
               }
 
-              return _context4.abrupt("return");
+              return _context3.abrupt("return");
 
             case 3:
               setDeadline(deadline);
               setTransaction(transaction);
               setAfterBlock(afterBlock);
               setPaymentRoute(paymentRoute);
-              openSocket(paymentRoute, deadline);
+              openValidationSocket(paymentRoute, deadline);
 
             case 8:
             case "end":
-              return _context4.stop();
+              return _context3.stop();
           }
         }
-      }, _callee4);
+      }, _callee3);
     }));
 
-    return function initializeTracking(_x14, _x15, _x16, _x17) {
-      return _ref4.apply(this, arguments);
+    return function track(_x13, _x14, _x15, _x16) {
+      return _ref3.apply(this, arguments);
     };
   }();
 
-  var trace = function trace(afterBlock, paymentRoute, transaction, deadline) {
+  var trace = function trace(afterBlock, paymentRoute, deadline) {
     setAttemptId(); // reset attemptId in case payment is retried
 
     if (!synchronousTracking && !asynchronousTracking) {
@@ -12323,19 +13266,19 @@ var PaymentTrackingProvider = (function (props) {
     setDeadline(deadline);
     setAfterBlock(afterBlock);
     setPaymentRoute(paymentRoute);
-    openSocket(paymentRoute, deadline);
+    openValidationSocket(paymentRoute, deadline);
     return new Promise( /*#__PURE__*/function () {
-      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(resolve, reject) {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(resolve, reject) {
         var _paymentRoute$protoco2, _paymentRoute$feeAmou3, _paymentRoute$fee3, _paymentRoute$feeAmou4, _paymentRoute$fee4;
 
         var performedPayment;
-        return regenerator.wrap(function _callee5$(_context5) {
+        return regenerator.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 performedPayment = {
                   blockchain: paymentRoute.blockchain,
-                  sender: account,
+                  sender: paymentRoute.fromAddress,
                   after_block: afterBlock.toString(),
                   from_token: paymentRoute.fromToken.address,
                   from_amount: paymentRoute.fromAmount.toString(),
@@ -12349,15 +13292,15 @@ var PaymentTrackingProvider = (function (props) {
                   fee2_amount: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$feeAmou4 = paymentRoute.feeAmount2) === null || _paymentRoute$feeAmou4 === void 0 ? void 0 : _paymentRoute$feeAmou4.toString(),
                   fee2_receiver: paymentRoute === null || paymentRoute === void 0 ? void 0 : (_paymentRoute$fee4 = paymentRoute.fee2) === null || _paymentRoute$fee4 === void 0 ? void 0 : _paymentRoute$fee4.receiver,
                   deadline: deadline,
-                  selected_wallet: wallet === null || wallet === void 0 ? void 0 : wallet.name
+                  selected_wallet: (wallet === null || wallet === void 0 ? void 0 : wallet.name) || (solanaPayWallet === null || solanaPayWallet === void 0 ? void 0 : solanaPayWallet.name)
                 };
 
                 if (!configurationId) {
-                  _context5.next = 5;
+                  _context4.next = 5;
                   break;
                 }
 
-                return _context5.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
+                return _context4.abrupt("return", fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -12375,12 +13318,12 @@ var PaymentTrackingProvider = (function (props) {
                 }));
 
               case 5:
-                if (!track.endpoint) {
-                  _context5.next = 9;
+                if (!trackConfiguration.endpoint) {
+                  _context4.next = 9;
                   break;
                 }
 
-                return _context5.abrupt("return", fetch(track.endpoint, {
+                return _context4.abrupt("return", fetch(trackConfiguration.endpoint, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -12395,22 +13338,22 @@ var PaymentTrackingProvider = (function (props) {
                 }));
 
               case 9:
-                if (track.method) {
-                  track.method(performedPayment).then(resolve)["catch"](reject);
+                if (trackConfiguration.method) {
+                  trackConfiguration.method(performedPayment).then(resolve)["catch"](reject);
                 } else {
                   reject('No tracking defined!');
                 }
 
               case 10:
               case "end":
-                return _context5.stop();
+                return _context4.stop();
             }
           }
-        }, _callee5);
+        }, _callee4);
       }));
 
-      return function (_x18, _x19) {
-        return _ref5.apply(this, arguments);
+      return function (_x17, _x18) {
+        return _ref4.apply(this, arguments);
       };
     }());
   };
@@ -12419,15 +13362,15 @@ var PaymentTrackingProvider = (function (props) {
     value: {
       synchronousTracking: synchronousTracking,
       asynchronousTracking: asynchronousTracking,
-      initializeTracking: initializeTracking,
+      track: track,
       trace: trace,
       trackingInitialized: trackingInitialized,
       continueTryTracking: continueTryTracking,
       release: release,
+      validationState: validationState,
       forwardTo: forwardTo,
       confirmationsRequired: confirmationsRequired,
-      confirmationsPassed: confirmationsPassed,
-      setPayment: setPayment
+      confirmationsPassed: confirmationsPassed
     }
   }, props.children);
 });
@@ -12568,1403 +13511,6 @@ var PaymentValueProvider = (function (props) {
   }, props.children);
 });
 
-function getFavicon () {
-  var favicon;
-  var nodeList = document.getElementsByTagName("link");
-
-  for (var i = 0; i < nodeList.length; i++) {
-    if (nodeList[i].getAttribute("rel") == "icon" || nodeList[i].getAttribute("rel") == "shortcut icon") {
-      favicon = nodeList[i].getAttribute("href");
-    }
-  }
-
-  if (!favicon) {
-    return;
-  }
-
-  if (favicon.match(':')) {
-    return favicon;
-  } else {
-    return "".concat(window.location.origin, "/").concat(favicon.replace(/^\//, ''));
-  }
-}
-
-var getPaymentRouterInstruction = (function (confirmedTransaction) {
-  var _confirmedTransaction, _confirmedTransaction2, _confirmedTransaction3;
-
-  if (!confirmedTransaction || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction = confirmedTransaction.meta) !== null && _confirmedTransaction !== void 0 && _confirmedTransaction.logMessages) || !(confirmedTransaction !== null && confirmedTransaction !== void 0 && (_confirmedTransaction2 = confirmedTransaction.transaction) !== null && _confirmedTransaction2 !== void 0 && (_confirmedTransaction3 = _confirmedTransaction2.message) !== null && _confirmedTransaction3 !== void 0 && _confirmedTransaction3.compiledInstructions)) {
-    return;
-  }
-
-  if (!confirmedTransaction.meta.logMessages.some(function (log) {
-    return log.match("Program ".concat(routers.solana.address, " invoke"));
-  })) {
-    return;
-  }
-
-  var foundInstruction;
-  confirmedTransaction.transaction.message.compiledInstructions.forEach(function (instruction) {
-    Object.keys(routers.solana.api).forEach(function (key) {
-      if (foundInstruction) {
-        return;
-      }
-
-      try {
-        if (key.match(/^route/)) {
-          var data = routers.solana.api[key].layout.decode(instruction.data);
-
-          if (data.anchorDiscriminator.toString() === routers.solana.api[key].anchorDiscriminator.toString()) {
-            foundInstruction = data;
-          }
-        }
-      } catch (_unused) {}
-    });
-  });
-  return foundInstruction;
-});
-
-var UUIDv4 = (function () {
-  var d = new Date().getTime();
-  var d2 = performance && performance.now && performance.now() * 1000 || 0;
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16;
-
-    if (d > 0) {
-      r = (d + r) % 16 | 0;
-      d = Math.floor(d / 16);
-    } else {
-      r = (d2 + r) % 16 | 0;
-      d2 = Math.floor(d2 / 16);
-    }
-
-    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-  });
-});
-
-var SolanaPayDialog = (function (props) {
-  var _useContext = useContext(ConfigurationContext),
-      accept = _useContext.accept,
-      track = _useContext.track,
-      validated = _useContext.validated;
-      _useContext.integration;
-      _useContext.link;
-      _useContext.type;
-      var configurationId = _useContext.id;
-
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      attemptId = _useState2[0],
-      setAttemptId = _useState2[1];
-
-  var attemptIdRef = useRef(attemptId);
-  attemptIdRef.current = attemptId;
-
-  var _useContext2 = useContext(NavigateStackContext);
-      _useContext2.set;
-      _useContext2.navigate;
-
-  var _useContext3 = useContext(ClosableContext),
-      close = _useContext3.close,
-      setClosable = _useContext3.setClosable;
-
-  var _useState3 = useState(),
-      _useState4 = _slicedToArray(_useState3, 2),
-      paymentOptions = _useState4[0];
-      _useState4[1];
-
-  var _useState5 = useState(),
-      _useState6 = _slicedToArray(_useState5, 2),
-      forwardTo = _useState6[0],
-      setForwardTo = _useState6[1];
-
-  var _useState7 = useState(),
-      _useState8 = _slicedToArray(_useState7, 2),
-      pollingPaymentStatusInterval = _useState8[0],
-      setPollingPaymentStatusInterval = _useState8[1];
-
-  var _useState9 = useState(),
-      _useState10 = _slicedToArray(_useState9, 2),
-      transactionTrackingInterval = _useState10[0],
-      setTransactionTrackingInterval = _useState10[1];
-
-  var _useState11 = useState(),
-      _useState12 = _slicedToArray(_useState11, 2),
-      selectedPaymentOption = _useState12[0],
-      setSelectedPaymantOption = _useState12[1];
-
-  var _useState13 = useState(),
-      _useState14 = _slicedToArray(_useState13, 2),
-      transaction = _useState14[0],
-      setTransaction = _useState14[1];
-
-  var _useState15 = useState(),
-      _useState16 = _slicedToArray(_useState15, 2),
-      secretId = _useState16[0],
-      setSecretId = _useState16[1];
-
-  var _useState17 = useState(),
-      _useState18 = _slicedToArray(_useState17, 2),
-      solanaPayTransactionSocket = _useState18[0],
-      setSolanaPayTransactionSocket = _useState18[1];
-
-  var _useState19 = useState(),
-      _useState20 = _slicedToArray(_useState19, 2),
-      transactionTrackingSocket = _useState20[0],
-      setTransactionTrackingSocket = _useState20[1];
-
-  var _useState21 = useState(),
-      _useState22 = _slicedToArray(_useState21, 2),
-      paymentValidationSocket = _useState22[0],
-      setPaymentValidationSocket = _useState22[1];
-
-  var _useState23 = useState(),
-      _useState24 = _slicedToArray(_useState23, 2),
-      QRCodeURI = _useState24[0],
-      setQRCodeURI = _useState24[1];
-
-  var _useState25 = useState(),
-      _useState26 = _slicedToArray(_useState25, 2),
-      release = _useState26[0],
-      setRelease = _useState26[1];
-
-  var _useState27 = useState(),
-      _useState28 = _slicedToArray(_useState27, 2),
-      afterBlock = _useState28[0],
-      setAfterBlock = _useState28[1];
-
-  var _useState29 = useState(),
-      _useState30 = _slicedToArray(_useState29, 2),
-      QRCode = _useState30[0],
-      setQRCode = _useState30[1];
-
-  var _useState31 = useState('select'),
-      _useState32 = _slicedToArray(_useState31, 2),
-      state = _useState32[0],
-      setState = _useState32[1];
-
-  var _useState33 = useState(!!configurationId || !!(track && (track.endpoint || typeof track.method == 'function') && track.async != true)),
-      _useState34 = _slicedToArray(_useState33, 1),
-      synchronousTracking = _useState34[0];
-
-  var _useState35 = useState(!configurationId && !!(track && track.async == true)),
-      _useState36 = _slicedToArray(_useState35, 1),
-      asynchronousTracking = _useState36[0];
-
-  var _useState37 = useState(!!configurationId || !!(track && track.poll && (track.poll.endpoint || typeof track.poll.method == 'function') && track.async != true)),
-      _useState38 = _slicedToArray(_useState37, 1),
-      polling = _useState38[0];
-
-  var isTracking = synchronousTracking || asynchronousTracking;
-  var QRCodeElement = React.useRef();
-
-  var selectPaymentOption = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(selectedPaymentOption) {
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return Token.BigNumber({
-                amount: selectedPaymentOption.amount,
-                blockchain: 'solana',
-                address: selectedPaymentOption.token
-              });
-
-            case 2:
-              selectedPaymentOption.fromAmountBN = _context.sent;
-
-              if (!selectedPaymentOption.fee) {
-                _context.next = 15;
-                break;
-              }
-
-              if (!selectedPaymentOption.fee.amount.match("%")) {
-                _context.next = 8;
-                break;
-              }
-
-              selectedPaymentOption.feeAmountBN = selectedPaymentOption.fromAmountBN.mul(parseFloat(selectedPaymentOption.fee.amount.replace("%", '')) * 10).div(1000);
-              _context.next = 15;
-              break;
-
-            case 8:
-              if (!(typeof selectedPaymentOption.fee.amount === 'string')) {
-                _context.next = 12;
-                break;
-              }
-
-              selectedPaymentOption.feeAmountBN = selectedPaymentOption.fee.amount;
-              _context.next = 15;
-              break;
-
-            case 12:
-              _context.next = 14;
-              return Token.BigNumber({
-                amount: selectedPaymentOption.fee.amount,
-                blockchain: 'solana',
-                address: selectedPaymentOption.token
-              });
-
-            case 14:
-              selectedPaymentOption.feeAmountBN = _context.sent;
-
-            case 15:
-              if (selectedPaymentOption.fee) {
-                selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN.sub(selectedPaymentOption.feeAmountBN);
-              } else {
-                selectedPaymentOption.toAmountBN = selectedPaymentOption.fromAmountBN;
-              }
-
-              setSelectedPaymantOption(selectedPaymentOption);
-              setState('wait');
-              openSolanaPayTransactionSocket(secretId);
-
-            case 19:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function selectPaymentOption(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var getNewQRCode = function getNewQRCode() {
-    return new QRCodeStyling({
-      width: 340,
-      height: 340,
-      type: "svg",
-      dotsOptions: {
-        type: "extra-rounded",
-        color: isDarkMode() ? "#FFFFFF" : "#000000"
-      },
-      cornersSquareOptions: {
-        type: 'rounded'
-      },
-      backgroundOptions: {
-        color: "transparent"
-      }
-    });
-  };
-
-  var sendTrackingAsConfigured = function sendTrackingAsConfigured(_ref2) {
-    var payment = _ref2.payment,
-        resolve = _ref2.resolve,
-        reject = _ref2.reject;
-
-    if (configurationId) {
-      return fetch("https://public.depay.com/configurations/".concat(configurationId, "/attempts"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      }).then(function (response) {
-        if (response.status == 200 || response.status == 201) {
-          response.json().then(function (attempt) {
-            return setAttemptId(attempt.id);
-          });
-          return resolve();
-        } else {
-          return reject('TRACING REQUEST FAILED');
-        }
-      });
-    } else if (track.endpoint) {
-      return fetch(track.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      }).then(function (response) {
-        if (response.status == 200 || response.status == 201) {
-          return resolve();
-        } else {
-          return reject('TRACING REQUEST FAILED');
-        }
-      });
-    } else if (track.method) {
-      track.method(payment).then(resolve)["catch"](reject);
-    } else {
-      reject('No tracking defined!');
-    }
-  };
-
-  var sendTrace = function sendTrace(_ref3) {
-    var secretId = _ref3.secretId,
-        selectedPaymentOption = _ref3.selectedPaymentOption;
-
-    if (!isTracking) {
-      return Promise.resolve();
-    }
-
-    return new Promise( /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(resolve, reject) {
-        var payment;
-        return regenerator.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                payment = {
-                  blockchain: 'solana',
-                  sender: "solana:".concat(secretId),
-                  after_block: afterBlock.toString(),
-                  from_token: selectedPaymentOption.token,
-                  from_amount: selectedPaymentOption.fromAmountBN.toString(),
-                  from_decimals: selectedPaymentOption.decimals,
-                  to_token: selectedPaymentOption.token,
-                  to_amount: selectedPaymentOption.toAmountBN.toString(),
-                  to_decimals: selectedPaymentOption.decimals,
-                  fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-                  deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 6000 // 1h
-
-                };
-                sendTrackingAsConfigured({
-                  payment: payment,
-                  resolve: resolve,
-                  reject: reject
-                });
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function (_x2, _x3) {
-        return _ref4.apply(this, arguments);
-      };
-    }());
-  };
-
-  var sendTrack = function sendTrack(_ref5) {
-    var transaction = _ref5.transaction;
-
-    if (!isTracking) {
-      return;
-    }
-
-    var payment = {
-      blockchain: 'solana',
-      sender: transaction.from,
-      transaction: transaction.id,
-      nonce: transaction.nonce,
-      after_block: afterBlock.toString(),
-      from_token: selectedPaymentOption.token,
-      from_amount: selectedPaymentOption.fromAmountBN.toString(),
-      from_decimals: selectedPaymentOption.decimals,
-      to_token: selectedPaymentOption.token,
-      to_amount: selectedPaymentOption.toAmountBN.toString(),
-      to_decimals: selectedPaymentOption.decimals,
-      fee_amount: selectedPaymentOption.feeAmountBN.toString(),
-      deadline: transaction.deadline
-    };
-    sendTrackingAsConfigured({
-      payment: payment,
-      resolve: function resolve() {
-        setClosable(!synchronousTracking);
-        setRelease(!synchronousTracking);
-      },
-      reject: function reject() {
-        setState('trackingFailed');
-      }
-    });
-  };
-
-  var openSolanaPayTransactionSocket = function openSolanaPayTransactionSocket(secretId) {
-    if (solanaPayTransactionSocket) {
-      solanaPayTransactionSocket.close();
-    }
-
-    var socket = new WebSocket('wss://integrate.depay.com/cable');
-    setSolanaPayTransactionSocket(socket);
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref6 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(event) {
-        return regenerator.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return socket.send(JSON.stringify({
-                  command: 'subscribe',
-                  identifier: JSON.stringify({
-                    secret_id: secretId,
-                    version: 3,
-                    channel: 'SolanaPayChannel'
-                  })
-                }));
-
-              case 2:
-                if (!(QRCodeURI === undefined)) {
-                  _context3.next = 5;
-                  break;
-                }
-
-                _context3.next = 5;
-                return socket.send(JSON.stringify({
-                  command: 'message',
-                  identifier: JSON.stringify({
-                    secret_id: secretId,
-                    channel: 'SolanaPayChannel'
-                  }),
-                  data: JSON.stringify({
-                    type: 'create',
-                    secret_id: secretId,
-                    label: document.title || 'DePay',
-                    icon: getFavicon() || 'https://depay.com/favicon.png',
-                    accept: accept
-                  })
-                }));
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function (_x4) {
-        return _ref6.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openSolanaPayTransactionSocket(secretId);
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping" || !item.message) {
-        return;
-      }
-
-      if (item.message.created === true) {
-        traceAndContinue(secretId, "solana:https://public.depay.com/solana/".concat(secretId));
-      } else if (item.message.scanned) {
-        setClosable("Are you sure you want to abort this payment?");
-        setState('pay');
-      } else if (item.message.account) {
-        trackTransaction(item.message);
-        setClosable("Are you sure you want to abort this payment?");
-        setState('pay');
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var openTransactionTrackingSocket = function openTransactionTrackingSocket(_ref7) {
-    var account = _ref7.account,
-        nonce = _ref7.nonce;
-
-    if (transactionTrackingSocket) {
-      transactionTrackingSocket.close();
-    }
-
-    var socket = new WebSocket(Blockchains.solana.sockets[Math.floor(Math.random() * Blockchains.solana.sockets.length)]);
-    setTransactionTrackingSocket(socket);
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref8 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(event) {
-        return regenerator.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
-                return socket.send(JSON.stringify({
-                  "jsonrpc": "2.0",
-                  "id": 1,
-                  "method": "logsSubscribe",
-                  "params": [{
-                    "mentions": [account]
-                  }, {
-                    "commitment": "processed"
-                  }]
-                }));
-
-              case 2:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      return function (_x5) {
-        return _ref8.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openTransactionTrackingSocket({
-            account: account,
-            nonce: nonce
-          });
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      if (event && event.data) {
-        var _data$params, _data$params$result, _data$params$result$v, _ref9, _data$params2, _data$params2$result, _data$params2$result$;
-
-        var data = JSON.parse(event.data);
-
-        if (data && data !== null && data !== void 0 && (_data$params = data.params) !== null && _data$params !== void 0 && (_data$params$result = _data$params.result) !== null && _data$params$result !== void 0 && (_data$params$result$v = _data$params$result.value) !== null && _data$params$result$v !== void 0 && _data$params$result$v.logs && (_ref9 = (data === null || data === void 0 ? void 0 : (_data$params2 = data.params) === null || _data$params2 === void 0 ? void 0 : (_data$params2$result = _data$params2.result) === null || _data$params2$result === void 0 ? void 0 : (_data$params2$result$ = _data$params2$result.value) === null || _data$params2$result$ === void 0 ? void 0 : _data$params2$result$.logs) || []) !== null && _ref9 !== void 0 && _ref9.find(function (log) {
-          return log.match("Program ".concat(routers.solana.address));
-        })) {
-          var _data$params3, _data$params3$result;
-
-          var result = data === null || data === void 0 ? void 0 : (_data$params3 = data.params) === null || _data$params3 === void 0 ? void 0 : (_data$params3$result = _data$params3.result) === null || _data$params3$result === void 0 ? void 0 : _data$params3$result.value;
-
-          if (result && result.err === null) {
-            setState('succeeded');
-            setTransaction({
-              status: 'succeeded',
-              id: result.signature,
-              url: Blockchains.solana.explorerUrlFor({
-                transaction: {
-                  id: result.signature
-                }
-              }),
-              from: account,
-              nonce: nonce,
-              deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-            });
-          } else if (result) {
-            setState('failed');
-            setTransaction({
-              status: 'failed',
-              id: result.signature,
-              url: Blockchains.solana.explorerUrlFor({
-                transaction: {
-                  id: result.signature
-                }
-              }),
-              from: account,
-              nonce: nonce,
-              deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-            });
-          }
-        }
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var openPaymentValidationSocket = function openPaymentValidationSocket(transaction) {
-    if (paymentValidationSocket) {
-      paymentValidationSocket.close();
-    }
-
-    var socket = new WebSocket('wss://integrate.depay.com/cable');
-    setPaymentValidationSocket(socket);
-
-    socket.onopen = /*#__PURE__*/function () {
-      var _ref10 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(event) {
-        var msg;
-        return regenerator.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                msg = {
-                  command: 'subscribe',
-                  identifier: JSON.stringify({
-                    blockchain: 'solana',
-                    sender: transaction.from,
-                    nonce: transaction.nonce,
-                    channel: 'PaymentChannel'
-                  })
-                };
-                socket.send(JSON.stringify(msg));
-
-              case 2:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      return function (_x6) {
-        return _ref10.apply(this, arguments);
-      };
-    }();
-
-    socket.onclose = function (event) {
-      if (!event || event.code != 1000) {
-        setTimeout(function () {
-          return openPaymentValidationSocket(transaction);
-        }, 1000);
-      }
-    };
-
-    socket.onmessage = function (event) {
-      var item = JSON.parse(event.data);
-
-      if (item.type === "ping" || !item.message) {
-        return;
-      }
-
-      var success = item.message.status === 'success';
-
-      if (validated) {
-        setTimeout(function () {
-          return validated(success, transaction);
-        }, 200);
-      }
-
-      if (item.message.release) {
-        socket.close();
-
-        if (success) {
-          setRelease(true);
-          setClosable(true);
-          setForwardTo(item.message.forward_to);
-
-          if (!!item.message.forward_to) {
-            setTimeout(function () {
-              (props.document || window.document).location.href = item.message.forward_to;
-            }, 200);
-          }
-        } else if (success == false) {
-          setClosable(true);
-          setState('failed');
-        }
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log('WebSocket Error: ', error);
-    };
-  };
-
-  var pollStatus = function pollStatus(transaction) {
-    var _track$poll, _track$poll2;
-
-    var payment = {
-      blockchain: 'solana',
-      transaction: transaction.id,
-      sender: transaction.from,
-      nonce: transaction.nonce,
-      after_block: afterBlock.toString(),
-      to_token: selectedPaymentOption.token
-    };
-
-    var handlePollingResponse = function handlePollingResponse(data) {
-      if (data) {
-        if (data && data.forward_to) {
-          setClosable(true);
-          setForwardTo(data.forward_to);
-          setTimeout(function () {
-            (props.document || window.document).location.href = data.forward_to;
-          }, 200);
-        } else {
-          setClosable(true);
-        }
-
-        clearInterval(pollingInterval);
-
-        if (validated) {
-          validated(true, transaction);
-        }
-
-        setRelease(true);
-      }
-    };
-
-    if (configurationId) {
-      if (attemptId) {
-        fetch("https://public.depay.com/attempts/".concat(attemptId), {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).then(function (response) {
-          if (response.status == 200 || response.status == 201) {
-            return response.json();
-          } else {
-            return undefined;
-          }
-        }).then(handlePollingResponse);
-      }
-    } else if (track !== null && track !== void 0 && (_track$poll = track.poll) !== null && _track$poll !== void 0 && _track$poll.endpoint) {
-      fetch(track.poll.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payment)
-      }).then(function (response) {
-        if (response.status == 200 || response.status == 201) {
-          return response.json()["catch"](function () {
-            setClosable(true);
-          });
-        } else {
-          return undefined;
-        }
-      }).then(handlePollingResponse);
-    } else if (track !== null && track !== void 0 && (_track$poll2 = track.poll) !== null && _track$poll2 !== void 0 && _track$poll2.method) {
-      track.poll.method(payment).then(handlePollingResponse);
-    }
-  };
-
-  var startPollingPaymentStatus = function startPollingPaymentStatus(transaction) {
-    if (polling) {
-      setPollingPaymentStatusInterval(setInterval(function () {
-        pollStatus(transaction);
-      }, 5000));
-    }
-  };
-
-  var trackTransaction = function trackTransaction(_ref11) {
-    var account = _ref11.account,
-        nonce = _ref11.nonce;
-    openTransactionTrackingSocket({
-      account: account,
-      nonce: nonce
-    });
-    setTransactionTrackingInterval(setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee7() {
-      var provider, signatures, relevantTransactions;
-      return regenerator.wrap(function _callee7$(_context7) {
-        while (1) {
-          switch (_context7.prev = _context7.next) {
-            case 0:
-              _context7.next = 2;
-              return getProvider('solana');
-
-            case 2:
-              provider = _context7.sent;
-              _context7.next = 5;
-              return provider.getSignaturesForAddress(new PublicKey(account));
-
-            case 5:
-              signatures = _context7.sent;
-
-              if (!(signatures && signatures.length && signatures[0].slot > afterBlock)) {
-                _context7.next = 11;
-                break;
-              }
-
-              relevantTransactions = signatures.filter(function (signature) {
-                return signature.slot > afterBlock;
-              });
-              _context7.next = 10;
-              return Promise.all(relevantTransactions.map( /*#__PURE__*/function () {
-                var _ref13 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee6(relevantTransaction) {
-                  var fullTransactionData, foundRouterInstruction;
-                  return regenerator.wrap(function _callee6$(_context6) {
-                    while (1) {
-                      switch (_context6.prev = _context6.next) {
-                        case 0:
-                          _context6.next = 2;
-                          return provider.getTransaction(relevantTransaction.signature, {
-                            commitment: 'confirmed',
-                            maxSupportedTransactionVersion: 0
-                          });
-
-                        case 2:
-                          fullTransactionData = _context6.sent;
-                          foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData);
-
-                          if (foundRouterInstruction && foundRouterInstruction.nonce.toString() === nonce.toString()) {
-                            if (fullTransactionData.meta.err === null) {
-                              setState('succeeded');
-                              setTransaction({
-                                status: 'succeeded',
-                                id: fullTransactionData.transaction.signatures[0],
-                                url: Blockchains.solana.explorerUrlFor({
-                                  transaction: {
-                                    id: fullTransactionData.transaction.signatures[0]
-                                  }
-                                }),
-                                from: account,
-                                nonce: nonce,
-                                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-                              });
-                            } else {
-                              setState('failed');
-                              setTransaction({
-                                status: 'failed',
-                                id: fullTransactionData.transaction.signatures[0],
-                                url: Blockchains.solana.explorerUrlFor({
-                                  transaction: {
-                                    id: fullTransactionData.transaction.signatures[0]
-                                  }
-                                }),
-                                from: account,
-                                nonce: nonce,
-                                deadline: Math.ceil(Date.now() / 1000) + 10 * 60 * 1000 // 10 minutes
-
-                              });
-                            }
-                          }
-
-                        case 5:
-                        case "end":
-                          return _context6.stop();
-                      }
-                    }
-                  }, _callee6);
-                }));
-
-                return function (_x7) {
-                  return _ref13.apply(this, arguments);
-                };
-              }()));
-
-            case 10:
-
-            case 11:
-            case "end":
-              return _context7.stop();
-          }
-        }
-      }, _callee7);
-    })), 1000));
-  };
-
-  var traceAndContinue = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee9(secretId, QRCodeURI) {
-      return regenerator.wrap(function _callee9$(_context9) {
-        while (1) {
-          switch (_context9.prev = _context9.next) {
-            case 0:
-              sendTrace({
-                secretId: secretId,
-                accept: accept
-              }).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee8() {
-                var newQRCode;
-                return regenerator.wrap(function _callee8$(_context8) {
-                  while (1) {
-                    switch (_context8.prev = _context8.next) {
-                      case 0:
-                        setQRCodeURI(QRCodeURI);
-                        newQRCode = getNewQRCode();
-                        newQRCode.update({
-                          data: QRCodeURI
-                        });
-                        setQRCode(newQRCode);
-
-                      case 4:
-                      case "end":
-                        return _context8.stop();
-                    }
-                  }
-                }, _callee8);
-              })))["catch"](function (error) {
-                console.log('Tracing error:', error);
-                setState('tracingFailed');
-              });
-              return _context9.abrupt("return", {
-                afterBlock: afterBlock
-              });
-
-            case 2:
-            case "end":
-              return _context9.stop();
-          }
-        }
-      }, _callee9);
-    }));
-
-    return function traceAndContinue(_x8, _x9) {
-      return _ref14.apply(this, arguments);
-    };
-  }();
-
-  useEffect(function () {
-    var secretId = UUIDv4();
-    setSecretId(secretId);
-    openSolanaPayTransactionSocket(secretId);
-    request({
-      blockchain: 'solana',
-      method: 'latestBlockNumber'
-    }).then(setAfterBlock);
-  }, []);
-  useEffect(function () {
-    return function () {
-      if (solanaPayTransactionSocket) {
-        solanaPayTransactionSocket.close();
-      }
-    };
-  }, [solanaPayTransactionSocket]);
-  useEffect(function () {
-    return function () {
-      if (transactionTrackingSocket) {
-        transactionTrackingSocket.close();
-      }
-    };
-  }, [transactionTrackingSocket]);
-  useEffect(function () {
-    return function () {
-      if (paymentValidationSocket) {
-        paymentValidationSocket.close();
-      }
-    };
-  }, [paymentValidationSocket]);
-  useEffect(function () {
-    return function () {
-      if (transactionTrackingInterval) {
-        clearInterval(transactionTrackingInterval);
-      }
-    };
-  }, [transactionTrackingInterval]);
-  useEffect(function () {
-    return function () {
-      if (pollingPaymentStatusInterval) {
-        clearInterval(pollingPaymentStatusInterval);
-      }
-    };
-  }, [pollingPaymentStatusInterval]);
-  useEffect(function () {
-    if (afterBlock && QRCode) {
-      setState('scan');
-    }
-  }, [afterBlock && QRCode]);
-  useEffect(function () {
-    if (state === 'scan' && QRCode && QRCodeElement && QRCodeElement.current) {
-      QRCodeElement.current.innerHTML = "";
-      QRCode.append(QRCodeElement.current);
-    }
-  }, [state, QRCode]);
-  useEffect(function () {
-    if (transaction && ['succeeded', 'failed'].includes(state) && paymentValidationSocket === undefined) {
-      setClosable(!isTracking);
-      setRelease(!isTracking);
-
-      if (transactionTrackingSocket) {
-        transactionTrackingSocket.close();
-      }
-
-      if (transactionTrackingInterval) {
-        clearInterval(transactionTrackingInterval);
-      }
-
-      if (synchronousTracking) {
-        openPaymentValidationSocket(transaction);
-        startPollingPaymentStatus(transaction);
-      }
-
-      sendTrack({
-        transaction: transaction
-      });
-    }
-  }, [transaction, state, paymentValidationSocket]);
-
-  if (state === 'trackingFailed') {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React.createElement(ErrorGraphic, null)), /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React.createElement("strong", {
-        className: "FontSizeM"
-      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          setState(transaction.status);
-          sendTrack({
-            transaction: transaction
-          });
-        }
-      }, "Try again"))
-    });
-  }
-
-  if (state === 'tracingFailed') {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React.createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Tracking payment failed"), /*#__PURE__*/React.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React.createElement("strong", {
-        className: "FontSizeM"
-      }, "Please ensure you are connected to the internet, then click \"Try again\"."), /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React.createElement("span", null, "If this keeps happening, please report it.")))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          setState('wait');
-          traceAndContinue(secretId, "solana:https://public.depay.com/solanapay/".concat(secretId));
-        }
-      }, "Try again"))
-    });
-  }
-
-  if (state === 'failed') {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      stacked: false,
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "GraphicWrapper"
-      }, /*#__PURE__*/React.createElement("img", {
-        className: "Graphic",
-        src: ErrorGraphic
-      })), /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL Text FontSizeL PaddingTopS FontWeightBold"
-      }, "Payment Failed"), /*#__PURE__*/React.createElement("div", {
-        className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-      }, /*#__PURE__*/React.createElement("strong", {
-        className: "FontSizeM"
-      }, "Unfortunately executing your payment failed, but you can try again."), transaction && /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS"
-      }, /*#__PURE__*/React.createElement("a", {
-        className: "Link",
-        title: "Check your transaction on a block explorer",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, "View details")))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: function onClick() {
-          return close();
-        }
-      }, "Try again"))
-    });
-  }
-
-  if (!paymentOptions) {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL FontSizeL TextLeft"
-      }, /*#__PURE__*/React.createElement("svg", {
-        className: "SolanaPayLogo",
-        width: "86",
-        height: "32",
-        viewBox: "0 0 86 32",
-        xmlns: "http://www.w3.org/2000/svg"
-      }, /*#__PURE__*/React.createElement("path", {
-        d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
-      }), /*#__PURE__*/React.createElement("path", {
-        d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
-      }), /*#__PURE__*/React.createElement("path", {
-        d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
-      }), /*#__PURE__*/React.createElement("path", {
-        d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
-      }))))),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "MaxHeight"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, accept.filter(function (configuration) {
-        return configuration.blockchain === 'solana';
-      }).map(function (configuration, index) {
-        return /*#__PURE__*/React.createElement("div", {
-          className: "Card Skeleton",
-          key: index
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "SkeletonBackground"
-        }));
-      })))
-    });
-  } else {
-    return /*#__PURE__*/React.createElement(Dialog$1, {
-      header: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-        className: "LineHeightL FontSizeL TextLeft"
-      }, /*#__PURE__*/React.createElement("svg", {
-        className: "SolanaPayLogo",
-        width: "86",
-        height: "32",
-        viewBox: "0 0 86 32",
-        xmlns: "http://www.w3.org/2000/svg"
-      }, /*#__PURE__*/React.createElement("path", {
-        d: "M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z"
-      }), /*#__PURE__*/React.createElement("path", {
-        d: "M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z"
-      }), /*#__PURE__*/React.createElement("path", {
-        d: "M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z"
-      }), /*#__PURE__*/React.createElement("path", {
-        d: "M22.7439 21.253C22.7714 21.3361 22.7714 21.4259 22.7439 21.5089C22.7279 21.5918 22.6885 21.6683 22.6304 21.7293L18.8783 25.6748C18.7956 25.7599 18.6968 25.8276 18.5875 25.8738C18.478 25.9219 18.3595 25.9462 18.24 25.9449H0.444308C0.361894 25.9456 0.280888 25.9235 0.210248 25.8809C0.139655 25.8328 0.0833028 25.7665 0.0471156 25.689C0.0221236 25.6104 0.0221236 25.5259 0.0471156 25.4473C0.0618237 25.3655 0.0986193 25.2892 0.153506 25.2269L3.91265 21.2815C3.99533 21.1963 4.09422 21.1286 4.20346 21.0824C4.31277 21.0337 4.43137 21.0094 4.551 21.0113H22.3183C22.404 21.0097 22.4882 21.0345 22.5594 21.0824C22.6393 21.1154 22.7047 21.1759 22.7439 21.253ZM18.8854 13.7602C18.8009 13.6773 18.7025 13.6099 18.5946 13.5612C18.484 13.5164 18.3663 13.4924 18.2471 13.4901H0.444308C0.360864 13.4913 0.27943 13.5159 0.209231 13.5612C0.139032 13.6064 0.0828724 13.6704 0.0471156 13.746C0.0225831 13.8247 0.0225831 13.909 0.0471156 13.9877C0.0590607 14.0704 0.0962206 14.1474 0.153506 14.2081L3.91265 18.1606C3.99717 18.2436 4.09561 18.311 4.20346 18.3597C4.31383 18.405 4.43173 18.4291 4.551 18.4308H22.3183C22.404 18.4324 22.4882 18.4076 22.5594 18.3597C22.6311 18.3178 22.6861 18.2526 22.7155 18.1749C22.7518 18.0992 22.7639 18.0141 22.7499 17.9314C22.7359 17.8486 22.6966 17.7722 22.6375 17.7128L18.8854 13.7602ZM0.210248 10.8455C0.280888 10.8881 0.361894 10.9102 0.444308 10.9095H18.2471C18.3666 10.9108 18.4851 10.8865 18.5946 10.8384C18.7038 10.7922 18.8027 10.7246 18.8854 10.6394L22.6375 6.69394C22.6956 6.63288 22.7349 6.55639 22.7509 6.47356C22.7755 6.39487 22.7755 6.31055 22.7509 6.23186C22.7216 6.15414 22.6665 6.08889 22.5949 6.04702C22.5237 5.99912 22.4395 5.9743 22.3538 5.97593H4.52263C4.403 5.97402 4.2844 5.99828 4.17509 6.04702C4.06585 6.09322 3.96696 6.1609 3.88428 6.24607L0.132229 10.2057C0.0727337 10.2658 0.0331119 10.3427 0.0187441 10.4261C-0.00624802 10.5047 -0.00624802 10.5892 0.0187441 10.6678C0.0647789 10.7438 0.131116 10.8054 0.210248 10.8455V10.8455Z"
-      }))))),
-      body: /*#__PURE__*/React.createElement("div", {
-        className: "".concat(['select'].includes(state) ? 'MaxHeight' : '')
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingLeftM PaddingRightM"
-      }, state === 'select' && paymentOptions && /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS"
-      }, paymentOptions.map(function (paymentOption, index) {
-        return /*#__PURE__*/React.createElement("div", {
-          className: "Card",
-          key: index,
-          onClick: function onClick() {
-            return selectPaymentOption(paymentOption);
-          }
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardImage"
-        }, /*#__PURE__*/React.createElement(TokenImage, {
-          blockchain: paymentOption.blockchain,
-          address: paymentOption.token
-        }), /*#__PURE__*/React.createElement("img", {
-          className: "BlockchainLogo small bottomRight " + Blockchains[paymentOption.blockchain].name,
-          style: {
-            backgroundColor: Blockchains[paymentOption.blockchain].logoBackgroundColor
-          },
-          src: Blockchains[paymentOption.blockchain].logo,
-          alt: Blockchains[paymentOption.blockchain].label,
-          title: Blockchains[paymentOption.blockchain].label
-        })), /*#__PURE__*/React.createElement("div", {
-          className: "CardBody"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "CardBodyWrapper"
-        }, /*#__PURE__*/React.createElement("h2", {
-          className: "CardText"
-        }, /*#__PURE__*/React.createElement("div", {
-          className: "TokenAmountRow"
-        }, /*#__PURE__*/React.createElement("span", {
-          className: "TokenAmountCell"
-        }, format(paymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-          className: "TokenSymbolCell"
-        }, paymentOption.symbol))))));
-      })), state === 'wait' && /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter PaddingTopS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Skeleton",
-        style: {
-          display: "inline-block",
-          borderRadius: "18px",
-          width: "305px",
-          height: "305px"
-        }
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "SkeletonBackground"
-      }))), state === 'scan' && /*#__PURE__*/React.createElement("div", {
-        ref: QRCodeElement,
-        className: "QRCode"
-      }), ['pay', 'succeeded', 'failed'].includes(state) && /*#__PURE__*/React.createElement("div", {
-        className: "Card disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement(TokenImage, {
-        blockchain: selectedPaymentOption.blockchain,
-        address: selectedPaymentOption.token
-      }), /*#__PURE__*/React.createElement("img", {
-        className: "BlockchainLogo small bottomRight " + Blockchains[selectedPaymentOption.blockchain].name,
-        style: {
-          backgroundColor: Blockchains[selectedPaymentOption.blockchain].logoBackgroundColor
-        },
-        src: Blockchains[selectedPaymentOption.blockchain].logo,
-        alt: Blockchains[selectedPaymentOption.blockchain].label,
-        title: Blockchains[selectedPaymentOption.blockchain].label
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("h2", {
-        className: "CardText"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TokenAmountRow"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "TokenAmountCell"
-      }, format(selectedPaymentOption.amount)), /*#__PURE__*/React.createElement("span", null, "\xA0"), /*#__PURE__*/React.createElement("span", {
-        className: "TokenSymbolCell"
-      }, selectedPaymentOption.symbol)))))))),
-      footer: /*#__PURE__*/React.createElement("div", {
-        className: "PaddingRightM PaddingLeftM PaddingBottomM"
-      }, state === 'select' && /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React.createElement("small", null, "Select a payment option to continue")), state === 'wait' && /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React.createElement("small", null, "Loading QR code...")), state === 'scan' && /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05 PaddingBottomXS PaddingTopS"
-      }, /*#__PURE__*/React.createElement("small", null, "Scan QR code with your wallet")), state === 'pay' && /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent disabled small"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(DigitalWalletIcon, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Confirm payment in your wallet"))))), /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary ".concat(transaction !== null && transaction !== void 0 && transaction.url ? '' : 'disabled'),
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement(LoadingText, null, "Paying"))), state === 'succeeded' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingTopXS"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "PaddingBottomS"
-      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
-        className: "Card transparent small",
-        title: "Transaction has been confirmed by the network",
-        href: transaction === null || transaction === void 0 ? void 0 : transaction.url,
-        target: "_blank",
-        rel: "noopener noreferrer"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(CheckmarkIcon, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Transaction confirmed"))))), synchronousTracking && !release && /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent small disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Loading Icon"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Validating payment")))), synchronousTracking && release && /*#__PURE__*/React.createElement("div", {
-        className: "Card transparent small disabled"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardImage"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "TextCenter Opacity05"
-      }, /*#__PURE__*/React.createElement(CheckmarkIcon, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
-        className: "CardBody"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "CardBodyWrapper"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "Opacity05"
-      }, "Payment validated"))))), !release && /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary disabled"
-      }, "Continue"), release && forwardTo && /*#__PURE__*/React.createElement("a", {
-        className: "ButtonPrimary",
-        href: forwardTo,
-        rel: "noopener noreferrer"
-      }, "Continue"), release && !forwardTo && /*#__PURE__*/React.createElement("button", {
-        className: "ButtonPrimary",
-        onClick: close
-      }, "Close"))))
-    });
-  }
-});
-
-var SolanaPayStack = (function (props) {
-  var _useContext = useContext(ClosableContext),
-      open = _useContext.open,
-      close = _useContext.close;
-
-  var _useContext2 = useContext(NavigateContext),
-      setNavigator = _useContext2.setNavigator;
-
-  return /*#__PURE__*/React.createElement(ReactDialogStack, {
-    setNavigator: setNavigator,
-    open: open,
-    close: close,
-    start: "SolanaPay",
-    container: props.container,
-    document: props.document,
-    stacked: true,
-    dialogs: {
-      SolanaPay: /*#__PURE__*/React.createElement(SolanaPayDialog, {
-        unmount: props.unmount,
-        document: props.document
-      })
-    }
-  });
-});
-
-var SolanaPayProvider = (function (props) {
-  var _useState = useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      showSolanaPayStack = _useState2[0],
-      setShowSolanaPayStack = _useState2[1];
-
-  var start = function start() {
-    setShowSolanaPayStack(true);
-  };
-
-  if (showSolanaPayStack) {
-    return /*#__PURE__*/React.createElement(SolanaPayStack, {
-      setShowSolanaPayStack: setShowSolanaPayStack,
-      document: props.document,
-      container: props.container,
-      unmount: props.unmount
-    });
-  } else {
-    return /*#__PURE__*/React.createElement(SolanaPayContext.Provider, {
-      value: {
-        start: start
-      }
-    }, props.children);
-  }
-});
-
 var SUPPORTED_CURRENCIES = ["all", "xcd", "eur", "bbd", "btn", "bnd", "xaf", "cup", "usd", "fkp", "gip", "huf", "irr", "jmd", "aud", "lak", "lyd", "mkd", "xof", "nzd", "omr", "pgk", "rwf", "wst", "rsd", "sek", "tzs", "amd", "bsd", "bam", "cve", "cny", "crc", "czk", "ern", "gel", "htg", "inr", "jod", "krw", "lbp", "mwk", "mru", "mzn", "ang", "pen", "qar", "std", "sll", "sos", "sdg", "syp", "aoa", "awg", "bhd", "bzd", "bwp", "bif", "kyd", "cop", "dkk", "gtq", "hnl", "idr", "ils", "kzt", "kwd", "lsl", "myr", "mur", "mnt", "mmk", "ngn", "pab", "php", "ron", "sar", "sgd", "zar", "srd", "twd", "top", "vef", "dzd", "ars", "azn", "bob", "bgn", "cad", "clp", "cdf", "dop", "fjd", "gmd", "gyd", "isk", "iqd", "jpy", "kpw", "chf", "mga", "mdl", "mad", "npr", "nio", "pkr", "pyg", "shp", "scr", "sbd", "lkr", "thb", "try", "aed", "vuv", "yer", "afn", "bdt", "brl", "khr", "kmf", "hrk", "djf", "egp", "etb", "xpf", "ghs", "gnf", "hkd", "xdr", "kes", "kgs", "lrd", "mop", "mvr", "mxn", "nad", "nok", "pln", "rub", "szl", "tjs", "ttd", "ugx", "uyu", "vnd", "tnd", "uah", "uzs", "tmt", "gbp", "zmw", "byn", "bmd", "ggp", "clf", "cuc", "imp", "jep", "svc", "xag", "zwl"];
 
 var preflight$1 = /*#__PURE__*/function () {
@@ -14097,11 +13643,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
                   closable: closable
-                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(SolanaPayProvider, {
-                  unmount: unmount,
-                  document: document,
-                  container: container
-                }, /*#__PURE__*/React.createElement(WalletProvider, {
+                }, /*#__PURE__*/React.createElement(NavigateProvider, null, /*#__PURE__*/React.createElement(WalletProvider, {
                   document: document,
                   container: container,
                   connected: connected,
@@ -14117,7 +13659,7 @@ var Payment = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(PaymentValueProvider, null, /*#__PURE__*/React.createElement(PaymentStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null)))))))))))));
               };
             });
             return _context2.abrupt("return", {
@@ -14365,7 +13907,7 @@ var SaleOverviewDialog = (function (props) {
       className: "CardBodyWrapper"
     }, /*#__PURE__*/React.createElement("h4", {
       className: "CardTitle"
-    }, "Amount"), /*#__PURE__*/React.createElement("h2", {
+    }, "Amount"), /*#__PURE__*/React.createElement("div", {
       className: "CardText"
     }, /*#__PURE__*/React.createElement("div", {
       className: "TokenAmountRow"
