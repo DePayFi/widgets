@@ -2,9 +2,9 @@
 
 import { TokenImage } from '@depay/react-token-image-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
-import { TokenImage } from '@depay/react-token-image-solana'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -14,7 +14,7 @@ import { TokenImage } from '@depay/react-token-image'
 
 import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import Footer from '../components/Footer'
@@ -68,8 +68,6 @@ export default (props)=>{
     )
   }
 
-  const blockchain = Blockchains.findByName(payment.blockchain)
-
   return(
     <Dialog
       header={
@@ -90,14 +88,14 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               { tokenImageElement }
-              <img className={"BlockchainLogo small bottomRight " + blockchain.name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+              <img className={"BlockchainLogo small bottomRight " + payment.blockchain.name} style={{ backgroundColor: payment.blockchain.logoBackgroundColor }} src={ payment.blockchain.logo } alt={ payment.blockchain.label } title={ payment.blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
                 <h4 className="CardTitle">
                   Amount
                 </h4>
-                <h2 className="CardText">
+                <div className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
                       { toToken.symbol }
@@ -108,16 +106,16 @@ export default (props)=>{
                     </span>
                   </div>
                   { salePerTokenValue &&
-                    <div className="TokenAmountRow small grey">
+                    <div className="TokenAmountRow small Opacity05">
                       <span className="TokenAmountCell">{ salePerTokenValue } per token</span>
                     </div>
                   }
-                </h2>
+                </div>
               </div>
             </div>
             <div className="CardAction">
               { (!amountConfiguration || !amountConfiguration.fix) &&
-                <ChevronRight/>
+                <ChevronRightIcon/>
               }
             </div>
           </div>
@@ -150,7 +148,7 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  <div className="TokenAmountRow small grey">
+                  <div className="TokenAmountRow small Opacity05">
                     <span className="TokenAmountCell">
                       { displayedPaymentValue }
                     </span>
@@ -159,7 +157,7 @@ export default (props)=>{
               </div>
             </div>
             <div className="CardAction">
-              <ChevronRight/>
+              <ChevronRightIcon/>
             </div>
           </div>
         </div>

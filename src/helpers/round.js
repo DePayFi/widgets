@@ -1,52 +1,58 @@
+import { Decimal } from 'decimal.js'
+
 export default (input, direction = 'up')=>{
-  let inputAsFloat = parseFloat(input)
+  const decimalInput = new Decimal(input)
+  const origDp = decimalInput.decimalPlaces()
+  // fixed representation of the input
+  const inputStr = decimalInput.toFixed(origDp)
 
-  let digitsAfterDecimal = inputAsFloat.toString().match(/\d+\.0*(\d{4})/)
+  // split into integer and fractional parts
+  const [intStr, frac = ''] = inputStr.split('.')
+  // count leading zeros in fractional part when <1
+  const zerosCount = decimalInput.gte(1) ? 0 : (frac.match(/^0*/)[0].length)
+  // threshold DP: 3 for >=1, zerosCount+3 for <1
+  const thresholdDp = decimalInput.gte(1) ? 3 : zerosCount + 3
 
-  if(digitsAfterDecimal?.length) {
-    digitsAfterDecimal = digitsAfterDecimal[0]
-    let focus = digitsAfterDecimal.match(/\d{4}$/)[0]
-    let float 
-    let focusToFixed
-    if(focus.match(/^0/)) {
-      if(direction == 'up') {
-        float = parseFloat(`${focus[1]}.${focus[2]}${focus[3]}`)
-      } else {
-        float = parseFloat(`${focus[1]}.${focus[2]}${focus[3]}`)
-      }
-      focusToFixed = parseFloat(float).toFixed(2)
-      focusToFixed = `0${focusToFixed}`.replace('.', '')
-    } else {
-      if(direction == 'up') {
-        float = parseFloat(`${focus[0]}.${focus[1]}${focus[2]}9`)
-      } else {
-        float = parseFloat(`${focus[0]}.${focus[1]}${focus[2]}1`)
-      }
-      focusToFixed = parseFloat(float).toFixed(2).replace('.', '')
+  // if no rounding needed, return original (pad integers to two decimals)
+  if (origDp <= thresholdDp) {
+    if (origDp === 0) {
+      return decimalInput.toFixed(2)
     }
-    if(focusToFixed == '0999' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      focusToFixed = direction == 'up' ? '1000' : '0999'
-      return(
-        parseFloat(
-          digitsAfterDecimal.replace(/\d{4}$/, focusToFixed)
-        )
-      )
-    } else if(focusToFixed == '1000' && parseInt(inputAsFloat.toFixed(0)) == 0) {
-      return(
-        parseFloat(
-          digitsAfterDecimal.replace(/\d{5}$/, focusToFixed)
-        )
-      )
-    } else if(focusToFixed.toString()[0] != "0" && focusToFixed.toString().length > 3) {
-      return(parseInt(inputAsFloat.toFixed(0)))
-    } else {
-      return(
-        parseFloat(
-          digitsAfterDecimal.replace(/\d{4}$/, focusToFixed)
-        )
-      )
-    }
-  } else {
-    return(parseFloat(inputAsFloat.toFixed(3)))
+    return inputStr
   }
+
+  // perform rounding
+  const mode = direction === 'down' ? Decimal.ROUND_FLOOR : Decimal.ROUND_CEIL
+  const result = decimalInput.toDecimalPlaces(thresholdDp, mode)
+  let resStr = result.toFixed(thresholdDp)
+
+  // if rounding yields zero, fall back to original
+  if (new Decimal(resStr).eq(0)) {
+    return inputStr
+  }
+
+  // trim or pad trailing zeros
+  if (resStr.includes('.')) {
+    let [iPart, fPart] = resStr.split('.')
+    if (/^0*$/.test(fPart)) {
+      // fractional all zeros => decide padding on magnitude
+      if (decimalInput.lt(1)) {
+        fPart = '00'
+      } else if (decimalInput.lt(10)) {
+        fPart = '0'
+      } else if (decimalInput.lt(100)) {
+        fPart = ''
+      } else if (decimalInput.lt(1000)) {
+        fPart = '00'
+      } else {
+        fPart = ''.padEnd(thresholdDp, '0')
+      }
+    } else {
+      // remove only trailing zeros
+      fPart = fPart.replace(/0+$/, '')
+    }
+    resStr = fPart ? `${iPart}.${fPart}` : iPart
+  }
+
+  return resStr
 }

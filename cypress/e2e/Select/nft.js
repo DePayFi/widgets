@@ -56,7 +56,7 @@ describe('Select Widget: nft', () => {
 
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Confirm Selection')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Please review this information')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Review this information')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Ethereum')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://opensea.io/collection/cryptopunks"]', 'CryptoPunks')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://etherscan.io/token/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"]', '0xb47e3c...193bbb')
@@ -111,7 +111,7 @@ describe('Select Widget: nft', () => {
 
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Confirm Selection')
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Please review this information')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Review this information')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Ethereum')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://opensea.io/collection/depay-token-evolution"]', 'Stone - 90,000 BC')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://etherscan.io/token/0x495f947276749ce646f68ac8c248420045cb7b5e"]', '0x495f94...cb7b5e')
@@ -162,7 +162,7 @@ describe('Select Widget: nft', () => {
 
         cy.wait(1000).then(()=>{
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Confirm Selection')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Please review this information')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Alert', 'Review this information')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Solana')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('a[href="https://magiceden.io/marketplace/depay"]', 'SOL - AD 2020')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains(mintAddresses.join(", "))

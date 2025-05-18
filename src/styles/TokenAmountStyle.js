@@ -13,10 +13,6 @@ export default ()=>{
       line-height: 17px;
     }
 
-    .TokenAmountRow.grey {
-      opacity: 0.5;
-    }
-
     .TokenAmountCell {
       white-space: nowrap;
       overflow: hidden;

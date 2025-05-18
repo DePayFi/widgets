@@ -1,3 +1,5 @@
+import isDarkMode from '../helpers/isDarkMode'
+
 export default (style)=>{
   return(`
 
@@ -18,9 +20,14 @@ export default (style)=>{
     }
 
     .SolanaPayLogo {
-      height: 26px;
+      height: 34px;
       position: relative;
       top: 4px;
+      left: 4px;
+    }
+    
+    .SolanaPayLogo path {
+      fill: ${isDarkMode() ? '#FFFFFF' : '#000000'};
     }
   `)
 }

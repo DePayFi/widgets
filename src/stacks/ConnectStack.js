@@ -2,7 +2,7 @@
 
 import { wallets } from '@depay/web3-wallets-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { wallets } from '@depay/web3-wallets-svm'
 
@@ -42,12 +42,10 @@ export default (props)=>{
   const [ selection, setSelection ] = useState({ blockchain: undefined })
   const [ showConnectExtensionWarning, setShowConnectExtensionWarning ] = useState(false)
   const resolve = (account, wallet)=> {
-    if(account && wallet) {
-      let walletMeta = allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
-      setPreviouslyConnectedWallet(walletMeta.name)
-      if(props.autoClose) close()
-      if(props.resolve) props.resolve({ account, wallet })
-    }
+    let walletMeta = allWallets.find((walletMeta)=>walletMeta.name == wallet.name)
+    setPreviouslyConnectedWallet(walletMeta.name)
+    if(props.autoClose) close()
+    if(props.resolve) props.resolve({ account, wallet })
   }
 
   const connectExtension = (wallet, extension)=>{
@@ -57,7 +55,7 @@ export default (props)=>{
 
       if(wallet.extensions && props.accept) {
         let availableExtensions = wallet.extensions.filter((availableExtension)=>{
-          return props.accept.some((configuration)=>supported[wallets[availableExtension].info.platform].includes(configuration.blockchain))
+          return props.accept.some((configuration)=>wallets[availableExtension].info.blockchains.includes(configuration.blockchain))
         })
         if(availableExtensions.length === 1) {
           extension = availableExtensions[0]
@@ -241,8 +239,8 @@ export default (props)=>{
             connectingExtension={connectingExtension}
             connectingApp={connectingApp}
             showConnectExtensionWarning={showConnectExtensionWarning}
-            continueWithSolanaPay={props.continueWithSolanaPay}
             connectionError={connectionError}
+            setSolanaPayWallet={props.setSolanaPayWallet}
           />
         }}
       />

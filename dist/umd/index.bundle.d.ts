@@ -3,8 +3,18 @@ declare namespace DePayWidgets {
   interface ColorsOptions {
     primary?: string;
     text?: string;
-    buttonText?: string;
-    icons?: string;
+    warning?: string;
+    success?: string;
+    error?: string;
+    background?: string;
+    cardBackground?: string;
+    mixActive?: string;
+    mixPassive?: string;
+  }
+
+  interface WalletOptions {
+    sort?: string[];
+    allow?: string[];
   }
 
   interface StyleOptions {
@@ -22,6 +32,11 @@ declare namespace DePayWidgets {
       amount: string;
       receiver: string;
     };
+    fee2?: {
+      amount: string;
+      receiver: string;
+    };
+    protocolFee?: string;
   }
 
   interface BlockchainStringListOptions {
@@ -30,11 +45,11 @@ declare namespace DePayWidgets {
     polygon?: string[];
     solana?: string[];
     arbitrum?: string[];
-    optimsm?: string[];
+    optimism?: string[];
     base?: string[];
     avalanche?: string[];
     gnosis?: string[];
-    fantom?: string[];
+    worldchain?: string[];
   }
 
   interface BlockchainStringOptions {
@@ -43,11 +58,11 @@ declare namespace DePayWidgets {
     polygon?: string;
     solana?: string;
     arbitrum?: string;
-    optimsm?: string;
+    optimism?: string;
     base?: string;
     avalanche?: string;
     gnosis?: string;
-    fantom?: string;
+    worldchain?: string;
   }
 
   interface PaymentOptions {
@@ -63,8 +78,8 @@ declare namespace DePayWidgets {
     error?: (error: any) => void;
     critical?: (error: any) => void;
     style?: StyleOptions;
-    whitelist?: BlockchainStringListOptions;
-    blacklist?: BlockchainStringListOptions;
+    allow?: BlockchainStringListOptions;
+    deny?: BlockchainStringListOptions;
     providers?: BlockchainStringListOptions;
     currency?: string;
     connected?: (address: string) => void;
@@ -77,21 +92,13 @@ declare namespace DePayWidgets {
         method?: (payment: any) => void;
       };
     };
-    recover?: {
-      blockchain: string;
-      transaction: string;
-      sender: string;
-      nonce: number;
-      afterBlock: number;
-      token: string;
-      amount: number;
-    };
     closable?: boolean;
     integration?: string;
     payload?: any;
     container?: HTMLElement;
     before?: (payment: any) => Promise<void>;
     wallet?: any;
+    wallets?: WalletOptions;
     title?: string;
     action?: string;
     document?: HTMLElement;
@@ -115,11 +122,10 @@ declare namespace DePayWidgets {
   }
 
   const Connect: (options: ConnectOptions) => Promise<ConnectResponse>;
-  
+
   interface LoginOptions {
     message: string;
     endpoint?: string;
-    recover?: (message: string, signature: string) => void;
     wallet?: any;
     style?: StyleOptions;
     error?: (error: any) => void;
@@ -147,7 +153,8 @@ declare namespace DePayWidgets {
     error?: (error: any) => void;
     critical?: (error: any) => void;
     style?: StyleOptions;
-    blacklist?: BlockchainStringListOptions;
+    allow?: BlockchainStringListOptions;
+    deny?: BlockchainStringListOptions;
     providers?: BlockchainStringListOptions;
     currency?: string;
     connected?: (address: string) => void;

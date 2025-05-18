@@ -1,33 +1,6 @@
 import { mock } from '@depay/web3-mock'
-import { struct, u64, publicKey, Buffer, PublicKey } from '@depay/solana-web3.js'
+import { struct, u8, u32, u64, nu64, seq, offset, publicKey, Buffer, PublicKey } from '@depay/solana-web3.js'
 import Token from '@depay/web3-tokens'
-
-const getPaymentsAccountPublicKey = async({ fromAddress })=> {
-  let seeds = [Buffer.from("payments"), new PublicKey(fromAddress).toBuffer()]
-
-  let [ pdaPublicKey ] = await PublicKey.findProgramAddress(
-    seeds, new PublicKey('DePayRG7ZySPWzeK9Kvq7aPeif7sdbBZNh6DHcvNj7F7')
-  )
-
-  return pdaPublicKey
-}
-
-const mockPaymentsAccount = async({ provider, fromAddress, nonce }) => {
-
-  let requestMock = mock({
-    provider,
-    blockchain: 'solana',
-    request: {
-      method: 'getAccountInfo',
-      to: (await getPaymentsAccountPublicKey({ fromAddress })).toString(),
-      api: struct([
-        u64('anchorDiscriminator'),
-        u64('nonce'),
-      ]),
-      return: nonce ? { nonce } : null
-    }
-  })
-}
 
 const getTokenAccountAddress = async({ tokenAddress, ownerAddress })=>{
 
@@ -63,7 +36,72 @@ const mockTokenAccount = async({ provider, tokenAddress, ownerAddress, exists, b
   })
 }
 
+const mockEscrowAccount = async({ provider, tokenAddress, ownerAddress })=>{
+
+  mock({
+    blockchain: 'solana',
+    provider,
+    request: {
+      method: 'getAccountInfo',
+      to: ownerAddress,
+      api: Token.solana.TOKEN_LAYOUT,
+      return: {
+        mint: tokenAddress,
+        owner: ownerAddress,
+        amount: '0',
+        delegateOption: 70962703,
+        delegate: 'BSFGxQ38xesdoUd3qsvNhjRu2FLPq9CwCBiGE42fc9hR',
+        state: 0,
+        isNativeOption: 0,
+        isNative: '0',
+        delegatedAmount: '0',
+        closeAuthorityOption: 0,
+        closeAuthority: '11111111111111111111111111111111'
+      }
+    }
+  })
+}
+
+const mockALT = async({ provider, address })=>{
+
+  mock({
+    blockchain: 'solana',
+    provider,
+    request: {
+      method: 'getAccountInfo',
+      to: address,
+      responseSize: 56,
+      api: struct([
+        u32('typeIndex'),
+        u64('deactivationSlot'),
+        nu64('lastExtendedSlot'),
+        u8('lastExtendedStartIndex'),
+        u8(),
+        seq(
+          publicKey(),
+          offset(u8(), -1),
+          'authority'
+        ),
+        seq(
+          publicKey(),
+          offset(u8(), -1),
+          'addresses'
+        ),
+      ]),
+      return: {
+        typeIndex: 1,
+        deactivationSlot: '18446744073709551615',
+        lastExtendedSlot: '329254481',
+        lastExtendedStartIndex: 11,
+        authority: ['3KoHqsUo4QA9iUhPeYHZAXfL2ooYHhpgRaCHR3QSVhEX'],
+        addresses: []
+      }
+    }
+  })
+}
+
 export {
-  mockPaymentsAccount,
-  mockTokenAccount
+  mockTokenAccount,
+  mockEscrowAccount,
+  mockALT,
 }
