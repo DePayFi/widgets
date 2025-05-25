@@ -301,8 +301,8 @@ export default (props)=>{
           { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
             items={[
               { label: "What is a wallet?", action: ()=>{ navigate('WhatIsAWallet') } },
-              { label: "Wallet missing?", action: ()=>{ window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank') } },
-              { label: "Problems connecting?", action: ()=>{ window.open('mailto:support@depay.com?subject=Problem connecting wallet&body=Please enter the name of the wallet you have problems with connecting:', '_blank') } },
+              { label: "Wallet missing?", action: ()=>{ window.open(`https://support.depay.com?query=${encodeURIComponent(`Can you add support for the following wallet`)}`, '_blank') } },
+              { label: "Problems connecting?", action: ()=>{ window.open(`https://support.depay.com?query=${encodeURIComponent(`I have problems connecting my wallet`)}`, '_blank') } },
             ]}
           /> }
         </span>

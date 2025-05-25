@@ -55,7 +55,7 @@ export default (props)=>{
   const [ approvalAmount, setApprovalAmount ] = useState('max')
 
   const paymentSucceeded = useEvent((transaction, payment)=>{
-    if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
+    if(synchronousTracking == false) {
       setClosable(true)
       setPaymentState('success')
     } else if(release != true && paymentState != 'success') {

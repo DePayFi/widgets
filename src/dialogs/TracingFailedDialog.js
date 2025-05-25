@@ -2,10 +2,12 @@ import Dialog from '../components/Dialog'
 import ErrorGraphic from '../graphics/wallets/error'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
+import WalletContext from '../contexts/WalletContext'
 
 export default (props)=> {
 
   const { navigate } = useContext(NavigateStackContext)
+  const { account } = useContext(WalletContext)
 
   const tryAgain = ()=>{
     if(props.tryAgain){
@@ -21,9 +23,13 @@ export default (props)=> {
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <div className="PaddingRightM">
-            <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracing Failed Error`, '_blank') }} type="button" className="Card secondary small inlineBlock">
+            <a 
+              href={`https://support.depay.com?account=${account}&query=${encodeURIComponent(`Tracing payment failed`)}`}
+              target="_blank"
+              className="Card secondary small inlineBlock"
+            >
               Contact support
-            </button>
+            </a>
           </div>
         </div>
       }

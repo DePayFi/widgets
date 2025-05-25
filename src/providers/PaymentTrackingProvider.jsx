@@ -63,6 +63,10 @@ export default (props)=>{
 
   const processValidationSocketMessage = useEvent((eventData, socket)=>{
     if(eventData?.message) {
+      if(eventData.message.confirmations) {
+        setConfirmationsRequired(eventData.message.confirmations.required)
+        setConfirmationsPassed(eventData.message.confirmations.passed)
+      }
       if(eventData.message.status) {
         const success = eventData.message.status == 'success'
         if(eventData.message.release) {
@@ -86,9 +90,6 @@ export default (props)=>{
               set(['ValidationFailed'])
             }
           }
-        } else if(eventData.message.confirmations) {
-          setConfirmationsRequired(eventData.message.confirmations.required)
-          setConfirmationsPassed(eventData.message.confirmations.passed)
         }
       }
     }
@@ -202,28 +203,26 @@ export default (props)=>{
   }
 
   const handlePollingResponse = useEvent((data, pollingInterval)=>{
-    if(data) {
-      if(data && data.forward_to) {
+    if(data && data.forward_to) {
+      setClosable(true)
+      setForwardTo(data.forward_to)
+    } else {
+      setClosable(true)
+    }
+    clearInterval(pollingInterval)
+    if(data && data.failed_reason && data.failed_reason != 'FAILED') {
+      setClosable(false)
+      set(['ValidationFailed'])
+    } else {
+      if(data?.status == 'failed') {
         setClosable(true)
-        setForwardTo(data.forward_to)
-      } else {
+        callFailedCallback(transaction, paymentRoute)
+        set(['PaymentFailed'])
+      } else if(data === undefined || data?.status == 'success') {
+        callSucceededCallback(transaction, paymentRoute)
+        callValidatedCallback(transaction, paymentRoute)
         setClosable(true)
-      }
-      clearInterval(pollingInterval)
-      if(data.failed_reason && data.failed_reason != 'FAILED') {
-        setClosable(false)
-        set(['ValidationFailed'])
-      } else {
-        if(data.status == 'failed') {
-          setClosable(true)
-          callFailedCallback(transaction, paymentRoute)
-          set(['PaymentFailed'])
-        } else if(data.status == 'success') {
-          callSucceededCallback(transaction, paymentRoute)
-          callValidatedCallback(transaction, paymentRoute)
-          setClosable(true)
-          setRelease(true)
-        }
+        setRelease(true)
       }
     }
   })
@@ -253,11 +252,11 @@ export default (props)=>{
           headers: { 'Content-Type': 'application/json' },
         }).then((response)=>{
           if(response.status == 200 || response.status == 201) {
-            return response.json()
+            response.json().then((data)=>handlePollingResponse(data, pollingInterval))
           } else {
             return undefined
           }
-        }).then((data)=>handlePollingResponse(data, pollingInterval))
+        })
       }
     } else if(trackConfiguration.poll.endpoint) {
       fetch(trackConfiguration.poll.endpoint, {
@@ -266,11 +265,13 @@ export default (props)=>{
         body: JSON.stringify(performedPayment)
       }).then((response)=>{
         if(response.status == 200 || response.status == 201) {
-          return response.json().catch(()=>{ setClosable(true) })
+          response.json()
+            .then((data)=>handlePollingResponse(data, pollingInterval))
+            .catch(()=>{ setClosable(true) })
         } else {
           return undefined
         }
-      }).then((data)=>handlePollingResponse(data, pollingInterval))
+      })
     } else if(trackConfiguration.poll.method) {
       trackConfiguration.poll.method(performedPayment).then((data)=>handlePollingResponse(data, pollingInterval))
     }

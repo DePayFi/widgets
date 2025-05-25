@@ -33,7 +33,7 @@ export default (props)=>{
   const { currencyCode, amount: amountConfiguration, currency, title } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
-  const { disconnect } = useContext(WalletContext)
+  const { disconnect, wallet, account } = useContext(WalletContext)
   const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ showDropDown, setShowDropDown ] = useState(false)
@@ -45,7 +45,7 @@ export default (props)=>{
       </button>
       { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
         items={[
-          { label: "Contact support", action: ()=>{ window.open(`mailto:support@depay.com?subject=Need help with payment`, '_blank') } },
+          { label: "Contact support", action: ()=>{ window.open(`https://support.depay.com?wallet=${wallet?.name}&account=${account}&query=${encodeURIComponent(`Need help with Payment`)}`, '_blank') } },
           paymentState == 'initialized' ? { label: "Disconnect wallet", action: disconnect } : undefined,
         ].filter(Boolean)}
       /> }

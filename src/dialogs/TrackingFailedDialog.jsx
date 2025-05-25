@@ -6,7 +6,7 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=> {
 
-  const { continueTryTracking } = useContext(PaymentTrackingContext)
+  const { continueTryTracking, transaction } = useContext(PaymentTrackingContext)
   const { navigate } = useContext(NavigateStackContext)
 
   const tryAgain = ()=>{
@@ -19,9 +19,13 @@ export default ()=> {
       stacked={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracking Failed Error`, '_blank') }} type="button" className="Card secondary small inlineBlock">
+          <a 
+            href={`https://support.depay.com?transaction=${transaction?.id}&query=${encodeURIComponent(`Tracking payment failed`)}`}
+            target="_blank"
+            className="Card secondary small inlineBlock"
+          >
             Contact support
-          </button>
+          </a>
         </div>
       }
       body={

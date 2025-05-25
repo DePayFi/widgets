@@ -362,7 +362,7 @@ export default (props)=> {
       </button>
       { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
         items={[
-          { label: "Contact support", action: ()=>{ window.open(`mailto:support@depay.com?subject=Need help with Solana Pay payment`, '_blank') } },
+          { label: "Contact support", action: ()=>{ window.open(`https://support.depay.com?query=${encodeURIComponent(`Need help with Solana Pay`)}`, '_blank') } },
         ].filter(Boolean)}
       /> }
     </span>

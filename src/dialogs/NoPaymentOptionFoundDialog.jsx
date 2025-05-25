@@ -23,9 +23,13 @@ export default ()=> {
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Not Enough Funds Error (${walletAddress}})`, '_blank') }} type="button" className="Card secondary small inlineBlock">
+          <a 
+            href={`https://support.depay.com?account=${walletAddress}&wallet=${wallet?.name}&query=${encodeURIComponent(`Not enough funds available`)}`}
+            target="_blank"
+            className="Card secondary small inlineBlock"
+          >
             Contact support
-          </button>
+          </a>
         </div>
       }
       body={

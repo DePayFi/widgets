@@ -10,15 +10,20 @@ export default (props)=> {
 
   const { navigate } = useContext(NavigateStackContext)
   const { accept } = useContext(ConfigurationContext)
+  const { wallet } = useContext(WalletContext)
   const blockchains = [...new Set(accept.map((configuration)=>configuration.blockchain))].map((blockchainName)=>Blockchains[blockchainName])
 
   return(
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Missing Blockchain Support Error`, '_blank') }} type="button" className="Card secondary small inlineBlock">
+          <a 
+            href={`https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&blockchains=${blockchains.map((blockchain)=>blockchain.name).join(',')}&query=${encodeURIComponent(`Wallet Misses Blockchain Support`)}`}
+            target="_blank"
+            className="Card secondary small inlineBlock"
+          >
             Contact support
-          </button>
+          </a>
         </div>
       }
       body={

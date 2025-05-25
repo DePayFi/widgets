@@ -6531,12 +6531,12 @@ var SelectWalletDialog = (function (props) {
       }, {
         label: "Wallet missing?",
         action: function action() {
-          window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank');
+          window.open("https://support.depay.com?query=".concat(encodeURIComponent("Can you add support for the following wallet")), '_blank');
         }
       }, {
         label: "Problems connecting?",
         action: function action() {
-          window.open('mailto:support@depay.com?subject=Problem connecting wallet&body=Please enter the name of the wallet you have problems with connecting:', '_blank');
+          window.open("https://support.depay.com?query=".concat(encodeURIComponent("I have problems connecting my wallet")), '_blank');
         }
       }]
     })),
@@ -7825,11 +7825,9 @@ var ErrorProvider = (function (props) {
       className: "DialogHeader"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        window.open("mailto:support@depay.com?subject=[Widget Error] ".concat(error.message || error.toString()), '_blank');
-      },
-      type: "button",
+    }, /*#__PURE__*/React.createElement("a", {
+      href: "https://support.depay.com?query=".concat(encodeURIComponent("DePay Widget Error: ".concat(error.message || error.toString()))),
+      target: "_blank",
       className: "Card secondary small inlineBlock"
     }, "Contact support"))), /*#__PURE__*/React.createElement("div", {
       className: "DialogBody TextCenter"
@@ -7957,7 +7955,7 @@ var PoweredByStyle = (function (style) {
 });
 
 var StepStyle = (function (style) {
-  return "\n\n    .StepsWrapper {\n      position: relative;\n    }\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: ").concat(style.colors.background, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 20px;\n      position: absolute;\n      left: 20px;\n      background: ").concat(style.colors.text, ";\n      opacity: 0.5;\n      z-index: 999;\n      margin-top: -11px;\n    }\n\n    .StepConnector:last-child {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
+  return "\n\n    .StepsWrapper {\n      position: relative;\n    }\n\n    .Step {\n      display: flex !important;\n      align-items: center;\n      width: 100%;\n      opacity: 50%;\n      padding-left: 0 !important;\n      position: relative;\n    }\n\n    .Step .ActionIndicatorSpinner {\n      border: 2px solid ".concat(style.colors.primary, ";\n      border-bottom-color: ").concat(style.colors.background, ";\n      border-bottom-color: color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      height: 14px;\n      width: 14px;\n    }\n\n    .Step.Card.small {\n      padding: 6px 12px;\n    }\n\n    .Step.active {\n      opacity: 100%;\n    }\n\n    .StepIcon {\n      width: 40px;\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n    }\n    \n    .StepCircle {\n      border-radius: 999px;\n      height: 12px;\n      width: 12px;\n      border: 2px solid ").concat(style.colors.text, ";\n      background: none;\n      position: relative;\n    }\n\n    .Step.active .StepCircle {\n      background: ").concat(style.colors.text, ";\n    }\n\n    .StepConnector {\n      width: 2px;\n      height: 19px;\n      position: absolute;\n      left: 20px;\n      background: ").concat(style.colors.text, ";\n      opacity: 0.5;\n      z-index: 999;\n      margin-top: -10px;\n    }\n\n    .StepConnector:last-child {\n      display: none;\n    }\n\n    .Step.done:last-child {\n      opacity: 100;\n    }\n\n    .StepText {\n      text-align: left;\n      display: flex;\n      align-items: center;\n      position: relative;\n    }\n\n  ");
 });
 
 var QRCodeStyle = (function () {
@@ -8745,6 +8743,9 @@ var WalletMissesBlockchainSupportDialog = (function (props) {
   var _useContext2 = useContext(ConfigurationContext),
       accept = _useContext2.accept;
 
+  var _useContext3 = useContext(WalletContext),
+      wallet = _useContext3.wallet;
+
   var blockchains = _toConsumableArray(new Set(accept.map(function (configuration) {
     return configuration.blockchain;
   }))).map(function (blockchainName) {
@@ -8754,11 +8755,11 @@ var WalletMissesBlockchainSupportDialog = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        window.open("mailto:support@depay.com?subject=Missing Blockchain Support Error", '_blank');
-      },
-      type: "button",
+    }, /*#__PURE__*/React.createElement("a", {
+      href: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&blockchains=").concat(blockchains.map(function (blockchain) {
+        return blockchain.name;
+      }).join(','), "&query=").concat(encodeURIComponent("Wallet Misses Blockchain Support")),
+      target: "_blank",
       className: "Card secondary small inlineBlock"
     }, "Contact support")),
     body: /*#__PURE__*/React.createElement("div", {
@@ -9831,11 +9832,9 @@ var NoPaymentOptionFoundDialog = (function () {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        window.open("mailto:support@depay.com?subject=Not Enough Funds Error (".concat(walletAddress, "})"), '_blank');
-      },
-      type: "button",
+    }, /*#__PURE__*/React.createElement("a", {
+      href: "https://support.depay.com?account=".concat(walletAddress, "&wallet=").concat(wallet === null || wallet === void 0 ? void 0 : wallet.name, "&query=").concat(encodeURIComponent("Not enough funds available")),
+      target: "_blank",
       className: "Card secondary small inlineBlock"
     }, "Contact support")),
     body: /*#__PURE__*/React.createElement("div", {
@@ -9908,9 +9907,9 @@ var PaymentProvider = (function (props) {
       callSucceededCallback = _useContext2.callSucceededCallback,
       callFailedCallback = _useContext2.callFailedCallback;
 
-  var _useContext3 = useContext(PaymentTrackingContext),
-      transaction = _useContext3.transaction,
-      setTransaction = _useContext3.setTransaction;
+  var _useContext3 = useContext(PaymentTrackingContext);
+      _useContext3.transaction;
+      var setTransaction = _useContext3.setTransaction;
 
   var _useContext4 = useContext(ConfigurationContext);
       _useContext4.accept;
@@ -9987,7 +9986,7 @@ var PaymentProvider = (function (props) {
       setApprovalAmount = _useState16[1];
 
   var paymentSucceeded = useEvent(function (transaction, payment) {
-    if (synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
+    if (synchronousTracking == false) {
       setClosable(true);
       setPaymentState('success');
     } else if (release != true && paymentState != 'success') {
@@ -10409,7 +10408,6 @@ var PaymentProvider = (function (props) {
         payment: payment,
         paymentState: paymentState,
         pay: pay,
-        transaction: transaction,
         approvalType: approvalType,
         setApprovalType: setApprovalType,
         approvalAmount: approvalAmount,
@@ -11047,7 +11045,7 @@ var PaymentFailedDialog = (function () {
   var _useContext = useContext(ClosableContext),
       close = _useContext.close;
 
-  var _useContext2 = useContext(PaymentContext),
+  var _useContext2 = useContext(PaymentTrackingContext),
       transaction = _useContext2.transaction;
 
   var _useContext3 = useContext(WalletContext),
@@ -11152,6 +11150,7 @@ var Footer = (function () {
       _useContext.amountsMissing;
 
   var _useContext2 = useContext(PaymentTrackingContext),
+      transaction = _useContext2.transaction,
       synchronousTracking = _useContext2.synchronousTracking,
       asynchronousTracking = _useContext2.asynchronousTracking,
       trackingInitialized = _useContext2.trackingInitialized,
@@ -11164,7 +11163,6 @@ var Footer = (function () {
       payment = _useContext3.payment,
       paymentState = _useContext3.paymentState,
       pay = _useContext3.pay,
-      transaction = _useContext3.transaction,
       approve = _useContext3.approve,
       approvalTransaction = _useContext3.approvalTransaction,
       approvalSignature = _useContext3.approvalSignature;
@@ -11285,7 +11283,7 @@ var Footer = (function () {
       var paymentProcessing = paymentState === 'sending';
       var paymentDone = paymentState === 'validating' || paymentState === 'success'; // --- Validation block ---
 
-      var showAsyncInit = asynchronousTracking && trackingInitialized === false;
+      var showAsyncInit = paymentDone && asynchronousTracking && trackingInitialized === false;
       var showSyncWaiting = synchronousTracking && !release;
       var showSyncDone = synchronousTracking && release;
       return /*#__PURE__*/React.createElement("div", {
@@ -11379,11 +11377,7 @@ var Footer = (function () {
         className: "StepCircle"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, "Perform payment"), /*#__PURE__*/React.createElement("div", {
-        className: "StepStatus"
-      }, paymentDone && /*#__PURE__*/React.createElement(CheckmarkIcon, {
-        className: "small"
-      }))), /*#__PURE__*/React.createElement("div", {
+      }, "Perform payment")), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
       })), showAsyncInit && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: "Step Card disabled small transparent active"
@@ -11411,9 +11405,9 @@ var Footer = (function () {
         className: "StepCircle"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, paymentState !== 'validating' && /*#__PURE__*/React.createElement("span", null, "Wait for payment confirmation"), paymentState === 'validating' && /*#__PURE__*/React.createElement(LoadingText, null, "Confirming payment"), transaction && confirmationsRequired > 0 && secondsLeft > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", null, "Confirming payment"), /*#__PURE__*/React.createElement("span", {
+      }, paymentState !== 'validating' && /*#__PURE__*/React.createElement("span", null, "Wait for payment confirmation"), paymentState === 'validating' && /*#__PURE__*/React.createElement(LoadingText, null, "Confirming payment"), confirmationsRequired > 0 && secondsLeft > 0 && /*#__PURE__*/React.createElement("span", {
         title: "".concat(confirmationsPassed, "/").concat(confirmationsRequired, " required confirmations")
-      }, secondsLeft, "s")))), showSyncDone && /*#__PURE__*/React.createElement("a", {
+      }, secondsLeft, "s"))), showSyncDone && /*#__PURE__*/React.createElement("a", {
         href: transaction ? link({
           url: "https://scan.depay.com/tx/".concat(transaction.blockchain, "/").concat(transaction.id, "?sender=").concat(payment.route.fromAddress, "&receiver=").concat(payment.route.toAddress, "&deadline=").concat(transaction.deadline),
           target: '_blank',
@@ -11541,10 +11535,7 @@ var Footer = (function () {
           }, "Continue");
         }
       } else if (asynchronousTracking == true && trackingInitialized == false) {
-        return /*#__PURE__*/React.createElement("button", {
-          className: "ButtonPrimary disabled",
-          onClick: function onClick() {}
-        }, "Close");
+        return null;
       } else {
         return /*#__PURE__*/React.createElement("button", {
           className: "ButtonPrimary",
@@ -11619,7 +11610,9 @@ var PaymentOverviewDialog = (function (props) {
       fixedCurrency = _useContext3.fixedCurrency;
 
   var _useContext4 = useContext(WalletContext),
-      disconnect = _useContext4.disconnect;
+      disconnect = _useContext4.disconnect,
+      wallet = _useContext4.wallet,
+      account = _useContext4.account;
 
   var _useContext5 = useContext(PaymentValueContext),
       paymentValue = _useContext5.paymentValue,
@@ -11649,7 +11642,7 @@ var PaymentOverviewDialog = (function (props) {
     items: [{
       label: "Contact support",
       action: function action() {
-        window.open("mailto:support@depay.com?subject=Need help with payment", '_blank');
+        window.open("https://support.depay.com?wallet=".concat(wallet === null || wallet === void 0 ? void 0 : wallet.name, "&account=").concat(account, "&query=").concat(encodeURIComponent("Need help with Payment")), '_blank');
       }
     }, paymentState == 'initialized' ? {
       label: "Disconnect wallet",
@@ -22606,6 +22599,9 @@ var TracingFailedDialog = (function (props) {
   var _useContext = useContext(NavigateStackContext),
       navigate = _useContext.navigate;
 
+  var _useContext2 = useContext(WalletContext),
+      account = _useContext2.account;
+
   var tryAgain = function tryAgain() {
     if (props.tryAgain) {
       props.tryAgain();
@@ -22620,11 +22616,9 @@ var TracingFailedDialog = (function (props) {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingRightM"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        window.open("mailto:support@depay.com?subject=Tracing Failed Error", '_blank');
-      },
-      type: "button",
+    }, /*#__PURE__*/React.createElement("a", {
+      href: "https://support.depay.com?account=".concat(account, "&query=").concat(encodeURIComponent("Tracing payment failed")),
+      target: "_blank",
       className: "Card secondary small inlineBlock"
     }, "Contact support"))),
     body: /*#__PURE__*/React.createElement("div", {
@@ -23076,6 +23070,7 @@ var SolanaPayDialog = (function (props) {
         }
       })
     };
+    setTransaction(transaction.current);
     callSentCallback(transaction.current, solanPayPayment.current);
     setClosable(release || !synchronousTracking);
     track(transaction.current, afterBlock.current, solanPayPayment.current, solanPayPayment.current.deadline);
@@ -23244,7 +23239,7 @@ var SolanaPayDialog = (function (props) {
     items: [{
       label: "Contact support",
       action: function action() {
-        window.open("mailto:support@depay.com?subject=Need help with Solana Pay payment", '_blank');
+        window.open("https://support.depay.com?query=".concat(encodeURIComponent("Need help with Solana Pay")), '_blank');
       }
     }].filter(Boolean)
   }));
@@ -23460,7 +23455,8 @@ var SolanaPayDialog = (function (props) {
 
 var TrackingFailedDialog = (function () {
   var _useContext = useContext(PaymentTrackingContext),
-      continueTryTracking = _useContext.continueTryTracking;
+      continueTryTracking = _useContext.continueTryTracking,
+      transaction = _useContext.transaction;
 
   var _useContext2 = useContext(NavigateStackContext),
       navigate = _useContext2.navigate;
@@ -23474,11 +23470,9 @@ var TrackingFailedDialog = (function () {
     stacked: false,
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM"
-    }, /*#__PURE__*/React.createElement("button", {
-      onClick: function onClick() {
-        window.open("mailto:support@depay.com?subject=Tracking Failed Error", '_blank');
-      },
-      type: "button",
+    }, /*#__PURE__*/React.createElement("a", {
+      href: "https://support.depay.com?transaction=".concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Tracking payment failed")),
+      target: "_blank",
       className: "Card secondary small inlineBlock"
     }, "Contact support")),
     body: /*#__PURE__*/React.createElement("div", {
@@ -23507,12 +23501,12 @@ var ValidationFailedDialog = (function () {
   var _useContext = useContext(ClosableContext);
       _useContext.close;
 
-  var _useContext2 = useContext(PaymentContext),
+  var _useContext2 = useContext(PaymentTrackingContext),
       transaction = _useContext2.transaction;
 
   var _useContext3 = useContext(WalletContext),
-      account = _useContext3.account;
-      _useContext3.wallet;
+      account = _useContext3.account,
+      wallet = _useContext3.wallet;
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: false,
@@ -23538,11 +23532,10 @@ var ValidationFailedDialog = (function () {
     }, "Please contact support.")))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
-    }, /*#__PURE__*/React.createElement("button", {
-      className: "ButtonPrimary",
-      onClick: function onClick() {
-        window.open("mailto:support@depay.com?subject=Validation failed (".concat([account, transaction === null || transaction === void 0 ? void 0 : transaction.id].filter(Boolean).join(', '), ")"), '_blank');
-      }
+    }, /*#__PURE__*/React.createElement("a", {
+      href: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&account=").concat(account, "&transaction=").concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Payment validation failed")),
+      target: "_blank",
+      className: "Card secondary small inlineBlock"
     }, "Contact support"))
   });
 });
@@ -23755,6 +23748,11 @@ var PaymentTrackingProvider = (function (props) {
   var validationSocket = useRef();
   var processValidationSocketMessage = useEvent(function (eventData, socket) {
     if (eventData !== null && eventData !== void 0 && eventData.message) {
+      if (eventData.message.confirmations) {
+        setConfirmationsRequired(eventData.message.confirmations.required);
+        setConfirmationsPassed(eventData.message.confirmations.passed);
+      }
+
       if (eventData.message.status) {
         var success = eventData.message.status == 'success';
 
@@ -23777,9 +23775,6 @@ var PaymentTrackingProvider = (function (props) {
               set(['ValidationFailed']);
             }
           }
-        } else if (eventData.message.confirmations) {
-          setConfirmationsRequired(eventData.message.confirmations.required);
-          setConfirmationsPassed(eventData.message.confirmations.passed);
         }
       }
     }
@@ -23919,31 +23914,29 @@ var PaymentTrackingProvider = (function (props) {
     };
   }();
 
-  var handlePollingResponse = useEvent(function (data) {
-    if (data) {
-      if (data && data.forward_to) {
-        setClosable(true);
-        setForwardTo(data.forward_to);
-      } else {
-        setClosable(true);
-      }
+  var handlePollingResponse = useEvent(function (data, pollingInterval) {
+    if (data && data.forward_to) {
+      setClosable(true);
+      setForwardTo(data.forward_to);
+    } else {
+      setClosable(true);
+    }
 
-      clearInterval(pollingInterval);
+    clearInterval(pollingInterval);
 
-      if (data.failed_reason && data.failed_reason != 'FAILED') {
-        setClosable(false);
-        set(['ValidationFailed']);
-      } else {
-        if (data.status == 'failed') {
-          setClosable(true);
-          callFailedCallback(transaction, paymentRoute);
-          set(['PaymentFailed']);
-        } else if (data.status == 'success') {
-          callSucceededCallback(transaction, paymentRoute);
-          callValidatedCallback(transaction, paymentRoute);
-          setClosable(true);
-          setRelease(true);
-        }
+    if (data && data.failed_reason && data.failed_reason != 'FAILED') {
+      setClosable(false);
+      set(['ValidationFailed']);
+    } else {
+      if ((data === null || data === void 0 ? void 0 : data.status) == 'failed') {
+        setClosable(true);
+        callFailedCallback(transaction, paymentRoute);
+        set(['PaymentFailed']);
+      } else if (data === undefined || (data === null || data === void 0 ? void 0 : data.status) == 'success') {
+        callSucceededCallback(transaction, paymentRoute);
+        callValidatedCallback(transaction, paymentRoute);
+        setClosable(true);
+        setRelease(true);
       }
     }
   });
@@ -23982,11 +23975,13 @@ var PaymentTrackingProvider = (function (props) {
                     }
                   }).then(function (response) {
                     if (response.status == 200 || response.status == 201) {
-                      return response.json();
+                      response.json().then(function (data) {
+                        return handlePollingResponse(data, pollingInterval);
+                      });
                     } else {
                       return undefined;
                     }
-                  }).then(handlePollingResponse);
+                  });
                 }
               } else if (trackConfiguration.poll.endpoint) {
                 fetch(trackConfiguration.poll.endpoint, {
@@ -23997,15 +23992,19 @@ var PaymentTrackingProvider = (function (props) {
                   body: JSON.stringify(performedPayment)
                 }).then(function (response) {
                   if (response.status == 200 || response.status == 201) {
-                    return response.json()["catch"](function () {
+                    response.json().then(function (data) {
+                      return handlePollingResponse(data, pollingInterval);
+                    })["catch"](function () {
                       setClosable(true);
                     });
                   } else {
                     return undefined;
                   }
-                }).then(handlePollingResponse);
+                });
               } else if (trackConfiguration.poll.method) {
-                trackConfiguration.poll.method(performedPayment).then(handlePollingResponse);
+                trackConfiguration.poll.method(performedPayment).then(function (data) {
+                  return handlePollingResponse(data, pollingInterval);
+                });
               }
 
             case 4:
@@ -24186,6 +24185,7 @@ var PaymentTrackingProvider = (function (props) {
     value: {
       synchronousTracking: synchronousTracking,
       asynchronousTracking: asynchronousTracking,
+      transaction: transaction,
       setTransaction: setTransaction,
       track: track,
       trace: trace,

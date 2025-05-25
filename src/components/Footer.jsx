@@ -24,8 +24,8 @@ const REQUIRES_APPROVAL_RESET = {
 
 export default ()=>{
   const { amount, amountsMissing } = useContext(ChangableAmountContext)
-  const { synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo, confirmationsRequired, confirmationsPassed } = useContext(PaymentTrackingContext)
-  const { payment, paymentState, pay, transaction, approve, approvalTransaction, approvalSignature, approvalDone, approvalType, resetApproval, resetApprovalTransaction } = useContext(PaymentContext)
+  const { transaction, synchronousTracking, asynchronousTracking, trackingInitialized, release, forwardTo, confirmationsRequired, confirmationsPassed } = useContext(PaymentTrackingContext)
+  const { payment, paymentState, pay, approve, approvalTransaction, approvalSignature, approvalDone, approvalType, resetApproval, resetApprovalTransaction } = useContext(PaymentContext)
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
@@ -137,7 +137,7 @@ export default ()=>{
       const paymentDone = paymentState === 'validating' || paymentState === 'success'
 
       // --- Validation block ---
-      const showAsyncInit = asynchronousTracking && trackingInitialized === false
+      const showAsyncInit = paymentDone && asynchronousTracking && trackingInitialized === false
       const showSyncWaiting = synchronousTracking && !release
       const showSyncDone = synchronousTracking && release
 
@@ -287,9 +287,6 @@ export default ()=>{
                   )}
                 </div>
                 <div className="StepText">Perform payment</div>
-                <div className="StepStatus">
-                  {paymentDone && <CheckmarkIcon className="small" />}
-                </div>
               </div>
               <div className="StepConnector" />
             </>
@@ -337,13 +334,10 @@ export default ()=>{
               <div className="StepText">
                 {paymentState !== 'validating' && <span>Wait for payment confirmation</span>}
                 {paymentState === 'validating' && <LoadingText>Confirming payment</LoadingText>}
-                {transaction && confirmationsRequired > 0 && secondsLeft > 0 && (
-                  <>
-                    <span>Confirming payment</span>
-                    <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}>
-                      {secondsLeft}s
-                    </span>
-                  </>
+                {confirmationsRequired > 0 && secondsLeft > 0 && (
+                  <span title={`${confirmationsPassed}/${confirmationsRequired} required confirmations`}>
+                    {secondsLeft}s
+                  </span>
                 )}
               </div>
             </a>
@@ -483,11 +477,7 @@ export default ()=>{
           )
         }
       } else if (asynchronousTracking == true && trackingInitialized == false) {
-        return(
-          <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
-            Close
-          </button>
-        )
+        return(null)
       } else {
         return(
           <button className="ButtonPrimary" onClick={ close }>

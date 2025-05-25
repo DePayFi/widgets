@@ -53,13 +53,13 @@ export default (style)=>{
 
     .StepConnector {
       width: 2px;
-      height: 20px;
+      height: 19px;
       position: absolute;
       left: 20px;
       background: ${style.colors.text};
       opacity: 0.5;
       z-index: 999;
-      margin-top: -11px;
+      margin-top: -10px;
     }
 
     .StepConnector:last-child {

@@ -38,9 +38,13 @@ export default ()=> {
       }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
-          <button className='ButtonPrimary' onClick={()=>{ window.open(`mailto:support@depay.com?subject=Validation failed (${[account, transaction?.id].filter(Boolean).join(', ')})`, '_blank') }}>
+          <a 
+            href={`https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&account=${account}&transaction=${transaction?.id}&query=${encodeURIComponent(`Payment validation failed`)}`}
+            target="_blank"
+            className="Card secondary small inlineBlock"
+          >
             Contact support
-          </button>
+          </a>
         </div>
       }
     />
