@@ -92,9 +92,55 @@ describe('Payment Widget: style', () => {
       currency: 'EUR',
       currencyToUSD: '0.85'
     }))
+
+    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${ETH}?amount=0.0101` }, '25.25')
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+        allow: { ethereum: [ ETH ] }
+      },
+    }, {
+        blockchain,
+        fromToken: ETH,
+        fromDecimals: 18,
+        fromName: "Ether",
+        fromSymbol: "ETH",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+        allow: { ethereum: [ ETH ] },
+      },
+    }, [
+      {
+        blockchain,
+        fromToken: ETH,
+        fromDecimals: 18,
+        fromName: "Ether",
+        fromSymbol: "ETH",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY",
+        pairsData: [{ exchange: 'uniswap_v2' }]
+      }
+    ])
   })
   
-  it('allows you to style the widget', () => {
+  it.only('allows you to style the widget', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{

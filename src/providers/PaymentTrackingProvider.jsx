@@ -201,7 +201,7 @@ export default (props)=>{
       })
   }
 
-  const handlePollingResponse = useEvent((data)=>{
+  const handlePollingResponse = useEvent((data, pollingInterval)=>{
     if(data) {
       if(data && data.forward_to) {
         setClosable(true)
@@ -257,7 +257,7 @@ export default (props)=>{
           } else {
             return undefined
           }
-        }).then(handlePollingResponse)
+        }).then((data)=>handlePollingResponse(data, pollingInterval))
       }
     } else if(trackConfiguration.poll.endpoint) {
       fetch(trackConfiguration.poll.endpoint, {
@@ -270,9 +270,9 @@ export default (props)=>{
         } else {
           return undefined
         }
-      }).then(handlePollingResponse)
+      }).then((data)=>handlePollingResponse(data, pollingInterval))
     } else if(trackConfiguration.poll.method) {
-      trackConfiguration.poll.method(performedPayment).then(handlePollingResponse)
+      trackConfiguration.poll.method(performedPayment).then((data)=>handlePollingResponse(data, pollingInterval))
     }
   }
 
@@ -364,6 +364,7 @@ export default (props)=>{
     <PaymentTrackingContext.Provider value={{
       synchronousTracking,
       asynchronousTracking,
+      transaction,
       setTransaction,
       track,
       trace,

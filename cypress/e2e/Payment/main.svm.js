@@ -33,116 +33,118 @@ describe('Payment Widget: main functionality for Solana', () => {
   let provider
   let exchange
 
-  beforeEach(async()=>{
+  beforeEach(()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()
     mock({ blockchain, accounts: { return: accounts } })
-    provider = await getProvider(blockchain)
+    
+    cy.then(() => getProvider(blockchain)).then((provider) => {
 
-    ;({ exchange, TOKEN_A_AmountBN } = await mockBasics({
-      provider,
-      blockchain,
+      ;({ exchange, TOKEN_A_AmountBN } = mockBasics({
+        provider,
+        blockchain,
 
-      fromAddress,
-      fromAddressAssets: [
+        fromAddress,
+        fromAddressAssets: [
+          {
+            "name": "Solana",
+            "symbol": "SOL",
+            "address": SOL,
+            "type": "NATIVE"
+          }, {
+            "name": "USD Coin",
+            "symbol": "USDC",
+            "address": USDC,
+            "type": "SPL"
+          }, {
+            "name": "DePay",
+            "symbol": "DEPAY",
+            "address": DEPAY,
+            "type": "SPL"
+          }
+        ],
+        
+        toAddress,
+
+        exchange: 'orca',
+        NATIVE_Balance: 0,
+
+        TOKEN_A: DEPAY,
+        TOKEN_A_Decimals: 9,
+        TOKEN_A_Name: 'DePay',
+        TOKEN_A_Symbol: 'DEPAY',
+        TOKEN_A_Amount: amount,
+        TOKEN_A_Balance: 30,
+        
+        TOKEN_B: USDC,
+        TOKEN_B_Decimals: 9,
+        TOKEN_B_Name: 'USD Coin',
+        TOKEN_B_Symbol: 'USDC',
+        TOKEN_B_Amount: 33,
+        TOKEN_B_Balance: 50,
+
+        WRAPPED_AmountIn: 0.01,
+        USD_AmountOut: 33,
+
+        timeZone: 'Europe/Berlin',
+        stubTimeZone: (timeZone)=> {
+          cy.stub(Intl, 'DateTimeFormat', () => {
+            return { resolvedOptions: ()=>{
+              return { timeZone }
+            }}
+          })
+        },
+
+        currency: 'EUR',
+        currencyToUSD: '0.85'
+      }))
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/best",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, {
+          blockchain,
+          fromToken: DEPAY,
+          fromDecimals: 9,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 9,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+      })
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/all",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, [
         {
-          "name": "Solana",
-          "symbol": "SOL",
-          "address": SOL,
-          "type": "NATIVE"
-        }, {
-          "name": "USD Coin",
-          "symbol": "USDC",
-          "address": USDC,
-          "type": "SPL"
-        }, {
-          "name": "DePay",
-          "symbol": "DEPAY",
-          "address": DEPAY,
-          "type": "SPL"
-        }
-      ],
-      
-      toAddress,
+          blockchain,
+          fromToken: DEPAY,
+          fromDecimals: 9,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 9,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+        },
+      ])
 
-      exchange: 'orca',
-      NATIVE_Balance: 0,
-
-      TOKEN_A: DEPAY,
-      TOKEN_A_Decimals: 9,
-      TOKEN_A_Name: 'DePay',
-      TOKEN_A_Symbol: 'DEPAY',
-      TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
-      
-      TOKEN_B: USDC,
-      TOKEN_B_Decimals: 9,
-      TOKEN_B_Name: 'USD Coin',
-      TOKEN_B_Symbol: 'USDC',
-      TOKEN_B_Amount: 33,
-      TOKEN_B_Balance: 50,
-
-      WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
-
-      timeZone: 'Europe/Berlin',
-      stubTimeZone: (timeZone)=> {
-        cy.stub(Intl, 'DateTimeFormat', () => {
-          return { resolvedOptions: ()=>{
-            return { timeZone }
-          }}
-        })
-      },
-
-      currency: 'EUR',
-      currencyToUSD: '0.85'
-    }))
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/best",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept,
-      },
-    }, {
-        blockchain,
-        fromToken: DEPAY,
-        fromDecimals: 9,
-        fromName: "DePay",
-        fromSymbol: "DEPAY",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 9,
-        toName: "DePay",
-        toSymbol: "DEPAY"
+      fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
     })
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/all",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept,
-      },
-    }, [
-      {
-        blockchain,
-        fromToken: DEPAY,
-        fromDecimals: 9,
-        fromName: "DePay",
-        fromSymbol: "DEPAY",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 9,
-        toName: "DePay",
-        toSymbol: "DEPAY"
-      },
-    ])
-
-    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
   })
   
-  it('executes', async()=> {
+  it('executes', ()=> {
 
     let mockedTransaction = mock({
       blockchain,
@@ -189,29 +191,30 @@ describe('Payment Widget: main functionality for Solana', () => {
       matchPartialBody: true
     }, 201)
 
-    await mockTokenAccount({ provider, tokenAddress: DEPAY, ownerAddress: toAddress, exists: true, balance: 0 })
-    await mockEscrowAccount({ provider, tokenAddress: DEPAY, ownerAddress: 'J58teB5YLrHFhN5Ww2tYWSZQSM8WJZgDQJ4uMZJVgjjd', exists: true, balance: 0 })
-    await mockALT({ provider, address: '8bYq3tcwX1NM2K2JYMjrEqAPtCXFPCjzPazFothc618e' })
-
-    cy.visit('cypress/test.html').then((contentWindow) => {
-      cy.document().then((document)=>{
-        DePayWidgets.Payment({ ...defaultArguments, document })
-        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
-        cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
-            expect(mockedTransaction.calls.count()).to.equal(1)
-            cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-            confirm(mockedTransaction)
-            cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://solscan.io/tx/').then(()=>{
-                cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+    cy.then(() => mockTokenAccount({ provider, tokenAddress: DEPAY, ownerAddress: toAddress, exists: true, balance: 0 }))
+      .then(() => mockEscrowAccount({ provider, tokenAddress: DEPAY, ownerAddress: '…', exists: true, balance: 0 }))
+      .then(() => mockALT({ provider, address: '…' }))
+      .then(() => {
+        cy.visit('cypress/test.html').then((contentWindow) => {
+        cy.document().then((document)=>{
+          DePayWidgets.Payment({ ...defaultArguments, document })
+          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
+              expect(mockedTransaction.calls.count()).to.equal(1)
+              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+              confirm(mockedTransaction)
+              cy.wait(1000).then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://solscan.io/tx/').then(()=>{
+                  cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                  cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                })
               })
-            })
-          })  
+            })  
+          })
         })
       })
     })

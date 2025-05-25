@@ -39,153 +39,155 @@ describe('Payment Widget: fix currency amounts', () => {
   let exchange
   let provider
 
-  beforeEach(async()=>{
+  beforeEach(()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()
     mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
-    provider = await getProvider(blockchain)
+    
+    cy.then(() => getProvider(blockchain)).then((provider) => {
 
-    ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, exchange } = mockBasics({
-      provider,
-      blockchain,
+      ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, exchange } = mockBasics({
+        provider,
+        blockchain,
 
-      fromAddress,
-      fromAddressAssets: [
+        fromAddress,
+        fromAddressAssets: [
+          {
+            "name": "Ether",
+            "symbol": "ETH",
+            "address": ETH,
+            "type": "NATIVE"
+          }, {
+            "name": "Dai Stablecoin",
+            "symbol": "DAI",
+            "address": DAI,
+            "type": "20"
+          }, {
+            "name": "DePay",
+            "symbol": "DEPAY",
+            "address": DEPAY,
+            "type": "20"
+          }
+        ],
+        
+        toAddress,
+
+        exchange: 'uniswap_v2',
+        NATIVE_Balance: 0,
+
+        TOKEN_A: DEPAY,
+        TOKEN_A_Decimals: 18,
+        TOKEN_A_Name: 'DePay',
+        TOKEN_A_Symbol: 'DEPAY',
+        TOKEN_A_Amount: amount,
+        TOKEN_A_Balance: 30,
+        
+        TOKEN_B: DAI,
+        TOKEN_B_Decimals: 18,
+        TOKEN_B_Name: 'Dai Stablecoin',
+        TOKEN_B_Symbol: 'DAI',
+        TOKEN_B_Amount: 33,
+        TOKEN_B_Balance: 50,
+
+        TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
+        TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
+        TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
+
+        WRAPPED_AmountIn: 0.01,
+        USD_AmountOut: 33,
+
+        timeZone: 'Europe/Berlin',
+        stubTimeZone: (timeZone)=> {
+          cy.stub(Intl, 'DateTimeFormat', () => {
+            return { resolvedOptions: ()=>{
+              return { timeZone }
+            }}
+          })
+        },
+
+        currency: 'EUR',
+        currencyToUSD: '0.85'
+      }))
+
+      mockAmountsOut({
+        provider,
+        blockchain,
+        exchange,
+        amountInBN: '6117647',
+        path: [Blockchains[blockchain].stables.usd[0], DEPAY],
+        amountsOut: [
+          '6117647',
+          TOKEN_A_AmountBN
+        ]
+      })
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/best",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept: [{
+            amount: 22.1,
+            blockchain,
+            token: DEPAY,
+            receiver: toAddress
+          }],
+        },
+      }, {
+          blockchain,
+          fromToken: DEPAY,
+          fromDecimals: 18,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+      })
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/all",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept: [{
+            amount: 22.1,
+            blockchain,
+            token: DEPAY,
+            receiver: toAddress
+          }],
+        },
+      }, [
         {
-          "name": "Ether",
-          "symbol": "ETH",
-          "address": ETH,
-          "type": "NATIVE"
-        }, {
-          "name": "Dai Stablecoin",
-          "symbol": "DAI",
-          "address": DAI,
-          "type": "20"
-        }, {
-          "name": "DePay",
-          "symbol": "DEPAY",
-          "address": DEPAY,
-          "type": "20"
-        }
-      ],
-      
-      toAddress,
-
-      exchange: 'uniswap_v2',
-      NATIVE_Balance: 0,
-
-      TOKEN_A: DEPAY,
-      TOKEN_A_Decimals: 18,
-      TOKEN_A_Name: 'DePay',
-      TOKEN_A_Symbol: 'DEPAY',
-      TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
-      
-      TOKEN_B: DAI,
-      TOKEN_B_Decimals: 18,
-      TOKEN_B_Name: 'Dai Stablecoin',
-      TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
-      TOKEN_B_Balance: 50,
-
-      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
-      TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
-      TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
-
-      WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
-
-      timeZone: 'Europe/Berlin',
-      stubTimeZone: (timeZone)=> {
-        cy.stub(Intl, 'DateTimeFormat', () => {
-          return { resolvedOptions: ()=>{
-            return { timeZone }
-          }}
-        })
-      },
-
-      currency: 'EUR',
-      currencyToUSD: '0.85'
-    }))
-
-    mockAmountsOut({
-      provider,
-      blockchain,
-      exchange,
-      amountInBN: '6117647',
-      path: [Blockchains[blockchain].stables.usd[0], DEPAY],
-      amountsOut: [
-        '6117647',
-        TOKEN_A_AmountBN
-      ]
-    })
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/best",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept: [{
-          amount: 22.1,
           blockchain,
-          token: DEPAY,
-          receiver: toAddress
-        }],
-      },
-    }, {
-        blockchain,
-        fromToken: DEPAY,
-        fromDecimals: 18,
-        fromName: "DePay",
-        fromSymbol: "DEPAY",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 18,
-        toName: "DePay",
-        toSymbol: "DEPAY"
-    })
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/all",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept: [{
-          amount: 22.1,
+          fromToken: DEPAY,
+          fromDecimals: 18,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+        },
+        {
           blockchain,
-          token: DEPAY,
-          receiver: toAddress
-        }],
-      },
-    }, [
-      {
-        blockchain,
-        fromToken: DEPAY,
-        fromDecimals: 18,
-        fromName: "DePay",
-        fromSymbol: "DEPAY",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 18,
-        toName: "DePay",
-        toSymbol: "DEPAY"
-      },
-      {
-        blockchain,
-        fromToken: DAI,
-        fromDecimals: 18,
-        fromName: "Dai",
-        fromSymbol: "DAI",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 18,
-        toName: "DePay",
-        toSymbol: "DEPAY",
-        pairsData: [{ exchange: 'uniswap_v2' }]
-      },
-    ])
+          fromToken: DAI,
+          fromDecimals: 18,
+          fromName: "Dai",
+          fromSymbol: "DAI",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY",
+          pairsData: [{ exchange: 'uniswap_v2' }]
+        },
+      ])
 
-    fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
-    fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=4.42` }, '22.1')
+      fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=4.42` }, '22.1')
+    })
   })
   
   it('displays and executes payment transactions based on a fixed currency amount', () => {

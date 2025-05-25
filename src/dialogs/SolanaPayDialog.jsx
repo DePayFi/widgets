@@ -256,6 +256,7 @@ export default (props)=> {
       id: transactionId,
       url: Blockchains.solana.explorerUrlFor({ transaction: { id: transactionId } }),
     }
+    setTransaction(transaction.current)
     callSentCallback(transaction.current, solanPayPayment.current)
     setClosable(release || !synchronousTracking)
     track(

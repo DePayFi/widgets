@@ -3,14 +3,14 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorGraphic from '../graphics/wallets/error'
 import link from '../helpers/link'
-import PaymentContext from '../contexts/PaymentContext'
+import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 
 export default ()=> {
 
   const { close } = useContext(ClosableContext)
-  const { transaction } = useContext(PaymentContext)
+  const { transaction } = useContext(PaymentTrackingContext)
   const { wallet } = useContext(WalletContext)
 
   return(

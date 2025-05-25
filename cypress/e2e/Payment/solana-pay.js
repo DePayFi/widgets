@@ -49,7 +49,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
   }
 
   let mockedDepayWebsocket
-  const depayWebsocketMessages = []
+  let depayWebsocketMessages = []
   new Server('wss://integrate.depay.com/cable').on('connection', socket => {
     mockedDepayWebsocket = socket
     socket.on('message', data => {
@@ -59,7 +59,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
   })
 
   const mockedSolanaWebsockets = []
-  const solanaWebsocketMessages = []
+  let solanaWebsocketMessages = []
   const seen = new Set()
   Blockchains.solana.sockets.forEach((socketUrl)=>{
     const url = new URL(socketUrl)
@@ -81,185 +81,195 @@ describe('Solana Pay: QR code based mobile handover', () => {
   let transactionId
   let deadline
   
-  beforeEach(async()=>{
+  beforeEach(()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()
-    provider = await getProvider(blockchain)
-    mock({ blockchain, provider, accounts: { return: accounts } })
+
+    depayWebsocketMessages = []
+    solanaWebsocketMessages = []
+
+    defaultArguments = { accept }
     
-    mock({
-      blockchain,
-      provider,
-      request: {
-        to: (await Token.solana.getMetaDataPDA({ metaDataPublicKey: new PublicKey(Token.solana.METADATA_ACCOUNT), mintPublicKey: new PublicKey(DEPAY) })).toString(),
-        api: Token[blockchain].METADATA_LAYOUT,
-        return: {
-          key: { metadataV1: {} },
-          isMutable: true,
-          editionNonce: 252,
-          primarySaleHappened: false,
-          updateAuthority: '2wmVCSfPxGPjrnMMn7rchp4uaeoTqN39mXFC2zhPdri9',
-          mint: DEPAY,
-          data: {
-            creators: null,
-            name: 'DePay',
-            sellerFeeBasisPoints: 0,
-            symbol: 'DEPAY',
-            uri: ""
+    cy.then(() => getProvider(blockchain)).then((provider) => {
+
+      mock({ blockchain, provider, accounts: { return: accounts } })
+
+      cy.then(() => Token.solana.getMetaDataPDA({ metaDataPublicKey: new PublicKey(Token.solana.METADATA_ACCOUNT), mintPublicKey: new PublicKey(DEPAY) })).then((metaDataPDA) => {
+      
+        mock({
+          blockchain,
+          provider,
+          request: {
+            to: metaDataPDA.toString(),
+            api: Token[blockchain].METADATA_LAYOUT,
+            return: {
+              key: { metadataV1: {} },
+              isMutable: true,
+              editionNonce: 252,
+              primarySaleHappened: false,
+              updateAuthority: '2wmVCSfPxGPjrnMMn7rchp4uaeoTqN39mXFC2zhPdri9',
+              mint: DEPAY,
+              data: {
+                creators: null,
+                name: 'DePay',
+                sellerFeeBasisPoints: 0,
+                symbol: 'DEPAY',
+                uri: ""
+              }
+            }
           }
-        }
-      }
+        })
 
-    })
+        mock({
+          provider,
+          blockchain,
+          request: {
+            to: DEPAY,
+            api: Token[blockchain].MINT_LAYOUT,
+            return: {
+              mintAuthorityOption: 1,
+              mintAuthority: "2wmVCSfPxGPjrnMMn7rchp4uaeoTqN39mXFC2zhPdri9",
+              supply: "5034999492452932",
+              decimals: 9,
+              isInitialized: true,
+              freezeAuthorityOption: 1,
+              freezeAuthority: "3sNBr7kMccME5D55xNgsmYpZnzPgP2g12CixAajXypn6"
+            }
+          }
+        })
 
-    mock({
-      provider,
-      blockchain,
-      request: {
-        to: DEPAY,
-        api: Token[blockchain].MINT_LAYOUT,
-        return: {
-          mintAuthorityOption: 1,
-          mintAuthority: "2wmVCSfPxGPjrnMMn7rchp4uaeoTqN39mXFC2zhPdri9",
-          supply: "5034999492452932",
-          decimals: 9,
-          isInitialized: true,
-          freezeAuthorityOption: 1,
-          freezeAuthority: "3sNBr7kMccME5D55xNgsmYpZnzPgP2g12CixAajXypn6"
-        }
-      }
-    })
+        mock({
+          blockchain,
+          provider,
+          request: {
+            method: 'getSignaturesForAddress',
+            params: [fromAddress],
+            return: []
+          }
+        })
 
-    mock({
-      blockchain,
-      provider,
-      request: {
-        method: 'getSignaturesForAddress',
-        params: [fromAddress],
-        return: []
-      }
-    })
+        deadline = Date.now() + 5 * 60 * 1000
 
-    deadline = Date.now() + 5 * 60 * 1000
+        const data = Buffer.alloc(routers.solana.api.routeToken.layout.span)
+        routers.solana.api.routeToken.layout.encode({
+          anchorDiscriminator: routers.solana.api.routeToken.anchorDiscriminator,
+          paymentAmount: new BN('20000000000'.toString()),
+          feeAmount: new BN(('600000000').toString()),
+          feeAmount2: new BN(('400000000').toString()),
+          protocolAmount: new BN(('200000000').toString()),
+          deadline: new BN(deadline),
+        }, data)
 
-    const data = Buffer.alloc(routers.solana.api.routeToken.layout.span)
-    routers.solana.api.routeToken.layout.encode({
-      anchorDiscriminator: routers.solana.api.routeToken.anchorDiscriminator,
-      paymentAmount: new BN('20000000000'.toString()),
-      feeAmount: new BN(('600000000').toString()),
-      feeAmount2: new BN(('400000000').toString()),
-      protocolAmount: new BN(('200000000').toString()),
-      deadline: new BN(deadline),
-    }, data)
+        mockedTransaction = mock({
+          blockchain,
+          transaction: {
+            from: fromAddress,
+            logMessages: [
+              "Program DePayR1gQfDmViCPKctnZXNtUgqRwnEqMax8LX9ho1Zg invoke"
+            ],
+            compiledInstructions: [
+              {
+                accountKeyIndexes: [5,0,1,2,3],
+                data: data,
+                programIdIndex: 4
+              }
+            ]
+          }
+        })
+        
+        transactionId = mockedTransaction.transaction._id
 
-    mockedTransaction = mock({
-      blockchain,
-      transaction: {
-        from: fromAddress,
-        logMessages: [
-          "Program DePayR1gQfDmViCPKctnZXNtUgqRwnEqMax8LX9ho1Zg invoke"
-        ],
-        compiledInstructions: [
+        fetchMock.get({
+          url: `https://public.depay.com/currencies/CHF`,
+          overwriteRoutes: true
+        }, "0.85")
+
+        fetchMock.post({
+          url: "https://public.depay.com/payments",
+          body: {
+            after_block: "1",
+            amount: "19.7",
+            blockchain: "solana",
+            confirmations: 1,
+            fee_amount: "0.3",
+            fee_receiver: feeReceiver,
+            payload: {
+              sender_amount: "20.0",
+              sender_id: fromAddress,
+              sender_token_id: DEPAY,
+              type: 'payment'
+            },
+            receiver: toAddress,
+            sender: fromAddress,
+            token: DEPAY,
+            transaction: transactionId,
+            uuid: transactionId,
+          },
+          matchPartialBody: true
+        }, 201)
+
+        fetchMock.post({
+          url: "https://public.depay.com/routes/best",
+          body: {
+            accounts: { [blockchain]: accounts[0] },
+            accept: [{
+              blockchain,
+              amount,
+              token: DEPAY,
+              receiver: toAddress
+            }],
+          },
+        }, {
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 9,
+            fromName: "DePay",
+            fromSymbol: "DEPAY",
+            toToken: DEPAY,
+            toAmount: '20000000000',
+            toDecimals: 18,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+        })
+
+        fetchMock.post({
+          url: "https://public.depay.com/routes/all",
+          body: {
+            accounts: { [blockchain]: accounts[0] },
+            accept: [{
+              blockchain,
+              amount,
+              token: DEPAY,
+              receiver: toAddress
+            }],
+          },
+        }, [
           {
-            accountKeyIndexes: [5,0,1,2,3],
-            data: data,
-            programIdIndex: 4
-          }
-        ]
-      }
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 9,
+            fromName: "DePay",
+            fromSymbol: "DEPAY",
+            toToken: DEPAY,
+            toAmount: '20000000000',
+            toDecimals: 9,
+            toName: "DePay",
+            toSymbol: "DEPAY",
+          },
+        ])
+
+        fetchMock.get({
+          url: `https://public.depay.com/conversions/USD/solana/${DEPAY}?amount=20.0`,
+        }, "4.00")
+
+      })
     })
-    
-    transactionId = mockedTransaction.transaction._id
-
-    fetchMock.get({
-      url: `https://public.depay.com/currencies/CHF`,
-      overwriteRoutes: true
-    }, "0.85")
-
-    fetchMock.post({
-      url: "https://public.depay.com/payments",
-      body: {
-        after_block: "1",
-        amount: "19.7",
-        blockchain: "solana",
-        confirmations: 1,
-        fee_amount: "0.3",
-        fee_receiver: feeReceiver,
-        payload: {
-          sender_amount: "20.0",
-          sender_id: fromAddress,
-          sender_token_id: DEPAY,
-          type: 'payment'
-        },
-        receiver: toAddress,
-        sender: fromAddress,
-        token: DEPAY,
-        transaction: transactionId,
-        uuid: transactionId,
-      },
-      matchPartialBody: true
-    }, 201)
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/best",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept: [{
-          blockchain,
-          amount,
-          token: DEPAY,
-          receiver: toAddress
-        }],
-      },
-    }, {
-        blockchain,
-        fromToken: DEPAY,
-        fromDecimals: 9,
-        fromName: "DePay",
-        fromSymbol: "DEPAY",
-        toToken: DEPAY,
-        toAmount: '20000000000',
-        toDecimals: 18,
-        toName: "DePay",
-        toSymbol: "DEPAY",
-    })
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/all",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept: [{
-          blockchain,
-          amount,
-          token: DEPAY,
-          receiver: toAddress
-        }],
-      },
-    }, [
-      {
-        blockchain,
-        fromToken: DEPAY,
-        fromDecimals: 9,
-        fromName: "DePay",
-        fromSymbol: "DEPAY",
-        toToken: DEPAY,
-        toAmount: '20000000000',
-        toDecimals: 9,
-        toName: "DePay",
-        toSymbol: "DEPAY",
-      },
-    ])
-
-    fetchMock.get({
-      url: `https://public.depay.com/conversions/USD/solana/${DEPAY}?amount=20.0`,
-    }, "4.00")
-
   })
   
-  describe('track transaction status', async()=> {
+  describe('track transaction status', ()=> {
 
-    it('processes successful transaction status via solana and websockets', async()=> {
+    it('processes successful transaction status via solana and websockets', ()=> {
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -269,14 +279,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -351,7 +361,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('reports failed transaction received from solana websocket', async()=> {
+    it('reports failed transaction received from solana websocket', ()=> {
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -361,14 +371,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -444,7 +454,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('processes successful transaction status via polling', async()=> {
+    it('processes successful transaction status via polling', ()=> {
       
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -454,14 +464,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -540,7 +550,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('reports failed transaction via polling solana RPCs for getSignaturesForAddress', async()=> {
+    it('reports failed transaction via polling solana RPCs for getSignaturesForAddress', ()=> {
       
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -550,14 +560,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -638,7 +648,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
     })
   })
 
-  describe('validate payments (trace and track via DePay)', async()=> {
+  describe('validate payments (trace and track via DePay)', ()=> {
 
     beforeEach(()=>{
 
@@ -662,9 +672,11 @@ describe('Solana Pay: QR code based mobile handover', () => {
         },
         matchPartialBody: true
       }, 200)
+
+      fetchMock.get({url: /^https:\/\/public\.depay\.com\/solanapay\/[^\/]+\/status$/}, 404)
     })
 
-    it('traces payment', async()=> {
+    it('traces payment', ()=> {
 
       defaultArguments = { ...defaultArguments, track: { endpoint: 'https://depay.test/track' } }
 
@@ -676,14 +688,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -766,7 +778,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('shows error dialog if tracing fails and allows to retry', async()=> {
+    it('shows error dialog if tracing fails and allows to retry', ()=> {
 
       fetchMock.post({
         url: "https://depay.test/track",
@@ -785,14 +797,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -886,7 +898,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('shows error dialog if tracking fails and allows to retry tracking', async()=> {
+    it('shows error dialog if tracking fails and allows to retry tracking', ()=> {
 
       defaultArguments = { ...defaultArguments, track: { endpoint: 'https://depay.test/track' } }
 
@@ -898,14 +910,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1010,7 +1022,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('validates succesfull payments via websocket and calls trace and tracking', async()=> {
+    it('validates succesfull payments via websocket and calls trace and tracking', ()=> {
 
       defaultArguments = { ...defaultArguments, track: { endpoint: 'https://depay.test/track' } }
 
@@ -1022,14 +1034,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1125,7 +1137,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('forwards_to (if set) after succesfull validation', async()=> {
+    it('forwards_to (if set) after succesfull validation', ()=> {
       defaultArguments = { ...defaultArguments, track: { endpoint: 'https://depay.test/track' } }
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
@@ -1135,14 +1147,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1227,7 +1239,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('identifies failed payments via websocket', async()=> {
+    it('identifies failed payments via websocket', ()=> {
       defaultArguments = { ...defaultArguments, track: { endpoint: 'https://depay.test/track' } }
 
       cy.visit('cypress/test.html').then((contentWindow) => {
@@ -1238,14 +1250,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1330,7 +1342,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('displays validation errors to the user via websocket', async()=> {
+    it('displays validation errors to the user via websocket', ()=> {
       defaultArguments = { ...defaultArguments, track: { endpoint: 'https://depay.test/track' } }
 
       cy.visit('cypress/test.html').then((contentWindow) => {
@@ -1341,14 +1353,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1437,7 +1449,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('validates successful payments via polling', async()=> {
+    it('validates successful payments via polling', ()=> {
 
       defaultArguments = { ...defaultArguments, 
         track: {
@@ -1456,14 +1468,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1555,7 +1567,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
     })
   })
 
-  describe('managed integration', async()=>{
+  describe('managed integration', ()=>{
 
     const integrationId = '461cb57d-6063-40b8-8326-a124c4a40e6f'
     const configurationId = '392cb57d-9093-30b8-8326-a223c4a40e6f'
@@ -1570,9 +1582,11 @@ describe('Solana Pay: QR code based mobile handover', () => {
         headers: { 'X-Signature': "ojLjOf7F01EQ3bdh30MPd1HZSXhSPWW21gtYJzLqBYv67q9El2x4PZuk1kyMMxvlRiqyPXETD2ZfTmxsLWbPrhv0K8feCsA5tbE3sGRyPkZQMKSH42uRRwj_5ws7_PXXBIhgcoNxn6-NR-DESp4OKQZzG_lLxb9Lcaazbea17u_ftA6wmwvL_ELWxqTjynXh7Jndhjj9nhvd0Tt9WtgMJcwCWmIMPVpBjK3jRwJxuvRJQqnQx7jYJhOYqX3pHkJ4CkFeS_-0HTITKr0_5mLSctJGLK4_oHu__TZOSOuP0skH798hG2BTdhK3PLkZl8KM_W2oyGXvoBdYmOg5xTDufQ==" },
         status: 200
       })
+
+      fetchMock.get({url: /^https:\/\/public\.depay\.com\/solanapay\/[^\/]+\/status$/}, 404)
     })
 
-    it('displays a validated payment via attempt polling', async()=> {
+    it('displays a validated payment via attempt polling', ()=> {
       defaultArguments = { integration: integrationId }
 
       fetchMock.post({
@@ -1600,14 +1614,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
-              cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+              cy.wait(3000).then(()=>{
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1682,7 +1696,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('displays a failed payment via attempt polling', async()=> {
+    it('displays a failed payment via attempt polling', ()=> {
       defaultArguments = { integration: integrationId }
 
       fetchMock.post({
@@ -1710,14 +1724,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1794,7 +1808,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    it('displays validation errors via attempt polling', async()=> {
+    it('displays validation errors via attempt polling', ()=> {
       defaultArguments = { integration: integrationId }
 
       fetchMock.post({
@@ -1822,14 +1836,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
             cy.wait(1000).then(()=>{
-              expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-              secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+              let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+              secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
               expect(secret_id !== undefined).to.equal(true)
               fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-              expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+              expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
               mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
               cy.wait(1000).then(()=>{
-                let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                 let createMessageData = JSON.parse(createMessage.data)
                 expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                 expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -1908,30 +1922,29 @@ describe('Solana Pay: QR code based mobile handover', () => {
       })
     })
 
-    describe('calls configured callbacks', async()=> {
+    describe('calls configured callbacks', ()=> {
 
       let sentCallback
       let succeededCallback
       let failedCallback
       let validatedCallback
     
-      defaultArguments = { 
-        integration: integrationId,
-        sent: (transaction, paymentRoute)=>{
-          sentCallback = { transaction, paymentRoute }
-        },
-        succeeded: (transaction, paymentRoute)=>{
-          succeededCallback = { transaction, paymentRoute }
-        },
-        failed: (transaction, paymentRoute)=>{
-          failedCallback = { transaction, paymentRoute }
-        },
-        validated: (transaction, paymentRoute)=>{
-          validatedCallback = { transaction, paymentRoute }
-        }
-      }
-
       beforeEach(()=>{
+        defaultArguments = { 
+          integration: integrationId,
+          sent: (transaction, paymentRoute)=>{
+            sentCallback = { transaction, paymentRoute }
+          },
+          succeeded: (transaction, paymentRoute)=>{
+            succeededCallback = { transaction, paymentRoute }
+          },
+          failed: (transaction, paymentRoute)=>{
+            failedCallback = { transaction, paymentRoute }
+          },
+          validated: (transaction, paymentRoute)=>{
+            validatedCallback = { transaction, paymentRoute }
+          }
+        }
         sentCallback = undefined
         succeededCallback = undefined
         failedCallback = undefined
@@ -1950,7 +1963,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
         })
       })
 
-      it('calls sent, succeeded and validated (success == true) callback', async()=> {
+      it('calls sent, succeeded and validated (success == true) callback', ()=> {
 
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
@@ -1960,14 +1973,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
               cy.wait(1000).then(()=>{
-                expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-                secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+                let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+                secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
                 expect(secret_id !== undefined).to.equal(true)
                 fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-                expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+                expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
                 mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
                 cy.wait(1000).then(()=>{
-                  let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                  let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                   let createMessageData = JSON.parse(createMessage.data)
                   expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                   expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -2070,7 +2083,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
         })
       })
 
-      it('calls sent, succeeded and no validated callback (if validation failed)', async()=>{
+      it('calls sent, succeeded and no validated callback (if validation failed)', ()=>{
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then(async(document)=>{
             let { unmount } = await DePayWidgets.Payment({ ...defaultArguments, document })
@@ -2079,14 +2092,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
               cy.wait(1000).then(()=>{
-                expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-                secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+                let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+                secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
                 expect(secret_id !== undefined).to.equal(true)
                 fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-                expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+                expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
                 mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
                 cy.wait(1000).then(()=>{
-                  let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                  let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                   let createMessageData = JSON.parse(createMessage.data)
                   expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                   expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')
@@ -2185,7 +2198,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
         })
       })
 
-      it('calls sent, and failed callback if transaction failed', async()=> {
+      it('calls sent, and failed callback if transaction failed', ()=> {
         cy.visit('cypress/test.html').then((contentWindow) => {
           cy.document().then((document)=>{
             DePayWidgets.Payment({ ...defaultArguments, document })
@@ -2194,14 +2207,14 @@ describe('Solana Pay: QR code based mobile handover', () => {
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Solana Pay').click()
               cy.wait(1000).then(()=>{
-                expect(JSON.parse(depayWebsocketMessages[0]).command).to.equal('subscribe')
-                secret_id = JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).secret_id
+                let subscribeMessage = depayWebsocketMessages.find((msg)=>{ return(JSON.parse(msg)?.command == 'subscribe') })
+                secret_id = JSON.parse(JSON.parse(subscribeMessage).identifier).secret_id
                 expect(secret_id !== undefined).to.equal(true)
                 fetchMock.get({url: `https://public.depay.com/solanapay/${secret_id}/status`}, 404)
-                expect(JSON.parse(JSON.parse(depayWebsocketMessages[0]).identifier).channel).to.equal('SolanaPayChannel')
+                expect(JSON.parse(JSON.parse(subscribeMessage).identifier).channel).to.equal('SolanaPayChannel')
                 mockedDepayWebsocket.send(JSON.stringify({ type: 'confirm_subscription' }))
                 cy.wait(1000).then(()=>{
-                  let createMessage = JSON.parse(depayWebsocketMessages[depayWebsocketMessages.length-1])
+                  let createMessage = JSON.parse(depayWebsocketMessages.find((msg)=>{return(msg && JSON.parse(msg)?.data && JSON.parse(JSON.parse(msg).data).event == 'create')}))
                   let createMessageData = JSON.parse(createMessage.data)
                   expect(JSON.parse(createMessage.identifier).secret_id).to.equal(secret_id)
                   expect(JSON.parse(createMessage.identifier).channel).to.equal('SolanaPayChannel')

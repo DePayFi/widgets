@@ -312,7 +312,6 @@ export default (props)=>{
         payment,
         paymentState,
         pay,
-        transaction,
         approvalType,
         setApprovalType,
         approvalAmount,

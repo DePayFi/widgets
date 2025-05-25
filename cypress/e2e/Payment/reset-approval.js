@@ -39,121 +39,123 @@ describe('Payment Widget: reset approval', () => {
 
   afterEach(closeWidget)
 
-  beforeEach(async()=>{
+  beforeEach(()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()
     mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
-    provider = await getProvider(blockchain)
+    
+    cy.then(() => getProvider(blockchain)).then((provider) => {
 
-    ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, exchange } = mockBasics({
-      
-      provider,
-      blockchain,
+      ;({ TOKEN_A_AmountBN, WRAPPED_AmountInBN, exchange } = mockBasics({
+        
+        provider,
+        blockchain,
 
-      fromAddress,
-      fromAddressAssets: [
+        fromAddress,
+        fromAddressAssets: [
+          {
+            "name": "Ether",
+            "symbol": "ETH",
+            "address": ETH,
+            "type": "NATIVE"
+          }, {
+            "name": "USDT",
+            "symbol": "USDT",
+            "address": USDT,
+            "type": "20"
+          }, {
+            "name": "DePay",
+            "symbol": "DEPAY",
+            "address": DEPAY,
+            "type": "20"
+          }
+        ],
+        
+        toAddress,
+
+        exchange: 'uniswap_v2',
+        NATIVE_Balance: 0,
+
+        TOKEN_A: DEPAY,
+        TOKEN_A_Decimals: 18,
+        TOKEN_A_Name: 'DePay',
+        TOKEN_A_Symbol: 'DEPAY',
+        TOKEN_A_Amount: amount,
+        TOKEN_A_Balance: 30,
+        
+        TOKEN_B: USDT,
+        TOKEN_B_Decimals: 6,
+        TOKEN_B_Name: 'USDT',
+        TOKEN_B_Symbol: 'USDT',
+        TOKEN_B_Amount: 33,
+        TOKEN_B_Balance: 50,
+
+        TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
+        TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
+        TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
+
+        WRAPPED_AmountIn: 0.01,
+        USD_AmountOut: 33,
+
+        timeZone: 'Europe/Berlin',
+        stubTimeZone: (timeZone)=> {
+          cy.stub(Intl, 'DateTimeFormat', () => {
+            return { resolvedOptions: ()=>{
+              return { timeZone }
+            }}
+          })
+        },
+
+        currency: 'EUR',
+        currencyToUSD: '0.85'
+      }))
+
+      mock({ blockchain, provider, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: '100000' } })
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/best",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, {
+          blockchain,
+          fromToken: USDT,
+          fromDecimals: 6,
+          fromName: "USDT",
+          fromSymbol: "USDT",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY",
+          pairsData: [{ exchange: 'uniswap_v2' }]
+      })
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/all",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, [
         {
-          "name": "Ether",
-          "symbol": "ETH",
-          "address": ETH,
-          "type": "NATIVE"
-        }, {
-          "name": "USDT",
-          "symbol": "USDT",
-          "address": USDT,
-          "type": "20"
-        }, {
-          "name": "DePay",
-          "symbol": "DEPAY",
-          "address": DEPAY,
-          "type": "20"
-        }
-      ],
-      
-      toAddress,
+          blockchain,
+          fromToken: USDT,
+          fromDecimals: 6,
+          fromName: "USDT",
+          fromSymbol: "USDT",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY",
+          pairsData: [{ exchange: 'uniswap_v2' }]
+        },
+      ])
 
-      exchange: 'uniswap_v2',
-      NATIVE_Balance: 0,
-
-      TOKEN_A: DEPAY,
-      TOKEN_A_Decimals: 18,
-      TOKEN_A_Name: 'DePay',
-      TOKEN_A_Symbol: 'DEPAY',
-      TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
-      
-      TOKEN_B: USDT,
-      TOKEN_B_Decimals: 6,
-      TOKEN_B_Name: 'USDT',
-      TOKEN_B_Symbol: 'USDT',
-      TOKEN_B_Amount: 33,
-      TOKEN_B_Balance: 50,
-
-      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
-      TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
-      TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
-
-      WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
-
-      timeZone: 'Europe/Berlin',
-      stubTimeZone: (timeZone)=> {
-        cy.stub(Intl, 'DateTimeFormat', () => {
-          return { resolvedOptions: ()=>{
-            return { timeZone }
-          }}
-        })
-      },
-
-      currency: 'EUR',
-      currencyToUSD: '0.85'
-    }))
-
-    mock({ blockchain, provider, request: { to: USDT, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: '100000' } })
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/best",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept,
-      },
-    }, {
-        blockchain,
-        fromToken: USDT,
-        fromDecimals: 6,
-        fromName: "USDT",
-        fromSymbol: "USDT",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 18,
-        toName: "DePay",
-        toSymbol: "DEPAY",
-        pairsData: [{ exchange: 'uniswap_v2' }]
     })
-
-    fetchMock.post({
-      url: "https://public.depay.com/routes/all",
-      body: {
-        accounts: { [blockchain]: accounts[0] },
-        accept,
-      },
-    }, [
-      {
-        blockchain,
-        fromToken: USDT,
-        fromDecimals: 6,
-        fromName: "USDT",
-        fromSymbol: "USDT",
-        toToken: DEPAY,
-        toAmount: TOKEN_A_AmountBN.toString(),
-        toDecimals: 18,
-        toName: "DePay",
-        toSymbol: "DEPAY",
-        pairsData: [{ exchange: 'uniswap_v2' }]
-      },
-    ])
-
   })
   
   it('asks me to approve the token for the payment router before I can execute it', () => {
