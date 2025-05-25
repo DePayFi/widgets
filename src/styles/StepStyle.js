@@ -53,7 +53,7 @@ export default (style)=>{
 
     .StepConnector {
       width: 2px;
-      height: 22px;
+      height: 20px;
       position: absolute;
       left: 20px;
       background: ${style.colors.text};

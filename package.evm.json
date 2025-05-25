@@ -28,7 +28,7 @@
     "@depay/react-shadow-dom": "^5.0.5",
     "@depay/react-token-image-evm": "^6.0.0",
     "@depay/walletconnect-v2": "^2.12.2",
-    "@depay/web3-blockchains": "^9.8.4",
+    "@depay/web3-blockchains": "^9.8.5",
     "@depay/web3-client-evm": "^11.1.0",
     "@depay/web3-payments-evm": "^15.2.1",
     "@depay/web3-tokens-evm": "^11.1.0",

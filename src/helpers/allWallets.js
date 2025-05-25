@@ -192,7 +192,10 @@ export default [
   {
     "name": "Backpack",
     "extension": "Backpack",
-    "desktop": {},
+    "desktop": {
+      "solanaPay": true,
+      "qr": ()=>`backpack://ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`
+    },
     "mobile": {
       "ios": {
         "open": ()=>`backpack://ul/v1/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,

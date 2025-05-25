@@ -26,17 +26,20 @@ export default ()=> {
             <ErrorGraphic/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Payment Failed</h1>
-          <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            <strong className="FontSizeM">
-              Unfortunately executing your payment failed, but you can try again.
-            </strong>
-            { transaction && 
-              <div className="PaddingTopS">
-                <a className="Link" title="Check your transaction on a block explorer" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
+          <div className="Text PaddingBottomS PaddingLeftS PaddingRightS">
+            <div className="PaddingTopS">
+              <strong className="FontSizeM">Your payment did not succeed.</strong>
+            </div>
+            <div className="PaddingTopXS">
+              <strong className="FontSizeM">Please try again.</strong>
+            </div>
+            <div className="PaddingTopS">
+              { transaction && 
+                <a className="Link" title="Check transaction details" href={ link({ url: transaction?.url, target: '_blank', wallet }) } target="_blank" rel="noopener noreferrer">
                   View details
                 </a>
-              </div>
-            }
+              }
+            </div>
           </div>
         </div>
       }

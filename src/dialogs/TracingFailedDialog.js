@@ -8,8 +8,11 @@ export default (props)=> {
   const { navigate } = useContext(NavigateStackContext)
 
   const tryAgain = ()=>{
-    if(props.tryAgain){ props.tryAgain() }
-    navigate('back')
+    if(props.tryAgain){
+      props.tryAgain()
+    } else {
+      navigate('back')
+    }
   }
 
   return(
@@ -17,7 +20,7 @@ export default (props)=> {
       stacked={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
-          <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <div className="PaddingRightM">
             <button onClick={()=>{ window.open(`mailto:support@depay.com?subject=Tracing Failed Error`, '_blank') }} type="button" className="Card secondary small inlineBlock">
               Contact support
             </button>

@@ -122,6 +122,7 @@ export default (props)=>{
         wallet,
         disconnect,
         solanaPayWallet,
+        setAccount,
       }}>
         { props.children }
       </WalletContext.Provider>

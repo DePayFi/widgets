@@ -35,7 +35,7 @@ export default (props)=>{
   const [ slowRouting, setSlowRouting ] = useState(false)
   const [ reloadCount, setReloadCount ] = useState(0)
   const [ allRoutesLoaded, setAllRoutesLoaded ] = useState(false)
-  const { account, wallet } = useContext(WalletContext)
+  const { account, wallet, solanaPayWallet } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
   const configuration = useContext(ConfigurationContext)
   const { amountsMissing } = useContext(ChangableAmountContext)
@@ -107,7 +107,7 @@ export default (props)=>{
   }, [reloadCount, allRoutes, allRoutesLoaded, selectedRoute, updatable])
 
   useEffect(() => {
-    if(account && props.accept) {
+    if(account && props.accept && !solanaPayWallet) {
       refreshPaymentRoutes()
     } else if (props.accept === undefined) {
       setSelectedRoute()
@@ -115,7 +115,7 @@ export default (props)=>{
       setUpdatedRoutes()
       setAllRoutes()
     }
-  }, [account, props.accept])
+  }, [account, solanaPayWallet, props.accept])
 
   const updateAllRoutes = useCallback(debounce((selectedRoute, updatedRoutes)=>{
     if(updatedRoutes === undefined){ return }

@@ -565,9 +565,9 @@ Allows you to stop the payment if this method returns false.
 ```javascript
 DePayWidgets.Payment({
 
-  before: async (payment, from)=> {
+  before: async (transaction, paymentRoute)=> {
     alert('Something went wrong')
-    return false // stops payment
+    return false // stops payment processing
   }
 })
 ```
@@ -613,14 +613,12 @@ DePayWidgets.Payment({
 
 `validated`
 
-A function that will be called once the payment has been validated by DePay (server-side, onchain).
+A function that will be called once the payment has been successfully validated by DePay (server-side, onchain).
 
 ```javascript
 DePayWidgets.Payment({
 
-  validated: (successful, transaction, paymentRoute)=> {
-    // successful (true or false)
-
+  validated: (transaction, paymentRoute)=> {
     // "paymentRoute" contains more information about what the user selected as payment option and what it was routed to
   }
 })
@@ -637,7 +635,7 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Payment({
 
-  failed: (transaction, error, paymentRoute)=> {
+  failed: (transaction, paymentRoute)=> {
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
     // might be called multiple times
@@ -1073,7 +1071,7 @@ The widget will call this function with a transaction as single argument (see: [
 ```javascript
 DePayWidgets.Sale({
   
-  sent: (transaction)=> {
+  sent: (transaction, paymentRoute)=> {
     // called when payment transaction has been sent to the network
   }
 });
@@ -1090,7 +1088,7 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Sale({
 
-  succeeded: (transaction)=> {
+  succeeded: (transaction, paymentRoute)=> {
     // called when payment transaction has been confirmed once by the network
   }
 });
@@ -1107,7 +1105,7 @@ The widget will call this function passing a transaction as single argument (see
 ```javascript
 DePayWidgets.Sale({
 
-  failed: (transaction)=> {
+  failed: (transaction, paymentRoute)=> {
     // called when payment transaction failed on the blockchain
     // handled by the widget, no need to display anything
   }

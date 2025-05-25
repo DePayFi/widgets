@@ -17,6 +17,7 @@ import { TokenImage } from '@depay/react-token-image'
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
+import CallbackContext from '../contexts/CallbackContext'
 import CheckmarkIcon from '../icons/CheckmarkIcon'
 import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ClosableContext from '../contexts/ClosableContext'
@@ -33,12 +34,13 @@ import LoadingText from '../components/LoadingText'
 import MenuIcon from '../icons/MenuIcon'
 import openManagedSocket from '../helpers/openManagedSocket'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
-import PaymentValueContext from '../contexts/PaymentValueContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
+import PaymentValueContext from '../contexts/PaymentValueContext'
 import QRCodeStyling from "qr-code-styling"
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import SolanaPayLogo from '../icons/SolanaPayLogo'
 import Token from '@depay/web3-tokens'
+import TracingFailedDialog from '../dialogs/TracingFailedDialog'
 import UUIDv4 from '../helpers/UUIDv4'
 import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
@@ -46,13 +48,15 @@ import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=> {
 
-  const { accept, allow, deny, sent, succeeded, failed } = useContext(ConfigurationContext)
+  const { accept, allow, deny } = useContext(ConfigurationContext)
+  const { callSentCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
-  const { solanaPayWallet } = useContext(WalletContext)
+  const { solanaPayWallet, setAccount } = useContext(WalletContext)
   const { synchronousTracking, track, trace, release, validationState, forwardTo } = useContext(PaymentTrackingContext)
   const { setSelectedRoute } = useContext(PaymentRoutingContext)
   const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
+  const { setTransaction } = useContext(PaymentTrackingContext)
 
   const [ selectedPaymentOption, setSelectedPaymentOption ] = useState()
   const [ QRCodeURI, setQRCodeURI ] = useState()
@@ -65,36 +69,12 @@ export default (props)=> {
   const solanaPayTransactionSocket = useRef()
   const transactionTrackingSocket = useRef()
   const afterBlock = useRef()
+  const currentDeadline = useRef()
   const secretId = useRef()
   const transactionPollingInterval = useRef()
   const solanPayPayment = useRef()
   const transaction = useRef()
   
-  const sentCallbackCalled = useRef()
-  const succeededCallbackCalled = useRef()
-  const failedCallbackCalled = useRef()
-
-  const sentCallback= ()=>{
-    if(typeof sent == 'function' && sentCallbackCalled.current !== true) {
-      sentCallbackCalled.current = true
-      sent(transaction.current)
-    }
-  }
-
-  const succeededCallback = ()=>{
-    if(typeof succeeded == 'function' && succeededCallbackCalled.current !== true) {
-      succeededCallbackCalled.current = true
-      succeeded(transaction.current, solanPayPayment.current)
-    }
-  }
-
-  const failedCallback = (error)=>{
-    if(typeof failed == 'function' && failedCallbackCalled.current !== true) {
-      failedCallbackCalled.current = true
-      failed(transaction.current, error, solanPayPayment.current)
-    }
-  }
-
   const getNewQRCode = ()=>{
     return new QRCodeStyling({
       width: 340,
@@ -186,8 +166,8 @@ export default (props)=> {
     if(transactionTrackingSocket.current) { transactionTrackingSocket.current.close(1000) }
     let id = 1
     transactionTrackingSocket.current = openManagedSocket({
-      identifier: JSON.stringify({ type: 'SolanaTransactionLogSubscription', sender, receiver, deadline  }),
-      endpoints: Blockchains.solana.sockets,
+      identifier: JSON.stringify({ type: 'SolanaTransactionLogSubscription', sender, receiver, deadline }),
+      endpoints: Blockchains.solana.sockets.reverse(),
       onopen: ()=>{
         return(
           {
@@ -200,20 +180,28 @@ export default (props)=> {
           }
         )
       },
-      onmessage: (eventData, socket)=>{
+      onmessage: async(eventData, socket)=>{
         if(eventData) {
           if(eventData && eventData?.params?.result?.value?.logs && (eventData?.params?.result?.value?.logs || [])?.find((log)=>{return log.match(`Program ${routers.solana.address}`)})) {
-            const result = eventData?.params?.result?.value
-            if(result && result.err === null) {
-              transactionFound(result.signature)
-              setState('succeeded')
-              succeededCallback()
-              socket.close(1000)
-            } else if(result) {
-              transactionFound(result.signature)
-              setState('failed')
-              failedCallback('transaction failed')
-              socket.close(1000)
+            const provider = await getProvider('solana')
+            const transactionId = eventData.params.result.value.signature
+            const fullTransactionData = await provider.getTransaction(transactionId, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 })
+            const foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData)
+            if(foundRouterInstruction && foundRouterInstruction.deadline.toString() === deadline.toString()) {
+              const result = eventData?.params?.result?.value
+              setTransaction({ blockchain: 'solana', id: transactionId, url: Blockchains.solana.explorerUrlFor({ transaction: { id: transactionId } }) })
+              if(fullTransactionData?.meta?.err !== null) {
+                transactionFound(result.signature)
+                socket.close(1000)
+                setClosable(true)
+                callFailedCallback(transaction.current, solanPayPayment.current)
+                navigate('PaymentFailed')
+              } else if(result) {
+                transactionFound(result.signature)
+                setState('succeeded')
+                callSucceededCallback(transaction.current, solanPayPayment.current)
+                socket.close(1000)
+              }
             }
           }
         }
@@ -240,18 +228,20 @@ export default (props)=> {
       if(signatures && signatures.length && signatures[0].slot > afterBlock.current) {
         const relevantTransactions = signatures.filter((signature)=>signature.slot > afterBlock.current)
         relevantTransactions.forEach(async(relevantTransaction)=>{
-          const fullTransactionData = await provider.getTransaction(relevantTransaction.signature, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 })
+          const transactionId = relevantTransaction.signature
+          const fullTransactionData = await provider.getTransaction(transactionId, { commitment: 'confirmed', maxSupportedTransactionVersion: 0 })
           const foundRouterInstruction = getPaymentRouterInstruction(fullTransactionData)
           if(foundRouterInstruction && foundRouterInstruction.deadline.toString() === deadline.toString()) {
             transactionFound(fullTransactionData.transaction.signatures[0])
-            if(fullTransactionData.meta.err === null) {
-              setState('succeeded')
-              succeededCallback()
-            } else {
-              setState('failed')
-              failedCallback('transaction failed')
-            }
+            setTransaction({ blockchain: 'solana', id: transactionId, url: Blockchains.solana.explorerUrlFor({ transaction: { id: transactionId } }) })
             if(transactionPollingInterval.current) { clearInterval(transactionPollingInterval.current) }
+            if(fullTransactionData?.meta?.err !== null) {
+              callFailedCallback(transaction.current, solanPayPayment.current)
+              navigate('PaymentFailed')
+            } else {
+              setState('succeeded')
+              callSucceededCallback(transaction.current, solanPayPayment.current)
+            }
           }
         })
       }
@@ -260,25 +250,30 @@ export default (props)=> {
 
   const transactionFound = (transactionId)=> {
     transaction.current = {
+      from: solanPayPayment.current.fromAddress,
       blockchain: 'solana',
       status: 'succeeded',
       id: transactionId,
       url: Blockchains.solana.explorerUrlFor({ transaction: { id: transactionId } }),
     }
-    sentCallback(transactionId)
-    if(release || !synchronousTracking) {
-      setClosable(true)
-    }
+    callSentCallback(transaction.current, solanPayPayment.current)
+    setClosable(release || !synchronousTracking)
     track(
-      {
-        blockchain: 'solana',
-        id: transactionId,
-        from: solanPayPayment.current.fromAddress,
-      },
+      transaction.current,
       afterBlock.current,
       solanPayPayment.current,
       solanPayPayment.current.deadline
     )
+  }
+
+  const attemptTracing = ()=>{
+    return trace(
+      afterBlock.current,
+      solanPayPayment.current,
+      currentDeadline.current
+    ).catch(()=>{
+      setState('tracingFailed')
+    })
   }
 
   const transactionLoaded = async({
@@ -297,6 +292,8 @@ export default (props)=> {
     receiver,
     deadline,
   }) => {
+
+    setAccount(sender)
 
     if(solanPayPayment.current) { return }
     solanPayPayment.current = {
@@ -317,26 +314,20 @@ export default (props)=> {
       deadline
     }
 
+    currentDeadline.current = deadline
+
     setSelectedRoute(solanPayPayment.current)
 
-    trace(
-      afterBlock.current,
-      solanPayPayment.current,
-      deadline
-    ).then(async()=>{
+    attemptTracing()
 
-      openTransactionTrackingSocket({ sender, receiver, deadline })
-      startTransactionPolling({ sender, receiver, deadline })
+    openTransactionTrackingSocket({ sender, receiver, deadline })
+    startTransactionPolling({ sender, receiver, deadline })
 
-      let token = new Token({ blockchain: 'solana', address: from_token })
-      setSelectedPaymentOption({
-        token: from_token,
-        amount: await token.readable(from_amount) ,
-        symbol: await token.symbol(),
-      })
-    }).catch((e)=>{
-      console.log(e)
-      navigate('TracingFailed')
+    let token = new Token({ blockchain: 'solana', address: from_token })
+    setSelectedPaymentOption({
+      token: from_token,
+      amount: await token.readable(from_amount) ,
+      symbol: await token.symbol(),
     })
   }
 
@@ -346,6 +337,7 @@ export default (props)=> {
     if(solanaPayTransactionSocket.current) { solanaPayTransactionSocket.current.close(1000) }
     if(transactionTrackingSocket.current) { transactionTrackingSocket.current.close(1000) }
     if(afterBlock.current) { afterBlock.current = undefined }
+    if(currentDeadline.current) { currentDeadline.current = undefined }
     if(secretId.current) { secretId.current = undefined }
     if(solanPayPayment.current) { solanPayPayment.current = undefined }
     setSelectedPaymentOption()
@@ -399,6 +391,23 @@ export default (props)=> {
     }
   }, [state, QRCode])
 
+  useEffect(()=>{
+    if(release && synchronousTracking) {
+      setClosable(true)
+    }
+  }, [release, synchronousTracking])
+
+  if(state === 'tracingFailed') {
+    return(
+      <TracingFailedDialog
+        tryAgain={ ()=>{
+          setState('pay')
+          attemptTracing()
+        } }
+      />
+    )
+  }
+
   if(state === 'initializing') {
     return(
       <Dialog
@@ -447,8 +456,8 @@ export default (props)=> {
                 <div ref={ QRCodeElement } className="QRCode"/>
               }
 
-              { ['pay', 'succeeded', 'failed'].includes(state) &&
-                <div className="PaddingTopS">
+              { ['pay', 'succeeded'].includes(state) &&
+                <div className="PaddingTopXS">
 
                   { !selectedPaymentOption &&
                     <div className="Card Skeleton">
@@ -602,13 +611,6 @@ export default (props)=> {
 
                   </div>
 
-                  { synchronousTracking && !release &&
-                    <div className="PaddingBottomXS">
-                      <button className="ButtonPrimary disabled">
-                        Continue
-                      </button>
-                    </div>
-                  }
                   {
                     (release || !synchronousTracking) && forwardTo &&
                     <div className="PaddingBottomXS">

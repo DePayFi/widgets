@@ -12,6 +12,7 @@ import { request } from '@depay/web3-client'
 
 //#endif
 
+import CallbackContext from '../contexts/CallbackContext'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import ErrorContext from '../contexts/ErrorContext'
@@ -19,12 +20,14 @@ import NavigateContext from '../contexts/NavigateContext'
 import openManagedSocket from '../helpers/openManagedSocket'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useEffect, useContext, useState, useRef } from 'react'
+import useEvent from '../hooks/useEvent'
 import WalletContext from '../contexts/WalletContext'
 import { ethers } from 'ethers'
 
 export default (props)=>{
   const { errorCallback } = useContext(ErrorContext)
-  const { id: configurationId, track: trackConfiguration, validated, failed, integration, link, type } = useContext(ConfigurationContext)
+  const { id: configurationId, track: trackConfiguration, integration, link, type } = useContext(ConfigurationContext)
+  const { callValidatedCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
   const { account, wallet, solanaPayWallet } = useContext(WalletContext)
   const [ deadline, setDeadline ] = useState()
   const [ transaction, setTransaction ] = useState()
@@ -57,14 +60,39 @@ export default (props)=>{
   const { navigate, set } = useContext(NavigateContext)
 
   const validationSocket = useRef()
-  const validatedCallbackCalled = useRef()
 
-  const callValidatedCallback = (success, transaction, paymentRoute)=>{
-    if(validated && validatedCallbackCalled.current !== true) {
-      validatedCallbackCalled.current = true
-      setTimeout(()=>validated(success, transaction, paymentRoute), 200)
+  const processValidationSocketMessage = useEvent((eventData, socket)=>{
+    if(eventData?.message) {
+      if(eventData.message.status) {
+        const success = eventData.message.status == 'success'
+        if(eventData.message.release) {
+          socket.close(1000)
+          if(success) {
+            callSucceededCallback(transaction, paymentRoute)
+            callValidatedCallback(transaction, paymentRoute)
+            setRelease(true)
+            setClosable(true)
+            setForwardTo(eventData.message.forward_to)
+          } else if(success == false) {
+            if(
+              eventData.message.failed_reason === undefined ||
+              eventData.message.failed_reason === 'FAILED'
+            ) {
+              setClosable(true)
+              callFailedCallback(transaction, paymentRoute)
+              set(['PaymentFailed'])
+            } else {
+              setClosable(false)
+              set(['ValidationFailed'])
+            }
+          }
+        } else if(eventData.message.confirmations) {
+          setConfirmationsRequired(eventData.message.confirmations.required)
+          setConfirmationsPassed(eventData.message.confirmations.passed)
+        }
+      }
     }
-  }
+  })
 
   const openValidationSocket = (paymentRoute, deadline)=>{
 
@@ -83,28 +111,7 @@ export default (props)=>{
       onopen: ()=>{
         return({ command: 'subscribe', identifier })
       },
-      onmessage: (eventData, socket)=>{
-        if(eventData?.message) {
-          if(eventData.message.status) {
-            const success = eventData.message.status == 'success'
-            callValidatedCallback(success, transaction, paymentRoute)
-            if(eventData.message.release) {
-              socket.close(1000)
-              if(success) {
-                setRelease(true)
-                setClosable(true)
-                setForwardTo(eventData.message.forward_to)
-              } else if(success == false) {
-                setClosable(true)
-                set(['PaymentFailed'])
-              }
-            } else if(eventData.message.confirmations) {
-              setConfirmationsRequired(eventData.message.confirmations.required)
-              setConfirmationsPassed(eventData.message.confirmations.passed)
-            }
-          }
-        }
-      },
+      onmessage: processValidationSocketMessage,
       keepAlive: {
         interval: 3000, 
         callback: ()=> {
@@ -119,10 +126,10 @@ export default (props)=>{
 
   const retryStartTracking = (transaction, afterBlock, paymentRoute, deadline, attempt)=> {
     attempt = parseInt(attempt || 1, 10)
-    if(attempt < (trackConfiguration?.attempts || 40)) {
+    if(attempt < 10) {
       setTimeout(()=>{
         startTracking(transaction, afterBlock, paymentRoute, deadline, attempt+1)
-      }, 3000)
+      }, 2000)
     } else {
       navigate('TrackingFailed')
     }
@@ -194,6 +201,33 @@ export default (props)=>{
       })
   }
 
+  const handlePollingResponse = useEvent((data)=>{
+    if(data) {
+      if(data && data.forward_to) {
+        setClosable(true)
+        setForwardTo(data.forward_to)
+      } else {
+        setClosable(true)
+      }
+      clearInterval(pollingInterval)
+      if(data.failed_reason && data.failed_reason != 'FAILED') {
+        setClosable(false)
+        set(['ValidationFailed'])
+      } else {
+        if(data.status == 'failed') {
+          setClosable(true)
+          callFailedCallback(transaction, paymentRoute)
+          set(['PaymentFailed'])
+        } else if(data.status == 'success') {
+          callSucceededCallback(transaction, paymentRoute)
+          callValidatedCallback(transaction, paymentRoute)
+          setClosable(true)
+          setRelease(true)
+        }
+      }
+    }
+  })
+
   const pollStatus = async(polling, transaction, afterBlock, paymentRoute, pollingInterval, attemptId, deadline)=>{
     if(
       !polling ||
@@ -201,20 +235,6 @@ export default (props)=>{
       afterBlock == undefined ||
       paymentRoute == undefined
     ) { return }
-
-    const handlePollingResponse = (data)=>{
-      if(data) {
-        if(data && data.forward_to) {
-          setClosable(true)
-          setForwardTo(data.forward_to)
-        } else {
-          setClosable(true)
-        }
-        clearInterval(pollingInterval)
-        callValidatedCallback(data.status ? data.status == 'success' : true, transaction, paymentRoute)
-        setRelease(true)
-      }
-    }
 
     const performedPayment = {
       blockchain: transaction.blockchain,
@@ -344,6 +364,7 @@ export default (props)=>{
     <PaymentTrackingContext.Provider value={{
       synchronousTracking,
       asynchronousTracking,
+      setTransaction,
       track,
       trace,
       trackingInitialized,

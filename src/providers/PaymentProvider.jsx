@@ -16,6 +16,7 @@ import Token from '@depay/web3-tokens'
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
+import CallbackContext from '../contexts/CallbackContext'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import debounce from '../helpers/debounce'
@@ -35,7 +36,9 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, succeeded, failed, before, accept } = useContext(ConfigurationContext)
+  const { callSentCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
+  const { transaction, setTransaction } = useContext(PaymentTrackingContext)
+  const { accept, before } = useContext(ConfigurationContext)
   const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { setUpdatable } = useContext(UpdatableContext)
@@ -43,7 +46,6 @@ export default (props)=>{
   const { wallet, account } = useContext(WalletContext)
   const { release, synchronousTracking, asynchronousTracking, trackingInitialized, track, trace } = useContext(PaymentTrackingContext)
   const [ payment, setPayment ] = useState()
-  const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
   const [ approvalSignature, setApprovalSignature ] = useState()
   const [ approvalSignatureData, setApprovalSignatureData ] = useState()
@@ -59,17 +61,16 @@ export default (props)=>{
     } else if(release != true && paymentState != 'success') {
       setPaymentState('validating')
     }
-    if(succeeded) { setTimeout(()=>succeeded(transaction, payment), 200) }
+    callSucceededCallback(transaction, selectedRoute)
   })
 
-  const paymentFailed = useEvent((transaction, error, payment)=> {
-    console.log('error', error?.toString())
+  const paymentFailed = useEvent((transaction, error)=> {
     if(asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true)
     }
     set(['PaymentFailed'])
     setPaymentState('failed')
-    if(failed) { failed(transaction, error, payment) }
+    callFailedCallback(transaction, selectedRoute)
   })
 
   const pay = useEvent(async(passedSignatureData, passedSignature)=> {
@@ -87,7 +88,7 @@ export default (props)=>{
       )
     )
     if(before) {
-      let stop = await before(transaction, account)
+      let stop = await before(transaction, selectedRoute)
       if(stop === false){
         setPaymentState('initialized')
         return
@@ -106,7 +107,7 @@ export default (props)=>{
         sent: (sentTransaction)=>{
           setPaymentState('sending')
           setTransaction(sentTransaction)
-          if(sent) { sent(sentTransaction) }
+          callSentCallback(sentTransaction, selectedRoute)
         },
         succeeded: (transaction)=>paymentSucceeded(transaction, payment),
         failed: (transaction, error)=>paymentFailed(transaction, error, payment)

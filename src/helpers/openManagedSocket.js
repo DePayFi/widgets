@@ -35,8 +35,9 @@ const openManagedSocket = ({
     keepAliveInterval = setInterval(()=>{
       if([WebSocket.CLOSING, WebSocket.CLOSED].includes(socket.readyState)) {
         clearInterval(keepAliveInterval)
+      } else {
+        socket.send(JSON.stringify(keepAlive.callback()))
       }
-      socket.send(JSON.stringify(keepAlive.callback()))
     }, keepAlive.interval)
     keepAliveIntervals[identifier] = keepAliveInterval
   }

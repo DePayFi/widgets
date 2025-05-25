@@ -9,6 +9,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import SolanaPayDialog from '../dialogs/SolanaPayDialog'
 import TracingFailedDialog from '../dialogs/TracingFailedDialog'
 import TrackingFailedDialog from '../dialogs/TrackingFailedDialog'
+import ValidationFailedDialog from '../dialogs/ValidationFailedDialog'
 import WalletContext from '../contexts/WalletContext'
 import WrongNetworkDialog from '../dialogs/WrongNetworkDialog'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
@@ -48,6 +49,7 @@ export default (props)=>{
         WrongNetwork: <WrongNetworkDialog/>,
         TrackingFailed: <TrackingFailedDialog/>,
         TracingFailed: <TracingFailedDialog/>,
+        ValidationFailed: <ValidationFailedDialog/>,
       }}
     />
   )

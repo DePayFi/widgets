@@ -1140,9 +1140,9 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.svm.js
+      - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.svm.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

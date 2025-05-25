@@ -1,3 +1,4 @@
+import CallbackProvider from './providers/CallbackProvider'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
@@ -72,31 +73,33 @@ let Payment = async ({
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, allow, deny, whitelist, blacklist, providers, track, integration, link, wallet, title, action, wallets, protocolFee } }>
-            <UpdatableProvider>
-              <ClosableProvider unmount={ unmount } closable={ closable }>
-                <NavigateProvider>
-                  <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
-                    <ConversionRateProvider>
-                      <ChangableAmountProvider>
-                        <PaymentAmountRoutingProvider container={ container } document={ document }>
-                          <PaymentTrackingProvider document={ ensureDocument(document) }>
-                            <PaymentProvider container={ container } document={ document }>
-                              <PaymentValueProvider>
-                                <PaymentStack
-                                  document={ document }
-                                  container={ container }
-                                />
-                                <PoweredBy/>
-                              </PaymentValueProvider>
-                            </PaymentProvider>
-                          </PaymentTrackingProvider>
-                        </PaymentAmountRoutingProvider>
-                      </ChangableAmountProvider>
-                    </ConversionRateProvider>
-                  </WalletProvider>
-                </NavigateProvider>
-              </ClosableProvider>
-            </UpdatableProvider>
+            <CallbackProvider>
+              <UpdatableProvider>
+                <ClosableProvider unmount={ unmount } closable={ closable }>
+                  <NavigateProvider>
+                    <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
+                      <ConversionRateProvider>
+                        <ChangableAmountProvider>
+                          <PaymentAmountRoutingProvider container={ container } document={ document }>
+                            <PaymentTrackingProvider document={ ensureDocument(document) }>
+                              <PaymentProvider container={ container } document={ document }>
+                                <PaymentValueProvider>
+                                  <PaymentStack
+                                    document={ document }
+                                    container={ container }
+                                  />
+                                  <PoweredBy/>
+                                </PaymentValueProvider>
+                              </PaymentProvider>
+                            </PaymentTrackingProvider>
+                          </PaymentAmountRoutingProvider>
+                        </ChangableAmountProvider>
+                      </ConversionRateProvider>
+                    </WalletProvider>
+                  </NavigateProvider>
+                </ClosableProvider>
+              </UpdatableProvider>
+            </CallbackProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })
