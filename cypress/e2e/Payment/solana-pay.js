@@ -351,7 +351,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                           cy.wait(1000).then(()=>{
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Perform payment')
-                            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').contains('Close')
+                            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').contains('Done')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
                           })
@@ -540,7 +540,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                           cy.wait(1000).then(()=>{
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Perform payment')
-                            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').contains('Close')
+                            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').contains('Done')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
                           })
@@ -769,7 +769,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                               })
                               expect(foundTraceRequest != undefined).to.equal(true)
                               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Payment confirmed')
-                              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').click()
+                              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
                             })
                           })
                         })
@@ -888,7 +888,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                                 })
                                 expect(foundTraceRequest != undefined).to.equal(true)
                                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Payment confirmed')
-                                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').click()
+                                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
                               })
                             })
                           })
@@ -1012,7 +1012,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                                 })
                                 expect(foundTraceRequest != undefined).to.equal(true)
                                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Payment confirmed')
-                                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').click()
+                                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
                               })
                             })
                           })
@@ -1128,7 +1128,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                               })
                               expect(foundTrackingRequest != undefined).to.equal(true)
                               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Payment confirmed')
-                              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Close').click()
+                              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').click()
                             })
                           })
                         })
@@ -1582,6 +1582,12 @@ describe('Solana Pay: QR code based mobile handover', () => {
     beforeEach(()=>{
 
       defaultArguments = { integration: integrationId }
+
+      fetchMock.post({
+        url: "https://depay.test/track",
+        body: {},
+        matchPartialBody: true
+      }, 200)
       
       fetchMock.post({
         url: `https://public.depay.com/configurations/${integrationId}?v=3`,

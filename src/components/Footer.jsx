@@ -465,23 +465,19 @@ export default ()=>{
           } else {
             return(
               <button className="ButtonPrimary" onClick={ close }>
-                Continue
+                Done
               </button>
             )
           }
         } else {
-          return(
-            <button className="ButtonPrimary disabled" onClick={ ()=>{} }>
-              Continue
-            </button>
-          )
+          return(null)
         }
       } else if (asynchronousTracking == true && trackingInitialized == false) {
         return(null)
       } else {
         return(
           <button className="ButtonPrimary" onClick={ close }>
-            Close
+            Done
           </button>
         )
       }

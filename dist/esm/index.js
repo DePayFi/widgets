@@ -1,6 +1,6 @@
 import { wallets, getWallets } from '@depay/web3-wallets';
 import Blockchains from '@depay/web3-blockchains';
-import React, { useState, useContext, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useRef, useEffect, useCallback, useState, useContext, useMemo } from 'react';
 import copy from '@uiw/copy-to-clipboard';
 import { NavigateStackContext, ReactDialogStack } from '@depay/react-dialog-stack';
 import QRCodeStyling from 'qr-code-styling';
@@ -4870,6 +4870,16 @@ var ClosableContext = /*#__PURE__*/React.createContext();
 
 var UpdatableContext = /*#__PURE__*/React.createContext();
 
+function useEvent(fn) {
+  var ref = useRef(fn);
+  useEffect(function () {
+    ref.current = fn;
+  }, [fn]);
+  return useCallback(function () {
+    return ref.current.apply(ref, arguments);
+  }, []);
+}
+
 var ClosableProvider = (function (props) {
   var _useState = useState(props.closable || true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -4884,7 +4894,7 @@ var ClosableProvider = (function (props) {
   var _useContext = useContext(UpdatableContext),
       setUpdatable = _useContext.setUpdatable;
 
-  var close = function close() {
+  var close = useEvent(function () {
     if (props.closable === false) {
       return;
     }
@@ -4904,8 +4914,7 @@ var ClosableProvider = (function (props) {
       setOpen(false);
       setTimeout(props.unmount, 300);
     }
-  };
-
+  });
   useEffect(function () {
     var preventReload = function preventReload(event) {
       if (!closable || props.closable === false) {
@@ -9835,16 +9844,6 @@ var PaymentContext = /*#__PURE__*/React.createContext();
 
 var PaymentTrackingContext = /*#__PURE__*/React.createContext();
 
-function useEvent(fn) {
-  var ref = useRef(fn);
-  useEffect(function () {
-    ref.current = fn;
-  }, [fn]);
-  return useCallback(function () {
-    return ref.current.apply(ref, arguments);
-  }, []);
-}
-
 var PaymentProvider = (function (props) {
   var _useContext = useContext(ErrorContext),
       setError = _useContext.setError;
@@ -11473,13 +11472,10 @@ var Footer = (function () {
             return /*#__PURE__*/React.createElement("button", {
               className: "ButtonPrimary",
               onClick: close
-            }, "Continue");
+            }, "Done");
           }
         } else {
-          return /*#__PURE__*/React.createElement("button", {
-            className: "ButtonPrimary disabled",
-            onClick: function onClick() {}
-          }, "Continue");
+          return null;
         }
       } else if (asynchronousTracking == true && trackingInitialized == false) {
         return null;
@@ -11487,7 +11483,7 @@ var Footer = (function () {
         return /*#__PURE__*/React.createElement("button", {
           className: "ButtonPrimary",
           onClick: close
-        }, "Close");
+        }, "Done");
       }
     }
   };
@@ -12792,7 +12788,7 @@ var SolanaPayDialog = (function (props) {
       }, /*#__PURE__*/React.createElement("button", {
         className: "ButtonPrimary",
         onClick: close
-      }, "Close")))))
+      }, "Done")))))
     });
   }
 });
@@ -13106,8 +13102,8 @@ var PaymentTrackingProvider = (function (props) {
           if (success) {
             callSucceededCallback(transaction, paymentRoute);
             callValidatedCallback(transaction, paymentRoute);
-            setRelease(true);
             setClosable(true);
+            setRelease(true);
             setForwardTo(eventData.message.forward_to);
           } else if (success == false) {
             if (eventData.message.failed_reason === undefined || eventData.message.failed_reason === 'FAILED') {

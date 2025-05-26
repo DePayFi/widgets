@@ -1,6 +1,7 @@
 import ClosableContext from '../contexts/ClosableContext'
 import React, { useState, useEffect, useContext } from 'react'
 import UpdatableContext from '../contexts/UpdatableContext'
+import useEvent from '../hooks/useEvent'
 
 export default (props)=>{
   
@@ -8,7 +9,7 @@ export default (props)=>{
   const [open, setOpen] = useState(true)
   const { setUpdatable } = useContext(UpdatableContext)
 
-  const close = ()=>{
+  const close = useEvent(()=>{
     if(props.closable === false) { return }
     if(!closable) { return }
     let close = true
@@ -20,7 +21,7 @@ export default (props)=>{
       setOpen(false)
       setTimeout(props.unmount, 300)
     }
-  }
+  })
 
   useEffect(()=>{
     const preventReload = (event) => {

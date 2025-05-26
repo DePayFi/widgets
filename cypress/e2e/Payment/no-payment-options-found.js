@@ -70,7 +70,7 @@ describe('Payment Widget: no payment options found', () => {
       }, [])
 
       fetchMock.get({
-        url: `https://public.depay.com/currencies/CHF`,
+        url: `https://public.depay.com/currencies/EUR`,
         overwriteRoutes: true
       }, "0.85")
 

@@ -310,8 +310,8 @@ describe('Payment Widget: integration', () => {
               }
             }))
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').click().then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
               })
             })
@@ -442,8 +442,8 @@ describe('Payment Widget: integration', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.wait(5000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').click().then(()=>{
                   cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
                 })
               })
@@ -616,8 +616,8 @@ describe('Payment Widget: integration', () => {
               }))
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
                 cy.wait(2000).then(()=>{
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').should('exist')
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Continue').click().then(()=>{
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').click().then(()=>{
                     expect(sentCallback.transaction.blockchain).to.equal('ethereum')
                     expect(sentCallback.transaction.id).to.equal(mockedTransaction.transaction._id)
                     expect(sentCallback.transaction.from).to.equal(fromAddress)

@@ -4866,6 +4866,16 @@
 
   var UpdatableContext = /*#__PURE__*/React__default['default'].createContext();
 
+  function useEvent(fn) {
+    var ref = React.useRef(fn);
+    React.useEffect(function () {
+      ref.current = fn;
+    }, [fn]);
+    return React.useCallback(function () {
+      return ref.current.apply(ref, arguments);
+    }, []);
+  }
+
   var ClosableProvider = (function (props) {
     var _useState = React.useState(props.closable || true),
         _useState2 = _slicedToArray(_useState, 2),
@@ -4880,7 +4890,7 @@
     var _useContext = React.useContext(UpdatableContext),
         setUpdatable = _useContext.setUpdatable;
 
-    var close = function close() {
+    var close = useEvent(function () {
       if (props.closable === false) {
         return;
       }
@@ -4900,8 +4910,7 @@
         setOpen(false);
         setTimeout(props.unmount, 300);
       }
-    };
-
+    });
     React.useEffect(function () {
       var preventReload = function preventReload(event) {
         if (!closable || props.closable === false) {
@@ -9831,16 +9840,6 @@
 
   var PaymentTrackingContext = /*#__PURE__*/React__default['default'].createContext();
 
-  function useEvent(fn) {
-    var ref = React.useRef(fn);
-    React.useEffect(function () {
-      ref.current = fn;
-    }, [fn]);
-    return React.useCallback(function () {
-      return ref.current.apply(ref, arguments);
-    }, []);
-  }
-
   var PaymentProvider = (function (props) {
     var _useContext = React.useContext(ErrorContext),
         setError = _useContext.setError;
@@ -11469,13 +11468,10 @@
               return /*#__PURE__*/React__default['default'].createElement("button", {
                 className: "ButtonPrimary",
                 onClick: close
-              }, "Continue");
+              }, "Done");
             }
           } else {
-            return /*#__PURE__*/React__default['default'].createElement("button", {
-              className: "ButtonPrimary disabled",
-              onClick: function onClick() {}
-            }, "Continue");
+            return null;
           }
         } else if (asynchronousTracking == true && trackingInitialized == false) {
           return null;
@@ -11483,7 +11479,7 @@
           return /*#__PURE__*/React__default['default'].createElement("button", {
             className: "ButtonPrimary",
             onClick: close
-          }, "Close");
+          }, "Done");
         }
       }
     };
@@ -12788,7 +12784,7 @@
         }, /*#__PURE__*/React__default['default'].createElement("button", {
           className: "ButtonPrimary",
           onClick: close
-        }, "Close")))))
+        }, "Done")))))
       });
     }
   });
@@ -13102,8 +13098,8 @@
             if (success) {
               callSucceededCallback(transaction, paymentRoute);
               callValidatedCallback(transaction, paymentRoute);
-              setRelease(true);
               setClosable(true);
+              setRelease(true);
               setForwardTo(eventData.message.forward_to);
             } else if (success == false) {
               if (eventData.message.failed_reason === undefined || eventData.message.failed_reason === 'FAILED') {

@@ -624,7 +624,7 @@ export default (props)=> {
                     (release || !synchronousTracking) && !forwardTo &&
                     <div className="PaddingBottomXS">
                       <button className="ButtonPrimary" onClick={ close }>
-                        Close
+                        Done
                       </button>
                     </div>
                   }

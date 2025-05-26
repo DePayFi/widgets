@@ -74,8 +74,8 @@ export default (props)=>{
           if(success) {
             callSucceededCallback(transaction, paymentRoute)
             callValidatedCallback(transaction, paymentRoute)
-            setRelease(true)
             setClosable(true)
+            setRelease(true)
             setForwardTo(eventData.message.forward_to)
           } else if(success == false) {
             if(
