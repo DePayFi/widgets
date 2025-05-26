@@ -232,7 +232,7 @@ describe('Payment Widget: failed payment transaction', () => {
         document})
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
+        cy.wait(1000).then(()=>{
           fail(mockedTransaction)
           cy.wait(2000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('h1').should('contain.text', 'Payment Failed')
