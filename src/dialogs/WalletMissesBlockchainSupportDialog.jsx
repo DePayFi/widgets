@@ -18,7 +18,7 @@ export default (props)=> {
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
           <a 
-            href={`https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&blockchains=${blockchains.map((blockchain)=>blockchain.name).join(',')}&query=${encodeURIComponent(`Wallet Misses Blockchain Support`)}`}
+            href={`https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&blockchains=${blockchains.map((blockchain)=>blockchain.name).join(',')}&query=${encodeURIComponent(`Wallet does not support blockchain`)}`}
             target="_blank"
             className="Card secondary small inlineBlock"
           >
@@ -35,7 +35,7 @@ export default (props)=> {
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
             <div>
               <strong className="FontSizeM">
-                The connected wallet doesn’t support the blockchains needed for this payment.
+                The connected wallet doesn’t support the blockchains needed to perform this payment.
               </strong>
             </div>
             <div className="PaddingTopS">
