@@ -76,7 +76,7 @@ export default (props)=>{
       setAcceptWithAmount(accept.map((configuration, index)=>{
         if(amounts[index] == undefined) { return }
         return(
-          {...configuration, amount: round(amounts[index]) }
+          {...configuration, amount: parseFloat(round(amounts[index])) }
         )
       }).filter((configuration)=>{
         return !!configuration

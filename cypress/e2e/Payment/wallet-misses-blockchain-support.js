@@ -85,7 +85,7 @@ describe('Payment Widget: wallet misses blockchain support dialog', () => {
           fromName: "DePay",
           fromSymbol: "DEPAY",
           toToken: TOKEN,
-          toAmount: '200000000000000000000',
+          toAmount: '20000000000000000000',
           toDecimals: 18,
           toName: "DePay",
           toSymbol: "DEPAY"
@@ -105,7 +105,7 @@ describe('Payment Widget: wallet misses blockchain support dialog', () => {
           fromName: "DePay",
           fromSymbol: "DEPAY",
           toToken: TOKEN,
-          toAmount: '200000000000000000000',
+          toAmount: '20000000000000000000',
           toDecimals: 18,
           toName: "DePay",
           toSymbol: "DEPAY"

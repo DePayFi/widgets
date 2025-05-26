@@ -68,7 +68,7 @@ const openManagedSocket = ({
   socket.onclose = function(event) {
     if(!event || event.code != 1000) {
       retryCounts[identifier]++
-      const delay = Math.min(10_000, 1000 * 2 ** (retryCounts[identifier] - 1))
+      const delay = Math.min(10000, 1000 * 2 ** (retryCounts[identifier] - 1))
       endpointIndices[identifier] = (endpointIndices[identifier] + 1) % endpointsList.length
       if(pingInterval) { clearInterval(pingInterval) }
       if(keepAliveInterval) { clearInterval(keepAliveInterval) }

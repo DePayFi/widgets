@@ -174,7 +174,7 @@ describe('Payment Widget: currency conversion', () => {
   describe('currency', () => {
 
     it('enforces displayed currency ', () => {
-      cy.visit('cypress/test..html').then((contentWindow) => {
+      cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{
           DePayWidgets.Payment({ ...defaultArguments, currency: 'USD', document })
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()

@@ -11,7 +11,7 @@ describe('Connect wallet', () => {
   beforeEach(resetMocks)
 
   it('rejects if user just closes the dialog', () => {
-    cy.document().then(async (document)=>{
+    cy.document().then((document)=>{
       let rejectionReason
       DePayWidgets.Connect({ document }).catch((error)=>{
         rejectionReason = error
@@ -34,10 +34,10 @@ describe('Connect wallet', () => {
     })
 
     it('suggest detected wallets', () => {
-      cy.document().then(async (document)=>{
+      cy.document().then((document)=>{
         DePayWidgets.Connect({ document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Detected').click()
       })
     })
   })
@@ -45,7 +45,7 @@ describe('Connect wallet', () => {
   describe('search for wallet', ()=>{
 
     it('allows to search for a wallet', () => {
-      cy.document().then(async (document)=>{
+      cy.document().then((document)=>{
         DePayWidgets.Connect({ document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.DialogHeader h1', 'Select a wallet').then(()=>{
           cy.wait(1000).then(()=>{
