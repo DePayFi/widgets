@@ -36,6 +36,11 @@ describe('Payment Widget: no payment options found', () => {
     resetMocks()
     resetCache()
     fetchMock.restore()
+    cy.stub(Intl, 'DateTimeFormat', () => {
+      return { resolvedOptions: ()=>{
+        return { timeZone: 'Europe/Berlin' }
+      }}
+    })
     mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
     
     cy.then(() => getProvider(blockchain)).then((provider) => {
