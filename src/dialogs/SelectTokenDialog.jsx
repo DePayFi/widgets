@@ -4,11 +4,11 @@ import { getWallets } from '@depay/web3-wallets-evm'
 import Token from '@depay/web3-tokens-evm'
 import { TokenImage } from '@depay/react-token-image-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { getWallets } from '@depay/web3-wallets-svm'
-import Token from '@depay/web3-tokens-solana'
-import { TokenImage } from '@depay/react-token-image-solana'
+import Token from '@depay/web3-tokens-svm'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -19,13 +19,13 @@ import { TokenImage } from '@depay/react-token-image'
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ClosableContext from '../contexts/ClosableContext'
+import debounce from '../helpers/debounce'
 import Dialog from '../components/Dialog'
 import isMobile from '../helpers/isMobile'
 import React, { useCallback, useState, useEffect, useContext, useRef } from 'react'
 import SelectionContext from '../contexts/SelectionContext'
-import { debounce } from 'lodash'
 import { ethers } from 'ethers'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
@@ -41,6 +41,7 @@ export default (props)=> {
   const [ tokens, setTokens ] = useState([])
   const [ mainResolve, setMainResolve ] = useState()
   const searchElement = useRef()
+  const listElement = useRef()
   
   const startWithBlockchain = (name)=> {
     let blockchain = Blockchains.findByName(name)
@@ -48,6 +49,64 @@ export default (props)=> {
     setSelection(Object.assign(props.selection, { blockchain, token: undefined }))
     setTokens(blockchain.tokens)
   }
+
+  useEffect(() => {
+
+    const focusNextElement = (event)=> {
+      const focusable = Array.from(listElement.current.querySelectorAll(
+        'button.Card'
+      ));
+
+      const index = focusable.indexOf(listElement.current.querySelector(':focus'));
+      if (index > -1 && index < focusable.length - 1) {
+        focusable[index + 1].focus()
+      } else if(index < focusable.length - 1) {
+        focusable[0].focus()
+        event.preventDefault()
+        return false
+      }
+    }
+
+    const focusPrevElement = (event)=> {
+      const focusable = Array.from(listElement.current.querySelectorAll(
+        'button.Card'
+      ));
+
+      const index = focusable.indexOf(listElement.current.querySelector(':focus'));
+      if (index == 0) {
+        searchElement.current.focus()
+      } else if (index > 0 && index <= focusable.length - 1) {
+        focusable[index - 1].focus()
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowUp') {
+        focusPrevElement(event)
+      } else if (event.key === 'ArrowDown') {
+        focusNextElement(event)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && tokens.length == 1) {
+        select(tokens[0])
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [tokens])
 
   useEffect(()=>{
     (async ()=>{
@@ -208,7 +267,7 @@ export default (props)=> {
   if(loading) {
     elements = [
       <div className="SkeletonWrapper" key={ 'loading' }>
-        <div className="Skeleton" style={{ height: '69px', width: '100%' }}>
+        <div className="Skeleton Card MarginBottomXS PaddingTopXS PaddingBottomXS" style={{ height: '69px', width: '100%' }}>
           <div className="SkeletonBackground">
           </div>
         </div>
@@ -217,24 +276,26 @@ export default (props)=> {
   } else {
     elements = tokens.map((token, index)=>{
       return(
-        <div key={ `${index}-${token.address}` } className="Card Row" onClick={ ()=>select(token) }>
-          <div className="CardImage">
-            { token.logo && <img src={token.logo}/> }
-            { token.image && <img src={token.image}/> }
-            { !(token.logo || token.image) && <TokenImage blockchain={ token.blockchain } address={ token.external_id || token.address }/>}
-          </div>
-          <div className="CardBody">
-            <div className="CardTokenSymbol" title={ token.symbol }>
-              <span className="CardText">
-                {token.symbol}
-              </span>
+        <div key={ `${index}-${token.address}` } className="MarginBottomXS">
+          <button type="button" className="Card small PaddingTopXS PaddingBottomXS" onClick={ ()=>select(token) }>
+            <div className="CardImage">
+              { token.logo && <img src={token.logo}/> }
+              { token.image && <img src={token.image}/> }
+              { !(token.logo || token.image) && <TokenImage blockchain={ token.blockchain } address={ token.external_id || token.address }/>}
             </div>
-            <div className="CardTokenName" title={ token.name }>
-              <span className="CardText">
-                {token.name}
-              </span>
+            <div className="CardBody">
+              <div className="CardTokenSymbol" title={ token.symbol }>
+                <span className="CardText">
+                  {token.symbol}
+                </span>
+              </div>
+              <div className="CardTokenName" title={ token.name }>
+                <span className="CardText FontSizeM">
+                  {token.name}
+                </span>
+              </div>
             </div>
-          </div>
+          </button>
         </div>
       )
     })
@@ -272,7 +333,7 @@ export default (props)=> {
             { [1,2,3,4,5,6].map((index)=>{
               return(
                 <div className="SkeletonWrapper" key={ index } style={{ marginBottom: '1px' }}>
-                  <div className="Skeleton" style={{ height: '69px', width: '100%' }}>
+                  <div className="Skeleton Card MarginBottomXS PaddingTopXS PaddingBottomXS" style={{ height: '69px', width: '100%' }}>
                     <div className="SkeletonBackground">
                     </div>
                   </div>
@@ -307,26 +368,28 @@ export default (props)=> {
                 { blockchain.label }
               </div>
               <div className="CardAction">
-                <ChevronRight/>
+                <ChevronRightIcon/>
               </div>
             </div>
           </div>
-          <div className="PaddingTopXS PaddingBottomS">
-            <input value={ searchTerm } autoFocus={ !isMobile() } onBlur={ ()=>setShowAddToken(false) } onChange={ onChangeSearch } className="Search" placeholder="Search name or paste address" ref={searchElement}/>
-            { showAddToken &&
-              <div className="PaddingTopXS PaddingRightXS PaddingLeftXS">
-                <div className="Tooltip"> 
-                  <span className="TooltipArrowUp"/>
-                  Enter token address here
+          <div className="PaddingTopXS PaddingBottomXS">
+            <div className="PaddingBottomXS">
+              <input value={ searchTerm } autoFocus={ !isMobile() } onBlur={ ()=>setShowAddToken(false) } onChange={ onChangeSearch } className="Search" placeholder="Search name or paste address" ref={searchElement}/>
+              { showAddToken &&
+                <div className="PaddingTopXS PaddingRightXS PaddingLeftXS">
+                  <div className="Tooltip"> 
+                    <span className="TooltipArrowUp"/>
+                    Enter token address here
+                  </div> 
                 </div> 
-              </div> 
-            }
+              }
+            </div>
           </div>
         </div>
       }
       bodyClassName="ScrollHeight"
       body={
-        <div className="">
+        <div className="PaddingLeftS PaddingRightS" ref={ listElement }>
           { elements }
         </div>
       }

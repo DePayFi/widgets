@@ -19,87 +19,130 @@ describe('Payment Widget: errors', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
   
   let TOKEN_A_AmountBN
   let provider
 
-  beforeEach(async()=>{
+  beforeEach(()=>{
     resetMocks()
     resetCache()
     fetchMock.restore()
     mock({ blockchain, accounts: { return: accounts }, wallet: 'metamask' })
-    provider = await getProvider(blockchain)
+    
+    cy.then(() => getProvider(blockchain)).then((provider) => {
 
-    ;({ TOKEN_A_AmountBN } = mockBasics({
-      provider,
-      blockchain,
+      ;({ TOKEN_A_AmountBN } = mockBasics({
+        provider,
+        blockchain,
 
-      fromAddress,
-      fromAddressAssets: [
+        fromAddress,
+        fromAddressAssets: [
+          {
+            "name": "Ether",
+            "symbol": "ETH",
+            "address": ETH,
+            "type": "NATIVE"
+          }, {
+            "name": "Dai Stablecoin",
+            "symbol": "DAI",
+            "address": DAI,
+            "type": "20"
+          }, {
+            "name": "DePay",
+            "symbol": "DEPAY",
+            "address": DEPAY,
+            "type": "20"
+          }
+        ],
+        
+        toAddress,
+
+        exchange: 'uniswap_v2',
+        NATIVE_Balance: 0,
+
+        TOKEN_A: DEPAY,
+        TOKEN_A_Decimals: 18,
+        TOKEN_A_Name: 'DePay',
+        TOKEN_A_Symbol: 'DEPAY',
+        TOKEN_A_Amount: amount,
+        TOKEN_A_Balance: 30,
+        
+        TOKEN_B: DAI,
+        TOKEN_B_Decimals: 18,
+        TOKEN_B_Name: 'Dai Stablecoin',
+        TOKEN_B_Symbol: 'DAI',
+        TOKEN_B_Amount: 33,
+        TOKEN_B_Balance: 50,
+
+        TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
+        TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
+        TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
+
+        WRAPPED_AmountIn: 0.01,
+        USD_AmountOut: 33,
+
+        timeZone: 'Europe/Berlin',
+        stubTimeZone: (timeZone)=> {
+          cy.stub(Intl, 'DateTimeFormat', () => {
+            return { resolvedOptions: ()=>{
+              return { timeZone }
+            }}
+          })
+        },
+
+        currency: 'EUR',
+        currencyToUSD: '0.85'
+      }))
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/best",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, {
+          blockchain,
+          fromToken: DEPAY,
+          fromDecimals: 18,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+      })
+
+      fetchMock.post({
+        url: "https://public.depay.com/routes/all",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, [
         {
-          "name": "Ether",
-          "symbol": "ETH",
-          "address": ETH,
-          "type": "NATIVE"
-        }, {
-          "name": "Dai Stablecoin",
-          "symbol": "DAI",
-          "address": DAI,
-          "type": "20"
-        }, {
-          "name": "DePay",
-          "symbol": "DEPAY",
-          "address": DEPAY,
-          "type": "20"
+          blockchain,
+          fromToken: DEPAY,
+          fromDecimals: 18,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: DEPAY,
+          toAmount: TOKEN_A_AmountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY"
         }
-      ],
-      
-      toAddress,
+      ])
 
-      exchange: 'uniswap_v2',
-      NATIVE_Balance: 0,
-
-      TOKEN_A: DEPAY,
-      TOKEN_A_Decimals: 18,
-      TOKEN_A_Name: 'DePay',
-      TOKEN_A_Symbol: 'DEPAY',
-      TOKEN_A_Amount: amount,
-      TOKEN_A_Balance: 30,
-      
-      TOKEN_B: DAI,
-      TOKEN_B_Decimals: 18,
-      TOKEN_B_Name: 'Dai Stablecoin',
-      TOKEN_B_Symbol: 'DAI',
-      TOKEN_B_Amount: 33,
-      TOKEN_B_Balance: 50,
-
-      TOKEN_A_TOKEN_B_Pair: Blockchains[blockchain].zero,
-      TOKEN_B_WRAPPED_Pair: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
-      TOKEN_A_WRAPPED_Pair: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d',
-
-      WRAPPED_AmountIn: 0.01,
-      USD_AmountOut: 33,
-
-      timeZone: 'Europe/Berlin',
-      stubTimeZone: (timeZone)=> {
-        cy.stub(Intl, 'DateTimeFormat', () => {
-          return { resolvedOptions: ()=>{
-            return { timeZone }
-          }}
-        })
-      },
-
-      currency: 'EUR',
-      currencyToUSD: '0.85'
-    }))
+      fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
+    })
   })
 
   it('calls error callback with a critical error if widgets fails initialization', () => {
@@ -129,7 +172,14 @@ describe('Payment Widget: errors', () => {
     let errorCalled
     let passedError
     
-    mock({ provider, blockchain, request: { to: DEPAY, api: Token[blockchain].DEFAULT, method: 'symbol', return: Error('something failed') } })
+    fetchMock.post({
+      overwriteRoutes: true,
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, 500)
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
@@ -146,14 +196,14 @@ describe('Payment Widget: errors', () => {
             passedError = error
           }
         })
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /something failed/)
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /Best route could not be loaded!/)
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
-          expect(passedError.toString()).to.match(/something failed/)
+          expect(passedError.toString()).to.match(/Best route could not be loaded!/)
         })
       })
     })

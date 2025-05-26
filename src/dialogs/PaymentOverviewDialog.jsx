@@ -2,9 +2,9 @@
 
 import { TokenImage } from '@depay/react-token-image-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
-import { TokenImage } from '@depay/react-token-image-solana'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -14,13 +14,13 @@ import { TokenImage } from '@depay/react-token-image'
 
 import Blockchains from '@depay/web3-blockchains'
 import ChangableAmountContext from '../contexts/ChangableAmountContext'
-import ChevronRight from '../components/ChevronRight'
+import ChevronRightIcon from '../icons/ChevronRightIcon'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
-import MenuIcon from '../components/MenuIcon'
+import MenuIcon from '../icons/MenuIcon'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
@@ -30,31 +30,30 @@ import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default (props)=>{
-  const { currencyCode, recover, amount: amountConfiguration, currency, title } = useContext(ConfigurationContext)
+  const { currencyCode, amount: amountConfiguration, currency, title } = useContext(ConfigurationContext)
   const { payment, paymentState } = useContext(PaymentContext)
   const { amount, amountsMissing, fixedAmount, fixedCurrency } = useContext(ChangableAmountContext)
-  const { disconnect } = useContext(WalletContext)
+  const { disconnect, wallet, account } = useContext(WalletContext)
   const { paymentValue, displayedPaymentValue } = useContext(PaymentValueContext)
   const { navigate } = useContext(NavigateStackContext)
   const [ showDropDown, setShowDropDown ] = useState(false)
   const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
   const alternativeHeaderActionElement = (
     <span className="DropDownWrapper">
-      <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular" title="Disconnect connected wallet">
+      <button type="button" onClick={ ()=>setShowDropDown(!showDropDown) } className="ButtonCircular">
         <MenuIcon/>
       </button>
       { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
         items={[
-          { label: "Disconnect wallet", action: disconnect },
-        ]}
+          { label: "Contact support", action: ()=>{ window.open(`https://support.depay.com?wallet=${wallet?.name}&account=${account}&query=${encodeURIComponent(`Need help with Payment`)}`, '_blank') } },
+          paymentState == 'initialized' ? { label: "Disconnect wallet", action: disconnect } : undefined,
+        ].filter(Boolean)}
       /> }
     </span>
   )
 
-  if(payment == undefined || (recover == undefined && paymentValue == undefined)) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
+  if(payment == undefined) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
 
-  const blockchain = Blockchains.findByName(payment.blockchain)
-  
   return(
     <Dialog
       header={
@@ -64,7 +63,7 @@ export default (props)=>{
       }
       alternativeHeaderAction={ alternativeHeaderActionElement }
       body={
-        <div className="PaddingLeftM PaddingRightM PaddingBottomXS">
+        <div className="PaddingLeftM PaddingRightM">
           { amountsMissing && !fixedAmount &&
             <button
               type="button" 
@@ -80,7 +79,7 @@ export default (props)=>{
                   <h4 className="CardTitle">
                     Amount
                   </h4>
-                  <h2 className="CardText">
+                  <div className="CardText">
                     {
                       displayedCurrencyCode &&
                       <div className="TokenAmountRow">
@@ -93,11 +92,11 @@ export default (props)=>{
                         { amount }
                       </div>
                     }
-                  </h2>
+                  </div>
                 </div>
               </div>
               <div className="CardAction">
-                <ChevronRight/>
+                <ChevronRightIcon/>
               </div>
             </button>
           }
@@ -112,10 +111,10 @@ export default (props)=>{
           >
             <div className="CardImage" title={ payment.name }>
               <TokenImage
-                blockchain={ payment.blockchain }
+                blockchain={ payment.blockchain.name }
                 address={ payment.token }
               />
-              <img className={"BlockchainLogo small bottomRight " + blockchain.name} style={{ backgroundColor: blockchain.logoBackgroundColor }} src={ blockchain.logo } alt={ blockchain.label } title={ blockchain.label }/>
+              <img className={"BlockchainLogo small bottomRight " + payment.blockchain.name} style={{ backgroundColor: payment.blockchain.logoBackgroundColor }} src={ payment.blockchain.logo } alt={ payment.blockchain.label } title={ payment.blockchain.label }/>
             </div>
             <div className="CardBody">
               <div className="CardBodyWrapper">
@@ -124,7 +123,7 @@ export default (props)=>{
                     Payment
                   </h4>
                 }
-                <h2 className="CardText">
+                <div className="CardText">
                   <div className="TokenAmountRow">
                     <span className="TokenSymbolCell">
                       { payment.symbol }
@@ -134,20 +133,36 @@ export default (props)=>{
                       { format(payment.amount) }
                     </span>
                   </div>
-                  { 
-                    (displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` && !(amountsMissing && !fixedCurrency)) &&
+                  {
+                    !(amountsMissing && !fixedCurrency) &&
                     (currency !== false) &&
-                      <div className="TokenAmountRow small grey">
-                        <span className="TokenAmountCell">
-                          { displayedPaymentValue }
-                        </span>
-                      </div>
+                    <>
+                      {
+                        paymentValue &&
+                        displayedPaymentValue != `${payment.symbol} ${format(payment.amount)}` &&
+                        <div className="TokenAmountRow small Opacity05">
+                          <span className="TokenAmountCell">
+                            { displayedPaymentValue }
+                          </span>
+                        </div>
+                      }
+                      {
+                        !paymentValue &&
+                        <div className="TokenAmountRow small">
+                          <span className="TokenAmountCell">
+                            <div className="Skeleton" style={{ position: 'relative', marginTop: '2px', borderRadius: '10px', width: '82px', height: '15px' }}>
+                              <div className="SkeletonBackground"/>
+                            </div>
+                          </span>
+                        </div>
+                      }
+                    </>
                   }
-                </h2>
+                </div>
               </div>
             </div>
             <div className="CardAction">
-              <ChevronRight/>
+              <ChevronRightIcon/>
             </div>
           </button>
         </div>

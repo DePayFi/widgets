@@ -1,14 +1,16 @@
 import allWalletsOriginal from '../helpers/allWallets'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import throttle from '../helpers/throttle'
 import Fuse from 'fuse.js'
-import React, { useState, useEffect, useRef, useContext, useMemo } from 'react'
+import React, { useState, useEffect, useRef, useContext, useMemo, useCallback } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 export default (props)=>{
 
   const { wallets: walletsConfiguration } = useContext(ConfigurationContext)
+  let allowList = walletsConfiguration?.allow || walletsConfiguration?.whitelist 
   let allWallets
-  if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+  if(walletsConfiguration?.sort || allowList) {
     allWallets = useMemo(()=>{
       let adjustedWallets = [...allWalletsOriginal]
 
@@ -21,8 +23,8 @@ export default (props)=>{
         })
       }
 
-      if(walletsConfiguration?.whitelist) {
-        adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet.name) > -1)
+      if(allowList) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>allowList.indexOf(wallet.name) > -1)
       }
 
       return adjustedWallets
@@ -31,9 +33,21 @@ export default (props)=>{
     allWallets = allWalletsOriginal
   }
 
+  const [ listScrolled, setListScrolled ] = useState(false)
+  const throttledSetListScrolled = useCallback(throttle((value)=>setListScrolled(value), 1000), [])
+  const handleOnScroll = (event)=>{
+    if(!listScrolled) {
+      throttledSetListScrolled(true)
+    }
+    if(event.target.scrollTop <= 0 && allWallets.length > 9) {
+      throttledSetListScrolled(false)
+    }
+  }
+
   const parentElement = React.useRef()
   const fuse = new Fuse(allWallets, { keys: ['name'], threshold: 0.3, ignoreFieldNorm: true })
   const [ resultList, setResultList ] = useState(allWallets)
+  
   const rowVirtualizer = useVirtualizer({
     count: resultList.length,
     getScrollElement: () => parentElement.current,
@@ -52,8 +66,22 @@ export default (props)=>{
     }
   }, [props.searchTerm])
 
+  useEffect(() => {
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && resultList.length == 1) {
+        props.onClickWallet(resultList[0])
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [resultList])
+
   return(
-    <div ref={ parentElement } className="DialogBody ScrollHeightM PaddingBottomS PaddingLeftS PaddingRightS">
+    <div ref={ parentElement } onScroll={ handleOnScroll } className={`DialogBody ScrollHeightAnimation ${listScrolled ? 'ScrollHeightMax' : 'ScrollHeightM'} PaddingBottomS PaddingLeftS PaddingRightS`}>
       <div
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,

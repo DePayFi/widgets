@@ -5,7 +5,7 @@ import PaymentRoutingProvider from './PaymentRoutingProvider'
 import React, { useState, useEffect, useContext } from 'react'
 
 export default (props)=>{
-  const { amountsMissing, acceptWithAmount, setMaxRoute } = useContext(ChangableAmountContext)
+  const { amountsMissing, acceptWithAmount } = useContext(ChangableAmountContext)
   const { accept: configuredAccept } = useContext(ConfigurationContext)
   const [ accept, setAccept ] = useState()
 
@@ -19,7 +19,7 @@ export default (props)=>{
 
   return(
     <PaymentAmountRoutingContext.Provider value={{}}>
-      <PaymentRoutingProvider accept={ accept } setMaxRoute={ setMaxRoute } container={ props.container } document={ props.document }>
+      <PaymentRoutingProvider accept={ accept } container={ props.container } document={ props.document }>
         { props.children }
       </PaymentRoutingProvider>
     </PaymentAmountRoutingContext.Provider>

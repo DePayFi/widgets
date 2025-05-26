@@ -2,9 +2,9 @@
 
 import { TokenImage } from '@depay/react-token-image-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
-import { TokenImage } from '@depay/react-token-image-solana'
+import { TokenImage } from '@depay/react-token-image-svm'
 
 //#else */
 
@@ -84,7 +84,7 @@ export default (props)=> {
           </div>
           <div className="PaddingTopS TextCenter">
             <div className="Alert FontSizeS">
-              <strong>Please review this information</strong>
+              <strong>Review this information</strong>
             </div>
           </div>
           <div className="PaddingTopXS">

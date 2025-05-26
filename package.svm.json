@@ -1,0 +1,54 @@
+{
+  "name": "@depay/widgets-svm",
+  "moduleName": "DePayWidgets",
+  "version": "13.0.0",
+  "description": "Web3 Payments with any token. DePay simplifies and improves Web3 Payments with the power of DeFi. Accept any token with on-the-fly conversion.",
+  "main": "./dist/umd/index.js",
+  "module": "./dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": "git@github.com:depayfi/widgets.git",
+  "keywords": [
+    "web3",
+    "payments",
+    "blockchain",
+    "widgets",
+    "react",
+    "crypto",
+    "cryptocurrencies"
+  ],
+  "author": "depay.com",
+  "homepage": "https://depay.com",
+  "license": "MIT",
+  "dependencies": {
+    "@depay/coinbase-wallet-sdk": "^3.8.4",
+    "@depay/local-currency": "^3.8.2",
+    "@depay/react-dialog-stack": "^8.1.1",
+    "@depay/react-shadow-dom": "^5.0.5",
+    "@depay/react-token-image-svm": "^6.0.0",
+    "@depay/solana-web3.js": "^1.98.2",
+    "@depay/walletconnect-v2": "^2.12.2",
+    "@depay/web3-blockchains": "^9.8.5",
+    "@depay/web3-client-svm": "^11.1.0",
+    "@depay/web3-payments-svm": "^15.2.1",
+    "@depay/web3-tokens-svm": "^11.1.0",
+    "@depay/web3-wallets-svm": "^18.1.4",
+    "@tanstack/react-virtual": "^3.0.0-beta.54",
+    "@uiw/copy-to-clipboard": "^1.0.14",
+    "decimal.js": "^10.4.3",
+    "fuse.js": "^6.6.2",
+    "qr-code-styling": "^1.6.0-rc.1"
+  },
+  "peerDependencies": {
+    "ethers": "^5.7.1",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "resolutions": {
+    "clipboardy": "3.0.0"
+  },
+  "overrides": {
+    "clipboardy": "3.0.0"
+  }
+}

@@ -4,14 +4,12 @@ import Blockchains from '@depay/web3-blockchains'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
-import QuestionsGraphic from '../graphics/questions'
+import QuestionsGraphic from '../graphics/wallets/questions'
 import React, { useContext, useEffect, useState } from 'react'
 import WalletContext from '../contexts/WalletContext'
-import { NavigateStackContext } from '@depay/react-dialog-stack'
 
 export default ()=> {
 
-  const { navigate } = useContext(NavigateStackContext)
   const { accept } = useContext(ConfigurationContext)
   const { close } = useContext(ClosableContext)
   const { wallet } = useContext(WalletContext)
@@ -25,31 +23,47 @@ export default ()=> {
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <a 
+            href={`https://support.depay.com?account=${walletAddress}&wallet=${wallet?.name}&query=${encodeURIComponent(`Not enough funds available`)}`}
+            target="_blank"
+            className="Card secondary small inlineBlock"
+          >
+            Contact support
+          </a>
         </div>
       }
       body={
         <div className="TextCenter">
+          
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ QuestionsGraphic }/>
+            <QuestionsGraphic/>
           </div>
-          <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">No enough funds!</h1>
-          <div className="Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM">
-            <div className="Card tiny disabled center">
-              <div className="ResponsiveText FontWeightLight TextCenter">{walletAddress}</div>
+
+          <div className="PaddingTopXS PaddingBottomXS">
+
+            <h1 className="LineHeightL Text FontSizeL PaddingTopXS FontWeightBold">Not Enough Funds</h1>
+            
+            <div className="Text PaddingTopS PaddingBottomXS PaddingLeftM PaddingRightM">
+              <strong className="FontSizeM">
+                Please check that you have sufficient funds on one of these blockchains:
+              </strong>
             </div>
-          </div>
-          <div className="Text PaddingTopXS PaddingBottomXS PaddingLeftM PaddingRightM">
-            <strong className="FontSizeM">
-              Please make sure you have enough funds on one of the following blockchains:
-            </strong>
-          </div>
-          <div className="Text PaddingTopXS PaddingBottomS PaddingLeftM PaddingRightM">
-            { [...new Set(accept.map((accept)=>accept.blockchain))].map((blockchain)=>{return(
-              <div className="Card tiny disabled inlineBlock MarginRightXS MarginBottomXS">
-                <img className="MarginRightXS" src={Blockchains[blockchain].logoWhiteBackground}/>
-                <span className="ResponsiveText FontWeightLight">{Blockchains[blockchain].label}</span>
+
+            <div className="Text PaddingTopXS PaddingBottomS PaddingLeftM PaddingRightM">
+              { [...new Set(accept.map((accept)=>accept.blockchain))].map((blockchain)=>{return(
+                <div key={blockchain} className="Card tiny disabled inlineBlock MarginRightXS MarginBottomXS">
+                  <img className={"BlockchainLogo small bottomRight " + Blockchains[blockchain].name} style={{ backgroundColor: Blockchains[blockchain].logoBackgroundColor }} src={ Blockchains[blockchain].logo } alt={ Blockchains[blockchain].label } title={ Blockchains[blockchain].label }/>
+                  <span className="PaddingLeftXS ResponsiveText FontWeightLight">{Blockchains[blockchain].label}</span>
+                </div>
+              )}) }
+            </div>
+
+            <div className="Text PaddingBottomXS PaddingLeftM PaddingRightM">
+              <div className="Card tiny disabled transparent center Opacity03">
+                <div className="ResponsiveText FontWeightLight TextCenter">{walletAddress}</div>
               </div>
-            )}) }
+            </div>
+
           </div>
         </div>
       }

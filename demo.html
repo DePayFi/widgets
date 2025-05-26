@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
@@ -17,20 +18,19 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature-web@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.7.9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@11"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@5"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@11"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.0.9"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13.13.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/worldcoin-precompiled@1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@15"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@tanstack/react-virtual@3.0.0-beta.54/build/umd/index.production.js"></script>
     <script defer async src="dist/umd/index.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.css">
@@ -602,37 +602,6 @@
                         alert('Something went wrong')
                         return false // stops payment
                       }
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
-       
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Payment: fromToken+fromAmount</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Calculates route based on given fromToken/fromAmount.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="payFromAmountFromToken">Try it</button>
-                <script>
-                  var button = document.getElementById("payFromAmountFromToken");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Payment({
-                      accept: [{
-                        blockchain: 'bsc',
-                        fromToken: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
-                        fromAmount: 0.1,
-                        toToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                      }]
                     });
                   });
                 </script>

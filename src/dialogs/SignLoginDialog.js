@@ -1,6 +1,7 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
+import LoginIcon from '../icons/LoginIcon'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -69,16 +70,13 @@ export default (props)=> {
       body={
         <div className="TextCenter">
           { walletLogo &&
-            <div className="GraphicWrapper PaddingTopS PaddingBottomS">
-              <img className="Graphic" src={walletLogo}/>
+            <div className="GraphicWrapper">
+              <LoginIcon className="Graphic" width="100px" height="100px"/>
             </div>
           }
-          <h1 className="LineHeightL Text FontSizeL FontWeightBold PaddingTopS">
-            Wallet Login
-          </h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            <p className="FontSizeM PaddingLeftM PaddingRightM PaddingBottomS">
-              Please click "Log in" and sign the message with your connected wallet.
+            <p className="FontSizeM PaddingLeftM PaddingRightM">
+              Click "Log in" and confirm in your wallet.
             </p>
           </div>
         </div>
@@ -87,9 +85,17 @@ export default (props)=> {
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           {
             loggingIn &&
-            <div className="PaddingTopXS PaddingBottomXS" style={{ height: '58px' }}>
-              <div className="PaddingTopS PaddingBottomS TextCenter">
-                <div className="Loading Icon medium" style={{ position: 'relative' }}></div>
+            <div className="PaddingBottomS PaddingTopXS">
+              <div className="PaddingTopXS">
+                <div className="ActionIndicator MarginBottomXS">
+                  <img src={wallet.logo} />
+                  <div className="ActionIndicatorSpinner"></div>
+                </div>
+                <div className="TextCenter PaddingTopXS">
+                  <span className="FontSizeL">
+                    Confirm in your wallet
+                  </span>
+                </div>
               </div>
             </div>
           }

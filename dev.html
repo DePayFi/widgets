@@ -7,29 +7,28 @@
     <title>Development</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.1/ethers.umd.min.js" type="application/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@uiw/copy-to-clipboard/dist/copy-to-clipboard.umd.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/solana-web3.js@1.98.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/local-currency@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog@14"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-dialog-stack@8"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-shadow-dom@5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/js-verify-signature-web@3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.7.9"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-blockchains@9.8.5"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-client@11.1.0"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@10.4.3"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@5.1.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-tokens@11.1.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/react-token-image@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/coinbase-wallet-sdk@3"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2.12.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.1.4"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-assets@7.4.1"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@13.13.0"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@13.13.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@15"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.2.1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/decimal.js@10/decimal.js"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@tanstack/react-virtual@3.0.0-beta.54/build/umd/index.production.js"></script>
     <script src="tmp/index.dev.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.css">
@@ -116,11 +115,6 @@
                         token: document.getElementById("paymentTokenInput").value,
                         receiver: document.getElementById("paymentReceiverInput").value
                       }],
-                      style: {
-                        colors: {
-                          primary: '#000000',
-                        }
-                      }
                     });
                   });
                 </script>
@@ -178,6 +172,10 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       integration: '461cb57d-6063-40b8-8326-a124c4a40e6f',
+                      sent: (transaction)=>{
+                        console.log('Sent')
+                        console.log('transaction', transaction)
+                      },
                       succeeded: (transaction, payment)=>{
                         console.log('Success')
                         console.log('transaction', transaction)
@@ -418,42 +416,41 @@
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },{
                           blockchain: 'bsc',
-                          amount: 0.0001,
-                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                          receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
-                          blockchain: 'fantom',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },{
                           blockchain: 'avalanche',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        },
+                        {
                           blockchain: 'arbitrum',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        }
+                        ,{
                           blockchain: 'optimism',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
                         },{
                           blockchain: 'base',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        }
+                        ,{
                           blockchain: 'polygon',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                           receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                        },{
+                        }
+                        ,{
                           blockchain: 'solana',
-                          amount: 0.0001,
+                          amount: 0.00001,
                           token: '11111111111111111111111111111111',
                           receiver: '5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa'
                         },
@@ -485,22 +482,8 @@
                         {
                           blockchain: 'solana',
                           amount: 0.001,
-                          token: '11111111111111111111111111111111',
-                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
-                          fee: {
-                            amount: "1.5%",
-                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
-                          }
-                        },
-                        {
-                          blockchain: 'solana',
-                          amount: 0.001,
                           token: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
-                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk',
-                          fee: {
-                            amount: "1%",
-                            receiver: "5AcFMJZkXo14r3Hj99iYd1HScPiM4hAcLZf552DfZkxa"
-                          }
+                          receiver: '3Hrw6AsNyJAp71Nkgo4tzJwvGM47DzqMdAtf8ojptkXk'
                         },
                       ],
                     });
@@ -614,37 +597,6 @@
           </div>
         </div>
 
-       
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Payment: fromToken+fromAmount</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Calculates route based on given fromToken/fromAmount.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="payFromAmountFromToken">Try it</button>
-                <script>
-                  var button = document.getElementById("payFromAmountFromToken");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Payment({
-                      accept: [{
-                        blockchain: 'bsc',
-                        fromToken: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
-                        fromAmount: 0.1,
-                        toToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                      }]
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
@@ -729,109 +681,6 @@
             </div>
           </div>
         </div>
-
-
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Payment: Recover Confirmed Transaction</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Recovers an already confirmed transaction.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="recoverConfirmedTransaction">Try it</button>
-                <script>
-                  var button = document.getElementById("recoverConfirmedTransaction");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Payment({
-                      recover: {
-                        blockchain: 'ethereum',
-                        transaction: '0x88c8a8c8b2382a52fce142c47788ea11aa16f5bbbfc034a81e6bc89919a9c705',
-                        sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
-                        nonce: 2869,
-                        afterBlock: 14114340,
-                        token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                        amount: 0.0001
-                      },
-                      confirmed: ()=> {
-                        console.log('confirmed')
-                      }
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Payment: Recover Failed Transaction</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Recovers an already failed transaction.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="recoverFailedTransaction">Try it</button>
-                <script>
-                  var button = document.getElementById("recoverFailedTransaction");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Payment({
-                      recover: {
-                        blockchain: 'ethereum',
-                        transaction: '0x5f6a9a5c360b55a1b7358943ad188e09ed03bc6af23db14672a6efa3b9b583b5',
-                        sender: '0x317d875ca3b9f8d14f960486c0d1d1913be74e90',
-                        nonce: 2866,
-                        afterBlock: 14088160,
-                        token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-                        amount: 0.0001
-                      },
-                      failed: ()=> {
-                        console.log('failed')
-                      }
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Payment: Value loss protection.</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Prevents people from using tokens that will loose to much % of value if exchanged.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="payPaymentValueLossProtection">Try it</button>
-                <script>
-                  var button = document.getElementById("payPaymentValueLossProtection");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Payment({
-                      accept: [{
-                        blockchain: 'bsc',
-                        amount: 1,
-                        token: '0x0040152a8b8c689f2e528ce8e7de754b9daf92b4',
-                        receiver: '0x08B277154218CCF3380CAE48d630DA13462E3950'
-                      }]
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
@@ -1106,6 +955,57 @@
                         fix: 5,
                         currency: 'USD'
                       },
+                      currency: 'USD',
+                      accept: [
+                        {
+                          blockchain: 'bsc',
+                          token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                          receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
+                        },
+                        {
+                          blockchain: 'bsc',
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
+                        },
+                        {
+                          blockchain: 'polygon',
+                          token: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+                          receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
+                        },
+                        {
+                          blockchain: 'polygon',
+                          token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+                          receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
+                        },
+                      ]
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: hide currency amount</h5>
+                <div class="px-4">
+                  <div class="text-secondary "></div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payWithWithoutCurrencyAmount">Try it</button>
+                <script>
+                  var button = document.getElementById("payWithWithoutCurrencyAmount");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      amount: {
+                        fix: 5,
+                        currency: 'USD'
+                      },
+                      currency: false,
                       accept: [
                         {
                           blockchain: 'bsc',
@@ -1154,10 +1054,44 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       amount: {
+                        start: 2,
+                        min: 1,
+                        step: 0.5
+                      },
+                      accept: [{
+                        blockchain: 'bsc',
+                        token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                        receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
+                      }]
+                    });
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Payment: without set amount, different currency</h5>
+                <div class="px-4">
+                  <div class="text-secondary "></div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="payWithoutAmountDifferentCurrency">Try it</button>
+                <script>
+                  var button = document.getElementById("payWithoutAmountDifferentCurrency");
+                  button.addEventListener("click",function(e){
+                    DePayWidgets.Payment({
+                      amount: {
                         start: 1,
                         min: 1,
                         step: 0.5
                       },
+                      currency: 'USD',
                       accept: [{
                         blockchain: 'bsc',
                         token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
@@ -1245,7 +1179,7 @@
                   var button = document.getElementById("buyDePayFixedButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Sale({
-                      amount: { fix: 990, token: true, currency: true },
+                      amount: { fix: 5, token: true },
                       before: async (payment, from)=> {
                         console.log(payment, from)
                         return false // stops payment
@@ -1253,6 +1187,7 @@
                       sell: {
                         'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
                         'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+                        'solana': 'DePay1miDBPWXs6PVQrdC5Vch2jemgEPaiyXLNLLa2NF'
                       },
                     });
                   });
@@ -1261,37 +1196,6 @@
             </div>
           </div>
         </div>
-
-
-        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
-          <div class="px-0 py-4 rounded-lg bg-white border">
-            <div class="col px-0">
-              <div class="overflow-auto" style="height: 140px;">
-                <h5 class="px-4">Sale: Buy with TOKEN as denominator</h5>
-                <div class="px-4">
-                  <div class="text-secondary ">Skips local currency conversion and denominates the purchase in the given token.</div>
-                </div>
-              </div>
-              <div class="px-4 pt-3">
-                <button class='btn btn-primary' id="buyButtonWithTokenDenominator">Try it</button>
-                <script>
-                  var button = document.getElementById("buyButtonWithTokenDenominator");
-                  button.addEventListener("click",function(e){
-                    DePayWidgets.Sale({
-                      sell: {
-                        'bsc': '0x4f7b627b88651e3dddca0240bca68a3062632c8c'
-                      },
-                      amount: {
-                        token: true
-                      }
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-        </div>
-
 
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">

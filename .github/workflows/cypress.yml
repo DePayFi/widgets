@@ -37,12 +37,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
   
   connect-widget:
@@ -78,15 +78,14 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
       
-
   login-widget:
     
     runs-on: ubuntu-latest
@@ -120,12 +119,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
       
 
@@ -162,12 +161,53 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
+          path: ${{ github.workspace }}/cypress/videos
+
+  payment-widget-allow:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Cache node modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: npm install
+        run: |
+          npm install
+      - name: npm run build
+        run: |
+          npm run build
+      - name: Run Cypress Tests cypress/e2e/Payment/allow.js
+        run: |
+          yarn test:cypress --spec "cypress/e2e/Payment/allow.js"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
       
   payment-widget-amount:
@@ -203,12 +243,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-approval:
@@ -244,53 +284,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-reset-approval:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/reset-approval.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/reset-approval.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-before:
@@ -326,53 +325,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-blacklist:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/blacklist.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/blacklist.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-change-account:
@@ -408,53 +366,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-change-payment:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/change-payment.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/change-payment.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-change-categorized-payment:
@@ -490,12 +407,53 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
+          path: ${{ github.workspace }}/cypress/videos
+
+  payment-widget-change-payment:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Cache node modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: npm install
+        run: |
+          npm install
+      - name: npm run build
+        run: |
+          npm run build
+      - name: Run Cypress Tests cypress/e2e/Payment/change-payment.js
+        run: |
+          yarn test:cypress --spec "cypress/e2e/Payment/change-payment.js"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-configured-amount:
@@ -531,12 +489,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-connected:
@@ -572,12 +530,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-container:
@@ -613,12 +571,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-currency:
@@ -654,12 +612,53 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
+          path: ${{ github.workspace }}/cypress/videos
+
+  payment-widget-deny:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Cache node modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: npm install
+        run: |
+          npm install
+      - name: npm run build
+        run: |
+          npm run build
+      - name: Run Cypress Tests cypress/e2e/Payment/deny.js
+        run: |
+          yarn test:cypress --spec "cypress/e2e/Payment/deny.js"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
+          path: ${{ github.workspace }}/cypress/screenshots
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-error:
@@ -695,15 +694,15 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-fail:
+  payment-widget-failed-transaction:
     
     runs-on: ubuntu-latest
 
@@ -730,21 +729,21 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/fail.js
+      - name: Run Cypress Tests cypress/e2e/Payment/failed-transaction.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/fail.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/failed-transaction.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-fee:
+  payment-widget-fees:
     
     runs-on: ubuntu-latest
 
@@ -771,18 +770,18 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/fee.js
+      - name: Run Cypress Tests cypress/e2e/Payment/fees.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/fee.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/fees.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-fix-currency-amounts:
@@ -818,176 +817,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-fromToken:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/fromToken.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/fromToken.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-no-payment-options-found:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/no-payment-options-found.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/no-payment-options-found.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-insufficient-amount-of-tokens:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/insufficient-amount-of-tokens.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/insufficient-amount-of-tokens.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-main:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/main.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/main.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-integration:
@@ -1023,15 +858,15 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-main-solana:
+  payment-widget-main:
     
     runs-on: ubuntu-latest
 
@@ -1058,21 +893,22 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/main.solana.js
+      - name: Run Cypress Tests cypress/e2e/Payment/main.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/main.solana.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/main.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-solana-pay:
+
+  payment-widget-main-svm:
     
     runs-on: ubuntu-latest
 
@@ -1099,21 +935,21 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.solana.js
+      - name: Run Cypress Tests cypress/e2e/Payment/main.svm.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.solana.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/main.svm.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-no-wallet:
+  payment-widget-no-payment-options-found:
     
     runs-on: ubuntu-latest
 
@@ -1140,18 +976,18 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/no-wallet.js
+      - name: Run Cypress Tests cypress/e2e/Payment/no-payment-options-found.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/no-wallet.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/no-payment-options-found.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-overview:
@@ -1187,53 +1023,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-payment-value-loss-safeguard:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/payment-value-loss-safeguard.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/payment-value-loss-safeguard.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-preflight:
@@ -1269,15 +1064,15 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-recover:
+  payment-widget-reset-approval:
     
     runs-on: ubuntu-latest
 
@@ -1304,21 +1099,21 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/recover.js
+      - name: Run Cypress Tests cypress/e2e/Payment/reset-approval.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/recover.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/reset-approval.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
-  payment-widget-replaced-transaction:
+  payment-widget-solana-pay:
     
     runs-on: ubuntu-latest
 
@@ -1345,18 +1140,18 @@ jobs:
       - name: npm run build
         run: |
           npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/replaced-transaction.js
+      - name: Run Cypress Tests cypress/e2e/Payment/solana-pay.js
         run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/replaced-transaction.js"
+          yarn test:cypress --spec "cypress/e2e/Payment/solana-pay.js"
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-style:
@@ -1392,12 +1187,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-track:
@@ -1433,12 +1228,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-unmount:
@@ -1474,12 +1269,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-wallet-misses-blockchain-support:
@@ -1515,12 +1310,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-wallet:
@@ -1556,52 +1351,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
-          path: ${{ github.workspace }}/cypress/videos
-
-  payment-widget-whitelist:
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: npm install
-        run: |
-          npm install
-      - name: npm run build
-        run: |
-          npm run build
-      - name: Run Cypress Tests cypress/e2e/Payment/whitelist.js
-        run: |
-          yarn test:cypress --spec "cypress/e2e/Payment/whitelist.js"
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: ${{ github.workspace }}/cypress/screenshots
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 

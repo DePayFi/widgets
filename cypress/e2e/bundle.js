@@ -5,8 +5,9 @@ import fetchMock from 'fetch-mock'
 import mockBasics from '../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { ethers } from 'ethers'
 import { Crypto } from "@peculiar/webcrypto"
-import { mock, confirm, increaseBlock, resetMocks } from '@depay/web3-mock'
+import { mock, confirm, increaseBlock, resetMocks, anything } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
@@ -22,14 +23,13 @@ describe('bundle', () => {
   const fromAddress = accounts[0]
   const toAddress = '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
   const amount = 20
-  const defaultArguments = {
-    accept: [{
-      blockchain,
-      amount,
-      token: DEPAY,
-      receiver: toAddress
-    }]
-  }
+  const accept = [{
+    blockchain,
+    amount,
+    token: DEPAY,
+    receiver: toAddress
+  }]
+  const defaultArguments = { accept }
 
   let provider
   let TOKEN_A_AmountBN
@@ -110,10 +110,28 @@ describe('bundle', () => {
       blockchain,
       transaction: {
         from: fromAddress,
-        to: DEPAY,
-        api: Token[blockchain].DEFAULT,
-        method: 'transfer',
-        params: [toAddress, TOKEN_A_AmountBN]
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: ethers.utils.parseUnits('20', 18),
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: Blockchains[blockchain].zero,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
       }
     })
 
@@ -142,17 +160,59 @@ describe('bundle', () => {
       matchPartialBody: true
     }, 201)
 
+    fetchMock.post({
+      url: "https://public.depay.com/routes/best",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, {
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    })
+
+    fetchMock.post({
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, [{
+        blockchain,
+        fromToken: DEPAY,
+        fromDecimals: 18,
+        fromName: "DePay",
+        fromSymbol: "DEPAY",
+        toToken: DEPAY,
+        toAmount: TOKEN_A_AmountBN.toString(),
+        toDecimals: 18,
+        toName: "DePay",
+        toSymbol: "DEPAY"
+    }])
+
+    fetchMock.get({
+      url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0`,
+    }, '2.704181')
+
     cy.visit('cypress/test.html').then((contentWindow) => {
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('detected').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.grey').should('contain.text', '€28.05')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€2.30')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'target').should('eq', '_blank')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Paying...').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Performing payment').then(()=>{
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'target').should('eq', '_blank')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'rel').should('eq', 'noopener noreferrer')
           expect(mockedTransaction.calls.count()).to.equal(1)
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
@@ -161,8 +221,8 @@ describe('bundle', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Transaction confirmed')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Close')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Perform payment')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Done')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
             })

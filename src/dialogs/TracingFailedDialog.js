@@ -1,15 +1,20 @@
 import Dialog from '../components/Dialog'
-import ErrorGraphic from '../graphics/error'
+import ErrorGraphic from '../graphics/wallets/error'
 import React, { useContext } from 'react'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
+import WalletContext from '../contexts/WalletContext'
 
 export default (props)=> {
 
   const { navigate } = useContext(NavigateStackContext)
+  const { account } = useContext(WalletContext)
 
   const tryAgain = ()=>{
-    if(props.tryAgain){ props.tryAgain() }
-    navigate('back')
+    if(props.tryAgain){
+      props.tryAgain()
+    } else {
+      navigate('back')
+    }
   }
 
   return(
@@ -17,12 +22,21 @@ export default (props)=> {
       stacked={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM">
+          <div className="PaddingRightM">
+            <a 
+              href={`https://support.depay.com?account=${account}&query=${encodeURIComponent(`Tracing payment failed`)}`}
+              target="_blank"
+              className="Card secondary small inlineBlock"
+            >
+              Contact support
+            </a>
+          </div>
         </div>
       }
       body={
         <div className="TextCenter">
           <div className="GraphicWrapper">
-            <img className="Graphic" src={ ErrorGraphic }/>
+            <ErrorGraphic/>
           </div>
           <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Tracking payment failed</h1>
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">

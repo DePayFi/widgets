@@ -2,7 +2,7 @@
 
 import { setProviderEndpoints } from '@depay/web3-client-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { setProviderEndpoints } from '@depay/web3-client-svm'
 
@@ -39,7 +39,7 @@ export default (props)=>{
     }
     const retry = ()=>{ setTimeout(()=>loadConfiguration(id, attempt+1), 1000) }
     fetch(
-      `https://public.depay.com/configurations/${id}`,
+      `https://public.depay.com/configurations/${id}?v=3`,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -61,11 +61,19 @@ export default (props)=>{
             return acc
           }, {})
           if(!configuration?.accept || !configuration?.accept?.length > 0) {
-            throw('Configuration is missing token acceptance!')
+            // Configuration is missing token acceptance!
+            loadConfiguration(id, attempt+1)
+          }
+          if(configuration.accept.some((configuration)=>!configuration.protocolFee)) {
+            const msg = 'Configuration is missing protocol fee!'
+            setError(msg)
+            throw(msg)
           }
           setConfiguration({...configuration, ...localConfigurationWithValues, id: configurationId, currencyCode })
         } else {
-          throw('Configuration response not verified!')
+          const msg = 'Configuration response not verified!'
+          setError(msg)
+          throw(msg)
         }
       } else { retry() }
     })

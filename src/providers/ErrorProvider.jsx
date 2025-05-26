@@ -1,6 +1,6 @@
 import ErrorContext from '../contexts/ErrorContext'
-import ErrorGraphic from '../graphics/error'
-import React, { useState } from 'react'
+import ErrorGraphic from '../graphics/wallets/error'
+import React, { useState, useEffect } from 'react'
 import { ReactDialog } from '@depay/react-dialog'
 
 class ErrorBoundary extends React.Component {
@@ -24,8 +24,12 @@ export default (props)=>{
   const [error, setError] = useState(props.error)
   const [open, setOpen] = useState(true)
 
+  useEffect(()=>{
+    window._depayWidgetError = undefined
+  }, [])
+
   let setErrorFromChildren = (error)=>{
-    console.log(error)
+    window._depayWidgetError = error
     if(error.error){ error = error.error }
     setError(error)
     if(props.errorCallback) { props.errorCallback(error.message || error.toString()) }
@@ -44,12 +48,19 @@ export default (props)=>{
           
           <div className="DialogHeader">
             <div className="PaddingTopS PaddingLeftS PaddingRightS">
+              <a 
+                href={`https://support.depay.com?query=${encodeURIComponent(`DePay Widget Error: ${error.message || error.toString()}`)}`}
+                target="_blank"
+                className="Card secondary small inlineBlock"
+              >
+                Contact support
+              </a>
             </div>
           </div>
 
           <div className="DialogBody TextCenter">
             <div className="GraphicWrapper PaddingTopS">
-              <img className="Graphic" src={ ErrorGraphic }/>
+              <ErrorGraphic/>
             </div>
             <h1 className="LineHeightL Text FontSizeL PaddingTopS FontWeightBold">Oops, Something Went Wrong</h1>
             <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
@@ -83,7 +94,8 @@ export default (props)=>{
     return(
       <ErrorContext.Provider value={{
         setError: setErrorFromChildren,
-        errorCallback: props.errorCallback
+        errorCallback: props.errorCallback,
+        error
       }}>
         <ErrorBoundary setError={ setErrorFromChildren }>
           { props.children }

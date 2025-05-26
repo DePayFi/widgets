@@ -1,4 +1,5 @@
 import ChangeAmountDialog from '../dialogs/ChangeAmountDialog'
+import ChangeApprovalDialog from '../dialogs/ChangeApprovalDialog'
 import ChangePaymentDialog from '../dialogs/ChangePaymentDialog'
 import ClosableContext from '../contexts/ClosableContext'
 import NavigateContext from '../contexts/NavigateContext'
@@ -27,6 +28,7 @@ export default (props)=>{
       dialogs={{
         SaleOverview: <SaleOverviewDialog/>,
         ChangeAmount: <ChangeAmountDialog/>,
+        ChangeApproval: <ChangeApprovalDialog/>,
         ChangePayment: <ChangePaymentDialog/>,
         NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
         PaymentFailed: <PaymentFailedDialog/>,

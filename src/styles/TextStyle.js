@@ -5,8 +5,8 @@ export default (style)=>{
       color: ${style.colors.text};
     }
 
-    .LightGreen {
-      color: rgba(50,160,60);
+    .TextColorSuccess {
+      color: ${style.colors.success};
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -45,6 +45,7 @@ export default (style)=>{
       padding: 6px;
       overflow-wrap: break-word;
       overflow-y: auto;
+      user-select: all;
       white-space: pre-wrap;
       word-wrap: break-word;
     }

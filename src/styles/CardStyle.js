@@ -3,7 +3,7 @@ export default (style)=>{
 
     .Card {
       align-items: center;
-      background: rgb(255,255,255);
+      background: ${style.colors.cardBackground};
       border: 1px solid transparent;
       border-radius: 13px;
       box-shadow: 0 0 8px rgba(0,0,0,0.03);
@@ -11,12 +11,16 @@ export default (style)=>{
       display: flex;
       flex-direction: row;
       margin-bottom: 8px;
-      min-height: 76px;
-      padding: 16px 10px;
+      min-height: 74px;
+      padding: 14px 8px;
       width: 100%;
     }
 
-    .Card:focus {
+    .Card.transparent {
+      background: none;
+    }
+
+    .Card:focus:not(.disabled) {
       border: 1px solid ${style.colors.primary};
     }
 
@@ -90,7 +94,7 @@ export default (style)=>{
     .Card.tiny {
       border-radius: 4px;
       min-height: auto;
-      padding: 2px 2px;
+      padding: 0 3px;
     }
     
     .Card.tiny img {
@@ -103,12 +107,12 @@ export default (style)=>{
 
     .Card.small {
       min-height: auto;
-      padding: 8px 8px;
+      padding: 8px 12px;
       margin: 0;
     }
 
     .CardImage.small {
-      width: 27px;
+      width: 33px;
     }
 
     .CardImage.small img {
@@ -130,14 +134,31 @@ export default (style)=>{
     }
 
     .Card:hover:not(.disabled) {
-      background: rgb(240,240,240);
+      background-color: ${style.colors.cardBackground};
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
       box-shadow: 0 0 0 rgba(0,0,0,0); 
     }
 
     .Card:active:not(.disabled) {
-      background: rgb(235,235,235);
+      background-color: ${style.colors.cardBackground});
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.02);
       color: inherit;
+    }
+
+    .Card.secondary {
+      background-color: ${style.colors.cardBackground};
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 90%, ${style.colors.mixActive} 10%);
+    }
+
+    .Card.secondary:hover:not(.disabled) {
+      background-color: ${style.colors.cardBackground};
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 85%, ${style.colors.mixActive} 15%);
+    }
+
+    .Card.secondary:active:not(.disabled) {
+      background-color: ${style.colors.cardBackground};
+      background-color: color-mix(in srgb, ${style.colors.cardBackground} 80%, ${style.colors.mixActive} 20%);
     }
 
     .Card:hover:not(.disabled) .CardAction {
@@ -158,7 +179,7 @@ export default (style)=>{
       flex-shrink: 0;
       justify-content: center;
       position: relative;
-      width: 58px;
+      width: 52px;
     }
 
     .CardBody {
@@ -198,14 +219,13 @@ export default (style)=>{
     }
 
     .CardImage img {
-      background: white;
+      background: ${style.colors.background};
       border-radius: 9999px;
-      border: 1px solid white;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
-      height: 45px;
+      border: 1px solid ${style.colors.cardBackground};
+      height: 42px;
       position: relative;
       vertical-align: middle;
-      width: 45px;
+      width: 42px;
     }
 
     .CardImage.rounded img {
@@ -226,6 +246,10 @@ export default (style)=>{
       font-size: 15px;
       color: rgb(150,150,150);
       line-height: 20px;
+    }
+
+    .CardText.small .CardTitle {
+      line-height: 14px;
     }
     
     .CardText, a .CardText {

@@ -2,7 +2,7 @@
 
 import { getWallets, wallets } from '@depay/web3-wallets-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { getWallets, wallets } from '@depay/web3-wallets-svm'
 
@@ -13,11 +13,12 @@ import { getWallets, wallets } from '@depay/web3-wallets'
 //#endif
 
 import allWalletsOriginal from '../helpers/allWallets'
+import capitalizeFirstChar from '../helpers/capitalizeFirstChar'
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import isMobile from '../helpers/isMobile'
-import MenuIcon from '../components/MenuIcon'
+import MenuIcon from '../icons/MenuIcon'
 import platformForWallet from '../helpers/platformForWallet'
 import React, { useState, useEffect, useContext, useRef, useMemo } from 'react'
 import safeUniversalUrl from '../helpers/safeUniversalUrl'
@@ -34,10 +35,12 @@ export default (props)=>{
   const [ dialogAnimationFinished, setDialogAnimationFinished ] = useState(false)
   const { wallets: walletsConfiguration } = useContext(ConfigurationContext)
   const searchElement = useRef()
+  const listElement = useRef()
   const { navigate } = useContext(NavigateStackContext)
 
+  let allowList = walletsConfiguration?.allow || walletsConfiguration?.whitelist
   let allWallets
-  if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+  if(walletsConfiguration?.sort || allowList) {
     allWallets = useMemo(()=>{
       let adjustedWallets = [...allWalletsOriginal]
 
@@ -50,8 +53,8 @@ export default (props)=>{
         })
       }
 
-      if(walletsConfiguration?.whitelist) {
-        adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet.name) > -1)
+      if(allowList) {
+        adjustedWallets = adjustedWallets.filter((wallet)=>allowList.indexOf(wallet.name) > -1)
       }
 
       return adjustedWallets
@@ -60,7 +63,7 @@ export default (props)=>{
     allWallets = allWalletsOriginal
   }
 
-  const onClickWallet = (walletMetaData, wallet)=>{
+  const onClickWallet = async(walletMetaData, wallet)=>{
     if(walletMetaData.via == 'detected') {
       if(walletMetaData.connectionType == 'app') {
         wallet.account().then((account)=>{
@@ -77,12 +80,22 @@ export default (props)=>{
       }
     } else if(isMobile()) {
       const platform = platformForWallet(walletMetaData)
+      let extensionIsAvailable
+      if(walletMetaData.extension) {
+        extensionIsAvailable = await wallets[walletMetaData.extension].isAvailable()
+      } else if (walletMetaData.extensions) {
+        extensionIsAvailable = (await Promise.all(walletMetaData.extensions.map((extension)=>wallets[extension].isAvailable()))).filter(Boolean).length > 0
+      }
       if(platform && platform.open) {
-        props.openInApp(walletMetaData)
+        if(!extensionIsAvailable) {
+          props.openInApp(walletMetaData)
+        }
         props.setWallet(walletMetaData)
         navigate('ConnectWallet')
       } else {
-        props.connectViaRedirect(walletMetaData)
+        if(!extensionIsAvailable) {
+          props.connectViaRedirect(walletMetaData)
+        }
         props.setWallet(walletMetaData)
         navigate('ConnectWallet')
       }
@@ -91,6 +104,50 @@ export default (props)=>{
       navigate('ConnectWallet')
     }
   }
+
+  useEffect(() => {
+
+    const focusNextElement = (event)=> {
+      const focusable = Array.from(listElement.current.querySelectorAll(
+        'button.Card'
+      ));
+
+      const index = focusable.indexOf(listElement.current.querySelector(':focus'));
+      if (index > -1 && index < focusable.length - 1) {
+        focusable[index + 1].focus()
+      } else if(index < focusable.length - 1) {
+        focusable[0].focus()
+        event.preventDefault()
+        return false
+      }
+    }
+
+    const focusPrevElement = (event)=> {
+      const focusable = Array.from(listElement.current.querySelectorAll(
+        'button.Card'
+      ));
+
+      const index = focusable.indexOf(listElement.current.querySelector(':focus'));
+      if (index == 0) {
+        searchElement.current.focus()
+      } else if (index > 0 && index <= focusable.length - 1) {
+        focusable[index - 1].focus()
+      }
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowUp') {
+        focusPrevElement(event)
+      } else if (event.key === 'ArrowDown') {
+        focusNextElement(event)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   useEffect(()=>{
     if(allWallets.length === 1) {
@@ -113,7 +170,7 @@ export default (props)=>{
       drip: (wallet)=>{
         wallets = wallets.concat(wallet)
         
-        if(walletsConfiguration?.sort || walletsConfiguration?.whitelist) {
+        if(walletsConfiguration?.sort || allowList) {
           let adjustedWallets = [...wallets]
 
           if(walletsConfiguration?.sort) {
@@ -125,8 +182,8 @@ export default (props)=>{
             })
           }
 
-          if(walletsConfiguration?.whitelist) {
-            adjustedWallets = adjustedWallets.filter((wallet)=>walletsConfiguration.whitelist.indexOf(wallet?.info?.name) > -1)
+          if(allowList) {
+            adjustedWallets = adjustedWallets.filter((wallet)=>allowList.indexOf(wallet?.info?.name) > -1)
           }
 
           setDetectedWallets(adjustedWallets)
@@ -192,7 +249,7 @@ export default (props)=>{
                             <div className="CardText FontWeightMedium">
                               { walletMetaData.name }
                             </div>
-                            <div className="LightGreen"><span className="LightGreen" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Connect detected { connectionType }</div>
+                            <div className="TextColorSuccess"><span className="TextColorSuccess" style={{ fontSize: '70%', top: '-1px', position: 'relative' }}>●</span> Detected</div>
                           </div>
                         </div>
                       </button>
@@ -244,17 +301,25 @@ export default (props)=>{
           { showDropDown && <DropDown hide={()=>setShowDropDown(false)}
             items={[
               { label: "What is a wallet?", action: ()=>{ navigate('WhatIsAWallet') } },
-              { label: "Wallet missing?", action: ()=>{ window.open('mailto:support@depay.com?subject=Add wallet&body=Please enter the name of the wallet you want us to add:', '_blank') } },
-              { label: "Problems connecting?", action: ()=>{ window.open('mailto:support@depay.com?subject=Problem connecting wallet&body=Please enter the name of the wallet you have problems with connecting:', '_blank') } },
+              { label: "Wallet missing?", action: ()=>{ window.open(`https://support.depay.com?query=${encodeURIComponent(`Can you add support for the following wallet`)}`, '_blank') } },
+              { label: "Problems connecting?", action: ()=>{ window.open(`https://support.depay.com?query=${encodeURIComponent(`I have problems connecting my wallet`)}`, '_blank') } },
             ]}
           /> }
         </span>
       }
       bodyClassName={ "PaddingBottomXS" }
       body={
-        <div className="ScrollHeightM PaddingTopXS">
+        <div className="PaddingTopXS" ref={ listElement }>
           { dialogAnimationFinished &&
             <SelectWalletList setWallet={ props.setWallet } searchTerm={ searchTerm } onClickWallet={ onClickWallet }/>
+          }
+          { !dialogAnimationFinished && // placeholder
+            <div className="ScrollHeightM DialogBody PaddingBottomS PaddingLeftS PaddingRightS">
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "57px" }}><div className="SkeletonBackground"/></div></div>
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "57px" }}><div className="SkeletonBackground"/></div></div>
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "57px" }}><div className="SkeletonBackground"/></div></div>
+              <div style={{ height: "60px" }}><div className="Skeleton Card small" style={{ height: "57px" }}><div className="SkeletonBackground"/></div></div>
+            </div>
           }
         </div>
       }

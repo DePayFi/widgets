@@ -1,3 +1,4 @@
+import CallbackProvider from './providers/CallbackProvider'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
@@ -14,17 +15,14 @@ import PaymentValueProvider from './providers/PaymentValueProvider'
 import PoweredBy from './components/PoweredBy'
 import React from 'react'
 import requireReactVersion from './helpers/requireReactVersion'
-import routePayments from './helpers/routePayments'
-import SolanaPayProvider from './providers/SolanaPayProvider'
 import SUPPORTED_CURRENCIES from './helpers/supportedCurrencies'
-import TransactionTrackingProvider from './providers/TransactionTrackingProvider'
 import UpdatableProvider from './providers/UpdatableProvider'
 import WalletProvider from './providers/WalletProvider'
 import { supported } from './blockchains'
 
-let preflight = async({ accept, recover, integration }) => {
+let preflight = async({ accept, integration }) => {
   if(typeof integration !== 'undefined' && typeof accept !== 'undefined') { throw('You can either use `integration` or `accept`, but not both!') }
-  if(integration || recover){ return }
+  if(integration){ return }
   accept.forEach((configuration)=>{
     if(typeof configuration.blockchain === 'undefined') { throw('You need to set the blockchain you want to receive the payment on!') }
     if(!supported.includes(configuration.blockchain)) { throw('You need to set a supported blockchain!') }
@@ -44,6 +42,8 @@ let Payment = async ({
   error,
   critical,
   style,
+  allow,
+  deny,
   whitelist,
   blacklist,
   providers,
@@ -51,7 +51,6 @@ let Payment = async ({
   connected,
   closed,
   track,
-  recover,
   closable,
   integration,
   payload,
@@ -62,46 +61,45 @@ let Payment = async ({
   title,
   action,
   document,
-  wallets
+  wallets,
+  protocolFee,
 }) => {
   requireReactVersion()
   if(currency && !SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) { currency = false }
   try {
-    await preflight({ accept, integration, recover })
+    await preflight({ accept, integration })
     if(typeof window._depayUnmountLoading == 'function') { window._depayUnmountLoading() }
     let unmount = mount({ style, container, document: ensureDocument(document), closed }, (unmount)=> {
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, whitelist, blacklist, providers, track, recover, integration, link, wallet, title, action, wallets } }>
-            <UpdatableProvider>
-              <ClosableProvider unmount={ unmount } closable={ closable }>
-                <NavigateProvider>
-                  <SolanaPayProvider unmount={ unmount } document={ document } container={ container }>
+          <ConfigurationProvider unmount={ unmount } document={ document } container={ container } configuration={ { type: 'payment', payload, before, amount, accept, currency, event, sent, succeeded, validated, failed, allow, deny, whitelist, blacklist, providers, track, integration, link, wallet, title, action, wallets, protocolFee } }>
+            <CallbackProvider>
+              <UpdatableProvider>
+                <ClosableProvider unmount={ unmount } closable={ closable }>
+                  <NavigateProvider>
                     <WalletProvider document={ document } container={ container } connected={ connected } unmount={ unmount }>
                       <ConversionRateProvider>
                         <ChangableAmountProvider>
                           <PaymentAmountRoutingProvider container={ container } document={ document }>
-                            <TransactionTrackingProvider>
-                              <PaymentTrackingProvider document={ ensureDocument(document) }>
-                                <PaymentProvider container={ container } document={ document }>
-                                  <PaymentValueProvider>
-                                      <PaymentStack
-                                        document={ document }
-                                        container={ container }
-                                      />
-                                      <PoweredBy/>
-                                  </PaymentValueProvider>
-                                </PaymentProvider>
-                              </PaymentTrackingProvider>
-                            </TransactionTrackingProvider>
+                            <PaymentTrackingProvider document={ ensureDocument(document) }>
+                              <PaymentProvider container={ container } document={ document }>
+                                <PaymentValueProvider>
+                                  <PaymentStack
+                                    document={ document }
+                                    container={ container }
+                                  />
+                                  <PoweredBy/>
+                                </PaymentValueProvider>
+                              </PaymentProvider>
+                            </PaymentTrackingProvider>
                           </PaymentAmountRoutingProvider>
                         </ChangableAmountProvider>
                       </ConversionRateProvider>
                     </WalletProvider>
-                  </SolanaPayProvider>
-                </NavigateProvider>
-              </ClosableProvider>
-            </UpdatableProvider>
+                  </NavigateProvider>
+                </ClosableProvider>
+              </UpdatableProvider>
+            </CallbackProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })
@@ -113,7 +111,5 @@ let Payment = async ({
     }
   }
 }
-
-Payment.preload = ({ account, accept, whitelist, blacklist, event }) => { routePayments({ account, accept, whitelist, blacklist }) }
 
 export default Payment

@@ -1,5 +1,6 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
+import LoadingText from '../components/LoadingText'
 import React, { useContext } from 'react'
 
 export default (props)=>{
@@ -9,7 +10,7 @@ export default (props)=>{
       closable={ false }
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">Loading</h1>
+          <h1 className="LineHeightL FontSizeL"><LoadingText>Loading</LoadingText></h1>
         </div>
       }
       body={

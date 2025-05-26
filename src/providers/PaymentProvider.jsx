@@ -3,10 +3,10 @@
 import { request } from '@depay/web3-client-evm'
 import Token from '@depay/web3-tokens-evm'
 
-/*#elif _SOLANA
+/*#elif _SVM
 
 import { request } from '@depay/web3-client-svm'
-import Token from '@depay/web3-tokens-solana'
+import Token from '@depay/web3-tokens-svm'
 
 //#else */
 
@@ -16,89 +16,115 @@ import Token from '@depay/web3-tokens'
 //#endif
 
 import Blockchains from '@depay/web3-blockchains'
+import CallbackContext from '../contexts/CallbackContext'
 import ClosableContext from '../contexts/ClosableContext'
 import ConfigurationContext from '../contexts/ConfigurationContext'
+import debounce from '../helpers/debounce'
 import ErrorContext from '../contexts/ErrorContext'
-import InsufficientAmountOfTokensDialog from '../dialogs/InsufficientAmountOfTokensDialog'
+import isMobile from '../helpers/isMobile'
 import NavigateContext from '../contexts/NavigateContext'
 import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import React, { useContext, useEffect, useState, useCallback } from 'react'
-import TransactionTrackingContext from '../contexts/TransactionTrackingContext'
 import UpdatableContext from '../contexts/UpdatableContext'
+import useEvent from '../hooks/useEvent'
 import WalletContext from '../contexts/WalletContext'
-import { debounce } from 'lodash'
+import { ethers } from 'ethers'
 import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { sent, succeeded, failed, recover, before, accept } = useContext(ConfigurationContext)
+  const { callSentCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
+  const { transaction, setTransaction } = useContext(PaymentTrackingContext)
+  const { accept, before } = useContext(ConfigurationContext)
   const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet, account } = useContext(WalletContext)
-  const { setPayment: setTrackingPayment, release, synchronousTracking, asynchronousTracking, trackingInitialized, initializeTracking: initializePaymentTracking, trace } = useContext(PaymentTrackingContext)
-  const { foundTransaction, initializeTracking: initializeTransactionTracking } = useContext(TransactionTrackingContext)
+  const { release, synchronousTracking, asynchronousTracking, trackingInitialized, track, trace } = useContext(PaymentTrackingContext)
   const [ payment, setPayment ] = useState()
-  const [ transaction, setTransaction ] = useState()
   const [ approvalTransaction, setApprovalTransaction ] = useState()
+  const [ approvalSignature, setApprovalSignature ] = useState()
+  const [ approvalSignatureData, setApprovalSignatureData ] = useState()
   const [ resetApprovalTransaction, setResetApprovalTransaction ] = useState()
   const [ paymentState, setPaymentState ] = useState('initialized')
+  const [ approvalType, setApprovalType ] = useState('transaction')
+  const [ approvalAmount, setApprovalAmount ] = useState('max')
 
-  const paymentSucceeded = (transaction, payment)=>{
-    if(synchronousTracking == false && (asynchronousTracking == false || trackingInitialized == true)) {
+  const paymentSucceeded = useEvent((transaction, payment)=>{
+    if(synchronousTracking == false) {
       setClosable(true)
+      setPaymentState('success')
+    } else if(release != true && paymentState != 'success') {
+      setPaymentState('validating')
     }
-    setPaymentState('success')
-    if(succeeded) { setTimeout(()=>succeeded(transaction, payment), 200) }
-  }
+    callSucceededCallback(transaction, selectedRoute)
+  })
 
-  const paymentFailed = (transaction, error, payment)=> {
-    console.log('error', error?.toString())
+  const paymentFailed = useEvent((transaction, error)=> {
     if(asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true)
     }
     set(['PaymentFailed'])
     setPaymentState('failed')
-    if(failed) { failed(transaction, error, payment) }
-  }
+    callFailedCallback(transaction, selectedRoute)
+  })
 
-  const pay = async ()=> {
+  const pay = useEvent(async(passedSignatureData, passedSignature)=> {
     setPaymentState('paying')
     setUpdatable(false)
     const account = await wallet.account()
-    const transaction = await payment.route.getTransaction({ wallet })
+    const transaction = await payment.route.getTransaction(
+      Object.assign(
+        { wallet },
+        (approvalSignatureData || passedSignatureData) ? {
+          signature: (approvalSignature || passedSignature),
+          signatureNonce: (approvalSignatureData || passedSignatureData).message.nonce,
+          signatureDeadline: (approvalSignatureData || passedSignatureData).message.deadline
+        } : {}
+      )
+    )
     if(before) {
-      let stop = await before(transaction, account)
-      if(stop === false){ return }
+      let stop = await before(transaction, selectedRoute)
+      if(stop === false){
+        setPaymentState('initialized')
+        return
+      }
     }
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline
-    await trace(currentBlock, payment.route, transaction, deadline).then(async()=>{
+    await trace(currentBlock, payment.route, deadline).then(async()=>{
       setClosable(false)
+      if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
       await wallet.sendTransaction(Object.assign({}, transaction, {
         accepted: ()=>{ 
+          setPaymentState('sending')
           setTransaction(transaction) // to hide sign CTA and verify link
         },
         sent: (sentTransaction)=>{
-          initializeTransactionTracking(sentTransaction, currentBlock, deadline)
-          if(sent) { sent(sentTransaction) }
+          setPaymentState('sending')
+          setTransaction(sentTransaction)
+          callSentCallback(sentTransaction, selectedRoute)
         },
         succeeded: (transaction)=>paymentSucceeded(transaction, payment),
         failed: (transaction, error)=>paymentFailed(transaction, error, payment)
       }))
         .then((sentTransaction)=>{
           setTransaction(sentTransaction)
-          initializePaymentTracking(sentTransaction, currentBlock, payment.route, deadline)
+          track(sentTransaction, currentBlock, payment.route, deadline)
         })
         .catch((error)=>{
           console.log('error', error)
-          setPaymentState('initialized')
           setClosable(true)
           setUpdatable(true)
+          if(approvalTransaction || approvalSignature || passedSignature) {
+            setPaymentState('approved')
+          } else {
+            setPaymentState('initialized')
+          }
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }
@@ -110,14 +136,15 @@ export default (props)=>{
       setUpdatable(true)
       navigate('TracingFailed')
     })
-  }
+  })
 
-  const resetApproval = ()=> {
+  const resetApproval = useEvent(async()=> {
     setPaymentState('resetting')
     setClosable(false)
     setUpdatable(false)
-    const resetApprovalTransaction = JSON.parse(JSON.stringify(payment.route.approvalTransaction))
+    const resetApprovalTransaction = JSON.parse(JSON.stringify(await payment.route.getRouterApprovalTransaction()))
     resetApprovalTransaction.params[1] = '0' // reset first
+    if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
     wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
       sent: (sentTransaction)=>{
         setResetApprovalTransaction(sentTransaction)
@@ -130,6 +157,10 @@ export default (props)=>{
             setPaymentState('initialized')
           }, 1000)
         })
+      },
+      failed: (transaction, error)=>{
+        setPaymentState('initialized')
+        setClosable(true)
       }
     }))
       .catch((error)=>{
@@ -140,38 +171,78 @@ export default (props)=>{
         setPaymentState('initialized')
         setClosable(true)
       })
-  }
+  })
 
-  const approve = ()=> {
-    setPaymentState('approving')
+  const approve = useEvent(async(performSignature)=> {
+    setPaymentState('approve')
     setClosable(false)
     setUpdatable(false)
-    wallet.sendTransaction(Object.assign({}, payment.route.approvalTransaction, {
-      sent: (sentTransaction)=>{
-        setApprovalTransaction(sentTransaction)
-      },
-      succeeded: ()=>{
-        setUpdatable(true)
-        setClosable(true)
-        refreshPaymentRoutes().then(()=>{
-          setTimeout(()=>{
-            setPaymentState('initialized')
-          }, 1000)
-        })
+    let approvalTransaction
+    let approvalSignatureData
+    if(approvalType == 'signature') {
+      if(performSignature || (payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
+        approvalSignatureData = await payment.route.getPermit2ApprovalSignature()
+        setApprovalSignatureData(approvalSignatureData)
+      } else {
+        approvalTransaction = await payment.route.getPermit2ApprovalTransaction()
       }
-    }))
-      .catch((error)=>{
-        console.log('error', error)
-        if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
-          navigate('WrongNetwork')
+    } else { // transaction
+      approvalTransaction = await payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
+    }
+    if(approvalSignatureData) {
+      wallet.sign(approvalSignatureData).then((signature)=>{
+        setApprovalSignature(signature)
+        setPaymentState('approved')
+        setClosable(true)
+        if(!isMobile()) {
+          pay(approvalSignatureData, signature)
         }
+      }).catch((e)=>{
+        console.log('ERROR', e)
         setPaymentState('initialized')
         setClosable(true)
       })
-  }
+    } else if(approvalTransaction) {
+      if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
+      wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+        accepted: ()=>{
+          setPaymentState('approving')
+        },
+        sent: (sentTransaction)=>{
+          setPaymentState('approving')
+          setApprovalTransaction(sentTransaction)
+        },
+        succeeded: ()=>{
+          setUpdatable(true)
+          setClosable(true)
+          if(approvalType == 'signature') { 
+            setPaymentState('approve') // signature still requires signature approval
+            if(!isMobile()) {
+              approve(true)
+            }
+          } else {
+            setPaymentState('approved') // transaction made it fully approved
+            if(!isMobile()) {
+              pay()
+            }
+          }
+        }
+      }))
+        .catch((error)=>{
+          console.log('error', error)
+          if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
+            navigate('WrongNetwork')
+          }
+          setPaymentState('initialized')
+          setClosable(true)
+        })
+    }
+  })
 
   useEffect(()=>{
-    setTrackingPayment(payment)
+    if(payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.BigNumber.from('0'))) {
+      setApprovalType('signature')
+    }
   }, [payment])
 
   useEffect(()=>{
@@ -186,60 +257,20 @@ export default (props)=>{
     }
   }, [trackingInitialized, paymentState])
 
-  useEffect(()=>{
-    if(recover){
-      setClosable(false)
-      setUpdatable(false)
-      setPaymentState('paying')
-      setTransaction({
-        blockchain: recover.blockchain,
-        id: recover.transaction,
-        url: Blockchains.findByName(recover.blockchain).explorerUrlFor({ transaction: {id: recover.transaction } })
-      })
-      let paymentToken = new Token({ blockchain: recover.blockchain, address: recover.token })
-      Promise.all([
-        paymentToken.name(),
-        paymentToken.symbol()
-      ]).then(([name, symbol])=>{
-        setPayment({
-          blockchain: recover.blockchain,
-          token: recover.token,
-          name,
-          symbol: symbol.toUpperCase(),
-          amount: recover.amount
-        })
-      }).catch(setError)
-    }
-  }, [recover])
-
-  useEffect(()=>{
-    if(foundTransaction && foundTransaction.id && foundTransaction.status) {
-      let newTransaction
-      if(foundTransaction.id != transaction.id) {
-        newTransaction = Object.assign({}, transaction, { 
-          id: foundTransaction.id,
-          url: Blockchains.findByName(transaction.blockchain).explorerUrlFor({ transaction: foundTransaction })
-        })
-        setTransaction(newTransaction)
-      }
-      if(foundTransaction.status == 'success') {
-        paymentSucceeded(newTransaction || transaction, payment)
-      } else if(foundTransaction.status == 'failed'){
-        paymentFailed(newTransaction || transaction, payment)
-      }
-    }
-  }, [foundTransaction, transaction, payment])
-
   const debouncedSetPayment = useCallback(debounce((selectedRoute)=>{
     if(selectedRoute) {
-      let fromToken = selectedRoute.fromToken
+      // reset approval status if selectedRoute has been changed
+      setApprovalTransaction()
+      setApprovalSignature()
+      setApprovalSignatureData()
+      let fromToken = new Token({ blockchain: selectedRoute.blockchain, address: selectedRoute.fromToken.address })
       Promise.all([
         fromToken.name(),
         fromToken.symbol(),
         fromToken.readable(selectedRoute.fromAmount)
       ]).then(([name, symbol, amount])=>{
         setPayment({
-          blockchain: selectedRoute.blockchain,
+          blockchain: Blockchains[selectedRoute.blockchain],
           route: selectedRoute,
           token: fromToken.address,
           name,
@@ -247,8 +278,6 @@ export default (props)=>{
           amount
         })
       }).catch(setError)
-    } else if(recover === undefined) {
-      setPayment()
     }
   }, 100), [])
 
@@ -269,11 +298,10 @@ export default (props)=>{
       <ReactDialogStack
         open={ open }
         close={ close }
-        start={ (allRoutes.assets === undefined || allRoutes.assets.length === 0) ? 'NoPaymentOptionFound' : 'InsufficientAmountOfTokens' }
+        start={ 'NoPaymentOptionFound' }
         container={ props.container }
         document={ props.document }
         dialogs={{
-          InsufficientAmountOfTokens: <InsufficientAmountOfTokensDialog assets={allRoutes.assets} accept={accept} account={account}/>,
           NoPaymentOptionFound: <NoPaymentOptionFoundDialog/>,
         }}
       />
@@ -284,10 +312,14 @@ export default (props)=>{
         payment,
         paymentState,
         pay,
-        transaction,
+        approvalType,
+        setApprovalType,
+        approvalAmount,
+        setApprovalAmount,
         approve,
         resetApproval,
         approvalTransaction,
+        approvalSignature,
         resetApprovalTransaction,
       }}>
         { props.children }

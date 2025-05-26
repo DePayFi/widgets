@@ -109,9 +109,11 @@ export default ({
   
   mock({ provider, blockchain, request: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: TOKEN_A_BalanceBN } })
   mock({ provider, blockchain, request: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
+  mock({ provider, blockchain, request: { to: TOKEN_A, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, Blockchains[blockchain].permit2], return: Blockchains[blockchain].zero } })
   
   mock({ provider, blockchain, request: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: TOKEN_B_BalanceBN } })
   mock({ provider, blockchain, request: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: TOKEN_B_Allowance } })
+  mock({ provider, blockchain, request: { to: TOKEN_B, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, Blockchains[blockchain].permit2], return: Blockchains[blockchain].zero } })
 
   Blockchains[blockchain].stables.usd.forEach((stable)=>{
     const decimals = Blockchains[blockchain].tokens.find((token)=>token.address===stable).decimals
