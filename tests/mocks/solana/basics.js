@@ -209,13 +209,6 @@ export default async({
     }
   })
 
-  console.log("RETURN BASICS", {
-    exchange,
-    TOKEN_A_AmountBN,
-    TOKEN_B_AmountBN,
-    WRAPPED_AmountInBN,
-  })
-
   return {
     exchange,
     TOKEN_A_AmountBN,

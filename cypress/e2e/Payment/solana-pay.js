@@ -90,6 +90,12 @@ describe('Solana Pay: QR code based mobile handover', () => {
     solanaWebsocketMessages = []
 
     defaultArguments = { accept }
+
+    cy.stub(Intl, 'DateTimeFormat', () => {
+      return { resolvedOptions: ()=>{
+        return { timeZone: 'Europe/Berlin' }
+      }}
+    })
     
     cy.then(() => getProvider(blockchain)).then((provider) => {
 
@@ -181,7 +187,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
         transactionId = mockedTransaction.transaction._id
 
         fetchMock.get({
-          url: `https://public.depay.com/currencies/CHF`,
+          url: `https://public.depay.com/currencies/EUR`,
           overwriteRoutes: true
         }, "0.85")
 
@@ -324,7 +330,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -416,7 +422,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -508,7 +514,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       })
                       cy.wait(3000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -604,7 +610,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       })
                       cy.wait(3000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -733,7 +739,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -852,7 +858,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
 
                         cy.wait(1000).then(()=>{
                           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                           expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                           expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                           cy.wait(1000).then(()=>{
@@ -955,7 +961,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1079,7 +1085,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1192,7 +1198,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1295,7 +1301,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1398,7 +1404,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1513,7 +1519,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         fetchMock.post({
@@ -1659,7 +1665,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1769,7 +1775,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -1881,7 +1887,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                       }}))
                       cy.wait(1000).then(()=>{
                         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                         expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                         expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                         cy.wait(1000).then(()=>{
@@ -2018,7 +2024,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                         }}))
                         cy.wait(1000).then(()=>{
                           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                           expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                           expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                           cy.wait(1000).then(()=>{
@@ -2137,7 +2143,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                         }}))
                         cy.wait(1000).then(()=>{
                           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                           expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                           expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                           cy.wait(1000).then(()=>{
@@ -2252,7 +2258,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                         }}))
                         cy.wait(1000).then(()=>{
                           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('20 DEPAY')
-                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('CHF 3.40')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('€3.40')
                           expect(JSON.parse(solanaWebsocketMessages[0]).method).to.equal('logsSubscribe')
                           expect(JSON.parse(solanaWebsocketMessages[0]).params[0].mentions[0]).to.equal(fromAddress)
                           cy.wait(1000).then(()=>{
