@@ -41,106 +41,114 @@ describe('Payment Widget: main functionality for Solana', () => {
     
     cy.then(() => getProvider(blockchain)).then((provider) => {
 
-      ;({ exchange, TOKEN_A_AmountBN } = mockBasics({
-        provider,
-        blockchain,
+      console.log('BEFORE MOCK BASICS TOKEN_A_AmountBN', TOKEN_A_AmountBN)
 
-        fromAddress,
-        fromAddressAssets: [
+      cy.then(()=> 
+        mockBasics({
+          provider,
+          blockchain,
+
+          fromAddress,
+          fromAddressAssets: [
+            {
+              "name": "Solana",
+              "symbol": "SOL",
+              "address": SOL,
+              "type": "NATIVE"
+            }, {
+              "name": "USD Coin",
+              "symbol": "USDC",
+              "address": USDC,
+              "type": "SPL"
+            }, {
+              "name": "DePay",
+              "symbol": "DEPAY",
+              "address": DEPAY,
+              "type": "SPL"
+            }
+          ],
+          
+          toAddress,
+
+          exchange: 'orca',
+          NATIVE_Balance: 0,
+
+          TOKEN_A: DEPAY,
+          TOKEN_A_Decimals: 9,
+          TOKEN_A_Name: 'DePay',
+          TOKEN_A_Symbol: 'DEPAY',
+          TOKEN_A_Amount: amount,
+          TOKEN_A_Balance: 30,
+          
+          TOKEN_B: USDC,
+          TOKEN_B_Decimals: 9,
+          TOKEN_B_Name: 'USD Coin',
+          TOKEN_B_Symbol: 'USDC',
+          TOKEN_B_Amount: 33,
+          TOKEN_B_Balance: 50,
+
+          WRAPPED_AmountIn: 0.01,
+          USD_AmountOut: 33,
+
+          timeZone: 'Europe/Berlin',
+          stubTimeZone: (timeZone)=> {
+            cy.stub(Intl, 'DateTimeFormat', () => {
+              return { resolvedOptions: ()=>{
+                return { timeZone }
+              }}
+            })
+          },
+
+          currency: 'EUR',
+          currencyToUSD: '0.85'
+        })
+
+      ).then(({ exchange: _exchange, TOKEN_A_AmountBN: _TOKEN_A_AmountBN }) => {
+        exchange = _exchange
+        TOKEN_A_AmountBN = _TOKEN_A_AmountBN
+
+        fetchMock.post({
+          url: "https://public.depay.com/routes/best",
+          body: {
+            accounts: { [blockchain]: accounts[0] },
+            accept,
+          },
+        }, {
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 9,
+            fromName: "DePay",
+            fromSymbol: "DEPAY",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 9,
+            toName: "DePay",
+            toSymbol: "DEPAY"
+        })
+
+        fetchMock.post({
+          url: "https://public.depay.com/routes/all",
+          body: {
+            accounts: { [blockchain]: accounts[0] },
+            accept,
+          },
+        }, [
           {
-            "name": "Solana",
-            "symbol": "SOL",
-            "address": SOL,
-            "type": "NATIVE"
-          }, {
-            "name": "USD Coin",
-            "symbol": "USDC",
-            "address": USDC,
-            "type": "SPL"
-          }, {
-            "name": "DePay",
-            "symbol": "DEPAY",
-            "address": DEPAY,
-            "type": "SPL"
-          }
-        ],
-        
-        toAddress,
+            blockchain,
+            fromToken: DEPAY,
+            fromDecimals: 9,
+            fromName: "DePay",
+            fromSymbol: "DEPAY",
+            toToken: DEPAY,
+            toAmount: TOKEN_A_AmountBN.toString(),
+            toDecimals: 9,
+            toName: "DePay",
+            toSymbol: "DEPAY"
+          },
+        ])
 
-        exchange: 'orca',
-        NATIVE_Balance: 0,
-
-        TOKEN_A: DEPAY,
-        TOKEN_A_Decimals: 9,
-        TOKEN_A_Name: 'DePay',
-        TOKEN_A_Symbol: 'DEPAY',
-        TOKEN_A_Amount: amount,
-        TOKEN_A_Balance: 30,
-        
-        TOKEN_B: USDC,
-        TOKEN_B_Decimals: 9,
-        TOKEN_B_Name: 'USD Coin',
-        TOKEN_B_Symbol: 'USDC',
-        TOKEN_B_Amount: 33,
-        TOKEN_B_Balance: 50,
-
-        WRAPPED_AmountIn: 0.01,
-        USD_AmountOut: 33,
-
-        timeZone: 'Europe/Berlin',
-        stubTimeZone: (timeZone)=> {
-          cy.stub(Intl, 'DateTimeFormat', () => {
-            return { resolvedOptions: ()=>{
-              return { timeZone }
-            }}
-          })
-        },
-
-        currency: 'EUR',
-        currencyToUSD: '0.85'
-      }))
-
-      fetchMock.post({
-        url: "https://public.depay.com/routes/best",
-        body: {
-          accounts: { [blockchain]: accounts[0] },
-          accept,
-        },
-      }, {
-          blockchain,
-          fromToken: DEPAY,
-          fromDecimals: 9,
-          fromName: "DePay",
-          fromSymbol: "DEPAY",
-          toToken: DEPAY,
-          toAmount: TOKEN_A_AmountBN.toString(),
-          toDecimals: 9,
-          toName: "DePay",
-          toSymbol: "DEPAY"
+        fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
       })
-
-      fetchMock.post({
-        url: "https://public.depay.com/routes/all",
-        body: {
-          accounts: { [blockchain]: accounts[0] },
-          accept,
-        },
-      }, [
-        {
-          blockchain,
-          fromToken: DEPAY,
-          fromDecimals: 9,
-          fromName: "DePay",
-          fromSymbol: "DEPAY",
-          toToken: DEPAY,
-          toAmount: TOKEN_A_AmountBN.toString(),
-          toDecimals: 9,
-          toName: "DePay",
-          toSymbol: "DEPAY"
-        },
-      ])
-
-      fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
     })
   })
   
@@ -192,8 +200,8 @@ describe('Payment Widget: main functionality for Solana', () => {
     }, 201)
 
     cy.then(() => mockTokenAccount({ provider, tokenAddress: DEPAY, ownerAddress: toAddress, exists: true, balance: 0 }))
-      .then(() => mockEscrowAccount({ provider, tokenAddress: DEPAY, ownerAddress: '…', exists: true, balance: 0 }))
-      .then(() => mockALT({ provider, address: '…' }))
+      .then(() => mockEscrowAccount({ provider, tokenAddress: DEPAY, ownerAddress: 'J58teB5YLrHFhN5Ww2tYWSZQSM8WJZgDQJ4uMZJVgjjd', exists: true, balance: 0 }))
+      .then(() => mockALT({ provider, address: '8bYq3tcwX1NM2K2JYMjrEqAPtCXFPCjzPazFothc618e' }))
       .then(() => {
         cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{

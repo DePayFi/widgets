@@ -8756,7 +8756,7 @@
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         href: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&blockchains=").concat(blockchains.map(function (blockchain) {
           return blockchain.name;
-        }).join(','), "&query=").concat(encodeURIComponent("Wallet Misses Blockchain Support")),
+        }).join(','), "&query=").concat(encodeURIComponent("Wallet does not support blockchain")),
         target: "_blank",
         className: "Card secondary small inlineBlock"
       }, "Contact support")),
@@ -8770,7 +8770,7 @@
         className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
-      }, "The connected wallet doesn\u2019t support the blockchains needed for this payment.")), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "The connected wallet doesn\u2019t support the blockchains needed to perform this payment.")), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
@@ -8999,7 +8999,7 @@
 
   var Login = function Login(options) {
     requireReactVersion();
-    var style, error, document, message, endpoint, wallet;
+    var style, error, document, message, endpoint, recover, wallet;
 
     if (_typeof$1(options) == 'object') {
       style = options.style;
@@ -9007,6 +9007,7 @@
       document = options.document;
       message = options.message;
       endpoint = options.endpoint;
+      recover = options.recover;
       wallet = options.wallet;
     }
 
@@ -9357,7 +9358,7 @@
           }
 
           return _objectSpread$4(_objectSpread$4({}, configuration), {}, {
-            amount: round$1(amounts[index])
+            amount: parseFloat(round$1(amounts[index]))
           });
         }).filter(function (configuration) {
           return !!configuration;
