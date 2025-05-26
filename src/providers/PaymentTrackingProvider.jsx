@@ -273,7 +273,11 @@ export default (props)=>{
         }
       })
     } else if(trackConfiguration.poll.method) {
-      trackConfiguration.poll.method(performedPayment).then((data)=>handlePollingResponse(data, pollingInterval))
+      trackConfiguration.poll.method(performedPayment).then((data)=>{
+        if(data) {
+          handlePollingResponse(data, pollingInterval)
+        }
+      })
     }
   }
 

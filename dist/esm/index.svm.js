@@ -429,22 +429,19 @@ var allWallets = [{
   "desktop": {
     "qr": function qr() {
       return window.location.toString();
-    },
-    "solanaPay": true
+    }
   },
   "mobile": {
     "ios": {
       "qr": function qr() {
         return window.location.toString();
-      },
-      "solanaPay": true
+      }
     },
     "android": {
       "connect": "SolanaMobileWalletAdapter",
       "qr": function qr() {
         return window.location.toString();
-      },
-      "solanaPay": true
+      }
     }
   },
   "logo": (_wallets$Glow = wallets.Glow) === null || _wallets$Glow === void 0 ? void 0 : (_wallets$Glow$info = _wallets$Glow.info) === null || _wallets$Glow$info === void 0 ? void 0 : _wallets$Glow$info.logo,
@@ -6615,7 +6612,7 @@ var QuestionsGraphic = (function (props) {
   var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors;
 
   var walletctx = useContext(WalletContext);
-  var wallet = walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet;
+  var wallet = (walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet) || (walletctx === null || walletctx === void 0 ? void 0 : walletctx.solanaPayWallet);
   var walletMeta = wallet ? allWallets.find(function (walletMeta) {
     return walletMeta.name == wallet.name;
   }) : undefined;
@@ -7296,7 +7293,7 @@ var ErrorGraphic = (function (props) {
   var _walletMeta, _walletMeta2, _walletMeta2$colors, _walletMeta3, _walletMeta3$colors, _walletMeta4, _walletMeta4$colors, _walletMeta5, _walletMeta5$colors, _walletMeta6, _walletMeta6$colors, _walletMeta7, _walletMeta7$colors, _walletMeta8, _walletMeta8$colors, _walletMeta9, _walletMeta9$colors, _walletMeta10, _walletMeta10$colors, _walletMeta11, _walletMeta11$colors, _walletMeta12, _walletMeta12$colors, _walletMeta13, _walletMeta13$colors, _walletMeta14, _walletMeta14$colors, _walletMeta15, _walletMeta15$colors, _walletMeta16, _walletMeta16$colors, _walletMeta17, _walletMeta17$colors, _walletMeta18, _walletMeta18$colors, _walletMeta19, _walletMeta19$colors, _walletMeta20, _walletMeta20$colors, _walletMeta21, _walletMeta21$colors, _walletMeta22, _walletMeta22$colors, _walletMeta23, _walletMeta23$colors, _walletMeta24, _walletMeta24$colors, _walletMeta25, _walletMeta25$colors, _walletMeta26, _walletMeta26$colors, _walletMeta27, _walletMeta27$colors, _walletMeta28, _walletMeta28$colors, _walletMeta29, _walletMeta29$colors, _walletMeta30, _walletMeta30$colors, _walletMeta31, _walletMeta31$colors, _walletMeta32, _walletMeta32$colors, _walletMeta33, _walletMeta33$colors, _walletMeta34, _walletMeta34$colors, _walletMeta35, _walletMeta35$colors, _walletMeta36, _walletMeta36$colors, _walletMeta37, _walletMeta37$colors, _walletMeta38, _walletMeta38$colors, _walletMeta39, _walletMeta39$colors, _walletMeta40, _walletMeta40$colors, _walletMeta41, _walletMeta41$colors, _walletMeta42, _walletMeta42$colors, _walletMeta43, _walletMeta43$colors, _walletMeta44, _walletMeta44$colors, _walletMeta45, _walletMeta45$colors, _walletMeta46, _walletMeta46$colors, _walletMeta47, _walletMeta47$colors, _walletMeta48, _walletMeta48$colors, _walletMeta49, _walletMeta49$colors, _walletMeta50, _walletMeta50$colors, _walletMeta51, _walletMeta51$colors, _walletMeta52, _walletMeta52$colors, _walletMeta53, _walletMeta53$colors, _walletMeta54, _walletMeta54$colors, _walletMeta55, _walletMeta55$colors, _walletMeta56, _walletMeta56$colors, _walletMeta57, _walletMeta57$colors, _walletMeta58, _walletMeta58$colors, _walletMeta59, _walletMeta59$colors, _walletMeta60, _walletMeta60$colors, _walletMeta61, _walletMeta61$colors, _walletMeta62, _walletMeta62$colors, _walletMeta63, _walletMeta63$colors, _walletMeta64, _walletMeta65, _walletMeta65$colors, _walletMeta66, _walletMeta66$colors, _walletMeta67;
 
   var walletctx = useContext(WalletContext);
-  var wallet = walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet;
+  var wallet = (walletctx === null || walletctx === void 0 ? void 0 : walletctx.wallet) || (walletctx === null || walletctx === void 0 ? void 0 : walletctx.solanaPayWallet);
   var walletMeta = wallet ? allWallets.find(function (walletMeta) {
     return walletMeta.name == wallet.name;
   }) : undefined;
@@ -24000,7 +23997,9 @@ var PaymentTrackingProvider = (function (props) {
                 });
               } else if (trackConfiguration.poll.method) {
                 trackConfiguration.poll.method(performedPayment).then(function (data) {
-                  return handlePollingResponse(data, pollingInterval);
+                  if (data) {
+                    handlePollingResponse(data, pollingInterval);
+                  }
                 });
               }
 

@@ -5,7 +5,7 @@ import WalletContext from '../../contexts/WalletContext'
 export default (props)=>{
   
   const walletctx = useContext(WalletContext)
-  const wallet = walletctx?.wallet
+  const wallet = walletctx?.wallet || walletctx?.solanaPayWallet
   let walletMeta = wallet ? allWallets.find((walletMeta)=>walletMeta.name == wallet.name) : undefined
   if(!walletMeta?.colors){ walletMeta = undefined }
 

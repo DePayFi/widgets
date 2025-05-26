@@ -213,17 +213,14 @@ export default [
     "extension": "Glow",
     "desktop": {
       "qr": ()=>window.location.toString(),
-      "solanaPay": true,
     },
     "mobile": {
       "ios": {
         "qr": ()=>window.location.toString(),
-        "solanaPay": true,
       },
       "android": {
         "connect": "SolanaMobileWalletAdapter",
         "qr": ()=>window.location.toString(),
-        "solanaPay": true,
       },
     },
     "logo": wallets.Glow?.info?.logo,

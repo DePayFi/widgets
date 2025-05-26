@@ -1500,7 +1500,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it('allows to configure additional polling method to retrieve payment status in case socket communication fails', () => {
+  it.only('allows to configure additional polling method to retrieve payment status in case socket communication fails', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
@@ -1579,6 +1579,7 @@ describe('Payment Widget: track', () => {
                   body: JSON.stringify(payment),
                   headers: { "Content-Type": "application/json", "x-custom-header": "1" }
                 })
+                console.log('response.status', response.status)
                 if(response.status == 200) {
                   let json = await response.json()
                   return json
