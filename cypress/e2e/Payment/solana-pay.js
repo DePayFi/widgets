@@ -1580,6 +1580,8 @@ describe('Solana Pay: QR code based mobile handover', () => {
     const attemptId = '9kLcb50d-9022k2kb8-89k6-aLL9k4a40e6f'
 
     beforeEach(()=>{
+
+      defaultArguments = { integration: integrationId }
       
       fetchMock.post({
         url: `https://public.depay.com/configurations/${integrationId}?v=3`,

@@ -37,12 +37,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
   
   connect-widget:
@@ -78,12 +78,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
       
   login-widget:
@@ -119,12 +119,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
       
 
@@ -161,12 +161,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-allow:
@@ -202,12 +202,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
       
   payment-widget-amount:
@@ -243,12 +243,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-approval:
@@ -284,12 +284,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-before:
@@ -325,12 +325,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-change-account:
@@ -366,12 +366,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-change-categorized-payment:
@@ -407,12 +407,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-change-payment:
@@ -448,12 +448,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-configured-amount:
@@ -489,12 +489,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-connected:
@@ -530,12 +530,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-container:
@@ -571,12 +571,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-currency:
@@ -612,12 +612,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-deny:
@@ -653,12 +653,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-error:
@@ -694,12 +694,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-failed-transaction:
@@ -735,12 +735,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-fees:
@@ -776,12 +776,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-fix-currency-amounts:
@@ -817,12 +817,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-integration:
@@ -858,12 +858,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-main:
@@ -899,12 +899,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
 
@@ -941,12 +941,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-no-payment-options-found:
@@ -982,12 +982,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-overview:
@@ -1023,12 +1023,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-preflight:
@@ -1064,12 +1064,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-reset-approval:
@@ -1105,12 +1105,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-solana-pay:
@@ -1146,12 +1146,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-style:
@@ -1187,12 +1187,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-track:
@@ -1228,12 +1228,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-unmount:
@@ -1269,12 +1269,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-wallet-misses-blockchain-support:
@@ -1310,12 +1310,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
   payment-widget-wallet:
@@ -1351,11 +1351,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/screenshots
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.job }}-${{ github.run_id }}
           path: ${{ github.workspace }}/cypress/videos
 
