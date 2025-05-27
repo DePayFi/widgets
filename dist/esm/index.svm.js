@@ -11643,6 +11643,7 @@ var PaymentOverviewDialog = (function (props) {
       action: disconnect
     } : undefined].filter(Boolean)
   }));
+  var initMobileAppDebugCounter = useRef();
 
   if (payment == undefined) {
     return /*#__PURE__*/React.createElement(PaymentOverviewSkeleton, {
@@ -11654,6 +11655,13 @@ var PaymentOverviewDialog = (function (props) {
     header: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("h1", {
+      onClick: function onClick() {
+        initMobileAppDebugCounter.current = (initMobileAppDebugCounter.current || 0) + 1;
+
+        if (initMobileAppDebugCounter.current >= 5) {
+          initMobileAppDebug();
+        }
+      },
       className: "LineHeightL FontSizeL"
     }, title || "Payment")),
     alternativeHeaderAction: alternativeHeaderActionElement,

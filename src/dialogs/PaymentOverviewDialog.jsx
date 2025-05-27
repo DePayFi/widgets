@@ -20,11 +20,12 @@ import Dialog from '../components/Dialog'
 import DropDown from '../components/DropDown'
 import Footer from '../components/Footer'
 import format from '../helpers/format'
+import initMobileAppDebug from '../helpers/initMobileAppDebug'
 import MenuIcon from '../icons/MenuIcon'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentOverviewSkeleton from '../skeletons/PaymentOverviewSkeleton'
 import PaymentValueContext from '../contexts/PaymentValueContext'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -51,6 +52,7 @@ export default (props)=>{
       /> }
     </span>
   )
+  let initMobileAppDebugCounter = useRef()
 
   if(payment == undefined) { return(<PaymentOverviewSkeleton alternativeHeaderAction={ alternativeHeaderActionElement }/>) }
 
@@ -58,7 +60,12 @@ export default (props)=>{
     <Dialog
       header={
         <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
-          <h1 className="LineHeightL FontSizeL">{ title || "Payment" }</h1>
+          <h1 onClick={()=>{
+            initMobileAppDebugCounter.current = (initMobileAppDebugCounter.current || 0) + 1
+            if(initMobileAppDebugCounter.current >= 5) {
+              initMobileAppDebug()
+            }
+          }} className="LineHeightL FontSizeL">{ title || "Payment" }</h1>
         </div>
       }
       alternativeHeaderAction={ alternativeHeaderActionElement }

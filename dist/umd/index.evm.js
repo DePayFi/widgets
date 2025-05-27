@@ -11641,6 +11641,7 @@
         action: disconnect
       } : undefined].filter(Boolean)
     }));
+    var initMobileAppDebugCounter = React.useRef();
 
     if (payment == undefined) {
       return /*#__PURE__*/React__default['default'].createElement(PaymentOverviewSkeleton, {
@@ -11652,6 +11653,13 @@
       header: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("h1", {
+        onClick: function onClick() {
+          initMobileAppDebugCounter.current = (initMobileAppDebugCounter.current || 0) + 1;
+
+          if (initMobileAppDebugCounter.current >= 5) {
+            initMobileAppDebug();
+          }
+        },
         className: "LineHeightL FontSizeL"
       }, title || "Payment")),
       alternativeHeaderAction: alternativeHeaderActionElement,
