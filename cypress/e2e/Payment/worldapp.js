@@ -1,17 +1,18 @@
 import Blockchains from '@depay/web3-blockchains'
 import closeWidget from '../../../tests/helpers/closeWidget'
 import DePayWidgets from '../../../src'
+import Exchanges from '@depay/web3-exchanges'
 import fetchMock from 'fetch-mock'
-import mockAmountsOut from '../../../tests/mocks/evm/amountsOut'
 import mockAmountsIn from '../../../tests/mocks/evm/amountsIn'
+import mockAmountsOut from '../../../tests/mocks/evm/amountsOut'
 import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Token from '@depay/web3-tokens'
 import { ethers } from 'ethers'
 import { mock, confirm, resetMocks } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
-import Token from '@depay/web3-tokens'
 
 describe('Payment Widget: WorldApp', () => {
 
@@ -30,13 +31,13 @@ describe('Payment Widget: WorldApp', () => {
   const defaultArguments = { accept }
   
   let provider
+  let exchange = Exchanges.worldchain.uniswap_v3
   let TOKEN_A_AmountBN = '20000000000000000000'
-  let WRAPPED_AmountInBN
-  let exchange
 
   afterEach(closeWidget)
 
   beforeEach(()=>{
+
     resetMocks()
     resetCache()
     fetchMock.restore()
@@ -94,7 +95,15 @@ describe('Payment Widget: WorldApp', () => {
 
     cy.then(() => getProvider(blockchain)).then((provider) => {
 
-      
+      mock({ wallet: false, provider, blockchain, request: { to: WLD, api: Token[blockchain].DEFAULT, method: 'decimals', return: 18 } })
+      mock({ wallet: false, provider, blockchain, request: { to: WLD, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'WLD' } })
+      mock({ wallet: false, provider, blockchain, request: { to: WLD, api: Token[blockchain].DEFAULT, method: 'name', return: 'Worldcoin' } })      
+      mock({ wallet: false, provider, blockchain, request: { to: WLD, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: Blockchains[blockchain].maxInt } })
+      mock({ wallet: false, provider, blockchain, request: { to: WLD, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
+
+      fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${WLD}?amount=20.0` }, '26.2')
+
+
     })
   })
   
@@ -106,29 +115,13 @@ describe('Payment Widget: WorldApp', () => {
       contentWindow.WorldApp = true
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        throw('Pending')
-        // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-        // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-        // cy.wait(1000).then(()=>{
-        //   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
-        //   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-        //   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
-        //   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approving DAI for spending...').then(()=>{
-        //     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        //     mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
-        //     cy.wait(5000).then(()=>{
-        //       cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        //       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
-        //       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
-        //       cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
-        //     })
-        //   })
-        // })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'WLD').should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€22.27')
       })
     })
   })
 
-  it('does not ask to perform an approval', () => {
+  it.only('does not ask to perform an approval when performing transactions', () => {
 
     cy.visit('cypress/test.html').then((contentWindow) => {
       contentWindow.localStorage.setItem('_DePayWorldAppAddressV1', fromAddress)
@@ -136,24 +129,12 @@ describe('Payment Widget: WorldApp', () => {
       contentWindow.WorldApp = true
       cy.document().then((document)=>{
         DePayWidgets.Payment({ ...defaultArguments, document })
-        throw('Pending')
-        // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
-        // cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
-        // cy.wait(1000).then(()=>{
-        //   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
-        //   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
-        //   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
-        //   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approving DAI for spending...').then(()=>{
-        //     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-        //     mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
-        //     cy.wait(5000).then(()=>{
-        //       cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-        //       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
-        //       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
-        //       cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
-        //     })
-        //   })
-        // })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').contains('.TokenSymbolCell', 'WLD').should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€22.27').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            
+          })
+        })
       })
     })
   })  

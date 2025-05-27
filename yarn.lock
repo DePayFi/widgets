@@ -1357,10 +1357,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-exchanges/-/web3-exchanges-15.7.1.tgz#e5773e0d8ac4df8b13997e30264c9e894b562dd1"
   integrity sha512-biEhu+tBu/9stR9c1Yv2Ti32DQf3Cw7oTcCIH8palIr2ygv5E16ixRLI3KqEAx7w/YTUcpNNl5MGUU6tCRCskQ==
 
-"@depay/web3-mock@^15.2.0":
-  version "15.2.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-mock/-/web3-mock-15.2.0.tgz#3ab017d10426ba43d5d1d59bac93b158f0ab212e"
-  integrity sha512-JAMayIBVaUDRt6qI6HeOFyTNsVmQMRrTHRCK2dHZ2XDj5HMPwzFLrziX3PMbF3e8vm0GWWiBQ+W1BZg+eqdUkA==
+"@depay/web3-mock@^15.3.0":
+  version "15.3.0"
+  resolved "https://registry.yarnpkg.com/@depay/web3-mock/-/web3-mock-15.3.0.tgz#86e4caed291972e2956f7d4f87d414ba1ab39bc3"
+  integrity sha512-xx8U79YSwAQ4TSO8uNmj0EPaMFLvcJe7aXcR1v48TNVdSocjm59mJupCQZbcn8bUx8Vtq+bIWDnJkXzMdW5xfA==
   dependencies:
     "@depay/solana-web3.js" "^1.98.0"
     "@depay/web3-blockchains" "^9.7.9"
@@ -1376,10 +1376,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-tokens/-/web3-tokens-11.1.0.tgz#545e904aa7ef2d933324311ec00cc897478e7a63"
   integrity sha512-6FuERmfOFw8ooOCKgRA4A/qqZU7WPZ+IuS2xANDyTvjs7iGd+j2iEwZN92z5EOYNnp/+7k1C+VG9oK5aZ5nZ6g==
 
-"@depay/web3-wallets@^18.1.7":
-  version "18.1.7"
-  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-18.1.7.tgz#f8312951f0f2e73d744658fcf6006058a9d2bc82"
-  integrity sha512-08SgJ7hCgITeE5ckGx6J5Nq8SoXyDPfYtBuwmxLQOnZsDhS0fH2DYAUv3qS/hA/98/WGdLpQ2EOuVYRHuVDffA==
+"@depay/web3-wallets@^18.1.8":
+  version "18.1.8"
+  resolved "https://registry.yarnpkg.com/@depay/web3-wallets/-/web3-wallets-18.1.8.tgz#2c7853045d05ae44bf579750d8e5262280d08515"
+  integrity sha512-TB3XBDRYqtT0J0e0frHQWlYPzHrS4i3TH7lrhNUCAh9lSAMpUIjWozObl8wNqpaAsv7D0L28jJxhAzd8g/jWyQ==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"

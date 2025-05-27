@@ -1,9 +1,9 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "latestSupportedVersions": {
-    "13": "13.0.2",
+    "13": "13.0.3",
     "12": "12.18.5",
     "11": "11.7.4"
   },
@@ -52,7 +52,7 @@
     "@depay/web3-exchanges": "^15.7.1",
     "@depay/web3-payments": "^15.2.1",
     "@depay/web3-tokens": "^11.1.0",
-    "@depay/web3-wallets": "^18.1.7",
+    "@depay/web3-wallets": "^18.1.8",
     "@tanstack/react-virtual": "^3.0.0-beta.54",
     "@uiw/copy-to-clipboard": "^1.0.14",
     "decimal.js": "^10.4.3",
@@ -72,7 +72,7 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@cypress/webpack-preprocessor": "^6.0.1",
-    "@depay/web3-mock": "^15.2.0",
+    "@depay/web3-mock": "^15.3.0",
     "@peculiar/webcrypto": "^1.4.3",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.1.0",

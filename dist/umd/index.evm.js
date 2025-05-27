@@ -5971,9 +5971,9 @@
     };
   });
 
-  function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$7(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$8(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$8(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletList = (function (props) {
     var _useContext = React.useContext(ConfigurationContext),
         walletsConfiguration = _useContext.wallets;
@@ -6104,7 +6104,7 @@
         className: "Card small",
         title: "Connect ".concat(resultList[virtualItem.key].name),
         onClick: function onClick() {
-          props.onClickWallet(_objectSpread$7({}, resultList[virtualItem.key]));
+          props.onClickWallet(_objectSpread$6({}, resultList[virtualItem.key]));
         }
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "CardImage"
@@ -6121,9 +6121,9 @@
     })));
   });
 
-  function ownKeys$7(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$6(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$7(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$7(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var SelectWalletDialog = (function (props) {
     var _useState = React.useState(''),
         _useState2 = _slicedToArray$1(_useState, 2),
@@ -6442,7 +6442,7 @@
           className: "Card small",
           title: "Connect ".concat(walletMetaData.name),
           onClick: function onClick() {
-            onClickWallet(_objectSpread$6(_objectSpread$6({}, walletMetaData), {}, {
+            onClickWallet(_objectSpread$5(_objectSpread$5({}, walletMetaData), {}, {
               via: 'detected',
               connectionType: connectionType
             }), wallet);
@@ -6477,7 +6477,7 @@
         className: "Card small",
         title: "Connect ".concat(previouslyConnectedWallet.name),
         onClick: function onClick() {
-          onClickWallet(_objectSpread$6(_objectSpread$6({}, previouslyConnectedWallet), {}, {
+          onClickWallet(_objectSpread$5(_objectSpread$5({}, previouslyConnectedWallet), {}, {
             via: 'previouslyConnected',
             connectionType: 'app'
           }));
@@ -8342,9 +8342,9 @@
     return internalVerify({ signature, publicKey, data, saltLength, crypto: crypto$3, atob: atob$1 })
   };
 
-  function ownKeys$6(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$6(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$6(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtqsu0wy94cpz90W4pGsJ\nSf0bfvmsq3su+R1J4AoAYz0XoAu2MXJZM8vrQvG3op7OgB3zze8pj4joaoPU2piT\ndH7kcF4Mde6QG4qKEL3VE+J8CL3qK2dUY0Umu20x/O9O792tlv8+Q/qAVv8yPfdM\nn5Je9Wc7VI5XeIBKP2AzsCkrXuzQlR48Ac5LpViNSSLu0mz5NTBoHkW2sz1sNWc6\nUpYISJkiKTvYc8Bo4p5xD6+ZmlL4hj1Ad/+26SjYcisX2Ut4QD7YKRBP2SbItVkI\nqp9mp6c6MCKNmEUkosxAr0KVfOcrk6/fcc4tI8g+KYZ32G11Ri8Xo4fgHH06DLYP\n3QIDAQAB\n-----END PUBLIC KEY-----\n";
   var ConfigurationProvider = (function (props) {
     var _props$configuration, _props$configuration5;
@@ -8358,7 +8358,7 @@
     var _useContext = React.useContext(ErrorContext),
         setError = _useContext.setError;
 
-    var _useState = React.useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$5(_objectSpread$5({}, props.configuration), {}, {
+    var _useState = React.useState(!((_props$configuration = props.configuration) !== null && _props$configuration !== void 0 && _props$configuration.integration) ? _objectSpread$4(_objectSpread$4({}, props.configuration), {}, {
       currencyCode: currencyCode
     }) : undefined),
         _useState2 = _slicedToArray$1(_useState, 2),
@@ -8454,7 +8454,7 @@
                   throw _msg;
 
                 case 18:
-                  setConfiguration(_objectSpread$5(_objectSpread$5(_objectSpread$5({}, _configuration), localConfigurationWithValues), {}, {
+                  setConfiguration(_objectSpread$4(_objectSpread$4(_objectSpread$4({}, _configuration), localConfigurationWithValues), {}, {
                     id: configurationId,
                     currencyCode: currencyCode
                   }));
@@ -9262,9 +9262,9 @@
     };
   })();
 
-  function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+  function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$5(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+  function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
   var ChangableAmountProvider = (function (props) {
     var configurationsMissAmounts = function configurationsMissAmounts(configurations) {
       return !configurations.every(function (configuration) {
@@ -9363,7 +9363,7 @@
             return;
           }
 
-          return _objectSpread$4(_objectSpread$4({}, configuration), {}, {
+          return _objectSpread$3(_objectSpread$3({}, configuration), {}, {
             amount: parseFloat(round$1(amounts[index]))
           });
         }).filter(function (configuration) {
@@ -9441,17 +9441,6 @@
 
   var PaymentRoutingContext = /*#__PURE__*/React__default['default'].createContext();
 
-  function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-  function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$4(Object(source), true).forEach(function (key) { _defineProperty$1(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-  var prepareAcceptedPayments = function prepareAcceptedPayments(accept, receiver) {
-    var toAddress = receiver ? receiver : undefined;
-    return _objectSpread$3(_objectSpread$3({}, accept), {}, {
-      toAddress: toAddress
-    });
-  };
-
   var mergeFromAccounts = function mergeFromAccounts(accept, account) {
     var from = {};
     accept.forEach(function (accept) {
@@ -9462,17 +9451,15 @@
 
   var routePayments = (function (_ref) {
     var accept = _ref.accept,
-        account = _ref.account,
-        receiver = _ref.receiver,
-        allow = _ref.allow,
+        account = _ref.account;
+        _ref.receiver;
+        var allow = _ref.allow,
         deny = _ref.deny,
         whitelist = _ref.whitelist,
         blacklist = _ref.blacklist,
         best = _ref.best;
     return web3PaymentsEvm.route({
-      accept: accept.map(function (accept) {
-        return prepareAcceptedPayments(accept, receiver);
-      }),
+      accept: accept,
       from: mergeFromAccounts(accept, account),
       allow: allow || whitelist,
       deny: deny || blacklist,
