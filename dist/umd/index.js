@@ -10335,7 +10335,7 @@
       };
     }());
     React.useEffect(function () {
-      if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.ethers.BigNumber.from('0'))) {
+      if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.ethers.BigNumber.from('0')) && !payment.route.currentRouterAllowance.gte(ethers.ethers.BigNumber.from('0'))) {
         setApprovalType('signature');
       }
     }, [payment]);
