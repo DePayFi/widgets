@@ -10253,7 +10253,8 @@ var PaymentProvider = (function (props) {
   })));
   var approve = useEvent( /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator$1( /*#__PURE__*/regenerator.mark(function _callee5(performSignature) {
-      var approvalTransaction, approvalSignatureData;
+      var _approvalTransaction, _approvalSignatureData;
+
       return regenerator.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -10276,8 +10277,8 @@ var PaymentProvider = (function (props) {
               return payment.route.getPermit2ApprovalSignature();
 
             case 7:
-              approvalSignatureData = _context5.sent;
-              setApprovalSignatureData(approvalSignatureData);
+              _approvalSignatureData = _context5.sent;
+              setApprovalSignatureData(_approvalSignatureData);
               _context5.next = 14;
               break;
 
@@ -10286,7 +10287,7 @@ var PaymentProvider = (function (props) {
               return payment.route.getPermit2ApprovalTransaction();
 
             case 13:
-              approvalTransaction = _context5.sent;
+              _approvalTransaction = _context5.sent;
 
             case 14:
               _context5.next = 19;
@@ -10299,32 +10300,38 @@ var PaymentProvider = (function (props) {
               } : undefined);
 
             case 18:
-              approvalTransaction = _context5.sent;
+              _approvalTransaction = _context5.sent;
 
             case 19:
-              if (!approvalSignatureData) {
+              if (!_approvalSignatureData) {
                 _context5.next = 23;
                 break;
               }
 
-              wallet.sign(approvalSignatureData).then(function (signature) {
+              wallet.sign(_approvalSignatureData).then(function (signature) {
                 setApprovalSignature(signature);
                 setPaymentState('approved');
                 setClosable(true);
 
                 if (!isMobile()) {
-                  pay(approvalSignatureData, signature);
+                  pay(_approvalSignatureData, signature);
                 }
               })["catch"](function (e) {
                 console.log('ERROR', e);
-                setPaymentState('initialized');
+
+                if (approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) {
+                  setPaymentState('approve');
+                } else {
+                  setPaymentState('initialized');
+                }
+
                 setClosable(true);
               });
               _context5.next = 29;
               break;
 
             case 23:
-              if (!approvalTransaction) {
+              if (!_approvalTransaction) {
                 _context5.next = 29;
                 break;
               }
@@ -10339,8 +10346,8 @@ var PaymentProvider = (function (props) {
             case 26:
               // do not perform any transaction if there was an error in the widget!
               approvalConfirmed.current = false;
-              startAllowancePolling(approvalTransaction, payment.route.fromAmount);
-              wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+              startAllowancePolling(_approvalTransaction, payment.route.fromAmount);
+              wallet.sendTransaction(Object.assign({}, _approvalTransaction, {
                 accepted: function accepted() {
                   setPaymentState('approving');
                 },
@@ -11290,7 +11297,7 @@ var Footer = (function () {
       return null;
     }
 
-    if (paymentState == 'approve' || paymentState == 'paying') {
+    if (paymentState == 'approve' && !(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) || paymentState == 'paying') {
       return /*#__PURE__*/React.createElement("div", {
         className: "PaddingBottomS PaddingTopXS"
       }, /*#__PURE__*/React.createElement("div", {
@@ -11325,7 +11332,7 @@ var Footer = (function () {
       var justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount);
       var spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || approvalType === 'signature' && Boolean((approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) || justNeedsPermit2Signature));
       var spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature);
-      var spendingDone = approvalType === 'signature' && Boolean(approvalSignature) || (approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) && !['approve', 'approving'].includes(paymentState); // --- Perform payment block ---
+      var spendingDone = approvalType === 'signature' && Boolean(approvalSignature) || approvalType !== 'signature' && (approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) && !['approve', 'approving'].includes(paymentState); // --- Perform payment block ---
 
       var paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying';
       var paymentProcessing = paymentState === 'sending';
@@ -11517,10 +11524,10 @@ var Footer = (function () {
       var approvalRequired = paymentState != 'approved' && (payment === null || payment === void 0 ? void 0 : (_payment$route5 = payment.route) === null || _payment$route5 === void 0 ? void 0 : _payment$route5.approvalRequired) && (wallet === null || wallet === void 0 ? void 0 : wallet.name) != 'World App';
 
       if (approvalRequired) {
-        if (paymentState == 'initialized') {
+        if (paymentState == 'initialized' || paymentState == 'approve' && approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) {
           return /*#__PURE__*/React.createElement("div", {
             className: "PaddingBottomXS PaddingTopXS"
-          }, !(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) && /*#__PURE__*/React.createElement("div", {
+          }, !(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) && !approvalSignature && /*#__PURE__*/React.createElement("div", {
             className: "PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS"
           }, /*#__PURE__*/React.createElement("div", {
             className: "PaddingTopXS"

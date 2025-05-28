@@ -212,36 +212,40 @@ export default (props)=>{
     setPaymentState('approve')
     setClosable(false)
     setUpdatable(false)
-    let approvalTransaction
-    let approvalSignatureData
+    let _approvalTransaction
+    let _approvalSignatureData
     if(approvalType == 'signature') {
       if(performSignature || (payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-        approvalSignatureData = await payment.route.getPermit2ApprovalSignature()
-        setApprovalSignatureData(approvalSignatureData)
+        _approvalSignatureData = await payment.route.getPermit2ApprovalSignature()
+        setApprovalSignatureData(_approvalSignatureData)
       } else {
-        approvalTransaction = await payment.route.getPermit2ApprovalTransaction()
+        _approvalTransaction = await payment.route.getPermit2ApprovalTransaction()
       }
     } else { // transaction
-      approvalTransaction = await payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
+      _approvalTransaction = await payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {amount: payment.route.fromAmount} : undefined)
     }
-    if(approvalSignatureData) {
-      wallet.sign(approvalSignatureData).then((signature)=>{
+    if(_approvalSignatureData) {
+      wallet.sign(_approvalSignatureData).then((signature)=>{
         setApprovalSignature(signature)
         setPaymentState('approved')
         setClosable(true)
         if(!isMobile()) {
-          pay(approvalSignatureData, signature)
+          pay(_approvalSignatureData, signature)
         }
       }).catch((e)=>{
         console.log('ERROR', e)
-        setPaymentState('initialized')
+        if(approvalTransaction?.url) {
+          setPaymentState('approve')
+        } else {
+          setPaymentState('initialized')
+        }
         setClosable(true)
       })
-    } else if(approvalTransaction) {
+    } else if(_approvalTransaction) {
       if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
       approvalConfirmed.current = false
-      startAllowancePolling(approvalTransaction, payment.route.fromAmount)
-      wallet.sendTransaction(Object.assign({}, approvalTransaction, {
+      startAllowancePolling(_approvalTransaction, payment.route.fromAmount)
+      wallet.sendTransaction(Object.assign({}, _approvalTransaction, {
         accepted: ()=>{
           setPaymentState('approving')
         },

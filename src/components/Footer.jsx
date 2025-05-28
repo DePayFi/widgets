@@ -83,7 +83,7 @@ export default ()=>{
     if(!wallet) { return null }
 
     if(
-      paymentState == 'approve' ||
+      (paymentState == 'approve' && !approvalTransaction?.url) ||
       paymentState == 'paying'
     ) {
       return(
@@ -130,7 +130,7 @@ export default ()=>{
       const justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)
       const spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || (approvalType === 'signature' && (Boolean(approvalTransaction?.url || justNeedsPermit2Signature))))
       const spendingProcessing = paymentState === 'approving' && (approvalType == 'transaction' || justNeedsPermit2Signature)
-      const spendingDone = (approvalType === 'signature' && Boolean(approvalSignature)) || (approvalTransaction?.url && !['approve', 'approving'].includes(paymentState))
+      const spendingDone = (approvalType === 'signature' && Boolean(approvalSignature)) || (approvalType !== 'signature' && approvalTransaction?.url && !['approve', 'approving'].includes(paymentState))
 
       // --- Perform payment block ---
       const paymentReady = paymentState === 'approved' || !approvalRequired || paymentState === 'paying'
@@ -408,11 +408,14 @@ export default ()=>{
     } else if((paymentState == 'initialized' || paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'resetting') && payment.route) {
       const approvalRequired = paymentState != 'approved' && payment?.route?.approvalRequired && wallet?.name != 'World App'
       if(approvalRequired) {
-        if(paymentState == 'initialized') {
+        if(
+          paymentState == 'initialized' ||
+          paymentState == 'approve' && approvalTransaction?.url
+        ) {
           return(
             <div className="PaddingBottomXS PaddingTopXS">
 
-              { !approvalTransaction?.url &&
+              { !approvalTransaction?.url && !approvalSignature &&
                 <div className="PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS">
                   <div className="PaddingTopXS">
                     <button
