@@ -27,7 +27,7 @@ import NoPaymentOptionFoundDialog from '../dialogs/NoPaymentOptionFoundDialog'
 import PaymentContext from '../contexts/PaymentContext'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
-import React, { useContext, useEffect, useState, useCallback } from 'react'
+import React, { useContext, useEffect, useState, useCallback, useRef } from 'react'
 import UpdatableContext from '../contexts/UpdatableContext'
 import useEvent from '../hooks/useEvent'
 import WalletContext from '../contexts/WalletContext'
@@ -53,6 +53,41 @@ export default (props)=>{
   const [ paymentState, setPaymentState ] = useState('initialized')
   const [ approvalType, setApprovalType ] = useState('transaction')
   const [ approvalAmount, setApprovalAmount ] = useState('max')
+
+  const allowancePolling = useRef()
+  const approvalConfirmed = useRef()
+
+  const confirmApproval = useEvent(()=>{
+    if(allowancePolling.current) { clearInterval(allowancePolling.current) }
+    if(approvalConfirmed.current) { return }
+    approvalConfirmed.current = true
+    setUpdatable(true)
+    setClosable(true)
+    if(approvalType == 'signature') {
+      selectedRoute.currentPermit2Allowance = ethers.BigNumber.from(Blockchains[selectedRoute.blockchain].maxInt)
+      setPaymentState('approve') // signature still requires signature approval
+      if(!isMobile()) {
+        approve(true)
+      }
+    } else {
+      selectedRoute.currentRouterAllowance = ethers.BigNumber.from(Blockchains[selectedRoute.blockchain].maxInt)
+      setPaymentState('approved') // transaction made it fully approved
+      if(!isMobile()) {
+        pay()
+      }
+    }
+  })
+
+  const startAllowancePolling = (transaction, requiredAmount)=>{
+    if(allowancePolling.current) { clearInterval(allowancePolling.current) }
+    allowancePolling.current = setInterval(async()=>{
+      let token = new Token({ blockchain: transaction.blockchain, address: transaction.to })
+      let allowance = await token.allowance(account, transaction.params[0])
+      if(requiredAmount && allowance.gte(requiredAmount)) {
+        confirmApproval()
+      }
+    }, 2000)
+  }
 
   const paymentSucceeded = useEvent((transaction, payment)=>{
     if(synchronousTracking == false) {
@@ -204,6 +239,8 @@ export default (props)=>{
       })
     } else if(approvalTransaction) {
       if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
+      approvalConfirmed.current = false
+      startAllowancePolling(approvalTransaction, payment.route.fromAmount)
       wallet.sendTransaction(Object.assign({}, approvalTransaction, {
         accepted: ()=>{
           setPaymentState('approving')
@@ -213,23 +250,16 @@ export default (props)=>{
           setApprovalTransaction(sentTransaction)
         },
         succeeded: ()=>{
-          setUpdatable(true)
+          confirmApproval()
+        },
+        failed: ()=>{
+          if(allowancePolling.current) { clearInterval(allowancePolling.current) }
+          setPaymentState('initialized')
           setClosable(true)
-          if(approvalType == 'signature') { 
-            setPaymentState('approve') // signature still requires signature approval
-            if(!isMobile()) {
-              approve(true)
-            }
-          } else {
-            setPaymentState('approved') // transaction made it fully approved
-            if(!isMobile()) {
-              pay()
-            }
-          }
         }
       }))
         .catch((error)=>{
-          console.log('error', error)
+          if(allowancePolling.current) { clearInterval(allowancePolling.current) }
           if(error?.code == 'WRONG_NETWORK' || error?.code == 'NOT_SUPPORTED') {
             navigate('WrongNetwork')
           }

@@ -9916,8 +9916,8 @@
         set = _useContext8.set;
 
     var _useContext9 = React.useContext(WalletContext),
-        wallet = _useContext9.wallet;
-        _useContext9.account;
+        wallet = _useContext9.wallet,
+        account = _useContext9.account;
 
     var _useContext10 = React.useContext(PaymentTrackingContext),
         release = _useContext10.release,
@@ -9967,6 +9967,72 @@
         approvalAmount = _useState16[0],
         setApprovalAmount = _useState16[1];
 
+    var allowancePolling = React.useRef();
+    var approvalConfirmed = React.useRef();
+    var confirmApproval = useEvent(function () {
+      if (allowancePolling.current) {
+        clearInterval(allowancePolling.current);
+      }
+
+      if (approvalConfirmed.current) {
+        return;
+      }
+
+      approvalConfirmed.current = true;
+      setUpdatable(true);
+      setClosable(true);
+
+      if (approvalType == 'signature') {
+        selectedRoute.currentPermit2Allowance = ethers.ethers.BigNumber.from(Blockchains__default['default'][selectedRoute.blockchain].maxInt);
+        setPaymentState('approve'); // signature still requires signature approval
+
+        if (!isMobile()) {
+          approve(true);
+        }
+      } else {
+        selectedRoute.currentRouterAllowance = ethers.ethers.BigNumber.from(Blockchains__default['default'][selectedRoute.blockchain].maxInt);
+        setPaymentState('approved'); // transaction made it fully approved
+
+        if (!isMobile()) {
+          pay();
+        }
+      }
+    });
+
+    var startAllowancePolling = function startAllowancePolling(transaction, requiredAmount) {
+      if (allowancePolling.current) {
+        clearInterval(allowancePolling.current);
+      }
+
+      allowancePolling.current = setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
+        var token, allowance;
+        return regenerator.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                token = new Token__default['default']({
+                  blockchain: transaction.blockchain,
+                  address: transaction.to
+                });
+                _context.next = 3;
+                return token.allowance(account, transaction.params[0]);
+
+              case 3:
+                allowance = _context.sent;
+
+                if (requiredAmount && allowance.gte(requiredAmount)) {
+                  confirmApproval();
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      })), 2000);
+    };
+
     var paymentSucceeded = useEvent(function (transaction, payment) {
       if (synchronousTracking == false) {
         setClosable(true);
@@ -9987,21 +10053,21 @@
       callFailedCallback(transaction, selectedRoute);
     });
     var pay = useEvent( /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2(passedSignatureData, passedSignature) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3(passedSignatureData, passedSignature) {
         var _transaction$params, _transaction$params$p;
 
         var transaction, stop, currentBlock, deadline;
-        return regenerator.wrap(function _callee2$(_context2) {
+        return regenerator.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 setPaymentState('paying');
                 setUpdatable(false);
-                _context2.next = 4;
+                _context3.next = 4;
                 return wallet.account();
 
               case 4:
-                _context2.next = 7;
+                _context3.next = 7;
                 return payment.route.getTransaction(Object.assign({
                   wallet: wallet
                 }, approvalSignatureData || passedSignatureData ? {
@@ -10011,54 +10077,54 @@
                 } : {}));
 
               case 7:
-                transaction = _context2.sent;
+                transaction = _context3.sent;
 
                 if (!before) {
-                  _context2.next = 15;
+                  _context3.next = 15;
                   break;
                 }
 
-                _context2.next = 11;
+                _context3.next = 11;
                 return before(transaction, selectedRoute);
 
               case 11:
-                stop = _context2.sent;
+                stop = _context3.sent;
 
                 if (!(stop === false)) {
-                  _context2.next = 15;
+                  _context3.next = 15;
                   break;
                 }
 
                 setPaymentState('initialized');
-                return _context2.abrupt("return");
+                return _context3.abrupt("return");
 
               case 15:
-                _context2.next = 17;
+                _context3.next = 17;
                 return web3ClientSvm.request({
                   blockchain: transaction.blockchain,
                   method: 'latestBlockNumber'
                 });
 
               case 17:
-                currentBlock = _context2.sent;
+                currentBlock = _context3.sent;
                 deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
-                _context2.next = 21;
-                return trace(currentBlock, payment.route, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee() {
-                  return regenerator.wrap(function _callee$(_context) {
+                _context3.next = 21;
+                return trace(currentBlock, payment.route, deadline).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee2() {
+                  return regenerator.wrap(function _callee2$(_context2) {
                     while (1) {
-                      switch (_context.prev = _context.next) {
+                      switch (_context2.prev = _context2.next) {
                         case 0:
                           setClosable(false);
 
                           if (!window._depayWidgetError) {
-                            _context.next = 3;
+                            _context2.next = 3;
                             break;
                           }
 
-                          return _context.abrupt("return");
+                          return _context2.abrupt("return");
 
                         case 3:
-                          _context.next = 5;
+                          _context2.next = 5;
                           return wallet.sendTransaction(Object.assign({}, transaction, {
                             accepted: function accepted() {
                               setPaymentState('sending');
@@ -10096,10 +10162,10 @@
 
                         case 5:
                         case "end":
-                          return _context.stop();
+                          return _context2.stop();
                       }
                     }
-                  }, _callee);
+                  }, _callee2);
                 })))["catch"](function (e) {
                   console.log(e);
                   setPaymentState('initialized');
@@ -10110,42 +10176,42 @@
 
               case 21:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }));
 
       return function (_x, _x2) {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }());
-    var resetApproval = useEvent( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee3() {
+    var resetApproval = useEvent( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4() {
       var resetApprovalTransaction;
-      return regenerator.wrap(function _callee3$(_context3) {
+      return regenerator.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               setPaymentState('resetting');
               setClosable(false);
               setUpdatable(false);
-              _context3.t0 = JSON;
-              _context3.t1 = JSON;
-              _context3.next = 7;
+              _context4.t0 = JSON;
+              _context4.t1 = JSON;
+              _context4.next = 7;
               return payment.route.getRouterApprovalTransaction();
 
             case 7:
-              _context3.t2 = _context3.sent;
-              _context3.t3 = _context3.t1.stringify.call(_context3.t1, _context3.t2);
-              resetApprovalTransaction = _context3.t0.parse.call(_context3.t0, _context3.t3);
+              _context4.t2 = _context4.sent;
+              _context4.t3 = _context4.t1.stringify.call(_context4.t1, _context4.t2);
+              resetApprovalTransaction = _context4.t0.parse.call(_context4.t0, _context4.t3);
               resetApprovalTransaction.params[1] = '0'; // reset first
 
               if (!window._depayWidgetError) {
-                _context3.next = 13;
+                _context4.next = 13;
                 break;
               }
 
-              return _context3.abrupt("return");
+              return _context4.abrupt("return");
 
             case 13:
               // do not perform any transaction if there was an error in the widget!
@@ -10179,64 +10245,64 @@
 
             case 14:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     })));
     var approve = useEvent( /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee4(performSignature) {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee5(performSignature) {
         var approvalTransaction, approvalSignatureData;
-        return regenerator.wrap(function _callee4$(_context4) {
+        return regenerator.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 setPaymentState('approve');
                 setClosable(false);
                 setUpdatable(false);
 
                 if (!(approvalType == 'signature')) {
-                  _context4.next = 16;
+                  _context5.next = 16;
                   break;
                 }
 
                 if (!(performSignature || payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-                  _context4.next = 11;
+                  _context5.next = 11;
                   break;
                 }
 
-                _context4.next = 7;
+                _context5.next = 7;
                 return payment.route.getPermit2ApprovalSignature();
 
               case 7:
-                approvalSignatureData = _context4.sent;
+                approvalSignatureData = _context5.sent;
                 setApprovalSignatureData(approvalSignatureData);
-                _context4.next = 14;
+                _context5.next = 14;
                 break;
 
               case 11:
-                _context4.next = 13;
+                _context5.next = 13;
                 return payment.route.getPermit2ApprovalTransaction();
 
               case 13:
-                approvalTransaction = _context4.sent;
+                approvalTransaction = _context5.sent;
 
               case 14:
-                _context4.next = 19;
+                _context5.next = 19;
                 break;
 
               case 16:
-                _context4.next = 18;
+                _context5.next = 18;
                 return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
                   amount: payment.route.fromAmount
                 } : undefined);
 
               case 18:
-                approvalTransaction = _context4.sent;
+                approvalTransaction = _context5.sent;
 
               case 19:
                 if (!approvalSignatureData) {
-                  _context4.next = 23;
+                  _context5.next = 23;
                   break;
                 }
 
@@ -10253,24 +10319,26 @@
                   setPaymentState('initialized');
                   setClosable(true);
                 });
-                _context4.next = 27;
+                _context5.next = 29;
                 break;
 
               case 23:
                 if (!approvalTransaction) {
-                  _context4.next = 27;
+                  _context5.next = 29;
                   break;
                 }
 
                 if (!window._depayWidgetError) {
-                  _context4.next = 26;
+                  _context5.next = 26;
                   break;
                 }
 
-                return _context4.abrupt("return");
+                return _context5.abrupt("return");
 
               case 26:
                 // do not perform any transaction if there was an error in the widget!
+                approvalConfirmed.current = false;
+                startAllowancePolling(approvalTransaction, payment.route.fromAmount);
                 wallet.sendTransaction(Object.assign({}, approvalTransaction, {
                   accepted: function accepted() {
                     setPaymentState('approving');
@@ -10280,25 +10348,20 @@
                     setApprovalTransaction(sentTransaction);
                   },
                   succeeded: function succeeded() {
-                    setUpdatable(true);
-                    setClosable(true);
-
-                    if (approvalType == 'signature') {
-                      setPaymentState('approve'); // signature still requires signature approval
-
-                      if (!isMobile()) {
-                        approve(true);
-                      }
-                    } else {
-                      setPaymentState('approved'); // transaction made it fully approved
-
-                      if (!isMobile()) {
-                        pay();
-                      }
+                    confirmApproval();
+                  },
+                  failed: function failed() {
+                    if (allowancePolling.current) {
+                      clearInterval(allowancePolling.current);
                     }
+
+                    setPaymentState('initialized');
+                    setClosable(true);
                   }
                 }))["catch"](function (error) {
-                  console.log('error', error);
+                  if (allowancePolling.current) {
+                    clearInterval(allowancePolling.current);
+                  }
 
                   if ((error === null || error === void 0 ? void 0 : error.code) == 'WRONG_NETWORK' || (error === null || error === void 0 ? void 0 : error.code) == 'NOT_SUPPORTED') {
                     navigate('WrongNetwork');
@@ -10308,16 +10371,16 @@
                   setClosable(true);
                 });
 
-              case 27:
+              case 29:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
       return function (_x3) {
-        return _ref4.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }());
     React.useEffect(function () {
@@ -10345,11 +10408,11 @@
           blockchain: selectedRoute.blockchain,
           address: selectedRoute.fromToken.address
         });
-        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref5) {
-          var _ref6 = _slicedToArray(_ref5, 3),
-              name = _ref6[0],
-              symbol = _ref6[1],
-              amount = _ref6[2];
+        Promise.all([fromToken.name(), fromToken.symbol(), fromToken.readable(selectedRoute.fromAmount)]).then(function (_ref6) {
+          var _ref7 = _slicedToArray(_ref6, 3),
+              name = _ref7[0],
+              symbol = _ref7[1],
+              amount = _ref7[2];
 
           setPayment({
             blockchain: Blockchains__default['default'][selectedRoute.blockchain],
@@ -11249,12 +11312,14 @@
 
     var steps = function steps() {
       if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' && (approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url || approvalSignature) || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
+        var _window;
+
         // --- Permit2 signature approval block ---
         var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
         var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
         var permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature; // --- Spending approval block ---
 
-        var approvalRequired = Boolean(payment.route.approvalRequired);
+        var approvalRequired = Boolean(payment.route.approvalRequired && !((_window = window) !== null && _window !== void 0 && _window.WorldApp));
         var needsToApproveSpending = approvalRequired;
         var justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount);
         var spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || approvalType === 'signature' && Boolean((approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url) || justNeedsPermit2Signature));
@@ -11270,7 +11335,7 @@
         var showSyncDone = synchronousTracking && release;
         return /*#__PURE__*/React__default['default'].createElement("div", {
           className: "PaddingBottomS StepsWrapper"
-        }, needsPermit2Transaction && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("a", {
+        }, (needsPermit2Transaction || permit2Done) && /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("a", {
           href: approvalTransaction ? link({
             url: approvalTransaction.url,
             target: '_blank',
@@ -11338,7 +11403,7 @@
           }) : undefined,
           target: "_blank",
           rel: "noopener noreferrer",
-          className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing || paymentDone && !showSyncDone ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
+          className: 'Step Card small transparent' + (paymentReady && !paymentDone || paymentProcessing || paymentDone && !(showSyncDone || showSyncWaiting) ? ' active' : '') + (paymentDone ? ' done' : '') + (!(transaction !== null && transaction !== void 0 && transaction.url) ? ' disabled' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, paymentDone && /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {
@@ -11350,7 +11415,7 @@
         }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
         })) : /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
-          className: 'Step Card disabled small transparent' + (paymentReady || paymentDone && !showSyncDone ? ' active' : '')
+          className: 'Step Card disabled small transparent' + (paymentReady || paymentDone && !(showSyncDone || showSyncWaiting) ? ' active' : '')
         }, /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepIcon"
         }, paymentDone ? /*#__PURE__*/React__default['default'].createElement(CheckmarkIcon, {

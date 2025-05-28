@@ -8,7 +8,7 @@ import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ethers } from 'ethers'
-import { mock, confirm, resetMocks } from '@depay/web3-mock'
+import { mock, confirm, fail, resetMocks } from '@depay/web3-mock'
 import { resetCache, getProvider } from '@depay/web3-client'
 import { routers, plugins } from '@depay/web3-payments'
 import Token from '@depay/web3-tokens'
@@ -207,6 +207,43 @@ describe('Payment Widget: approval', () => {
       })
     })
   })
+
+  it('also confirms the approval by polling allowance changes', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: DAI,
+        api: Token[blockchain].DEFAULT,
+        method: 'approve',
+        params: [routers[blockchain].address, Blockchains[blockchain].maxInt]
+      }
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
+          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approving DAI for spending...').then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
+            cy.wait(5000).then(()=>{
+              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
+              cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
+            })
+          })
+        })
+      })
+    })
+  })
   
   it('resets back to overview if I decline the approval (e.g. reject metamask)', () => {
     let mockedTransaction = mock({
@@ -229,6 +266,36 @@ describe('Payment Widget: approval', () => {
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approve DAI for spending').then(()=>{
+          cy.wait(1000).then(()=>{
+            cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay')
+          })
+        })
+      })
+    })
+  })
+
+  it('resets back to overview if I approval transaction fails', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        delay: 1000,
+        from: fromAddress,
+        to: DAI,
+        api: Token[blockchain].DEFAULT,
+        method: 'approve',
+        params: [routers[blockchain].address, Blockchains[blockchain].maxInt],
+      }
+    })
+    cy.document().then((document)=>{
+      DePayWidgets.Payment({ ...defaultArguments, document })
+      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+      cy.wait(500).then(()=>{ // wait for dialog
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Change payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card[title="Select DAI as payment"]').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approve DAI for spending').then(()=>{
+          fail(mockedTransaction)
           cy.wait(1000).then(()=>{
             cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay')

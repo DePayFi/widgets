@@ -99,7 +99,7 @@ DePay supports [most crypto wallets](https://depay.com/wallets).
 
 ## DePayWidgets: Payments
 
-DePay Payments allows you to accept and perform crypto payments.
+DePay Payments allows you to accept and perform seamless crypto payments.
 
 ### Integration
 

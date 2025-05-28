@@ -124,7 +124,7 @@ export default ()=>{
       const permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature
 
       // --- Spending approval block ---
-      const approvalRequired = Boolean(payment.route.approvalRequired)
+      const approvalRequired = Boolean(payment.route.approvalRequired && !window?.WorldApp)
       const needsToApproveSpending = approvalRequired
       const justNeedsPermit2Signature = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount)
       const spendingActive = paymentState === 'approve' && (approvalType == 'transaction' || (approvalType === 'signature' && (Boolean(approvalTransaction?.url || justNeedsPermit2Signature))))
@@ -144,7 +144,7 @@ export default ()=>{
       return (
         <div className="PaddingBottomS StepsWrapper">
           {/* Enable signature approval (Permit2) */}
-          {needsPermit2Transaction && (
+          {(needsPermit2Transaction || permit2Done) && (
             <>
               <a
                 href={
@@ -255,7 +255,7 @@ export default ()=>{
                 rel="noopener noreferrer"
                 className={
                   'Step Card small transparent' +
-                  ((paymentReady && !paymentDone) || paymentProcessing || (paymentDone && !showSyncDone) ? ' active' : '') +
+                  ((paymentReady && !paymentDone) || paymentProcessing || (paymentDone && !(showSyncDone || showSyncWaiting)) ? ' active' : '') +
                   (paymentDone ? ' done' : '') +
                   (!transaction?.url ? ' disabled' : '')
                 }
@@ -276,7 +276,7 @@ export default ()=>{
               <div
                 className={
                   'Step Card disabled small transparent' +
-                  ((paymentReady || (paymentDone && !showSyncDone)) ? ' active' : '')
+                  ((paymentReady || (paymentDone && !(showSyncDone || showSyncWaiting))) ? ' active' : '')
                 }
               >
                 <div className="StepIcon">
