@@ -11311,7 +11311,7 @@
     };
 
     var steps = function steps() {
-      if (paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' && (approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url || approvalSignature) || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
+      if (paymentState == 'initialized' && approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url || paymentState == 'approve' || paymentState == 'approving' || paymentState == 'approved' || paymentState == 'paying' && (approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url || approvalSignature) || paymentState == 'sending' || paymentState == 'validating' || paymentState == 'success') {
         var _window;
 
         // --- Permit2 signature approval block ---
@@ -11519,7 +11519,7 @@
           if (paymentState == 'initialized') {
             return /*#__PURE__*/React__default['default'].createElement("div", {
               className: "PaddingBottomXS PaddingTopXS"
-            }, /*#__PURE__*/React__default['default'].createElement("div", {
+            }, !(approvalTransaction !== null && approvalTransaction !== void 0 && approvalTransaction.url) && /*#__PURE__*/React__default['default'].createElement("div", {
               className: "PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS"
             }, /*#__PURE__*/React__default['default'].createElement("div", {
               className: "PaddingTopXS"

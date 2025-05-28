@@ -444,50 +444,52 @@ describe('Payment Widget: signature approval', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Radio').contains('Signature').click().then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Save and return').click().then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click().then(()=>{
-                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('not.exist')
-                  cy.wait(1000).then(()=>{
-                    mock({
-                      blockchain,
-                      signature: {
-                        params:[
-                          "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-                          {
-                            "domain": {"name":"Permit2","chainId":"1","verifyingContract":"0x000000000022D473030F116dDEE9F6B43aC78BA3"},
-                            "types": {"TokenPermissions":[{"name":"token","type":"address"},{"name":"amount","type":"uint256"}],"EIP712Domain":[{"name":"name","type":"string"},{"name":"chainId","type":"uint256"},{"name":"verifyingContract","type":"address"}],"PermitTransferFrom":[{"name":"permitted","type":"TokenPermissions"},{"name":"spender","type":"address"},{"name":"nonce","type":"uint256"},{"name":"deadline","type":"uint256"}]},
-                            "message":{
-                              "permitted": {
-                                "token":"0x6B175474E89094C44Da98b954EedeAC495271d0F",
-                                "amount":"33165000000000000000"
+                  cy.wait(2000).then(()=>{
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().find('button').contains('Approval').should('not.exist')
+                    cy.wait(1000).then(()=>{
+                      mock({
+                        blockchain,
+                        signature: {
+                          params:[
+                            "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                            {
+                              "domain": {"name":"Permit2","chainId":"1","verifyingContract":"0x000000000022D473030F116dDEE9F6B43aC78BA3"},
+                              "types": {"TokenPermissions":[{"name":"token","type":"address"},{"name":"amount","type":"uint256"}],"EIP712Domain":[{"name":"name","type":"string"},{"name":"chainId","type":"uint256"},{"name":"verifyingContract","type":"address"}],"PermitTransferFrom":[{"name":"permitted","type":"TokenPermissions"},{"name":"spender","type":"address"},{"name":"nonce","type":"uint256"},{"name":"deadline","type":"uint256"}]},
+                              "message":{
+                                "permitted": {
+                                  "token":"0x6B175474E89094C44Da98b954EedeAC495271d0F",
+                                  "amount":"33165000000000000000"
+                                },
+                                "spender":"0x365f7B56D2fB16C8Af89D7d33b420E4e013461e8",
+                                "nonce":"0",
+                                "deadline": anything
                               },
-                              "spender":"0x365f7B56D2fB16C8Af89D7d33b420E4e013461e8",
-                              "nonce":"0",
-                              "deadline": anything
-                            },
-                          "primaryType":"PermitTransferFrom"
-                        }],
-                        delay: 2000,
-                        return: rawSignature
-                      }
-                    })
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click().then(()=>{
-                      confirm(mockedPermit2ApprovalTransaction)
-                      cy.wait(5000).then(()=>{
-                        cy.wait(3000).then(()=>{
-                          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Performing payment').then(()=>{
-                            confirm(mockedTransaction)
-                            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Confirming payment').then(()=>{
-                              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Signature approval for DAI enabled')
-                              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Spending DAI approved')
-                              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Perform payment')
-                              mockedWebsocket.send(JSON.stringify({
-                                message: {
-                                  release: true,
-                                  status: 'success'
-                                }
-                              }))
-                              cy.wait(1000).then(()=>{
-                                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Payment confirmed')
-                                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
+                            "primaryType":"PermitTransferFrom"
+                          }],
+                          delay: 2000,
+                          return: rawSignature
+                        }
+                      })
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click().then(()=>{
+                        confirm(mockedPermit2ApprovalTransaction)
+                        cy.wait(5000).then(()=>{
+                          cy.wait(3000).then(()=>{
+                            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Performing payment').then(()=>{
+                              confirm(mockedTransaction)
+                              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Confirming payment').then(()=>{
+                                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Signature approval for DAI enabled')
+                                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Spending DAI approved')
+                                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Perform payment')
+                                mockedWebsocket.send(JSON.stringify({
+                                  message: {
+                                    release: true,
+                                    status: 'success'
+                                  }
+                                }))
+                                cy.wait(1000).then(()=>{
+                                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.done').should('contain.text', 'Payment confirmed')
+                                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
+                                })
                               })
                             })
                           })

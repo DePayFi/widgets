@@ -109,6 +109,7 @@ export default ()=>{
   const steps = ()=>{
 
     if(
+      (paymentState == 'initialized' && approvalTransaction?.url) ||
       paymentState == 'approve' ||
       paymentState == 'approving' ||
       paymentState == 'approved' ||
@@ -411,30 +412,32 @@ export default ()=>{
           return(
             <div className="PaddingBottomXS PaddingTopXS">
 
-              <div className="PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS">
-                <div className="PaddingTopXS">
-                  <button
-                    type="button" 
-                    className="Card small transparent"
-                    title="Change approval"
-                    onClick={ ()=>{
-                      if(paymentState != 'initialized') { return }
-                      navigate('ChangeApproval')
-                    } }
-                  >
-                    <div className="CardBody">
-                      <div className="CardBodyWrapper">
-                        <h4 className="CardTitle">
-                          Approval
-                        </h4>
+              { !approvalTransaction?.url &&
+                <div className="PaddingBottomXS MarginBottomXS MarginTopNegativeS PaddingTopXS">
+                  <div className="PaddingTopXS">
+                    <button
+                      type="button" 
+                      className="Card small transparent"
+                      title="Change approval"
+                      onClick={ ()=>{
+                        if(paymentState != 'initialized') { return }
+                        navigate('ChangeApproval')
+                      } }
+                    >
+                      <div className="CardBody">
+                        <div className="CardBodyWrapper">
+                          <h4 className="CardTitle">
+                            Approval
+                          </h4>
+                        </div>
                       </div>
-                    </div>
-                    <div className="CardAction PaddingRightXS">
-                      <ChevronRightIcon className="small"/>
-                    </div>
-                  </button>
+                      <div className="CardAction PaddingRightXS">
+                        <ChevronRightIcon className="small"/>
+                      </div>
+                    </button>
+                  </div>
                 </div>
-              </div>
+              }
 
               <div>
                 <button type="button" className="ButtonPrimary" onClick={ throttledApprove }>
