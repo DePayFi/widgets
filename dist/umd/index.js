@@ -10337,6 +10337,8 @@
     React.useEffect(function () {
       if (payment && payment.route && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gt(ethers.ethers.BigNumber.from('0')) && !payment.route.currentRouterAllowance.gte(payment.route.fromAmount)) {
         setApprovalType('signature');
+      } else {
+        setApprovalType('transaction');
       }
     }, [payment]);
     React.useEffect(function () {
