@@ -1,84 +1,86 @@
-![Screenshot 2023-09-16 at 11 22 22](https://github.com/DePayFi/widgets/assets/851393/d05674d0-8e84-4062-bc7e-f4135b8ecc54)
+## 📦 Installation
 
-## Installation
+### via CDN
 
-You can either load the `@depay/widgets` package via CDN:
-
-```
-<script defer async src="https://integrate.depay.com/widgets/v12.js"></script>
+```html
+<script defer async src="https://integrate.depay.com/widgets/v13.js"></script>
 ```
 
-or you install `@depay/widgets` via the package manager of your choice and ship it as part of your application bundle:
+### via Package Manager (recommended)
 
-```
-yarn add @depay/widgets
+```sh
+yarn add @depay/widgets ethers react react-dom
 ```
 
 or
 
-```
-npm install @depay/widgets --save
+```sh
+npm install @depay/widgets ethers react react-dom --save
 ```
 
-and load the DePayWidgets package wherever you need it:
+> [!IMPORTANT]
+> Ensure the peer dependencies (ethers, react, and react-dom) are installed if not already present.
 
-```
+## Import in your JavaScript files
+
+```javascript
 import DePayWidgets from '@depay/widgets'
 ```
 
-Make sure you install DePay widgets peer dependencies, too, in case your project does not have them installed already:
+## Server-Side Rendering (SSR)
 
-```
-yarn add ethers react react-dom
+If you're using SSR frameworks like Next.js, make sure to only load DePay Widgets on the client side.
+
+Guide: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-with-ssr-in-gatsby-and-nextjs-3pfa
+
+## Demos
+
+Configurator UI: https://app.depay.com/integrations/new
+
+Technical Demo: https://depayfi.github.io/widgets/demo.bundle.html
+
+## Support
+
+### Platforms
+
+- Ethereum Virtual Machine (EVM)
+- Solana Virtual Machine (SVM)
+
+#### Platform specific packaging
+
+If only specific platform packaging is needed:
+
+##### EVM (Ethereum Virtual Machine)
+
+```sh
+yarn add @depay/widgets-evm
 ```
 
 or
 
-```
-npm install ethers react react-dom --save
-```
-
-## Platform specific packaging
-
-In case you want to use and package only specific platforms, use the platform-specific package:
-
-### EVM (Ethereum Virtual Machine) platform specific packaging
-
-```
-yarn add @depay/widgets-evm
+```sh
+npm install @depay/widgets-evm --save
 ```
 
 ```javascript
 import DePayWidgets from '@depay/widgets-evm'
 ```
 
-### SVM (Solana Virtual Machine) platform specific packaging
+##### SVM (Solana Virtual Machine)
 
-```
+```sh
 yarn add @depay/widgets-svm
+```
+
+or
+
+```sh
+npm install @depay/widgets-svm --save
 ```
 
 ```javascript
 import DePayWidgets from '@depay/widgets-svm'
 ```
-
-## Server-side rendering
-
-Make sure you load this library as a client-side script for client-side rendering (CSR), in case you are using a server-side rendering (SSR) framework like next.js.
-
-Next.js: https://dev.to/elisabethleonhardt/how-to-use-client-side-only-packages-with-ssr-in-gatsby-and-nextjs-3pfa
-
-## Demo
-
-To easily integrate the DePay Payment Widgets please use our configurator here:
-
-https://app.depay.com/integrations/new
-
-For a more low-key technical example/demo page have a look at:
-
-https://depayfi.github.io/widgets/demo.bundle.html
-
-## Support
 
 ### Blockchains
 
@@ -88,76 +90,66 @@ https://depayfi.github.io/widgets/demo.bundle.html
 - [Solana](https://solana.com)
 - [Optimism](https://www.optimism.io)
 - [Arbitrum](https://arbitrum.io)
-- [Fantom](https://fantom.foundation)
 - [Avalanche](https://www.avax.network)
 - [Gnosis](https://gnosis.io)
 - [Base](https://base.org)
+- [Worldchain](https://world.org/world-chain)
 
 ### Wallets
 
 DePay supports [most crypto wallets](https://depay.com/wallets).
 
-## DePayWidgets: Payments
+## Payment Widget
 
-DePay Payments allows you to accept and perform seamless crypto payments.
+Enable seamless wallet-to-wallet crypto payments.
 
-### Integration
-
-`integration`
-
-Connects the widget to a DePay integration managed via https://app.depay.com:
+### Managed Integration using Integration ID
 
 ```javascript
 DePayWidgets.Payment({
-  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d'
+  integration: 'YOUR_INTEGRATION_ID'
 })
 ```
 
-The configuration of the integration managed via https://app.depay.com will be fetched and applied before applying any additional local configurations.
+Managed integration configurations fetched from app.depay.com.
 
-You can fully manage an integration via https://app.depay.com. Passing any additional configuration is not necessary.
+> [!IMPORTANT]
+> Local configurations override remote settings.
 
-Locally applied configurations overwrite remotely stored configurations.
+> [!CAUTION]
+> Use either `integration` or `accept` (local config), never both.
 
-If your integration relies on processing dynamic from your backend (e.g. pricing), and you are not managing a fixed configuration via https://app.depay.com,
-you need to pass the data that is supposed to be forwarded to your backend for dynamic configurations to the widget:
+#### Payload for Dynamic Backend Configurations
 
 ```javascript
 DePayWidgets.Payment({
-  integration: 'fe690fbc-1740-4894-b12c-23a72abec54d',
-  payload: {
-    whatever: 'you want to forward to your backend for dynamic configurations'
-  }
+  integration: 'YOUR_INTEGRATION_ID',
+  payload: { dynamicKey: 'dynamicValue' }
 })
 ```
 
-This will forward:
+Forwards the payload to your backend for dynamic payment setup, like:
 
-```
+```json
 {
-  whatever: 'you want to forward to your backend for dynamic configurations'
+  "dynamicKey": "dynamicValue"
 }
 ```
 
-to your backend in order to receive a payment configuration for the widget.
-
-> [!CAUTION]
-> You have the option to utilize managed integrations along with the `integration` attribute for payment validations (refer to the previous section). Alternatively, if payment validations are not necessary, you may opt for basic configurations using `accept` (see next section). However, it's important to note that `integration` and `accept` cannot be used simultaneously.
-
-### Configuration
+### Local Unmanaged Configuration
 
 ```javascript
 DePayWidgets.Payment({
   accept: [{
     blockchain: 'ethereum',
-    amount: 20,
-    token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-    receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+    amount: 1,
+    token: 'TOKEN_ADDRESS',
+    receiver: 'RECEIVER_ADDRESS'
   }]
-});
+})
 ```
 
-You can also accept multiple payments on multiple blockchains:
+Multi-blockchain payments:
 
 ```javascript
 DePayWidgets.Payment({
@@ -204,41 +196,6 @@ If you do not pass an amount, the user will be able to select an amount within t
 `receiver`
 
 The address receiving the payment. Always double check that you've set the right address.
-
-#### wallets
-
-You can sort and allow (list) wallets displayed during the initial wallet selection step as follows:
-
-##### wallets.sort
-
-```
-{
-  wallets: {
-    sort: [
-      'Uniswap',
-      'Coinbase'
-    ]
-  }
-}
-```
-
-This configuration would display Uniswap and Coinbase first, then would list all the others.
-
-##### wallets.allow
-
-```
-{
-  wallets: {
-    allow: [
-      'Uniswap',
-      'Coinbase',
-      'Rainbow'
-    ]
-  }
-}
-```
-
-This configuration would only display Uniswap, Coinbase and Rainbow. No other options/wallets are displayed.
 
 
 #### amount
@@ -345,336 +302,40 @@ DePayWidgets.Payment({
 })
 ```
 
-#### track
+#### wallets
 
-`track`
+You can sort and allow (list) wallets displayed during the initial wallet selection step as follows:
 
-Allows to track payments via any backend endpoint.
+##### wallets.sort
 
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    endpoint: '/track/payments'
+```
+{
+  wallets: {
+    sort: [
+      'Uniswap',
+      'Coinbase'
+    ]
   }
-})
+}
 ```
 
-> [!CAUTION]
-> `track` is not possible using managed integrations via app.depay.com!
+This configuration would display Uniswap and Coinbase first, then would list all the others.
 
-Once a user clicks "Pay" in the widget, and before the transaction is handed over to the wallet, the widget will send a payment trace (without transaction_id) to the configured endpoint.
-
-This is where the payment tracing starts:
+##### wallets.allow
 
 ```
-POST /track/payments
-BODY:
-  {
-    "blockchain": "ethereum",
-    "sender": "0x769794c94e9f113e357023dab73e81dbd6db201c",
-    "nonce": 103,
-    "after_block": 13230369,
-    "from_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    "from_amount": "1100000000000000000",
-    "from_decimals": 18,
-    "to_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    "to_amount": "1000000000000000000",
-    "to_decimals": 18,
-    "fee_amount": "100000000000000000"
+{
+  wallets: {
+    allow: [
+      'Uniswap',
+      'Coinbase',
+      'Rainbow'
+    ]
   }
+}
 ```
 
-Once the payment has been submitted by the widget, it will call the configured endpoint again.
-
-This is where the payment tracking starts:
-
-```
-POST /track/payments
-BODY:
-  {
-    "blockchain": "ethereum",
-    "transaction": "0x4311a9820195c2a5af99c45c72c88848ed403a4020863c913feed81d15855ae4",
-    "sender": "0x769794c94e9f113e357023dab73e81dbd6db201c",
-    "nonce": 103,
-    "after_block": 13230369,
-    "from_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    "from_amount": "1100000000000000000",
-    "from_decimals": 18,
-    "to_token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-    "to_amount": "1000000000000000000",
-    "to_decimals": 18,
-    "fee_amount": "100000000000000000"
-  }
-```
-
-Alternatively you can pass a method to track that performs the tracking request to your backend if you need to handle the request yourself (e.g. to add additional headers etc.):
-
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    method: async (payment)=>{
-      let response = await fetch('/track/payments', {
-        method: 'POST',
-        body: JSON.stringify(payment),
-        headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": document.querySelector('[name=csrf-token]').content }
-      })
-      if(response.status != 200) {
-        throw 'TRACKING FAILED'
-      }
-    }
-  }
-})
-```
-
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    method: (payment)=>axios('/track/payments', payment)
-  }
-})
-```
-
-In case you pass a tracking method it needs to return a promise. 
-
-If that promise resolves, the widget assumes the tracking initialization was successful. If the promise rejects it will retry the tracking initialization over and over again.
-
-Make sure to evaluate within your tracking method if the response succeeded or not and throw an error accordingly.
-
-Payment tracking requests will be attempted indefinitely. After 2 minutes a warning dialog will be presented to users asking them to ensure an internet connection so that the payment tracking can be performed.
-
-##### Asynchronous Validation
-
-For user flows where you can release the user immediately, we recommend performing payment validation asynchronously as in certain situations it can take up to multiple minutes to validate a payment:
-
-You can configure the widget to track/validate the payment asynchronously:
-
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    endpoint: '/track',
-    async: true
-  }
-})
-```
-
-Which will release the user right after the payment transaction has been confirmed on the user's machine.
-
-It still tracks and validates the payment asynchronously (in the background) and calls back your endpoints as soon as it has been validated.
-
-This allows you to release the user immediately, showing him some confirmation and reconfirming his payment in an asynchronous step (like a notification or email).
-
-##### Polling
-
-In order to ensure a 100% coverage that users are released and forwarded within your payment flow, you will need to implement polling in addition to tracking.
-
-The `track.poll` configuration either takes an `enpoint` or a `method` (similar to track itself).
-
-It will use the endpoint or the method to request a release every 5 seconds.
-
-You need to make sure to respond to this request with a status `404` in case the user is not to be released just yet (payment and processing on your side are not complete yet)
-or `200` if the payment has been completed and the processing on your side is done and the user can be released and forwarded within your payment flow.
-
-In case you want to redirect the user to the next step in your system, the poll endpoint needs to respond with a body containing json like: `{ forward_to: 'https://example.com/next_step_url' }`.
-
-It is not enough to rely on setting `forward_to` initially with the tracking request, you will also need to respond with `forward_to` when implementing polling
-as the entire reason for polling is to cover cases where websockets fail and the initial `forward_to` can not be communicated to the client.
-
-If you use a method for additional polling, make sure you return a promise. Polling will continue as long as you resolve this promise with anything that resolves to true:
-
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    poll: {
-      method: async (payment)=>{
-        let response = await fetch('/payments/123/release', {
-          method: 'POST',
-          body: JSON.stringify(payment),
-          headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": document.querySelector('[name=csrf-token]').content }
-        })
-        if(response.status == 200) {
-          let json = await response.json()
-          return json // { "forward_to": "https://mywebsite.com/payments/123/confirmation" }
-        }
-      }
-    }
-  }
-})
-```
-
-```javascript
-DePayWidgets.Payment({
-
-  track: {
-    poll: {
-      method: async (payment)=>{
-        let response = await axios('/payments/123/release', payment)
-        return response // { "forward_to": "https://mywebsite.com/payments/123/confirmation" }
-      }
-    }
-  }
-})
-```
-
-#### connected
-
-`connected`
-
-A function that will be called once the user connects a wallet.
-
-This function will be called with the connected wallet address as the main argument:
-
-```javascript
-DePayWidgets.Payment({
-
-  connected: (address)=> {
-    // do something with the address
-  }
-})
-
-```
-
-#### closed
-
-`closed`
-
-A function that will be called once the user closes the widget (no matter if before or after the payment).
-
-```javascript
-DePayWidgets.Payment({
-
-  closed: ()=> {
-    // do something if user closed the widget
-  }
-})
-
-```
-
-#### before
-
-`before`
-
-A function that will be called before the payment is handed over to the wallet.
-
-Allows you to stop the payment if this method returns false.
-
-```javascript
-DePayWidgets.Payment({
-
-  before: async (transaction, paymentRoute)=> {
-    alert('Something went wrong')
-    return false // stops payment processing
-  }
-})
-```
-
-#### sent
-
-`sent`
-
-A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
-
-The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details about the structure)
-
-```javascript
-DePayWidgets.Payment({
-
-  sent: (transaction)=> {
-    // called when payment transaction has been sent to the network
-  }
-})
-```
-
-#### succeeded
-
-`succeeded`
-
-A function that will be called once the payment has succeeded on the network (checked client-side).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Payment({
-
-  succeeded: (transaction, paymentRoute)=> {
-    // called when payment transaction has been confirmed once by the network
-    // might be called multiple times
-
-    // "paymentRoute" contains more information about what the user selected as payment option and what it was routed to
-  }
-})
-```
-
-#### validated
-
-`validated`
-
-A function that will be called once the payment has been successfully validated by DePay (server-side, onchain).
-
-```javascript
-DePayWidgets.Payment({
-
-  validated: (transaction, paymentRoute)=> {
-    // "paymentRoute" contains more information about what the user selected as payment option and what it was routed to
-  }
-})
-```
-
-#### failed
-
-`failed`
-
-A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Payment({
-
-  failed: (transaction, paymentRoute)=> {
-    // called when payment transaction failed on the blockchain
-    // handled by the widget, no need to display anything
-    // might be called multiple times
-
-    // "paymentRoute" contains information about what the user selected as payment
-  }
-})
-```
-
-#### critical
-
-`critical`
-
-A function that will be called if the widget throws a critical internal error that it can't handle and display on its own:
-
-```javascript
-DePayWidgets.Payment({
-  
-  critical: (error)=> {
-    // render and display the error with error.toString()
-  }
-})
-```
-
-#### error
-
-`error`
-
-A function that will be called if the widget throws a non-critical internal error that it can and will handle and display on its own:
-
-```javascript
-DePayWidgets.Payment({
-
-  error: (error)=> {
-    // maybe do some internal tracking with error.toString()
-    // no need to display anything as widget takes care of displaying the error
-  }
-})
-```
+This configuration would only display Uniswap, Coinbase and Rainbow. No other options/wallets are displayed.
 
 #### wallet
 
@@ -937,7 +598,6 @@ DePayWidgets.Payment({
 })
 ```
 
-
 #### unmount
 
 `unmount`
@@ -950,386 +610,7 @@ let { unmount } = await DePayWidgets.Payment({})
 unmount()
 ```
 
-#### closable
-
-`closable`
-
-Makes the widget unclosable:
-
-```javascript
-DePayWidgets.Payment({
-  closable: false
-})
-
-```
-
-## DePayWidgets: Sale
-
-DePay Sales allows you to sell tokens directly from your website or dApp with automatic any-to-any payment conversion (so people can use any token when buying your token directly off your website or dApp).
-
-### Quick start
-
-```javascript
-DePayWidgets.Sale({
-  sell: {
-    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  }
-});
-```
-
-### Configuration
-
-You need to pass a configuration object to `DePayWidgets.Sale` which needs to at least contain the `sell` field:
-
-```javascript
-DePayWidgets.Sale({
-  sell: {
-    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  }
-});
-```
-
-You can also sell on multiple blockchains:
-
-```javascript
-DePayWidgets.Sale({
-  sell: {
-    'ethereum': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
-    'bsc': '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb'
-  }
-});
-```
-
-#### sell
-
-`"blockchain": "token"`
-
-The address of the token you want to sell for the given blockchain.
-
-#### amount
-
-When you want to control how the amount selection behaves, pass the `amount` configuration object,
-alongside values for `start`, `min` and `step`.
-
-`start`: The amount that is initially selected.
-
-`min`: The minimum amount selectable.
-
-`step`: The number by which to increment/decrement changes to the amount.
-
-`token`: Set to `true` if you want amount selection to be denominated in the token you're selling, e.g.:
-
-```javascript
-DePayWidgets.Sale({
-  sell: {...},
-  amount: {
-    token: true
-  }
-});
-```
-
-#### connected
-
-`connected`
-
-A function that will be called once the user connects a wallet.
-
-Will be called with the connected wallet address as the main argument:
-
-```javascript
-DePayWidgets.Sale({
-
-  connected: (address)=> {
-    // do something with the address
-  }
-});
-```
-
-#### closed
-
-`closed`
-
-A function that will be called once the user closes the widget (no matter if before or after the payment).
-
-```javascript
-DePayWidgets.Sale({
-
-  closed: ()=> {
-    // do something if user closed the widget
-  }
-});
-```
-
-#### sent
-
-`sent`
-
-A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
-
-The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Sale({
-  
-  sent: (transaction, paymentRoute)=> {
-    // called when payment transaction has been sent to the network
-  }
-});
-```
-
-#### succeeded
-
-`succeeded`
-
-A function that will be called once the payment has succeeded on the network (checked client-side).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Sale({
-
-  succeeded: (transaction, paymentRoute)=> {
-    // called when payment transaction has been confirmed once by the network
-  }
-});
-```
-
-#### failed
-
-`failed`
-
-A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
-
-The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
-
-```javascript
-DePayWidgets.Sale({
-
-  failed: (transaction, paymentRoute)=> {
-    // called when payment transaction failed on the blockchain
-    // handled by the widget, no need to display anything
-  }
-});
-```
-
-#### critical
-
-`critical`
-
-A function that will be called if the widget throws a critical internal error that it can't handle and display on its own:
-
-```javascript
-DePayWidgets.Sale({
-  
-  critical: (error)=> {
-    // render and display the error with error.toString()
-  }
-});
-```
-
-#### error
-
-`error`
-
-A function that will be called if the widget throws a non-critical internal error that it can and will handle and display on its own:
-
-```javascript
-DePayWidgets.Sale({
-  
-  error: (error)=> {
-    // maybe do some internal tracking with error.toString()
-    // no need to display anything as widget takes care of displaying the error
-  }
-});
-```
-
-#### providers
-
-Allows to set providers to be used for making RPC calls to the individual blockchains:
-
-```javascript
-DePayWidgets.Sale({
-
-  providers: {
-    ethereum: ['http://localhost:8545'],
-    bsc: ['http://localhost:8545']
-  }
-});
-```
-
-#### currency
-
-Allows you to set the displayed currency (instead of automatically displaying user's local currency):
-
-```javascript
-DePayWidgets.Sale({
-
-  currency: 'USD'
-
-});
-```
-
-Set to `false` if you want to hide currency conversion rate.
-
-#### deny (list)
-
-Allows to deny tokens so that they will not be suggested as means of payment:
-
-```javacript
-DePayWidgets.Sale({
-  
-  deny: {
-    ethereum: [
-      '0x82dfDB2ec1aa6003Ed4aCBa663403D7c2127Ff67',  // akSwap
-      '0x1368452Bfb5Cd127971C8DE22C58fBE89D35A6BF',  // JNTR/e
-      '0xC12D1c73eE7DC3615BA4e37E4ABFdbDDFA38907E',  // KICK
-    ],
-    bsc: [
-      '0x119e2ad8f0c85c6f61afdf0df69693028cdc10be', // Zepe
-      '0xb0557906c617f0048a700758606f64b33d0c41a6', // Zepe
-      '0x5190b01965b6e3d786706fd4a999978626c19880', // TheEver
-      '0x68d1569d1a6968f194b4d93f8d0b416c123a599f', // AABek
-      '0xa2295477a3433f1d06ba349cde9f89a8b24e7f8d', // AAX
-      '0xbc6675de91e3da8eac51293ecb87c359019621cf', // AIR
-      '0x5558447b06867ffebd87dd63426d61c868c45904', // BNBW
-      '0x569b2cf0b745ef7fad04e8ae226251814b3395f9', // BSCTOKEN
-      '0x373233a38ae21cf0c4f9de11570e7d5aa6824a1e', // ALPACA
-      '0x7269163f2b060fb90101f58cf724737a2759f0bb', // PUPDOGE
-      '0xb16600c510b0f323dee2cb212924d90e58864421', // FLUX
-      '0x2df0b14ee90671021b016dab59f2300fb08681fa', // SAFEMOON.is
-      '0xd22202d23fe7de9e3dbe11a2a88f42f4cb9507cf', // MNEB
-      '0xfc646d0b564bf191b3d3adf2b620a792e485e6da', // PIZA
-      '0xa58950f05fea2277d2608748412bf9f802ea4901', // WSG
-      '0x12e34cdf6a031a10fe241864c32fb03a4fdad739' // FREE
-    ]
-  }
-});
-```
-
-#### tokenImage
-
-`tokenImage`
-
-Allows to set the token image used in the widget to represent the purchased token:
-
-```javascript
-DePayWidgets.Sale({
-  
-  tokenImage: 'https://depay.com/favicon.png'
-
-});
-```
-
-#### style
-
-`style`
-
-Allows you to change the style of the widget.
-
-```javascript
-DePayWidgets.Sale({
-  
-  style: {
-    colors: {
-      primary: '#ffd265',
-      text: '#e1b64a',
-      buttonText: '#000000',
-      icons: '#ffd265'
-    },
-    fontFamily: '"Cardo", serif !important',
-    css: `
-      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
-
-      .ReactDialogBackground {
-        background: rgba(0,0,0,0.8);
-      }
-    `
-  }
-});
-```
-
-##### colors
-
-`colors`
-
-Allows you to set color values:
-
-```javascript
-DePayWidgets.Sale({
-  
-  style: {
-    colors: {
-      primary: '#ffd265',
-      text: '#ffd265',
-      buttonText: '#000000',
-      icons: '#ffd265'
-    }
-  }
-});
-```
-
-##### fontFamily
-
-`fontFamily`
-
-Allows you to set the font-family:
-
-```javascript
-DePayWidgets.Sale({
-  
-  style: {
-    fontFamily: '"Cardo", serif !important'
-  }
-});
-```
-
-##### css
-
-`css`
-
-Allows you to inject CSS:
-
-```javascript
-DePayWidgets.Sale({
-  
-  style: {
-    css: `
-      @import url("https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap");
-
-      .ReactDialogBackground {
-        background: rgba(0,0,0,0.8);
-      }
-    `
-  }
-});
-```
-
-#### unmount
-
-`unmount`
-
-Allows you to unmount (the React safe way) the entire widget from the outside:
-
-```javascript
-let { unmount } = await DePayWidgets.Sale({})
-
-unmount()
-```
-
-#### closable
-
-`closable`
-
-Makes the widget unclosable:
-
-```javascript
-DePayWidgets.Sale({
-  closable: false
-})
-
-```
-
-## DePay Connect
+## Connect Widget
 
 DePay Connect allows you to have your users connect their crypto wallet to your dApp or website.
 
@@ -1339,7 +620,7 @@ Returns connected `account` and `wallet` in return.
 let { account, wallet }  = await DePayWidgets.Connect()
 ```
 
-See [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets) for more details about the returned `wallet`.
+See [web3-wallets](https://github.com/depayfi/web3-wallets) for more details about the returned `wallet`.
 
 ### Rejections
 
@@ -1353,7 +634,7 @@ DePayWidgets.Connect().then(()=>{}).catch((error)=>{
 
 ```
 
-## DePay Login
+## Login Widget
 
 DePay Login allows you to perform web3 wallet logins with ease.
 
@@ -1449,7 +730,7 @@ DePayWidgets.Login().then(()=>{}).catch((error)=>{
 
 ```
 
-## DePay Select
+## Select Widget
 
 DePay Select widget allows you to open a dialog that allows you to select things like tokens, etc.
 
@@ -1470,7 +751,6 @@ let token = await DePayWidgets.Select({ what: 'token' })
 //   routable: true // information if token is routable through DePay Payment router
 // }
 ```
-
 
 ### Select NFT
 
@@ -1527,7 +807,7 @@ If the NFT contract is of type 1155 the return will also contain the NFTs id for
 
 ### React
 
-#### DePay Payments
+#### Payment Widget
 
 ```javascript
 
