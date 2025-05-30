@@ -1,3 +1,5 @@
+![example](https://github.com/user-attachments/assets/afc14f09-3b53-4b22-b8e6-c3eebeb5407f)
+
 ## 📦 Installation
 
 ### via CDN
