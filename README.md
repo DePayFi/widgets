@@ -1,4 +1,5 @@
-# [DePay Crypto Web3 Payment Widget](https://depay.com/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/DePayFi/widgets/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@depay/widgets.svg?style=flat)](https://www.npmjs.com/package/@depay/widgets) [![Tests](https://github.com/depayfi/widgets/actions/workflows/cypress.yml/badge.svg)](https://github.com/DePayFi/widgets/actions)
+# [Crypto Web3 Payment Widget by DePay](https://depay.com/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/DePayFi/widgets/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@depay/widgets.svg?style=flat)](https://www.npmjs.com/package/@depay/widgets) [![Tests](https://github.com/depayfi/widgets/actions/workflows/cypress.yml/badge.svg)](https://github.com/DePayFi/widgets/actions)
 
 ![example](https://github.com/user-attachments/assets/afc14f09-3b53-4b22-b8e6-c3eebeb5407f)
 
