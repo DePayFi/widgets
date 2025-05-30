@@ -1579,7 +1579,6 @@ describe('Payment Widget: track', () => {
                   body: JSON.stringify(payment),
                   headers: { "Content-Type": "application/json", "x-custom-header": "1" }
                 })
-                console.log('response.status', response.status)
                 if(response.status == 200) {
                   let json = await response.json()
                   return json
@@ -1671,7 +1670,7 @@ describe('Payment Widget: track', () => {
       if(attempt <= 2) {
         return 404
       } else {
-        return {}
+        return { body: { status: 'success' } }
       }
     })
 
@@ -1688,8 +1687,10 @@ describe('Payment Widget: track', () => {
                   body: JSON.stringify(payment),
                   headers: { "Content-Type": "application/json", "x-custom-header": "1" }
                 })
+                console.log('response.status', response.status)
                 if(response.status == 200) {
                   let json = await response.json()
+                  console.log('JSON', json)
                   return json
                 }
               }
@@ -1710,11 +1711,13 @@ describe('Payment Widget: track', () => {
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').should('not.exist')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').should('exist').then(()=>{
-                      cy.wait(5000).then(()=>{
-                        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
-                        cy.wait(1000).then(()=>{
-                          cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                    cy.wait(8000).then(()=>{
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').should('exist').then(()=>{
+                        cy.wait(5000).then(()=>{
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                          cy.wait(1000).then(()=>{
+                            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                          })
                         })
                       })
                     })
