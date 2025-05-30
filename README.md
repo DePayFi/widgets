@@ -189,6 +189,17 @@ DePayWidgets.Payment({
 > [!CAUTION]
 > Use either `integration` (managed) or `accept` (unmanaged), never both.
 
+```javascript
+DePayWidgets.Payment({
+  accept: [{
+    blockchain: 'ethereum',
+    amount: 1,
+    token: 'TOKEN_ADDRESS',
+    receiver: 'RECEIVER_ADDRESS'
+  }]
+})
+```
+
 `blockchain`
 
 The blockchain you want to receive the payment on.
