@@ -41,7 +41,6 @@ describe('Wallet Login', () => {
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
           expect(accountLoggedIn).to.eq(accounts[0])
           expect(walletLoggedIn != undefined).to.eq(true)
@@ -77,7 +76,6 @@ describe('Wallet Login', () => {
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
           expect(accountLoggedIn).to.eq(accounts[0])
         })
@@ -112,7 +110,6 @@ describe('Wallet Login', () => {
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
           expect(accountLoggedIn).to.eq(accounts[0])
         })
@@ -165,7 +162,6 @@ describe('Wallet Login', () => {
       })
       cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
       cy.wait(1000).then(()=>{
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
         cy.wait(1000).then(()=>{
           expect(accountLoggedIn).to.eq(accounts[0])
         })
@@ -202,7 +198,6 @@ describe('Wallet Login', () => {
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.wait(1000).then(()=>{
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Log in').click()
           cy.wait(1000).then(()=>{
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
             cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', 'Recovering login signature failed!')  

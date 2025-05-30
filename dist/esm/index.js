@@ -7874,7 +7874,7 @@ var ErrorProvider = (function (props) {
 });
 
 var ActionIndicatorStyle = (function (style) {
-  return "\n\n    .ActionIndicator {\n      height: 64px;\n      width: 64px;\n      text-align: center;\n      margin: 0 auto;\n    }\n\n    .ActionIndicator img {\n      height: 41px;\n      width: 41px;\n      position: absolute;\n      margin: 11px;\n    }\n\n    .ActionIndicatorSpinner {\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n    }\n\n    .ActionIndicatorSpinner {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ".concat(style.colors.background, ";\n      border: 4px solid color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border-bottom-color: ").concat(style.colors.primary, ";\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n      animation: ActionIndicatorSpinnerRotation 1s linear infinite;\n    }\n\n    @keyframes ActionIndicatorSpinnerRotation {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    } \n  ");
+  return "\n\n    .ActionIndicator {\n      height: 64px;\n      width: 64px;\n      text-align: center;\n      margin: 0 auto;\n    }\n\n    .ActionIndicator img {\n      height: 41px;\n      width: 41px;\n      position: absolute;\n      margin: 11px;\n    }\n\n    .ActionIndicatorSpinner {\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n    }\n\n    .ActionIndicatorCircle {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ".concat(style.colors.primary, ";\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n    }\n\n    .ActionIndicatorSpinner {\n      height: 64px;\n      width: 64px;\n      border: 4px solid ").concat(style.colors.background, ";\n      border: 4px solid color-mix(in srgb, ").concat(style.colors.background, " 90%, ").concat(style.colors.mixActive, " 10%);\n      border-bottom-color: ").concat(style.colors.primary, ";\n      border-radius: 50%;\n      display: inline-block;\n      position: relative;\n      margin: 0 auto;\n      box-sizing: border-box;\n      animation: ActionIndicatorSpinnerRotation 1s linear infinite;\n    }\n\n    @keyframes ActionIndicatorSpinnerRotation {\n      0% { transform: rotate(0deg); }\n      100% { transform: rotate(360deg); }\n    } \n  ");
 });
 
 var AlertStyle = (function (style) {
@@ -8526,20 +8526,6 @@ var Loading = /*#__PURE__*/function () {
   };
 }();
 
-var LoginIcon = (function (props) {
-  return /*#__PURE__*/React.createElement("svg", {
-    className: ["LoginIcon Icon", props.className].filter(Boolean).join(' '),
-    xmlns: "http://www.w3.org/2000/svg",
-    width: props.width,
-    height: props.width,
-    viewBox: "0 0 2432.5 2433.7"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M2428.5,1122.9c-1.5-20.5-3.6-40.9-6.1-61.2,0-.3,0-.7,0-1-.3-2-.5-4-.7-6,0-.2,0-.4-.1-.7-9.7-76.1-26.4-150.8-51.9-223.3-.1-.4-.2-.7-.3-1.1-51.1-155.9-130.4-294.2-237.8-414.7,0,0,0-.1,0-.1-3.4-6-8.2-11.1-13.7-15.1-46.1-50-97.2-96.9-153.3-140.5-3.1-3.2-6.7-6.3-10.8-9.3-19.7-14.6-39.5-28.7-59.5-42-.4-.2-.8-.6-1.2-.8-.8-.6-1.6-1.1-2.5-1.6-68.6-46.6-140.8-85.1-215.6-115.7-.8-.4-1.6-.7-2.5-1.1-115.2-47.6-234.9-75.9-358.8-84.8-237.2-18.9-478.2,31.7-688.5,149.1-7.3,4.1-14.5,8.2-21.7,12.3-4.1,2.4-8.1,4.8-12.2,7.2-3.6,2.2-7.2,4.3-10.7,6.5-4.2,2.5-8.5,5.2-12.7,7.9-4,2.5-8,5.1-12,7.6-4.2,2.7-8.4,5.5-12.6,8.3-4.2,2.8-8.4,5.6-12.5,8.4-4.4,3-8.9,6.1-13.2,9.2-4.4,3-8.7,6.1-13.1,9.3-3.7,2.6-7.2,5.3-10.8,8-1.5,1.1-3.1,2.3-4.6,3.4-4.1,3.1-8.3,6.3-12.4,9.4-7.7,5.9-15.2,12-22.7,18.1-1.7,1.3-3.4,2.7-5,4.1-1.5,1.1-2.9,2.3-4.2,3.5-1.1,1-2.3,1.9-3.4,2.9-1,.8-1.9,1.6-2.9,2.4-4.9,4.1-9.8,8.3-14.7,12.5-.2.2-.4.4-.6.6-2.2,1.9-4.5,3.9-6.7,5.9-70.8,61.6-134.4,131.1-189,207.3-3.2,4.4-6.3,8.7-9.4,13.2-2,2.8-4,5.6-6,8.5-1.2,1.7-2.4,3.5-3.5,5.2-67.2,97.7-118.5,203-153.3,316.1-.1.4-.3.9-.4,1.3C23,952.5,4.5,1058,.8,1166.3c-.8,24.3-1,48.5-.6,72.4,1,90.1,11.6,177.7,31.9,262.6,1.6,7,3.3,14,5.1,21,40.3,159.6,113.6,307.6,220.3,443,.2.4.6.8.9,1.1,14.6,19.1,29.4,38,43.8,57.1l107.5,107.5c10.1,7.7,20.2,15.5,30.3,23.4,97,81.5,204.1,145.5,321,191.7,107.3,43.8,219.3,71.1,335.8,81.8,14.4,1.9,28.9,3.7,43.3,5.8h152c30-4.1,60.2-7.5,90.2-11.7,7.3-1,14.5-2.1,21.7-3.2,3.6-.6,7.2-1.1,10.8-1.7,3.6-.6,7.2-1.2,10.8-1.8.4,0,.7-.1,1.1-.2,78.2-13.2,153.6-33.8,226-61.8,5.2-2,10.4-4,15.6-6.1,115-45.4,220.6-107.7,316.4-186.9.1-.1.2-.2.4-.3,12.3-9.8,24.8-19.3,37.2-28.9,35.9-35.8,71.7-71.7,107.5-107.5,3.4-5.3,6.1-11.1,10.2-15.8,1.8-2.1,3.7-4.3,5.4-6.5,1.5-1.6,2.8-3.1,4-4.7,4.8-5.6,9.4-11.1,14-16.8,44.5-54.4,84.1-112,117.6-173.2.3-.4.5-.9.8-1.4,78.7-141.7,126.5-297.1,144.8-465.1,1.7-15.6,3.9-31.2,5.8-46.7v-152c-1.4-6.1-3.5-12.2-4-18.4ZM2328.5,1355c-5.8,47.3-14.2,93.3-25.2,138-.4,1.5-.9,3-1.3,4.6-38.7,145.7-100.9,276-186.8,390.6-3.7,5-7.5,10-11.4,14.9-1.7,2.2-3.4,4.4-5.2,6.6-2,2.7-4.1,5.3-6.3,7.9-4.2,5.3-8.6,10.6-13.1,15.9-7.9,9.4-16,18.7-24.3,28-8.2,9.2-16.7,18.4-25.3,27.4-2.2,2.4-4.6,4.8-7,7.2-17.2,17.7-35.2,35-53.9,51.8-2.7,2-5.7,3.9-8.7,6.1-76.8-337.5-359.3-575.8-694.2-597.3-51.8-3.4-102.3-1.8-151.4,4.4-35.4,4.6-70.1,11.5-104,21.1-89.2,24.9-173.3,67-251.8,126.2-149.5,112.6-243.3,262.7-285.8,444.7-3.3-1.2-5-1.5-6.1-2.1,0,0-.1,0-.1,0-7.5-6.8-15-13.5-22.3-20.5-46.8-45.4-88.8-92.6-126.3-141.7-2.5-3.3-5-6.6-7.5-9.9-132.8-177.8-204.7-378.8-213.8-602.2h0c-2.3-57.8-.5-117,5.5-177.6,9.6-96.9,30-188.7,60.9-274.9.5-1.3,1-2.7,1.5-4.1,59.6-160.7,157.7-303.8,294.5-428.4,19.6-17.3,40.1-34.2,61.3-50.5,157-120.6,320.4-196.9,489.5-229.5.4,0,.8-.1,1.2-.2,106.7-18.8,217.9-20.8,332.7-5.8,60.9,8,119.3,19.4,175,34.3,56.9,16.5,114.4,37.4,172.2,62.6,73.9,32.2,139.8,82.8,208.8,125.9,5.3,3.4,10.8,6,16.1,7.8,153.2,122,271.2,289.1,353.6,499.2,29.5,75,40.4,157.4,58.6,236.6.3,1.4.6,2.7,1,4.1,11.3,90.6,11.1,183.7-.5,279Z"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M1595.1,734.4c-29.2-55.7-70.4-104.3-120.1-142.2-71.7-54.8-161.1-87.4-257.9-87.6-235.7-.4-428.2,191.2-428.5,426.7-.4,216.6,161.4,396.7,370.3,424.7,18.4,2.5,37.2,3.8,56.3,3.8,45.2,0,88.8-6.9,129.7-19.9,172.8-54.8,298.6-216.5,298.9-406.8.1-71.7-17.5-139.3-48.7-198.7Z"
-  }));
-});
-
 var SignLoginDialog = (function (props) {
   var _useContext = useContext(ErrorContext),
       setError = _useContext.setError;
@@ -8565,7 +8551,7 @@ var SignLoginDialog = (function (props) {
   }
 
   wallet !== null && wallet !== void 0 && wallet.name ? wallet.name : 'wallet';
-  var walletLogo = wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
+  wallet !== null && wallet !== void 0 && wallet.logo ? wallet.logo : undefined;
 
   if (typeof recoverSignature != 'function') {
     recoverSignature = function recoverSignature(_ref) {
@@ -8630,20 +8616,12 @@ var SignLoginDialog = (function (props) {
     });
   };
 
+  useEffect(function () {
+    if (!isMobile()) {
+      login();
+    }
+  }, []);
   return /*#__PURE__*/React.createElement(Dialog$1, {
-    body: /*#__PURE__*/React.createElement("div", {
-      className: "TextCenter"
-    }, walletLogo && /*#__PURE__*/React.createElement("div", {
-      className: "GraphicWrapper"
-    }, /*#__PURE__*/React.createElement(LoginIcon, {
-      className: "Graphic",
-      width: "100px",
-      height: "100px"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS"
-    }, /*#__PURE__*/React.createElement("p", {
-      className: "FontSizeM PaddingLeftM PaddingRightM"
-    }, "Click \"Log in\" and confirm in your wallet."))),
     footer: /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
     }, loggingIn && /*#__PURE__*/React.createElement("div", {
@@ -8660,10 +8638,24 @@ var SignLoginDialog = (function (props) {
       className: "TextCenter PaddingTopXS"
     }, /*#__PURE__*/React.createElement("span", {
       className: "FontSizeL"
-    }, "Confirm in your wallet")))), !loggingIn && /*#__PURE__*/React.createElement("button", {
+    }, "Confirm in your wallet")))), !loggingIn && /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "PaddingTopXS PaddingBottomM"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ActionIndicator MarginBottomXS"
+    }, /*#__PURE__*/React.createElement("img", {
+      src: wallet.logo
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "ActionIndicatorCircle"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "TextCenter PaddingTopXS"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "FontSizeL"
+    }, "Click \"Log in\" and confirm"))), /*#__PURE__*/React.createElement("button", {
       className: "ButtonPrimary",
       onClick: login
-    }, "Log in"))
+    }, "Log in")))
   });
 });
 

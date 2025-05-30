@@ -1,7 +1,7 @@
 import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import ErrorContext from '../contexts/ErrorContext'
-import LoginIcon from '../icons/LoginIcon'
+import isMobile from '../helpers/isMobile'
 import React, { useState, useEffect, useContext } from 'react'
 import WalletContext from '../contexts/WalletContext'
 import { NavigateStackContext } from '@depay/react-dialog-stack'
@@ -65,22 +65,14 @@ export default (props)=> {
     })
   }
 
+  useEffect(()=>{
+    if(!isMobile()){
+      login()
+    }
+  }, [])
+
   return(
     <Dialog
-      body={
-        <div className="TextCenter">
-          { walletLogo &&
-            <div className="GraphicWrapper">
-              <LoginIcon className="Graphic" width="100px" height="100px"/>
-            </div>
-          }
-          <div className="Text PaddingTopS PaddingBottomS PaddingLeftS PaddingRightS">
-            <p className="FontSizeM PaddingLeftM PaddingRightM">
-              Click "Log in" and confirm in your wallet.
-            </p>
-          </div>
-        </div>
-      }
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           {
@@ -100,9 +92,22 @@ export default (props)=> {
             </div>
           }
           { !loggingIn &&
-            <button className='ButtonPrimary' onClick={ login }>
-              Log in
-            </button>
+            <div className="PaddingTopXS">
+              <div className="PaddingTopXS PaddingBottomM">
+                <div className="ActionIndicator MarginBottomXS">
+                  <img src={wallet.logo} />
+                  <div className="ActionIndicatorCircle"></div>
+                </div>
+                <div className="TextCenter PaddingTopXS">
+                  <span className="FontSizeL">
+                    Click "Log in" and confirm
+                  </span>
+                </div>
+              </div>
+              <button className='ButtonPrimary' onClick={ login }>
+                Log in
+              </button>
+            </div>
           }
         </div>
       }

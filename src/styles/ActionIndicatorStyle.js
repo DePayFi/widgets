@@ -23,6 +23,17 @@ export default (style)=>{
       left: 0;
     }
 
+    .ActionIndicatorCircle {
+      height: 64px;
+      width: 64px;
+      border: 4px solid ${style.colors.primary};
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
     .ActionIndicatorSpinner {
       height: 64px;
       width: 64px;
