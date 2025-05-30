@@ -10447,7 +10447,7 @@ var PaymentProvider = (function (props) {
     }
   }, [allRoutes]);
 
-  if (paymentState == 'initalized' && allRoutes instanceof Array && allRoutes.length == 0) {
+  if (paymentState == 'initialized' && allRoutes instanceof Array && allRoutes.length == 0) {
     return /*#__PURE__*/React.createElement(ReactDialogStack, {
       open: open,
       close: close,
