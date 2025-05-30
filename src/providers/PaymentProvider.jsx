@@ -329,7 +329,7 @@ export default (props)=>{
     }
   }, [allRoutes])
 
-  if(allRoutes instanceof Array && allRoutes.length == 0) {
+  if(paymentState == 'initalized' && allRoutes instanceof Array && allRoutes.length == 0) {
     return(
       <ReactDialogStack
         open={ open }

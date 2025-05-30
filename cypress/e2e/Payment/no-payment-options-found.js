@@ -1,13 +1,14 @@
+import Blockchains from '@depay/web3-blockchains'
 import DePayWidgets from '../../../src'
+import Exchanges from '@depay/web3-exchanges'
 import fetchMock from 'fetch-mock'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Blockchains from '@depay/web3-blockchains'
-import { ethers } from 'ethers'
-import Exchanges from '@depay/web3-exchanges'
-import { mock, resetMocks } from '@depay/web3-mock'
-import { getProvider, resetCache } from '@depay/web3-client'
 import Token from '@depay/web3-tokens'
+import { ethers } from 'ethers'
+import { getProvider, resetCache } from '@depay/web3-client'
+import { mock, resetMocks, anything, confirm } from '@depay/web3-mock'
+import { routers, plugins } from '@depay/web3-payments'
 
 describe('Payment Widget: no payment options found', () => {
 
@@ -50,6 +51,12 @@ describe('Payment Widget: no payment options found', () => {
       mock({ provider, blockchain, request: { to: Blockchains[blockchain].stables.usd[0], api: Token[blockchain].DEFAULT } })
       mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
       mock({ provider, blockchain, request: { to: Blockchains[blockchain].stables.usd[0], api: Token[blockchain].DEFAULT, method: 'decimals', return: decimals } })
+      mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'decimals', return: 18 } })
+      mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'symbol', return: 'DEPAY' } })
+      mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'name', return: 'DePay' } })      
+      mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'balanceOf', params: fromAddress, return: Blockchains[blockchain].maxInt } })
+      mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
+      mock({ provider, blockchain, request: { to: TOKEN, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, Blockchains[blockchain].permit2], return: Blockchains[blockchain].maxInt } })
       mock({ provider, blockchain, balance: { for: fromAddress, return: ethers.BigNumber.from('0') }})
       mock({ provider, blockchain, request: { to: exchange[blockchain].factory.address, api: exchange[blockchain].factory.api, method: 'getPair', params: [TOKEN, Blockchains[blockchain].stables.usd[0]], return: Blockchains[blockchain].zero }})
       mock({ provider, blockchain, request: { to: exchange[blockchain].factory.address, api: exchange[blockchain].factory.api, method: 'getPair', params: [TOKEN, Blockchains[blockchain].wrapped.address], return: '0xEF8cD6Cb5c841A4f02986e8A8ab3cC545d1B8B6d'}})
@@ -118,6 +125,128 @@ describe('Payment Widget: no payment options found', () => {
         cy.wait(16000).then(()=>{
           expect(USDValueMock.calls.count()).to.eq(USDValueMock_count)
           expect(TOKENRouteMock.calls.count()).to.eq(TOKENRouteMock_count)
+        })
+      })
+    })
+  })
+
+  describe("no options post payment initiation", ()=>{
+
+    beforeEach(()=>{
+
+      fetchMock.post({
+        overwriteRoutes: true,
+        url: "https://public.depay.com/routes/best",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, {
+          blockchain,
+          fromToken: TOKEN,
+          fromDecimals: 18,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: TOKEN,
+          toAmount: amountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+      })
+
+      fetchMock.post({
+        overwriteRoutes: true,
+        url: "https://public.depay.com/routes/all",
+        body: {
+          accounts: { [blockchain]: accounts[0] },
+          accept,
+        },
+      }, [
+        {
+          blockchain,
+          fromToken: TOKEN,
+          fromDecimals: 18,
+          fromName: "DePay",
+          fromSymbol: "DEPAY",
+          toToken: TOKEN,
+          toAmount: amountBN.toString(),
+          toDecimals: 18,
+          toName: "DePay",
+          toSymbol: "DEPAY"
+        },
+      ])
+
+      fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${TOKEN}?amount=20.0` }, '4')
+    })
+
+    it('does not show the error dialog if payment is already in progress', ()=>{
+      let mockedTransaction = mock({
+        blockchain,
+        transaction: {
+          from: fromAddress,
+          to: routers[blockchain].address,
+          api: routers[blockchain].api,
+          method: 'pay',
+          params: {
+            payment: {
+              amountIn: ethers.utils.parseUnits('20', 18),
+              permit2: false,
+              paymentAmount: "20000000000000000000",
+              feeAmount: 0,
+              tokenInAddress: TOKEN,
+              exchangeAddress: Blockchains[blockchain].zero,
+              tokenOutAddress: TOKEN,
+              paymentReceiverAddress: toAddress,
+              feeReceiverAddress: Blockchains[blockchain].zero,
+              exchangeType: 0,
+              receiverType: 0,
+              exchangeCallData: anything,
+              receiverCallData: Blockchains[blockchain].zero,
+              deadline: anything,
+            }
+          },
+          value: 0
+        }
+      })
+
+      cy.visit('cypress/test.html').then((contentWindow) => {
+
+        cy.document().then((document)=>{
+          DePayWidgets.Payment({ ...defaultArguments, document })
+          cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment...').then(()=>{
+            expect(mockedTransaction.calls.count()).to.equal(1)
+            cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+            fetchMock.post({
+              overwriteRoutes: true,
+              url: "https://public.depay.com/routes/best",
+              body: {
+                accounts: { [blockchain]: accounts[0] },
+                accept,
+              },
+            }, 404)
+            fetchMock.post({
+              overwriteRoutes: true,
+              url: "https://public.depay.com/routes/all",
+              body: {
+                accounts: { [blockchain]: accounts[0] },
+                accept,
+              },
+            }, [])
+            cy.wait(16000).then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Not Enough Funds').should('not.exist')
+              confirm(mockedTransaction)
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
+                cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+                cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+              })
+            })
+          })
         })
       })
     })

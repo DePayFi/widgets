@@ -1500,7 +1500,7 @@ describe('Payment Widget: track', () => {
     })
   })
 
-  it.only('allows to configure additional polling method to retrieve payment status in case socket communication fails', () => {
+  it('allows to configure additional polling method to retrieve payment status in case socket communication fails', () => {
     let mockedTransaction = mock({
       blockchain,
       transaction: {
