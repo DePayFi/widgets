@@ -122,7 +122,7 @@ Managed integration configurations fetched from app.depay.com.
 > Local configurations override remote settings.
 
 > [!CAUTION]
-> Use either `integration` or `accept` (local config), never both.
+> Use either `integration` (managed) or `accept` (unmanaged), never both.
 
 #### Payload for Dynamic Backend Configurations
 
@@ -141,7 +141,10 @@ Forwards the payload to your backend for dynamic payment setup, like:
 }
 ```
 
-### Local Unmanaged Configuration
+### Unmanaged Configuration
+
+> [!IMPORTANT]
+> Unmanaged configurations do not provide any callbacks for server-side actions or integrations. They are limited to initiating and executing payments only.
 
 ```javascript
 DePayWidgets.Payment({
@@ -179,7 +182,12 @@ DePayWidgets.Payment({
 });
 ```
 
+### Configuration Options
+
 #### accept
+
+> [!CAUTION]
+> Use either `integration` (managed) or `accept` (unmanaged), never both.
 
 `blockchain`
 
