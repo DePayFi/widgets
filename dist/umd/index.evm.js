@@ -106,8 +106,8 @@
     "logo": (_wallets$MetaMask = web3WalletsEvm.wallets.MetaMask) === null || _wallets$MetaMask === void 0 ? void 0 : (_wallets$MetaMask$inf = _wallets$MetaMask.info) === null || _wallets$MetaMask$inf === void 0 ? void 0 : _wallets$MetaMask$inf.logo,
     "blockchains": _toConsumableArray$1(supported$3.evm),
     "colors": {
-      "primary": "#ff8d5d",
-      "secondary": "#661800"
+      "primary": "#ff9264",
+      "secondary": "#531502"
     }
   }, {
     "name": "Phantom",

@@ -38,7 +38,7 @@ export default [
     },
     "logo": wallets.MetaMask?.info?.logo,
     "blockchains": [...supported.evm],
-    "colors": { "primary": "#ff8d5d", "secondary": "#661800" }
+    "colors": { "primary": "#ff9264", "secondary": "#531502" }
   },
   {
     "name": "Phantom",
