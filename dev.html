@@ -1320,6 +1320,35 @@
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
               <div class="overflow-auto" style="height: 140px;">
+                <h5 class="px-4">Login with wallet</h5>
+                <div class="px-4">
+                  <div class="text-secondary ">Login with preselected wallet</div>
+                </div>
+              </div>
+              <div class="px-4 pt-3">
+                <button class='btn btn-primary' id="loginWithWalletButton">Try it</button>
+                <script>
+                    var button = document.getElementById("loginWithWalletButton");
+                    button.addEventListener("click",async function(e){
+                      let dateTime = new Date().toISOString().slice(0, 19);
+                      let { account, wallet } = await DePayWidgets.Login({
+                        wallets: { allow:['MetaMask'] },
+                        message: `Click to log in to DePay and to accept DePay's Terms of Service: https://depay.com/legal/terms\n${dateTime}`
+                      })
+                      console.log("Logged in via signature account", account)
+                      console.log("Logged in via signature wallet", wallet)
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
+          <div class="px-0 py-4 rounded-lg bg-white border">
+            <div class="col px-0">
+              <div class="overflow-auto" style="height: 140px;">
                 <h5 class="px-4">Login with message callback</h5>
                 <div class="px-4">
                   <div class="text-secondary ">Wallet login via signature and message callback method</div>

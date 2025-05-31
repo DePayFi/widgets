@@ -8941,7 +8941,7 @@
 
   var Login = function Login(options) {
     requireReactVersion();
-    var style, error, document, message, endpoint, recover, wallet;
+    var style, error, document, message, endpoint, recover, wallet, wallets;
 
     if (_typeof(options) == 'object') {
       style = options.style;
@@ -8951,6 +8951,7 @@
       endpoint = options.endpoint;
       recover = options.recover;
       wallet = options.wallet;
+      wallets = options.wallets;
     }
 
     return new Promise( /*#__PURE__*/function () {
@@ -8978,7 +8979,8 @@
                         message: message,
                         endpoint: endpoint || '/login',
                         recoverSignature: recover,
-                        wallet: wallet
+                        wallet: wallet,
+                        wallets: wallets
                       }
                     }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                       unmount: userClosedDialog
