@@ -6883,9 +6883,6 @@ var ConnectStack = (function (props) {
       open = _useContext.open,
       close = _useContext.close;
 
-  var _useContext2 = useContext(ConfigurationContext),
-      loginWith = _useContext2.loginWith;
-
   var _useState = useState(),
       _useState2 = _slicedToArray(_useState, 2),
       wallet = _useState2[0],
@@ -7155,17 +7152,6 @@ var ConnectStack = (function (props) {
 
   useEffect(function () {
     delete localStorage['WALLETCONNECT_DEEPLINK_CHOICE'];
-  }, []);
-  useEffect(function () {
-    if (loginWith) {
-      var foundWallet = allWallets.find(function (wallet) {
-        return wallet.name == loginWith;
-      });
-
-      if (foundWallet) {
-        connectExtension(foundWallet);
-      }
-    }
   }, []);
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ReactDialogStack, {
     open: open,
@@ -7843,7 +7829,7 @@ var ErrorProvider = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "Dialog ReactDialogAnimation"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "DialogHeader"
+      className: "DialogHeader TextLeft"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingTopS PaddingLeftS PaddingRightS"
     }, /*#__PURE__*/React.createElement("a", {
@@ -8959,7 +8945,7 @@ var WalletProvider = (function (props) {
 
 var Login = function Login(options) {
   requireReactVersion();
-  var style, error, document, message, endpoint, recover, wallet, wallets, loginWith;
+  var style, error, document, message, endpoint, recover, wallet, wallets;
 
   if (_typeof(options) == 'object') {
     style = options.style;
@@ -8970,7 +8956,6 @@ var Login = function Login(options) {
     recover = options.recover;
     wallet = options.wallet;
     wallets = options.wallets;
-    loginWith = options.loginWith;
   }
 
   return new Promise( /*#__PURE__*/function () {
@@ -8999,8 +8984,7 @@ var Login = function Login(options) {
                       endpoint: endpoint || '/login',
                       recoverSignature: recover,
                       wallet: wallet,
-                      wallets: wallets,
-                      loginWith: loginWith
+                      wallets: wallets
                     }
                   }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                     unmount: userClosedDialog

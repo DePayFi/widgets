@@ -33,7 +33,6 @@ import { supported } from '../blockchains'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
-  const { loginWith } = useContext(ConfigurationContext)
   const [ wallet, setWallet ] = useState()
   const [ navigator, setNavigator ] = useState()
   const [ platform, setPlatform ] = useState()
@@ -200,13 +199,6 @@ export default (props)=>{
 
   useEffect(()=>{
     delete localStorage['WALLETCONNECT_DEEPLINK_CHOICE']
-  }, [])
-
-  useEffect(()=>{
-    if(loginWith) {
-      let foundWallet = allWallets.find((wallet)=>wallet.name==loginWith)
-      if(foundWallet) { connectExtension(foundWallet) }
-    }
   }, [])
 
   return(

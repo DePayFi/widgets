@@ -46,7 +46,7 @@ export default (props)=>{
       <ReactDialog container={ props.container } close={ close } open={ open }>
         <div className="Dialog ReactDialogAnimation">
           
-          <div className="DialogHeader">
+          <div className="DialogHeader TextLeft">
             <div className="PaddingTopS PaddingLeftS PaddingRightS">
               <a 
                 href={`https://support.depay.com?query=${encodeURIComponent(`DePay Widget Error: ${error.message || error.toString()}`)}`}
