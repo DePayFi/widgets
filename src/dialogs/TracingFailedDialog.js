@@ -21,7 +21,7 @@ export default (props)=> {
     <Dialog
       stacked={ false }
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
           <div className="PaddingRightM">
             <a 
               href={`https://support.depay.com?account=${account}&query=${encodeURIComponent(`Tracing payment failed`)}`}

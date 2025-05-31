@@ -16,7 +16,7 @@ export default (props)=> {
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
           <a 
             href={`https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&blockchains=${blockchains.map((blockchain)=>blockchain.name).join(',')}&query=${encodeURIComponent(`Wallet does not support blockchain`)}`}
             target="_blank"

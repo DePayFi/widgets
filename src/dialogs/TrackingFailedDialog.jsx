@@ -18,7 +18,7 @@ export default ()=> {
     <Dialog
       stacked={ false }
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
           <a 
             href={`https://support.depay.com?transaction=${transaction?.id}&query=${encodeURIComponent(`Tracking payment failed`)}`}
             target="_blank"

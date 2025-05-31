@@ -8750,7 +8750,7 @@
 
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         href: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&blockchains=").concat(blockchains.map(function (blockchain) {
           return blockchain.name;
@@ -9817,7 +9817,7 @@
     }, [wallet]);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         href: "https://support.depay.com?account=".concat(walletAddress, "&wallet=").concat(wallet === null || wallet === void 0 ? void 0 : wallet.name, "&query=").concat(encodeURIComponent("Not enough funds available")),
         target: "_blank",
@@ -75558,7 +75558,7 @@
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
@@ -76414,7 +76414,7 @@
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: false,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopS PaddingLeftM PaddingRightM"
+        className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
         href: "https://support.depay.com?transaction=".concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Tracking payment failed")),
         target: "_blank",

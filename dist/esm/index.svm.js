@@ -8752,7 +8752,7 @@ var WalletMissesBlockchainSupportDialog = (function (props) {
 
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("a", {
       href: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&blockchains=").concat(blockchains.map(function (blockchain) {
         return blockchain.name;
@@ -9819,7 +9819,7 @@ var NoPaymentOptionFoundDialog = (function () {
   }, [wallet]);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("a", {
       href: "https://support.depay.com?account=".concat(walletAddress, "&wallet=").concat(wallet === null || wallet === void 0 ? void 0 : wallet.name, "&query=").concat(encodeURIComponent("Not enough funds available")),
       target: "_blank",
@@ -22670,7 +22670,7 @@ var TracingFailedDialog = (function (props) {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: false,
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingRightM"
     }, /*#__PURE__*/React.createElement("a", {
@@ -23526,7 +23526,7 @@ var TrackingFailedDialog = (function () {
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: false,
     header: /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopS PaddingLeftM PaddingRightM"
+      className: "PaddingTopS PaddingLeftM PaddingRightM TextLeft"
     }, /*#__PURE__*/React.createElement("a", {
       href: "https://support.depay.com?transaction=".concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Tracking payment failed")),
       target: "_blank",

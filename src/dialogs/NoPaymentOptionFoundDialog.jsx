@@ -22,7 +22,7 @@ export default ()=> {
   return(
     <Dialog
       header={
-        <div className="PaddingTopS PaddingLeftM PaddingRightM">
+        <div className="PaddingTopS PaddingLeftM PaddingRightM TextLeft">
           <a 
             href={`https://support.depay.com?account=${walletAddress}&wallet=${wallet?.name}&query=${encodeURIComponent(`Not enough funds available`)}`}
             target="_blank"
