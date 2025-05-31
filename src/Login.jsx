@@ -12,8 +12,8 @@ import WalletProvider from './providers/WalletProvider'
 
 let Login = (options) => {
   requireReactVersion()
-  let style, error, document, message, endpoint, recover, wallet, wallets
-  if(typeof options == 'object') ({ style, error, document, message, endpoint, recover, wallet, wallets } = options)
+  let style, error, document, message, endpoint, recover, wallet, wallets, loginWith
+  if(typeof options == 'object') ({ style, error, document, message, endpoint, recover, wallet, wallets, loginWith } = options)
 
   return new Promise(async (resolve, reject)=>{
 
@@ -24,7 +24,7 @@ let Login = (options) => {
       }
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
-          <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recoverSignature: recover, wallet, wallets }}>
+          <ConfigurationProvider configuration={{ message, endpoint: (endpoint || '/login'), recoverSignature: recover, wallet, wallets, loginWith }}>
             <UpdatableProvider>
               <ClosableProvider unmount={ userClosedDialog }>
                 <PoweredBy/>

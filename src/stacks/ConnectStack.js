@@ -14,6 +14,7 @@ import { wallets } from '@depay/web3-wallets'
 
 import allWallets from '../helpers/allWallets'
 import ClosableContext from '../contexts/ClosableContext'
+import ConfigurationContext from '../contexts/ConfigurationContext'
 import ConnectWalletDialog from '../dialogs/ConnectWalletDialog'
 import isAndroid from '../helpers/isAndroid'
 import isWebView from '../helpers/isWebView'
@@ -32,6 +33,7 @@ import { supported } from '../blockchains'
 export default (props)=>{
 
   const { open, close } = useContext(ClosableContext)
+  const { loginWith } = useContext(ConfigurationContext)
   const [ wallet, setWallet ] = useState()
   const [ navigator, setNavigator ] = useState()
   const [ platform, setPlatform ] = useState()
@@ -198,6 +200,13 @@ export default (props)=>{
 
   useEffect(()=>{
     delete localStorage['WALLETCONNECT_DEEPLINK_CHOICE']
+  }, [])
+
+  useEffect(()=>{
+    if(loginWith) {
+      let foundWallet = allWallets.find((wallet)=>wallet.name==loginWith)
+      if(foundWallet) { connectExtension(foundWallet) }
+    }
   }, [])
 
   return(
