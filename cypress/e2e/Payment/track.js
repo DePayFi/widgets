@@ -291,6 +291,131 @@ describe('Payment Widget: track', () => {
     })
   })
 
+  it('displays contact support if validation takes longer than 30 seconds', () => {
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "20000000000000000000",
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
+      }
+    })
+
+    let trackingRequestMock = fetchMock.post({
+      url: "/track/payments",
+      body: {
+        "blockchain": blockchain,
+        "sender": fromAddress,
+        "after_block": "1",
+        "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb"
+      },
+      matchPartialBody: true
+    }, 200)
+
+    mockedWebsocketServer.on('connection', socket => {
+      mockedWebsocket = socket
+      mockedWebsocket.on('message', data => {
+        websocketMessages.push(data)
+      })
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({ ...defaultArguments, document })
+        cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.TokenAmountRow.small.Opacity05').should('contain.text', '€3.40')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click().then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Performing payment').then(()=>{
+              expect(
+                fetchMock.called('/track/payments', {
+                  body: {
+                    "blockchain": blockchain,
+                    "sender": fromAddress,
+                    "after_block": "1",
+                    "from_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
+                    "from_amount": TOKEN_A_AmountBN.toString(),
+                    "from_decimals": 18,
+                    "to_token": "0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb",
+                    "to_amount": TOKEN_A_AmountBN.toString(),
+                    "to_decimals": 18
+                  },
+                  matchPartialBody: true
+                })
+              ).to.equal(true)
+              confirm(mockedTransaction)
+              cy.wait(1000).then(()=>{
+                expect(!!websocketMessages.find((rawMessage)=>{
+                  let message = JSON.parse(rawMessage)
+                  let identifier = JSON.parse(message.identifier)
+                  return(
+                    message.command == 'subscribe' &&
+                    identifier.channel == 'PaymentChannel' &&
+                    identifier.blockchain == blockchain &&
+                    identifier.sender == fromAddress &&
+                    identifier.receiver == toAddress &&
+                    identifier.deadline != undefined
+                  )
+                })).to.equal(true)
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
+                  cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Done').should('not.exist')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirming payment')
+                  cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Confirming payment').should('exist').then(()=>{
+                    cy.wait(31000).then(()=>{
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Need help?')
+                      cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Contact support')
+                      cy.wait(1000).then(()=>{
+                        mockedWebsocket.send(JSON.stringify({
+                          message: {
+                            release: true,
+                            status: 'success'
+                          }
+                        }))
+                        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').then(()=>{
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').find('.Checkmark')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Need help?').should('not.exist')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Contact support').should('not.exist')
+                          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').click().then(()=>{
+                            cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
+                          })
+                        })
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+
   it('displays seconds left if tracking requires more than 1 confirmation', () => {
     let mockedTransaction = mock({
       blockchain,

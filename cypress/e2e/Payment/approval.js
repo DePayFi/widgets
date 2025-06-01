@@ -192,15 +192,18 @@ describe('Payment Widget: approval', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click()
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
-          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approving DAI for spending...').then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-            mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
-            confirm(mockedTransaction)
-            cy.wait(5000).then(()=>{
-              cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
-              cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Signature approval').should('not.exist')
+          cy.wait(1000).then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Approving DAI for spending...').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+              mock({ blockchain, request: { to: DAI, api: Token[blockchain].DEFAULT, method: 'allowance', params: [fromAddress, routers[blockchain].address], return: Blockchains[blockchain].maxInt } })
+              confirm(mockedTransaction)
+              cy.wait(5000).then(()=>{
+                cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
+                cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
+              })
             })
           })
         })

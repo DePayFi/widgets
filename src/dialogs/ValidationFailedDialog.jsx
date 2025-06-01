@@ -39,9 +39,9 @@ export default ()=> {
       footer={
         <div className="PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM">
           <a 
-            href={`https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&account=${account}&transaction=${transaction?.id}&query=${encodeURIComponent(`Payment validation failed`)}`}
+            href={link({ url: `https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&account=${account}&transaction=${transaction?.id}&query=${encodeURIComponent(`Payment validation failed`)}`, target: '_blank', wallet })}
             target="_blank"
-            className="Card secondary small inlineBlock"
+            className="ButtonPrimary"
           >
             Contact support
           </a>

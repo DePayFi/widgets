@@ -13,6 +13,7 @@ import PaymentTrackingContext from '../contexts/PaymentTrackingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
 import React, { useContext, useState, useEffect } from 'react'
 import throttle from '../helpers/throttle'
+import useEvent from '../hooks/useEvent'
 import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { ethers } from 'ethers'
@@ -29,14 +30,21 @@ export default ()=>{
   const { updatedRouteWithNewPrice, updateRouteWithNewPrice } = useContext(PaymentRoutingContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close } = useContext(ClosableContext)
-  const { wallet } = useContext(WalletContext)
+  const { account, wallet } = useContext(WalletContext)
   const [ secondsLeft, setSecondsLeft ] = useState()
   const [ secondsLeftCountdown, setSecondsLeftCountdown ] = useState(0)
   const [ requiresApprovalReset, setRequiresApprovalReset ] = useState(false)
+  const [ showContactSupport, setShowContactSupport ] = useState(false)
   const throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000)
   const throttledPay = throttle(()=>pay(), 2000)
   const throttledApprove = throttle(()=>approve(), 2000)
   const throttledResetApproval = throttle(()=>resetApproval(), 2000)
+
+  const showContactSupportNow = useEvent(()=>{
+    if(paymentState == 'validating') {
+      setShowContactSupport(true)
+    }
+  })
 
   useEffect(()=>{
     if(confirmationsRequired) {
@@ -47,6 +55,20 @@ export default ()=>{
     }
   }, [confirmationsRequired, secondsLeftCountdown])
 
+  useEffect(()=>{
+    let showContactSupportTimeout
+    
+    if(paymentState && paymentState == 'validating') {
+      showContactSupportTimeout = setTimeout(showContactSupportNow, 30000)
+    } else {
+      clearTimeout(showContactSupportTimeout)
+    }
+
+    return ()=>{ 
+      setShowContactSupport(false)
+      clearTimeout(showContactSupportTimeout)
+    }
+  }, [paymentState])
 
   useEffect(()=>{
     if(confirmationsPassed) {
@@ -121,7 +143,7 @@ export default ()=>{
 
       // --- Permit2 signature approval block ---
       const needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount)
-      const permit2Done = Boolean(approvalTransaction?.url)
+      const permit2Done = approvalType === 'signature' && Boolean(approvalTransaction?.url)
       const permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature
 
       // --- Spending approval block ---
@@ -366,6 +388,20 @@ export default ()=>{
               <div className="StepText">Payment confirmed</div>
             </a>
           )}
+          {
+            showContactSupport && paymentState == 'validating' &&
+            <div className="Step Card small transparent disabled active">
+              <div className="StepIcon"></div>
+              <div className="StepText">
+              <span>Need help?&nbsp;</span>
+              <a
+                href={link({ url: `https://support.depay.com?wallet=${encodeURIComponent(wallet?.name)}&account=${account}&transaction=${transaction?.id}&query=${encodeURIComponent(`Problem with payment`)}`, target: '_blank', wallet })}
+                target="_blank"
+                className="Link"
+              >Contact support</a>
+              </div>
+            </div>
+          }
         </div>
       )
 

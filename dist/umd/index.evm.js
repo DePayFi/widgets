@@ -11230,6 +11230,7 @@
         close = _useContext6.close;
 
     var _useContext7 = React.useContext(WalletContext),
+        account = _useContext7.account,
         wallet = _useContext7.wallet;
 
     var _useState = React.useState(),
@@ -11247,6 +11248,11 @@
         requiresApprovalReset = _useState6[0],
         setRequiresApprovalReset = _useState6[1];
 
+    var _useState7 = React.useState(false),
+        _useState8 = _slicedToArray$1(_useState7, 2),
+        showContactSupport = _useState8[0],
+        setShowContactSupport = _useState8[1];
+
     var throttledUpdateRouteWithNewPrice = throttle(updateRouteWithNewPrice, 2000);
     var throttledPay = throttle(function () {
       return pay();
@@ -11257,6 +11263,11 @@
     var throttledResetApproval = throttle(function () {
       return resetApproval();
     }, 2000);
+    var showContactSupportNow = useEvent(function () {
+      if (paymentState == 'validating') {
+        setShowContactSupport(true);
+      }
+    });
     React.useEffect(function () {
       if (confirmationsRequired) {
         var interval = setInterval(function () {
@@ -11267,6 +11278,20 @@
         };
       }
     }, [confirmationsRequired, secondsLeftCountdown]);
+    React.useEffect(function () {
+      var showContactSupportTimeout;
+
+      if (paymentState && paymentState == 'validating') {
+        showContactSupportTimeout = setTimeout(showContactSupportNow, 30000);
+      } else {
+        clearTimeout(showContactSupportTimeout);
+      }
+
+      return function () {
+        setShowContactSupport(false);
+        clearTimeout(showContactSupportTimeout);
+      };
+    }, [paymentState]);
     React.useEffect(function () {
       if (confirmationsPassed) {
         setSecondsLeft(etaForConfirmations(payment.route.blockchain, confirmationsRequired, confirmationsPassed) - secondsLeftCountdown);
@@ -11319,7 +11344,7 @@
 
         // --- Permit2 signature approval block ---
         var needsPermit2Transaction = approvalType === 'signature' && payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.lt(payment.route.fromAmount);
-        var permit2Done = Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
+        var permit2Done = approvalType === 'signature' && Boolean(approvalTransaction === null || approvalTransaction === void 0 ? void 0 : approvalTransaction.url);
         var permit2Processing = approvalType === 'signature' && paymentState === 'approving' && !approvalSignature; // --- Spending approval block ---
 
         var approvalRequired = Boolean(payment.route.approvalRequired && !((_window = window) !== null && _window !== void 0 && _window.WorldApp));
@@ -11471,7 +11496,21 @@
           className: "small"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, "Payment confirmed")));
+        }, "Payment confirmed")), showContactSupport && paymentState == 'validating' && /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "Step Card small transparent disabled active"
+        }, /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepIcon"
+        }), /*#__PURE__*/React__default['default'].createElement("div", {
+          className: "StepText"
+        }, /*#__PURE__*/React__default['default'].createElement("span", null, "Need help?\xA0"), /*#__PURE__*/React__default['default'].createElement("a", {
+          href: link({
+            url: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&account=").concat(account, "&transaction=").concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Problem with payment")),
+            target: '_blank',
+            wallet: wallet
+          }),
+          target: "_blank",
+          className: "Link"
+        }, "Contact support"))));
       }
     };
 
@@ -76478,9 +76517,13 @@
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("a", {
-        href: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&account=").concat(account, "&transaction=").concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Payment validation failed")),
+        href: link({
+          url: "https://support.depay.com?wallet=".concat(encodeURIComponent(wallet === null || wallet === void 0 ? void 0 : wallet.name), "&account=").concat(account, "&transaction=").concat(transaction === null || transaction === void 0 ? void 0 : transaction.id, "&query=").concat(encodeURIComponent("Payment validation failed")),
+          target: '_blank',
+          wallet: wallet
+        }),
         target: "_blank",
-        className: "Card secondary small inlineBlock"
+        className: "ButtonPrimary"
       }, "Contact support"))
     });
   });
