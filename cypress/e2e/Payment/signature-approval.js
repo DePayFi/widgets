@@ -302,7 +302,7 @@ describe('Payment Widget: signature approval', () => {
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Approve and pay').click().then(()=>{
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Enabling signature approval for DAI...').then(()=>{
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.disabled').should('contain.text', 'Approve spending DAI')
-                    cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.disabled').should('contain.text', 'Payment performed')
+                    cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.disabled').should('contain.text', 'Perform payment')
                     cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.disabled').should('contain.text', 'Wait for payment confirmation')
                   })
                   confirm(mockedPermit2ApprovalTransaction)
