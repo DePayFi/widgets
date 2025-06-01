@@ -8679,7 +8679,7 @@
       }, loggingIn && /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomS PaddingTopXS"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
-        className: "PaddingTopXS"
+        className: "PaddingTopXS PaddingBottomL"
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "ActionIndicator MarginBottomXS"
       }, /*#__PURE__*/React__default['default'].createElement("img", {

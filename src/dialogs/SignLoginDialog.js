@@ -78,7 +78,7 @@ export default (props)=> {
           {
             loggingIn &&
             <div className="PaddingBottomS PaddingTopXS">
-              <div className="PaddingTopXS">
+              <div className="PaddingTopXS PaddingBottomL">
                 <div className="ActionIndicator MarginBottomXS">
                   <img src={wallet.logo} />
                   <div className="ActionIndicatorSpinner"></div>

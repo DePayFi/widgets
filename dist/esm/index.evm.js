@@ -8680,7 +8680,7 @@ var SignLoginDialog = (function (props) {
     }, loggingIn && /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomS PaddingTopXS"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "PaddingTopXS"
+      className: "PaddingTopXS PaddingBottomL"
     }, /*#__PURE__*/React.createElement("div", {
       className: "ActionIndicator MarginBottomXS"
     }, /*#__PURE__*/React.createElement("img", {
