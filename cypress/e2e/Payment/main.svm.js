@@ -215,7 +215,7 @@ describe('Payment Widget: main functionality for Solana', () => {
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
               confirm(mockedTransaction)
               cy.wait(1000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://solscan.io/tx/').then(()=>{
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://solscan.io/tx/').then(()=>{
                   cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                   cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

@@ -1,3 +1,4 @@
+import CallbackProvider from './providers/CallbackProvider'
 import ChangableAmountProvider from './providers/ChangableAmountProvider'
 import ClosableProvider from './providers/ClosableProvider'
 import ConfigurationProvider from './providers/ConfigurationProvider'
@@ -57,27 +58,29 @@ let Sale = async ({
       return (container)=>
         <ErrorProvider errorCallback={ error } container={ container } unmount={ unmount }>
           <ConfigurationProvider configuration={{ type: 'sale', accept, before, tokenImage, amount, sell, currency, sent, succeeded, failed, deny, blacklist, providers, integration, wallet }}>
-            <UpdatableProvider>
-              <ClosableProvider unmount={ unmount } closable={ closable }>
-                <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
-                  <NavigateProvider>
-                    <ConversionRateProvider>
-                      <ChangableAmountProvider>
-                        <PaymentTrackingProvider document={ ensureDocument(document) }>
-                          <SaleRoutingProvider container={ container } document={ document }>
-                            <SaleStack
-                              document={ document }
-                              container={ container }
-                            />
-                            <PoweredBy/>
-                          </SaleRoutingProvider>
-                        </PaymentTrackingProvider>
-                      </ChangableAmountProvider>
-                    </ConversionRateProvider>
-                  </NavigateProvider>
-                </WalletProvider>
-              </ClosableProvider>
-            </UpdatableProvider>
+            <CallbackProvider>
+              <UpdatableProvider>
+                <ClosableProvider unmount={ unmount } closable={ closable }>
+                  <WalletProvider container={ container } connected={ connected } unmount={ unmount }>
+                    <NavigateProvider>
+                      <ConversionRateProvider>
+                        <ChangableAmountProvider>
+                          <PaymentTrackingProvider document={ ensureDocument(document) }>
+                            <SaleRoutingProvider container={ container } document={ document }>
+                              <SaleStack
+                                document={ document }
+                                container={ container }
+                              />
+                              <PoweredBy/>
+                            </SaleRoutingProvider>
+                          </PaymentTrackingProvider>
+                        </ChangableAmountProvider>
+                      </ConversionRateProvider>
+                    </NavigateProvider>
+                  </WalletProvider>
+                </ClosableProvider>
+              </UpdatableProvider>
+            </CallbackProvider>
           </ConfigurationProvider>
         </ErrorProvider>
     })

@@ -267,7 +267,7 @@ export default ()=>{
                 </div>
                 <div className="StepText">
                   {paymentProcessing && <LoadingText>Performing payment</LoadingText>}
-                  {paymentDone && <span>Perform payment</span>}
+                  {paymentDone && <span>Payment performed</span>}
                 </div>
               </a>
               <div className="StepConnector" />

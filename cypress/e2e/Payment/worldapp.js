@@ -216,7 +216,7 @@ describe('Payment Widget: WorldApp', () => {
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.active', 'Performing payment').should('exist')
               confirm(mockedTransaction)
               cy.wait(2000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.done', 'Perform payment').should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.done', 'Payment performed').should('exist')
               })
             })
           })
@@ -272,7 +272,7 @@ describe('Payment Widget: WorldApp', () => {
               })
               confirm(mockedTransaction)
               cy.wait(2000).then(()=>{
-                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.done', 'Perform payment').should('exist')
+                cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card.done', 'Payment performed').should('exist')
               })
             })
           })

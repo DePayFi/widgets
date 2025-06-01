@@ -11363,7 +11363,7 @@ var Footer = (function () {
         className: "ActionIndicatorSpinner"
       })), /*#__PURE__*/React.createElement("div", {
         className: "StepText"
-      }, paymentProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React.createElement("span", null, "Perform payment"))), /*#__PURE__*/React.createElement("div", {
+      }, paymentProcessing && /*#__PURE__*/React.createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React.createElement("span", null, "Payment performed"))), /*#__PURE__*/React.createElement("div", {
         className: "StepConnector"
       })) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: 'Step Card disabled small transparent' + (paymentReady || paymentDone && !(showSyncDone || showSyncWaiting) ? ' active' : '')
@@ -14323,7 +14323,7 @@ var Sale = /*#__PURE__*/function () {
                     integration: integration,
                     wallet: wallet
                   }
-                }, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
+                }, /*#__PURE__*/React.createElement(CallbackProvider, null, /*#__PURE__*/React.createElement(UpdatableProvider, null, /*#__PURE__*/React.createElement(ClosableProvider, {
                   unmount: unmount,
                   closable: closable
                 }, /*#__PURE__*/React.createElement(WalletProvider, {
@@ -14338,7 +14338,7 @@ var Sale = /*#__PURE__*/function () {
                 }, /*#__PURE__*/React.createElement(SaleStack, {
                   document: document,
                   container: container
-                }), /*#__PURE__*/React.createElement(PoweredBy, null)))))))))));
+                }), /*#__PURE__*/React.createElement(PoweredBy, null))))))))))));
               };
             });
             return _context2.abrupt("return", {

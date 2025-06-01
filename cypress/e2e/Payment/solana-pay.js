@@ -350,7 +350,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                           })
                           cy.wait(1000).then(()=>{
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Perform payment')
+                            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Payment performed')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').contains('Done')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -539,7 +539,7 @@ describe('Solana Pay: QR code based mobile handover', () => {
                           })
                           cy.wait(1000).then(()=>{
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-                            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Perform payment')
+                            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Payment performed')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').contains('Done')
                             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                             cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

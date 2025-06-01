@@ -11415,7 +11415,7 @@
           className: "ActionIndicatorSpinner"
         })), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepText"
-        }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Perform payment"))), /*#__PURE__*/React__default['default'].createElement("div", {
+        }, paymentProcessing && /*#__PURE__*/React__default['default'].createElement(LoadingText, null, "Performing payment"), paymentDone && /*#__PURE__*/React__default['default'].createElement("span", null, "Payment performed"))), /*#__PURE__*/React__default['default'].createElement("div", {
           className: "StepConnector"
         })) : /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("div", {
           className: 'Step Card disabled small transparent' + (paymentReady || paymentDone && !(showSyncDone || showSyncWaiting) ? ' active' : '')
@@ -24978,7 +24978,7 @@
                       integration: integration,
                       wallet: wallet
                     }
-                  }, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
+                  }, /*#__PURE__*/React__default['default'].createElement(CallbackProvider, null, /*#__PURE__*/React__default['default'].createElement(UpdatableProvider, null, /*#__PURE__*/React__default['default'].createElement(ClosableProvider, {
                     unmount: unmount,
                     closable: closable
                   }, /*#__PURE__*/React__default['default'].createElement(WalletProvider, {
@@ -24993,7 +24993,7 @@
                   }, /*#__PURE__*/React__default['default'].createElement(SaleStack, {
                     document: document,
                     container: container
-                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null)))))))))));
+                  }), /*#__PURE__*/React__default['default'].createElement(PoweredBy, null))))))))))));
                 };
               });
               return _context2.abrupt("return", {

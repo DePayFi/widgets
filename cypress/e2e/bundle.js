@@ -221,7 +221,7 @@ describe('bundle', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Perform payment')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Payment performed')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').should('contain.text', 'Done')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
               cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

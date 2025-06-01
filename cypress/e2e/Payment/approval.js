@@ -199,7 +199,7 @@ describe('Payment Widget: approval', () => {
             cy.wait(5000).then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Payment performed')
               cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
             })
           })
@@ -236,7 +236,7 @@ describe('Payment Widget: approval', () => {
             cy.wait(5000).then(()=>{
               cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small').should('contain.text', 'Approved DAI for spending')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Perform payment')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.small.active').should('contain.text', 'Payment performed')
               cy.contains('.ButtonPrimary', 'Pay', { includeShadowDom: true }).should('exist')
             })
           })

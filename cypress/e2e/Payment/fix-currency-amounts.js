@@ -259,7 +259,7 @@ describe('Payment Widget: fix currency amounts', () => {
             confirm(mockedTransaction)
             cy.wait(1000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card .Checkmark')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled').then(()=>{
                 cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()

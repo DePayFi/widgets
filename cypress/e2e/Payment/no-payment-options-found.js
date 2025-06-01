@@ -239,8 +239,8 @@ describe('Payment Widget: no payment options found', () => {
             cy.wait(16000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('Not Enough Funds').should('not.exist')
               confirm(mockedTransaction)
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').then(()=>{
                 cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('exist')
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
                 cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')

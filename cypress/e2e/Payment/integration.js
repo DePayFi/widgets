@@ -302,14 +302,14 @@ describe('Payment Widget: integration', () => {
           cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             mockedWebsocket.send(JSON.stringify({
               message: {
                 release: true,
                 status: 'success'
               }
             }))
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').click().then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').should('not.exist')
@@ -439,7 +439,7 @@ describe('Payment Widget: integration', () => {
           cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
           confirm(mockedTransaction)
           cy.wait(1000).then(()=>{
-            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
             cy.wait(5000).then(()=>{
               cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment confirmed').then(()=>{
                 cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
@@ -607,14 +607,14 @@ describe('Payment Widget: integration', () => {
             cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card.disabled')
             confirm(mockedTransaction)
             cy.wait(1000).then(()=>{
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').invoke('attr', 'href').should('include', 'https://etherscan.io/tx/')
               mockedWebsocket.send(JSON.stringify({
                 message: {
                   release: true,
                   status: 'success'
                 }
               }))
-              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Perform payment').then(()=>{
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card', 'Payment performed').then(()=>{
                 cy.wait(2000).then(()=>{
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').should('exist')
                   cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary:not(.disabled)', 'Done').click().then(()=>{
