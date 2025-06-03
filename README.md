@@ -144,7 +144,7 @@ Forwards the payload to your backend for dynamic payment setup, like:
 ### Unmanaged Configuration
 
 > [!IMPORTANT]
-> Unmanaged configurations do not provide any callbacks for server-side actions or integrations. They are limited to initiating and executing payments only.
+> Unmanaged configurations do not provide any callbacks for server-side actions or integrations. They are limited to initiating and executing payments only. If you need callbacks for your integrations, use [managed integrations](#managed-integration-using-integration-id)
 
 ```javascript
 DePayWidgets.Payment({
