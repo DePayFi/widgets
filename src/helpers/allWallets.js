@@ -50,7 +50,7 @@ export default [
     "mobile": {
       "ios": {
         "native": "phantom:",
-        "open": ()=>`phantom://ul/browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
+        "open": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "solanaPay": true,
       },
