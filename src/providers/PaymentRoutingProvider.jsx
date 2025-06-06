@@ -38,7 +38,7 @@ export default (props)=>{
   const { account, wallet, solanaPayWallet } = useContext(WalletContext)
   const { updatable } = useContext(UpdatableContext)
   const configuration = useContext(ConfigurationContext)
-  const { amountsMissing } = useContext(ChangableAmountContext)
+  const { amountsMissing, amount } = useContext(ChangableAmountContext)
   const { setError } = useContext(ErrorContext)
 
   const getPaymentRoutes = async ({ allRoutes, selectedRoute, updatable })=>{

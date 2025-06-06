@@ -9515,6 +9515,7 @@ var PaymentRoutingProvider = (function (props) {
 
   var _useContext3 = useContext(ChangableAmountContext);
       _useContext3.amountsMissing;
+      _useContext3.amount;
 
   var _useContext4 = useContext(ErrorContext),
       setError = _useContext4.setError;
@@ -10399,6 +10400,11 @@ var PaymentProvider = (function (props) {
     }
   }, [release]);
   useEffect(function () {
+    if (!selectedRoute) {
+      setPayment();
+    }
+  }, [selectedRoute]);
+  useEffect(function () {
     if (asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
       setClosable(true);
     }
@@ -10557,8 +10563,8 @@ var ChangeAmountDialog = (function (props) {
   var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
   var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
   var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
-
-  var changeAmountAndGoBack = function changeAmountAndGoBack() {
+  var inputElement = useRef();
+  var changeAmountAndGoBack = useEvent(function () {
     var newAmount = toValidValue(parseFloat(inputAmount));
 
     if (newAmount != amount) {
@@ -10567,7 +10573,7 @@ var ChangeAmountDialog = (function (props) {
     }
 
     navigate('back');
-  };
+  });
 
   var changeAmount = function changeAmount(value) {
     if (Number.isNaN(value)) {
@@ -10596,6 +10602,28 @@ var ChangeAmountDialog = (function (props) {
     setInputAmount(toValidValue(value));
   };
 
+  useEffect(function () {
+    setTimeout(function () {
+      if (inputElement.current) {
+        inputElement.current.focus();
+      }
+    }, 200);
+
+    var handleKeyDown = function handleKeyDown(event) {
+      if (event.key === 'Enter') {
+        if (inputElement.current) {
+          inputElement.current.blur();
+        }
+
+        setTimeout(changeAmountAndGoBack, 200);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return function () {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
   return /*#__PURE__*/React.createElement(Dialog$1, {
     stacked: true,
     header: /*#__PURE__*/React.createElement("div", {
@@ -10614,12 +10642,13 @@ var ChangeAmountDialog = (function (props) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "PaddingBottomM"
     }, /*#__PURE__*/React.createElement("input", {
+      ref: inputElement,
       min: min,
       step: step,
       className: "Input FontSizeXXL TextAlignCenter",
       type: "number",
       name: "amount",
-      value: parseFloat(inputAmount),
+      value: inputAmount ? parseFloat(inputAmount) : '',
       onChange: function onChange(event) {
         changeAmount(event.target.value);
       },

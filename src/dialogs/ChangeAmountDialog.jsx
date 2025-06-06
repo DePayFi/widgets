@@ -5,7 +5,8 @@ import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
 import PaymentRoutingContext from '../contexts/PaymentRoutingContext'
 import PaymentValueContext from '../contexts/PaymentValueContext'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
+import useEvent from '../hooks/useEvent'
 import WalletContext from '../contexts/WalletContext'
 import { Currency } from '@depay/local-currency'
 import { Decimal } from 'decimal.js'
@@ -23,15 +24,16 @@ export default (props)=>{
   const min = typeof amountConfiguration == "object" && amountConfiguration.min ? amountConfiguration.min : 1
   const step = typeof amountConfiguration == "object" && amountConfiguration.step ? amountConfiguration.step : 1
   const displayedCurrencyCode = (amountConfiguration != undefined && amountConfiguration.token) ? null : currencyCode
+  const inputElement = useRef()
 
-  const changeAmountAndGoBack = ()=>{
+  const changeAmountAndGoBack = useEvent(()=>{
     let newAmount = toValidValue(parseFloat(inputAmount))
     if(newAmount != amount) {
       setSelectedRoute(undefined)
       setAmount(newAmount)
     }
     navigate('back')
-  }
+  })
 
   const changeAmount = (value)=>{
     if(Number.isNaN(value)) { return }
@@ -67,6 +69,25 @@ export default (props)=>{
     )
   }
 
+  useEffect(() => {
+
+    setTimeout(()=>{
+      if(inputElement.current) { inputElement.current.focus() }
+    }, 200)
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        if(inputElement.current) { inputElement.current.blur() }
+        setTimeout(changeAmountAndGoBack, 200)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
   return(
     <Dialog
       stacked={ true }
@@ -83,12 +104,13 @@ export default (props)=>{
               
               <div className="PaddingBottomM">
                 <input
+                  ref={ inputElement }
                   min={ min }
                   step={ step }
                   className='Input FontSizeXXL TextAlignCenter'
                   type="number"
                   name="amount"
-                  value={ parseFloat(inputAmount) }
+                  value={ inputAmount ? parseFloat(inputAmount) : '' }
                   onChange={(event)=>{ changeAmount(event.target.value) }}
                   onBlur={(event)=>{ setValidValue(event.target.value) }}
                 />

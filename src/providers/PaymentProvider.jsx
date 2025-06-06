@@ -288,6 +288,12 @@ export default (props)=>{
   }, [release])
 
   useEffect(()=>{
+    if(!selectedRoute){
+      setPayment()
+    }
+  }, [selectedRoute])
+
+  useEffect(()=>{
     if(asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
       setClosable(true)
     }

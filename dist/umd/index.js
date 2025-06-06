@@ -9457,6 +9457,7 @@
 
     var _useContext3 = React.useContext(ChangableAmountContext);
         _useContext3.amountsMissing;
+        _useContext3.amount;
 
     var _useContext4 = React.useContext(ErrorContext),
         setError = _useContext4.setError;
@@ -10341,6 +10342,11 @@
       }
     }, [release]);
     React.useEffect(function () {
+      if (!selectedRoute) {
+        setPayment();
+      }
+    }, [selectedRoute]);
+    React.useEffect(function () {
       if (asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
         setClosable(true);
       }
@@ -10499,8 +10505,8 @@
     var min = _typeof(amountConfiguration) == "object" && amountConfiguration.min ? amountConfiguration.min : 1;
     var step = _typeof(amountConfiguration) == "object" && amountConfiguration.step ? amountConfiguration.step : 1;
     var displayedCurrencyCode = amountConfiguration != undefined && amountConfiguration.token ? null : currencyCode;
-
-    var changeAmountAndGoBack = function changeAmountAndGoBack() {
+    var inputElement = React.useRef();
+    var changeAmountAndGoBack = useEvent(function () {
       var newAmount = toValidValue(parseFloat(inputAmount));
 
       if (newAmount != amount) {
@@ -10509,7 +10515,7 @@
       }
 
       navigate('back');
-    };
+    });
 
     var changeAmount = function changeAmount(value) {
       if (Number.isNaN(value)) {
@@ -10538,6 +10544,28 @@
       setInputAmount(toValidValue(value));
     };
 
+    React.useEffect(function () {
+      setTimeout(function () {
+        if (inputElement.current) {
+          inputElement.current.focus();
+        }
+      }, 200);
+
+      var handleKeyDown = function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+          if (inputElement.current) {
+            inputElement.current.blur();
+          }
+
+          setTimeout(changeAmountAndGoBack, 200);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return function () {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, []);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       stacked: true,
       header: /*#__PURE__*/React__default['default'].createElement("div", {
@@ -10556,12 +10584,13 @@
       }, /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingBottomM"
       }, /*#__PURE__*/React__default['default'].createElement("input", {
+        ref: inputElement,
         min: min,
         step: step,
         className: "Input FontSizeXXL TextAlignCenter",
         type: "number",
         name: "amount",
-        value: parseFloat(inputAmount),
+        value: inputAmount ? parseFloat(inputAmount) : '',
         onChange: function onChange(event) {
           changeAmount(event.target.value);
         },
