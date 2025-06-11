@@ -1,9 +1,9 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "13.0.26",
+  "version": "13.0.27",
   "latestSupportedVersions": {
-    "13": "13.0.26",
+    "13": "13.0.27",
     "12": "12.18.5",
     "11": "11.7.4"
   },
