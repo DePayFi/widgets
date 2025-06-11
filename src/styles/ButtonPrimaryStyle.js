@@ -9,7 +9,7 @@ export default (style)=>{
       border: 1px solid transparent;
       box-shadow: 0 0 16px rgba(0,0,0,0.1);
       font-size: 23px;
-      font-weight: 500;
+      font-weight: 400;
       line-height: 40px;
       height: 58px;
       letter-spacing: 0.2px;
