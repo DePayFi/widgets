@@ -25,7 +25,7 @@
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/walletconnect-v2@2.12.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-wallets@18.1.15"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-exchanges@15"></script>
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.3.1"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@depay/web3-payments@15.3.2"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/qr-code-styling@1"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/react-rangeslider@2/umd/rangeslider.js"></script>
@@ -136,17 +136,8 @@
                   var button = document.getElementById("payWorldAppButton");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
-                      accept: [{
-                        blockchain: 'worldchain',
-                        amount: 0.01,
-                        token: '0x79A02482A880bCE3F13e09Da970dC34db4CD24d1',
-                        receiver: '0x317D875cA3B9f8d14f960486C0d1D1913be74e90'
-                      }],
-                      wallets: {
-                        whitelist: [
-                          "World App"
-                        ]
-                      }
+                      accept: [{"amount":"25.0","blockchain":"worldchain","token":"0x79A02482A880bCE3F13e09Da970dC34db4CD24d1","receiver":"0x14d514C755ac3bf2742BA28c563058cE13662e7a"}],
+                      allow:{"worldchain":["0x2cFc85d8E48F8EAB294be644d9E25C3030863003","0x79A02482A880bCE3F13e09Da970dC34db4CD24d1"]}
                     });
                   });
                 </script>
