@@ -174,7 +174,7 @@ describe('Payment Widget: errors', () => {
     
     fetchMock.post({
       overwriteRoutes: true,
-      url: "https://public.depay.com/routes/best",
+      url: "https://public.depay.com/routes/all",
       body: {
         accounts: { [blockchain]: accounts[0] },
         accept,
@@ -198,12 +198,12 @@ describe('Payment Widget: errors', () => {
         })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Oops, Something Went Wrong')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /Best route could not be loaded!/)
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /All routes could not be loaded!/)
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('strong', 'If this keeps happening, please report it.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ButtonPrimary', 'Try again').click()
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
-          expect(passedError.toString()).to.match(/Best route could not be loaded!/)
+          expect(passedError.toString()).to.match(/All routes could not be loaded!/)
         })
       })
     })
