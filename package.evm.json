@@ -1,7 +1,7 @@
 {
   "name": "@depay/widgets-evm",
   "moduleName": "DePayWidgets",
-  "version": "13.0.32",
+  "version": "13.0.33",
   "description": "Crypto Payments straight to your wallet. DePay simplifies Web3 integration for developers, harnessing DeFi to accept any token effortlessly. Integrate frictionless, real-time token conversion with sleek, customizable widgets designed for seamless user experience.",
   "main": "./dist/umd/index.js",
   "module": "./dist/esm/index.js",
@@ -32,7 +32,7 @@
     "@depay/web3-client-evm": "^11.1.0",
     "@depay/web3-payments-evm": "^15.3.2",
     "@depay/web3-tokens-evm": "^11.1.0",
-    "@depay/web3-wallets-evm": "^18.1.15",
+    "@depay/web3-wallets-evm": "^18.1.17",
     "@tanstack/react-virtual": "^3.0.0-beta.54",
     "@uiw/copy-to-clipboard": "^1.0.14",
     "decimal.js": "^10.4.3",
