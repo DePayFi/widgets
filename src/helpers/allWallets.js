@@ -56,7 +56,7 @@ export default [
       },
       "android": {
         "native": "phantom:",
-        "connect": "SolanaMobileWalletAdapter",
+        "open": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "qr": ()=>`phantom://browse/${encodeURIComponent(window.location.toString())}?ref=${encodeURIComponent(window.location.origin.toString())}`,
         "solanaPay": true,
       },

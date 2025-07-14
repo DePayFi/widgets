@@ -131,7 +131,9 @@
       },
       "android": {
         "native": "phantom:",
-        "connect": "SolanaMobileWalletAdapter",
+        "open": function open() {
+          return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
+        },
         "qr": function qr() {
           return "phantom://browse/".concat(encodeURIComponent(window.location.toString()), "?ref=").concat(encodeURIComponent(window.location.origin.toString()));
         },
