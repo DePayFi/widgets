@@ -66,7 +66,7 @@ declare namespace DePayWidgets {
   }
 
   interface PaymentOptions {
-    accept: AcceptOptions[];
+    accept?: AcceptOptions[];
     amount?: {
       currency?: string;
       fix?: number;
