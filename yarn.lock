@@ -1321,10 +1321,10 @@
   dependencies:
     bs58 "^5.0.0"
 
-"@depay/solana-web3.js@^1.98.2":
-  version "1.98.2"
-  resolved "https://registry.yarnpkg.com/@depay/solana-web3.js/-/solana-web3.js-1.98.2.tgz#8fff431ac9641fb7dfb27c726f63945aebcc8b0e"
-  integrity sha512-O7SvHsZ6HGXlzSmjhj7mj0B/VvQQn8mzm/xKQ0SUrEUJVxg9zKFBlwIvxCtgf+IOrWlBJi6VqXRu7UznWvfrCA==
+"@depay/solana-web3.js@^1.98.3":
+  version "1.98.3"
+  resolved "https://registry.yarnpkg.com/@depay/solana-web3.js/-/solana-web3.js-1.98.3.tgz#97b74e9712a2e96ddaa6cf5b83aa639fe8bab28e"
+  integrity sha512-wxr+2gpjKRZ1eVBLhQYJxImDsRukk0DvCsEElkTMyybP+7SamWRs48o3DYE6VLEgQJFZgOoUec3t5FM5s1J1ww==
   dependencies:
     bs58 "^5.0.0"
 
