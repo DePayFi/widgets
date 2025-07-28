@@ -17,7 +17,6 @@ export default (props)=>{
     }
     Currency.fromUSD({ amount: 1, code: currency })
       .then((conversion)=>setConversionRate(conversion.amount))
-      .catch(setConversionRate(1))
   }, [])
 
   return(

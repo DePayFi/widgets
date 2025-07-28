@@ -1026,8 +1026,6 @@
           </div>
         </div>
 
-
-
         <div class="d-block d-md-inline-block p-2 col-12 col-md-4">
           <div class="px-0 py-4 rounded-lg bg-white border">
             <div class="col px-0">
@@ -1044,13 +1042,11 @@
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
                       amount: {
-                        start: 2,
-                        min: 1,
-                        step: 0.5
+                        start: 1,
                       },
                       accept: [{
-                        blockchain: 'bsc',
-                        token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                        blockchain: 'polygon',
+                        token: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
                         receiver: '0xdE955610314b52Fd80F6C5ebdE36c94f4c99ea72'
                       }]
                     });
@@ -1076,12 +1072,7 @@
                   var button = document.getElementById("payWithoutAmountDifferentCurrency");
                   button.addEventListener("click",function(e){
                     DePayWidgets.Payment({
-                      amount: {
-                        start: 1,
-                        min: 1,
-                        step: 0.5
-                      },
-                      currency: 'USD',
+                      currency: 'TRY',
                       accept: [{
                         blockchain: 'bsc',
                         token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
