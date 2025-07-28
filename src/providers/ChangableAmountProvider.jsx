@@ -65,7 +65,7 @@ export default (props)=>{
         return tokenAmountForUSD({
           blockchain: accept.blockchain,
           token: accept.token,
-          amount: amount*conversionRate,
+          amount: amount/conversionRate,
         })
       }))
     }
