@@ -230,10 +230,10 @@ describe('Payment Widget: configure amount', () => {
         }
       )
 
-      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=1.7` }, '8.5')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=2.3529411764705883` }, '8.5')
       fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=1.166` }, '1.166')
-      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=2.125` }, '14')
-      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=0.425` }, '3')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=2.9411764705882355` }, '14')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=0.5882352941176471` }, '3')
     })
   })
 

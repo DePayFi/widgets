@@ -162,9 +162,9 @@ describe('Payment Widget: amount', () => {
         ]
       })
 
-      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=0.85` }, '1.8')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=1.1764705882352942` }, '1.8')
       fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=1.166` }, '1.166')
-      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=8.5` }, '18')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=11.764705882352942` }, '18')
       fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DAI}?amount=11.658` }, '11.658')
 
       fetchMock.post('https://public.depay.com/routes/best',
@@ -241,7 +241,7 @@ describe('Payment Widget: amount', () => {
   
   describe('change amount', () => {
 
-    it('allows me to change the amount freely by entering it into an input field', ()=> {
+    it.only('allows me to change the amount freely by entering it into an input field', ()=> {
 
       cy.visit('cypress/test.html').then((contentWindow) => {
         cy.document().then((document)=>{

@@ -9286,7 +9286,7 @@ var ChangableAmountProvider = (function (props) {
         return tokenAmountForUSD({
           blockchain: accept.blockchain,
           token: accept.token,
-          amount: amount * conversionRate
+          amount: amount / conversionRate
         });
       }));
     }
@@ -9371,7 +9371,7 @@ var ConversionRateProvider = (function (props) {
       code: currency
     }).then(function (conversion) {
       return setConversionRate(conversion.amount);
-    })["catch"](setConversionRate(1));
+    });
   }, []);
   return /*#__PURE__*/React.createElement(ConversionRateContext.Provider, {
     value: {

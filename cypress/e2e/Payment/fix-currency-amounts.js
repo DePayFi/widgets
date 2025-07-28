@@ -186,7 +186,7 @@ describe('Payment Widget: fix currency amounts', () => {
       ])
 
       fetchMock.get({ url: `https://public.depay.com/conversions/USD/${blockchain}/${DEPAY}?amount=20.0` }, '4')
-      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=4.42` }, '22.1')
+      fetchMock.get({ url: `https://public.depay.com/conversions/${blockchain}/${DEPAY}/USD?amount=6.11764705882353` }, '22.1')
     })
   })
   

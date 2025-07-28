@@ -9282,7 +9282,7 @@
           return tokenAmountForUSD({
             blockchain: accept.blockchain,
             token: accept.token,
-            amount: amount * conversionRate
+            amount: amount / conversionRate
           });
         }));
       }
@@ -9367,7 +9367,7 @@
         code: currency
       }).then(function (conversion) {
         return setConversionRate(conversion.amount);
-      })["catch"](setConversionRate(1));
+      });
     }, []);
     return /*#__PURE__*/React__default['default'].createElement(ConversionRateContext.Provider, {
       value: {
