@@ -9083,9 +9083,9 @@ var CallbackContext = /*#__PURE__*/React.createContext({
 });
 
 var CallbackProvider = (function (props) {
-  var _useContext = useContext(ConfigurationContext);
-      _useContext.before;
-      var sent = _useContext.sent,
+  var _useContext = useContext(ConfigurationContext),
+      before = _useContext.before,
+      sent = _useContext.sent,
       succeeded = _useContext.succeeded,
       failed = _useContext.failed,
       validated = _useContext.validated;
@@ -9094,6 +9094,14 @@ var CallbackProvider = (function (props) {
   var succeededCallbackCalled = useRef();
   var failedCallbackCalled = useRef();
   var validatedCallbackCalled = useRef();
+
+  var callBeforeCallback = function callBeforeCallback(transaction, paymentRoute) {
+    if (typeof before === 'function') {
+      before(transaction, paymentRoute);
+    } else {
+      return false;
+    }
+  };
 
   var callSentCallback = function callSentCallback(transaction, paymentRoute) {
     if (typeof sent === 'function' && sentCallbackCalled.current !== true) {
@@ -9133,6 +9141,7 @@ var CallbackProvider = (function (props) {
 
   return /*#__PURE__*/React.createElement(CallbackContext.Provider, {
     value: {
+      callBeforeCallback: callBeforeCallback,
       callSentCallback: callSentCallback,
       callSucceededCallback: callSucceededCallback,
       callFailedCallback: callFailedCallback,

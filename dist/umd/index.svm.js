@@ -9082,9 +9082,9 @@
   });
 
   var CallbackProvider = (function (props) {
-    var _useContext = React.useContext(ConfigurationContext);
-        _useContext.before;
-        var sent = _useContext.sent,
+    var _useContext = React.useContext(ConfigurationContext),
+        before = _useContext.before,
+        sent = _useContext.sent,
         succeeded = _useContext.succeeded,
         failed = _useContext.failed,
         validated = _useContext.validated;
@@ -9093,6 +9093,14 @@
     var succeededCallbackCalled = React.useRef();
     var failedCallbackCalled = React.useRef();
     var validatedCallbackCalled = React.useRef();
+
+    var callBeforeCallback = function callBeforeCallback(transaction, paymentRoute) {
+      if (typeof before === 'function') {
+        before(transaction, paymentRoute);
+      } else {
+        return false;
+      }
+    };
 
     var callSentCallback = function callSentCallback(transaction, paymentRoute) {
       if (typeof sent === 'function' && sentCallbackCalled.current !== true) {
@@ -9132,6 +9140,7 @@
 
     return /*#__PURE__*/React__default['default'].createElement(CallbackContext.Provider, {
       value: {
+        callBeforeCallback: callBeforeCallback,
         callSentCallback: callSentCallback,
         callSucceededCallback: callSucceededCallback,
         callFailedCallback: callFailedCallback,
