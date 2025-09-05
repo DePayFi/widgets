@@ -36,9 +36,9 @@ import { ReactDialogStack } from '@depay/react-dialog-stack'
 
 export default (props)=>{
   const { setError } = useContext(ErrorContext)
-  const { callSentCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
+  const { callBeforeCallback, callSentCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
   const { transaction, setTransaction } = useContext(PaymentTrackingContext)
-  const { accept, before } = useContext(ConfigurationContext)
+  const { accept } = useContext(ConfigurationContext)
   const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
   const { setUpdatable } = useContext(UpdatableContext)
@@ -122,12 +122,10 @@ export default (props)=>{
         } : {}
       )
     )
-    if(before) {
-      let stop = await before(transaction, selectedRoute)
-      if(stop === false){
-        setPaymentState('initialized')
-        return
-      }
+    let stop = await callBeforeCallback(transaction, selectedRoute)
+    if(stop === false){
+      setPaymentState('initialized')
+      return
     }
     let currentBlock = await request({ blockchain: transaction.blockchain, method: 'latestBlockNumber' })
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline

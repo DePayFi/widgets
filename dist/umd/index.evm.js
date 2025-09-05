@@ -9082,8 +9082,9 @@
   });
 
   var CallbackProvider = (function (props) {
-    var _useContext = React.useContext(ConfigurationContext),
-        sent = _useContext.sent,
+    var _useContext = React.useContext(ConfigurationContext);
+        _useContext.before;
+        var sent = _useContext.sent,
         succeeded = _useContext.succeeded,
         failed = _useContext.failed,
         validated = _useContext.validated;
@@ -9882,6 +9883,7 @@
         setError = _useContext.setError;
 
     var _useContext2 = React.useContext(CallbackContext),
+        callBeforeCallback = _useContext2.callBeforeCallback,
         callSentCallback = _useContext2.callSentCallback,
         callSucceededCallback = _useContext2.callSucceededCallback,
         callFailedCallback = _useContext2.callFailedCallback;
@@ -9892,7 +9894,6 @@
 
     var _useContext4 = React.useContext(ConfigurationContext);
         _useContext4.accept;
-        var before = _useContext4.before;
 
     var _useContext5 = React.useContext(PaymentRoutingContext),
         allRoutes = _useContext5.allRoutes;
@@ -10075,37 +10076,31 @@
 
               case 7:
                 transaction = _context3.sent;
+                _context3.next = 10;
+                return callBeforeCallback(transaction, selectedRoute);
 
-                if (!before) {
-                  _context3.next = 15;
-                  break;
-                }
-
-                _context3.next = 11;
-                return before(transaction, selectedRoute);
-
-              case 11:
+              case 10:
                 stop = _context3.sent;
 
                 if (!(stop === false)) {
-                  _context3.next = 15;
+                  _context3.next = 14;
                   break;
                 }
 
                 setPaymentState('initialized');
                 return _context3.abrupt("return");
 
-              case 15:
-                _context3.next = 17;
+              case 14:
+                _context3.next = 16;
                 return web3ClientEvm.request({
                   blockchain: transaction.blockchain,
                   method: 'latestBlockNumber'
                 });
 
-              case 17:
+              case 16:
                 currentBlock = _context3.sent;
                 deadline = transaction.deadline || (transaction === null || transaction === void 0 ? void 0 : (_transaction$params = transaction.params) === null || _transaction$params === void 0 ? void 0 : (_transaction$params$p = _transaction$params.payment) === null || _transaction$params$p === void 0 ? void 0 : _transaction$params$p.deadline);
-                _context3.next = 21;
+                _context3.next = 20;
                 return trace(currentBlock, payment.route, deadline).then( /*#__PURE__*/_asyncToGenerator$1( /*#__PURE__*/regenerator.mark(function _callee2() {
                   return regenerator.wrap(function _callee2$(_context2) {
                     while (1) {
@@ -10171,7 +10166,7 @@
                   navigate('TracingFailed');
                 });
 
-              case 21:
+              case 20:
               case "end":
                 return _context3.stop();
             }

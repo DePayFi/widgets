@@ -3,12 +3,20 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import React, { useContext, useRef } from 'react'
 
 export default (props)=>{
-  const { sent, succeeded, failed, validated } = useContext(ConfigurationContext)
+  const { before, sent, succeeded, failed, validated } = useContext(ConfigurationContext)
 
   const sentCallbackCalled = useRef()
   const succeededCallbackCalled = useRef()
   const failedCallbackCalled = useRef()
   const validatedCallbackCalled = useRef()
+
+  const callBeforeCallback = (transaction, paymentRoute)=>{
+    if(typeof before === 'function') {
+      before(transaction, paymentRoute)
+    } else {
+      return false
+    }
+  }
 
   const callSentCallback = (transaction, paymentRoute)=>{
     if(typeof sent === 'function' && sentCallbackCalled.current !== true) {
@@ -40,6 +48,7 @@ export default (props)=>{
 
   return(
     <CallbackContext.Provider value={{
+      callBeforeCallback,
       callSentCallback,
       callSucceededCallback,
       callFailedCallback,
