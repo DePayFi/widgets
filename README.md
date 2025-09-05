@@ -144,7 +144,10 @@ Forwards the payload to your backend for dynamic payment setup, like:
 ### Unmanaged Configuration
 
 > [!IMPORTANT]
-> Unmanaged configurations do not provide any callbacks for server-side actions or integrations. They are limited to initiating and executing payments only. If you need callbacks for your integrations, use [managed integrations](#managed-integration-using-integration-id)
+> Unmanaged configurations do not provide any callbacks for server-side actions or integrations. They are limited to initiating and executing payments only. If you need callbacks for your integrations, use [managed integrations](https://depay.com/docs/payments/integrate/widget).
+
+> [!CAUTION]
+> Client-side callbacks and flow management are not recommended. Payment flows can involve device handovers (e.g., desktop to mobile) or app-to-app transitions on mobile, which break client-side control. For this reason, the widget does not provide client-side callbacks for flow handling. Instead, you can manage and control the user flow through [managed integrations](https://depay.com/docs/payments/integrate/widget).
 
 ```javascript
 DePayWidgets.Payment({
