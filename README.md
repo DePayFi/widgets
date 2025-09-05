@@ -146,9 +146,6 @@ Forwards the payload to your backend for dynamic payment setup, like:
 > [!IMPORTANT]
 > Unmanaged configurations do not provide any callbacks for server-side actions or integrations. They are limited to initiating and executing payments only. If you need callbacks for your integrations, use [managed integrations](https://depay.com/docs/payments/integrate/widget).
 
-> [!CAUTION]
-> Client-side callbacks and client-side flow management are not recommended. Payment flows can involve device handovers (e.g., desktop to mobile) or app-to-app transitions on mobile, which break client-side control. For this reason, the widget does not provide client-side callbacks for flow handling. Instead, you can manage and control the user flow through [managed integrations](https://depay.com/docs/payments/integrate/widget).
-
 ```javascript
 DePayWidgets.Payment({
   accept: [{
@@ -635,6 +632,137 @@ Allows you to unmount (the React safe way) the entire widget from the outside:
 let { unmount } = await DePayWidgets.Payment({})
 
 unmount()
+```
+
+### Client Side Callbacks
+
+> [!CAUTION]
+> Client-side callbacks and client-side flow management are not recommended. Payment flows can involve device handovers (e.g., desktop to mobile) or app-to-app transitions on mobile, which break client-side control. In case of failed transactions, the widget provides a built-in way for users to retry their payments, so you don’t need to implement this functionality yourself. For this reason, the widget does not provide client-side callbacks for flow handling. Instead, you can manage and control the user flow through [managed integrations](https://depay.com/docs/payments/integrate/widget).
+
+Despite the previous warning, the widget still offers the following callbacks:
+
+#### before
+
+`before`
+
+A function that will be called before the payment is handed over to the wallet.
+
+Allows you to stop the payment if this method returns false.
+
+```javascript
+DePayWidgets.Payment({
+
+  before: async (payment, from)=> {
+    alert('Something went wrong')
+    return false // stops payment
+  }
+})
+```
+
+#### sent
+
+`sent`
+
+A function that will be called once the payment has been sent to the network (but still needs to be mined/confirmed).
+
+The widget will call this function with a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details about the structure)
+
+```javascript
+DePayWidgets.Payment({
+
+  sent: (transaction)=> {
+    // called when payment transaction has been sent to the network
+  }
+})
+```
+
+#### succeeded
+
+`succeeded`
+
+A function that will be called once the payment has succeeded on the network (checked client-side).
+
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
+
+```javascript
+DePayWidgets.Payment({
+
+  succeeded: (transaction, payment)=> {
+    // called when payment transaction has been confirmed once by the network
+    // might be called multiple times
+
+    // "payment" contains information about what the user selected as payment
+  }
+})
+```
+
+#### validated
+
+`validated`
+
+A function that will be called once the payment has been validated by DePay.
+
+```javascript
+DePayWidgets.Payment({
+
+  validated: (successful, transaction, payment)=> {
+    // successful (true or false)
+
+    // "payment" contains information about what the user selected as payment
+  }
+})
+```
+
+#### failed
+
+`failed`
+
+A function that will be called if the payment execution failed on the blockchain (after it has been sent/submitted).
+
+The widget will call this function passing a transaction as single argument (see: [depay-web3-wallets](https://github.com/depayfi/depay-web3-wallets#transaction) for more details)
+
+```javascript
+DePayWidgets.Payment({
+
+  failed: (transaction, error, payment)=> {
+    // called when payment transaction failed on the blockchain
+    // handled by the widget, no need to display anything
+    // might be called multiple times
+
+    // "payment" contains information about what the user selected as payment
+  }
+})
+```
+
+#### critical
+
+`critical`
+
+A function that will be called if the widget throws a critical internal error that it can't handle and display on its own:
+
+```javascript
+DePayWidgets.Payment({
+  
+  critical: (error)=> {
+    // render and display the error with error.toString()
+  }
+})
+```
+
+#### error
+
+`error`
+
+A function that will be called if the widget throws a non-critical internal error that it can and will handle and display on its own:
+
+```javascript
+DePayWidgets.Payment({
+
+  error: (error)=> {
+    // maybe do some internal tracking with error.toString()
+    // no need to display anything as widget takes care of displaying the error
+  }
+})
 ```
 
 ## Connect Widget
