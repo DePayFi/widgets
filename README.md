@@ -637,7 +637,7 @@ unmount()
 ### Client Side Callbacks
 
 > [!CAUTION]
-> Client-side callbacks and client-side flow management are not recommended. Payment flows can involve device handovers (e.g., desktop to mobile) or app-to-app transitions on mobile, which break client-side control. In case of failed transactions, the widget provides a built-in way for users to retry their payments, so you don’t need to implement this functionality yourself. For this reason, the widget does not provide client-side callbacks for flow handling. Instead, you can manage and control the user flow through [managed integrations](https://depay.com/docs/payments/integrate/widget).
+> Client-side callbacks and client-side flow management are not recommended. Payment flows can involve device handovers (e.g., desktop to mobile) or app-to-app transitions on mobile, which break client-side control. In case of failed transactions, the widget provides a built-in way for users to retry their payments, so you don’t need to implement this functionality yourself. For this reason, relying solely on client-side callbacks for flow handling is not recommended. Instead, you can manage and control the user flow through [managed integrations](https://depay.com/docs/payments/integrate/widget).
 
 Despite the previous warning, the widget still offers the following callbacks:
 
