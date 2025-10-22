@@ -1,9 +1,9 @@
 {
   "name": "@depay/widgets",
   "moduleName": "DePayWidgets",
-  "version": "13.0.36",
+  "version": "13.0.37",
   "latestSupportedVersions": {
-    "13": "13.0.36",
+    "13": "13.0.37",
     "12": "12.18.5",
     "11": "11.7.4"
   },
@@ -47,7 +47,7 @@
     "@depay/react-token-image": "^6.0.0",
     "@depay/solana-web3.js": "^1.98.3",
     "@depay/walletconnect-v2": "^2.12.2",
-    "@depay/web3-blockchains": "^9.8.6",
+    "@depay/web3-blockchains": "^9.8.10",
     "@depay/web3-client": "^11.1.0",
     "@depay/web3-exchanges": "^15.7.1",
     "@depay/web3-payments": "^15.3.2",
