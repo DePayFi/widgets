@@ -1347,10 +1347,10 @@
   resolved "https://registry.yarnpkg.com/@depay/web3-blockchains/-/web3-blockchains-9.8.10.tgz#8ccb1e489af904349e473f210d77b453876b2a44"
   integrity sha512-YMFnkp4ISflVHRkK5fp7vLlYwDuIkXiDb9ajFDWNu0z++dridBk+uRfgtKxZ8I6EH+9Lg02ORzb3wwr4OAiiBw==
 
-"@depay/web3-client@^11.1.0":
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-11.1.0.tgz#640c35a276774eb9a0b983bdf5fc90e9435bc2cc"
-  integrity sha512-KH7aRbW77BHn39ZQGoXIElnd1zCcDExwuSm6SQkDY03hC6HAfPnJzU+Tm8FzR6MJKSMkjo3Htpg+1QjW4KuvSA==
+"@depay/web3-client@^11.1.10":
+  version "11.1.10"
+  resolved "https://registry.yarnpkg.com/@depay/web3-client/-/web3-client-11.1.10.tgz#5533a03778a279042690e0b3441de192da8097c9"
+  integrity sha512-dRa1JTyFnzg8tFWIdQ5TdiFTHUTOmLeyk9cY8ZeRENd9zBaV3GPD3oVn7zl7yApl58J9WsssS3VJRQ2p6yWq4g==
 
 "@depay/web3-exchanges@^15.7.1":
   version "15.7.1"
