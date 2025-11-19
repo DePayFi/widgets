@@ -12,6 +12,7 @@ export default (props)=> {
   const { message, endpoint } = useContext(ConfigurationContext)
   let { recoverSignature } = useContext(ConfigurationContext)
   const { wallet, account } = useContext(WalletContext)
+  console.log('account', account)
   const [ loggingIn, setLoggingIn ] = useState(false)
   if(!wallet) { return null }
   const walletName = wallet?.name ? wallet.name : 'wallet'
@@ -40,6 +41,10 @@ export default (props)=> {
   }
 
   const login = ()=> {
+    if(!account) {
+      setError('No wallet account found')
+      return
+    }
     setLoggingIn(true)
     let messageToSign
     if(typeof message == 'function'){
@@ -66,10 +71,10 @@ export default (props)=> {
   }
 
   useEffect(()=>{
-    if(!isMobile()){
+    if(!isMobile() && account){
       login()
     }
-  }, [])
+  }, [account])
 
   return(
     <Dialog

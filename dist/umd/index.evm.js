@@ -8595,6 +8595,8 @@
         wallet = _useContext4.wallet,
         account = _useContext4.account;
 
+    console.log('account', account);
+
     var _useState = React.useState(false),
         _useState2 = _slicedToArray$1(_useState, 2),
         loggingIn = _useState2[0],
@@ -8637,6 +8639,11 @@
     }
 
     var login = function login() {
+      if (!account) {
+        setError('No wallet account found');
+        return;
+      }
+
       setLoggingIn(true);
       var messageToSign;
 
@@ -8671,10 +8678,10 @@
     };
 
     React.useEffect(function () {
-      if (!isMobile()) {
+      if (!isMobile() && account) {
         login();
       }
-    }, []);
+    }, [account]);
     return /*#__PURE__*/React__default['default'].createElement(Dialog$1, {
       footer: /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopXS PaddingRightM PaddingLeftM PaddingBottomM"
