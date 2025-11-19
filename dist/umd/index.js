@@ -8539,8 +8539,6 @@
         wallet = _useContext4.wallet,
         account = _useContext4.account;
 
-    console.log('account', account);
-
     var _useState = React.useState(false),
         _useState2 = _slicedToArray(_useState, 2),
         loggingIn = _useState2[0],

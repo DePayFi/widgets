@@ -12,7 +12,6 @@ export default (props)=> {
   const { message, endpoint } = useContext(ConfigurationContext)
   let { recoverSignature } = useContext(ConfigurationContext)
   const { wallet, account } = useContext(WalletContext)
-  console.log('account', account)
   const [ loggingIn, setLoggingIn ] = useState(false)
   if(!wallet) { return null }
   const walletName = wallet?.name ? wallet.name : 'wallet'

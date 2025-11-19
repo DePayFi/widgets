@@ -8596,8 +8596,6 @@ var SignLoginDialog = (function (props) {
       wallet = _useContext4.wallet,
       account = _useContext4.account;
 
-  console.log('account', account);
-
   var _useState = useState(false),
       _useState2 = _slicedToArray$1(_useState, 2),
       loggingIn = _useState2[0],
