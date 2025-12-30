@@ -16,8 +16,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
 
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v3
