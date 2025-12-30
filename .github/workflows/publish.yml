@@ -32,4 +32,9 @@ jobs:
       - name: Upload version to S3 (depay-libraries)
         run: aws s3 cp dist/umd/index.bundle.js s3://depay-libraries/widgets/v${{ steps.package-version.outputs.current-version }}.js
 
+      - name: Remove token auth (force OIDC)
+        run: |
+          rm -f .npmrc ~/.npmrc || true
+          npm config delete "//registry.npmjs.org/:_authToken" || true
+
       - run: npm publish --access public

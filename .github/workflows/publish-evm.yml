@@ -24,5 +24,10 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
+
+      - name: Remove token auth (force OIDC)
+        run: |
+          rm -f .npmrc ~/.npmrc || true
+          npm config delete "//registry.npmjs.org/:_authToken" || true
       
       - run: npm publish --access public
