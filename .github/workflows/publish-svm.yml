@@ -28,5 +28,3 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@master
       
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
