@@ -608,25 +608,25 @@
     "logo": "https://img1.depay.com/wallets/spot.jpg",
     "blockchains": _toConsumableArray(supported.evm)
   }, {
-    "name": "BitGet (BitKeep)",
+    "name": "BitGet Wallet",
     "desktop": {
       "qr": "WalletConnectV2"
     },
     "mobile": {
       "ios": {
-        "native": "bitget://",
+        "native": "bitkeep://",
         "universal": "https://bkapp.vip",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
       },
       "android": {
-        "native": "bitget://",
+        "native": "bitkeep://",
         "universal": "https://bkapp.vip",
         "connect": "WalletConnectV2",
         "qr": "WalletConnectV2"
       }
     },
-    "logo": "https://img1.depay.com/wallets/bitget.jpg",
+    "logo": "https://img1.depay.com/wallets/bitget-wallet.jpg",
     "blockchains": _toConsumableArray(supported.evm)
   }, {
     "name": "Unstoppable Domains",
@@ -8719,7 +8719,7 @@
         className: "Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM"
       }, /*#__PURE__*/React__default['default'].createElement("div", null, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
-      }, "The connected wallet doesn\u2019t support the blockchains needed to perform this payment.")), /*#__PURE__*/React__default['default'].createElement("div", {
+      }, "Support for the connected wallet on the required blockchain is not yet available.")), /*#__PURE__*/React__default['default'].createElement("div", {
         className: "PaddingTopS"
       }, /*#__PURE__*/React__default['default'].createElement("strong", {
         className: "FontSizeM"
