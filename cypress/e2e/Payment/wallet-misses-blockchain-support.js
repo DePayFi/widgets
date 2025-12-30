@@ -124,7 +124,7 @@ describe('Payment Widget: wallet misses blockchain support dialog', () => {
         DePayWidgets.Payment({ ...defaultArguments, document })
         cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('h1', 'Missing Blockchain Support')
-        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.FontSizeM', 'The connected wallet doesn’t support the blockchains needed to perform this payment.')
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.FontSizeM', 'Support for the connected wallet on the required blockchain is not yet available.')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.FontSizeM', 'Please connect a different wallet that supports one of the available blockchains')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.Card span', 'Solana')
         cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('button', 'Connect another wallet').click()

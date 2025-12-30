@@ -35,7 +35,7 @@ export default (props)=> {
           <div className="Text PaddingTopS PaddingBottomS PaddingLeftM PaddingRightM">
             <div>
               <strong className="FontSizeM">
-                The connected wallet doesn’t support the blockchains needed to perform this payment.
+                Support for the connected wallet on the required blockchain is not yet available.
               </strong>
             </div>
             <div className="PaddingTopS">
