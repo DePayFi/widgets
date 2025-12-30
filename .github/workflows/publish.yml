@@ -16,9 +16,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install
 
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v3
@@ -38,4 +37,4 @@ jobs:
           rm -f .npmrc ~/.npmrc || true
           npm config delete "//registry.npmjs.org/:_authToken" || true
 
-      - run: npm publish --access public
+      - run: npm publish --ignore-scripts --access public
