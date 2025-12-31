@@ -8,7 +8,7 @@
   "files": [
     "dist"
   ],
-  "repository": "git@github.com:depayfi/widgets.git",
+  "repository": "https://github.com/DePayFi/widgets",
   "keywords": [
     "web3",
     "payments",
