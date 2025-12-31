@@ -38,3 +38,12 @@ jobs:
           npm config delete "//registry.npmjs.org/:_authToken" || true
 
       - run: npm publish --ignore-scripts --access public
+
+      - name: Upload npm logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-logs
+          path: /home/runner/.npm/_logs/
+          if-no-files-found: warn
+          retention-days: 14
