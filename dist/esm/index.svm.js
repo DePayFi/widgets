@@ -1805,19 +1805,19 @@ var allWallets = [{
   },
   "mobile": {
     "ios": {
-      "native": "okex://main",
+      "native": "okxwallet://main",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2",
       "open": function open() {
-        return "okx://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
+        return "okxwallet://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
       }
     },
     "android": {
-      "native": "okex://main",
+      "native": "okxwallet://main",
       "connect": "WalletConnectV2",
       "qr": "WalletConnectV2",
       "open": function open() {
-        return "okx://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
+        return "okxwallet://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
       }
     }
   },
