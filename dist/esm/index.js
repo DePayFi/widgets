@@ -1800,6 +1800,31 @@ var allWallets = [{
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "OKX",
+  "desktop": {
+    "qr": "WalletConnectV2"
+  },
+  "mobile": {
+    "ios": {
+      "native": "okex://main",
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2",
+      "open": function open() {
+        return "okx://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
+      }
+    },
+    "android": {
+      "native": "okex://main",
+      "connect": "WalletConnectV2",
+      "qr": "WalletConnectV2",
+      "open": function open() {
+        return "okx://wallet/dapp/url?dappUrl=".concat(encodeURIComponent(window.location.toString()));
+      }
+    }
+  },
+  "logo": (_wallets$OKXEVM = wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
+  "blockchains": _toConsumableArray(supported.evm)
+}, {
+  "name": "OKX Wallet",
   "extensions": ["OKXEVM", "OKXSVM"],
   "desktop": {
     "qr": "WalletConnectV2"
@@ -1822,7 +1847,7 @@ var allWallets = [{
       }
     }
   },
-  "logo": (_wallets$OKXEVM = wallets.OKXEVM) === null || _wallets$OKXEVM === void 0 ? void 0 : (_wallets$OKXEVM$info = _wallets$OKXEVM.info) === null || _wallets$OKXEVM$info === void 0 ? void 0 : _wallets$OKXEVM$info.logo,
+  "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
   "blockchains": _toConsumableArray(supported.evm)
 }, {
   "name": "Mask Network",

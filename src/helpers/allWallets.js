@@ -912,13 +912,23 @@ export default [
   },
   {
     "name": "OKX",
-    "extensions": ["OKXEVM", "OKXSVM"],
     "desktop": { "qr": "WalletConnectV2" },
     "mobile": { 
+      "ios": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "open": ()=>`okx://wallet/dapp/url?dappUrl=${encodeURIComponent(window.location.toString())}` },
+      "android": { "native": "okex://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "open": ()=>`okx://wallet/dapp/url?dappUrl=${encodeURIComponent(window.location.toString())}` },
+    },
+    "logo": wallets.OKXEVM?.info?.logo,
+    "blockchains": [...supported.evm],
+  },
+   {
+    "name": "OKX Wallet",
+    "extensions": ["OKXEVM", "OKXSVM"],
+    "desktop": { "qr": "WalletConnectV2" },
+    "mobile": {
       "ios": { "native": "okxwallet://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "open": ()=>`okxwallet://wallet/dapp/url?dappUrl=${encodeURIComponent(window.location.toString())}` },
       "android": { "native": "okxwallet://main", "connect": "WalletConnectV2", "qr": "WalletConnectV2", "open": ()=>`okxwallet://wallet/dapp/url?dappUrl=${encodeURIComponent(window.location.toString())}` },
     },
-    "logo": wallets.OKXEVM?.info?.logo,
+    "logo": "https://img1.depay.com/wallets/okx_wallet.jpg",
     "blockchains": [...supported.evm],
   },
   {
