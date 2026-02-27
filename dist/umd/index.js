@@ -7821,11 +7821,25 @@
         open = _useState4[0],
         setOpen = _useState4[1];
 
+    var _useState5 = React.useState(false),
+        _useState6 = _slicedToArray(_useState5, 2),
+        errorsDisabled = _useState6[0],
+        setErrorsDisabled = _useState6[1];
+
+    var errorsDisabledRef = React.useRef(errorsDisabled);
+    React.useEffect(function () {
+      errorsDisabledRef.current = errorsDisabled;
+    }, [errorsDisabled]);
     React.useEffect(function () {
       window._depayWidgetError = undefined;
     }, []);
 
     var setErrorFromChildren = function setErrorFromChildren(error) {
+      if (errorsDisabledRef.current) {
+        console.log('No error displayed during the current state:', error);
+        return;
+      }
+
       window._depayWidgetError = error;
 
       if (error.error) {
@@ -7844,7 +7858,7 @@
       setTimeout(props.unmount, 300);
     };
 
-    if (error) {
+    if (error && !errorsDisabled) {
       return /*#__PURE__*/React__default['default'].createElement(ReactDialog, {
         container: props.container,
         close: close,
@@ -7888,6 +7902,7 @@
         value: {
           setError: setErrorFromChildren,
           errorCallback: props.errorCallback,
+          setErrorsDisabled: setErrorsDisabled,
           error: error
         }
       }, /*#__PURE__*/React__default['default'].createElement(ErrorBoundary, {
@@ -9879,24 +9894,27 @@
         close = _useContext6.close,
         setClosable = _useContext6.setClosable;
 
-    var _useContext7 = React.useContext(UpdatableContext),
-        setUpdatable = _useContext7.setUpdatable;
+    var _useContext7 = React.useContext(ErrorContext),
+        setErrorsDisabled = _useContext7.setErrorsDisabled;
 
-    var _useContext8 = React.useContext(NavigateContext),
-        navigate = _useContext8.navigate,
-        set = _useContext8.set;
+    var _useContext8 = React.useContext(UpdatableContext),
+        setUpdatable = _useContext8.setUpdatable;
 
-    var _useContext9 = React.useContext(WalletContext),
-        wallet = _useContext9.wallet,
-        account = _useContext9.account;
+    var _useContext9 = React.useContext(NavigateContext),
+        navigate = _useContext9.navigate,
+        set = _useContext9.set;
 
-    var _useContext10 = React.useContext(PaymentTrackingContext),
-        release = _useContext10.release,
-        synchronousTracking = _useContext10.synchronousTracking,
-        asynchronousTracking = _useContext10.asynchronousTracking,
-        trackingInitialized = _useContext10.trackingInitialized,
-        track = _useContext10.track,
-        trace = _useContext10.trace;
+    var _useContext10 = React.useContext(WalletContext),
+        wallet = _useContext10.wallet,
+        account = _useContext10.account;
+
+    var _useContext11 = React.useContext(PaymentTrackingContext),
+        release = _useContext11.release,
+        synchronousTracking = _useContext11.synchronousTracking,
+        asynchronousTracking = _useContext11.asynchronousTracking,
+        trackingInitialized = _useContext11.trackingInitialized,
+        track = _useContext11.track,
+        trace = _useContext11.trace;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -9952,6 +9970,7 @@
       approvalConfirmed.current = true;
       setUpdatable(true);
       setClosable(true);
+      setErrorsDisabled(false);
 
       if (approvalType == 'signature') {
         selectedRoute.currentPermit2Allowance = ethers.ethers.BigNumber.from(Blockchains__default['default'][selectedRoute.blockchain].maxInt);
@@ -10007,6 +10026,7 @@
     var paymentSucceeded = useEvent(function (transaction, payment) {
       if (synchronousTracking == false) {
         setClosable(true);
+        setErrorsDisabled(false);
         setPaymentState('success');
       } else if (release != true && paymentState != 'success') {
         setPaymentState('validating');
@@ -10017,6 +10037,7 @@
     var paymentFailed = useEvent(function (transaction, error) {
       if (asynchronousTracking == false || trackingInitialized == true) {
         setClosable(true);
+        setErrorsDisabled(false);
       }
 
       set(['PaymentFailed']);
@@ -10086,16 +10107,17 @@
                       switch (_context2.prev = _context2.next) {
                         case 0:
                           setClosable(false);
+                          setErrorsDisabled(true);
 
                           if (!window._depayWidgetError) {
-                            _context2.next = 3;
+                            _context2.next = 4;
                             break;
                           }
 
                           return _context2.abrupt("return");
 
-                        case 3:
-                          _context2.next = 5;
+                        case 4:
+                          _context2.next = 6;
                           return wallet.sendTransaction(Object.assign({}, transaction, {
                             accepted: function accepted() {
                               setPaymentState('sending');
@@ -10118,6 +10140,7 @@
                           })["catch"](function (error) {
                             console.log('error', error);
                             setClosable(true);
+                            setErrorsDisabled(false);
                             setUpdatable(true);
 
                             if (approvalTransaction || approvalSignature || passedSignature) {
@@ -10131,7 +10154,7 @@
                             }
                           });
 
-                        case 5:
+                        case 6:
                         case "end":
                           return _context2.stop();
                       }
@@ -10141,6 +10164,7 @@
                   console.log(e);
                   setPaymentState('initialized');
                   setClosable(true);
+                  setErrorsDisabled(false);
                   setUpdatable(true);
                   navigate('TracingFailed');
                 });
@@ -10165,26 +10189,27 @@
             case 0:
               setPaymentState('resetting');
               setClosable(false);
+              setErrorsDisabled(true);
               setUpdatable(false);
               _context4.t0 = JSON;
               _context4.t1 = JSON;
-              _context4.next = 7;
+              _context4.next = 8;
               return payment.route.getRouterApprovalTransaction();
 
-            case 7:
+            case 8:
               _context4.t2 = _context4.sent;
               _context4.t3 = _context4.t1.stringify.call(_context4.t1, _context4.t2);
               resetApprovalTransaction = _context4.t0.parse.call(_context4.t0, _context4.t3);
               resetApprovalTransaction.params[1] = '0'; // reset first
 
               if (!window._depayWidgetError) {
-                _context4.next = 13;
+                _context4.next = 14;
                 break;
               }
 
               return _context4.abrupt("return");
 
-            case 13:
+            case 14:
               // do not perform any transaction if there was an error in the widget!
               wallet.sendTransaction(Object.assign({}, resetApprovalTransaction, {
                 sent: function sent(sentTransaction) {
@@ -10193,6 +10218,7 @@
                 succeeded: function succeeded() {
                   setUpdatable(true);
                   setClosable(true);
+                  setErrorsDisabled(false);
                   refreshPaymentRoutes().then(function () {
                     setTimeout(function () {
                       setPaymentState('initialized');
@@ -10202,6 +10228,7 @@
                 failed: function failed(transaction, error) {
                   setPaymentState('initialized');
                   setClosable(true);
+                  setErrorsDisabled(false);
                 }
               }))["catch"](function (error) {
                 console.log('error', error);
@@ -10212,9 +10239,10 @@
 
                 setPaymentState('initialized');
                 setClosable(true);
+                setErrorsDisabled(false);
               });
 
-            case 14:
+            case 15:
             case "end":
               return _context4.stop();
           }
@@ -10231,50 +10259,51 @@
               case 0:
                 setPaymentState('approve');
                 setClosable(false);
+                setErrorsDisabled(true);
                 setUpdatable(false);
 
                 if (!(approvalType == 'signature')) {
-                  _context5.next = 16;
+                  _context5.next = 17;
                   break;
                 }
 
                 if (!(performSignature || payment.route.currentPermit2Allowance && payment.route.currentPermit2Allowance.gte(payment.route.fromAmount))) {
-                  _context5.next = 11;
+                  _context5.next = 12;
                   break;
                 }
 
-                _context5.next = 7;
+                _context5.next = 8;
                 return payment.route.getPermit2ApprovalSignature();
 
-              case 7:
+              case 8:
                 _approvalSignatureData = _context5.sent;
                 setApprovalSignatureData(_approvalSignatureData);
-                _context5.next = 14;
+                _context5.next = 15;
                 break;
 
-              case 11:
-                _context5.next = 13;
+              case 12:
+                _context5.next = 14;
                 return payment.route.getPermit2ApprovalTransaction();
 
-              case 13:
+              case 14:
                 _approvalTransaction = _context5.sent;
 
-              case 14:
-                _context5.next = 19;
+              case 15:
+                _context5.next = 20;
                 break;
 
-              case 16:
-                _context5.next = 18;
+              case 17:
+                _context5.next = 19;
                 return payment.route.getRouterApprovalTransaction(approvalAmount == 'min' ? {
                   amount: payment.route.fromAmount
                 } : undefined);
 
-              case 18:
+              case 19:
                 _approvalTransaction = _context5.sent;
 
-              case 19:
+              case 20:
                 if (!_approvalSignatureData) {
-                  _context5.next = 23;
+                  _context5.next = 24;
                   break;
                 }
 
@@ -10282,6 +10311,7 @@
                   setApprovalSignature(signature);
                   setPaymentState('approved');
                   setClosable(true);
+                  setErrorsDisabled(false);
 
                   if (!isMobile()) {
                     pay(_approvalSignatureData, signature);
@@ -10296,24 +10326,25 @@
                   }
 
                   setClosable(true);
+                  setErrorsDisabled(false);
                 });
-                _context5.next = 29;
+                _context5.next = 30;
                 break;
 
-              case 23:
+              case 24:
                 if (!_approvalTransaction) {
-                  _context5.next = 29;
+                  _context5.next = 30;
                   break;
                 }
 
                 if (!window._depayWidgetError) {
-                  _context5.next = 26;
+                  _context5.next = 27;
                   break;
                 }
 
                 return _context5.abrupt("return");
 
-              case 26:
+              case 27:
                 // do not perform any transaction if there was an error in the widget!
                 approvalConfirmed.current = false;
                 startAllowancePolling(_approvalTransaction, payment.route.fromAmount);
@@ -10335,6 +10366,7 @@
 
                     setPaymentState('initialized');
                     setClosable(true);
+                    setErrorsDisabled(false);
                   }
                 }))["catch"](function (error) {
                   if (allowancePolling.current) {
@@ -10347,9 +10379,10 @@
 
                   setPaymentState('initialized');
                   setClosable(true);
+                  setErrorsDisabled(false);
                 });
 
-              case 29:
+              case 30:
               case "end":
                 return _context5.stop();
             }
@@ -10381,6 +10414,7 @@
     React.useEffect(function () {
       if (asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
         setClosable(true);
+        setErrorsDisabled(false);
       }
     }, [trackingInitialized, paymentState]);
     var debouncedSetPayment = React.useCallback(debounce(function (selectedRoute) {
@@ -12175,27 +12209,30 @@
         close = _useContext4.close,
         setClosable = _useContext4.setClosable;
 
-    var _useContext5 = React.useContext(WalletContext),
-        solanaPayWallet = _useContext5.solanaPayWallet,
-        setAccount = _useContext5.setAccount;
+    var _useContext5 = React.useContext(ErrorContext),
+        setErrorsDisabled = _useContext5.setErrorsDisabled;
 
-    var _useContext6 = React.useContext(PaymentTrackingContext),
-        synchronousTracking = _useContext6.synchronousTracking,
-        track = _useContext6.track,
-        trace = _useContext6.trace,
-        release = _useContext6.release,
-        validationState = _useContext6.validationState,
-        forwardTo = _useContext6.forwardTo;
+    var _useContext6 = React.useContext(WalletContext),
+        solanaPayWallet = _useContext6.solanaPayWallet,
+        setAccount = _useContext6.setAccount;
 
-    var _useContext7 = React.useContext(PaymentRoutingContext),
-        setSelectedRoute = _useContext7.setSelectedRoute;
+    var _useContext7 = React.useContext(PaymentTrackingContext),
+        synchronousTracking = _useContext7.synchronousTracking,
+        track = _useContext7.track,
+        trace = _useContext7.trace,
+        release = _useContext7.release,
+        validationState = _useContext7.validationState,
+        forwardTo = _useContext7.forwardTo;
 
-    var _useContext8 = React.useContext(PaymentValueContext),
-        paymentValue = _useContext8.paymentValue,
-        displayedPaymentValue = _useContext8.displayedPaymentValue;
+    var _useContext8 = React.useContext(PaymentRoutingContext),
+        setSelectedRoute = _useContext8.setSelectedRoute;
 
-    var _useContext9 = React.useContext(PaymentTrackingContext),
-        setTransaction = _useContext9.setTransaction;
+    var _useContext9 = React.useContext(PaymentValueContext),
+        paymentValue = _useContext9.paymentValue,
+        displayedPaymentValue = _useContext9.displayedPaymentValue;
+
+    var _useContext10 = React.useContext(PaymentTrackingContext),
+        setTransaction = _useContext10.setTransaction;
 
     var _useState = React.useState(),
         _useState2 = _slicedToArray(_useState, 2),
@@ -12317,12 +12354,14 @@
           } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message2 = eventData.message) === null || _eventData$message2 === void 0 ? void 0 : _eventData$message2.event) === 'scanned') {
             if (!solanPayPayment.current) {
               setClosable("Are you sure you want to abort this payment?");
+              setErrorsDisabled(true);
               setState('pay');
             }
           } else if ((eventData === null || eventData === void 0 ? void 0 : (_eventData$message3 = eventData.message) === null || _eventData$message3 === void 0 ? void 0 : _eventData$message3.event) === 'loaded') {
             if (!solanPayPayment.current) {
               transactionLoaded(eventData.message);
               setClosable("Are you sure you want to abort this payment?");
+              setErrorsDisabled(true);
               setState('pay');
             }
           }
@@ -12419,6 +12458,7 @@
                         transactionFound(result.signature);
                         socket.close(1000);
                         setClosable(true);
+                        setErrorsDisabled(false);
                         callFailedCallback(transaction.current, solanPayPayment.current);
                         navigate('PaymentFailed');
                       } else if (result) {
@@ -12569,6 +12609,7 @@
       setTransaction(transaction.current);
       callSentCallback(transaction.current, solanPayPayment.current);
       setClosable(release || !synchronousTracking);
+      setErrorsDisabled(!(release || !synchronousTracking));
       track(transaction.current, afterBlock.current, solanPayPayment.current, solanPayPayment.current.deadline);
     };
 
@@ -12766,6 +12807,7 @@
     React.useEffect(function () {
       if (release && synchronousTracking) {
         setClosable(true);
+        setErrorsDisabled(false);
       }
     }, [release, synchronousTracking]);
 
@@ -13241,9 +13283,12 @@
     var _useContext5 = React.useContext(ClosableContext),
         setClosable = _useContext5.setClosable;
 
-    var _useContext6 = React.useContext(NavigateContext),
-        navigate = _useContext6.navigate,
-        set = _useContext6.set;
+    var _useContext6 = React.useContext(ErrorContext),
+        setErrorsDisabled = _useContext6.setErrorsDisabled;
+
+    var _useContext7 = React.useContext(NavigateContext),
+        navigate = _useContext7.navigate,
+        set = _useContext7.set;
 
     var validationSocket = React.useRef();
     var processValidationSocketMessage = useEvent(function (eventData, socket) {
@@ -13263,15 +13308,18 @@
               callSucceededCallback(transaction, paymentRoute);
               callValidatedCallback(transaction, paymentRoute);
               setClosable(true);
+              setErrorsDisabled(false);
               setRelease(true);
               setForwardTo(eventData.message.forward_to);
             } else if (success == false) {
               if (eventData.message.failed_reason === undefined || eventData.message.failed_reason === 'FAILED') {
                 setClosable(true);
+                setErrorsDisabled(false);
                 callFailedCallback(transaction, paymentRoute);
                 set(['PaymentFailed']);
               } else {
                 setClosable(false);
+                setErrorsDisabled(true);
                 set(['ValidationFailed']);
               }
             }
@@ -13417,25 +13465,30 @@
     var handlePollingResponse = useEvent(function (data, pollingInterval) {
       if (data && data.forward_to) {
         setClosable(true);
+        setErrorsDisabled(false);
         setForwardTo(data.forward_to);
       } else {
         setClosable(true);
+        setErrorsDisabled(false);
       }
 
       clearInterval(pollingInterval);
 
       if (data && data.failed_reason && data.failed_reason != 'FAILED') {
         setClosable(false);
+        setErrorsDisabled(true);
         set(['ValidationFailed']);
       } else {
         if ((data === null || data === void 0 ? void 0 : data.status) == 'failed') {
           setClosable(true);
+          setErrorsDisabled(false);
           callFailedCallback(transaction, paymentRoute);
           set(['PaymentFailed']);
         } else if (data === undefined || (data === null || data === void 0 ? void 0 : data.status) == 'success') {
           callSucceededCallback(transaction, paymentRoute);
           callValidatedCallback(transaction, paymentRoute);
           setClosable(true);
+          setErrorsDisabled(false);
           setRelease(true);
         }
       }
@@ -13496,6 +13549,7 @@
                         return handlePollingResponse(data, pollingInterval);
                       })["catch"](function () {
                         setClosable(true);
+                        setErrorsDisabled(false);
                       });
                     } else {
                       return undefined;

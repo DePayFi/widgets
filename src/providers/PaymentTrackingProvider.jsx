@@ -57,6 +57,7 @@ export default (props)=>{
   const [ forwardTo, setForwardTo ] = useState()
   
   const { setClosable } = useContext(ClosableContext)
+  const { setErrorsDisabled } = useContext(ErrorContext)
   const { navigate, set } = useContext(NavigateContext)
 
   const validationSocket = useRef()
@@ -75,6 +76,7 @@ export default (props)=>{
             callSucceededCallback(transaction, paymentRoute)
             callValidatedCallback(transaction, paymentRoute)
             setClosable(true)
+            setErrorsDisabled(false)
             setRelease(true)
             setForwardTo(eventData.message.forward_to)
           } else if(success == false) {
@@ -83,10 +85,12 @@ export default (props)=>{
               eventData.message.failed_reason === 'FAILED'
             ) {
               setClosable(true)
+              setErrorsDisabled(false)
               callFailedCallback(transaction, paymentRoute)
               set(['PaymentFailed'])
             } else {
               setClosable(false)
+              setErrorsDisabled(true)
               set(['ValidationFailed'])
             }
           }
@@ -205,23 +209,28 @@ export default (props)=>{
   const handlePollingResponse = useEvent((data, pollingInterval)=>{
     if(data && data.forward_to) {
       setClosable(true)
+      setErrorsDisabled(false)
       setForwardTo(data.forward_to)
     } else {
       setClosable(true)
+      setErrorsDisabled(false)
     }
     clearInterval(pollingInterval)
     if(data && data.failed_reason && data.failed_reason != 'FAILED') {
       setClosable(false)
+      setErrorsDisabled(true)
       set(['ValidationFailed'])
     } else {
       if(data?.status == 'failed') {
         setClosable(true)
+        setErrorsDisabled(false)
         callFailedCallback(transaction, paymentRoute)
         set(['PaymentFailed'])
       } else if(data === undefined || data?.status == 'success') {
         callSucceededCallback(transaction, paymentRoute)
         callValidatedCallback(transaction, paymentRoute)
         setClosable(true)
+        setErrorsDisabled(false)
         setRelease(true)
       }
     }
@@ -267,7 +276,10 @@ export default (props)=>{
         if(response.status == 200 || response.status == 201) {
           response.json()
             .then((data)=>handlePollingResponse(data, pollingInterval))
-            .catch(()=>{ setClosable(true) })
+            .catch(()=>{
+              setClosable(true)
+              setErrorsDisabled(false)
+            })
         } else {
           return undefined
         }

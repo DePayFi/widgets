@@ -41,6 +41,7 @@ export default (props)=>{
   const { accept, before } = useContext(ConfigurationContext)
   const { allRoutes, allAssets, selectedRoute, refreshPaymentRoutes } = useContext(PaymentRoutingContext)
   const { open, close, setClosable } = useContext(ClosableContext)
+  const { setErrorsDisabled } = useContext(ErrorContext)
   const { setUpdatable } = useContext(UpdatableContext)
   const { navigate, set } = useContext(NavigateContext)
   const { wallet, account } = useContext(WalletContext)
@@ -63,6 +64,7 @@ export default (props)=>{
     approvalConfirmed.current = true
     setUpdatable(true)
     setClosable(true)
+    setErrorsDisabled(false)
     if(approvalType == 'signature') {
       selectedRoute.currentPermit2Allowance = ethers.BigNumber.from(Blockchains[selectedRoute.blockchain].maxInt)
       setPaymentState('approve') // signature still requires signature approval
@@ -92,6 +94,7 @@ export default (props)=>{
   const paymentSucceeded = useEvent((transaction, payment)=>{
     if(synchronousTracking == false) {
       setClosable(true)
+      setErrorsDisabled(false)
       setPaymentState('success')
     } else if(release != true && paymentState != 'success') {
       setPaymentState('validating')
@@ -102,6 +105,7 @@ export default (props)=>{
   const paymentFailed = useEvent((transaction, error)=> {
     if(asynchronousTracking == false || trackingInitialized == true) {
       setClosable(true)
+      setErrorsDisabled(false)
     }
     set(['PaymentFailed'])
     setPaymentState('failed')
@@ -133,6 +137,7 @@ export default (props)=>{
     const deadline = transaction.deadline || transaction?.params?.payment?.deadline
     await trace(currentBlock, payment.route, deadline).then(async()=>{
       setClosable(false)
+      setErrorsDisabled(true)
       if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
       await wallet.sendTransaction(Object.assign({}, transaction, {
         accepted: ()=>{ 
@@ -154,6 +159,7 @@ export default (props)=>{
         .catch((error)=>{
           console.log('error', error)
           setClosable(true)
+          setErrorsDisabled(false)
           setUpdatable(true)
           if(approvalTransaction || approvalSignature || passedSignature) {
             setPaymentState('approved')
@@ -168,6 +174,7 @@ export default (props)=>{
       console.log(e)
       setPaymentState('initialized')
       setClosable(true)
+      setErrorsDisabled(false)
       setUpdatable(true)
       navigate('TracingFailed')
     })
@@ -176,6 +183,7 @@ export default (props)=>{
   const resetApproval = useEvent(async()=> {
     setPaymentState('resetting')
     setClosable(false)
+    setErrorsDisabled(true)
     setUpdatable(false)
     const resetApprovalTransaction = JSON.parse(JSON.stringify(await payment.route.getRouterApprovalTransaction()))
     resetApprovalTransaction.params[1] = '0' // reset first
@@ -187,6 +195,7 @@ export default (props)=>{
       succeeded: ()=>{
         setUpdatable(true)
         setClosable(true)
+        setErrorsDisabled(false)
         refreshPaymentRoutes().then(()=>{
           setTimeout(()=>{
             setPaymentState('initialized')
@@ -196,6 +205,7 @@ export default (props)=>{
       failed: (transaction, error)=>{
         setPaymentState('initialized')
         setClosable(true)
+        setErrorsDisabled(false)
       }
     }))
       .catch((error)=>{
@@ -205,12 +215,14 @@ export default (props)=>{
         }
         setPaymentState('initialized')
         setClosable(true)
+        setErrorsDisabled(false)
       })
   })
 
   const approve = useEvent(async(performSignature)=> {
     setPaymentState('approve')
     setClosable(false)
+    setErrorsDisabled(true)
     setUpdatable(false)
     let _approvalTransaction
     let _approvalSignatureData
@@ -229,6 +241,7 @@ export default (props)=>{
         setApprovalSignature(signature)
         setPaymentState('approved')
         setClosable(true)
+        setErrorsDisabled(false)
         if(!isMobile()) {
           pay(_approvalSignatureData, signature)
         }
@@ -240,6 +253,7 @@ export default (props)=>{
           setPaymentState('initialized')
         }
         setClosable(true)
+        setErrorsDisabled(false)
       })
     } else if(_approvalTransaction) {
       if(window._depayWidgetError) { return } // do not perform any transaction if there was an error in the widget!
@@ -260,6 +274,7 @@ export default (props)=>{
           if(allowancePolling.current) { clearInterval(allowancePolling.current) }
           setPaymentState('initialized')
           setClosable(true)
+          setErrorsDisabled(false)
         }
       }))
         .catch((error)=>{
@@ -269,6 +284,7 @@ export default (props)=>{
           }
           setPaymentState('initialized')
           setClosable(true)
+          setErrorsDisabled(false)
         })
     }
   })
@@ -296,6 +312,7 @@ export default (props)=>{
   useEffect(()=>{
     if(asynchronousTracking && trackingInitialized && (paymentState == 'success' || paymentState == 'failed')) {
       setClosable(true)
+      setErrorsDisabled(false)
     }
   }, [trackingInitialized, paymentState])
 
