@@ -1,6 +1,6 @@
 import ErrorContext from '../contexts/ErrorContext'
 import ErrorGraphic from '../graphics/wallets/error'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { ReactDialog } from '@depay/react-dialog'
 
 class ErrorBoundary extends React.Component {
@@ -23,12 +23,20 @@ export default (props)=>{
 
   const [error, setError] = useState(props.error)
   const [open, setOpen] = useState(true)
+  const [errorsDisabled, setErrorsDisabled] = useState(false)
+
+  const errorsDisabledRef = useRef(errorsDisabled)
+  useEffect(() => { errorsDisabledRef.current = errorsDisabled }, [errorsDisabled])
 
   useEffect(()=>{
     window._depayWidgetError = undefined
   }, [])
 
   let setErrorFromChildren = (error)=>{
+    if (errorsDisabledRef.current) {
+      console.log('No error displayed during the current state:', error)
+      return
+    }
     window._depayWidgetError = error
     if(error.error){ error = error.error }
     setError(error)
@@ -40,7 +48,7 @@ export default (props)=>{
     setTimeout(props.unmount, 300)
   }
 
-  if(error) {
+  if(error && !errorsDisabled) {
 
     return(
       <ReactDialog container={ props.container } close={ close } open={ open }>
@@ -95,6 +103,7 @@ export default (props)=>{
       <ErrorContext.Provider value={{
         setError: setErrorFromChildren,
         errorCallback: props.errorCallback,
+        setErrorsDisabled: setErrorsDisabled,
         error
       }}>
         <ErrorBoundary setError={ setErrorFromChildren }>

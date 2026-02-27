@@ -25,6 +25,7 @@ import ConfigurationContext from '../contexts/ConfigurationContext'
 import Dialog from '../components/Dialog'
 import DigitalWalletIcon from '../icons/DigitalWalletIcon'
 import DropDown from '../components/DropDown'
+import ErrorContext from '../contexts/ErrorContext'
 import format from '../helpers/format'
 import getFavicon from '../helpers/getFavicon'
 import getPaymentRouterInstruction from '../helpers/getPaymentRouterInstruction.svm'
@@ -52,6 +53,7 @@ export default (props)=> {
   const { callSentCallback, callSucceededCallback, callFailedCallback } = useContext(CallbackContext)
   const { navigate } = useContext(NavigateStackContext)
   const { close, setClosable } = useContext(ClosableContext)
+  const { setErrorsDisabled } = useContext(ErrorContext)
   const { solanaPayWallet, setAccount } = useContext(WalletContext)
   const { synchronousTracking, track, trace, release, validationState, forwardTo } = useContext(PaymentTrackingContext)
   const { setSelectedRoute } = useContext(PaymentRoutingContext)
@@ -140,12 +142,14 @@ export default (props)=> {
         } else if (eventData?.message?.event === 'scanned') {
           if(!solanPayPayment.current) {
             setClosable("Are you sure you want to abort this payment?")
+            setErrorsDisabled(true)
             setState('pay')
           }
         } else if (eventData?.message?.event === 'loaded') {
           if(!solanPayPayment.current) {
             transactionLoaded(eventData.message)
             setClosable("Are you sure you want to abort this payment?")
+            setErrorsDisabled(true)
             setState('pay')
           }
         }
@@ -194,6 +198,7 @@ export default (props)=> {
                 transactionFound(result.signature)
                 socket.close(1000)
                 setClosable(true)
+                setErrorsDisabled(false)
                 callFailedCallback(transaction.current, solanPayPayment.current)
                 navigate('PaymentFailed')
               } else if(result) {
@@ -259,6 +264,7 @@ export default (props)=> {
     setTransaction(transaction.current)
     callSentCallback(transaction.current, solanPayPayment.current)
     setClosable(release || !synchronousTracking)
+    setErrorsDisabled(!(release || !synchronousTracking))
     track(
       transaction.current,
       afterBlock.current,
@@ -395,6 +401,7 @@ export default (props)=> {
   useEffect(()=>{
     if(release && synchronousTracking) {
       setClosable(true)
+      setErrorsDisabled(false)
     }
   }, [release, synchronousTracking])
 

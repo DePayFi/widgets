@@ -4,9 +4,11 @@ import mockBasics from '../../../tests/mocks/evm/basics'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Blockchains from '@depay/web3-blockchains'
-import { mock, resetMocks } from '@depay/web3-mock'
+import { mock, confirm, resetMocks, anything } from '@depay/web3-mock'
 import { getProvider, resetCache } from '@depay/web3-client'
 import Token from '@depay/web3-tokens'
+import { ethers } from 'ethers'
+import { routers } from '@depay/web3-payments'
 
 describe('Payment Widget: errors', () => {
   
@@ -204,6 +206,84 @@ describe('Payment Widget: errors', () => {
         cy.get('.ReactShadowDOMOutsideContainer').should('not.exist').then(()=>{
           expect(errorCalled).to.eq(true)
           expect(passedError.toString()).to.match(/All routes could not be loaded!/)
+        })
+      })
+    })
+  })
+
+  it('does not render an error dialog if internal error was not critical and can be handled by the widget, if payment was already initialized', ()=> {
+
+    let errorCalled
+    let passedError
+    
+    fetchMock.post({
+      delay: 3000,
+      overwriteRoutes: true,
+      url: "https://public.depay.com/routes/all",
+      body: {
+        accounts: { [blockchain]: accounts[0] },
+        accept,
+      },
+    }, 500)
+
+    let mockedTransaction = mock({
+      blockchain,
+      transaction: {
+        from: fromAddress,
+        to: routers[blockchain].address,
+        api: routers[blockchain].api,
+        method: 'pay',
+        params: {
+          payment: {
+            amountIn: ethers.utils.parseUnits('20', 18),
+            permit2: false,
+            paymentAmount: "20000000000000000000",
+            feeAmount: 0,
+            tokenInAddress: DEPAY,
+            exchangeAddress: Blockchains[blockchain].zero,
+            tokenOutAddress: DEPAY,
+            paymentReceiverAddress: toAddress,
+            feeReceiverAddress: Blockchains[blockchain].zero,
+            exchangeType: 0,
+            receiverType: 0,
+            exchangeCallData: anything,
+            receiverCallData: Blockchains[blockchain].zero,
+            deadline: anything,
+          }
+        },
+        value: 0
+      }
+    })
+
+    cy.visit('cypress/test.html').then((contentWindow) => {
+      cy.document().then((document)=>{
+        DePayWidgets.Payment({
+          document,
+          accept: [{
+            blockchain: 'ethereum',
+            amount: 20,
+            token: '0xa0bEd124a09ac2Bd941b10349d8d224fe3c955eb',
+            receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+          }],
+          error: (error)=> {
+            errorCalled = true
+            passedError = error
+          }
+        })
+        cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').contains('Detected').click()
+        cy.wait(1000).then(()=>{
+          cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+          cy.wait(3000).then(()=>{
+            expect(mockedTransaction.calls.count()).to.equal(1)
+            cy.get('button[title="Close dialog"]', { includeShadowDom: true }).should('not.exist')
+            confirm(mockedTransaction)
+            cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.Card').should('contain.text', 'Payment performed').then(()=>{
+              expect(errorCalled).to.eq(undefined)
+              expect(passedError).to.eq(undefined)
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().contains('.ErrorSnippetText', /All routes could not be loaded!/).should('not.exist')
+              cy.get('.ReactShadowDOMOutsideContainer').shadow().find('.ButtonPrimary').click()
+            })
+          })
         })
       })
     })
