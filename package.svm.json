@@ -29,7 +29,7 @@
     "@depay/react-token-image-svm": "^6.0.0",
     "@depay/solana-web3.js": "^1.98.2",
     "@depay/walletconnect-v2": "^2.12.2",
-    "@depay/web3-blockchains": "^9.8.12",
+    "@depay/web3-blockchains": "^9.8.13",
     "@depay/web3-client-svm": "^11.1.10",
     "@depay/web3-payments-svm": "^15.3.2",
     "@depay/web3-tokens-svm": "^11.1.0",
